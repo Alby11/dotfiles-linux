@@ -1,4 +1,0 @@
-pane	default	0	1	:*	0	basic.lua (/mnt/c/Users/tallonea/OneDrive/profileFiles/nvim/lua) - NVIM	:/mnt/c/Users/tallonea/OneDrive/profileFiles	0	nvim	:nvim -u /home/alby11/.config/nvim/init.lua /home/alby11/.tmux.conf
-pane	default	0	1	:*	1	~	:/home/alby11	1	zsh	:
-window	default	0	:zsh	1	:*	b389,174x139,0,0[174x97,0,0,5,174x41,0,98,6]	:
-state	default	

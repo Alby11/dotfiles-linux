@@ -1,9 +1,0 @@
-pane	1	0	1	:*	0	~	:/home/alby11	1	zsh	:
-pane	3	0	1	:*	0	~	:/home/alby11	1	zsh	:
-pane	3	0	1	:*	1	~	:/home/alby11	0	zsh	:
-pane	4	0	1	:*	0	alby11: python3	:/home/alby11	0	python3	:python3
-pane	4	0	1	:*	1	~	:/home/alby11	1	zsh	:
-window	1	0	:zsh	1	:*	ae4e,174x139,0,0,1	:
-window	3	0	:zsh	1	:*	fb80,174x139,0,0[174x51,0,0,2,174x87,0,52,3]	:
-window	4	0	:zsh	1	:*	e214,314x74,0,0{157x74,0,0,4,156x74,158,0,12}	:
-state	4	

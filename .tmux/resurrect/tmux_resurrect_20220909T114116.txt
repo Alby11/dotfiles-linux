@@ -1,9 +1,0 @@
-pane	1	0	1	:*	0	~	:/home/alby11	1	zsh	:
-pane	2	0	1	:*	0	[No Name] - NVIM	:/mnt/c/Users/tallonea/OneDrive/profileFiles	1	nvim	:nvim --listen /tmp/nvimsocket
-pane	2	0	1	:*	1	~	:/home/alby11	0	zsh	:
-pane	2	1	0	:-	0	~	:/home/alby11	1	zsh	:
-pane	2	1	0	:-	1	~	:/home/alby11	0	zsh	:
-window	1	0	:zsh	1	:*	ae4e,174x139,0,0,1	:
-window	2	0	:nvim	1	:*	f082,174x139,0,0[174x92,0,0,2,174x46,0,93,6]	:
-window	2	1	:zsh	0	:-	1784,174x139,0,0[174x74,0,0,3,174x64,0,75,4]	:
-state	2	1

@@ -1,4 +1,0 @@
-pane	default	0	1	:*	0	.tmux.conf (~) - NVIM	:/home/alby11	1	nvim	:nvim -u /home/alby11/.config/nvim/init.lua /home/alby11/.tmux.conf
-pane	default	0	1	:*	1	~	:/home/alby11	0	zsh	:
-window	default	0	:nvim	1	:*	da7d,174x139,0,0[174x98,0,0,0,174x40,0,99,2]	:
-state	default	

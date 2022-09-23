@@ -1,5 +1,0 @@
-pane	4	0	1	:*	0	bootstrap.sh (~) - NVIM	:/home/alby11	0	nvim	:nvim -u /home/alby11/.config/nvim/init.lua -u /home/alby11/.config/nvim/init.lua
-pane	4	0	1	:*	1	alby11: $HOME/bin/chezmoi add .zshrc .bashrc .bash_aliases bootstrap.sh .zsh_history 	:/home/alby11	1	chezmoi	:/home/alby11/bin/chezmoi update -n --force
-pane	4	0	1	:*	2	~	:/home/alby11	0	zsh	:
-window	4	0	:chezmoi	1	:*	5cdf,174x139,0,0[174x80,0,0,0,174x30,0,81,1,174x27,0,112,2]	:
-state	4	

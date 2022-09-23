@@ -1,5 +1,0 @@
-pane	0	0	1	:*	0	[No Name] - NVIM	:/home/alby11	1	nvim	:nvim -u /home/alby11/.config/nvim/init.lua
-pane	0	0	1	:*	1	~	:/home/alby11	0	zsh	:
-pane	0	0	1	:*	2	~	:/home/alby11	0	zsh	:
-window	0	0	:[tmux]	1	:*	a4f0,174x139,0,0[174x102,0,0,0,174x36,0,103{87x36,0,103,1,86x36,88,103,2}]	:
-state	0	

@@ -1,4 +1,0 @@
-pane	2	0	1	:*	0	.tmux.conf (~) - NVIM	:/home/alby11	0	nvim	:nvim --listen /tmp/nvimsocket
-pane	2	0	1	:*	1	~	:/home/alby11	1	zsh	:
-window	2	0	:zsh	1	:*	8c8e,174x139,0,0[174x96,0,0,7,174x42,0,97,8]	:
-state	2	

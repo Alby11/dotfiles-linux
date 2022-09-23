@@ -1,7 +1,0 @@
-pane	1	0	1	:*	0	~	:/home/alby11	1	zsh	:
-pane	4	0	1	:*	0	.bash_exports (~) - NVIM	:/home/alby11	0	nvim	:nvim -u /home/alby11/.config/nvim/init.lua -u /home/alby11/.config/nvim/init.lua -u /home/alby11/.config/nvim/init.lua
-pane	4	0	1	:*	1	/mnt/c/Users/tallonea/OneDrive/Documenti/projects/python/automic	:/mnt/c/Users/tallonea/OneDrive/Documenti/projects/python/automic	0	zsh	:
-pane	4	0	1	:*	2	~	:/home/alby11	1	zsh	:
-window	1	0	:zsh	1	:*	dc40,174x99,0,0,3	:
-window	4	0	:python3	1	:*	4462,174x139,0,0[174x88,0,0,0,174x25,0,89,1,174x24,0,115,2]	off
-state	4	1

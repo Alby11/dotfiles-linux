@@ -1,5 +1,0 @@
-pane	2	0	1	:*	0	Dockerfile (~/mnt/docker/dockerApps/packagingoptimizer) - NVIM	:/home/alby11/mnt/docker/dockerApps/packagingoptimizer	1	nvim	:nvim --listen /tmp/nvimsocket
-pane	2	0	1	:*	1	~/mnt/docker/dockerApps/packagingoptimizer	:/home/alby11/mnt/docker/dockerApps/packagingoptimizer	0	zsh	:
-pane	2	0	1	:*	2	~	:/home/alby11	0	zsh	:
-window	2	0	:[tmux]	1	:*	9d05,174x139,0,0[174x79,0,0,7,174x32,0,80,14,174x26,0,113,8]	:
-state	2	

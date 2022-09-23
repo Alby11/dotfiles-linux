@@ -1,5 +1,0 @@
-pane	default	0	1	:*	0	~	:/home/alby11	1	zsh	:
-pane	default	0	1	:*	1	~	:/home/alby11	0	zsh	:
-pane	default	0	1	:*	2	~	:/home/alby11	0	zsh	:
-window	default	0	:zsh	1	:*	53df,174x139,0,0[174x71,0,0,0,174x37,0,72,1,174x29,0,110,2]	:
-state	default	
