@@ -90,6 +90,7 @@ if [ $? = 0 ]; then
       mv $fn .dotfiles-backup/$fn
     done
     dotfiles checkout
+    rmd -rf .dotfiles-backup
 fi
 
 # Enable submodules
