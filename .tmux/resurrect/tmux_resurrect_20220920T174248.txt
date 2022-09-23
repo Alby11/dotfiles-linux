@@ -1,0 +1,10 @@
+pane	1	0	1	:*	0	~	:/home/alby11	1	zsh	:
+pane	3	0	1	:*	0	~	:/home/alby11	1	zsh	:
+pane	3	0	1	:*	1	~	:/home/alby11	0	zsh	:
+pane	4	0	1	:*	0	.tmux.conf (~) - NVIM	:/home/alby11	0	nvim	:nvim -u /home/alby11/.config/nvim/init.lua
+pane	4	0	1	:*	1	.bash_exports (~) - NVIM	:/home/alby11	1	nvim	:nvim -u /home/alby11/.config/nvim/init.lua .bash_exports
+pane	4	0	1	:*	2	~	:/home/alby11	0	zsh	:
+window	1	0	:zsh	1	:*	ae4e,174x139,0,0,1	:
+window	3	0	:zsh	1	:*	fb80,174x139,0,0[174x51,0,0,2,174x87,0,52,3]	:
+window	4	0	:nvim	1	:*	c104,174x139,0,0[174x109,0,0{87x109,0,0,4,86x109,88,0,12},174x29,0,110,13]	:
+state	4	

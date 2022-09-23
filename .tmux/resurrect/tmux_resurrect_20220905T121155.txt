@@ -1,0 +1,4 @@
+pane	0	0	1	:*	0	telescope-tmuxinator-conf.lua (/mnt/c/Users/tallonea/OneDrive/profileFiles/nvim/lua/plugins) - NVIM	:/mnt/c/Users/tallonea/OneDrive/profileFiles	0	nvim	:nvim -u /home/alby11/.config/nvim/init.lua
+pane	0	0	1	:*	1	~	:/home/alby11	1	zsh	:
+window	0	0	:zsh	1	:*	1efc,174x138,0,0[174x87,0,0,0,174x50,0,88,1]	:
+state	0	

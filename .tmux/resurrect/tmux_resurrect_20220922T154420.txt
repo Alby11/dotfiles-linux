@@ -1,0 +1,5 @@
+pane	4	0	1	:*	0	run_once_tmux-load.sh.tmpl (~/.local/share/chezmoi) - NVIM	:/home/alby11/.local/share/chezmoi	0	nvim	:nvim -u /home/alby11/.config/nvim/init.lua -u /home/alby11/.config/nvim/init.lua
+pane	4	0	1	:*	1	~/.local/share/chezmoi	:/home/alby11/.local/share/chezmoi	1	zsh	:/home/alby11/bin/chezmoi cd
+pane	4	0	1	:*	2	alby11: btop	:/home/alby11	0	btop	:btop
+window	4	0	:zsh	1	:*	5cdf,174x139,0,0[174x80,0,0,0,174x30,0,81,1,174x27,0,112,2]	:
+state	4	

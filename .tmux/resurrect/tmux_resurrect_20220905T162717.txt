@@ -1,0 +1,4 @@
+pane	0	0	1	:*	0	.zshrc (~) - NVIM	:/home/alby11	0	nvim	:nvim -u /home/alby11/.config/nvim/init.lua
+pane	0	0	1	:*	1	~	:/home/alby11	1	zsh	:/usr/local/bin/starship prompt --terminal-width=174 --keymap= --status=0 --pipestatus=0 --cmd-duration=2118 --jobs=0
+window	0	0	:zsh	1	:*	46fd,174x139,0,0[174x88,0,0,0,174x50,0,89,1]	:
+state	0	

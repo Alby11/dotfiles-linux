@@ -1,0 +1,7 @@
+pane	2	0	0	:-	0	[No Name] - NVIM	:/home/alby11	0	nvim	:nvim -u /home/alby11/.config/nvim/init.lua --listen /tmp/nvimsocket
+pane	2	0	0	:-	1	~	:/home/alby11	1	zsh	:
+pane	2	1	1	:*	0	~	:/home/alby11	1	zsh	:
+pane	2	1	1	:*	1	~	:/home/alby11	0	zsh	:
+window	2	0	:zsh	0	:-	3e7f,174x139,0,0[174x94,0,0,1,174x44,0,95,2]	:
+window	2	1	:zsh	1	:*	1784,174x139,0,0[174x74,0,0,3,174x64,0,75,4]	:
+state	2	

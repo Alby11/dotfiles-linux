@@ -1,0 +1,5 @@
+pane	4	0	1	:*	0	bootstrap.sh (~) - NVIM	:/home/alby11	0	nvim	:nvim -u /home/alby11/.config/nvim/init.lua -u /home/alby11/.config/nvim/init.lua
+pane	4	0	1	:*	1	~	:/home/alby11	1	zsh	:
+pane	4	0	1	:*	2	~	:/home/alby11	0	zsh	:
+window	4	0	:[tmux]	1	:*	5cdf,174x139,0,0[174x80,0,0,0,174x30,0,81,1,174x27,0,112,2]	:
+state	4	

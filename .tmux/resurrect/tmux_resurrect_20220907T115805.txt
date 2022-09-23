@@ -1,0 +1,7 @@
+pane	2	0	1	:*	0	profile.ps1 (/mnt/c/Users/tallonea/OneDrive/profileFiles/pwsh) - NVIM	:/mnt/c/Users/tallonea/OneDrive/profileFiles	0	nvim	:nvim -u /home/alby11/.config/nvim/init.lua .tmux.conf
+pane	2	0	1	:*	1	~	:/home/alby11	1	zsh	:
+pane	2	1	0	:-	0	~	:/home/alby11	1	zsh	:
+pane	2	1	0	:-	1	~	:/home/alby11	0	zsh	:
+window	2	0	:zsh	1	:*	3e7f,174x139,0,0[174x94,0,0,1,174x44,0,95,2]	:
+window	2	1	:zsh	0	:-	38c9,174x139,0,0[174x34,0,0,3,174x104,0,35,4]	:
+state	2	

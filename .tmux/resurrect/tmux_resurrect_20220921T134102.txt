@@ -1,0 +1,5 @@
+pane	4	0	1	:*	0	.bash_aliases + (~) - NVIM	:/home/alby11	0	nvim	:nvim -u /home/alby11/.config/nvim/init.lua
+pane	4	0	1	:*	1	~	:/home/alby11	1	zsh	:
+pane	4	0	1	:*	2	alby11: btop	:/home/alby11	0	btop	:btop
+window	4	0	:zsh	1	:*	dcef,174x139,0,0[174x80,0,0,3,174x30,0,81,4,174x27,0,112,5]	:
+state	4	

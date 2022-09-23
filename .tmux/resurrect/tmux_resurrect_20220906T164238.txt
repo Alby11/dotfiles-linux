@@ -1,0 +1,9 @@
+pane	0	0	1	:*	0	NvimTree_1 - (/mnt/c/Users/tallonea/OneDrive/profileFiles) - NVIM	:/	0	nvim	:nvim -u /home/alby11/.config/nvim/init.lua
+pane	0	0	1	:*	1	~	:/home/alby11	1	zsh	:
+pane	1	0	1	:*	0	distant-conf.lua (/mnt/c/Users/tallonea/OneDrive/profileFiles/nvim/lua/plugins) - NVIM	:/mnt/c/Users/tallonea/OneDrive/profileFiles	1	nvim	:nvim --listen /tmp/nvimsocket
+pane	1	0	1	:*	1	alby11: ssh tallonea@docker-21-svi.fllicarli.im	:/home/alby11	0	ssh	:ssh tallonea@docker-21-svi.fllicarli.im
+pane	1	1	0	:-	0	plugin: ssh tallonea@docker-21-svi.fllicarli.im	:/home/alby11/.local/share/nvim/site/pack/packer/start/distant.nvim/plugin	1	ssh	:ssh tallonea@docker-21-svi.fllicarli.im
+window	0	0	:[tmux]	1	:*	aeb4,314x74,0,0[314x45,0,0,1,314x28,0,46,3]	:
+window	1	0	:nvim	1	:*	2b07,174x139,0,0[174x84,0,0,4,174x54,0,85,6]	:
+window	1	1	:ssh	0	:-	ae54,174x139,0,0,7	:
+state	1	

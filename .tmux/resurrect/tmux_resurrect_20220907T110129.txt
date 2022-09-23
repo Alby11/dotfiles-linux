@@ -1,0 +1,7 @@
+pane	2	0	1	:*	0	.tmux.conf + (~) - NVIM	:/home/alby11	1	nvim	:nvim --listen /tmp/nvimsocket
+pane	2	0	1	:*	1	~/mnt/docker/dockerApps/packagingoptimizer	:/home/alby11/mnt/docker/dockerApps/packagingoptimizer	0	zsh	:
+pane	2	1	0	:-	0	~	:/home/alby11	1	zsh	:
+pane	2	1	0	:-	1	~	:/home/alby11	0	zsh	:
+window	2	0	:nvim	1	:*	9a4d,174x139,0,0[174x79,0,0,7,174x59,0,80,14]	:
+window	2	1	:zsh	0	:-	f78b,174x139,0,0[174x34,0,0,15,174x104,0,35,8]	:
+state	2	

@@ -1,0 +1,4 @@
+pane	0	0	1	:*	0	profile.ps1 (/mnt/c/Users/tallonea/OneDrive/profileFiles/pwsh) - NVIM	:/mnt/c/Users/tallonea/OneDrive/profileFiles	0	nvim	:nvim -u /home/alby11/.config/nvim/init.lua
+pane	0	0	1	:*	1	~	:/home/alby11	1	zsh	:
+window	0	0	:zsh	1	:*	aada,314x74,0,0[314x65,0,0,1,314x8,0,66,2]	:
+state	0	

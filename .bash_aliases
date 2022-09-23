@@ -1,0 +1,144 @@
+alias ols='/bin/ls'
+alias ola='/bin/ls -lahi'
+alias psa='ps -aux'
+alias nta='netstat -poeta'
+alias dfh='df -h'
+alias freemh='free -mh'
+alias dush='du -sh'
+alias grep='grep --color'
+alias -g G='| grep -i '
+alias -g L='| less +f'
+
+if [ command -v ss ] &> /dev/null ; then
+  alias ssa='ss -poeta'
+fi
+
+if command -v systemctl &> /dev/null
+then
+    alias -g sy='systemctl'
+    alias -g syt='systemctl start'
+    alias -g syp='systemctl stop'
+    alias -g syr='systemctl restart'
+    alias -g syu='systemctl status'
+fi
+
+if command -v apt &> /dev/null
+then
+    alias apt='sudo apt'
+    alias apts='apt search'
+    alias aptu='apt update'
+    alias apti='apt install'
+    alias aptr='apt remove'
+    alias aptar='apt autoremove'
+    alias aptap='apt autopurge'
+fi
+
+if [ -f ~/bin/chezmoi ] &> /dev/null
+then
+    alias chezmoi='$HOME/bin/chezmoi'
+    alias cz='chezmoi'
+fi
+
+if command -v tmux &> /dev/null
+then
+    alias -g t='tmux'
+    alias -g tls='tmux ls'
+    alias -g ta='tmux attach -t'
+    alias -g tn='tmux new -s'
+    alias -g tr='tmux rename-session -t'
+    alias -g tk='tmux kill-session -t'
+fi
+
+if command -v nvim &> /dev/null ; then
+  alias nvim='nvim -u ~/.config/nvim/init.lua'
+  alias nv='nvim'
+  alias vi='nvim'
+  alias vim='nvim'
+  alias -g N='| nvim'
+  if command -v nvr &> /dev/null ; then
+    alias nvimr='nvim --listen /tmp/nvimsocket'
+    alias nvrr='nvr --remote'
+    alias nvrs='nvr --remote-send'
+    alias nvre='nvr --remote-expr'
+    alias nvrc='nvr -c'
+  fi
+fi
+
+if command -v xclip &> /dev/null
+then
+    alias -g X=' | xclip -i'
+    alias -g xo='xclip -o'
+fi
+
+if command -v ranger &> /dev/null
+then
+    alias f='ranger'
+fi
+
+if command -v fdfind &> /dev/null
+then
+    alias fd='fdfind'
+fi
+
+if command -v cargo &>/dev/null ; then
+  eval "$(zoxide init zsh)"
+  if command -v z &> /dev/null ; then
+    alias cd='z'
+  fi
+fi
+
+if command -v exa &> /dev/null
+then
+  alias ls="exa --icons --git"
+  alias ll="exa -l -g --icons --git"
+  alias la="exa -l -a --icons --git"
+  alias lt="exa -L 1 --icons --tree --git-ignore"
+fi
+
+if command -v git &> /dev/null
+then
+    alias g='git'
+fi
+
+if command -v kubectl &> /dev/null
+then
+    source <(kubectl completion zsh)
+    alias k='kubectl'
+fi
+
+if command -v minikube &> /dev/null
+then
+    source <(minikube completion zsh)
+    alias mk='minikube'
+fi
+
+if command -v docker &> /dev/null
+then
+    alias dk='docker'
+fi
+
+if command -v podman &> /dev/null
+then
+    alias p='podman'
+fi
+
+if command -v AppImageLauncher &> /dev/null
+then
+    alias apl='AppImageLauncher'
+fi
+
+if [ $( command -v fzf ) ] && [ $( command -v rg ) ] ; then
+  export FZF_BASE=/usr/bin/fzf
+  export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden'
+  export FZF_DEFAULT_OPTS=' \
+    --preview "bat --color=always --style=numbers --line-range=:500 {}" \
+    --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
+    --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
+    --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"'
+  DISABLE_FZF_AUTO_COMPLETION="false"
+  DISABLE_FZF_KEY_BINDINGS="true"
+  alias fzfb="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}"
+  alias -g R='| rg'
+else
+  echo "fzf or rg are missing..."
+fi

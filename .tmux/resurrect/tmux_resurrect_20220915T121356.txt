@@ -1,0 +1,18 @@
+pane	1	0	1	:*	0	~	:/home/alby11	1	zsh	:
+pane	2	0	1	:*	0	alby11: nvim -u ~/.config/nvim/init.lua -u /home/alby11/.config/nvim/init.lua --liste	:/home/alby11	1	nvim	:nvim -u /home/alby11/.config/nvim/init.lua -u /home/alby11/.config/nvim/init.lua --listen /tmp/nvimsocket
+pane	2	0	1	:*	1	~	:/home/alby11	0	zsh	:
+pane	2	1	0	:-	0	~	:/home/alby11	1	zsh	:
+pane	2	1	0	:-	1	~	:/home/alby11	0	zsh	:
+pane	3	0	1	:*	0	~	:/home/alby11	1	zsh	:
+pane	3	0	1	:*	1	~	:/home/alby11	0	zsh	:
+pane	4	0	1	:*	0	plugins-neovim.lua + (/mnt/c/Users/...Drive/profileFiles/nvim/lua) - NVIM	:/mnt/c/Users/tallonea/OneDrive/profileFiles	1	nvim	:nvim -u /home/alby11/.config/nvim/init.lua .config/nvim/lua/plugins-neovim.lua
+pane	4	0	1	:*	1	_lastplace.lua (/mnt/c/Users/tallon...ofileFiles/nvim/lua/plugins) - NVIM	:/mnt/c/Users/tallonea/OneDrive/profileFiles	0	nvim	:nvim -u /home/alby11/.config/nvim/init.lua
+pane	4	0	1	:*	2	~	:/home/alby11	0	zsh	:
+pane	5	0	1	:*	0	~	:/home/alby11	1	zsh	:
+window	1	0	:zsh	1	:*	c2fd,314x74,0,0,0	:
+window	2	0	:nvim	1	:*	2bda,314x74,0,0[314x72,0,0,1,314x1,0,73,2]	:
+window	2	1	:zsh	0	:-	8938,314x74,0,0[314x41,0,0,3,314x32,0,42,4]	:
+window	3	0	:zsh	1	:*	bb0d,314x74,0,0[314x1,0,0,5,314x72,0,2,6]	:
+window	4	0	:nvim	1	:*	138f,174x139,0,0[174x84,0,0{87x84,0,0,7,86x84,88,0,12},174x54,0,85,10]	:
+window	5	0	:zsh	1	:*	61b0,314x74,0,0,11	:
+state	4	3

@@ -1,0 +1,7 @@
+pane	0	0	1	:*	0	NvimTree_1 - (/mnt/c/Users/tallonea/OneDrive/profileFiles) - NVIM	:/	0	nvim	:nvim -u /home/alby11/.config/nvim/init.lua
+pane	0	0	1	:*	1	~	:/home/alby11	1	zsh	:
+pane	1	0	1	:*	0	.tmux.conf (~) - NVIM	:/home/alby11	0	nvim	:nvim --listen /tmp/nvimsocket
+pane	1	0	1	:*	1	~	:/home/alby11	1	zsh	:
+window	0	0	:[tmux]	1	:*	aeb4,314x74,0,0[314x45,0,0,1,314x28,0,46,3]	:
+window	1	0	:zsh	1	:*	2b07,174x139,0,0[174x84,0,0,4,174x54,0,85,6]	:
+state	1	

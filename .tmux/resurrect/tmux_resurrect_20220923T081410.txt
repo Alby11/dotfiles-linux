@@ -1,0 +1,7 @@
+pane	1	0	1	:*	0	~	:/home/alby11	1	zsh	:
+pane	4	0	1	:*	0	.zshrc (~) - NVIM	:/home/alby11	0	nvim	:nvim -u /home/alby11/.config/nvim/init.lua -u /home/alby11/.config/nvim/init.lua -u /home/alby11/.config/nvim/init.lua
+pane	4	0	1	:*	1	~	:/home/alby11	1	zsh	:
+pane	4	0	1	:*	2	~	:/home/alby11	0	zsh	:
+window	1	0	:zsh	1	:*	dc40,174x99,0,0,3	:
+window	4	0	:zsh	1	:*	36e0,174x99,0,0[174x70,0,0,0,174x16,0,71,1,174x11,0,88,2]	:
+state	4	1
