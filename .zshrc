@@ -89,7 +89,7 @@ if [[ -d $HOME/.oh-my-zsh ]]; then
 
   source $ZSH/oh-my-zsh.sh
 
-  if [[ command -v antigen ]] ; then
+  if command -v antigen ; then
     source ./.zsh-antigenrc
   fi
   
