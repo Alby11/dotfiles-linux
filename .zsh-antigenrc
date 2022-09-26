@@ -1,4 +1,4 @@
-source ~/antigen.zsh
+[ -f ~/antigen.zsh ] && source ~/antigen.zsh
 
 # Load the oh-my-zsh's library.
 antigen use oh-my-zsh
@@ -9,10 +9,13 @@ antigen bundle heroku
 antigen bundle pip
 antigen bundle lein
 antigen bundle command-not-found
+antigen bundle zoxide
+antigen bundle vi-mode
 
 # Syntax highlighting bundle.
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle zsh-users/zsh-suggestions
 
 # Other plugins
 plugins=(
@@ -49,10 +52,8 @@ plugins=(
   zsh-syntax-highlighting
 )
 
-antigen bundle zoxide
-
 # Load the theme.
-antigen theme robbyrussell
+# antigen theme robbyrussell
 
 # Tell Antigen that you're done.
 antigen apply

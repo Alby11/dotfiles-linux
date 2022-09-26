@@ -29,15 +29,15 @@ if [[ -d $HOME/.oh-my-zsh ]]; then
 
   # Uncomment the following line to use hyphen-insensitive completion.
   # Case-sensitive completion must be off. _ and - will be interchangeable.
-  # HYPHEN_INSENSITIVE="true"
+  HYPHEN_INSENSITIVE="true"
 
   # Uncomment one of the following lines to change the auto-update behavior
   # zstyle ':omz:update' mode disabled  # disable automatic updates
-  # zstyle ':omz:update' mode auto      # update automatically without asking
+   zstyle ':omz:update' mode auto      # update automatically without asking
   # zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
   # Uncomment the following line to change how often to auto-update (in days).
-  # zstyle ':omz:update' frequency 13
+   zstyle ':omz:update' frequency 1
 
   # Uncomment the following line if pasting URLs and other text is messed up.
   # DISABLE_MAGIC_FUNCTIONS="true"
@@ -80,19 +80,13 @@ if [[ -d $HOME/.oh-my-zsh ]]; then
   # Add wisely, as too many plugins slow down shell startup.
 
   # activate vi mode if plugin is loaded
-  if [[ $plugins =~ "vi-mode" ]] ; then
+  # if [[ $plugins =~ "vi-mode" ]] ; then
     VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true
     VI_MODE_SET_CURSOR=true
     MODE_INDICATOR="%F{white}+%f"
     INSERT_MODE_INDICATOR="%F{yellow}+%f"
-  fi
+  # fi
 
-  source $ZSH/oh-my-zsh.sh
-
-  if command -v antigen ; then
-    source ./.zsh-antigenrc
-  fi
-  
 fi
 
 # User configuration
@@ -103,17 +97,6 @@ export LANG=en_US.UTF-8
 
 # Compilation flags
 export ARCHFLAGS="-arch x86_64"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-if [[ -d ~/.oh-my-zsh ]]; then
-  alias zshconfig="mate ~/.zshrc"
-  alias ohmyzsh="mate ~/.oh-my-zsh"
-fi
 
 # Load the shell dotfiles, and then some:
 # * ~/.path can be used to extend `$PATH`.

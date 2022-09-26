@@ -36,10 +36,10 @@ export MANPAGER='less -X';
 # Hide the “default interactive shell is now zsh” warning on macOS.
 #export BASH_SILENCE_DEPRECATION_WARNING=1;
 
-# Initialize CARGO
+### Initialize CARGO
 [ -d ~/.cargo/bin ] && export PATH=~/.cargo/bin:$PATH
 
-# Initialize NVM
+### Initialize NVM
 if [[ -d $HOME/.nvm ]]; then
   export NVM_DIR="$HOME/.nvm"
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -53,13 +53,17 @@ fi
 # initialize Go
 [ -d $githubdepot/goroot/bin ] && export PATH=$githubdepot/goroot/bin:$PATH
 
-# Zoxide
+### Zoxide
 command -v zoxide &> /dev/null && eval "$(zoxide init zsh)" 
 
-# FZF for ZSH
+### FZF for ZSH
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# Initialize Starship
+### OH-MY-ZSH & ANTIGEN
+source $ZSH/oh-my-zsh.sh
+[ -f ~/.zsh-antigenrc ] && source ./.zsh-antigenrc
+  
+### Initialize Starship
 if [[ -f $PROFILEFILES/starship/starhip.toml ]]; then
   export STARSHIP_CONFIG=$PROFILEFILES/starship/starship.toml
   eval "$(starship init zsh)"
