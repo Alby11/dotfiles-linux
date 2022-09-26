@@ -203,17 +203,6 @@ npm install -g \
     yarn \
     ;
 
-### TMUX
-sudo apt install -y \
-  tmux tmuxinator powerline \
-  xsel xclip wl-clipboard \ # for tmux-yank
-  ;
-git clone https://github.com/tmux-plugins/tpm.git ~/.tmux/plugins/tpm
-mkdir -p ~/.oh-my-zsh/completions/_tmuxinator
-wget https://raw.githubusercontent.com/tmuxinator/tmuxinator/master/completion/tmuxinator.zsh \
-  -o ~/.oh-my-zsh/completions/_tmuxinator \
-  ;
-
 ### NEOVIM
 sudo apt install -y \
   neovim-runtime \
@@ -249,6 +238,20 @@ fc-cache -f -v
 sudo apt install -y \
   zsh \
   ;
+curl -L git.io/antigen-nightly > ~/antigen.zsh 
+source ~/antigen.zsh
+
+### TMUX
+sudo apt install -y \
+  tmux tmuxinator powerline \
+  xsel xclip wl-clipboard \ # for tmux-yank
+  ;
+git clone https://github.com/tmux-plugins/tpm.git ~/.tmux/plugins/tpm
+mkdir -p ~/.oh-my-zsh/completions/_tmuxinator
+wget https://raw.githubusercontent.com/tmuxinator/tmuxinator/master/completion/tmuxinator.zsh \
+  -o ~/.oh-my-zsh/completions/_tmuxinator \
+  ;
+
 # apt upgrade and cleanup
 sudo apt upgrade -y
 sudo apt autoremove -y
