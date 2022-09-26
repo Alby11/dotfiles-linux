@@ -63,9 +63,9 @@ if grep -qi microsoft /proc/version ; then
   sudo update-binfmts --disable cli # without this, wslpath and wslvar won't work
   mkdir ~/.wp
   ln -s $(wslpath "$(wslvar userprofile)") ~/.wp
-  export profilefiles=$(wslpath "$(wslvar onedriveconsumer)/profilefiles")
-  ln -sf $profilefiles ~/
-  export profilefiles=~/profilefiles
+  export PROFILEFILES=$(wslpath "$(wslvar onedriveconsumer)/profilefiles")
+  ln -sf $PROFILEFILES ~/
+  export PROFILEFILES=~/profilefiles
   # tmux
   # win32yank_exe="/mnt/c/programdata/scoop/apps/neovim-nightly/current/bin/win32yank.exe"
   win32yank_exe=$(wslpath "$(wslvar programdata)")/scoop/shims/win32yank.exe
@@ -83,7 +83,7 @@ elif grep -qi ubuntu /proc/version ; then
     cd ~
     git clone git@github.com:alby11/profilefiles.git
   fi
-  export profilefiles=~/profilefiles
+  export PROFILEFILES=~/profilefiles
 fi
 
 ### DOTFILES
@@ -211,7 +211,7 @@ sudo apt install -y \
   ;
 rm -rf ~/.config/nvim && mkdir -p ~/.config
 rm -rf ~/.local/share/nvim && mkdir -p ~/.local/share/nvim
-ln -sf $profilefiles/nvim ~/.config/ # ln repo nvim config
+ln -sf $PROFILEFILES/nvim ~/.config/ # ln repo nvim config
 nvim --headless -c 'autocmd user packercomplete quitall' -c 'packersync' -c 'qa!'
 nvim --headless -c 'autocmd user packercomplete quitall' -c 'packersync'
 sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
@@ -223,7 +223,7 @@ sudo update-alternatives --config editor
 
 ### STARSHIP
 curl -ss https://starship.rs/install.sh | sh
-export starship_config=$profilefiles/starship/starship.toml
+export starship_config=$PROFILEFILES/starship/starship.toml
 
 # rebuild font cache
 sudo apt install -y \

@@ -36,6 +36,32 @@ export MANPAGER='less -X';
 # Hide the “default interactive shell is now zsh” warning on macOS.
 #export BASH_SILENCE_DEPRECATION_WARNING=1;
 
+# set up environment, depending on os
+if grep -qi microsoft /proc/version ; then
+  echo "ubuntu on wsl"
+  [ ! -d ~/.wp ] && ln -s $(wslpath "$(wslvar userprofile)") ~/.wp
+  export PROFILEFILES=$(wslpath "$(wslvar onedriveconsumer)/profilefiles")
+  ln -sf $PROFILEFILES ~/
+  export PROFILEFILES=~/profilefiles
+  # tmux
+  # win32yank_exe="/mnt/c/programdata/scoop/apps/neovim-nightly/current/bin/win32yank.exe"
+  win32yank_exe=$(wslpath "$(wslvar programdata)")/scoop/shims/win32yank.exe
+  if [ -e $win32yank_exe ] ; then
+    sudo ln -s $win32yank_exe "/usr/local/bin/win32yank.exe"
+  fi
+elif grep -qi ubuntu /proc/version ; then
+  echo "native ubuntu linux"
+  if [ -d ~/profilefiles ];
+  then
+    cd ~/profilefiles
+    git pull
+    cd ~
+  else
+    cd ~
+    git clone git@github.com:alby11/profilefiles.git
+  fi
+  export PROFILEFILES=~/profilefiles
+fi
 ### Initialize CARGO
 [ -d ~/.cargo/bin ] && export PATH=~/.cargo/bin:$PATH
 
