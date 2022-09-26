@@ -86,8 +86,11 @@ elif grep -qi ubuntu /proc/version ; then
   export profilefiles=~/profilefiles
 fi
 
-### CHEZMOI
-sh -c "$(curl -fsls chezmoi.io/get)" -- init --ssh --apply $github_username
+### DOTFILES
+curl -Lks \
+  https://github.com/Alby11/dotfiles-linux/blob/2a559907ac59e6b8793e7069be8f33aaca2f4599/.setup_dotfiles.sh \
+  | /bin/bash \
+  ;
 
 ### CARGO
 curl https://sh.rustup.rs -ssf | sh
@@ -203,7 +206,7 @@ npm install -g \
 ### TMUX
 sudo apt install -y \
   tmux tmuxinator powerline \
-  urlview xsel xclip wl-clipboard \ # for tmux-yank
+  xsel xclip wl-clipboard \ # for tmux-yank
   ;
 git clone https://github.com/tmux-plugins/tpm.git ~/.tmux/plugins/tpm
 mkdir -p ~/.oh-my-zsh/completions/_tmuxinator
