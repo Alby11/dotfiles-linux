@@ -101,7 +101,7 @@ export ARCHFLAGS="-arch x86_64"
 # Load the shell dotfiles, and then some:
 # * ~/.path can be used to extend `$PATH`.
 # * ~/.extra can be used for other settings you don’t want to commit.
-for file in ~/.{bash_aliases,bash_exports}; do
+for file in ~/.{bash_exports,bash_aliases}; do
   [ -r "$file" ] && [ -f "$file" ] && source "$file"
 done
 unset file
