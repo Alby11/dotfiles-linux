@@ -206,7 +206,7 @@ npm install -g \
 ### NEOVIM
 sudo apt install -y \
   neovim-runtime \
-  libnvtt-bin ranger fzf locate ripgrep sqlite3 libsqlite3-dev fd-find glow \
+  libnvtt-bin fzf locate ripgrep sqlite3 libsqlite3-dev fd-find glow \
   dh-vim-addon lua-nvim lua-nvim-dev luarocks ruby-neovim vim-ale \
   ;
 rm -rf ~/.config/nvim && mkdir -p ~/.config
@@ -250,6 +250,14 @@ git clone https://github.com/tmux-plugins/tpm.git ~/.tmux/plugins/tpm
 mkdir -p ~/.oh-my-zsh/completions/_tmuxinator
 wget https://raw.githubusercontent.com/tmuxinator/tmuxinator/master/completion/tmuxinator.zsh \
   -o ~/.oh-my-zsh/completions/_tmuxinator \
+  ;
+
+### RANGER
+sudo apt install -y \
+  renger \
+  ;
+pip install \
+  ranger-tmux \
   ;
 
 # apt upgrade and cleanup
