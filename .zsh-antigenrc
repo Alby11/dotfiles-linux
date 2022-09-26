@@ -1,0 +1,58 @@
+source ~/antigen.zsh
+
+# Load the oh-my-zsh's library.
+antigen use oh-my-zsh
+
+# Bundles from the default repo (robbyrussell's oh-my-zsh).
+antigen bundle git
+antigen bundle heroku
+antigen bundle pip
+antigen bundle lein
+antigen bundle command-not-found
+
+# Syntax highlighting bundle.
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-autosuggestions
+
+# Other plugins
+plugins=(
+  colored-man-pages
+  colorize
+  command-not-found
+  copybuffer
+  copyfile
+  copypath
+  docker
+  docker-compose
+  fd
+  fzf
+  git
+  kubectl
+  kubectx
+  minikube
+  npm
+  pep8
+  pip
+  pyenv
+  python
+  ripgrep
+  sudo
+  ubuntu
+  vi-mode
+  virtualenv
+  virtualenvwrapper
+  vscode
+  web-search
+  you-should-use
+  zoxide
+  zsh-autosuggestions
+  zsh-syntax-highlighting
+)
+
+antigen bundle zoxide
+
+# Load the theme.
+antigen theme robbyrussell
+
+# Tell Antigen that you're done.
+antigen apply

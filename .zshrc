@@ -71,72 +71,13 @@ if [[ -d $HOME/.oh-my-zsh ]]; then
   # HIST_STAMPS="mm/dd/yyyy"
 
   # Would you like to use another custom folder than $ZSH/custom?
-  ZSH_CUSTOM=$HOME/.oh-my-zsh-custom
+  # ZSH_CUSTOM=$HOME/.oh-my-zsh-custom
 
-fi
-
-# Start Znap
-if [[ -f ~/Git/zsh-snap/znap.zsh ]]; then
-    
-  source ~/Git/zsh-snap/znap.zsh
-
-  # `znap prompt` makes your prompt visible in just 15-40ms!
-  znap prompt sindresorhus/pure
-
-  # `znap source` automatically downloads and starts your plugins.
-  # znap source marlonrichert/zsh-autocomplete
-  znap source zsh-users/zsh-autosuggestions
-  znap source zsh-users/zsh-syntax-highlighting
-
-  # `znap eval` caches and runs any kind of command output for you.
-  # znap eval iterm2 'curl -fsSL https://iterm2.com/shell_integration/zsh'
-
-  # `znap function` lets you lazy-load features you don't always need.
-  # znap function _pyenv pyenv 'eval "$( pyenv init - --no-rehash )"'
-  # compctl -K    _pyenv _pyenv
-
-fi
-
-if [[ -d ~/.oh-my-zsh ]]; then
-    
   # Which plugins would you like to load?
   # Standard plugins can be found in $ZSH/plugins/
   # Custom plugins may be added to $ZSH_CUSTOM/plugins/
   # Example format: plugins=(rails git textmate ruby lighthouse)
   # Add wisely, as too many plugins slow down shell startup.
-  plugins=(
-    colored-man-pages
-    colorize
-    command-not-found
-    copybuffer
-    copyfile
-    copypath
-    docker
-    docker-compose
-    fd
-    fzf
-    git
-    kubectl
-    kubectx
-    minikube
-    npm
-    pep8
-    pip
-    pyenv
-    python
-    ripgrep
-    sudo
-    ubuntu
-    vi-mode
-    virtualenv
-    virtualenvwrapper
-    vscode
-    web-search
-    you-should-use
-    zoxide
-    zsh-autosuggestions
-    zsh-syntax-highlighting
-  )
 
   # activate vi mode if plugin is loaded
   if [[ $plugins =~ "vi-mode" ]] ; then
@@ -148,6 +89,10 @@ if [[ -d ~/.oh-my-zsh ]]; then
 
   source $ZSH/oh-my-zsh.sh
 
+  if [[ command -v antigen ]] ; then
+    source ./.zsh-antigenrc
+  fi
+  
 fi
 
 # User configuration
