@@ -70,7 +70,7 @@ then
     alias -g xo='xclip -o'
 fi
 
-if command -v clipboard $> /dev/null
+if command -v clipboard &> /dev/null
 then
   alias cb="clipboard"
 fi
