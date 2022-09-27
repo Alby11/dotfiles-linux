@@ -5,9 +5,9 @@ then
   ;
   if "$?" = 0
   then
-    echo "Local is up to date"
-  else
     echo "Local is behind"
+  else
+    echo "Local is up to date"
   fi
 fi
 # If you come from bash you might have to change your $PATH.
