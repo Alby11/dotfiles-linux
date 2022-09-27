@@ -1,3 +1,10 @@
+if command -v dotfiles &>/dev/null
+then
+  dotfiles remote update && \
+  dotfiles status -uno  ; \
+  echo $? \
+  ;
+fi
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
