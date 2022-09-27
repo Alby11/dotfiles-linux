@@ -22,7 +22,7 @@ antigen bundle zsh-users/you-should-use
 antigen cache-gen
 
 # Makes use of caching in order to quickly load bundles
-antigen init ~/.zsh_antigenrc
+# antigen init ~/.zsh_antigenrc
 
 # Tell Antigen that you're done.
 antigen apply
