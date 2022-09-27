@@ -81,10 +81,10 @@ if [[ -d $HOME/.oh-my-zsh ]]; then
 
   # activate vi mode if plugin is loaded
   # if [[ $plugins =~ "vi-mode" ]] ; then
-    VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true
-    VI_MODE_SET_CURSOR=true
-    MODE_INDICATOR="%F{white}+%f"
-    INSERT_MODE_INDICATOR="%F{yellow}+%f"
+    # VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true
+    # VI_MODE_SET_CURSOR=true
+    # MODE_INDICATOR="%F{white}+%f"
+    # INSERT_MODE_INDICATOR="%F{yellow}+%f"
   # fi
 
 fi

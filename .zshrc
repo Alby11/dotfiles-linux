@@ -125,15 +125,14 @@ plugins=(
   virtualenvwrapper
   vscode
   web-search
-  you-should-use
+  # you-should-use
   zoxide
-  zsh-autosuggestions
-  zsh-syntax-highlighting
+  # zsh-autosuggestions
+  # zsh-syntax-highlighting
 )
 
 source $ZSH/oh-my-zsh.sh
 
-[ -f ~/.zsh_antigenrc ] && source ~/.zsh_antigenrc
 
 # User configuration
 
