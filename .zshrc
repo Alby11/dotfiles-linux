@@ -3,9 +3,9 @@ then
   dotfiles remote update && \
   if dotfiles status -uno
   then
-    echo "Local is behind"
-  else
     echo "Local is up to date"
+  else
+    echo "Local is behind"
   fi
 fi
 # If you come from bash you might have to change your $PATH.
