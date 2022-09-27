@@ -1,16 +1,16 @@
-alias ols='/bin/ls'
-alias ola='/bin/ls -lahi'
-alias psa='ps -aux'
-alias nta='netstat -poeta'
+alias -g ols='/bin/ls'
+alias -g ola='/bin/ls -lahi'
+alias -g psa='ps -aux'
+alias -g nta='netstat -poeta'
 alias dfh='df -h'
 alias freemh='free -mh'
-alias dush='du -sh'
-alias grep='grep --color'
+alias -g dush='du -sh'
+alias -g grep='grep --color'
 alias -g G='| grep -i '
 alias -g L='| less +f'
 
 if [ command -v ss ] &> /dev/null ; then
-  alias ssa='ss -poeta'
+  alias -g ssa='ss -poeta'
 fi
 
 if command -v systemctl &> /dev/null
@@ -24,13 +24,13 @@ fi
 
 if command -v apt &> /dev/null
 then
-    alias apt='sudo apt'
-    alias apts='apt search'
-    alias aptu='apt update'
-    alias apti='apt install'
-    alias aptr='apt remove'
-    alias aptar='apt autoremove'
-    alias aptap='apt autopurge'
+    alias -g apt='sudo apt'
+    alias -g apts='apt search'
+    alias -g aptu='apt update'
+    alias -g apti='apt install'
+    alias -g aptr='apt remove'
+    alias -g aptar='apt autoremove'
+    alias -g aptap='apt autopurge'
 fi
 
 if [ -f ~/bin/chezmoi ] &> /dev/null
@@ -70,9 +70,14 @@ then
     alias -g xo='xclip -o'
 fi
 
+if command -v clipboard $> /dev/null
+then
+  alias cb="clipboard"
+fi
+
 if command -v ranger &> /dev/null
 then
-    alias f='ranger'
+    alias rw='ranger'
 fi
 
 if command -v fdfind &> /dev/null
@@ -124,11 +129,6 @@ fi
 if command -v podman &> /dev/null
 then
     alias p='podman'
-fi
-
-if command -v AppImageLauncher &> /dev/null
-then
-    alias apl='AppImageLauncher'
 fi
 
 if [ $( command -v fzf ) ] && [ $( command -v rg ) ] ; then

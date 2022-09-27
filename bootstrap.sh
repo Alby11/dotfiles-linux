@@ -194,14 +194,15 @@ export nvm_dir="$home/.nvm"
 nvm install --lts
 # node.js packages
 npm install -g \
-    eslint \
-    fixjson \
-    js-beautify \
-    libtmux \
-    neovim \
-    remark-cli \
-    yarn \
-    ;
+  clipboard-cli \
+  eslint \
+  fixjson \
+  js-beautify \
+  libtmux \
+  neovim \
+  remark-cli \
+  yarn \
+  ;
 
 ### NEOVIM
 sudo apt install -y \
