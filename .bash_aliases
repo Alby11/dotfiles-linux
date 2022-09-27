@@ -57,10 +57,11 @@ if command -v nvim &> /dev/null ; then
   alias -g N='| nvim'
   if command -v nvr &> /dev/null ; then
     alias nvimr='nvim --listen /tmp/nvimsocket'
-    alias nvrr='nvr --remote'
-    alias nvrs='nvr --remote-send'
-    alias nvre='nvr --remote-expr'
-    alias nvrc='nvr -c'
+    alias nvrs='nvr -s'
+    # alias nvrr='nvr --remote'
+    # alias nvrs='nvr --remote-send'
+    # alias nvre='nvr --remote-expr'
+    # alias nvrc='nvr -c'
   fi
 fi
 
