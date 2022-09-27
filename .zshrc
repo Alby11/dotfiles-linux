@@ -3,7 +3,7 @@ then
   dotfiles remote update && \
   dotfiles status -uno  ; \
   ;
-  if $? -eq 0
+  if $?
   then
     echo "Local is up to date"
   else
