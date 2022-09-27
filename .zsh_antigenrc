@@ -21,7 +21,6 @@ antigen bundle lukechilds/zsh-better-npm-completion
 antigen bundle sunlei/zsh-ssh
 antigen bundle vasyharan/zsh-brew-services
 antigen bundle viasite-ansible/zsh-ansible-server
-antigen bundle z-shell/brew-completions
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-completions
 
