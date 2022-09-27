@@ -184,3 +184,5 @@ if test -f $PROFILEFILES/starship/starship.toml; then
   export STARSHIP_CONFIG=$PROFILEFILES/starship/starship.toml
   eval "$(starship init zsh)"
 fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
