@@ -18,7 +18,7 @@ antigen bundle zsh-users/you-should-use
 # antigen theme agnoster
 
 # generate Antigen's cache with currently loaded Bundles
-antigen cache-gen
+# antigen cache-gen
 
 # Makes use of caching in order to quickly load bundles
 # antigen init ~/.zsh_antigenrc
