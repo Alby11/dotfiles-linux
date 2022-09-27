@@ -118,6 +118,7 @@ plugins=(
   pyenv
   python
   ripgrep
+  ssh-agent
   sudo
   ubuntu
   vi-mode
