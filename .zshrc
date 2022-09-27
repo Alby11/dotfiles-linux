@@ -165,6 +165,9 @@ fi
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 [ -f ~/.bash_aliases ] && source ~/.bash_aliases
 
+# Catppuccin TTT theme
+source /home/alby11/catppuccin_tty/mocha.sh
+
 ### Initialize Starship
 if test -f $PROFILEFILES/starship/starship.toml; then  
   export STARSHIP_CONFIG=$PROFILEFILES/starship/starship.toml
