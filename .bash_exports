@@ -61,9 +61,6 @@ command -v zoxide &> /dev/null && eval "$(zoxide init zsh)"
 
 ### ANTIGEN
 [ -f ~/.zsh_antigenrc ] && source ~/.zsh_antigenrc
-  
-### Initialize Starship
-if [[ -f $PROFILEFILES/starship/starhip.toml ]]; then
-  export STARSHIP_CONFIG=$PROFILEFILES/starship/starship.toml
-  eval "$(starship init zsh)"
-fi
+
+# Catppuccin TTT theme
+source /home/alby11/catppuccin_tty/mocha.sh
