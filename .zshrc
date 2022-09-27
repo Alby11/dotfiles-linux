@@ -1,7 +1,7 @@
 if command -v dotfiles &>/dev/null
 then
   dotfiles remote update && \
-  dotfiles status -uno  ; \
+  dotfiles status -uno \
   ;
   if $?
   then
