@@ -8,6 +8,7 @@ alias -g nta='netstat -poeta'
 alias -g ola='/bin/ls -lahi'
 alias -g ols='/bin/ls'
 alias -g psa='ps -aux'
+alias c="clear"
 alias dfh='df -h'
 alias freemh='free -mh'
 
