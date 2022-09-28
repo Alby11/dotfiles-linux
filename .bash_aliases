@@ -8,9 +8,9 @@ alias -g nta='netstat -poeta'
 alias -g ola='/bin/ls -lahi'
 alias -g ols='/bin/ls'
 alias -g psa='ps -aux'
-alias c="clear"
+alias C="clear"
 alias dfh='df -h'
-alias freemh='free -mh'
+alias freeh='free -mh'
 
 [ $SHELL = "/bin/zsh" ] && alias SC="source $HOME/.zshrc"
 
