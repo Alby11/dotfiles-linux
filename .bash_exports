@@ -62,5 +62,5 @@ command -v zoxide &> /dev/null && eval "$(zoxide init zsh)"
 ### ANTIGEN
 [ -f ~/.zsh_antigenrc ] && source ~/.zsh_antigenrc
 
-# Catppuccin TTT theme
+# Catppuccin TTY theme
 source /home/alby11/catppuccin_tty/mocha.sh

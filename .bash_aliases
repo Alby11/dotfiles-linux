@@ -1,15 +1,20 @@
-alias -g ols='/bin/ls'
-alias -g ola='/bin/ls -lahi'
-alias -g psa='ps -aux'
-alias -g nta='netstat -poeta'
-alias dfh='df -h'
-alias freemh='free -mh'
-alias -g dush='du -sh'
-alias -g grep='grep --color'
 alias -g G='| grep -i '
 alias -g L='| less +f'
+alias -g dush='du -sh'
+alias -g grep='grep --color'
+alias -g h="history -10" # last 10 history commands
+alias -g hr="history | grep " # +command
+alias -g nta='netstat -poeta'
+alias -g ola='/bin/ls -lahi'
+alias -g ols='/bin/ls'
+alias -g psa='ps -aux'
+alias dfh='df -h'
+alias freemh='free -mh'
 
-if [ command -v ss ] &> /dev/null ; then
+[ $SHELL = "/bin/zsh" ] && alias SC="source $HOME/.zshrc"
+
+if command -v ss &> /dev/null
+then
   alias -g ssa='ss -poeta'
 fi
 
@@ -33,7 +38,7 @@ then
     alias -g aptap='apt autopurge'
 fi
 
-if [ -f ~/bin/chezmoi ] &> /dev/null
+if -f ~/bin/chezmoi &> /dev/null
 then
     alias chezmoi='$HOME/bin/chezmoi'
     alias cz='chezmoi'
@@ -87,7 +92,6 @@ then
 fi
 
 if command -v cargo &>/dev/null ; then
-  eval "$(zoxide init zsh)"
   if command -v z &> /dev/null ; then
     alias cd='z'
   fi
