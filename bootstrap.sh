@@ -4,6 +4,7 @@ github_username="alby11"
 echo 'deb [trusted=yes] https://repo.charm.sh/apt/ /' \
   | sudo tee /etc/apt/sources.list.d/charm.list
 sudo add-apt-repository -y ppa:neovim-ppa/unstable
+sudo add-apt-repository -y ppa:git-core/ppa
 # apt extra packages
 sudo apt install -y \
   apt-file \
