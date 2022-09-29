@@ -2,9 +2,9 @@
 github_username="alby11"
 # additional repos
 echo 'deb [trusted=yes] https://repo.charm.sh/apt/ /' \
-  | sudo tee /etc/apt/sources.list.d/charm.list
-sudo add-apt-repository -y ppa:neovim-ppa/unstable
-sudo add-apt-repository -y ppa:git-core/ppa
+  | sudo tee /etc/apt/sources.list.d/charm.list # Glow
+sudo add-apt-repository -y ppa:neovim-ppa/unstable # Neovim nightly
+sudo add-apt-repository -y ppa:git-core/ppa # git official repo
 # apt extra packages
 sudo apt install -y \
   apt-file \
