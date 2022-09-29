@@ -31,12 +31,13 @@ fi
 if command -v apt &> /dev/null
 then
     alias -g apt='sudo apt'
-    alias -g apts='apt search'
-    alias -g aptu='apt update'
-    alias -g apti='apt install'
-    alias -g aptr='apt remove'
-    alias -g aptar='apt autoremove'
-    alias -g aptap='apt autopurge'
+    alias -g apti='sudo apt install'
+    alias -g aptr='sudo apt remove'
+    alias -g apts='sudo apt search'
+    alias -g aptu='sudo apt update'
+    alias -g aptac='sudo apt autoclean'
+    alias -g aptap='sudo apt autopurge'
+    alias -g aptar='sudo apt autoremove'
 fi
 
 if -f ~/bin/chezmoi &> /dev/null
