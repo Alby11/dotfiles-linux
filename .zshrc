@@ -152,7 +152,7 @@ source $ZSH/oh-my-zsh.sh
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
-[ -f ~/.bash_exports ] && source ~/.bash_exports
+[ -f ~/.config/zsh/.zsh_exports ] && source ~/.config/zsh/.zsh_exports
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -175,7 +175,7 @@ fi
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-[ -f ~/.bash_aliases ] && source ~/.bash_aliases
+[ -f ~/.config/zsh/.zsh_aliases ] && source ~/.config/zsh/.zsh_aliases
 
 ### Initialize Starship
 if test -f $PROFILEFILES/starship/starship.toml; then  

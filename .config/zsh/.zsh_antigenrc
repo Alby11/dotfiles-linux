@@ -1,4 +1,4 @@
-[ -f ~/antigen.zsh ] && source ~/antigen.zsh
+[ -f ~/.config/zsh/antigen.zsh ] && source ~/.config/zsh/antigen.zsh
 
 # Load the oh-my-zsh's library.
 antigen use oh-my-zsh
@@ -43,7 +43,7 @@ antigen bundle MichaelAquilina/zsh-you-should-use
 antigen apply
 
 # plugins configurations
-source ~/zsh-syntax-highlighting/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh
+source ~/.config/zsh/zsh-syntax-highlighting/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 bindkey -M vicmd 'k' history-substring-search-up
