@@ -100,10 +100,10 @@ fi
 
 if command -v exa &> /dev/null
 then
-  alias ls="exa --icons --git"
-  alias ll="exa -l -g --icons --git"
-  alias la="exa -l -a --icons --git"
-  alias lt="exa -L 1 --icons --tree --git-ignore"
+  alias ls="exa --icons --git --group-directories-first"
+  alias ll="exa -l -g --icons --git --group-directories-first"
+  alias la="exa -l -a --icons --git --group-directories-first"
+  alias lt="exa -L 1 --icons --tree --git-ignore --group-directories-first"
 fi
 
 if command -v git &> /dev/null
