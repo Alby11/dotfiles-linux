@@ -7,3 +7,6 @@
 [submodule ".config/zsh/catppuccin_tty"]
 	path = .config/zsh/catppuccin_tty
 	url = https://github.com/catppuccin/tty.git
+[submodule ".config/zsh/antigen"]
+	path = .config/zsh/antigen
+	url = https://github.com/zsh-users/antigen.git
