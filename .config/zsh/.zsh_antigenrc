@@ -12,7 +12,10 @@ antigen use prezto
 
 # Syntax highlighting bundle.
 antigen bundle zsh-users/zsh-syntax-highlighting
+
+# History
 antigen bundle zsh-users/zsh-history-substring-search
+antigen bundle wulfgarpro/history-sync
 
 # completions
 # antigen bundle bobsoppe/zsh-ssh-agent
