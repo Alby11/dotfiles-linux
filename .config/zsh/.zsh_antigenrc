@@ -1,4 +1,4 @@
-[ -f ~/.config/zsh/antigen.zsh ] && source ~/.config/zsh/antigen.zsh
+[ -f ~/.config/zsh/antigen/antigen.zsh ] && source ~/.config/zsh/antigen/antigen.zsh
 
 # Load the oh-my-zsh's library.
 antigen use oh-my-zsh
