@@ -10,3 +10,9 @@
 [submodule ".config/zsh/antigen"]
 	path = .config/zsh/antigen
 	url = https://github.com/zsh-users/antigen.git
+[submodule "githubdepot/bat-extras"]
+	path = gitdepot/bat-extras
+	url = https://github.com/eth-p/bat-extras.git
+[submodule "githubdepot/goroot"]
+	path = gitdepot/goroot
+	url = https://go.googlesource.com/go
