@@ -1,3 +1,4 @@
+# dot fetch origin main ; dot diff --quiet main main || echo 'directory differ'
 if command -v dotfiles &>/dev/null
 then
   dotfiles remote update && \
