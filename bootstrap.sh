@@ -105,19 +105,6 @@ cargo install --force \
   ;
 bat cache --build
 
-### BREW
-/bin/bash -c \
-  "$(curl -fssl https://raw.githubusercontent.com/homebrew/install/head/install.sh)" \
-  ;
-# brew tap homebrew/cask-fonts &&
-# brew install --cask font-<font name>-nerd-font
-
-### ZNAP
-[[ -f ~/git/zsh-snap/znap.zsh ]] ||
-  git clone --depth 1 -- \
-  https://github.com/marlonrichert/zsh-snap.git ~/git/zsh-snap \
-  ;
-
 ### github repos
 githubdepot=~/.githubdepot
 mkdir -p $githubdepot
@@ -227,13 +214,19 @@ sudo update-alternatives --config editor
 curl -ss https://starship.rs/install.sh | sh
 export starship_config=$PROFILEFILES/starship/starship.toml
 
+### Fonts
+# Nerd Fonts
+fonts=(
+  "CascadiaCode"
+  "Lilex"
+)
+for f in $fonts ; do
+  wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.2.2/$f.zip
+  unzip $f.zip
+  mv *.otf ~/.local/share/fonts/
+  rm -rf $f
+done
 # rebuild font cache
-sudo apt install -y \
-  fontconfig \
-  fonts-cascadia-code \
-  fonts-firacode \
-  fonts-powerline \
-  ;
 fc-cache -f -v
 
 ### ZSH
