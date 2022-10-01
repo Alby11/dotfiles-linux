@@ -4,3 +4,6 @@
 [submodule ".config/zsh/ohmyzsh"]
 	path = .config/zsh/ohmyzsh
 	url = https://github.com/ohmyzsh/ohmyzsh.git
+[submodule ".config/zsh/catppuccin_tty"]
+	path = .config/zsh/catppuccin_tty
+	url = https://github.com/catppuccin/tty.git
