@@ -106,19 +106,17 @@ cargo install --force \
 bat cache --build
 
 ### github repos
-githubdepot=~/.githubdepot
-mkdir -p $githubdepot
+gitdepot=~/gitdepot
+mkdir -p $gitdepot
 githubrepos=(
-  "git@github.com:eth-p/bat-extras.git"
-  "git@github.com:aristocratos/btop.git"
 )
 for r in ${githubrepos[@]}; do
   destdir=$(echo $r | cut -d \/ -f 2 | cut -d . -f 1)
-  git clone $r $githubdepot/$destdir
+  git clone $r $gitdepot/$destdir
 done
 # bat-extras
-sudo $githubdepot/bat-extras/build.sh --install
-export path=$githubdepot/bat-extras/bin:$path
+sudo $gitdepot/bat-extras/build.sh --install
+export path=$gitdepot/bat-extras/bin:$path
 # btop
 sudo apt install -y \
   coreutils \
@@ -127,7 +125,7 @@ sudo apt install -y \
   gcc-11 \
   g++-11 \
   ;
-cd $githubdepot/btop
+cd $gitdepot/btop
 echo "addflags=-march=native" >> makefile
 make
 sudo make install
@@ -135,8 +133,7 @@ sudo make setuid
 make clean && make distclean
 cd ~
 # golang
-gopath=$githubdepot/goroot
-git clone https://go.googlesource.com/go $gopath
+gopath=gitdepot/goroot
 cd $gopath
 git checkout master
 cd src
@@ -233,8 +230,6 @@ fc-cache -f -v
 sudo apt install -y \
   zsh \
   ;
-curl -L git.io/antigen-nightly > ~/antigen.zsh 
-source ~/antigen.zsh
 
 ### TMUX
 sudo apt install -y \
