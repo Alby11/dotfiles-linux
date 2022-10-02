@@ -16,6 +16,6 @@
 [submodule "githubdepot/goroot"]
 	path = gitdepot/goroot
 	url = https://go.googlesource.com/go
-[submodule "/home/alby11/.config/zsh/zsh-history"]
-	path = /home/alby11/.config/zsh/zsh-history
+[submodule ".config/zsh/zsh-history"]
+	path = .config/zsh/zsh-history
 	url = git@github.com:Alby11/zsh-history.git
