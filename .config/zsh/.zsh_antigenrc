@@ -1,56 +1,87 @@
 # antigen settings
-ANTIGEN_CHECK_FILES=$ZSH_CONFIG_HOME/.zsh_antigenrc
-ANTIGEN_AUTO_CONFIG=true
+# ANTIGEN_CHECK_FILES=$ZSH_CONFIG_HOME/.zsh_antigenrc
+# ANTIGEN_AUTO_CONFIG=true
 # ANTIGEN_LOG=$ADOTDIR/antigen.log
 
-SOURCE_RCFILE /usr/share/zsh-antigen/antigen.zsh
+# antigen init
+# SOURCE_RCFILE /usr/share/zsh-antigen/antigen.zsh
 
 # oh my zsh
 antigen use oh-my-zsh
-antigen bundle colored-man-pages
-antigen bundle colorize
-antigen bundle command-not-found
-antigen bundle copybuffer
-antigen bundle copyfile
-antigen bundle copypath
-antigen bundle docker
-antigen bundle docker-compose
-antigen bundle fd
-antigen bundle fzf
-antigen bundle git
-antigen bundle kubectl
-antigen bundle kubectx
-antigen bundle minikube
-antigen bundle npm
-antigen bundle pep8
-antigen bundle pip
-antigen bundle pyenv
-antigen bundle python
-antigen bundle ripgrep
-antigen bundle ssh-agent
-antigen bundle sudo
-antigen bundle ubuntu
-antigen bundle vi-mode
-antigen bundle virtualenv
-antigen bundle virtualenvwrapper
-antigen bundle vscode
-antigen bundle web-search
-antigen bundle zoxide
+antigen bundles <<EOBUNDLES
+  ag
+  aliases
+  autoenv
+  battery
+  brew
+  colemak
+  colored-man-pages
+  colorize
+  command-not-found
+  compleat
+  copybuffer
+  copydir
+  copyfile
+  copypath
+  cp
+  debian
+  docker
+  docker-compose
+  extract
+  fd
+  fzf
+  git
+  github
+  gitignore
+  golang
+  gpg-agent
+  history
+  history-substring-search
+  kubectl
+  kubectx
+  last-working-dir
+  minikube
+  node
+  npm
+  nvm
+  pep8
+  pip
+  pyenv
+  python
+  ripgrep
+  rsync
+  sprunge
+  ssh-agent
+  sudo
+  systemd
+  tmux
+  tmuxinator
+  ubuntu
+  urltools
+  vi-mode
+  virtualenv
+  virtualenvwrapper
+  vscode
+  web-search
+  yum
+  zoxide
+EOBUNDLES
 
 # Syntax highlighting bundle.
 antigen bundle zsh-users/zsh-syntax-highlighting
 
 # History
-antigen bundle zsh-users/zsh-history-substring-search
+# antigen bundle zsh-users/zsh-history-substring-search
 antigen bundle wulfgarpro/history-sync
 antigen bundle bamos/zsh-history-analysis
 
 # FZF
-antigen bundle unixorn/fzf-zsh-plugin@main
+antigen bundle unixorn/fzf-zsh-plugin --branch=main
 
 # completions
-# antigen bundle bobsoppe/zsh-ssh-agent
-# antigen bundle srijanshetty/zsh-pip-completion
+antigen bundle srijanshetty/zsh-pip-completion
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle zsh-users/zsh-completions
 antigen bundle 3v1n0/zsh-bash-completions-fallback
 antigen bundle MenkeTechnologies/zsh-cargo-completion
 antigen bundle gantsign/zsh-plugins kompose
@@ -60,22 +91,10 @@ antigen bundle lukechilds/zsh-better-npm-completion
 antigen bundle sunlei/zsh-ssh
 antigen bundle vasyharan/zsh-brew-services
 antigen bundle viasite-ansible/zsh-ansible-server
-antigen bundle zsh-users/zsh-autosuggestions
-antigen bundle zsh-users/zsh-completions
-
 antigen bundle MichaelAquilina/zsh-you-should-use
-
-# generate Antigen's cache with currently loaded Bundles
-antigen cache-gen
-
-# Makes use of caching in order to quickly load bundles
- antigen init $ZSH_CONFIG_HOME/.zsh_antigenrc
 
 # Tell Antigen that you're done.
 antigen apply
-
-# Set name of the theme to load
-antigen theme agnoster
 
 ### PLUGINS CONFIGURATIONS
 # vi mode

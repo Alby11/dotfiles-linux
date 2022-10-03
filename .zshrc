@@ -2,7 +2,6 @@
 export ZSH_CONFIG_HOME="$HOME/.config/zsh"
 export function SOURCE_RCFILE()
 {
-  echo "Sourcing $1 ... "
   if [ -f $1 ]
   then
     source $1
@@ -13,7 +12,6 @@ export function SOURCE_RCFILE()
 }
 export function EXPORT_DIR()
 {
-  echo "Exporting $1 ... "
   if [ -d $1 ] 
   then
     export PATH=$1:$PATH
@@ -71,8 +69,17 @@ HIST_STAMPS="yyyy-mm-dd"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-# Antigen
-SOURCE_RCFILE $ZSH_CONFIG_HOME/.zsh_antigenrc
+### ANTIGEN
+# antigen settings
+ANTIGEN_CHECK_FILES=$ZSH_CONFIG_HOME/.zsh_antigenrc
+ANTIGEN_AUTO_CONFIG=true
+# antigen init
+SOURCE_RCFILE /usr/share/zsh-antigen/antigen.zsh
+# Makes use of caching in order to quickly load bundles
+antigen init $ZSH_CONFIG_HOME/.zsh_antigenrc
+# generate Antigen's cache with currently loaded Bundles
+antigen cache-gen
+# SOURCE_RCFILE $ZSH_CONFIG_HOME/.zsh_antigenrc
 
 # zsh_exports
 SOURCE_RCFILE $ZSH_CONFIG_HOME/.zsh_exports
