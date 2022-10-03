@@ -1,3 +1,4 @@
+### SOURCING/EXPORTING UTILITIES
 export ZSH_CONFIG_HOME="$HOME/.config/zsh"
 export function SOURCE_RCFILE()
 {
@@ -10,7 +11,6 @@ export function SOURCE_RCFILE()
   fi
   echo "$1 not sourced ... "
 }
-
 export function EXPORT_DIR()
 {
   echo "Exporting $1 ... "
@@ -26,7 +26,8 @@ export function EXPORT_DIR()
 # dot fetch origin main ; dot diff --quiet main main || echo 'directory differ'
 
 # set up environment, depending on os
-if grep -qi microsoft /proc/version ; then
+if grep -qi microsoft /proc/version
+then
   echo "ubuntu on wsl"
   [ ! -d ~/.wp ] && ln -s $(wslpath "$(wslvar userprofile)") ~/.wp
   export PROFILEFILES=$(wslpath "$(wslvar onedriveconsumer)/profilefiles")
@@ -35,12 +36,13 @@ if grep -qi microsoft /proc/version ; then
   # tmux
   # win32yank_exe="/mnt/c/programdata/scoop/apps/neovim-nightly/current/bin/win32yank.exe"
   win32yank_exe=$(wslpath "$(wslvar programdata)")/scoop/shims/win32yank.exe
-  if [ -e $win32yank_exe ] && [ ! -f /usr/local/bin/win32yank.exe ] ; then
+  if [ -e $win32yank_exe ] && [ ! -f /usr/local/bin/win32yank.exe ]
+  then
     sudo ln -s $win32yank_exe "/usr/local/bin/win32yank.exe"
   fi
 elif grep -qi ubuntu /proc/version ; then
   echo "native ubuntu linux"
-  if [ -d ~/profilefiles ];
+  if [ -d ~/profilefiles ]
   then
     cd ~/profilefiles
     git pull
@@ -52,23 +54,6 @@ elif grep -qi ubuntu /proc/version ; then
   export PROFILEFILES=~/profilefiles
 fi
 
-
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS="true"
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
 # Uncomment the following line to enable command auto-correction.
 # ENABLE_CORRECTION="true"
 
@@ -79,18 +64,14 @@ fi
 COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 # or set a custom format using the strftime function format specifications,
 # see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
+HIST_STAMPS="yyyy-mm-dd"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
 # Antigen
-# [ -f $ZSH_CONFIG_HOME/.zsh_antigenrc ] && source $ZSH_CONFIG_HOME/.zsh_antigenrc
 SOURCE_RCFILE $ZSH_CONFIG_HOME/.zsh_antigenrc
 
 # zsh_exports
@@ -100,7 +81,6 @@ SOURCE_RCFILE $ZSH_CONFIG_HOME/.zsh_exports
 SOURCE_RCFILE $ZSH_CONFIG_HOME/.zsh_aliases
 
 ### Initialize Starship
-if test -f $PROFILEFILES/starship/starship.toml; then  
-  export STARSHIP_CONFIG=$PROFILEFILES/starship/starship.toml
+[ -f $PROFILEFILES/starship/starship.toml ] && \
+  export STARSHIP_CONFIG=$PROFILEFILES/starship/starship.toml && \
   eval "$(starship init zsh)"
-fi

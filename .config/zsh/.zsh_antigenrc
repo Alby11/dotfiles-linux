@@ -1,6 +1,8 @@
+# antigen settings
 ANTIGEN_CHECK_FILES=$ZSH_CONFIG_HOME/.zsh_antigenrc
 ANTIGEN_AUTO_CONFIG=true
 ANTIGEN_LOG=$ADOTDIR/antigen.log
+
 SOURCE_RCFILE /usr/share/zsh-antigen/antigen.zsh
 
 # oh my zsh
