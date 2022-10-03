@@ -28,6 +28,7 @@ sudo apt install -y \
   software-properties-common \
   curl wget net-tools nmap tcpdump rsync unzip git \
   build-essential cmake yarn default-jdk \
+  chafa exiftool \
   shfmt \
   stow \
   ;

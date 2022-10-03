@@ -1,4 +1,4 @@
-[ -f ~/.config/zsh/antigen/antigen.zsh ] && source ~/.config/zsh/antigen/antigen.zsh
+[ -f /usr/share/zsh-antigen/antigen.zsh ] && source /usr/share/zsh-antigen/antigen.zsh
 
 # Load the oh-my-zsh's library.
 antigen use oh-my-zsh
@@ -50,7 +50,7 @@ antigen bundle MichaelAquilina/zsh-you-should-use
 antigen apply
 
 # plugins configurations
-source ~/.config/zsh/zsh-syntax-highlighting/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh
+source ~/.config/zsh/catppuccin_zsh-syntax-highlighting/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh 
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 bindkey -M vicmd 'k' history-substring-search-up
@@ -64,5 +64,7 @@ ZSH_HISTORY_COMMIT_MSG="latest $(date)"
 export HISTSIZE=1000000000
 export SAVEHIST=$HISTSIZE
 setopt EXTENDED_HISTORY
+### FZF for ZSH
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export LESSOPEN='| lessfilter-fzf %s'
 export FZF_PREVIEW_ADVANCED=true
