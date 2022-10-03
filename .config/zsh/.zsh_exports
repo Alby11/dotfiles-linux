@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 # Make vim the default editor.
 export EDITOR='nvim';
 
@@ -49,18 +47,19 @@ fi
 ### GITHUB repos exports
 [ -d ~/gitdepot ] && gitdepot=~/gitdepot
 # initialize bat-extras
-[ -d $gitdepot/bat-extras/bin ] && export PATH=$gitdepot/bat-extras/bin:$PATH
+[ -d $gitdepot/bat-extras/bin ] && export PATH="$gitdepot/bat-extras/bin:$PATH"
 # initialize Go
 [ -d $gitdepot/goroot/bin ] && export PATH=$gitdepot/goroot/bin:$PATH
 
 ### Zoxide
-command -v zoxide &> /dev/null && eval "$(zoxide init zsh)" 
-
-### FZF for ZSH
-# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+if command -v zoxide &> /dev/null
+then
+  eval "$(zoxide init zsh)" 
+fi
 
 ### ANTIGEN
-[ -f ~/.config/zsh/.zsh_antigenrc ] && source ~/.config/zsh/.zsh_antigenrc
-
+# [ -f ~/.config/zsh/.zsh_antigenrc ] && source ~/.config/zsh/.zsh_antigenrc
+[ -f $ZSH_CONFIG_HOME/.zsh_antigenrc ] && source $ZSH_CONFIG_HOME/.zsh_antigenrc
 # Catppuccin TTY theme
-source ~/.config/zsh/catppuccin_tty/mocha.sh
+# source ~/.config/zsh/catppuccin_tty/mocha.sh
+source $ZSH_CONFIG_HOME/catppuccin_tty/mocha.sh

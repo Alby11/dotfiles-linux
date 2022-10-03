@@ -39,6 +39,8 @@ elif grep -qi ubuntu /proc/version ; then
   export PROFILEFILES=~/profilefiles
 fi
 
+export ZSH_CONFIG_HOME="$HOME/.config/zsh"
+
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.config/zsh/ohmyzsh"
 
@@ -152,7 +154,7 @@ source $ZSH/oh-my-zsh.sh
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
-[ -f ~/.config/zsh/.zsh_exports ] && source ~/.config/zsh/.zsh_exports
+[ -f $ZSH_CONFIG_HOME/.zsh_exports ] && source $ZSH_CONFIG_HOME/.zsh_exports
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -175,7 +177,7 @@ fi
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-[ -f ~/.config/zsh/.zsh_aliases ] && source ~/.config/zsh/.zsh_aliases
+[ -f $ZSH_CONFIG_HOME/.zsh_aliases ] && source $ZSH_CONFIG_HOME/.zsh_aliases
 
 ### Initialize Starship
 if test -f $PROFILEFILES/starship/starship.toml; then  
