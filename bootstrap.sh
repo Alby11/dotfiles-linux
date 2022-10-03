@@ -258,3 +258,4 @@ sudo apt autoclean -y
 chsh -s /bin/zsh
 source ~/.zshrc
 zsh
+chafa exiftool

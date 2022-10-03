@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 # Make vim the default editor.
 export EDITOR='nvim';
@@ -47,11 +47,11 @@ if [[ -d $HOME/.nvm ]]; then
 fi
 
 ### GITHUB repos exports
-[ -d ~/.githubdepot ] && githubdepot=~/.githubdepot
+[ -d ~/gitdepot ] && gitdepot=~/gitdepot
 # initialize bat-extras
-[ -d $githubdepot/bat-extras/bin ] && export PATH=$githubdepot/bat-extras/bin:$PATH
+[ -d $gitdepot/bat-extras/bin ] && export PATH=$gitdepot/bat-extras/bin:$PATH
 # initialize Go
-[ -d $githubdepot/goroot/bin ] && export PATH=$githubdepot/goroot/bin:$PATH
+[ -d $gitdepot/goroot/bin ] && export PATH=$gitdepot/goroot/bin:$PATH
 
 ### Zoxide
 command -v zoxide &> /dev/null && eval "$(zoxide init zsh)" 
