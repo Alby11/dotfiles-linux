@@ -1,14 +1,39 @@
-[ -f /usr/share/zsh-antigen/antigen.zsh ] && source /usr/share/zsh-antigen/antigen.zsh
+ANTIGEN_CHECK_FILES=$ZSH_CONFIG_HOME/.zsh_antigenrc
+ANTIGEN_AUTO_CONFIG=true
+ANTIGEN_LOG=$ADOTDIR/antigen.log
+SOURCE_RCFILE /usr/share/zsh-antigen/antigen.zsh
 
-# Load the oh-my-zsh's library.
+# oh my zsh
 antigen use oh-my-zsh
-antigen use prezto
-
-# Bundles from the default repo (robbyrussell's oh-my-zsh).
-# antigen bundle git
-# antigen bundle heroku
-# antigen bundle pip
-# antigen bundle lein
+antigen bundle colored-man-pages
+antigen bundle colorize
+antigen bundle command-not-found
+antigen bundle copybuffer
+antigen bundle copyfile
+antigen bundle copypath
+antigen bundle docker
+antigen bundle docker-compose
+antigen bundle fd
+antigen bundle fzf
+antigen bundle git
+antigen bundle kubectl
+antigen bundle kubectx
+antigen bundle minikube
+antigen bundle npm
+antigen bundle pep8
+antigen bundle pip
+antigen bundle pyenv
+antigen bundle python
+antigen bundle ripgrep
+antigen bundle ssh-agent
+antigen bundle sudo
+antigen bundle ubuntu
+antigen bundle vi-mode
+antigen bundle virtualenv
+antigen bundle virtualenvwrapper
+antigen bundle vscode
+antigen bundle web-search
+antigen bundle zoxide
 
 # Syntax highlighting bundle.
 antigen bundle zsh-users/zsh-syntax-highlighting
@@ -37,24 +62,33 @@ antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-completions
 
 antigen bundle MichaelAquilina/zsh-you-should-use
-# Load the theme.
-# antigen theme agnoster
 
 # generate Antigen's cache with currently loaded Bundles
-# antigen cache-gen
+antigen cache-gen
 
 # Makes use of caching in order to quickly load bundles
-# antigen init ~/.zsh_antigenrc
+ antigen init $ZSH_CONFIG_HOME/.zsh_antigenrc
 
 # Tell Antigen that you're done.
 antigen apply
 
-# plugins configurations
+# Set name of the theme to load
+antigen theme agnoster
+
+### PLUGINS CONFIGURATIONS
+# vi mode
+VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true
+VI_MODE_SET_CURSOR=true
+MODE_INDICATOR="%F{white}+%f"
+INSERT_MODE_INDICATOR="%F{yellow}+%f"
+# catppuccin_zsh-syntax-highlighting
 source ~/.config/zsh/catppuccin_zsh-syntax-highlighting/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh 
+# zsh-history-substring-search
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
+# zsh-history
 ZSH_HISTORY_FILE_NAME=".zsh_history"
 ZSH_HISTORY_FILE="${HOME}/${ZSH_HISTORY_FILE_NAME}"
 ZSH_HISTORY_PROJ="${HOME}/.config/zsh/zsh-history"
@@ -64,7 +98,7 @@ ZSH_HISTORY_COMMIT_MSG="latest $(date)"
 export HISTSIZE=1000000000
 export SAVEHIST=$HISTSIZE
 setopt EXTENDED_HISTORY
-### FZF for ZSH
+# fzf-zsh-plugin
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export LESSOPEN='| lessfilter-fzf %s'
 export FZF_PREVIEW_ADVANCED=true

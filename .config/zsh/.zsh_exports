@@ -11,9 +11,6 @@ export NODE_REPL_MODE='sloppy';
 # Make Python use UTF-8 encoding for output to stdin, stdout, and stderr.
 export PYTHONIOENCODING='UTF-8';
 
-# Increase Bash history size. Allow 32³ entries; the default is 500.
-export HISTSIZE='32768';
-export HISTFILESIZE="${HISTSIZE}";
 # Omit duplicates and commands that begin with a space from history.
 export HISTCONTROL='ignoreboth';
 
@@ -35,7 +32,7 @@ export MANPAGER='less -X';
 #export BASH_SILENCE_DEPRECATION_WARNING=1;
 
 ### Initialize CARGO
-[ -d ~/.cargo/bin ] && export PATH=~/.cargo/bin:$PATH
+EXPORT_DIR $HOME/.cargo/bin
 
 ### Initialize NVM
 if [[ -d $HOME/.nvm ]]; then
@@ -47,9 +44,9 @@ fi
 ### GITHUB repos exports
 [ -d ~/gitdepot ] && gitdepot=~/gitdepot
 # initialize bat-extras
-[ -d $gitdepot/bat-extras/bin ] && export PATH="$gitdepot/bat-extras/bin:$PATH"
+EXPORT_DIR $gitdepot/bat-extras/bin
 # initialize Go
-[ -d $gitdepot/goroot/bin ] && export PATH=$gitdepot/goroot/bin:$PATH
+EXPORT_DIR $gitdepot/goroot/bin
 
 ### Zoxide
 if command -v zoxide &> /dev/null
@@ -57,9 +54,5 @@ then
   eval "$(zoxide init zsh)" 
 fi
 
-### ANTIGEN
-# [ -f ~/.config/zsh/.zsh_antigenrc ] && source ~/.config/zsh/.zsh_antigenrc
-[ -f $ZSH_CONFIG_HOME/.zsh_antigenrc ] && source $ZSH_CONFIG_HOME/.zsh_antigenrc
 # Catppuccin TTY theme
-# source ~/.config/zsh/catppuccin_tty/mocha.sh
-source $ZSH_CONFIG_HOME/catppuccin_tty/mocha.sh
+SOURCE_RCFILE $ZSH_CONFIG_HOME/catppuccin_tty/mocha.sh
