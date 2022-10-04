@@ -24,3 +24,5 @@ HIST_STAMPS="yyyy-mm-dd"
 
 # zsh_aliases
 SOURCE_RCFILE $ZSH_CONFIG_HOME/.zsh_aliases
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
