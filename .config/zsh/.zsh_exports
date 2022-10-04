@@ -48,12 +48,6 @@ EXPORT_DIR $gitdepot/bat-extras/bin
 # initialize Go
 EXPORT_DIR $gitdepot/goroot/bin
 
-### Zoxide
-if command -v zoxide &> /dev/null
-then
-  eval "$(zoxide init zsh)" 
-fi
-
 # Catppuccin TTY theme
 SOURCE_RCFILE $ZSH_CONFIG_HOME/catppuccin_tty/mocha.sh
 
@@ -65,7 +59,14 @@ ANTIGEN_AUTO_CONFIG=true
 # antigen init
 SOURCE_RCFILE /usr/share/zsh-antigen/antigen.zsh
 # Makes use of caching in order to quickly load bundles
-antigen init $ZSH_CONFIG_HOME/.zsh_antigenrc
+# antigen init $ZSH_CONFIG_HOME/.zsh_antigenrc
+SOURCE_RCFILE $ZSH_CONFIG_HOME/.zsh_antigenrc
 # generate Antigen's cache with currently loaded Bundles
-antigen cache-gen
+# antigen cache-gen
 # SOURCE_RCFILE $ZSH_CONFIG_HOME/.zsh_antigenrc
+
+### Zoxide
+if command -v zoxide &> /dev/null
+then
+  eval "$(zoxide init zsh)" 
+fi
