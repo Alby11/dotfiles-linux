@@ -3,7 +3,7 @@ ANTIGEN_CHECK_FILES=$ZSH_CONFIG_HOME/.zsh_antigenrc
 ANTIGEN_LOG=$ADOTDIR/antigen.log
 
 # antigen init
-SOURCE_RCFILE /usr/share/zsh-antigen/antigen.zsh
+SOURCE_RCFILE ~/antigen.zsh
 
 # oh my zsh
 antigen use oh-my-zsh
@@ -19,7 +19,6 @@ antigen bundles <<EOBUNDLES
   command-not-found
   compleat
   copybuffer
-  copydir
   copyfile
   copypath
   cp
@@ -72,8 +71,7 @@ antigen bundles <<EOBUNDLES
   zsh-users/zsh-syntax-highlighting
 
   # History
-  # zsh-users/zsh-history-substring-search
-  wulfgarpro/history-sync
+  # wulfgarpro/history-sync
   bamos/zsh-history-analysis
 
   # FZF
@@ -132,4 +130,4 @@ ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(
     "pcomplete"
     "copy-earlier-word"
 )
-bindkey '^l' autosuggest-accept # ctrl-l, hjk
+# bindkey '^l' autosuggest-accept # ctrl-l, hjk

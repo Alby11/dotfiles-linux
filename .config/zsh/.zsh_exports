@@ -96,7 +96,10 @@ export MANPAGER='less -X';
 #export BASH_SILENCE_DEPRECATION_WARNING=1;
 
 ### ANTIGEN
-SOURCE_RCFILE $ZSH_CONFIG_HOME/.zsh_antigenrc
+# SOURCE_RCFILE $ZSH_CONFIG_HOME/.zsh_antigenrc
+
+### ANTIDOTE
+SOURCE_RCFILE $ZSH_CONFIG_HOME/.zsh_antidoterc
 
 ### Initialize CARGO
 EXPORT_DIR $HOME/.cargo/bin
