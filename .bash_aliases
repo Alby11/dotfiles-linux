@@ -1,7 +1,7 @@
-alias -g G='| grep -i '
+alias -g grep='grep --color'
+alias -g G='| grep -i'
 alias -g L='| less +f'
 alias -g dush='du -sh'
-alias -g grep='grep --color'
 alias -g h="history -10" # last 10 history commands
 alias -g hr="history | grep " # +command
 alias -g nta='netstat -poeta'
