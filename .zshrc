@@ -69,18 +69,6 @@ HIST_STAMPS="yyyy-mm-dd"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-### ANTIGEN
-# antigen settings
-ANTIGEN_CHECK_FILES=$ZSH_CONFIG_HOME/.zsh_antigenrc
-ANTIGEN_AUTO_CONFIG=true
-# antigen init
-SOURCE_RCFILE /usr/share/zsh-antigen/antigen.zsh
-# Makes use of caching in order to quickly load bundles
-antigen init $ZSH_CONFIG_HOME/.zsh_antigenrc
-# generate Antigen's cache with currently loaded Bundles
-antigen cache-gen
-# SOURCE_RCFILE $ZSH_CONFIG_HOME/.zsh_antigenrc
-
 # zsh_exports
 SOURCE_RCFILE $ZSH_CONFIG_HOME/.zsh_exports
 

@@ -61,6 +61,7 @@ SOURCE_RCFILE $ZSH_CONFIG_HOME/catppuccin_tty/mocha.sh
 # antigen settings
 ANTIGEN_CHECK_FILES=$ZSH_CONFIG_HOME/.zsh_antigenrc
 ANTIGEN_AUTO_CONFIG=true
+# ANTIGEN_LOG=$ADOTDIR/antigen.log
 # antigen init
 SOURCE_RCFILE /usr/share/zsh-antigen/antigen.zsh
 # Makes use of caching in order to quickly load bundles
