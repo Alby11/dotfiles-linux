@@ -5,6 +5,7 @@ echo 'deb [trusted=yes] https://repo.charm.sh/apt/ /' \
   | sudo tee /etc/apt/sources.list.d/charm.list # Glow
 sudo add-apt-repository -y ppa:neovim-ppa/unstable # Neovim nightly
 sudo add-apt-repository -y ppa:git-core/ppa # git official repo
+sudo sudo apt-add-repository -y ppa:ansible/ansible # ansible
 # apt extra packages
 sudo apt install -y \
   apt-file \

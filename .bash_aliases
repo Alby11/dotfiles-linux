@@ -111,8 +111,8 @@ if command -v git &> /dev/null
 then
   alias g='git'
   function dotfiles {
-     git --git-dir=$HOME/.dotfiles_git/ --work-tree=$HOME $@
-  }    
+    git --git-dir=$HOME/.dotfiles_git/ --work-tree=$HOME $@
+  }
   alias dot='dotfiles'
 fi
 
