@@ -38,7 +38,8 @@ sudo apt install -y \
 sudo apt install -y \
   git \
   ;
-git config --global user.name "alby11"
+git config --global user.name $github_username
+unset github_username
 git config --global user.email 17138674+alby11@users.noreply.github.com
 git config --global core.autocrlf false
 git config --global core.fsmonitor true
@@ -51,43 +52,34 @@ git config --global diff.tool.nvim.cmd "nvim -d \"$local\" \"$remote\""
 git config --global core.fsmonitor true
 
 # set up environment, depending on os
-if grep -qi microsoft /proc/version ; then
+if grep -qi microsoft /proc/version
+then
   echo "ubuntu on wsl"
-  sudo add-apt-repository -y ppa:appimagelauncher-team/daily
-  # download the microsoft repository gpg keys
-  wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
-  # register the microsoft repository gpg keys
-  sudo dpkg -i packages-microsoft-prod.deb
-  sudo rm packages-microsoft-prod.deb
-  sudo apt update
-  sudo apt install -y \
-    ubuntu-wsl wslu powershell appimagelauncher gnome-keyring libsecret-1-0 \
+  userprofile=$(wslpath "$(wslvar userprofile)")
+  leaf=$(echo $userprofile | cut -d '/' -f 5)
+  [ ! -L ~/$leaf ] && [ ! -e ~/$leaf ] && \
+    ln -s $(wslpath "$(wslvar userprofile)") ~/ \
     ;
-  sudo update-binfmts --disable cli # without this, wslpath and wslvar won't work
-  mkdir ~/.wp
-  ln -s $(wslpath "$(wslvar userprofile)") ~/.wp
-  export PROFILEFILES=$(wslpath "$(wslvar onedriveconsumer)/profilefiles")
-  ln -sf $PROFILEFILES ~/
-  export PROFILEFILES=~/profilefiles
+  [ ! -L ~/profilefiles ] && [ ! -e ~/profilefiles ] && \
+    export PROFILEFILES=$(wslpath "$(wslvar onedriveconsumer)/profilefiles") && \
+    ln -sf $PROFILEFILES ~/ \
+    ;
+  unset userprofile leaf
   # tmux
-  # win32yank_exe="/mnt/c/programdata/scoop/apps/neovim-nightly/current/bin/win32yank.exe"
-  win32yank_exe=$(wslpath "$(wslvar programdata)")/scoop/shims/win32yank.exe
-  if [ -e $win32yank_exe ] ; then
-    sudo ln -s $win32yank_exe "/usr/local/bin/win32yank.exe"
-  fi
+  # win32yank_exe=$(wslpath "$(wslvar programdata)")/scoop/shims/win32yank.exe
+  # [ -e $win32yank_exe ] && \
+  #   [ ! -L /usr/local/bin/win32yank.exe ] && \
+  #   [ ! -e /usr/local/bin/win32yank.exe ] && \
+  #   sudo ln -s $win32yank_exe "/usr/local/bin/win32yank.exe" \
+  #   ;
 elif grep -qi ubuntu /proc/version ; then
   echo "native ubuntu linux"
-  if [ -d ~/profilefiles ];
-  then
-    cd ~/profilefiles
-    git pull
-    cd ~
-  else
-    cd ~
-    git clone git@github.com:alby11/profilefiles.git
-  fi
-  export PROFILEFILES=~/profilefiles
+  [ ! -d ~/profilefiles ] && \
+    cd ~/profilefiles && git pull && cd ~ \
+    ;
+  git clone git@github.com:alby11/profilefiles.git
 fi
+export PROFILEFILES=~/profilefiles
 
 ### DOTFILES
 curl -Lks \
@@ -116,6 +108,7 @@ for r in ${githubrepos[@]}; do
   destdir=$(echo $r | cut -d \/ -f 2 | cut -d . -f 1)
   git clone $r $gitdepot/$destdir
 done
+unset githubrepos r
 # bat-extras
 sudo $gitdepot/bat-extras/build.sh --install
 export path=$gitdepot/bat-extras/bin:$path
@@ -146,6 +139,7 @@ cd ~
 go install \
   golang.org/x/tools/gopls@latest \
   ;
+unset gitdepot gopath
 
 ### PIP
 sudo apt install -y \
@@ -190,6 +184,7 @@ npm install -g \
   remark-cli \
   yarn \
   ;
+unset nvm_dir
 
 ### NEOVIM
 sudo apt install -y \
@@ -199,7 +194,6 @@ sudo apt install -y \
   ;
 rm -rf ~/.config/nvim && mkdir -p ~/.config
 rm -rf ~/.local/share/nvim && mkdir -p ~/.local/share/nvim
-ln -sf $PROFILEFILES/nvim ~/.config/ # ln repo nvim config
 nvim --headless -c 'autocmd user packercomplete quitall' -c 'packersync' -c 'qa!'
 nvim --headless -c 'autocmd user packercomplete quitall' -c 'packersync'
 sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
@@ -211,20 +205,31 @@ sudo update-alternatives --config editor
 
 ### STARSHIP
 curl -ss https://starship.rs/install.sh | sh
-export starship_config=$PROFILEFILES/starship/starship.toml
+export STARSHIP_CONFIG=~/.config/starship.toml
 
 ### Fonts
 # Nerd Fonts
-fonts=(
-  "CascadiaCode"
-  "Lilex"
+declare -a fonts=(
+  CascadiaCode
+  Lilex
 )
-for f in $fonts ; do
-  wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.2.2/$f.zip
-  unzip $f.zip
-  mv *.otf ~/.local/share/fonts/
-  rm -rf $f
+version='2.2.0'
+fonts_dir="${HOME}/.local/share/fonts"
+
+if [[ ! -d "$fonts_dir" ]]; then
+    mkdir -p "$fonts_dir"
+fi
+
+for font in "${fonts[@]}"; do
+    zip_file="${font}.zip"
+    download_url="https://github.com/ryanoasis/nerd-fonts/releases/download/v${version}/${zip_file}"
+    echo "Downloading $download_url"
+    wget "$download_url"
+    unzip "$zip_file" -d "$fonts_dir"
+    rm "$zip_file"
 done
+find "$fonts_dir" -name '*Windows Compatible*' -delete
+unset fonts version fonts_dir font zip_file download_url 
 # rebuild font cache
 fc-cache -f -v
 
@@ -236,7 +241,7 @@ sudo apt install -y \
 ### TMUX
 sudo apt install -y \
   tmux tmuxinator powerline \
-  xsel xclip wl-clipboard \ # for tmux-yank
+  xsel wl-clipboard \ # for tmux-yank
   ;
 git clone https://github.com/tmux-plugins/tpm.git ~/.tmux/plugins/tpm
 mkdir -p ~/.oh-my-zsh/completions/_tmuxinator
