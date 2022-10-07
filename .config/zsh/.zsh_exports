@@ -37,17 +37,20 @@ git config --global core.fsmonitor true
 if grep -qi microsoft /proc/version
 then
   echo "ubuntu on wsl"
-  [ ! -d ~/.wp ] && ln -s $(wslpath "$(wslvar userprofile)") ~/.wp
-  export PROFILEFILES=$(wslpath "$(wslvar onedriveconsumer)/profilefiles")
-  ln -sf $PROFILEFILES ~/
+  [ ! -d ~/.wp ] && \
+    ln -s $(wslpath "$(wslvar userprofile)") ~/.wp \
+    ;
+  [ ! -d ~/profilefiles ] && \
+    export PROFILEFILES=$(wslpath "$(wslvar onedriveconsumer)/profilefiles") && \
+    ln -sf $PROFILEFILES ~/ \
+    ;
   export PROFILEFILES=~/profilefiles
   # tmux
-  # win32yank_exe="/mnt/c/programdata/scoop/apps/neovim-nightly/current/bin/win32yank.exe"
-  win32yank_exe=$(wslpath "$(wslvar programdata)")/scoop/shims/win32yank.exe
-  if [ -e $win32yank_exe ] && [ ! -f /usr/local/bin/win32yank.exe ]
-  then
-    sudo ln -s $win32yank_exe "/usr/local/bin/win32yank.exe"
-  fi
+  # win32yank_exe=$(wslpath "$(wslvar programdata)")/scoop/shims/win32yank.exe
+  # if [ -e $win32yank_exe ] && [ ! -f /usr/local/bin/win32yank.exe ]
+  # then
+  #   sudo ln -s $win32yank_exe "/usr/local/bin/win32yank.exe"
+  # fi
 elif grep -qi ubuntu /proc/version ; then
   echo "native ubuntu linux"
   if [ -d ~/profilefiles ]
