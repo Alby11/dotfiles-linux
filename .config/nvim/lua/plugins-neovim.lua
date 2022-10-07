@@ -287,10 +287,10 @@ return packer.startup(function(use)
   -- Treesitter
   use({
     {
+      "nvim-treesitter/nvim-treesitter",
       run = ":TSUpdate",
       config = get_setup("nvim-treesitter"),
     },
-    "nvim-treesitter/nvim-treesitter",
     "nvim-treesitter/nvim-treesitter-textobjects",
     "nvim-treesitter/nvim-treesitter-context",
     "nvim-treesitter/nvim-treesitter-refactor",
