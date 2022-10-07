@@ -1,3 +1,5 @@
+#!/bin/sh
+github_username="alby11"
 ### SOURCING/EXPORTING UTILITIES
 export function SOURCE_RCFILE()
 {
@@ -21,7 +23,8 @@ export function EXPORT_DIR()
 }
 
 ### GIT
-git config --global user.name "alby11"
+git config --global user.name $github_username
+unset github_username
 git config --global user.email 17138674+alby11@users.noreply.github.com
 git config --global core.autocrlf false
 git config --global core.fsmonitor true
@@ -37,30 +40,32 @@ git config --global core.fsmonitor true
 if grep -qi microsoft /proc/version
 then
   echo "ubuntu on wsl"
-  [ ! -d ~/.wp ] && ln -s $(wslpath "$(wslvar userprofile)") ~/.wp
-  export PROFILEFILES=$(wslpath "$(wslvar onedriveconsumer)/profilefiles")
-  ln -sf $PROFILEFILES ~/
-  export PROFILEFILES=~/profilefiles
+  userprofile=$(wslpath "$(wslvar userprofile)")
+  leaf=$(echo $userprofile | cut -d '/' -f 5)
+  [ ! -L ~/$leaf ] && [ ! -e ~/$leaf ] && \
+    ln -s $(wslpath "$(wslvar userprofile)") ~/ \
+    ;
+  [ ! -L ~/profilefiles ] && [ ! -e ~/profilefiles ] && \
+    export PROFILEFILES=$(wslpath "$(wslvar onedriveconsumer)/profilefiles") && \
+    ln -sf $PROFILEFILES ~/ \
+    ;
+  unset userprofile
+  unset leaf
   # tmux
-  # win32yank_exe="/mnt/c/programdata/scoop/apps/neovim-nightly/current/bin/win32yank.exe"
-  win32yank_exe=$(wslpath "$(wslvar programdata)")/scoop/shims/win32yank.exe
-  if [ -e $win32yank_exe ] && [ ! -f /usr/local/bin/win32yank.exe ]
-  then
-    sudo ln -s $win32yank_exe "/usr/local/bin/win32yank.exe"
-  fi
+  # win32yank_exe=$(wslpath "$(wslvar programdata)")/scoop/shims/win32yank.exe
+  # [ -e $win32yank_exe ] && \
+  #   [ ! -L /usr/local/bin/win32yank.exe ] && \
+  #   [ ! -e /usr/local/bin/win32yank.exe ] && \
+  #   sudo ln -s $win32yank_exe "/usr/local/bin/win32yank.exe" \
+  #   ;
 elif grep -qi ubuntu /proc/version ; then
   echo "native ubuntu linux"
-  if [ -d ~/profilefiles ]
-  then
-    cd ~/profilefiles
-    git pull
-    cd ~
-  else
-    cd ~
-    git clone git@github.com:alby11/profilefiles.git
-  fi
-  export PROFILEFILES=~/profilefiles
+  [ ! -d ~/profilefiles ] && \
+    cd ~/profilefiles && git pull && cd ~ \
+    ;
+  git clone git@github.com:alby11/profilefiles.git
 fi
+export PROFILEFILES=~/profilefiles
 
 # Make neovim the default editor.
 export EDITOR='nvim';
@@ -105,11 +110,12 @@ SOURCE_RCFILE $ZSH_CONFIG_HOME/.zsh_antidoterc
 EXPORT_DIR $HOME/.cargo/bin
 
 ### Initialize NVM
-if [[ -d $HOME/.nvm ]]; then
-  export NVM_DIR="$HOME/.nvm"
+export NVM_DIR="$HOME/.nvm"
+if [[ -d $NVM_DIR ]]; then
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 fi
+unset NVM_DIR
 
 ### GITHUB repos exports
 [ -d ~/gitdepot ] && gitdepot=~/gitdepot
@@ -117,24 +123,7 @@ fi
 EXPORT_DIR $gitdepot/bat-extras/bin
 # initialize Go
 EXPORT_DIR $gitdepot/goroot/bin
-
-# Ansible autocomplete
-if [ ! -f .bash_completion.d/python-argcomplete.sh ]
-then
-  pip install --user argcomplete
-fi
-activate-global-python-argcomplete3 --user
-SOURCE_RCFILE $HOME/.bash_completion.d/python-argcomplete.sh
-eval $(register-python-argcomplete3 ansible)
-eval $(register-python-argcomplete3 ansible-config)
-eval $(register-python-argcomplete3 ansible-console)
-eval $(register-python-argcomplete3 ansible-doc)
-eval $(register-python-argcomplete3 ansible-galaxy)
-eval $(register-python-argcomplete3 ansible-inventory)
-eval $(register-python-argcomplete3 ansible-playbook)
-eval $(register-python-argcomplete3 ansible-pull)
-eval $(register-python-argcomplete3 ansible-vault)
-autoload -U compinit
+unset gitdepot
 
 # Catppuccin TTY theme
 SOURCE_RCFILE $ZSH_CONFIG_HOME/catppuccin_tty/mocha.sh
@@ -146,6 +135,8 @@ then
 fi
 
 ### Initialize Starship
-[ -f $PROFILEFILES/starship/starship.toml ] && \
-  export STARSHIP_CONFIG=$PROFILEFILES/starship/starship.toml && \
-  eval "$(starship init zsh)"
+export STARSHIP_CONFIG=~/.config/starship.toml
+[ -f "$STARSHIP_CONFIG" ] && \
+  eval "$(starship init zsh)" \
+  ;
+

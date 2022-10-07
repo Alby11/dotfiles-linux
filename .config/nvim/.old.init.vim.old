@@ -1,0 +1,34 @@
+" cd to home directory if not opening a file
+if @% == ""
+    cd ~
+endif
+
+" set config directory
+" let config_dir = has("nvim") ? stdpath('config') : has("win32") ? $HOME . '/vimfiles' : '~/.vim'
+" let config_dir = has("nvim") ? stdpath('config') : has("win32") ? $LOCALAPPDATA . '/nvim' : '~/.config/nvim'
+let config_dir = has("nvim") ? stdpath('config') : has("win32") ? $OneDriveConsumer . '/profileFiles/nvim' : '~/.config/nvim'
+
+" Source basic.vim
+if !exists('g:vscode')
+    if v:version >= 9
+        " execute 'source ' . expand(config_dir) . '/vim9script/basic.vim'
+        execute 'source ' . expand(config_dir) . '/viml/basic.vim'
+    else
+        execute 'source ' . expand(config_dir) . '/viml/basic.vim'
+    endif
+else
+endif
+
+"if has('nvim-0.5')
+"lua << EOF 
+"    if vim.g.vscode then
+"    " take config_dir from init.vim
+"    Config_dir = vim.api.nvim_get_var( 'config_dir' )
+"    " add dirs to package.path
+"    package.path = Config_dir .. "/lua/?.lua" .. ";" .. package.path
+"    package.path = Config_dir .. "/lua/plugins/?.lua" .. ";" .. package.path
+"    " source lua/basic.lua
+"    require "basic"
+"    end
+"EOF
+"endif

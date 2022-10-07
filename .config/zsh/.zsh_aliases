@@ -1,3 +1,6 @@
+#!/bin/sh
+
+alias -g EEE='exit'
 alias -g G='| grep -i '
 alias -g L='| less +f'
 alias -g dush='du -sh'
@@ -79,7 +82,8 @@ fi
 
 if command -v clipboard &> /dev/null
 then
-  alias cb="clipboard"
+  alias cl="clipboard"
+  alias -g CC='| clipboard'
 fi
 
 if command -v ranger &> /dev/null
