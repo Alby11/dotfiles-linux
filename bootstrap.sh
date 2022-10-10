@@ -6,6 +6,7 @@ echo 'deb [trusted=yes] https://repo.charm.sh/apt/ /' \
 sudo add-apt-repository -y ppa:neovim-ppa/unstable # Neovim nightly
 sudo add-apt-repository -y ppa:git-core/ppa # git official repo
 sudo sudo apt-add-repository -y ppa:ansible/ansible # ansible
+sudo add-apt-repository ppa:trzsz/ppa && sudo apt update # trzsz-go
 # apt extra packages
 sudo apt install -y \
   apt-file \
@@ -160,6 +161,7 @@ python3 -m pip install \
   pyright \
   sqlparse \
   tree_sitter \
+  trzsz \
   virtualenv \
   virtualenvwrapper \
   ;
@@ -242,6 +244,7 @@ sudo apt install -y \
 sudo apt install -y \
   tmux tmuxinator powerline \
   xsel wl-clipboard \ # for tmux-yank
+  trzsz-go \ # for tmux and tabby
   ;
 git clone https://github.com/tmux-plugins/tpm.git ~/.tmux/plugins/tpm
 mkdir -p ~/.oh-my-zsh/completions/_tmuxinator
