@@ -31,7 +31,7 @@ fi
 sudo apt install -y \
   software-properties-common \
   curl wget net-tools nmap tcpdump rsync unzip git \
-  build-essential cmake yarn default-jdk \
+  build-essential cmake yarn ninja-build default-jdk \
   chafa exiftool \
   shfmt \
   stow \
@@ -139,7 +139,7 @@ unset gitdepot gopath
 
 ### PIP
 sudo apt install -y \
-  python3 python3-pip python3-dev \
+  python3 python3-pip python3-dev ninja-build \
   ;
 python3 -m pip install --user --upgrade pip
 python3 -m pip install --user --upgrade \
