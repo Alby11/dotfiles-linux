@@ -51,13 +51,6 @@ then
     ;
   unset userprofile
   unset leaf
-  # tmux
-  # win32yank_exe=$(wslpath "$(wslvar programdata)")/scoop/shims/win32yank.exe
-  # [ -e $win32yank_exe ] && \
-  #   [ ! -L /usr/local/bin/win32yank.exe ] && \
-  #   [ ! -e /usr/local/bin/win32yank.exe ] && \
-  #   sudo ln -s $win32yank_exe "/usr/local/bin/win32yank.exe" \
-  #   ;
 elif grep -qi ubuntu /proc/version ; then
   echo "native ubuntu linux"
   [ ! -d ~/profilefiles ] && \
