@@ -15,6 +15,8 @@ alias C="clear"
 alias dfh='df -h'
 alias freeh='free -mh'
 
+alias -g sudo='sudo '
+
 [ $SHELL = "/bin/zsh" ] && alias SC="source $HOME/.zshrc"
 
 alias myip='curl http://ipecho.net/plain; echo'
