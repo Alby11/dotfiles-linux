@@ -6,6 +6,7 @@ echo 'deb [trusted=yes] https://repo.charm.sh/apt/ /' \
 sudo add-apt-repository -y ppa:neovim-ppa/unstable # Neovim nightly
 sudo add-apt-repository -y ppa:git-core/ppa # git official repo
 sudo sudo apt-add-repository -y ppa:ansible/ansible # ansible
+sudo add-apt-repository -y ppa:trzsz/ppa && sudo apt update # trzsz-go
 # apt extra packages
 sudo apt install -y \
   apt-file \
@@ -65,13 +66,6 @@ then
     ln -sf $PROFILEFILES ~/ \
     ;
   unset userprofile leaf
-  # tmux
-  # win32yank_exe=$(wslpath "$(wslvar programdata)")/scoop/shims/win32yank.exe
-  # [ -e $win32yank_exe ] && \
-  #   [ ! -L /usr/local/bin/win32yank.exe ] && \
-  #   [ ! -e /usr/local/bin/win32yank.exe ] && \
-  #   sudo ln -s $win32yank_exe "/usr/local/bin/win32yank.exe" \
-  #   ;
 elif grep -qi ubuntu /proc/version ; then
   echo "native ubuntu linux"
   [ ! -d ~/profilefiles ] && \
@@ -145,8 +139,8 @@ unset gitdepot gopath
 sudo apt install -y \
   python3 python3-pip python3-dev \
   ;
-python3 -m pip install --upgrade pip
-python3 -m pip install \
+python3 -m pip install --user --upgrade pip
+python3 -m pip install --user --upgrade \
   autopep8 \
   black \
   chardet \
@@ -160,6 +154,7 @@ python3 -m pip install \
   pyright \
   sqlparse \
   tree_sitter \
+  trzsz \
   virtualenv \
   virtualenvwrapper \
   ;
@@ -242,6 +237,7 @@ sudo apt install -y \
 sudo apt install -y \
   tmux tmuxinator powerline \
   xsel wl-clipboard \ # for tmux-yank
+  trzsz-go \ # for tmux and tabby
   ;
 git clone https://github.com/tmux-plugins/tpm.git ~/.tmux/plugins/tpm
 mkdir -p ~/.oh-my-zsh/completions/_tmuxinator
