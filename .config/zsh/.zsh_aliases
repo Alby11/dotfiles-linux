@@ -80,14 +80,14 @@ fi
 
 if command -v xclip &> /dev/null
 then
-    alias -g XO='xclip -o'
-    alias -g XC=' | xclip -i'
+    alias -g Xp='xclip -o'
+    alias -g Xy=' | xclip -i'
 fi
 
 if command -v clipboard &> /dev/null
 then
-  alias -g CO="clipboard"
-  alias -g CC=' | clipboard'
+  alias -g Cp="clipboard"
+  alias -g Cy=' | clipboard'
 fi
 
 if command -v ranger &> /dev/null
