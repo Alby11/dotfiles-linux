@@ -148,6 +148,7 @@ python3 -m pip install --user --upgrade \
   chardet \
   cmake-format \
   flake8 \
+  meson \
   neovim \
   neovim-remote \
   pipenv \
