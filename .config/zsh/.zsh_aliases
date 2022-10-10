@@ -1,49 +1,49 @@
 #!/bin/sh
 
+alias -g sudo='sudo '
+
+alias SC="source $HOME/.zshrc"
+
 alias -g EEE='exit'
 alias -g G='| grep -i '
 alias -g L='| less +f'
-alias -g dush='du -sh'
+alias -g dush='sudo du -sh'
 alias -g grep='grep --color'
 alias -g h="history -10" # last 10 history commands
 alias -g hr="history | grep " # +command
-alias -g nta='netstat -poeta'
+alias -g nta='sudo netstat -poeta'
 alias -g ola='/bin/ls -lahi'
 alias -g ols='/bin/ls'
-alias -g psa='ps -aux'
+alias -g psa='sudo ps -aux'
 alias C="clear"
 alias dfh='df -h'
 alias freeh='free -mh'
-
-alias -g sudo='sudo '
-
-[ $SHELL = "/bin/zsh" ] && alias SC="source $HOME/.zshrc"
 
 alias myip='curl http://ipecho.net/plain; echo'
 
 if command -v ss &> /dev/null
 then
-  alias -g ssa='ss -poeta'
+  alias -g ssa='sudo ss -poeta'
 fi
 
 if command -v systemctl &> /dev/null
 then
-    alias -g sy='systemctl'
-    alias -g syt='systemctl start'
-    alias -g syp='systemctl stop'
-    alias -g syr='systemctl restart'
-    alias -g syu='systemctl status'
+    alias -g sy='sudo systemctl'
+    alias -g syt='sudo systemctl start'
+    alias -g syp='sudo systemctl stop'
+    alias -g syr='sudo systemctl restart'
+    alias -g syu='sudo systemctl status'
 fi
 
 if command -v apt &> /dev/null
 then
     alias -g apt='sudo apt'
-    alias -g apts='apt search'
-    alias -g aptu='apt update'
-    alias -g apti='apt install'
-    alias -g aptr='apt remove'
-    alias -g aptar='apt autoremove'
-    alias -g aptap='apt autopurge'
+    alias -g apts='sudo apt search'
+    alias -g aptu='sudo apt update'
+    alias -g apti='sudo apt install'
+    alias -g aptr='sudo apt remove'
+    alias -g aptar='sudo apt autoremove'
+    alias -g aptap='sudo apt autopurge'
 fi
 
 if -f ~/bin/chezmoi &> /dev/null
@@ -80,14 +80,14 @@ fi
 
 if command -v xclip &> /dev/null
 then
-    alias -g X=' | xclip -i'
-    alias -g xo='xclip -o'
+    alias -g XO='xclip -o'
+    alias -g XC=' | xclip -i'
 fi
 
 if command -v clipboard &> /dev/null
 then
-  alias cl="clipboard"
-  alias -g CC='| clipboard'
+  alias -g CO="clipboard"
+  alias -g CC=' | clipboard'
 fi
 
 if command -v ranger &> /dev/null
