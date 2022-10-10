@@ -22,3 +22,6 @@
 [submodule "gitdepot/lesspipe"]
 	path = gitdepot/lesspipe
 	url = https://github.com/wofr06/lesspipe.git
+[submodule "wl-clipboard"]
+	path = wl-clipboard
+	url = /home/alby11/gitdepot/wl-clipboard
