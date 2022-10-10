@@ -1,8 +1,10 @@
 #!/bin/sh
 github_username="alby11"
 # additional repos
-echo 'deb [trusted=yes] https://repo.charm.sh/apt/ /' \
-  | sudo tee /etc/apt/sources.list.d/charm.list # Glow
+echo "deb https://repo.charm.sh/apt/ * *" | \
+  sudo tee /etc/apt/sources.list.d/charm.list && \
+  curl https://repo.charm.sh/apt/gpg.key | sudo apt-key add - \
+  ; # Glow
 sudo add-apt-repository -y ppa:neovim-ppa/unstable # Neovim nightly
 sudo add-apt-repository -y ppa:git-core/ppa # git official repo
 sudo sudo apt-add-repository -y ppa:ansible/ansible # ansible

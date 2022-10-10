@@ -17,6 +17,8 @@ alias freeh='free -mh'
 
 [ $SHELL = "/bin/zsh" ] && alias SC="source $HOME/.zshrc"
 
+alias myip='curl http://ipecho.net/plain; echo'
+
 if command -v ss &> /dev/null
 then
   alias -g ssa='ss -poeta'
