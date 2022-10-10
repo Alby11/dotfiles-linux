@@ -160,6 +160,7 @@ python3 -m pip install --user --upgrade \
   virtualenv \
   virtualenvwrapper \
   ;
+export PATH=$HOME/.local/bin:$PATH
 
 ### NVM
 # curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
@@ -251,7 +252,7 @@ wget https://raw.githubusercontent.com/tmuxinator/tmuxinator/master/completion/t
 sudo apt install -y \
   renger \
   ;
-pip install \
+pip install --user --upgrade \
   ranger-tmux \
   ;
 

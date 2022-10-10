@@ -127,6 +127,9 @@ then
   eval "$(zoxide init zsh)" 
 fi
 
+# PIP
+export PATH=$HOME/.local/bin:$PATH
+
 ### Initialize Starship
 export STARSHIP_CONFIG=~/.config/starship.toml
 [ -f "$STARSHIP_CONFIG" ] && \
