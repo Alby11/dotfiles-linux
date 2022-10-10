@@ -49,6 +49,8 @@ export ZSH_HISTORY_COMMIT_MSG="latest $(date)"
 export HISTSIZE=1000000000
 export SAVEHIST=$HISTSIZE
 setopt EXTENDED_HISTORY
+# per-directory-history
+# export PER_DIRECTORY_HISTORY_TOGGLE=''
 # fzf-zsh-plugin
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export LESSOPEN='| lessfilter-fzf %s'

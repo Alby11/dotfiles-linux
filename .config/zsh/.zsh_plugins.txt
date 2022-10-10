@@ -85,22 +85,20 @@ belak/zsh-utils path:completion
 # popular fish-like plugins
 mattmc3/zfunctions
 zsh-users/zsh-autosuggestions
+zsh-users/zsh-syntax-highlighting
 zdharma-continuum/fast-syntax-highlighting kind:defer
 zsh-users/zsh-history-substring-search
 
-
-zsh-users/zsh-syntax-highlighting
-
 # History
 wulfgarpro/history-sync
-# bamos/zsh-history-analysis
+# larkery/zsh-histdb
+# jimhester/per-directory-history
 
 # FZF
 unixorn/fzf-zsh-plugin branch:main
 
 # completions
 srijanshetty/zsh-pip-completion
-zsh-users/zsh-autosuggestions
 zsh-users/zsh-completions
 3v1n0/zsh-bash-completions-fallback
 MenkeTechnologies/zsh-cargo-completion
