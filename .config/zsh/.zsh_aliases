@@ -90,6 +90,12 @@ then
   alias -g Cy=' | clipboard'
 fi
 
+if command -v wl-copy &> /dev/null
+then
+  alias -g Wp="wl-paste"
+  alias -g Wy=' | wl-copy'
+fi
+
 if command -v ranger &> /dev/null
 then
     alias rw='ranger'
