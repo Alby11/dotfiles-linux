@@ -54,7 +54,7 @@ git config --global diff.tool.nvim.path "/usr/bin/nvim"
 git config --global diff.tool.nvim.cmd "nvim -d \"$local\" \"$remote\""
 git config --global core.fsmonitor true
 
-# set up environment, depending on os
+### set up environment, depending on os
 if grep -qi microsoft /proc/version
 then
   echo "ubuntu on wsl"
@@ -214,11 +214,9 @@ declare -a fonts=(
 )
 version='2.2.0'
 fonts_dir="${HOME}/.local/share/fonts"
-
 if [[ ! -d "$fonts_dir" ]]; then
     mkdir -p "$fonts_dir"
 fi
-
 for font in "${fonts[@]}"; do
     zip_file="${font}.zip"
     download_url="https://github.com/ryanoasis/nerd-fonts/releases/download/v${version}/${zip_file}"
@@ -262,6 +260,7 @@ sudo apt upgrade -y
 sudo apt autoremove -y
 sudo apt autopurge -y
 sudo apt autoclean -y
+echo "alias sudo='sudo '" | sudo tee -a /etc/bash.bashrc
 chsh -s /bin/zsh
 source ~/.zshrc
 zsh
