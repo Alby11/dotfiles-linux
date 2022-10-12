@@ -18,7 +18,7 @@ require(plugin_name).setup({
   compile = {
     -- enabled = false,
     enabled = false,
-    path = stdpath("cache") .. "/catppuccin",
+    path = Stdpath("cache") .. "/catppuccin",
   },
   styles = {
     comments = { "italic" },
