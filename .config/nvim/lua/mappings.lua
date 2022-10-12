@@ -1,13 +1,10 @@
 -- Functional wrapper for mapping custom keybindings
-local map = vim.api.nvim_set_keymap
-local opts = { silent = true, noremap = true }
-
-if vim.fn.exists("g:vscode") == 1 then
-  map("n", "z=", "vim.fn.VSCodeNotify('keyboard-quickfix.openQuickFix')<cr>", { noremap = true, silent = true })
+if is_vscode then
+  Map("n", "z=", "vim.fn.VSCodeNotify('keyboard-quickfix.openQuickFix')<cr>", Opts)
 end
 
 -- toggle search highlight
-vim.cmd([[
+Cmd([[
     nnoremap <silent><expr> <Leader>HH (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
     ]])
 
@@ -18,33 +15,33 @@ vim.keymap.set("n", "<Leader>SS", function()
 end)
 
 -- Quit, close buffers, etc.
-map("n", "<leader>q", "<cmd>q<cr>", opts)
-map("n", "<leader>qa", "<cmd>qa<cr>", opts)
-map("n", "<leader>Q", "<cmd>q!<cr>", opts)
-map("n", "<leader>QA", "<cmd>qa!<cr>", opts)
-map("n", "<leader>x", "<cmd>x!<cr>", opts)
+Map("n", "<leader>q", "<cmd>q<cr>", opts)
+Map("n", "<leader>qa", "<cmd>qa<cr>", opts)
+Map("n", "<leader>Q", "<cmd>q!<cr>", opts)
+Map("n", "<leader>QA", "<cmd>qa!<cr>", opts)
+Map("n", "<leader>x", "<cmd>x!<cr>", opts)
 
 -- Save buffer
-map("i", "<c-s>", "<esc><cmd>w<cr>a", opts)
-map("n", "<leader>w", "<cmd>w<cr>", opts)
-map("n", "<leader>W", "<cmd>w!<cr>", opts)
+Map("i", "<c-s>", "<esc><cmd>w<cr>a", opts)
+Map("n", "<leader>w", "<cmd>w<cr>", opts)
+Map("n", "<leader>W", "<cmd>w!<cr>", opts)
 
 -- Esc in the terminal
-map("t", "jj", [[<C-\><C-n>]], opts)
+Map("t", "jj", [[<C-\><C-n>]], opts)
 
 -- Yank to clipboard
-map("n", "y+", "<cmd>set opfunc=util#clipboard_yank<cr>g@", opts)
-map("v", "y+", "<cmd>set opfunc=util#clipboard_yank<cr>g@", opts)
+Map("n", "y+", "<cmd>set opfunc=util#clipboard_yank<cr>g@", opts)
+Map("v", "y+", "<cmd>set opfunc=util#clipboard_yank<cr>g@", opts)
 
 -- Window movement
-map("n", "<c-h>", "<c-w>h", opts)
-map("n", "<c-j>", "<c-w>j", opts)
-map("n", "<c-k>", "<c-w>k", opts)
-map("n", "<c-l>", "<c-w>l", opts)
+Map("n", "<c-h>", "<c-w>h", opts)
+Map("n", "<c-j>", "<c-w>j", opts)
+Map("n", "<c-k>", "<c-w>k", opts)
+Map("n", "<c-l>", "<c-w>l", opts)
 
 -- Tab movement
-map("n", "<c-Left>", "<cmd>tabpre<cr>", opts)
-map("n", "<c-Right>", "<cmd>tabnext<cr>", opts)
+Map("n", "<c-Left>", "<cmd>tabpre<cr>", opts)
+Map("n", "<c-Right>", "<cmd>tabnext<cr>", opts)
 
 -- Dot-Repeat in Vim and Neovim
 -- https://www.vikasraj.dev/blog/vim-dot-repeat

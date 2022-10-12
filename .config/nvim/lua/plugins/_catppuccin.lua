@@ -1,24 +1,24 @@
 local plugin_name = "catppuccin"
-vim.g.catppuccin_flavour = "mocha" -- latte, frappe, macchiato, mocha
 
-local status, packer = pcall(require, plugin_name)
-if not status then
-  print(string.format("%s is not installed", plugin_name))
+-- local status, packer = pcall(require, plugin_name)
+if not CheckPlugin(plugin_name) then
   return
 end
 
+g.catppuccin_flavour = "mocha" -- latte, frappe, macchiato, mocha
+
 require(plugin_name).setup({
   dim_inactive = {
-    enabled = false,
+    enabled = true,
     shade = "dark",
-    percentage = 0.15,
+    percentage = 0.20,
   },
-  transparent_background = false,
-  term_colors = false,
+  transparent_background = true,
+  term_colors = true,
   compile = {
     -- enabled = false,
-    enabled = true,
-    path = vim.fn.stdpath("cache") .. "/catppuccin",
+    enabled = false,
+    path = stdpath("cache") .. "/catppuccin",
   },
   styles = {
     comments = { "italic" },
@@ -100,5 +100,3 @@ require(plugin_name).setup({
   color_overrides = {},
   highlight_overrides = {},
 })
-
-vim.cmd([[colorscheme catppuccin]])

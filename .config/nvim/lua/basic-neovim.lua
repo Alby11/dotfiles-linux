@@ -1,17 +1,11 @@
-local vim = vim
-local cmd = vim.cmd
-local fn = vim.fn
-local g = vim.g
-
 -- Leader/local leader
-g.mapleader = " "
--- g.maplocalleader = " "
+G.mapleader = " "
 
 -- Skip some remote provider loading
-g.loaded_python3_provider = 0
-g.loaded_node_provider = 0
-g.loaded_perl_provider = 0
-g.loaded_ruby_provider = 0
+G.loaded_python3_provider = 0
+G.loaded_node_provider = 0
+G.loaded_perl_provider = 0
+G.loaded_ruby_provider = 0
 
 -- Disable some built-in plugins we don't want
 local disabled_built_ins = {
@@ -28,102 +22,106 @@ local disabled_built_ins = {
 }
 
 for i = 1, 10 do
-  g["loaded_" .. disabled_built_ins[i]] = 1
+  G["loaded_" .. disabled_built_ins[i]] = 1
 end
 
 -- Settings
-local opt = vim.opt
-opt.autochdir = true -- cd to file dir
-opt.autoread = true -- set to auto read when a file is changed from the outside
-opt.backup = false -- Disable Backup
-opt.breakindent = true -- Enable break indent
-opt.cc = "80" -- set an 80 column border for good coding style
-opt.clipboard = "unnamedplus" -- using system clipboard if supported (vim --version and look for +clipboard or +xterm_clipboard)
-opt.cmdheight = 1 -- Better Error Messages
-opt.concealcursor = "nc"
-opt.conceallevel = 2
-opt.cursorline = true
-opt.display = "msgsep"
-opt.encoding = "utf-8"
-opt.expandtab = true
-opt.fileencoding = "utf-8" -- Set File Encoding
-opt.guicursor = [[n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50]]
-opt.hidden = true -- Do not save when switching buffers
-opt.hlsearch = false -- Set highlight on search
-opt.ignorecase = true -- Case insensitive searching
-opt.inccommand = "nosplit" -- Incremental live completion
-opt.joinspaces = false
-opt.laststatus = 3
-opt.lazyredraw = true
-opt.list = true
-opt.listchars = "eol:$,tab:>-,trail:~,extends:>,precedes:<,space:." -- see while spaces
-opt.modeline = false
-opt.modifiable = true
--- opt.mouse = "a" -- Enable mouse mode
-opt.mouse = "nivh"
-opt.number = true -- Display Line Number
-opt.previewheight = 5
-opt.pumheight = 10 -- Pop up Menu Height
-opt.relativenumber = true -- Make relative line numbers default
-opt.scrolloff = 7 -- Vertical Scroll Offset
-opt.shada = [['20,<50,s10,h,/100]]
-opt.shiftwidth = 2
--- opt.shortmess:append("c")
-opt.shortmess:append({ W = true, a = true })
-opt.showmatch = true
-opt.showmode = false -- Don't Show MODES
-opt.showtabline = 2 -- Always Show Tabline
-opt.sidescrolloff = 8 -- Horizontal Scroll Offset
-opt.signcolumn = "yes" -- Sign Column
-opt.signcolumn = "yes:1" -- Sign Column
-opt.smartcase = true -- If Upper Case Char > case sensitive search
-opt.smartindent = true -- Smart Indenting
-opt.smarttab = true -- Smart Tabs
--- opt.softtabstop = 0
-opt.softtabstop = 2
-opt.spell = false -- enable spell check (may need to download language package)
-opt.spellfile = Config_dir .. "/spell/mywords.utf-8.add"
-opt.spelllang = "en,it,fr"
-opt.splitbelow = true -- Force Split Below
-opt.splitright = true -- Force Split Right
-opt.swapfile = false -- Don't create Swap Files
-opt.synmaxcol = 500
-opt.tabstop = 2 -- Tabstop
-opt.termencoding = "utf-8"
-opt.termguicolors = true -- Set Terminal Colors
-opt.textwidth = 100
-opt.timeoutlen = 250 -- Time for mapped sequence to complete (in ms)
-opt.title = true -- Display File Info on Title
-opt.undodir = vim.fn.stdpath("cache") .. "/undo"
-opt.undofile = true -- Save undo history
-opt.updatetime = 100 -- Decrease update time
-opt.whichwrap:append("<,>,h,l")
-opt.wildignore = { "*.o", "*~", "*.pyc" }
-opt.wildmode = "longest,full"
-cmd([[set spelllang = "en, it, fr"]]) -- enable spell check (may need to download language package)
+Opt.autochdir = true -- cd to file dir
+Opt.autoread = true -- set to auto read when a file is changed from the outside
+Opt.backup = false -- Disable Backup
+Opt.breakindent = true -- Enable break indent
+Opt.cc = "80" -- set an 80 column border for good coding style
+Opt.clipboard = "unnamedplus" -- using system clipboard if supported (vim --version and look for +clipboard or +xterm_clipboard)
+Opt.cmdheight = 1 -- Better Error Messages
+Opt.concealcursor = "nc"
+Opt.conceallevel = 2
+Opt.cursorline = true
+Opt.display = "msgsep"
+Opt.encoding = "utf-8"
+Opt.expandtab = true
+Opt.fileencoding = "utf-8" -- Set File Encoding
+Opt.guicursor = [[n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50]]
+Opt.hidden = true -- Do not save when switching buffers
+Opt.hlsearch = false -- Set highlight on search
+Opt.ignorecase = true -- Case insensitive searching
+Opt.inccommand = "nosplit" -- Incremental live completion
+Opt.joinspaces = false
+Opt.laststatus = 3
+Opt.lazyredraw = true
+Opt.list = true
+Opt.listchars = "eol:$,tab:>-,trail:~,extends:>,precedes:<,space:." -- see while spaces
+Opt.modeline = false
+Opt.modifiable = true
+-- Opt.mouse = "a" -- Enable mouse mode
+Opt.mouse = "nivh"
+Opt.number = true -- Display Line Number
+Opt.previewheight = 5
+Opt.pumheight = 10 -- Pop up Menu Height
+Opt.relativenumber = true -- Make relative line numbers default
+Opt.scrolloff = 7 -- Vertical Scroll Offset
+Opt.shada = [['20,<50,s10,h,/100]]
+Opt.shiftwidth = 2
+-- Opt.shortmess:append("c")
+Opt.shortmess:append({ W = true, a = true })
+Opt.showmatch = true
+Opt.showmode = false -- Don't Show MODES
+Opt.showtabline = 2 -- Always Show Tabline
+Opt.sidescrolloff = 8 -- Horizontal Scroll Offset
+Opt.signcolumn = "yes" -- Sign Column
+Opt.signcolumn = "yes:1" -- Sign Column
+Opt.smartcase = true -- If Upper Case Char > case sensitive search
+Opt.smartindent = true -- Smart Indenting
+Opt.smarttab = true -- Smart Tabs
+-- Opt.softtabstop = 0
+Opt.softtabstop = 2
+Opt.spell = false -- enable spell check (may need to download language package)
+Opt.spellfile = Config_dir .. "/spell/mywords.utf-8.add"
+Opt.spelllang = "en,it,fr"
+Opt.splitbelow = true -- Force Split Below
+Opt.splitright = true -- Force Split Right
+Opt.swapfile = false -- Don't create Swap Files
+Opt.synmaxcol = 500
+Opt.tabstop = 2 -- Tabstop
+Opt.termencoding = "utf-8"
+Opt.termguicolors = true -- Set Terminal Colors
+Opt.textwidth = 100
+Opt.timeoutlen = 250 -- Time for mapped sequence to complete (in ms)
+Opt.title = true -- Display File Info on Title
+Opt.undodir = Stdpath("cache") .. "/undo"
+Opt.undofile = true -- Save undo history
+Opt.updatetime = 100 -- Decrease update time
+Opt.whichwrap:append("<,>,h,l")
+Opt.wildignore = { "*.o", "*~", "*.pyc" }
+Opt.wildmode = "longest,full"
+Cmd([[set spelllang = "en, it, fr"]]) -- enable spell check (may need to download language package)
 
-opt.termguicolors = true
-opt.background = "dark"
+Opt.termguicolors = true
+Opt.background = "dark"
 
 -- Set shell
-cmd([[
-  if has('win32') " Use PowerShell Core
-    set shell=pwsh "\ -NoLogo
-    set shellpipe=\|
-    set shellxquote=
-    set shellcmdflag=-NoLogo\ -NoProfile\ -ExecutionPolicy\ RemoteSigned\ -Command
-    set shellredir=\|\ Out-File\ -Encoding\ UTF8
-  elseif has('wsl')
-    set shell=/usr/bin/zsh
-  elseif has('linux')
-    set shell=/bin/bash
-  endif
-  ]])
+-- cmd([[
+--   if has('win32') " Use PowerShell Core
+--     set shell=pwsh "\ -NoLogo
+--     set shellpipe=\|
+--     set shellxquote=
+--     set shellcmdflag=-NoLogo\ -NoProfile\ -ExecutionPolicy\ RemoteSigned\ -Command
+--     set shellredir=\|\ Out-File\ -Encoding\ UTF8
+--   elseif has('wsl')
+--     set shell=/usr/bin/zsh
+--   elseif has('linux')
+--     set shell=/bin/bash
+--   endif
+--   ]])
 
--- GUI options
-cmd([[set guifont=CaskaydiaCove\ NF:h9,FiraCode\ NF:h9,Consolas:h9]])
-if fn.exists("g:neovide") then
-  require("_neovide")
-elseif fn.exists("g:fvim_loaded") then
-  require("_fvim")
+if is_win then
+  Opt.shell = "pwsh"
+  Opt.shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command"
+end
+
+-- GUI Opt.ons
+Cmd([[set guifont=lilex\ nfm:h9,consolas:h9]])
+if is_neovide then
+  require("plugins._neovide")
+elseif is_fvim then
+  require("plugins._fvim")
 end

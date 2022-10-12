@@ -43,7 +43,7 @@ require("neoclip").setup({
   },
 })
 
-if vim.fn.exists("g:vscode") == 0 then
+if not is_vscode == 0 then
   require("telescope").load_extension("neoclip")
   vim.keymap.set("n", "<leader>tn", ":Telescope neoclip<cr>", { noremap = true, silent = true })
 end

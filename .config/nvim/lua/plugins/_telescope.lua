@@ -78,18 +78,10 @@ map("n", "<leader>tF", ":Telescope file_browser<cr>", opts)
 telescope.load_extension("repo")
 vim.keymap.set({ "n" }, "<leader>tp", ":Telescope repo list<cr>", { noremap = true, silent = true })
 vim.keymap.set({ "n" }, "<leader>t.p", ":Telescope repo cached_list<cr>", { noremap = true, silent = true })
-telescope.load_extension("tmuxinator")
-vim.keymap.set(
-  { "n" },
-  "<leader>tx",
-  ":lua require('telescope').extensions.tmuxinator.projects(require('telescope.themes').get_dropdown({}))<cr>",
-  { noremap = true, silent = true }
-)
 
 local z_utils = require("telescope._extensions.zoxide.utils")
 require("telescope._extensions.zoxide.config").setup({
   prompt_title = "[ Zoxide List ]",
-
   -- Zoxide list command with score
   list_command = "zoxide query -ls",
   mappings = {
