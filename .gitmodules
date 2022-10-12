@@ -31,3 +31,6 @@
 [submodule "gitdepot/catppuccin-gedit"]
 	path = gitdepot/catppuccin-gedit
 	url = git@github.com:catppuccin/gedit.git
+[submodule ".config/nvim"]
+	path = .config/nvim
+	url = git@github.com:Alby11/dotfiles-neovim.git
