@@ -46,12 +46,6 @@ then
     alias -g aptap='sudo apt autopurge'
 fi
 
-if -f ~/bin/chezmoi &> /dev/null
-then
-    alias chezmoi='$HOME/bin/chezmoi'
-    alias cz='chezmoi'
-fi
-
 if command -v tmux &> /dev/null
 then
     alias -g T='tmux'
@@ -83,13 +77,11 @@ then
     alias -g Xp='xclip -o'
     alias -g Xy=' | xclip -i'
 fi
-
 if command -v clipboard &> /dev/null
 then
   alias -g Cp="clipboard"
   alias -g Cy=' | clipboard'
 fi
-
 if command -v wl-copy &> /dev/null
 then
   alias -g Wp="wl-paste"

@@ -149,10 +149,17 @@ return packer.startup(function(use)
     config = get_setup("export-to-vscode"),
   })
 
-  -- say sayonara to buffers
+  -- Buffer management
   use({
-    "mhinz/vim-sayonara",
-    config = get_setup("sayonara"),
+    {
+      "mhinz/vim-sayonara",
+      config = get_setup("sayonara"),
+    },
+    {
+      "romgrk/barbar.nvim",
+      requires = "kyazdani42/nvim-web-devicons",
+      config = get_setup("bufferline"),
+    },
   })
 
   -- Movement
@@ -265,22 +272,36 @@ return packer.startup(function(use)
     },
   })
 
+  -- code runner
   -- REPLs
   use({
-    "hkupty/iron.nvim",
-    config = get_setup("iron"),
-  })
-
-  use({
-    "folke/twilight.nvim",
-    config = get_setup("twilight"),
+    {
+      "hkupty/iron.nvim",
+      config = get_setup("iron"),
+    },
+    {
+      "michaelb/sniprun",
+      run = "bash ./install.sh",
+      config = get_setup("sniprun"),
+    },
   })
 
   use({
     "winston0410/cmd-parser.nvim",
+    -- highlight range written in cmeline
     {
       "winston0410/range-highlight.nvim",
       config = get_setup("range-highlight"),
+    },
+    -- Highlight chunk of code
+    {
+      "folke/twilight.nvim",
+      config = get_setup("twilight"),
+    },
+    -- Highlight colors
+    {
+      "norcalli/nvim-colorizer.lua",
+      config = require("colorizer").setup(),
     },
   })
 
@@ -300,19 +321,14 @@ return packer.startup(function(use)
 
   -- Path navigation
   use({
-    {
-      "elihunter173/dirbuf.nvim",
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v2.x",
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
+      "MunifTanjim/nui.nvim",
     },
-    {
-      "nvim-neo-tree/neo-tree.nvim",
-      branch = "v2.x",
-      requires = {
-        "nvim-lua/plenary.nvim",
-        "kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
-        "MunifTanjim/nui.nvim",
-      },
-      config = get_setup("neo-tree"),
-    },
+    config = get_setup("neo-tree"),
   })
 
   -- LSP Support
@@ -381,38 +397,6 @@ return packer.startup(function(use)
     config = get_setup("dap"),
   })
 
-  -- code runner
-  use({
-    "michaelb/sniprun",
-    run = "bash ./install.sh",
-    cond = has("linux"),
-    config = get_setup("sniprun"),
-  })
-
-  -- Highlight colors
-  use({
-    "norcalli/nvim-colorizer.lua",
-    -- config = require("colorizer").setup(),
-  })
-
-  -- misc
-  use({
-    "kosayoda/nvim-lightbulb",
-  })
-
-  -- Buffer management
-  use({
-    "romgrk/barbar.nvim",
-    requires = "kyazdani42/nvim-web-devicons",
-    config = get_setup("bufferline"),
-  })
-
-  -- keymap hints
-  use({
-    "folke/which-key.nvim",
-    config = get_setup("which-key"),
-  })
-
   -- Pretty UI
   use({
     {
@@ -445,11 +429,6 @@ return packer.startup(function(use)
   })
 
   use({
-    "folke/todo-comments.nvim",
-    requires = "nvim-lua/plenary.nvim",
-    config = get_setup("todo-comments"),
-  })
-  use({
     "j-hui/fidget.nvim",
     config = function()
       require("fidget").setup()
@@ -468,7 +447,6 @@ return packer.startup(function(use)
         "christoomey/vim-tmux-navigator",
       },
     },
-    cond = vim.fn.has("linux"),
     config = get_setup("tmux"),
   })
 
@@ -481,11 +459,17 @@ return packer.startup(function(use)
     tag = "v2.*",
     config = get_setup("toggleterm"),
   })
+  -- neovim cheatsheet
   use({
     "sudormrfbin/cheatsheet.nvim",
     requires = {
       "nvim-lua/popup.nvim",
     },
+  })
+  -- keymap hints
+  use({
+    "folke/which-key.nvim",
+    config = get_setup("which-key"),
   })
 
   -- Firenvim
