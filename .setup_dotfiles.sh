@@ -5,6 +5,7 @@ to call them, create a Gist and use something like:
 ---
 $gistURL="https://gist.github.com/Alby11/1843ee8b77631dbd550ab79675fbc27f"
 OUT="$(mktemp)"; wget -q -O - $gistURL > $OUT; . $OUT
+dotfilesRestore [dotfiles repo]
 ---
 Credits to: Jonathan Bowman
 https://dev.to/bowmanjd/store-home-directory-config-files-dotfiles-in-git-using-bash-zsh-or-powershell-the-bare-repo-approach-35l3
