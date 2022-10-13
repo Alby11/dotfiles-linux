@@ -1,7 +1,6 @@
 #!/bin/sh
-github_username="alby11"
-
 ### GIT
+github_username="alby11"
 git config --global user.name $github_username
 unset github_username
 git config --global user.email 17138674+alby11@users.noreply.github.com
@@ -24,20 +23,11 @@ then
   [ ! -L ~/$leaf ] && [ ! -e ~/$leaf ] && \
     ln -s $(wslpath "$(wslvar userprofile)") ~/ \
     ;
-  [ ! -L ~/profilefiles ] && [ ! -e ~/profilefiles ] && \
-    export PROFILEFILES=$(wslpath "$(wslvar onedriveconsumer)/profilefiles") && \
-    ln -sf $PROFILEFILES ~/ \
-    ;
   unset userprofile
   unset leaf
 elif grep -qi ubuntu /proc/version ; then
   echo "native ubuntu linux"
-  [ ! -d ~/profilefiles ] && \
-    cd ~/profilefiles && git pull && cd ~ \
-    ;
-  git clone git@github.com:alby11/profilefiles.git
 fi
-export PROFILEFILES=~/profilefiles
 
 # Make neovim the default editor.
 export EDITOR='nvim';
@@ -82,7 +72,7 @@ SOURCE_RCFILE $ZSH_CONFIG_HOME/.zsh_antidoterc
 EXPORT_DIR $HOME/.cargo/bin
 
 ### Initialize NVM
-EXPORT_DIR NVM_DIR="$HOME/.nvm" && \
+export NVM_DIR="$HOME/.nvm" && \
   if [[ -d $NVM_DIR ]]
   then
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -103,14 +93,22 @@ SOURCE_RCFILE $ZSH_CONFIG_HOME/catppuccin_tty/mocha.sh
 ### Zoxide
 if command -v zoxide &> /dev/null
 then
-  eval "$(zoxide init zsh)" 
+  eval $(zoxide init zsh) 
 fi
 
 # PIP
 export PATH=$HOME/.local/bin:$PATH
 
 ### Initialize Starship
-export STARSHIP_CONFIG=~/.config/starship.toml
-[ -f "$STARSHIP_CONFIG" ] && \
-  eval "$(starship init zsh)" \
-  ;
+# export STARSHIP_CONFIG=~/.config/starship.toml
+# [ -f "$STARSHIP_CONFIG" ] && \
+if command -v starship &>/dev/null
+then
+  # function blastoff(){
+  #     echo "🚀"
+  # }
+  # trap blastoff DEBUG     # Trap DEBUG *before* running starship
+  # set -o functrace
+  eval $(starship init zsh)
+  # set +o functrace
+fi  
