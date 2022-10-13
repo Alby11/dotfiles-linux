@@ -1,0 +1,148 @@
+#!/bin/sh
+
+helpMessage=$(cat << EOS
+dotfiles2git v0.0.1\n
+Alberto Tallone <@gmail.com>\n
+A convenient dotfiles management system\n
+\n
+USAGE:\n
+\tdotfiles_git <SUBCOMMAND>\n
+\n
+OPTIONS:\n
+\t--help\t\tPrint help information\n
+\t--version\tPrint version information\n
+\n
+SUBCOMMANDS:\n
+\tstatus\t\tcheck repo status\n
+\tadd <FILE>  \tadd file to repo\n
+\taddall      \t\tadd modified files that are already tracked\n
+\trm          \t\tremove file from repo\n
+\tcommit      \t\tcommit changes\n
+\tpush        \t\tpush file to remote\n
+\tpull        \t\tpull file from remote\n
+EOS
+)
+
+curDir=$(pwd)
+
+dotfiles ()
+{
+   git --git-dir=$HOME/.dotfiles_git/ --work-tree=$HOME $@
+}
+
+dofilesStatus () {
+  dotfiles status
+}
+
+dotfilesAdd ()
+{
+  dotfiles add $2 
+}
+
+dotfilesAddall ()
+{
+  dotfiles add -u 
+}
+
+dotfilesRm ()
+{
+  dotfiles rm $2
+}
+
+dotfilesCommit ()
+{
+  dotfiles commit -m "${date}"
+}
+
+dotfilesPush ()
+{
+  dotfiles push -v
+}
+
+dotfilesPull ()
+{
+  dotfiles pull -v
+}
+
+if [ $1 = '--version' ]
+then 
+  echo $helpMessage | head -n 1 
+fi
+
+# if [ -z $1 ] || [ $1 = '--help' ]
+# then 
+#   echo $helpMessage
+# fi
+
+cd $HOME
+
+if [ $1 = 'status' ]
+then 
+  dofilesStatus
+  return
+fi
+
+if [ $1 = 'add' ]
+then 
+  dofilesStatus
+  dotfilesAdd
+  dofilesStatus
+  return
+fi
+
+if [ $1 = 'addall' ]
+then 
+  dofilesStatus
+  dotfilesAddall
+  dofilesStatus
+  return
+fi
+
+if [ $1 = 'rm' ]
+then 
+  dofilesStatus
+  dotfilesRm
+  dofilesStatus
+  return
+fi
+
+if [ $1 = 'commit' ]
+then 
+  dofilesStatus
+  dotfilesCommit
+  dofilesStatus
+  return
+fi
+
+if [ $1 = 'push' ]
+then 
+  dofilesStatus
+  dotfilesPush
+  dofilesStatus
+  return
+fi
+
+if [ $1 = 'pull' ]
+then 
+  dofilesStatus
+  dotfilesPull
+  dofilesStatus
+  return
+fi
+
+echo $helpMessage
+
+cd $curDir
+
+unset helpMessage
+unset curDir
+
+unset -f dofilesStatus
+unset -f dotfilesAdd
+unset -f dotfilesAddall
+unset -f dotfilesRm
+unset -f dotfilesCommit
+unset -f dotfilesPush
+unset -f dotfilesPull
+
+return
