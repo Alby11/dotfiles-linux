@@ -67,12 +67,8 @@ dotfilesPull ()
 if [ $1 = '--version' ]
 then 
   echo $helpMessage | head -n 1 
+  return
 fi
-
-# if [ -z $1 ] || [ $1 = '--help' ]
-# then 
-#   echo $helpMessage
-# fi
 
 cd $HOME
 
