@@ -25,9 +25,6 @@
 [submodule "wl-clipboard"]
 	path = wl-clipboard
 	url = /home/alby11/gitdepot/wl-clipboard
-[submodule "gitdepot/wl-clipboard"]
-	path = gitdepot/wl-clipboard
-	url = https://github.com/bugaevc/wl-clipboard.git
 [submodule "gitdepot/catppuccin-gedit"]
 	path = gitdepot/catppuccin-gedit
 	url = git@github.com:catppuccin/gedit.git
