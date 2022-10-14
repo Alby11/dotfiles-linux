@@ -24,6 +24,7 @@ EOS
 )
 
 curDir=$(pwd)
+paramSubCmd=$2
 
 dotfiles ()
 {
@@ -36,7 +37,7 @@ dofilesStatus () {
 
 dotfilesAdd ()
 {
-  dotfiles add $2 
+  dotfiles add $paramSubCmd 
 }
 
 dotfilesAddall ()
@@ -46,12 +47,12 @@ dotfilesAddall ()
 
 dotfilesRm ()
 {
-  dotfiles rm $2
+  dotfiles rm $paramSubCmd
 }
 
 dotfilesCommit ()
 {
-  dotfiles commit -m "${date}"
+  dotfiles commit -m $(date)
 }
 
 dotfilesPush ()
@@ -104,8 +105,8 @@ fi
 
 if [ $1 = 'commit' ]
 then 
-  dofilesStatus
   dotfilesCommit
+  dofilesStatus
   dofilesStatus
   return
 fi
@@ -132,6 +133,7 @@ cd $curDir
 
 unset helpMessage
 unset curDir
+unset paramSubCmd
 
 unset -f dofilesStatus
 unset -f dotfilesAdd

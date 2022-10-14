@@ -121,8 +121,6 @@ if ! shopt -oq posix; then
     fi
 fi
 
-source ~/.commonrc
-
 # Initialize Starship
 eval "$(starship init bash)"
 
