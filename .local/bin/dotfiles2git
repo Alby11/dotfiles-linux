@@ -25,6 +25,7 @@ EOS
 
 curDir=$(pwd)
 paramSubCmd=$2
+commitDate="$(date +%Y%m%d-%H:%M:%S)"
 
 dotfiles ()
 {
@@ -52,7 +53,7 @@ dotfilesRm ()
 
 dotfilesCommit ()
 {
-  dotfiles commit -m $(date)
+  dotfiles commit -m $commitDate
 }
 
 dotfilesPush ()
@@ -105,8 +106,8 @@ fi
 
 if [ $1 = 'commit' ]
 then 
-  dotfilesCommit
   dofilesStatus
+  dotfilesCommit
   dofilesStatus
   return
 fi
