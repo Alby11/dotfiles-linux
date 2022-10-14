@@ -25,7 +25,7 @@ EOS
 
 curDir=$(pwd)
 paramSubCmd=$2
-commitDate="$(date +%Y%m%d-%H:%M:%S)"
+commitDate="$(date +%Y%m%d\s%H:%M:%S)"
 
 dotfiles ()
 {
