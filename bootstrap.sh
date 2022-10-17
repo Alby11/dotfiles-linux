@@ -180,6 +180,7 @@ npm install -g \
   js-beautify \
   libtmux \
   neovim \
+  prettier \
   remark-cli \
   yarn \
   ;
