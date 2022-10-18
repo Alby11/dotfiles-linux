@@ -105,11 +105,5 @@ export PATH=$HOME/.local/bin:$PATH
 # [ -f "$STARSHIP_CONFIG" ] && \
 if command -v starship &>/dev/null
 then
-  # function blastoff(){
-  #     echo "🚀"
-  # }
-  # trap blastoff DEBUG     # Trap DEBUG *before* running starship
-  # set -o functrace
-  eval $(starship init zsh)
-  # set +o functrace
+  eval "$(starship init zsh)"
 fi  
