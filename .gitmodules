@@ -29,3 +29,6 @@
 	path = .config/nvim
 	url = git@github.com:Alby11/dotfiles-neovim.git
 	branch = main
+[submodule "gitdepot/marker"]
+	path = gitdepot/marker
+	url = https://github.com/pindexis/marker

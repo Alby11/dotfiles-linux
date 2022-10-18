@@ -12,6 +12,7 @@ git config --global core.editor.nvim.path "/usr/bin/nvim"
 git config --global diff.tool nvim
 git config --global diff.tool.nvim.path "/usr/bin/nvim"
 git config --global diff.tool.nvim.cmd "nvim -d \"$local\" \"$remote\""
+git config --global init.default.branch main
 git config --global core.fsmonitor false
 
 # set up environment, depending on os
