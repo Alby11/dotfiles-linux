@@ -7,7 +7,8 @@ echo "deb https://repo.charm.sh/apt/ * *" | \
   ; # Glow
 sudo add-apt-repository -y ppa:neovim-ppa/unstable # Neovim nightly
 sudo add-apt-repository -y ppa:git-core/ppa # git official repo
-sudo sudo apt-add-repository -y ppa:ansible/ansible # ansible
+sudo add-apt-repository -y ppa:navanchauhan/bash-snippets # bash-snippets 
+sudo add-apt-repository -y ppa:ansible/ansible # ansible
 sudo add-apt-repository -y ppa:trzsz/ppa && sudo apt update # trzsz-go
 # apt extra packages
 sudo apt install -y \

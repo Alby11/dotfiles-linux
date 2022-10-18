@@ -32,3 +32,6 @@
 [submodule "gitdepot/marker"]
 	path = gitdepot/marker
 	url = https://github.com/pindexis/marker
+[submodule "gitdepot/bash-snippets"]
+	path = gitdepot/bash-snippets
+	url = https://github.com/alexanderepstein/bash-snippets
