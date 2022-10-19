@@ -94,16 +94,14 @@ SOURCE_RCFILE $ZSH_CONFIG_HOME/catppuccin_tty/mocha.sh
 ### Zoxide
 if command -v zoxide &> /dev/null
 then
-  eval $(zoxide init zsh) 
+  eval "$(zoxide init zsh)" 
 fi
 
 # PIP
 export PATH=$HOME/.local/bin:$PATH
 
 ### Initialize Starship
-# export STARSHIP_CONFIG=~/.config/starship.toml
-# [ -f "$STARSHIP_CONFIG" ] && \
 if command -v starship &>/dev/null
 then
   eval "$(starship init zsh)"
-fi  
+fi

@@ -8,7 +8,7 @@ zsh-users/zsh-completions
 
 # annotations are also allowed:
 romkatv/zsh-bench kind:path
-olets/zsh-abbr    kind:defer
+# olets/zsh-abbr    kind:defer
 
 # frameworks like oh-my-zsh are supported
 ohmyzsh/ohmyzsh path:lib
