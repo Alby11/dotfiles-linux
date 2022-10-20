@@ -32,7 +32,7 @@ dotfiles ()
    git --git-dir=$HOME/.dotfiles_git/ --work-tree=$HOME $@
 }
 
-dofilesStatus () {
+dotfilesStatus () {
   dotfiles status
 }
 
@@ -66,69 +66,46 @@ dotfilesPull ()
   dotfiles pull -v
 }
 
-if [ $1 = '--version' ]
-then 
-  echo $helpMessage | head -n 1 
-  return
-fi
-
 cd $HOME
 
-if [ $1 = 'status' ]
-then 
-  dofilesStatus
-  return
-fi
+case "$1" in
+  "status")
+  dotfilesStatus
+  ;;
 
-if [ $1 = 'add' ]
-then 
-  dofilesStatus
+  "add")
   dotfilesAdd
-  dofilesStatus
-  return
-fi
+  ;;
 
-if [ $1 = 'addall' ]
-then 
-  dofilesStatus
+  "addall")
   dotfilesAddall
-  dofilesStatus
-  return
-fi
+  ;;
 
-if [ $1 = 'rm' ]
-then 
-  dofilesStatus
+  "rm")
   dotfilesRm
-  dofilesStatus
-  return
-fi
+  ;;
 
-if [ $1 = 'commit' ]
-then 
-  dofilesStatus
+  "commit")
   dotfilesCommit
-  dofilesStatus
-  return
-fi
+  ;;
 
-if [ $1 = 'push' ]
-then 
-  dofilesStatus
+  "push")
   dotfilesPush
-  dofilesStatus
-  return
-fi
+  ;;
 
-if [ $1 = 'pull' ]
-then 
-  dofilesStatus
+  "pull")
   dotfilesPull
-  dofilesStatus
-  return
-fi
+  ;;
 
-echo $helpMessage
+  "--version")
+  echo $helpMessage | head -n 1 
+  ;;
+
+  *)
+  echo $helpMessage
+  ;;
+
+esac
 
 cd $curDir
 
