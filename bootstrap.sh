@@ -1,5 +1,4 @@
 #!/bin/sh
-github_username="alby11"
 # additional repos
 echo "deb https://repo.charm.sh/apt/ * *" | \
   sudo tee /etc/apt/sources.list.d/charm.list && \
@@ -41,18 +40,19 @@ sudo apt install -y \
 sudo apt install -y \
   git \
   ;
+github_username="alby11"
 git config --global user.name $github_username
 unset github_username
 git config --global user.email 17138674+alby11@users.noreply.github.com
 git config --global core.autocrlf false
-git config --global core.fsmonitor true
 git config --global credential.helper manager-core
 git config --global core.editor nvim
 git config --global core.editor.nvim.path "/usr/bin/nvim"
 git config --global diff.tool nvim
 git config --global diff.tool.nvim.path "/usr/bin/nvim"
 git config --global diff.tool.nvim.cmd "nvim -d \"$local\" \"$remote\""
-git config --global core.fsmonitor true
+git config --global init.default.branch main
+git config --global core.fsmonitor false
 
 ### set up environment, depending on os
 if grep -qi microsoft /proc/version
