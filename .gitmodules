@@ -29,3 +29,6 @@
 [submodule "gitdepot/bash-snippets"]
 	path = gitdepot/bash-snippets
 	url = https://github.com/alexanderepstein/bash-snippets
+[submodule "gitdepot/bat-extras"]
+	path = gitdepot/bat-extras
+	url = https://github.com/eth-p/bat-extras
