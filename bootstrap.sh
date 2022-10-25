@@ -106,36 +106,8 @@ for r in ${githubrepos[@]}; do
 done
 unset githubrepos r
 # bat-extras
-sudo $gitdepot/bat-extras/build.sh --install
-export path=$gitdepot/bat-extras/bin:$path
-# btop
-sudo apt install -y \
-  coreutils \
-  sed \
-  git \
-  gcc-11 \
-  g++-11 \
-  ;
-cd $gitdepot/btop
-echo "addflags=-march=native" >> makefile
-make
-sudo make install
-sudo make setuid
-make clean && make distclean
-cd ~
-# golang
-gopath=gitdepot/goroot
-cd $gopath
-git checkout master
-cd src
-./all.bash
-export path=$gopath/bin:$path
-./clean.bash
-cd ~
-go install \
-  golang.org/x/tools/gopls@latest \
-  ;
-unset gitdepot gopath
+export PATH=$gitdepot/bat-extras/src:$PATH
+unset gitdepot
 
 ### PIP
 sudo apt install -y \
