@@ -177,7 +177,6 @@ sudo update-alternatives --config editor
 
 ### STARSHIP
 curl -ss https://starship.rs/install.sh | sh
-export STARSHIP_CONFIG=~/.config/starship.toml
 
 ### Fonts
 # Nerd Fonts
