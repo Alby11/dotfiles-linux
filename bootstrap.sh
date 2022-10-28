@@ -32,7 +32,6 @@ sudo apt install -y \
   curl wget net-tools nmap tcpdump rsync unzip git \
   build-essential cmake yarn ninja-build default-jdk \
   chafa exiftool xdg-utils \
-  shfmt \
   stow \
   ;
 
@@ -89,8 +88,6 @@ export path=~/.cargo/bin:$path
 cargo install --force \
   bat \
   exa \
-  lua-check \
-  stylua \
   tree-sitter-cli \
   zoxide \
   ;
@@ -116,18 +113,11 @@ sudo apt install -y \
   ;
 python3 -m pip install --user --upgrade pip
 python3 -m pip install --user --upgrade \
-  autopep8 \
-  black \
   chardet \
-  cmake-format \
-  flake8 \
   meson \
   neovim \
   neovim-remote \
   pipenv \
-  pylint \
-  pynvim \
-  pyright \
   sqlparse \
   tree_sitter \
   trzsz \
@@ -148,12 +138,8 @@ nvm install --lts
 # node.js packages
 npm install -g \
   clipboard-cli \
-  eslint \
-  fixjson \
-  js-beautify \
   libtmux \
   neovim \
-  prettier \
   remark-cli \
   yarn \
   ;
