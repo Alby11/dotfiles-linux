@@ -89,6 +89,7 @@ export path=~/.cargo/bin:$path
 cargo install --force \
   bat \
   exa \
+  lua-check \
   stylua \
   tree-sitter-cli \
   zoxide \
