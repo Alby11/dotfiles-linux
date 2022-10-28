@@ -69,7 +69,7 @@ dotfilesPull ()
 
 dotfilesSubupdate ()
 {
-  dotfiles submodule update --remote --merge
+  dotfiles submodule update --remote --merge -v
 }
 
 cd $HOME
