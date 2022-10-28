@@ -20,6 +20,7 @@ SUBCOMMANDS:\n
 \tcommit      \t\tcommit changes\n
 \tpush        \t\tpush file to remote\n
 \tpull        \t\tpull file from remote\n
+\tsubupdate   \t\tupdate submodules from remote\n
 EOS
 )
 
@@ -66,6 +67,11 @@ dotfilesPull ()
   dotfiles pull -v
 }
 
+dotfilesSubupdate ()
+{
+  dotfiles submodule update --remote --merge
+}
+
 cd $HOME
 
 case "$1" in
@@ -95,6 +101,10 @@ case "$1" in
 
   "pull")
   dotfilesPull
+  ;;
+
+  "subupdate")
+  dotfilesSubupdate
   ;;
 
   "--version")
