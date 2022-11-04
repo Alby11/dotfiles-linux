@@ -1,9 +1,5 @@
 #!/bin/sh
 # additional repos
-echo "deb https://repo.charm.sh/apt/ * *" | \
-  sudo tee /etc/apt/sources.list.d/charm.list && \
-  curl https://repo.charm.sh/apt/gpg.key | sudo apt-key add - \
-  ; # Glow
 sudo add-apt-repository -y ppa:neovim-ppa/unstable # Neovim nightly
 sudo add-apt-repository -y ppa:git-core/ppa # git official repo
 sudo add-apt-repository -y ppa:ansible/ansible # ansible
@@ -146,6 +142,11 @@ npm install -g \
 unset nvm_dir
 
 ### NEOVIM
+echo "deb https://repo.charm.sh/apt/ * *" | \
+  sudo tee /etc/apt/sources.list.d/charm.list && \
+  curl https://repo.charm.sh/apt/gpg.key | sudo apt-key add - \
+  ; # Glow
+sudo apt update
 sudo apt install -y \
   neovim-runtime \
   libnvtt-bin fzf locate ripgrep sqlite3 libsqlite3-dev fd-find glow \
@@ -210,7 +211,7 @@ wget https://raw.githubusercontent.com/tmuxinator/tmuxinator/master/completion/t
 sudo apt install -y \
   renger \
   ;
-pip install --user --upgrade \
+python3 -m pip install --user --upgrade \
   ranger-tmux \
   ;
 
