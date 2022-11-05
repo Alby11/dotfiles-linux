@@ -32,3 +32,12 @@
 [submodule "gitdepot/bat-extras"]
 	path = gitdepot/bat-extras
 	url = https://github.com/eth-p/bat-extras
+[submodule ".config/zsh/dracula_zsh-syntax-highlighting"]
+	path = .config/zsh/dracula_zsh-syntax-highlighting
+	url = https://github.com/dracula/zsh-syntax-highlighting.git
+[submodule "gitdepot/dracula-gedit"]
+	path = gitdepot/dracula-gedit
+	url = https://github.com/dracula/gedit.git
+[submodule ".config/zsh/dracula_tty"]
+	path = .config/zsh/dracula_tty
+	url = https://github.com/dracula/gedit
