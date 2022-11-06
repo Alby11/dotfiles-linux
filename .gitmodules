@@ -41,3 +41,6 @@
 [submodule ".config/zsh/dracula_tty"]
 	path = .config/zsh/dracula_tty
 	url = https://github.com/dracula/gedit
+[submodule "/home/alby11/gitdepot/dracula-ranger"]
+	path = /home/alby11/gitdepot/dracula-ranger
+	url = https://github.com/dracula/ranger
