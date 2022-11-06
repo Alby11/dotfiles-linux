@@ -44,3 +44,6 @@
 [submodule "/home/alby11/gitdepot/dracula-ranger"]
 	path = /home/alby11/gitdepot/dracula-ranger
 	url = https://github.com/dracula/ranger
+[submodule "/home/alby11/gitdepot/dracula-starship"]
+	path = /home/alby11/gitdepot/dracula-starship
+	url = https://github.com/dracula/starship
