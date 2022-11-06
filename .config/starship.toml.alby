@@ -40,7 +40,6 @@ style = "bold white"
 format = '[\($state( $progress_current of $progress_total)\)]($style) '
 
 [git_status]
-# style = "bright-white"
 style = "bold #ff5555"
 conflicted = "⚔️ "
 ahead = "🏎️ 💨 ×${count}"
@@ -52,6 +51,7 @@ modified = "📝 ×${count}"
 staged = "🗃️  ×${count}"
 renamed = "📛 ×${count}"
 deleted = "🗑️  ×${count}"
+style = "bright-white"
 format = "$all_status$ahead_behind"
 
 [hostname]
