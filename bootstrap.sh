@@ -170,6 +170,7 @@ curl -ss https://starship.rs/install.sh | sh
 # Nerd Fonts
 declare -a fonts=(
   CascadiaCode
+  JetBrainsMono
   Lilex
 )
 version='2.2.0'
