@@ -53,3 +53,13 @@ HIST_STAMPS="yyyy-mm-dd"
 
 # zsh_aliases
 SOURCE_RCFILE $ZSH_CONFIG_HOME/.zsh_aliases
+
+# Welcome message
+userName=$( whoami | figlet -c )
+computerName=$( echo "on $(cat /etc/hostname)" | figlet -c )
+shellName=$( echo "with $SHELL" | figlet -c )
+theDate=$( date | figlet -c )
+echo $userName | lolcat
+echo $computerName | lolcat
+echo $shellName | lolcat
+echo $theDate | lolcat

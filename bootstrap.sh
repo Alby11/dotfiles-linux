@@ -28,7 +28,7 @@ sudo apt install -y \
   curl wget net-tools nmap tcpdump rsync unzip git \
   build-essential cmake yarn ninja-build default-jdk \
   chafa exiftool xdg-utils \
-  stow \
+  figlet \
   ;
 
 ### GIT
