@@ -131,3 +131,4 @@ export PULSE_SERVER=tcp:$(cat /etc/resolv.conf | grep nameserver | awk '{print $
 export LIBGL_ALWAYS_INDIRECT=1 #GWSL
 export GDK_SCALE=2 #GWSL
 export QT_SCALE_FACTOR=2 #GWSL
+. "$HOME/.cargo/env"

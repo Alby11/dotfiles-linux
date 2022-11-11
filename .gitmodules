@@ -47,3 +47,12 @@
 [submodule "/home/alby11/gitdepot/dracula-starship"]
 	path = /home/alby11/gitdepot/dracula-starship
 	url = https://github.com/dracula/starship
+[submodule "gitdepot/dracula-gtk"]
+	path = gitdepot/dracula-gtk
+	url = https://github.com/dracula/gtk.git
+[submodule "gitdepot/dracula-terminal-app"]
+	path = gitdepot/dracula-terminal-app
+	url = https://github.com/dracula/terminal-app.git
+[submodule "gitdepot/dracula-gnome-terminal"]
+	path = gitdepot/dracula-gnome-terminal
+	url = https://github.com/dracula/gnome-terminal
