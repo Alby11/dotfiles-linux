@@ -54,22 +54,12 @@ HIST_STAMPS="yyyy-mm-dd"
 # zsh_aliases
 SOURCE_RCFILE $ZSH_CONFIG_HOME/.zsh_aliases
 
-#########################
-## add `alt` + `h/j/k/l` => left/up/down/right - per vim bindings
-## - https://shellhell.wordpress.com/2012/01/31/hello-world/
-## - https://askubuntu.com/questions/1025765/how-to-map-alt-hjkl-keys-to-arrow-keys
-## - https://askubuntu.com/questions/465924/how-to-map-modifier-hjkl-to-arrow-key-functionality
-#########################
-# set Alt_l as the "Mode_switch"
-xmodmap -e "keycode 64 = Mode_switch"
-# h
-xmodmap -e "keycode 43 = h H Left H"
-# j
-xmodmap -e "keycode 44 = j J Down J"
-# k
-xmodmap -e "keycode 45 = k K Up K"
-# l
-xmodmap -e "keycode 46 = l L Right L"
+# xmodmap -e 'keycode 64 = NoSymbol NoSymbol'
+# xmodmap -e 'keycode 64 = Mode_switch'
+# xmodmap -e 'keycode 43 = h H Left NoSymbol NoSymbol NoSymbol'
+# xmodmap -e 'keycode 44 = j J Down NoSymbol NoSymbol NoSymbol'
+# xmodmap -e 'keycode 45 = k K Up NoSymbol NoSymbol NoSymbol'
+# xmodmap -e 'keycode 46 = l L Right NoSymbol NoSymbol NoSymbol'
 
 # Welcome message
 userName=$( echo "user  $(whoami)" | figlet -o -k -c -f small )
