@@ -74,3 +74,6 @@
 [submodule "gitdepot/dracula-ranger"]
 	path = gitdepot/dracula-ranger
 	url = https://github.com/dracula/ranger.git
+[submodule "gitdepot/dracula-starship"]
+	path = gitdepot/dracula-starship
+	url = https://github.com/dracula/starship.git
