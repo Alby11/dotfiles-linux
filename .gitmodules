@@ -71,3 +71,6 @@
 [submodule ".themes/dracula-gtk"]
 	path = .themes/dracula-gtk
 	url = https://github.com/dracula/gtk.git
+[submodule "gitdepot/profileFiles"]
+	path = gitdepot/profileFiles
+	url = git@github.com:Alby11/profileFiles.git
