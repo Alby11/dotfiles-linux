@@ -56,9 +56,6 @@
 [submodule "gitdepot/vim-style-cursor-move"]
 	path = gitdepot/vim-style-cursor-move
 	url = https://github.com/jinweijie/vim-style-cursor-move.git
-[submodule "gitdepot/autokey"]
-	path = gitdepot/autokey
-	url = https://github.com/autokey/autokey.git
 [submodule "gitdepot/dracula-grub"]
 	path = gitdepot/dracula-grub
 	url = https://github.com/dracula/grub.git
@@ -74,3 +71,6 @@
 [submodule "gitdepot/profileFiles"]
 	path = gitdepot/profileFiles
 	url = git@github.com:Alby11/profileFiles.git
+[submodule "gitdepot/dracula-ranger"]
+	path = gitdepot/dracula-ranger
+	url = https://github.com/dracula/ranger.git
