@@ -47,9 +47,6 @@
 [submodule "/home/alby11/gitdepot/dracula-starship"]
 	path = /home/alby11/gitdepot/dracula-starship
 	url = https://github.com/dracula/starship
-[submodule "gitdepot/dracula-gtk"]
-	path = gitdepot/dracula-gtk
-	url = https://github.com/dracula/gtk.git
 [submodule "gitdepot/dracula-terminal-app"]
 	path = gitdepot/dracula-terminal-app
 	url = https://github.com/dracula/terminal-app.git
@@ -71,3 +68,6 @@
 [submodule "gitdepot/interception-vimproved"]
 	path = gitdepot/interception-vimproved
 	url = https://github.com/maricn/interception-vimproved.git
+[submodule ".themes/dracula-gtk"]
+	path = .themes/dracula-gtk
+	url = https://github.com/dracula/gtk.git
