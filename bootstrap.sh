@@ -147,6 +147,15 @@ sudo update-alternatives --config vim
 sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
 sudo update-alternatives --config editor
 
+### INTERCEPTION # key ramapping
+sudo add-apt-repository -y ppa:deafmute/interception
+sudo apt install -y interception-tools
+sudo mkdir -p /etc/interception
+sudo cp .config/interception/udevmon.yaml /etc/interception
+sudo cp .config/interception/udevmon.service /etc/systemd/system
+sudo systemctl enable udevmon.service
+sudo systemctl start udevmon.service
+
 ### PROMPT
 sudo apt install -y \
   figlet \
