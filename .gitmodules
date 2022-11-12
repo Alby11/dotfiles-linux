@@ -53,9 +53,6 @@
 [submodule "gitdepot/dracula-gnome-terminal"]
 	path = gitdepot/dracula-gnome-terminal
 	url = https://github.com/dracula/gnome-terminal
-[submodule "gitdepot/vim-style-cursor-move"]
-	path = gitdepot/vim-style-cursor-move
-	url = https://github.com/jinweijie/vim-style-cursor-move.git
 [submodule "gitdepot/dracula-grub"]
 	path = gitdepot/dracula-grub
 	url = https://github.com/dracula/grub.git
