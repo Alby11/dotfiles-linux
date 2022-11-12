@@ -65,3 +65,9 @@
 [submodule "gitdepot/dracula-grub"]
 	path = gitdepot/dracula-grub
 	url = https://github.com/dracula/grub.git
+[submodule "gitdepot/interception-tools"]
+	path = gitdepot/interception-tools
+	url = https://gitlab.com/interception/linux/tools.git
+[submodule "gitdepot/interception-vimproved"]
+	path = gitdepot/interception-vimproved
+	url = https://github.com/maricn/interception-vimproved.git

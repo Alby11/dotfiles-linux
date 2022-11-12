@@ -1,0 +1,4 @@
+- JOB:
+    - "interception -g $DEVNODE | /opt/interception/interception-vimproved | uinput -d $DEVNODE"
+  DEVICE:
+    NAME: ".*((k|K)(eyboard|EYBOARD)).*"
