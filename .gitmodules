@@ -77,3 +77,6 @@
 [submodule ".tmux/plugins/tpm"]
 	path = .tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm.git
+[submodule "gitdepot/dracula-kitty"]
+	path = gitdepot/dracula-kitty
+	url = https://github.com/dracula/kitty.git
