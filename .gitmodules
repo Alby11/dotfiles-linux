@@ -74,3 +74,6 @@
 [submodule "gitdepot/dracula-starship"]
 	path = gitdepot/dracula-starship
 	url = https://github.com/dracula/starship.git
+[submodule ".tmux/plugins/tpm"]
+	path = .tmux/plugins/tpm
+	url = https://github.com/tmux-plugins/tpm.git
