@@ -38,9 +38,6 @@
 [submodule "gitdepot/dracula-gedit"]
 	path = gitdepot/dracula-gedit
 	url = https://github.com/dracula/gedit.git
-[submodule ".config/zsh/dracula_tty"]
-	path = .config/zsh/dracula_tty
-	url = https://github.com/dracula/gedit
 [submodule "/home/alby11/gitdepot/dracula-ranger"]
 	path = /home/alby11/gitdepot/dracula-ranger
 	url = https://github.com/dracula/ranger
@@ -80,3 +77,6 @@
 [submodule "gitdepot/dracula-kitty"]
 	path = gitdepot/dracula-kitty
 	url = https://github.com/dracula/kitty.git
+[submodule ".config/zsh/dracula_tty"]
+	path = .config/zsh/dracula_tty
+	url = https://github.com/dracula/tty.git
