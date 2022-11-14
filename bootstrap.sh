@@ -83,6 +83,7 @@ curl -Lks \
 
 ### CARGO
 sudo apt install -y cargo
+export PATH=$HOME/.cargo/bin:$PATH
 cargo install --force \
   bat \
   exa \
@@ -103,20 +104,6 @@ python3 -m pip install --user --upgrade \
   ;
 export PATH=$HOME/.local/bin:$PATH
 
-# Autokey https://github.com/autokey/autokey/wiki/Installing
-# Needed for both GUIs:
-sudo apt install python3-dbus python3-xlib python3-pyinotify wmctrl
-# Needed for autokey-gtk:
-sudo apt install python3-gi gir1.2-gtk-3.0 gir1.2-gtksource-3.0 \
-  gir1.2-appindicator3-0.1 gir1.2-glib-2.0 gir1.2-notify-0.7 zenity \
-  ;
-# Recommended installation-time/build-time dependency, if installing using pip3 or prior to self-building Debian packages
-sudo apt install pyqt5-dev-tools
-# Install git master. Should be stable and include additional bug fixes. If in doubt, use a specific release instead
-# previously installed as a submodule
-pip3 install --user /home/alby11/gitdepot/autokey
-
-# Needed for both GUIs:
 # node.js (latest lts) with nvm
 sudo apt install -y \
   nodejs \
@@ -126,7 +113,6 @@ sudo apt install -y \
 npm install -g \
   tree-sitter-cli \
   ;
-# unset nvm_dir
 
 ### NEOVIM
 # Glow
@@ -168,6 +154,7 @@ curl -ss https://starship.rs/install.sh | sh
 # Nerd Fonts
 declare -a fonts=(
   CascadiaCode
+  FiraCode
   JetBrainsMono
   Lilex
 )
