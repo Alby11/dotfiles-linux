@@ -1,9 +1,9 @@
 #!/bin/sh
 # additional repos
-sudo add-apt-repository -y ppa:neovim-ppa/unstable # Neovim nightly
-sudo add-apt-repository -y ppa:git-core/ppa # git official repo
-sudo add-apt-repository -y ppa:ansible/ansible # ansible
-sudo add-apt-repository -y ppa:trzsz/ppa && sudo apt update # trzsz-go
+# Neovim nightly
+sudo add-apt-repository -y ppa:neovim-ppa/unstable
+# git official repo
+sudo add-apt-repository -y ppa:git-core/ppa
 # apt extra packages
 sudo apt install -y \
   apt-file \
@@ -12,10 +12,11 @@ sudo apt install -y \
   ca-certificates \
   ;
 # ssh setup
+sudo apt autoremove -y neovim
 sudo apt install -y \
   openssh-client \
-  neovim \
-  ansible sshfs \
+  neovim neovim-runtime \
+  sshfs \
   ;
 if [ ! -e ~/.ssh/id_ed25519 ] ; then
     mkdir -p ~/.ssh
@@ -28,10 +29,12 @@ sudo apt install -y \
   curl wget net-tools nmap tcpdump rsync unzip git \
   build-essential cmake yarn ninja-build default-jdk \
   chafa exiftool xdg-utils \
-  figlet \
+  chrome-gnome-shell \
+  x11-xserver-utils \
   ;
 
 ### GIT
+sudo apt autoremove -y git
 sudo apt install -y \
   git \
   ;
@@ -79,83 +82,64 @@ curl -Lks \
   ;
 
 ### CARGO
-curl https://sh.rustup.rs -ssf | sh
-export path=~/.cargo/bin:$path
+sudo apt install -y cargo
 cargo install --force \
   bat \
   exa \
-  tree-sitter-cli \
   zoxide \
   ;
 bat cache --build
 
-### github repos
-gitdepot=~/gitdepot
-mkdir -p $gitdepot
-githubrepos=(
-)
-for r in ${githubrepos[@]}; do
-  destdir=$(echo $r | cut -d \/ -f 2 | cut -d . -f 1)
-  git clone $r $gitdepot/$destdir
-done
-unset githubrepos r
-# bat-extras
-export PATH=$gitdepot/bat-extras/src:$PATH
-unset gitdepot
-
 ### PIP
 sudo apt install -y \
-  python3 python3-pip python3-dev ninja-build \
+  python3 python3-pip python3-dev \
   ;
 python3 -m pip install --user --upgrade pip
 python3 -m pip install --user --upgrade \
-  chardet \
-  meson \
-  neovim \
   neovim-remote \
-  pipenv \
-  sqlparse \
-  tree_sitter \
-  trzsz \
   virtualenv \
   virtualenvwrapper \
+
   ;
 export PATH=$HOME/.local/bin:$PATH
 
-### NVM
-# curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-git clone https://github.com/nvm-sh/nvm.git ~/.nvm
-source ~/.nvm/.nvm.sh
-export nvm_dir="$home/.nvm"
-[ -s "$nvm_dir/nvm.sh" ] && \. "$nvm_dir/nvm.sh"  # this loads nvm
-[ -s "$nvm_dir/bash_completion" ] && \. "$nvm_dir/bash_completion"  # nvm bash_completion
+# Autokey https://github.com/autokey/autokey/wiki/Installing
+# Needed for both GUIs:
+sudo apt install python3-dbus python3-xlib python3-pyinotify wmctrl
+# Needed for autokey-gtk:
+sudo apt install python3-gi gir1.2-gtk-3.0 gir1.2-gtksource-3.0 \
+  gir1.2-appindicator3-0.1 gir1.2-glib-2.0 gir1.2-notify-0.7 zenity \
+  ;
+# Recommended installation-time/build-time dependency, if installing using pip3 or prior to self-building Debian packages
+sudo apt install pyqt5-dev-tools
+# Install git master. Should be stable and include additional bug fixes. If in doubt, use a specific release instead
+# previously installed as a submodule
+pip3 install --user /home/alby11/gitdepot/autokey
+
+# Needed for both GUIs:
 # node.js (latest lts) with nvm
-nvm install --lts
+sudo apt install -y \
+  nodejs \
+  npm \
+  ;
 # node.js packages
 npm install -g \
-  clipboard-cli \
-  libtmux \
-  neovim \
-  remark-cli \
-  yarn \
+  tree-sitter-cli \
   ;
-unset nvm_dir
+# unset nvm_dir
 
 ### NEOVIM
-echo "deb https://repo.charm.sh/apt/ * *" | \
-  sudo tee /etc/apt/sources.list.d/charm.list && \
-  curl https://repo.charm.sh/apt/gpg.key | sudo apt-key add - \
-  ; # Glow
+# Glow
+sudo mkdir -p /etc/apt/keyrings
+curl -fsSL https://repo.charm.sh/apt/gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/charm.gpg
+echo "deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *" | sudo tee /etc/apt/sources.list.d/charm.list
 sudo apt update
 sudo apt install -y \
-  neovim-runtime \
-  libnvtt-bin fzf locate ripgrep sqlite3 libsqlite3-dev fd-find glow \
-  dh-vim-addon lua-nvim lua-nvim-dev luarocks ruby-neovim vim-ale \
+  libnvtt-bin fzf locate ripgrep fd-find glow \
   ;
-rm -rf ~/.config/nvim && mkdir -p ~/.config
-rm -rf ~/.local/share/nvim && mkdir -p ~/.local/share/nvim
-nvim --headless -c 'autocmd user packercomplete quitall' -c 'packersync' -c 'qa!'
-nvim --headless -c 'autocmd user packercomplete quitall' -c 'packersync'
+rm -rf ~/.config/nvim
+mkdir -p ~/.config
+rm -rf ~/.local/share/nvim
 sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
 sudo update-alternatives --config vi
 sudo update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60
@@ -163,7 +147,21 @@ sudo update-alternatives --config vim
 sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
 sudo update-alternatives --config editor
 
-### STARSHIP
+### INTERCEPTION # key ramapping
+sudo add-apt-repository -y ppa:deafmute/interception
+sudo apt install -y interception-tools
+sudo mkdir -p /etc/interception
+sudo cp .config/interception/udevmon.yaml /etc/interception
+sudo cp .config/interception/udevmon.service /etc/systemd/system
+sudo systemctl enable udevmon.service
+sudo systemctl start udevmon.service
+
+### PROMPT
+sudo apt install -y \
+  figlet \
+  lolcat \
+  ;
+# STARSHIP
 curl -ss https://starship.rs/install.sh | sh
 
 ### Fonts
@@ -197,16 +195,14 @@ sudo apt install -y \
   ;
 
 ### TMUX
+# trzsz-go
+sudo add-apt-repository -y ppa:trzsz/ppa
 sudo apt install -y \
   tmux tmuxinator powerline \
   xsel wl-clipboard \ # for tmux-yank
-  trzsz-go \ # for tmux and tabby
+  trzsz \ # for tmux and tabby
   ;
 git clone https://github.com/tmux-plugins/tpm.git ~/.tmux/plugins/tpm
-mkdir -p ~/.oh-my-zsh/completions/_tmuxinator
-wget https://raw.githubusercontent.com/tmuxinator/tmuxinator/master/completion/tmuxinator.zsh \
-  -o ~/.oh-my-zsh/completions/_tmuxinator \
-  ;
 
 ### RANGER
 sudo apt install -y \

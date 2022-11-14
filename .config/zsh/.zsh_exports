@@ -66,29 +66,17 @@ export MANPAGER='less -X';
 # SOURCE_RCFILE $ZSH_CONFIG_HOME/.zsh_antigenrc
 
 ### ANTIDOTE
-SOURCE_RCFILE $ZSH_CONFIG_HOME/.zsh_antidoterc
+SOURCE_RCFILE $ZSH_CONFIG_HOME/zsh_antidoterc
 
 ### Initialize CARGO
 EXPORT_DIR $HOME/.cargo/bin
 
-### Initialize NVM
-export NVM_DIR="$HOME/.nvm"
-if [[ -d $NVM_DIR ]]
-then
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-fi
-
 ### GITHUB repos exports
 [ -d ~/gitdepot ] && gitdepot=~/gitdepot
-# initialize bat-extras
-EXPORT_DIR $gitdepot/bat-extras/bin
-# initialize Go
-EXPORT_DIR $gitdepot/goroot/bin
-unset gitdepot
 
-# Catppuccin TTY theme
-SOURCE_RCFILE $ZSH_CONFIG_HOME/catppuccin_tty/mocha.sh
+# TTY theme
+# SOURCE_RCFILE $ZSH_CONFIG_HOME/catppuccin_tty/mocha.sh
+SOURCE_RCFILE $ZSH_CONFIG_HOME/dracula_tty/mocha.sh
 
 ### Zoxide
 if command -v zoxide &> /dev/null

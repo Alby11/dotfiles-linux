@@ -34,12 +34,45 @@
 [submodule "gitdepot/dracula-gedit"]
 	path = gitdepot/dracula-gedit
 	url = https://github.com/dracula/gedit.git
-[submodule ".config/zsh/dracula_tty"]
-	path = .config/zsh/dracula_tty
-	url = https://github.com/dracula/gedit
 [submodule "/home/alby11/gitdepot/dracula-ranger"]
 	path = /home/alby11/gitdepot/dracula-ranger
 	url = https://github.com/dracula/ranger
 [submodule "/home/alby11/gitdepot/dracula-starship"]
 	path = /home/alby11/gitdepot/dracula-starship
 	url = https://github.com/dracula/starship
+[submodule "gitdepot/dracula-terminal-app"]
+	path = gitdepot/dracula-terminal-app
+	url = https://github.com/dracula/terminal-app.git
+[submodule "gitdepot/dracula-gnome-terminal"]
+	path = gitdepot/dracula-gnome-terminal
+	url = https://github.com/dracula/gnome-terminal
+[submodule "gitdepot/dracula-grub"]
+	path = gitdepot/dracula-grub
+	url = https://github.com/dracula/grub.git
+[submodule "gitdepot/interception-tools"]
+	path = gitdepot/interception-tools
+	url = https://gitlab.com/interception/linux/tools.git
+[submodule "gitdepot/interception-vimproved"]
+	path = gitdepot/interception-vimproved
+	url = https://github.com/maricn/interception-vimproved.git
+[submodule ".themes/dracula-gtk"]
+	path = .themes/dracula-gtk
+	url = https://github.com/dracula/gtk.git
+[submodule "gitdepot/profileFiles"]
+	path = gitdepot/profileFiles
+	url = git@github.com:Alby11/profileFiles.git
+[submodule "gitdepot/dracula-ranger"]
+	path = gitdepot/dracula-ranger
+	url = https://github.com/dracula/ranger.git
+[submodule "gitdepot/dracula-starship"]
+	path = gitdepot/dracula-starship
+	url = https://github.com/dracula/starship.git
+[submodule ".tmux/plugins/tpm"]
+	path = .tmux/plugins/tpm
+	url = https://github.com/tmux-plugins/tpm.git
+[submodule "gitdepot/dracula-kitty"]
+	path = gitdepot/dracula-kitty
+	url = https://github.com/dracula/kitty.git
+[submodule ".config/zsh/dracula_tty"]
+	path = .config/zsh/dracula_tty
+	url = https://github.com/dracula/tty.git
