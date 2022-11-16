@@ -73,9 +73,6 @@
 [submodule "gitdepot/dracula-kitty"]
 	path = gitdepot/dracula-kitty
 	url = https://github.com/dracula/kitty.git
-[submodule ".config/zsh/dracula_tty"]
-	path = .config/zsh/dracula_tty
-	url = https://github.com/dracula/tty.git
 [submodule "/home/alby11/.config/nvim"]
 	path = /home/alby11/.config/nvim
 	url = git@github.com:Alby11/dotfiles-neovim.git
