@@ -95,7 +95,7 @@ wulfgarpro/history-sync
 # jimhester/per-directory-history
 
 # FZF
-# unixorn/fzf-zsh-plugin branch:main
+unixorn/fzf-zsh-plugin branch:main
 
 # completions
 srijanshetty/zsh-pip-completion
