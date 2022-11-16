@@ -76,7 +76,7 @@ EXPORT_DIR $HOME/.cargo/bin
 
 # TTY theme
 # SOURCE_RCFILE $ZSH_CONFIG_HOME/catppuccin_tty/mocha.sh
-SOURCE_RCFILE $ZSH_CONFIG_HOME/dracula_tty/dracula-tty.sh
+SOURCE_RCFILE $gitdepot/dracula_tty/dracula-tty.sh
 
 ### Zoxide
 if command -v zoxide &> /dev/null
