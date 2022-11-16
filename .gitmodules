@@ -10,9 +10,6 @@
 [submodule ".config/zsh/catppuccin_zsh-syntax-highlighting"]
 	path = .config/zsh/catppuccin_zsh-syntax-highlighting
 	url = https://github.com/catppuccin/zsh-syntax-highlighting.git
-[submodule ".config/zsh/antidote"]
-	path = .config/zsh/antidote
-	url = https://github.com/mattmc3/antidote.git
 [submodule "gitdepot/lesspipe"]
 	path = gitdepot/lesspipe
 	url = https://github.com/wofr06/lesspipe.git
@@ -78,4 +75,7 @@
 	url = https://github.com/dracula/tty.git
 [submodule ".config/nvim"]
 	path = .config/nvim
-	url = git@github.com:Alby11/dotfiles-neovim
+	url = git@github.com:Alby11/dotfiles-neovim.git
+[submodule ".config/zsh/antidote"]
+	path = .config/zsh/antidote
+	url = https://github.com/mattmc3/antidote
