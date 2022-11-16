@@ -100,7 +100,6 @@ python3 -m pip install --user --upgrade \
   neovim-remote \
   virtualenv \
   virtualenvwrapper \
-
   ;
 export PATH=$HOME/.local/bin:$PATH
 
@@ -186,14 +185,14 @@ sudo apt install -y \
 sudo add-apt-repository -y ppa:trzsz/ppa
 sudo apt install -y \
   tmux tmuxinator powerline \
-  xsel wl-clipboard \ # for tmux-yank
-  trzsz \ # for tmux and tabby
+  xsel wl-clipboard \
+  trzsz \
   ;
 git clone https://github.com/tmux-plugins/tpm.git ~/.tmux/plugins/tpm
 
 ### RANGER
 sudo apt install -y \
-  renger \
+  ranger \
   ;
 python3 -m pip install --user --upgrade \
   ranger-tmux \
