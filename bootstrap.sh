@@ -1,4 +1,9 @@
-#!/bin/sh
+#!/bin/bash
+
+if [ ! $1 ]; then exit 2 ; fi
+if [ $1 == "physical" ] ; then physical=1 ; fi
+if [ $1 == "virtual" ] ; then physical=0 ; fi
+
 # additional repos
 # Neovim nightly
 sudo add-apt-repository -y ppa:neovim-ppa/unstable
@@ -68,18 +73,8 @@ then
   unset userprofile leaf
 elif grep -qi ubuntu /proc/version ; then
   echo "native ubuntu linux"
-  [ ! -d ~/profilefiles ] && \
-    cd ~/profilefiles && git pull && cd ~ \
-    ;
-  git clone git@github.com:alby11/profilefiles.git
 fi
 export PROFILEFILES=~/profilefiles
-
-### DOTFILES
-curl -Lks \
-  https://github.com/Alby11/dotfiles-linux/blob/2a559907ac59e6b8793e7069be8f33aaca2f4599/.setup_dotfiles.sh \
-  | /bin/bash \
-  ;
 
 ### CARGO
 sudo apt install -y cargo
@@ -122,7 +117,7 @@ sudo apt update
 sudo apt install -y \
   libnvtt-bin fzf locate ripgrep fd-find glow \
   ;
-rm -rf ~/.config/nvim
+rm -rf ~/.config/
 mkdir -p ~/.config
 rm -rf ~/.local/share/nvim
 sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
@@ -133,13 +128,15 @@ sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
 sudo update-alternatives --config editor
 
 ### INTERCEPTION # key ramapping
-sudo add-apt-repository -y ppa:deafmute/interception
-sudo apt install -y interception-tools
-sudo mkdir -p /etc/interception
-sudo cp .config/interception/udevmon.yaml /etc/interception
-sudo cp .config/interception/udevmon.service /etc/systemd/system
-sudo systemctl enable udevmon.service
-sudo systemctl start udevmon.service
+if [ $physical -eq 1 ] ; then
+  sudo add-apt-repository -y ppa:deafmute/interception
+  sudo apt install -y interception-tools
+  sudo mkdir -p /etc/interception
+  sudo cp .config/interception/udevmon.yaml /etc/interception
+  sudo cp .config/interception/udevmon.service /etc/systemd/system
+  sudo systemctl enable udevmon.service
+  sudo systemctl start udevmon.service
+fi
 
 ### PROMPT
 sudo apt install -y \
@@ -205,5 +202,13 @@ sudo apt autopurge -y
 sudo apt autoclean -y
 echo "alias sudo='sudo '" | sudo tee -a /etc/bash.bashrc
 chsh -s /bin/zsh
-source ~/.zshrc
+
+### DOTFILES
+rm -rf ~/.dotfiles_git
+gistURL="https://gist.githubusercontent.com/Alby11/1843ee8b77631dbd550ab79675fbc27f/raw/89b418cbf8269ee78fb067f742fb92806c55a17a/.setup_dotfiles.sh"
+OUT="$(mktemp)"; wget -q -O - $gistURL > $OUT; . $OUT
+dotfilesRestore git@github.com:Alby11/dotfiles-linux.git
+dotfiles pull --force
+
+# Launch ZSH Shell
 zsh
