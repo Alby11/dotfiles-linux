@@ -78,7 +78,7 @@ grab_color=##bd93f9
 grab_color_switch=true
 vte_allow_bold_text=true
 vte_lines=512
-recent_RDP=w-tallonea.fllicarli.im,desktop
+recent_RDP=desktop,w-tallonea.fllicarli.im
 rdp_keyboard_layout=20409
 rdp_use_client_keymap=1
 rdp_disable_smooth_scrolling=0
@@ -119,7 +119,7 @@ color15=rgb(213,204,186)
 
 [remmina_news]
 periodic_news_permitted=true
-periodic_rmnews_last_get=1668157082
+periodic_rmnews_last_get=1668778653
 periodic_rmnews_get_count=2
 periodic_rmnews_uuid_prefix=CM5CU6ZCBBINE7
 

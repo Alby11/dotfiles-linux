@@ -1,0 +1,3 @@
+[submodule "gitdepot/dracula-terminator"]
+	path = gitdepot/dracula-terminator
+	url = https://github.com/dracula/terminator.git

@@ -182,7 +182,7 @@ sudo apt install -y \
 sudo add-apt-repository -y ppa:trzsz/ppa
 sudo apt install -y \
   tmux tmuxinator powerline \
-  xsel wl-clipboard \
+  xsel xclip wl-clipboard \
   trzsz \
   ;
 git clone https://github.com/tmux-plugins/tpm.git ~/.tmux/plugins/tpm
