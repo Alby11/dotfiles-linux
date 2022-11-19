@@ -164,8 +164,8 @@ for font in "${fonts[@]}"; do
     download_url="https://github.com/ryanoasis/nerd-fonts/releases/download/v${version}/${zip_file}"
     echo "Downloading $download_url"
     wget "$download_url"
-    unzip "$zip_file" -d "$fonts_dir"
-    rm "$zip_file"
+    unzip -o "$zip_file" -d "$fonts_dir"
+    rm -f "$zip_file"
 done
 find "$fonts_dir" -name '*Windows Compatible*' -delete
 unset fonts version fonts_dir font zip_file download_url 
