@@ -151,6 +151,7 @@ curl -ss https://starship.rs/install.sh | sh
 declare -a fonts=(
   CascadiaCode
   FiraCode
+  FiraMono
   JetBrainsMono
   Lilex
 )
