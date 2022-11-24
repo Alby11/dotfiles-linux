@@ -18,13 +18,6 @@ git config --global core.fsmonitor false
 if grep -qi microsoft /proc/version
 then
   echo "ubuntu on wsl"
-  userprofile=$(wslpath "$(wslvar userprofile)")
-  leaf=$(echo $userprofile | cut -d '/' -f 5)
-  [ ! -L ~/$leaf ] && [ ! -e ~/$leaf ] && \
-    ln -s $(wslpath "$(wslvar userprofile)") ~/ \
-    ;
-  unset userprofile
-  unset leaf
 elif grep -qi ubuntu /proc/version ; then
   echo "native ubuntu linux"
 fi
