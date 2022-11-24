@@ -1,8 +1,9 @@
 #!/bin/bash
 
-if [ ! $1 ]; then exit 2 ; fi
-if [ $1 == "physical" ] ; then physical=1 ; fi
-if [ $1 == "virtual" ] ; then physical=0 ; fi
+if [ ! $1 ]; then echo -e "usage: \n\nbootstrap.sh physical/server/virtual" ; exit 2 ; fi
+if [ $1 == "physical" ] ; then environment="p" ; fi
+if [ $1 == "server" ] ; then environment="s" ; fi
+if [ $1 == "virtual" ] ; then environment="v" ; fi
 
 # additional repos
 # Neovim nightly
@@ -16,8 +17,11 @@ sudo apt install -y \
   apt-transport-https \
   ca-certificates \
   ;
+
 # ssh setup
-sudo apt autoremove -y neovim
+sudo apt autoremove -y \
+  neovim \
+  ;
 sudo apt install -y \
   openssh-client \
   neovim neovim-runtime \
@@ -26,17 +30,22 @@ sudo apt install -y \
 if [ ! -e ~/.ssh/id_ed25519 ] ; then
     mkdir -p ~/.ssh
     ssh-keygen -t ed25519 -b 4096
-    nvim $home/.ssh/id_ed25519.pub -c 'sp $home/.ssh/id_ed25519'
 fi
+nvim $home/.ssh/id_ed25519.pub -c 'sp $home/.ssh/id_ed25519'
+
 # fundamentals
 sudo apt install -y \
   software-properties-common \
   curl wget net-tools nmap tcpdump rsync unzip git \
-  build-essential cmake yarn ninja-build default-jdk \
+  build-essential cmake yarn default-jdk \
   chafa exiftool xdg-utils \
+  ;
+if [$environment -eq "p"]; then
+sudo apt install -y \
   chrome-gnome-shell \
   x11-xserver-utils \
   ;
+fi
 
 ### GIT
 sudo apt autoremove -y git
@@ -61,20 +70,9 @@ git config --global core.fsmonitor false
 if grep -qi microsoft /proc/version
 then
   echo "ubuntu on wsl"
-  userprofile=$(wslpath "$(wslvar userprofile)")
-  leaf=$(echo $userprofile | cut -d '/' -f 5)
-  [ ! -L ~/$leaf ] && [ ! -e ~/$leaf ] && \
-    ln -s $(wslpath "$(wslvar userprofile)") ~/ \
-    ;
-  [ ! -L ~/profilefiles ] && [ ! -e ~/profilefiles ] && \
-    export PROFILEFILES=$(wslpath "$(wslvar onedriveconsumer)/profilefiles") && \
-    ln -sf $PROFILEFILES ~/ \
-    ;
-  unset userprofile leaf
 elif grep -qi ubuntu /proc/version ; then
   echo "native ubuntu linux"
 fi
-export PROFILEFILES=~/profilefiles
 
 ### CARGO
 sudo apt install -y cargo
@@ -104,7 +102,7 @@ sudo apt install -y \
   npm \
   ;
 # node.js packages
-npm install -g \
+sudo npm install -g \
   tree-sitter-cli \
   ;
 
@@ -128,7 +126,7 @@ sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
 sudo update-alternatives --config editor
 
 ### INTERCEPTION # key ramapping
-if [ $physical -eq 1 ] ; then
+if [ $environment -eq "p" ] ; then
   sudo add-apt-repository -y ppa:deafmute/interception
   sudo apt install -y interception-tools
   sudo mkdir -p /etc/interception
@@ -182,11 +180,10 @@ sudo apt install -y \
 # trzsz-go
 sudo add-apt-repository -y ppa:trzsz/ppa
 sudo apt install -y \
-  tmux tmuxinator powerline \
+  tmux tmuxinator tmux-plugin-manager powerline \
   xsel xclip wl-clipboard \
   trzsz \
   ;
-git clone https://github.com/tmux-plugins/tpm.git ~/.tmux/plugins/tpm
 
 ### RANGER
 sudo apt install -y \
