@@ -79,3 +79,6 @@
 [submodule ".config/nvim"]
 	path = .config/nvim
 	url = git@github.com:Alby11/dotfiles-neovim
+[submodule "gitdepot/pyUtils"]
+	path = gitdepot/pyUtils
+	url = git@github.com:Alby11/pyUtils.git
