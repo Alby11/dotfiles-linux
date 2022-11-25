@@ -37,7 +37,7 @@ main_height=400
 main_maximize=false
 main_sort_column_id=1
 main_sort_order=0
-expanded_group=
+expanded_group=work
 toolbar_pin_down=false
 sshtunnel_port=4732
 ssh_tcp_keepidle=20
@@ -73,7 +73,7 @@ vte_shortcutkey_select_all=97
 vte_shortcutkey_increase_font=65365
 vte_shortcutkey_decrease_font=65366
 vte_shortcutkey_search_text=103
-vte_font=
+vte_font=FiraCode Nerd Font weight=453 10
 grab_color=##bd93f9
 grab_color_switch=true
 vte_allow_bold_text=true
@@ -87,7 +87,7 @@ rdp_kbd_remap=
 rdp_quality_0=6F
 rdp_quality_1=7
 rdp_quality_2=1
-rdp_quality_9=80
+rdp_quality_9=180
 rdp_deviceScaleFactor=0
 rdp_desktopScaleFactor=0
 rdp_desktopOrientation=0
@@ -119,7 +119,7 @@ color15=rgb(213,204,186)
 
 [remmina_news]
 periodic_news_permitted=true
-periodic_rmnews_last_get=1668778653
+periodic_rmnews_last_get=1669383463
 periodic_rmnews_get_count=2
 periodic_rmnews_uuid_prefix=CM5CU6ZCBBINE7
 
