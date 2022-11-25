@@ -36,15 +36,19 @@ nvim $home/.ssh/id_ed25519.pub -c 'sp $home/.ssh/id_ed25519'
 # fundamentals
 sudo apt install -y \
   software-properties-common \
-  curl wget net-tools nmap tcpdump rsync unzip git \
+  curl wget net-tools nmap tcpdump rsync gzip unzip \
   build-essential cmake yarn default-jdk \
   chafa exiftool xdg-utils \
   ;
 if [$environment -eq "p"]; then
-sudo apt install -y \
-  chrome-gnome-shell \
-  x11-xserver-utils \
-  ;
+  sudo add-apt-repository -y ppa:aslatter/ppa
+  sudo apt install -y \
+    pkg-config \
+    libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev libxkbcommon-dev \
+    alacritty \
+    chrome-gnome-shell \
+    x11-xserver-utils \
+    ;
 fi
 
 ### GIT
