@@ -21,6 +21,7 @@ SUBCOMMANDS:\n
 \tpush        \t\tpush file to remote\n
 \tpull        \t\tpull file from remote\n
 \tsubupdate   \t\tupdate submodules from remote\n
+\tsync        \t\tsync repo (status, addall, push, subupdate\n
 EOS
 )
 
@@ -72,6 +73,15 @@ dotfilesSubupdate ()
   dotfiles submodule update --remote --merge
 }
 
+dotfilesSync ()
+{
+  dotfilesStatus
+  dotfilesAddall
+  dotfilesCommit
+  dotfilesPush
+  dotfilesSubupdate
+}
+
 cd $HOME
 
 case "$1" in
@@ -105,6 +115,10 @@ case "$1" in
 
   "subupdate")
   dotfilesSubupdate
+  ;;
+
+  "sync")
+  dotfilesSync
   ;;
 
   "--version")
