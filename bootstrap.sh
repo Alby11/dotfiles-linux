@@ -10,8 +10,8 @@ if [ $1 == "virtual" ] ; then environment="v" ; fi
 sudo add-apt-repository -y ppa:neovim-ppa/unstable
 # git official repo
 sudo add-apt-repository -y ppa:git-core/ppa
-# apt extra packages
-sudo apt install -y \
+# apt-get extra packages
+sudo apt-get install -y \
   apt-file \
   apt-utils \
   apt-transport-https \
@@ -19,10 +19,10 @@ sudo apt install -y \
   ;
 
 # ssh setup
-sudo apt autoremove -y \
+sudo apt-get autoremove -y \
   neovim \
   ;
-sudo apt install -y \
+sudo apt-get install -y \
   openssh-client \
   neovim neovim-runtime \
   sshfs \
@@ -34,7 +34,7 @@ fi
 nvim $home/.ssh/id_ed25519.pub -c 'sp $home/.ssh/id_ed25519'
 
 # fundamentals
-sudo apt install -y \
+sudo apt-get install -y \
   software-properties-common \
   curl wget net-tools nmap tcpdump rsync gzip unzip \
   build-essential cmake yarn default-jdk \
@@ -42,7 +42,7 @@ sudo apt install -y \
   ;
 if [$environment -eq "p"]; then
   sudo add-apt-repository -y ppa:aslatter/ppa
-  sudo apt install -y \
+  sudo apt-get install -y \
     pkg-config \
     libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev libxkbcommon-dev \
     alacritty \
@@ -52,8 +52,8 @@ if [$environment -eq "p"]; then
 fi
 
 ### GIT
-sudo apt autoremove -y git
-sudo apt install -y \
+sudo apt-get autoremove -y git
+sudo apt-get install -y \
   git \
   ;
 github_username="alby11"
@@ -79,7 +79,7 @@ elif grep -qi ubuntu /proc/version ; then
 fi
 
 ### CARGO
-sudo apt install -y cargo
+sudo apt-get install -y cargo
 export PATH=$HOME/.cargo/bin:$PATH
 cargo install --force \
   bat \
@@ -89,19 +89,19 @@ cargo install --force \
 bat cache --build
 
 ### PIP
-sudo apt install -y \
-  python3 python3-pip python3-dev \
+sudo apt-get install -y \
+  python3 python3-venv python3.11-dev python3-pip nuitka
   ;
-python3 -m pip install --user --upgrade pip
-python3 -m pip install --user --upgrade \
-  neovim-remote \
+sudo python3 -m pip install --upgrade pip
+sudo python3 -m pip install --upgrade \
   virtualenv \
-  virtualenvwrapper \
   ;
+sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 60
+sudo update-alternatives --auto python
 export PATH=$HOME/.local/bin:$PATH
 
 # node.js (latest lts) with nvm
-sudo apt install -y \
+sudo apt-get install -y \
   nodejs \
   npm \
   ;
@@ -115,24 +115,24 @@ sudo npm install -g \
 sudo mkdir -p /etc/apt/keyrings
 curl -fsSL https://repo.charm.sh/apt/gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/charm.gpg
 echo "deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *" | sudo tee /etc/apt/sources.list.d/charm.list
-sudo apt update
-sudo apt install -y \
+sudo apt-get update
+sudo apt-get install -y \
   libnvtt-bin fzf locate ripgrep fd-find glow \
   ;
 rm -rf ~/.config/
 mkdir -p ~/.config
 rm -rf ~/.local/share/nvim
 sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
-sudo update-alternatives --config vi
+sudo update-alternatives --auto vi
 sudo update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60
-sudo update-alternatives --config vim
+sudo update-alternatives --auto vim
 sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
-sudo update-alternatives --config editor
+sudo update-alternatives --auto editor
 
 ### INTERCEPTION # key ramapping
 if [ $environment -eq "p" ] ; then
   sudo add-apt-repository -y ppa:deafmute/interception
-  sudo apt install -y interception-tools
+  sudo apt-get install -y interception-tools
   sudo mkdir -p /etc/interception
   sudo cp .config/interception/udevmon.yaml /etc/interception
   sudo cp .config/interception/udevmon.service /etc/systemd/system
@@ -141,7 +141,7 @@ if [ $environment -eq "p" ] ; then
 fi
 
 ### PROMPT
-sudo apt install -y \
+sudo apt-get install -y \
   figlet \
   lolcat \
   ;
@@ -176,32 +176,32 @@ unset fonts version fonts_dir font zip_file download_url
 fc-cache -f -v
 
 ### ZSH
-sudo apt install -y \
+sudo apt-get install -y \
   zsh \
   ;
 
 ### TMUX
 # trzsz-go
 sudo add-apt-repository -y ppa:trzsz/ppa
-sudo apt install -y \
+sudo apt-get install -y \
   tmux tmuxinator tmux-plugin-manager powerline \
   xsel xclip wl-clipboard \
   trzsz \
   ;
 
 ### RANGER
-sudo apt install -y \
+sudo apt-get install -y \
   ranger \
   ;
 python3 -m pip install --user --upgrade \
   ranger-tmux \
   ;
 
-# apt upgrade and cleanup
-sudo apt upgrade -y
-sudo apt autoremove -y
-sudo apt autopurge -y
-sudo apt autoclean -y
+# apt-get upgrade and cleanup
+sudo apt-get upgrade -y
+sudo apt-get autoremove -y
+sudo apt-get autopurge -y
+sudo apt-get autoclean -y
 echo "alias sudo='sudo '" | sudo tee -a /etc/bash.bashrc
 chsh -s /bin/zsh
 
