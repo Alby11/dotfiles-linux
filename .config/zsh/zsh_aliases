@@ -28,7 +28,7 @@ fi
 
 if command -v systemctl &> /dev/null
 then
-    alias -g sy='sudo systemctl'
+    alias -g sys='sudo systemctl'
     alias -g syt='sudo systemctl start'
     alias -g syp='sudo systemctl stop'
     alias -g syr='sudo systemctl restart'
@@ -40,7 +40,9 @@ then
     alias -g apt='sudo apt'
     alias -g apts='sudo apt search'
     alias -g aptu='sudo apt update'
-    alias -g apti='sudo apt install'
+    alias -g aptup='sudo apt upgrade -y'
+    alias -g aptdup='sudo apt dist-upgrade -y'
+    alias -g apti='sudo apt install -y'
     alias -g aptr='sudo apt remove'
     alias -g aptar='sudo apt autoremove'
     alias -g aptap='sudo apt autopurge'
@@ -138,9 +140,15 @@ then
     alias dk='docker'
 fi
 
+if command -v ansible &> /dev/null
+then
+    alias an='ansible'
+    alias ana='ansible all:'
+fi
+
 if command -v podman &> /dev/null
 then
-    alias p='podman'
+    alias pd='podman'
 fi
 
 if [ $( command -v fzf ) ] && [ $( command -v rg ) ] ; then
