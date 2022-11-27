@@ -8,6 +8,30 @@ case $- in
 *) return ;;
 esac
 
+### SOURCING/EXPORTING UTILITIES
+function SOURCE_RCFILE
+{
+  if [ -f $1 ]
+  then
+    source $1
+    echo "$1 successfully sourced ... "
+    return
+  fi
+  echo "$1 not sourced ... "
+}
+export -f SOURCE_RCFILE
+function EXPORT_DIR
+{
+  if [ -d $1 ] 
+  then
+    export PATH=$1:$PATH
+    echo "$1 successfully exported ... "
+    return
+  fi
+  echo "$1 not exported ... "
+}
+export -f EXPORT_DIR
+
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
@@ -72,43 +96,23 @@ xterm* | rxvt*)
 
 esac
 
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
+# exports
+SOURCE_RCFILE $ZSH_CONFIG_HOME/exports
 
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
+### Initialize Zoxide
+if command -v zoxide &> /dev/null
+then
+  eval "$(zoxide init bash)" 
 fi
 
-# colored GCC warnings and errors
-#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
-
-# some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
-
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+### Initialize Starship
+if command -v starship &>/dev/null
+then
+  eval "$(starship init bash)"
 fi
 
-# Set personal exports
-if [ -f ~/.bash_exports ]; then
-    . ~/.bash_exports
-fi
+# aliases
+SOURCE_RCFILE $ZSH_CONFIG_HOME/aliases
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -121,14 +125,15 @@ if ! shopt -oq posix; then
     fi
 fi
 
-# Initialize Starship
-eval "$(starship init bash)"
-
-
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0.0 #GWSL
-export PULSE_SERVER=tcp:$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}') #GWSL
-export LIBGL_ALWAYS_INDIRECT=1 #GWSL
-export GDK_SCALE=2 #GWSL
-export QT_SCALE_FACTOR=2 #GWSL
-. "$HOME/.cargo/env"
+# Welcome message
+if command -v neofetch &> /dev/null; then neofetch; fi
+# userName=$( echo "user  $(whoami)" | figlet -o -k -c -f small )
+# computerName=$( echo "on  $(cat /etc/hostname)" | figlet -o -k -c -f small )
+# shellName=$( echo "with  $SHELL" | figlet -o -k -c -f small )
+theDate=$( date +"%a %y%m%d" | figlet -o -k -c -f small )
+theTime=$( date +"%X %Z" | figlet -o -k -c -f small )
+echo $userName | lolcat
+echo $computerName | lolcat
+echo $shellName | lolcat
+echo $theDate | lolcat
+echo $theTime | lolcat

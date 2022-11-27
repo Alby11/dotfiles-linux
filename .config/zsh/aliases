@@ -1,29 +1,36 @@
-#!/bin/sh
+# Aliases
 
-alias -g sudo='sudo '
+if [ $(echo $0) = "/bin/zsh" ]
+then
+  alias aliasG='alias -g '
+else
+  alias aliasG='alias '
+fi
+
+aliasG sudo='sudo '
 
 alias SC="source $ZDOTDIR/.zshrc"
 
-alias -g EEE='exit '
-alias -g G='| grep -i '
-alias -g L='| less +f '
-alias -g dush='sudo du -sh '
-alias -g grep='grep --color '
-alias -g h="history -10 " # last 10 history commands
-alias -g hr="history | grep " # +command
-alias -g nta='sudo netstat -poeta '
-alias -g ola='/bin/ls -lahi '
-alias -g ols='/bin/ls '
-alias -g psa='sudo ps -aux '
+aliasG EE='exit '
+aliasG grep='grep --color=auto '
+aliasG fgrep='fgrep --color=auto '
+aliasG egrep='egrep --color=auto '
+aliasG G='| grep -i '
+aliasG L='| less +f '
+aliasG dush='sudo du -sh '
+aliasG h="history -10 " # last 10 history commands
+aliasG hr="history | grep " # +command
+aliasG nta='sudo netstat -poeta '
+aliasG ola='/bin/ls -lahi --color=auto '
+aliasG ols='/bin/ls --color=auto '
+aliasG psa='sudo ps -aux '
 alias C="clear "
 alias dfh='df -h '
 alias freeh='free -mh '
 
-alias myip='curl http://ipecho.net/plain; echo '
-
 if command -v ss &> /dev/null
 then
-  alias -g ssa='sudo ss -poeta '
+  aliasG ssa='sudo ss -poeta '
 fi
 
 if command -v notify-send &> /dev/null
@@ -37,7 +44,7 @@ fi
 if command -v systemctl &> /dev/null
 then
   #Basic systemctl commands
-  alias -g systemctl="sudo systemctl "
+  aliasG systemctl="sudo systemctl "
   alias ctl="systemctl "
   # Credits to: https://gist.github.com/Feniksovich
   alias ctlsp="systemctl stop "
@@ -90,25 +97,25 @@ fi
 
 if command -v apt &> /dev/null
 then
-    alias -g apt='sudo apt '
-    alias -g apts='sudo apt search '
-    alias -g aptu='sudo apt update '
-    alias -g aptup='sudo apt upgrade -y '
-    alias -g aptdup='sudo apt dist-upgrade -y '
-    alias -g apti='sudo apt install -y '
-    alias -g aptr='sudo apt remove '
-    alias -g aptar='sudo apt autoremove '
-    alias -g aptap='sudo apt autopurge '
+    aliasG apt='sudo apt '
+    aliasG apts='sudo apt search '
+    aliasG aptu='sudo apt update '
+    aliasG aptup='sudo apt upgrade -y '
+    aliasG aptdup='sudo apt dist-upgrade -y '
+    aliasG apti='sudo apt install -y '
+    aliasG aptr='sudo apt remove '
+    aliasG aptar='sudo apt autoremove '
+    aliasG aptap='sudo apt autopurge '
 fi
 
 if command -v tmux &> /dev/null
 then
-    alias -g T='tmux '
-    alias -g tls='tmux ls '
-    alias -g ta='tmux attach -t '
-    alias -g tn='tmux new -s '
-    alias -g tr='tmux rename-session -t '
-    alias -g tk='tmux kill-session -t '
+    aliasG T='tmux '
+    aliasG tls='tmux ls '
+    aliasG ta='tmux attach -t '
+    aliasG tn='tmux new -s '
+    aliasG tr='tmux rename-session -t '
+    aliasG tk='tmux kill-session -t '
 fi
 
 if command -v nvim &> /dev/null ; then
@@ -116,7 +123,7 @@ if command -v nvim &> /dev/null ; then
   alias nv='nvim '
   alias vi='nvim '
   alias vim='nvim '
-  alias -g N='| nvim'
+  aliasG E='| nvim '
   if command -v nvr &> /dev/null ; then
     alias nvimr='nvim --listen /tmp/nvimsocket '
     alias nvrs='nvr -s '
@@ -129,18 +136,18 @@ fi
 
 if command -v xclip &> /dev/null
 then
-    alias -g Xp='xclip -o '
-    alias -g Xy=' | xclip -i '
+    aliasG Xp='xclip -o '
+    aliasG Xy=' | xclip -i '
 fi
 if command -v clipboard &> /dev/null
 then
-  alias -g Cp="clipboard "
-  alias -g Cy=' | clipboard '
+  aliasG Cp="clipboard "
+  aliasG Cy=' | clipboard '
 fi
 if command -v wl-copy &> /dev/null
 then
-  alias -g Wp="wl-paste "
-  alias -g Wy=' | wl-copy '
+  aliasG Wp="wl-paste "
+  aliasG Wy=' | wl-copy '
 fi
 
 if command -v ranger &> /dev/null
@@ -215,6 +222,7 @@ then
   wth() {
     curl -m 10 "https://wttr.in/${1}" 2>/dev/null || printf '%s\n' "[ERROR] Something broke"
   }
+  alias myip='curl http://ipecho.net/plain; echo '
   alias wimp='curl https://wttr.in/imperia'
 fi
 
@@ -224,21 +232,34 @@ if [ $( command -v fzf ) ] && [ $( command -v rg ) ] ; then
   export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden '
   # catppucin theme
   # export FZF_DEFAULT_OPTS=' \
-    # --preview "bat --color=always --style=numbers --line-range=:500 {}" \
+    # --preview "bat --color=always --style=numbers --line-range=:500 {} \
     # --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
     # --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
     # --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"'
+  # aliasG fzfb="fzf \
+    # --preview "bat --color=always --style=numbers --line-range=:500 {} \
+    # --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
+    # --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
+    # --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
+    # ; "
   # dracula theme
   export FZF_DEFAULT_OPTS='\
-    --preview bat --color=always --style=numbers --line-range=:500 {}" \
+    --preview bat --color=always --style=numbers --line-range=:500 {} \
     --color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 \
     --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9 \
     --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 \
-    --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4'
-    DISABLE_FZF_AUTO_COMPLETION="false"
+    --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4 \
+    ;'
+  DISABLE_FZF_AUTO_COMPLETION="false"
   DISABLE_FZF_KEY_BINDINGS="true"
-  alias fzfb="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {} "
-  alias -g R='| rg '
+  aliasG fzfb="fzf \
+    --preview bat --color=always --style=numbers --line-range=:500 {} \
+    --color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 \
+    --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9 \
+    --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 \
+    --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4 \
+    ;"
+  aliasG R='| rg '
 else
   echo "fzf or rg are missing..."
 fi

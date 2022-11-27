@@ -24,6 +24,12 @@ export function EXPORT_DIR()
 export ZSH_CONFIG_HOME="$HOME/.config/zsh"
 export ZDOTDIR=$ZSH_CONFIG_HOME
 
+### ANTIGEN
+# SOURCE_RCFILE $ZSH_CONFIG_HOME/.zsh_antigenrc
+
+### ANTIDOTE
+SOURCE_RCFILE $ZSH_CONFIG_HOME/zsh_antidoterc
+
 # Basic auto/tab complete:
 autoload -U compinit
 zstyle ':completion:*' menu select
@@ -31,8 +37,20 @@ zmodload zsh/complist
 compinit
 _comp_options+=(globdots)		# Include hidden files.
 
-# zsh_exports
-SOURCE_RCFILE $ZSH_CONFIG_HOME/zsh_exports
+# Exports
+SOURCE_RCFILE $ZSH_CONFIG_HOME/exports
+
+### Initialize Zoxide
+if command -v zoxide &> /dev/null
+then
+  eval "$(zoxide init zsh)" 
+fi
+
+### Initialize Starship
+if command -v starship &>/dev/null
+then
+  eval "$(starship init zsh)"
+fi
 
 # dot fetch origin main ; dot diff --quiet main main || echo 'directory differ'
 # Uncomment the following line to enable command auto-correction.
@@ -52,15 +70,15 @@ HIST_STAMPS="yyyy-mm-dd"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-# zsh_aliases
-SOURCE_RCFILE $ZSH_CONFIG_HOME/zsh_aliases
+# Aliases
+SOURCE_RCFILE $ZSH_CONFIG_HOME/aliases
 
 
 # Welcome message
 if command -v neofetch &> /dev/null; then neofetch; fi
-userName=$( echo "user  $(whoami)" | figlet -o -k -c -f small )
-computerName=$( echo "on  $(cat /etc/hostname)" | figlet -o -k -c -f small )
-shellName=$( echo "with  $SHELL" | figlet -o -k -c -f small )
+# userName=$( echo "user  $(whoami)" | figlet -o -k -c -f small )
+# computerName=$( echo "on  $(cat /etc/hostname)" | figlet -o -k -c -f small )
+# shellName=$( echo "with  $SHELL" | figlet -o -k -c -f small )
 theDate=$( date +"%a %y%m%d" | figlet -o -k -c -f small )
 theTime=$( date +"%X %Z" | figlet -o -k -c -f small )
 echo $userName | lolcat
