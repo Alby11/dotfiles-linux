@@ -72,9 +72,20 @@ then
   alias ctlrf='systemctl reset-failed '
 
   alias ctldrd="systemctl daemon-reload "
+fi
 
+if command -v iptables &> /dev/null
+then
   # Lookup iptables chain
   alias lookup="iptables --line-numbers -nvL "
+fi
+
+if command -v apt &> /dev/null
+then
+  alias j="journalctl "
+  alias jf="j --follow "
+  alias ju="j -xeu "
+  alias juf="j -feu "
 fi
 
 if command -v apt &> /dev/null
@@ -160,7 +171,7 @@ if command -v git &> /dev/null
 then
   alias g='git '
   function dotfiles {
-     g --git-dir=$HOME/.dotfiles_git/ --work-tree=$HOME $@
+     git --git-dir=$HOME/.dotfiles_git/ --work-tree=$HOME $@
   }    
   alias dot='dotfiles '
 fi
