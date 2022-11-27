@@ -74,9 +74,9 @@ then
 fi
 
 # user-s bin path
-export PATH=$HOME/.local/bin:$PATH
+EXPORT_DIR $HOME/.local/bin
 # bat extras scripts
-export PATH=$HOME/gitdepot/bat-extras/src:$PATH
+EXPORT_DIR $HOME/gitdepot/bat-extras/src
 
 # btop
 ### Initialize Starship

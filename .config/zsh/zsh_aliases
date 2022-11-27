@@ -26,11 +26,20 @@ then
   alias -g ssa='sudo ss -poeta '
 fi
 
+if command -v notify-send &> /dev/null
+  then
+  # Credits to: https://gist.github.com/Feniksovich
+  # Add an "alert" alias for long running commands.  Use like so:
+  #   sleep 10; alert
+  alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+fi
+
 if command -v systemctl &> /dev/null
 then
   #Basic systemctl commands
+  alias -g systemctl="sudo systemctl "
   alias ctl="systemctl "
-  # Creditst to: https://gist.github.com/Feniksovich
+  # Credits to: https://gist.github.com/Feniksovich
   alias ctlsp="systemctl stop "
   alias ctlst="systemctl start "
   alias ctlrt="systemctl restart "
@@ -151,7 +160,7 @@ if command -v git &> /dev/null
 then
   alias g='git '
   function dotfiles {
-     git --git-dir=$HOME/.dotfiles_git/ --work-tree=$HOME $@ 
+     g --git-dir=$HOME/.dotfiles_git/ --work-tree=$HOME $@
   }    
   alias dot='dotfiles '
 fi
@@ -175,7 +184,7 @@ fi
 
 if command -v ansible &> /dev/null
 then
-    alias an='ansible '
+    alias a='ansible '
 fi
 
 if command -v podman &> /dev/null
@@ -185,20 +194,18 @@ fi
 
 if command -v curl &> /dev/null
 then
-    wth() {
-      curl -m 10 "https://wttr.in/${1}" 2>/dev/null || printf '%s\n' "[ERROR] Something broke"
-    }
-    alias wimp='curl https://wttr.in/imperia'
-fi
-
-if command -v curl &> /dev/null
-then
+  # Creditst to Jeremy "Jay" LaCroix
+  # <https://www.learnlinux.tv/10-linux-terminal-tips-and-tricks-to-enhance-your-workflow/
   c() {
     # Ask cheat.sh website for details about a Linux command.
-    curl -m 10 "http://cheat.sh/${1}" 2>/dev/null || printf '%s\n' "[ERROR] Something broke"
+    curl -m 10 "http://cheat.sh/${1}" 2>/dev/null L || printf '%s\n' "[ERROR] Something broke"
   }
+  alias speedtest='curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python -'
+  wth() {
+    curl -m 10 "https://wttr.in/${1}" 2>/dev/null || printf '%s\n' "[ERROR] Something broke"
+  }
+  alias wimp='curl https://wttr.in/imperia'
 fi
-
 
 
 if [ $( command -v fzf ) ] && [ $( command -v rg ) ] ; then
@@ -212,7 +219,7 @@ if [ $( command -v fzf ) ] && [ $( command -v rg ) ] ; then
     # --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"'
   # dracula theme
   export FZF_DEFAULT_OPTS='\
-    bat --color=always --style=numbers --line-range=:500 {}" \
+    --preview bat --color=always --style=numbers --line-range=:500 {}" \
     --color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 \
     --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9 \
     --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 \

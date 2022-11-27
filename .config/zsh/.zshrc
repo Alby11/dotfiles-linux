@@ -57,6 +57,7 @@ SOURCE_RCFILE $ZSH_CONFIG_HOME/zsh_aliases
 
 
 # Welcome message
+if command -v neofetch &> /dev/null; then neofetch; fi
 userName=$( echo "user  $(whoami)" | figlet -o -k -c -f small )
 computerName=$( echo "on  $(cat /etc/hostname)" | figlet -o -k -c -f small )
 shellName=$( echo "with  $SHELL" | figlet -o -k -c -f small )
