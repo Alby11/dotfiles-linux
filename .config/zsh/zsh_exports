@@ -1,9 +1,5 @@
 #!/bin/sh
 ### GIT
-github_username="alby11"
-git config --global user.name $github_username
-unset github_username
-git config --global user.email 17138674+alby11@users.noreply.github.com
 git config --global core.autocrlf false
 git config --global credential.helper manager-core
 git config --global core.editor nvim
