@@ -21,7 +21,7 @@ SUBCOMMANDS:\n
 \tpush        \t\tpush file to remote\n
 \tpull        \t\tpull file from remote\n
 \tsubupdate   \t\tupdate submodules from remote\n
-\tsync        \t\tsync repo (status, addall, push, subupdate\n
+\tsync        \t\tsync repo (status, addall, push\n
 EOS
 )
 
@@ -79,7 +79,6 @@ dotfilesSync ()
   dotfilesAddall
   dotfilesCommit
   dotfilesPush
-  dotfilesSubupdate
 }
 
 cd $HOME
