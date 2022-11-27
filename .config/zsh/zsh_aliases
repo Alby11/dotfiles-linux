@@ -30,6 +30,7 @@ if command -v systemctl &> /dev/null
 then
   #Basic systemctl commands
   alias ctl="systemctl "
+  # Creditst to: https://gist.github.com/Feniksovich
   alias ctlsp="systemctl stop "
   alias ctlst="systemctl start "
   alias ctlrt="systemctl restart "
