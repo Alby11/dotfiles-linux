@@ -39,6 +39,7 @@ sudo apt-get install -y \
   curl wget net-tools nmap tcpdump rsync gzip unzip \
   build-essential cmake yarn default-jdk \
   chafa exiftool xdg-utils \
+  neofetch \
   ansible \
   ;
 if [$environment -eq "p"]; then
