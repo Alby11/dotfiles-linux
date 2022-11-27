@@ -226,6 +226,24 @@ then
   alias wimp='curl https://wttr.in/imperia'
 fi
 
+checkmd5() {
+  if [ command -v md5sum &> /dev/null ]
+  then
+    if [ [ $1 = "" ] || [ $2 = "" ] ]
+    then
+      echo "Usage: checkmd5 [file] [md5sum]"
+      return 1
+    fi
+    md5=$(md5sum $1)
+    if [ $md5 = $2 ]
+    then
+      echo "MD5 OK"
+    else
+      echo "MD5 NOT OK!!"
+    fi
+  fi
+}
+
 
 if [ $( command -v fzf ) ] && [ $( command -v rg ) ] ; then
   export FZF_BASE=/usr/bin/fzf
