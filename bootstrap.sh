@@ -39,14 +39,15 @@ sudo apt-get install -y \
   curl wget net-tools nmap tcpdump rsync gzip unzip \
   build-essential cmake yarn default-jdk \
   chafa exiftool xdg-utils \
+  bat exa zoxide \
   neofetch \
   ansible \
   ;
 if [$environment -eq "p"]; then
-  sudo add-apt-repository -y ppa:aslatter/ppa
+  #sudo add-apt-repository -y ppa:aslatter/ppa
   sudo apt-get install -y \
-    pkg-config \
-    libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev libxkbcommon-dev \
+    #pkg-config \
+    #libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev libxkbcommon-dev \
     alacritty \
     chrome-gnome-shell \
     x11-xserver-utils \
@@ -79,16 +80,16 @@ fi
 ### CARGO
 sudo apt-get install -y cargo
 export PATH=$HOME/.cargo/bin:$PATH
-cargo install --force \
-  bat \
-  exa \
-  zoxide \
-  ;
+#cargo install --force \
+#  bat \
+#  exa \
+#  zoxide \
+#  ;
 bat cache --build
 
 ### PIP
 sudo apt-get install -y \
-  python3 python3-venv python3.11-dev python3-pip nuitka
+  python3 python3-venv python3.11-dev python3-pip \
   ;
 sudo python3 -m pip install --upgrade pip
 sudo python3 -m pip install --upgrade \
@@ -126,17 +127,6 @@ sudo update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60
 sudo update-alternatives --auto vim
 sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
 sudo update-alternatives --auto editor
-
-### INTERCEPTION # key ramapping
-if [ $environment -eq "p" ] ; then
-  sudo add-apt-repository -y ppa:deafmute/interception
-  sudo apt-get install -y interception-tools
-  sudo mkdir -p /etc/interception
-  sudo cp .config/interception/udevmon.yaml /etc/interception
-  sudo cp .config/interception/udevmon.service /etc/systemd/system
-  sudo systemctl enable udevmon.service
-  sudo systemctl start udevmon.service
-fi
 
 ### PROMPT
 sudo apt-get install -y \
@@ -209,6 +199,20 @@ gistURL="https://gist.githubusercontent.com/Alby11/1843ee8b77631dbd550ab79675fbc
 OUT="$(mktemp)"; wget -q -O - $gistURL > $OUT; . $OUT
 dotfilesRestore git@github.com:Alby11/dotfiles-linux.git
 dotfiles pull --force
+
+### INTERCEPTION # key ramapping
+if [ $environment -eq "p" ] ; then
+  sudo add-apt-repository -y ppa:deafmute/interception
+  sudo apt-get install -y interception-tools
+  sudo mkdir -p /etc/interception
+  sudo cp .config/interception/udevmon.yaml /etc/interception
+  sudo cp .config/interception/udevmon.service /etc/systemd/system
+  cd gitdepot/interception-vimproved
+  make && sudo make install
+  sudo cp /usr/bin/intercept /usr/bin/interception
+  sudo systemctl enable udevmon.service
+  sudo systemctl start udevmon.service
+fi
 
 # Launch ZSH Shell
 zsh
