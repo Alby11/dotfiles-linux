@@ -259,7 +259,7 @@ checkSum () {
   fi
 }
 
-if [ $( command -v fzf ) ] && [ $( command -v rg ) && [ $( command -v bat ) ] ; then
+if [ $( command -v fzf ) ] && [ $( command -v rg ) ] && [ $( command -v bat ) ] ; then
   export FZF_BASE=/usr/bin/fzf
   export FZF_DEFAULT_COMMAND='rg --ignore-case --files --no-ignore-vcs --hidden '
   # catppucin theme
