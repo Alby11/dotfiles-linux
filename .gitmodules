@@ -85,3 +85,6 @@
 [submodule "gitdepot/dracula-alacritty"]
 	path = gitdepot/dracula-alacritty
 	url = https://github.com/dracula/alacritty.git
+[submodule "gitdepot/dracula-telegram"]
+	path = gitdepot/dracula-telegram
+	url = https://github.com/dracula/telegram.git
