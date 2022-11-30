@@ -1,4 +1,3 @@
-#!/bin/env bash
 # Aliases
 
 if [ $(echo $0) = "/bin/zsh" ]
@@ -130,10 +129,6 @@ if command -v nvim &> /dev/null ; then
   if command -v nvr &> /dev/null ; then
     alias nvimr='nvim --listen /tmp/nvimsocket '
     alias nvrs='nvr -s '
-    # alias nvrr='nvr --remote'
-    # alias nvrs='nvr --remote-send'
-    # alias nvre='nvr --remote-expr'
-    # alias nvrc='nvr -c'
   fi
 fi
 
