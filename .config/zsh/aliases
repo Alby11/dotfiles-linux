@@ -1,3 +1,4 @@
+#!/bin/env bash
 # Aliases
 
 if [ $(echo $0) = "/bin/zsh" ]
@@ -11,13 +12,15 @@ aliasG sudo='sudo '
 
 alias SC="source $ZDOTDIR/.zshrc"
 
+alias fastping='ping -c 100 -s 2'
+
 aliasG EE='exit '
+aliasG dush='sudo du -sh '
 aliasG grep='grep --color=auto '
-aliasG fgrep='fgrep --color=auto '
 aliasG egrep='egrep --color=auto '
+aliasG fgrep='fgrep --color=auto '
 aliasG G='| grep -i '
 aliasG L='| less +f '
-aliasG dush='sudo du -sh '
 aliasG h="history -10 " # last 10 history commands
 aliasG hr="history | grep " # +command
 aliasG nta='sudo netstat -poeta '
@@ -208,6 +211,11 @@ fi
 if command -v podman &> /dev/null
 then
     alias pd='podman '
+fi
+
+if command -v iptables &> /dev/null
+then
+  alias it='iptables '
 fi
 
 if command -v curl &> /dev/null
