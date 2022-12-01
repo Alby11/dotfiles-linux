@@ -31,12 +31,12 @@ export ZDOTDIR=$ZSH_CONFIG_HOME
 SOURCE_RCFILE $ZSH_CONFIG_HOME/antidoterc
 
 # Basic auto/tab complete:
-autoload -U compinit
-zstyle ':completion:*' menu select
-zmodload zsh/complist
-compinit
-_comp_options+=(globdots)		# Include hidden files.
-autoload -Uz promptinit && promptinit && prompt pure
+# autoload -U compinit
+# zstyle ':completion:*' menu select
+# zmodload zsh/complist
+# compinit
+# _comp_options+=(globdots)		# Include hidden files.
+autoload -Uz promptinit && promptinit # && prompt pure
 
 # Exports
 SOURCE_RCFILE $ZSH_CONFIG_HOME/exports
