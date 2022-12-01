@@ -32,7 +32,7 @@ sudo apt-get install -y \
   software-properties-common \
   curl wget net-tools nmap tcpdump rsync gzip unzip \
   build-essential cmake yarn default-jdk \
-  gpg \
+  gnupg gpg \
   chafa exiftool xdg-utils \
   neofetch \
   ansible \
