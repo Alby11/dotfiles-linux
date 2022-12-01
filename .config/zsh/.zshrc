@@ -24,19 +24,17 @@ export function EXPORT_DIR()
 export ZSH_CONFIG_HOME="$HOME/.config/zsh"
 export ZDOTDIR=$ZSH_CONFIG_HOME
 
-### ANTIGEN
-# SOURCE_RCFILE $ZSH_CONFIG_HOME/.zsh_antigenrc
+
+# Basic auto/tab complete:
+autoload -Uz compinit
+# zstyle ':completion:*' menu select
+# zmodload zsh/complist
+compinit
+# _comp_options+=(globdots)		# Include hidden files.
+# autoload -Uz promptinit && promptinit # && prompt pure
 
 ### ANTIDOTE
 SOURCE_RCFILE $ZSH_CONFIG_HOME/antidoterc
-
-# Basic auto/tab complete:
-# autoload -U compinit
-# zstyle ':completion:*' menu select
-# zmodload zsh/complist
-# compinit
-# _comp_options+=(globdots)		# Include hidden files.
-autoload -Uz promptinit && promptinit # && prompt pure
 
 # Exports
 SOURCE_RCFILE $ZSH_CONFIG_HOME/exports
@@ -73,7 +71,6 @@ HIST_STAMPS="yyyy-mm-dd"
 
 # Aliases
 SOURCE_RCFILE $ZSH_CONFIG_HOME/aliases
-
 
 # Welcome message
 if command -v neofetch &> /dev/null; then neofetch; fi

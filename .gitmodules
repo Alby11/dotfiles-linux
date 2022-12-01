@@ -88,3 +88,6 @@
 [submodule "gitdepot/dracula-telegram"]
 	path = gitdepot/dracula-telegram
 	url = https://github.com/dracula/telegram.git
+[submodule "gitdepot/dotfiles-stash"]
+	path = gitdepot/dotfiles-stash
+	url = git@github.com:Alby11/dotfiles-stash.git
