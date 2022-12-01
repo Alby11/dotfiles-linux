@@ -41,7 +41,6 @@ if [$environment -eq "p"]; then
   sudo apt-get install -y \
     pkg-config \
     libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev libxkbcommon-dev \
-    alacritty \
     chrome-gnome-shell \
     x11-xserver-utils \
     ;
@@ -106,10 +105,10 @@ sudo update-alternatives --auto python
 export PATH=$HOME/.local/bin:$PATH
 
 ### NODEJS
-sudo apt-get install -y \
-  nodejs \
-  npm \
-  ;
+# LTS
+curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash - 
+sudo apt-get autoremove -y nodejs npm
+sudo apt-get install -y nodejs
 # node.js packages
 sudo npm install -g \
   tree-sitter-cli \
@@ -122,7 +121,7 @@ curl -fsSL https://repo.charm.sh/apt/gpg.key | sudo gpg --dearmor -o /etc/apt/ke
 echo "deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *" | sudo tee /etc/apt/sources.list.d/charm.list
 sudo apt-get update
 sudo apt-get install -y \
-  libnvtt-bin fzf locate ripgrep fd-find glow \
+  libnvtt-bin fzf locate ripgrep fd-find glow luarocks golang-go compose \
   ;
 rm -rf ~/.config/
 mkdir -p ~/.config
