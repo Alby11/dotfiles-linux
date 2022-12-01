@@ -70,11 +70,11 @@ ohmyzsh/ohmyzsh path:plugins/yum
 ohmyzsh/ohmyzsh path:plugins/zoxide
 
 # or lighter-weight ones like zsh-utils
-belak/zsh-utils path:editor
-belak/zsh-utils path:history
+# belak/zsh-utils path:editor
+# belak/zsh-utils path:history
 # belak/zsh-utils path:prompt
-belak/zsh-utils path:utility
-belak/zsh-utils path:completion
+# belak/zsh-utils path:utility
+# belak/zsh-utils path:completion
 
 # prompts:
 #   with prompt plugins, remember to add this to your .zshrc:
