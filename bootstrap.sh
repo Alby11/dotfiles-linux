@@ -1,9 +1,7 @@
 #!/bin/bash
-
-if [ ! $1 ]; then echo -e "usage: \n\nbootstrap.sh physical/server/virtual" ; exit 2 ; fi
-if [ $1 == "physical" ] ; then environment="p" ; fi
-if [ $1 == "server" ] ; then environment="s" ; fi
-if [ $1 == "virtual" ] ; then environment="v" ; fi
+read -p $'What kind of installation is it?\np=pysical\ns=virtual\ns=server\n:' environment  
+read -p $'Please insert your GitHub username' gitHubUser  
+read -p $'Please insert your GitHub email' gitHubEmail  
 
 # Neovim nightly
 sudo add-apt-repository -y ppa:neovim-ppa/unstable
@@ -35,7 +33,6 @@ sudo apt-get install -y \
   curl wget net-tools nmap tcpdump rsync gzip unzip \
   build-essential cmake yarn default-jdk \
   chafa exiftool xdg-utils \
-  bat exa zoxide \
   neofetch \
   ansible \
   ;
@@ -57,8 +54,10 @@ sudo apt-get autoremove -y git
 sudo apt-get install -y \
   git \
   ;
-git config --global user.name ""
-git config --global user.email ""
+git config --global user.name $gitHubUser
+git config --global user.email $gitHubEmail
+unset $gitHubUser
+unset $gitHubEmail
 git config --global core.autocrlf false
 git config --global credential.helper manager-core
 git config --global core.editor nvim
@@ -70,11 +69,16 @@ git config --global init.default.branch main
 git config --global core.fsmonitor false
 
 ### set up environment, depending on os
-if grep -qi microsoft /proc/version
+if find /dev -iname '*vmware*' &> /dev/null
 then
-  echo "ubuntu on wsl"
+  echo "Linux on VMware"
+elif grep -qi microsoft /proc/version
+then
+  echo "Linux on wsl"
 elif grep -qi ubuntu /proc/version ; then
-  echo "native ubuntu linux"
+  echo "Native Ubuntu Linux"
+elif grep -qi pop-os /proc/version ; then
+  echo "Native Pop-OS Linux"
 fi
 
 ### CARGO
@@ -97,6 +101,8 @@ sudo python3 -m pip install --upgrade \
   ;
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 60
 sudo update-alternatives --auto python
+
+### export user bin dir to PATH
 export PATH=$HOME/.local/bin:$PATH
 
 ### NODEJS
@@ -110,7 +116,7 @@ sudo npm install -g \
   ;
 
 ### NEOVIM
-# Glow
+# Glow repo
 sudo mkdir -p /etc/apt/keyrings
 curl -fsSL https://repo.charm.sh/apt/gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/charm.gpg
 echo "deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *" | sudo tee /etc/apt/sources.list.d/charm.list
@@ -167,7 +173,7 @@ sudo apt-get install -y \
   ;
 
 ### TMUX
-# trzsz-go
+# trzsz-go repo
 sudo add-apt-repository -y ppa:trzsz/ppa
 sudo apt-get install -y \
   tmux tmuxinator tmux-plugin-manager powerline \
@@ -189,10 +195,28 @@ sudo apt-get autoremove -y
 sudo apt-get autopurge -y
 sudo apt-get autoclean -y
 echo "alias sudo='sudo '" | sudo tee -a /etc/bash.bashrc
-chsh -s /bin/zsh
 
-# gPaste
+### DOTFILES
+rm -rf ~/.dotfiles_git
+gistURL="https://gist.githubusercontent.com/Alby11/1843ee8b77631dbd550ab79675fbc27f/raw/89b418cbf8269ee78fb067f742fb92806c55a17a/.setup_dotfiles.sh"
+OUT="$(mktemp)"; wget -q -O - $gistURL > $OUT; . $OUT
+dotfilesRestore git@github.com:Alby11/dotfiles-linux.git
+dotfiles pull --force
+dotfiles submodule init 
+
 if [ $environment -eq "p" ] ; then
+### INTERCEPTION # key ramapping
+  sudo add-apt-repository -y ppa:deafmute/interception
+  sudo apt-get install -y interception-tools
+  sudo mkdir -p /etc/interception
+  sudo cp .config/interception/udevmon.yaml /etc/interception
+  sudo cp .config/interception/udevmon.service /etc/systemd/system
+  cd gitdepot/interception-vimproved
+  make && sudo make install
+  sudo cp /usr/bin/intercept /usr/bin/interception
+  sudo systemctl enable udevmon.service
+  sudo systemctl start udevmon.service
+### GPASTE
   sudo apt-get install -y \
     gpaste \
     gnome-shell-extension-prefs \
@@ -204,26 +228,6 @@ if [ $environment -eq "p" ] ; then
   rm -rf wgetpaste*
 fi
 
-### DOTFILES
-rm -rf ~/.dotfiles_git
-gistURL="https://gist.githubusercontent.com/Alby11/1843ee8b77631dbd550ab79675fbc27f/raw/89b418cbf8269ee78fb067f742fb92806c55a17a/.setup_dotfiles.sh"
-OUT="$(mktemp)"; wget -q -O - $gistURL > $OUT; . $OUT
-dotfilesRestore git@github.com:Alby11/dotfiles-linux.git
-dotfiles pull --force
-
-### INTERCEPTION # key ramapping
-if [ $environment -eq "p" ] ; then
-  sudo add-apt-repository -y ppa:deafmute/interception
-  sudo apt-get install -y interception-tools
-  sudo mkdir -p /etc/interception
-  sudo cp .config/interception/udevmon.yaml /etc/interception
-  sudo cp .config/interception/udevmon.service /etc/systemd/system
-  cd gitdepot/interception-vimproved
-  make && sudo make install
-  sudo cp /usr/bin/intercept /usr/bin/interception
-  sudo systemctl enable udevmon.service
-  sudo systemctl start udevmon.service
-fi
-
 # Launch ZSH Shell
+chsh -s /bin/zsh
 zsh
