@@ -232,15 +232,12 @@ then
 fi
 
 checkSum () {
-  echo $1
-  echo $2
-  echo $3
   if [ $1 = "" ] || [ $2 = "" ] || [ $3 = "" ]
   then
     echo "Usage: checkmd5 [md5|sha1|sha256|sha512] [file] [sum]"
     return 2
   fi
-  if ! [ $1 = "md5" ] || [ $1 = "sha1" ] || [ $1 = "sha256" ] || [ $1 = "sha512" ]
+  if [ $1 != "md5" ] && [ $1 != "sha1" ] && [ $1 != "sha256" ] && [ $1 != "sha512" ]
   then
     echo "algorithm (firt paramater) must be [md5|sha1|sha256|sha512]"
     return 3
@@ -249,8 +246,8 @@ checkSum () {
   if command -v $command &> /dev/null 
   then
     local sum=$($command $2 | cut -d ' ' -f 1)
-    echo $command
-    echo $sum
+    echo "Given: $3"
+    echo "Calculated: $sum"
     if [ $sum = $3 ]
     then
       echo "${command} OK"
