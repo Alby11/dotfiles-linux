@@ -5,12 +5,8 @@ if [ $1 == "physical" ] ; then environment="p" ; fi
 if [ $1 == "server" ] ; then environment="s" ; fi
 if [ $1 == "virtual" ] ; then environment="v" ; fi
 
-# additional repos
 # Neovim nightly
 sudo add-apt-repository -y ppa:neovim-ppa/unstable
-# git official repo
-sudo add-apt-repository -y ppa:git-core/ppa
-# apt-get extra packages
 sudo apt-get install -y \
   apt-file \
   apt-utils \
@@ -18,13 +14,13 @@ sudo apt-get install -y \
   ca-certificates \
   ;
 
-# ssh setup
+###  SSH SETUP
 sudo apt-get autoremove -y \
   neovim \
   ;
 sudo apt-get install -y \
   openssh-client \
-  neovim neovim-runtime \
+  neovim \
   sshfs \
   ;
 if [ ! -e ~/.ssh/id_ed25519 ] ; then
@@ -46,8 +42,8 @@ sudo apt-get install -y \
 if [$environment -eq "p"]; then
   #sudo add-apt-repository -y ppa:aslatter/ppa
   sudo apt-get install -y \
-    #pkg-config \
-    #libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev libxkbcommon-dev \
+    pkg-config \
+    libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev libxkbcommon-dev \
     alacritty \
     chrome-gnome-shell \
     x11-xserver-utils \
@@ -55,10 +51,14 @@ if [$environment -eq "p"]; then
 fi
 
 ### GIT
+# git official repo
+sudo add-apt-repository -y ppa:git-core/ppa
 sudo apt-get autoremove -y git
 sudo apt-get install -y \
   git \
   ;
+git config --global user.name ""
+git config --global user.email ""
 git config --global core.autocrlf false
 git config --global credential.helper manager-core
 git config --global core.editor nvim
@@ -80,16 +80,16 @@ fi
 ### CARGO
 sudo apt-get install -y cargo
 export PATH=$HOME/.cargo/bin:$PATH
-#cargo install --force \
-#  bat \
-#  exa \
-#  zoxide \
-#  ;
+cargo install --force \
+ bat \
+ exa \
+ zoxide \
+ ;
 bat cache --build
 
 ### PIP
 sudo apt-get install -y \
-  python3 python3-venv python3.11-dev python3-pip \
+  python3 python3-venv python3-dev python3-pip \
   ;
 sudo python3 -m pip install --upgrade pip
 sudo python3 -m pip install --upgrade \
@@ -99,7 +99,7 @@ sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 60
 sudo update-alternatives --auto python
 export PATH=$HOME/.local/bin:$PATH
 
-# node.js (latest lts) with nvm
+### NODEJS
 sudo apt-get install -y \
   nodejs \
   npm \
@@ -142,8 +142,6 @@ declare -a fonts=(
   CascadiaCode
   FiraCode
   FiraMono
-  JetBrainsMono
-  Lilex
 )
 version='2.2.0'
 fonts_dir="${HOME}/.local/share/fonts"
@@ -192,6 +190,19 @@ sudo apt-get autopurge -y
 sudo apt-get autoclean -y
 echo "alias sudo='sudo '" | sudo tee -a /etc/bash.bashrc
 chsh -s /bin/zsh
+
+# gPaste
+if [ $environment -eq "p" ] ; then
+  sudo apt-get install -y \
+    gpaste \
+    gnome-shell-extension-prefs \
+    ;
+  wget http://wgetpaste.zlin.dk/wgetpaste-current.tar.bz2
+  tar xvfj wgetpaste-current.tar.bz2
+  find . -type f -iname wgetpaste 2>/dev/null | xargs mv '{}' ~/.local/bin
+  sudo chmod +x ~/.local/bin/wgetpaste 
+  rm -rf wgetpaste*
+fi
 
 ### DOTFILES
 rm -rf ~/.dotfiles_git
