@@ -1,9 +1,11 @@
 # Aliases
 
-if [ $(echo $0) = "/bin/zsh" ]
+if [ $SHELL = "/bin/zsh" ]
 then
-  alias aliasG='alias -g '
+  echo "On ZSH, using alias -g"
+  alias -g aliasG='alias -g '
 else
+  echo "Not on ZSH, using alias"
   alias aliasG='alias '
 fi
 
