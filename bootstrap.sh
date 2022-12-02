@@ -168,7 +168,7 @@ then
   echo "deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *" | sudo tee /etc/apt/sources.list.d/charm.list
 elif [ $family = 'r' ]
 then
-  echo
+  dnf copr enable tokariew/glow
 fi
 update
 install \
