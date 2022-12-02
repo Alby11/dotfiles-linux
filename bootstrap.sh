@@ -177,6 +177,7 @@ sudo apt-get install -y \
 sudo add-apt-repository -y ppa:trzsz/ppa
 sudo apt-get install -y \
   tmux tmuxinator tmux-plugin-manager powerline \
+  urlview \
   xsel xclip wl-clipboard \
   trzsz \
   ;
