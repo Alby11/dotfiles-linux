@@ -143,5 +143,3 @@ unset -f dotfilesRm
 unset -f dotfilesCommit
 unset -f dotfilesPush
 unset -f dotfilesPull
-
-return
