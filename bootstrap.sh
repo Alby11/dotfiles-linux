@@ -299,6 +299,8 @@ if [ $environment -eq 'p' ] ; then
 fi
 gsettings set org.gnome.desktop.interface show-battery-percentage true
 install tlp tlp-rdw
+sudo systemctl enable tlp.service
+sudo systemctl start tlp.service
 # Launch ZSH Shell
 chsh -s /bin/zsh
 zsh
