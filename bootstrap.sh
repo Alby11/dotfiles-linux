@@ -297,6 +297,11 @@ if [ $environment -eq 'p' ] ; then
   sudo chmod +x ~/.local/bin/wgetpaste 
   rm -rf wgetpaste*
 fi
+sudo dnf groupinstall -y multimedia
+sudo dnf install -y intel-media-driver libva libva-utils gstreamer1-vaapi ffmpeg intel-gpu-tools mesa-dri-drivers mpv
+echo "options i915 enable_guc=3"  | sudo tee -a /etc/modprobe.d/1915.conf
+echo "options i915 enable_fbc=1"  | sudo tee -a /etc/modprobe.d/1915.conf
+sudo dracut --force
 gsettings set org.gnome.desktop.interface show-battery-percentage true
 install tlp tlp-rdw
 sudo systemctl enable tlp.service
