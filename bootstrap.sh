@@ -21,7 +21,13 @@ if [ -e /etc/fedora-release ] ; then
   alias upgrade='sudo dnf upgrade -y'
 	family='d'
 	### FLATPACK
-	sudont flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+	sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+	sudo flatpak install org.gnome.Extensions
+  ### RPM FUSION
+  sudo dnf install -y \
+    https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+  sudo dnf install -y \
+    https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 else
 	if grep -qi ubuntu /proc/version ; then
 	  echo "Ubuntu Linux"
@@ -41,7 +47,6 @@ else
     ca-certificates \
     ;
 fi
-alias
 
 # Neovim nightly
 uninstall \
@@ -73,8 +78,9 @@ nvim ~/.ssh/id_ed25519.pub -c 'sp ~/.ssh/id_ed25519'
 sudo dnf group install "C Development Tools and Libraries" "Development Tools"
 install \
   software-properties-common \
-  curl wget net-tools nmap tcpdump rsync gzip unzip \
+  curl wget net-tools nmap tcpdump rsync gzip unzip p7zip p7zip-plugins unrar \
   build-essential cmake yarn default-jdk \
+  dropbox nautilus-dropbox \
   gnupg gpg \
   chafa exiftool xdg-utils \
   neofetch \
@@ -290,7 +296,8 @@ if [ $environment -eq 'p' ] ; then
   sudo chmod +x ~/.local/bin/wgetpaste 
   rm -rf wgetpaste*
 fi
-
+gsettings set org.gnome.desktop.interface show-battery-percentage true
+install tlp tlp-rdw
 # Launch ZSH Shell
 chsh -s /bin/zsh
 zsh

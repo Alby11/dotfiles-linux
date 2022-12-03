@@ -125,6 +125,14 @@ then
     aliasG dnfar='sudo dnf autoremove '
 fi
 
+if command -v fwupdmgr &>/dev/null
+then
+  alias fwcheck='\
+  sudo fwupdmgr refresh --force && \
+  sudo fwupdmgr get-updates && \
+  sudo fwupdmgr get-updates'
+fi
+
 if command -v tmux &> /dev/null
 then
     aliasG T='tmux '
