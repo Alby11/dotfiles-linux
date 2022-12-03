@@ -83,7 +83,8 @@ install \
   dropbox nautilus-dropbox \
   gnupg gpg \
   chafa exiftool xdg-utils \
-  neofetch \
+  neofetch tldr cmatrix trash-cli autojump progress \
+  ncdu \
   ansible \
   ;
 if [ $environment == "p" ]
