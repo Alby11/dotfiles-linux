@@ -1,9 +1,15 @@
 #!/bin/bash
 shopt -s expand_aliases
 
-read -p $'What kind of installation is it?\np=pysical\ns=virtual\ns=server\n: ' environment  
-read -p $'Please insert your GitHub username: ' gitHubUser  
-read -p $'Please insert your GitHub email: ' gitHubEmail  
+installPackets ()
+{
+  arr="($@)"
+  for i in ${arr[@]}
+  do
+    packinstall $i
+  done
+}
+alias pipinstall='sudo python3 -m pip install '
 
 ### set up environment, depending on os
 if find /dev -iname '*vmware*' &> /dev/null
@@ -15,18 +21,18 @@ then
 fi
 if [ -e /etc/fedora-release ] ; then
   echo "Fedora Linux"
-  alias install='sudo dnf install -y '
-  alias uninstall='sudo dnf autoremove -y '
-  alias update='sudo dnf check-update'
-  alias upgrade='sudo dnf upgrade -y'
+  alias packinstall='sudo dnf install -y '
+  alias packuninstall='sudo dnf autoremove -y '
+  alias packupdate='sudo dnf check-update '
+  alias packupgrade='sudo dnf upgrade -y '
 	family='d'
 	### FLATPACK
 	sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 	sudo flatpak install org.gnome.Extensions
   ### RPM FUSION
-  sudo dnf install -y \
+  packinstall \
     https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
-  sudo dnf install -y \
+  packinstall \
     https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 else
 	if grep -qi ubuntu /proc/version ; then
@@ -34,23 +40,27 @@ else
 	elif grep -qi pop-os /proc/version ; then
 	  echo "Pop-OS Linux"
 	fi
-  alias install='sudo apt-get install -y '
-  alias uninstall='sudo apt-get autoremove -y '
-  alias update='sudo apt-get update'
-  alias upgrade='sudo apt-get upgrade -y'
+  alias packinstall='sudo apt-get install -y '
+  alias packuninstall='sudo apt-get autoremove -y '
+  alias packupdate='sudo apt-get update '
+  alias packupgrade='sudo apt-get upgrade -y '
 	family='r'
   ## Package manager stuff
-  install \
+  declare -a packets=(
     apt-file \
     apt-utils \
     apt-transport-https \
     ca-certificates \
-    ;
+    ) 
+  installPackets "${packets[@]}"
 fi
 
+read -p $'What kind of installation is it?\np=pysical\ns=virtual\ns=server\n: ' environment  
+read -p $'Please insert your GitHub username: ' gitHubUser  
+read -p $'Please insert your GitHub email: ' gitHubEmail  
+
 # Neovim nightly
-uninstall \
-  neovim python3-neovim
+packuninstall neovim python3-neovim
 
 if [ $family == 'd' ]
 then
@@ -59,24 +69,24 @@ elif [ $family == 'r' ]
 then
   sudo dnf copr enable -y agriffis/neovim-nightly
 fi
-install \
+packinstall \
   neovim python3-neovim \
   ;
 
 ###  SSH SETUP
-install \
+packinstall \
   openssh-client \
   sshfs \
   ;
 if [ ! -e ~/.ssh/id_ed25519 ] ; then
-    mkdir -p ~/.ssh
-    ssh-keygen -t ed25519 -b 4096
+  mkdir -p ~/.ssh
+  ssh-keygen -t ed25519 -b 4096
 fi
 nvim ~/.ssh/id_ed25519.pub -c 'sp ~/.ssh/id_ed25519'
 
 # fundamentals
 sudo dnf group install "C Development Tools and Libraries" "Development Tools"
-install \
+packinstall \
   software-properties-common \
   curl wget net-tools nmap tcpdump rsync gzip unzip p7zip p7zip-plugins unrar \
   build-essential cmake yarn default-jdk \
@@ -108,7 +118,7 @@ then
   echo
 fi
 uninstall git
-install \
+packinstall \
   git \
   ;
 git config --global user.name $gitHubUser
@@ -127,7 +137,7 @@ git config --global core.fsmonitor false
 
 
 ### CARGO
-install cargo
+packinstall cargo
 export PATH=$HOME/.cargo/bin:$PATH
 cargo install \
  bat \
@@ -137,11 +147,11 @@ cargo install \
 bat cache --build
 
 ### PIP
-install \
+packinstall \
   python3 python3-venv python3-dev python3-pip \
   ;
-sudo python3 -m pip install --upgrade pip
-sudo python3 -m pip install --upgrade \
+pipinstall pip
+pipinstall \
   virtualenv \
   ;
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 60
@@ -160,7 +170,7 @@ then
   echo
 fi
 uninstall nodejs npm
-install nodejs
+packinstall nodejs
 # node.js packages
 sudo npm install -g \
   tree-sitter-cli \
@@ -177,8 +187,8 @@ elif [ $family = 'r' ]
 then
   dnf copr enable tokariew/glow
 fi
-update
-install \
+packupdate
+packinstall \
   libnvtt-bin fzf locate ripgrep fd-find glow luarocks golang-go compose \
   ;
 rm -rf ~/.config/
@@ -192,7 +202,7 @@ sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
 sudo update-alternatives --auto editor
 
 ### PROMPT
-install \
+packinstall \
   figlet \
   lolcat \
   ;
@@ -225,7 +235,7 @@ unset fonts version fonts_dir font zip_file download_url
 fc-cache -f -v
 
 ### ZSH
-install \
+packinstall \
   zsh \
   ;
 
@@ -233,29 +243,37 @@ install \
 # trzsz-go repo
 if [ $family == 'd' ]
 then
-  sudo add-apt-repository -y ppa:trzsz/ppa
+  echo
+  # sudo add-apt-repository -y ppa:trzsz/ppa
 elif [ $family == 'r' ]
 then
   echo
 fi
-install \
-  tmux tmuxinator tmux-plugin-manager powerline \
-  urlview \
-  xsel xclip wl-clipboard \
-  trzsz \
-  ;
+declare -a packets=(
+  "tmux"
+  "tmuxinator"
+  "tmux-plugin-manager"
+  "powerline"
+  "urlview"
+  "xsel"
+  "xclip"
+  "wl-clipboard"
+)
+installPackets "${packets[@]}"
+pipinstall --upgrade trzsz
 
 ### RANGER
-install \
-  ranger \
-  ;
-python3 -m pip install --user --upgrade \
+declare -a packets=(
+  "ranger"
+)
+installPackets "${packets[@]}"
+pipinstall \
   ranger-tmux \
   ;
 
 # apt-get upgrade and cleanup
-upgrade
-uninstall
+packupgrade
+packuninstall
 echo "alias sudo='sudo '" | sudo tee -a /etc/bash.bashrc
 
 ### DOTFILES
@@ -276,8 +294,8 @@ if [ $environment -eq 'p' ] ; then
   then
 	  sudo dnf copr enable fszymanski/interception-tools
   fi
-  update
-  install interception-tools
+  packupdate
+  packinstall interception-tools
   sudo mkdir -p /etc/interception
   sudo cp .config/interception/udevmon.yaml /etc/interception
   sudo cp .config/interception/udevmon.service /etc/systemd/system
@@ -287,10 +305,11 @@ if [ $environment -eq 'p' ] ; then
   sudo systemctl enable udevmon.service
   sudo systemctl start udevmon.service
 ### GPASTE
-  install \
-    gpaste \
-    gnome-shell-extension-prefs \
-    ;
+  declare -a packets=(
+    "gpaste"
+    "gnome-shell-extension-prefs"
+  )
+  installPackets "${packets[@]}"
   wget http://wgetpaste.zlin.dk/wgetpaste-current.tar.bz2
   tar xvfj wgetpaste-current.tar.bz2
   find . -type f -iname wgetpaste 2>/dev/null | xargs -I {} mv '{}' ~/.local/bin
@@ -303,9 +322,10 @@ echo "options i915 enable_guc=3"  | sudo tee -a /etc/modprobe.d/1915.conf
 echo "options i915 enable_fbc=1"  | sudo tee -a /etc/modprobe.d/1915.conf
 sudo dracut --force
 gsettings set org.gnome.desktop.interface show-battery-percentage true
-install tlp tlp-rdw
+packinstall tlp tlp-rdw
 sudo systemctl enable tlp.service
 sudo systemctl start tlp.service
+dnf install -y stacer
 # Launch ZSH Shell
 chsh -s /bin/zsh
 zsh

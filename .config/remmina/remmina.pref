@@ -32,7 +32,7 @@ small_toolbutton=false
 view_file_mode=0
 resolutions=640x480,800x600,1024x768,1152x864,1280x960,1400x1050,1920x1080,3840x2160
 keystrokes=Send hello world§hello world\\n
-main_width=656
+main_width=658
 main_height=400
 main_maximize=false
 main_sort_column_id=1
@@ -118,7 +118,7 @@ color14=rgb(152,154,156)
 color15=rgb(213,204,186)
 
 [remmina_news]
-periodic_news_permitted=true
+periodic_news_permitted=false
 periodic_rmnews_last_get=1669383463
 periodic_rmnews_get_count=2
 periodic_rmnews_uuid_prefix=CM5CU6ZCBBINE7
