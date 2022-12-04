@@ -69,15 +69,18 @@ elif [ $family == 'r' ]
 then
   sudo dnf copr enable -y agriffis/neovim-nightly
 fi
-packinstall \
-  neovim python3-neovim \
-  ;
+declare -a packets=(
+  "neovim"
+  "python3-neovim"
+)
+installPackets "${packets[@]}"
 
 ###  SSH SETUP
-packinstall \
-  openssh-client \
-  sshfs \
-  ;
+declare -a packets=(
+  "openssh-client"
+  "sshfs"
+  )
+installPackets "${packets[@]}"
 if [ ! -e ~/.ssh/id_ed25519 ] ; then
   mkdir -p ~/.ssh
   ssh-keygen -t ed25519 -b 4096
@@ -86,26 +89,53 @@ nvim ~/.ssh/id_ed25519.pub -c 'sp ~/.ssh/id_ed25519'
 
 # fundamentals
 sudo dnf group install "C Development Tools and Libraries" "Development Tools"
-packinstall \
-  software-properties-common \
-  curl wget net-tools nmap tcpdump rsync gzip unzip p7zip p7zip-plugins unrar \
-  build-essential cmake yarn default-jdk \
-  dropbox nautilus-dropbox \
-  gnupg gpg \
-  chafa exiftool xdg-utils \
-  neofetch tldr cmatrix trash-cli autojump progress \
-  ncdu \
-  ansible \
-  ;
+declare -a packets=(
+  "software-properties-common"
+  "curl"
+  "wget"
+  "net-tools"
+  "nmap"
+  "tcpdump"
+  "rsync"
+  "gzip"
+  "unzip"
+  "p7zip"
+  "p7zip-plugins"
+  "unrar"
+  "build-essential"
+  "cmake"
+  "yarn"
+  "default-jdk"
+  "dropbox"
+  "nautilus-dropbox"
+  "gnupg"
+  "gpg"
+  "chafa"
+  "exiftool"
+  "xdg-utils"
+  "neofetch"
+  "tldr"
+  "cmatrix"
+  "trash-cli"
+  "autojump"
+  "progress"
+  "ncdu"
+  "ansible"
+)
+installPackets "${packets[@]}"
 if [ $environment == "p" ]
 then
-  install \ 
-    pkg-config \
-    libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev libxkbcommon-dev \
-    chrome-gnome-shell \
-    x11-xserver-utils \
-		gnome-tweaks \
-    ;
+declare -a packets=(
+  "pkg-config"
+  "libfreetype6-dev"
+  "libfontconfig1-dev"
+  "libxcb-xfixes0-dev"
+  "libxkbcommon-dev"
+  "chrome-gnome-shell"
+  "x11-xserver-utils"
+  "gnome-tweaks"
+)
+installPackets "${packets[@]}"
 fi
 
 ### GIT
@@ -118,9 +148,7 @@ then
   echo
 fi
 uninstall git
-packinstall \
-  git \
-  ;
+packinstall git 
 git config --global user.name $gitHubUser
 git config --global user.email $gitHubEmail
 unset $gitHubUser
@@ -139,21 +167,25 @@ git config --global core.fsmonitor false
 ### CARGO
 packinstall cargo
 export PATH=$HOME/.cargo/bin:$PATH
-cargo install \
- bat \
- exa \
- zoxide \
- ;
+if $family = 'd'
+  cargo install \
+    bat \
+    exa \
+    zoxide \
+    ;
+fi
 bat cache --build
 
 ### PIP
-packinstall \
-  python3 python3-venv python3-dev python3-pip \
-  ;
+declare -a packets=(
+  "python3"
+  "python3-venv"
+  "python3-dev"
+  "python3-pip"
+)
+installPackets "${packets[@]}"
 pipinstall pip
-pipinstall \
-  virtualenv \
-  ;
+pipinstall virtualenv
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 60
 sudo update-alternatives --auto python
 
@@ -181,8 +213,10 @@ sudo npm install -g \
 if [ $family = 'd' ]
 then
   sudo mkdir -p /etc/apt/keyrings
-  curl -fsSL https://repo.charm.sh/apt/gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/charm.gpg
-  echo "deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *" | sudo tee /etc/apt/sources.list.d/charm.list
+  curl -fsSL https://repo.charm.sh/apt/gpg.key | \
+    sudo gpg --dearmor -o /etc/apt/keyrings/charm.gpg
+  echo "deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *" | \
+    sudo tee /etc/apt/sources.list.d/charm.list
 elif [ $family = 'r' ]
 then
   dnf copr enable tokariew/glow
@@ -202,10 +236,11 @@ sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
 sudo update-alternatives --auto editor
 
 ### PROMPT
-packinstall \
-  figlet \
-  lolcat \
-  ;
+declare -a packets=(
+  "figlet"
+  "lolcat"
+)
+installPackets "${packets[@]}"
 # STARSHIP
 curl -ss https://starship.rs/install.sh | sh
 
@@ -235,9 +270,7 @@ unset fonts version fonts_dir font zip_file download_url
 fc-cache -f -v
 
 ### ZSH
-packinstall \
-  zsh \
-  ;
+packinstall zsh
 
 ### TMUX
 # trzsz-go repo
@@ -267,9 +300,7 @@ declare -a packets=(
   "ranger"
 )
 installPackets "${packets[@]}"
-pipinstall \
-  ranger-tmux \
-  ;
+pipinstall ranger-tmux
 
 # apt-get upgrade and cleanup
 packupgrade
@@ -317,7 +348,17 @@ if [ $environment -eq 'p' ] ; then
   rm -rf wgetpaste*
 fi
 sudo dnf groupinstall -y multimedia
-sudo dnf install -y intel-media-driver libva libva-utils gstreamer1-vaapi ffmpeg intel-gpu-tools mesa-dri-drivers mpv
+declare -a packets=(
+  "intel-media-driver"
+  "libva"
+  "libva-utils"
+  "gstreamer1-vaapi"
+  "ffmpeg"
+  "intel-gpu-tools"
+  "mesa-dri-drivers"
+  "mpv"
+)
+installPackets "${packets[@]}"
 echo "options i915 enable_guc=3"  | sudo tee -a /etc/modprobe.d/1915.conf
 echo "options i915 enable_fbc=1"  | sudo tee -a /etc/modprobe.d/1915.conf
 sudo dracut --force
