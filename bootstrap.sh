@@ -1,16 +1,6 @@
 #!/bin/bash
 shopt -s expand_aliases
 
-installPackets ()
-{
-  arr="($@)"
-  for i in ${arr[@]}
-  do
-    packinstall $i
-  done
-}
-alias pipinstall='sudo python3 -m pip install '
-
 ### set up environment, depending on os
 if find /dev -iname '*vmware*' &> /dev/null
 then
@@ -19,50 +9,58 @@ elif grep -qi microsoft /proc/version
 then
   echo "Linux on wsl"
 fi
+
 if [ -e /etc/fedora-release ] ; then
   echo "Fedora Linux"
-  alias packinstall='sudo dnf install -y '
-  alias packuninstall='sudo dnf autoremove -y '
-  alias packupdate='sudo dnf check-update '
-  alias packupgrade='sudo dnf upgrade -y '
-	family='d'
-	### FLATPACK
-	sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-	sudo flatpak install org.gnome.Extensions
-  ### RPM FUSION
-  packinstall \
-    https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
-  packinstall \
-    https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+  alias lpminstall='sudo dnf install -y '
+  alias lpmuninstall='sudo dnf autoremove -y '
+  alias lpmupdate='sudo dnf check-update '
+  alias lpmupgrade='sudo dnf upgrade -y '
+	family='u'
 else
 	if grep -qi ubuntu /proc/version ; then
 	  echo "Ubuntu Linux"
 	elif grep -qi pop-os /proc/version ; then
 	  echo "Pop-OS Linux"
 	fi
-  alias packinstall='sudo apt-get install -y '
-  alias packuninstall='sudo apt-get autoremove -y '
-  alias packupdate='sudo apt-get update '
-  alias packupgrade='sudo apt-get upgrade -y '
+  alias lpminstall='sudo apt-get install -y '
+  alias lpmuninstall='sudo apt-get autoremove -y '
+  alias lpmupdate='sudo apt-get update '
+  alias lpmupgrade='sudo apt-get upgrade -y '
 	family='r'
-  ## Package manager stuff
-  declare -a packets=(
-    apt-file \
-    apt-utils \
-    apt-transport-https \
-    ca-certificates \
-    ) 
-  installPackets "${packets[@]}"
 fi
+alias pipinstall='sudo python3 -m pip install --upgrade '
+alias npminstall='sudo npm install -g '
 
+installPackets ()
+{
+  kind=$1
+  shift
+  arr=("$@")
+  for i in ${arr[@]}
+  do
+    if $kind == 'lpm'
+    then
+      lpminstall $i
+    elif $kind == 'pip'
+    then
+      pipinstall $1
+    elif $kind == 'npm'
+    then
+      npminstall $1
+    fi
+  done
+}
+
+exit 0
 read -p $'What kind of installation is it?\np=pysical\ns=virtual\ns=server\n: ' environment  
 read -p $'Please insert your GitHub username: ' gitHubUser  
 read -p $'Please insert your GitHub email: ' gitHubEmail  
 
 # Neovim nightly
-packuninstall neovim python3-neovim
+lpmuninstall neovim python3-neovim
 
-if [ $family == 'd' ]
+if [ $family == 'u' ]
 then
   sudo add-apt-repository -y ppa:neovim-ppa/unstable
 elif [ $family == 'r' ]
@@ -73,14 +71,14 @@ declare -a packets=(
   "neovim"
   "python3-neovim"
 )
-installPackets "${packets[@]}"
+installPackets "lpm" "${packets[@]}"
 
 ###  SSH SETUP
 declare -a packets=(
   "openssh-client"
   "sshfs"
   )
-installPackets "${packets[@]}"
+installPackets "lpm" "${packets[@]}"
 if [ ! -e ~/.ssh/id_ed25519 ] ; then
   mkdir -p ~/.ssh
   ssh-keygen -t ed25519 -b 4096
@@ -88,6 +86,25 @@ fi
 nvim ~/.ssh/id_ed25519.pub -c 'sp ~/.ssh/id_ed25519'
 
 # fundamentals
+if $family == 'r' then
+	### FLATPACK
+	sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+	sudo flatpak install org.gnome.Extensions
+  ### RPM FUSION
+  lpminstall \
+    https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+  lpminstall \
+    https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+elif $family == 'u' then
+  ## Package manager stuff
+  declare -a packets=(
+    apt-file \
+    apt-utils \
+    apt-transport-https \
+    ca-certificates \
+    ) 
+  installPackets "lpm" "${packets[@]}"
+fi
 sudo dnf group install "C Development Tools and Libraries" "Development Tools"
 declare -a packets=(
   "software-properties-common"
@@ -122,7 +139,7 @@ declare -a packets=(
   "ncdu"
   "ansible"
 )
-installPackets "${packets[@]}"
+installPackets "lpm" "${packets[@]}"
 if [ $environment == "p" ]
 then
 declare -a packets=(
@@ -135,12 +152,12 @@ declare -a packets=(
   "x11-xserver-utils"
   "gnome-tweaks"
 )
-installPackets "${packets[@]}"
+installPackets "lpm" "${packets[@]}"
 fi
 
 ### GIT
 # git official repo
-if [ $family == 'd' ]
+if [ $family == 'u' ]
 then
   sudo add-apt-repository -y ppa:git-core/ppa
 elif [ $family == 'r' ]
@@ -148,7 +165,7 @@ then
   echo
 fi
 uninstall git
-packinstall git 
+lpminstall git 
 git config --global user.name $gitHubUser
 git config --global user.email $gitHubEmail
 unset $gitHubUser
@@ -165,9 +182,9 @@ git config --global core.fsmonitor false
 
 
 ### CARGO
-packinstall cargo
+lpminstall cargo
 export PATH=$HOME/.cargo/bin:$PATH
-if $family = 'd'
+if $family == 'u'
   cargo install \
     bat \
     exa \
@@ -183,7 +200,7 @@ declare -a packets=(
   "python3-dev"
   "python3-pip"
 )
-installPackets "${packets[@]}"
+installPackets "lpm" "${packets[@]}"
 pipinstall pip
 pipinstall virtualenv
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 60
@@ -194,7 +211,7 @@ export PATH=$HOME/.local/bin:$PATH
 
 ### NODEJS
 # LTS
-if [ $family == 'd' ]
+if [ $family == 'u' ]
 then
   curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash - 
 elif [ $family == 'r' ]
@@ -202,27 +219,25 @@ then
   echo
 fi
 uninstall nodejs npm
-packinstall nodejs
+lpminstall nodejs
 # node.js packages
-sudo npm install -g \
-  tree-sitter-cli \
-  ;
+npminstall tree-sitter-cli
 
 ### NEOVIM
 # Glow repo
-if [ $family = 'd' ]
+if [ $family == 'u' ]
 then
   sudo mkdir -p /etc/apt/keyrings
   curl -fsSL https://repo.charm.sh/apt/gpg.key | \
     sudo gpg --dearmor -o /etc/apt/keyrings/charm.gpg
   echo "deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *" | \
     sudo tee /etc/apt/sources.list.d/charm.list
-elif [ $family = 'r' ]
+elif [ $family == 'r' ]
 then
   dnf copr enable tokariew/glow
 fi
-packupdate
-packinstall \
+lpmupdate
+lpminstall \
   libnvtt-bin fzf locate ripgrep fd-find glow luarocks golang-go compose \
   ;
 rm -rf ~/.config/
@@ -240,7 +255,7 @@ declare -a packets=(
   "figlet"
   "lolcat"
 )
-installPackets "${packets[@]}"
+installPackets "lpm" "${packets[@]}"
 # STARSHIP
 curl -ss https://starship.rs/install.sh | sh
 
@@ -270,11 +285,11 @@ unset fonts version fonts_dir font zip_file download_url
 fc-cache -f -v
 
 ### ZSH
-packinstall zsh
+lpminstall zsh
 
 ### TMUX
 # trzsz-go repo
-if [ $family == 'd' ]
+if [ $family == 'u' ]
 then
   echo
   # sudo add-apt-repository -y ppa:trzsz/ppa
@@ -292,19 +307,19 @@ declare -a packets=(
   "xclip"
   "wl-clipboard"
 )
-installPackets "${packets[@]}"
-pipinstall --upgrade trzsz
+installPackets "lpm" "${packets[@]}"
+pipinstall trzsz
 
 ### RANGER
 declare -a packets=(
   "ranger"
 )
-installPackets "${packets[@]}"
+installPackets "lpm" "${packets[@]}"
 pipinstall ranger-tmux
 
 # apt-get upgrade and cleanup
-packupgrade
-packuninstall
+lpmupgrade
+lpmuninstall
 echo "alias sudo='sudo '" | sudo tee -a /etc/bash.bashrc
 
 ### DOTFILES
@@ -318,15 +333,15 @@ dotfiles submodule update --init
 
 if [ $environment -eq 'p' ] ; then
 ### INTERCEPTION # key ramapping
-  if [ $family = 'd' ]
+  if [ $family == 'u' ]
   then
     sudo add-apt-repository -y ppa:deafmute/interception
-  elif [ $family = 'r' ]
+  elif [ $family == 'r' ]
   then
 	  sudo dnf copr enable fszymanski/interception-tools
   fi
-  packupdate
-  packinstall interception-tools
+  lpmupdate
+  lpminstall interception-tools
   sudo mkdir -p /etc/interception
   sudo cp .config/interception/udevmon.yaml /etc/interception
   sudo cp .config/interception/udevmon.service /etc/systemd/system
@@ -340,7 +355,7 @@ if [ $environment -eq 'p' ] ; then
     "gpaste"
     "gnome-shell-extension-prefs"
   )
-  installPackets "${packets[@]}"
+  installPackets "lpm" "${packets[@]}"
   wget http://wgetpaste.zlin.dk/wgetpaste-current.tar.bz2
   tar xvfj wgetpaste-current.tar.bz2
   find . -type f -iname wgetpaste 2>/dev/null | xargs -I {} mv '{}' ~/.local/bin
@@ -358,12 +373,12 @@ declare -a packets=(
   "mesa-dri-drivers"
   "mpv"
 )
-installPackets "${packets[@]}"
+installPackets "lpm" "${packets[@]}"
 echo "options i915 enable_guc=3"  | sudo tee -a /etc/modprobe.d/1915.conf
 echo "options i915 enable_fbc=1"  | sudo tee -a /etc/modprobe.d/1915.conf
 sudo dracut --force
 gsettings set org.gnome.desktop.interface show-battery-percentage true
-packinstall tlp tlp-rdw
+lpminstall tlp tlp-rdw
 sudo systemctl enable tlp.service
 sudo systemctl start tlp.service
 dnf install -y stacer
