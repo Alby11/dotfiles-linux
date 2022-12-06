@@ -287,6 +287,9 @@ checkSum () {
   fi
 }
 
+alias stopCharge='echo 1 | sudo tee /sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode'
+alias startCharge='echo 0 | sudo tee /sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode'
+
 # Credits to Connor - https://stackoverflow.com/questions/24283097/reusing-output-from-last-command-in-bash
 # Usage
 
