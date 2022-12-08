@@ -31,9 +31,12 @@ aliasG grep='grep --color=auto '
 aliasG h="history -10 " # last 10 history commands
 aliasG hr="history | grep " # +command
 aliasG nta='sudo netstat -poeta '
-aliasG ola='/bin/ls -lahi --color=auto '
-aliasG ols='/bin/ls --color=auto '
 aliasG psa='sudo ps -aux '
+
+if command -v ssh-add &>/dev/null
+then
+  alias sshkey='eval $(ssh-agent);ssh-add ~/.ssh/* 2>/dev/null'
+fi
 
 if command -v ss &> /dev/null
 then
@@ -192,6 +195,8 @@ fi
 
 if command -v exa &> /dev/null
 then
+  aliasG ola='/bin/ls -lahi --color=auto '
+  aliasG ols='/bin/ls --color=auto '
   alias ls="exa --icons --git --group-directories-first "
   alias ll="exa -l -g --icons --git --group-directories-first "
   alias la="exa -l -a --icons --git --group-directories-first "
@@ -253,7 +258,8 @@ then
   wth() {
     curl -m 10 "https://wttr.in/${1}" 2>/dev/null || printf '%s\n' "[ERROR] Something broke"
   }
-  alias myip='curl http://ipecho.net/plain; echo '
+  # alias myip='curl http://ipecho.net/plain; echo '
+  alias myip='curl icanhazip.com'
   alias wimp='curl https://wttr.in/imperia'
 fi
 
@@ -287,12 +293,17 @@ checkSum () {
   fi
 }
 
+
+getCharge ()
+{
+  local mode=$(sudo cat /sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode)
+  echo "Conservation mode: ${mode}"
+}
 alias stopCharge='echo 1 | sudo tee /sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode'
 alias startCharge='echo 0 | sudo tee /sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode'
 
 # Credits to Connor - https://stackoverflow.com/questions/24283097/reusing-output-from-last-command-in-bash
 # Usage
-
 # $ find . -name 'filename' | cap
 # /path/to/filename
 #
