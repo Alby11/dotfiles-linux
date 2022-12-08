@@ -33,9 +33,9 @@ aliasG hr="history | grep " # +command
 aliasG nta='sudo netstat -poeta '
 aliasG psa='sudo ps -aux '
 
-if command -v ssh-add &>/dev/null
+if command -v ssh-add &> /dev/null
 then
-  alias sshkey='eval $(ssh-agent);ssh-add ~/.ssh/* 2>/dev/null'
+  alias sshkey='eval $(ssh-agent);ssh-add ~/.ssh/id_*' #2>/dev/null'
 fi
 
 if command -v ss &> /dev/null
@@ -197,10 +197,10 @@ if command -v exa &> /dev/null
 then
   aliasG ola='/bin/ls -lahi --color=auto '
   aliasG ols='/bin/ls --color=auto '
-  alias ls="exa --icons --git --group-directories-first "
-  alias ll="exa -l -g --icons --git --group-directories-first "
-  alias la="exa -l -a --icons --git --group-directories-first "
-  alias lt="exa -L 1 --icons --tree --git-ignore --group-directories-first "
+  aliasG ls="exa --icons --git --group-directories-first "
+  aliasG ll="exa -lg --icons --git --group-directories-first "
+  aliasG la="exa -aglm --icons --git --group-directories-first "
+  aliasG lt="exa -L 2 --icons --tree --git-ignore --group-directories-first "
 fi
 
 if command -v git &> /dev/null
