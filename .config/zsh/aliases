@@ -129,6 +129,7 @@ then
     aliasG dnfi='sudo dnf install -y '
     aliasG dnfr='sudo dnf remove '
     aliasG dnfar='sudo dnf autoremove '
+    aliasG dnfc='sudo dnf copr '
 fi
 
 if command -v fwupdmgr &>/dev/null
