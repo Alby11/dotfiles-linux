@@ -107,37 +107,35 @@ elif $family == 'u' then
 fi
 sudo dnf group install "C Development Tools and Libraries" "Development Tools"
 declare -a packets=(
-  "software-properties-common"
-  "curl"
-  "wget"
-  "net-tools"
-  "nmap"
-  "tcpdump"
-  "rsync"
-  "gzip"
-  "unzip"
-  "p7zip"
-  "p7zip-plugins"
-  "unrar"
+  "ansible"
+  "autojump"
   "build-essential"
+  "chafa"
   "cmake"
-  "yarn"
+  "curl"
   "default-jdk"
   "dropbox"
-  "nautilus-dropbox"
+  "exiftool"
   "gnupg"
   "gpg"
-  "chafa"
-  "exiftool"
-  "xdg-utils"
-  "neofetch"
-  "tldr"
-  "cmatrix"
-  "trash-cli"
-  "autojump"
-  "progress"
+  "gzip"
+  "nautilus-dropbox"
   "ncdu"
-  "ansible"
+  "net-tools"
+  "nmap"
+  "p7zip"
+  "p7zip-plugins"
+  "progress"
+  "rsync"
+  "software-properties-common"
+  "tcpdump"
+  "tldr"
+  "trash-cli"
+  "unrar"
+  "unzip"
+  "wget"
+  "xdg-utils"
+  "yarn"
 )
 installPackets "lpm" "${packets[@]}"
 if [ $environment == "p" ]
@@ -182,6 +180,8 @@ git config --global core.fsmonitor false
 
 
 ### CARGO
+#dnf install cmake freetype-devel fontconfig-devel libxcb-devel libxkbcommon-devel g++
+#apt-get install cmake pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev libxkbcommon-dev python3
 lpminstall cargo
 export PATH=$HOME/.cargo/bin:$PATH
 if $family == 'u'
@@ -254,6 +254,10 @@ sudo update-alternatives --auto editor
 declare -a packets=(
   "figlet"
   "lolcat"
+  "neoget"
+  "cowsay"
+  "cmatrix"
+  "fortune-mod"
 )
 installPackets "lpm" "${packets[@]}"
 # STARSHIP
