@@ -72,9 +72,6 @@ EXPORT_DIR $HOME/.local/bin
 ### export CARGO
 EXPORT_DIR $HOME/.cargo/bin
 
-### export JDK
-EXPORT_DIR $HOME/jdk8u352-b08-jre/bin/
-
 # bat extras scripts
 EXPORT_DIR $HOME/gitdepot/bat-extras/src
 
