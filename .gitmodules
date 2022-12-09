@@ -94,3 +94,6 @@
 [submodule "gitdepot/dracula-tilix"]
 	path = gitdepot/dracula-tilix
 	url = https://github.com/dracula/tilix.git
+[submodule "gitdepot/dracula-xresources"]
+	path = gitdepot/dracula-xresources
+	url = https://github.com/dracula/xresources.git

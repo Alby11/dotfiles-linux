@@ -56,8 +56,8 @@ export MANPAGER='less -X';
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-### Initialize CARGO
-EXPORT_DIR $HOME/.cargo/bin
+# set ZSH as VSCode default shell for the integrated terminal
+[[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
 
 ### GITHUB repos exports
 [ -d ~/gitdepot ] && gitdepot=~/gitdepot
@@ -68,6 +68,12 @@ SOURCE_RCFILE $gitdepot/dracula_tty/dracula-tty.sh
 
 # user-s bin path
 EXPORT_DIR $HOME/.local/bin
+
+### export CARGO
+EXPORT_DIR $HOME/.cargo/bin
+
+### export JDK
+EXPORT_DIR $HOME/jdk8u352-b08-jre/bin/
 
 # bat extras scripts
 EXPORT_DIR $HOME/gitdepot/bat-extras/src
