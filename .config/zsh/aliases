@@ -13,9 +13,8 @@ aliasG sudo='sudo '
 
 alias SC="source $ZDOTDIR/.zshrc"
 
-alias fastping='ping -c 100 -s 2'
+aliasG fastping='ping -c 100 -s 2 '
 
-alias chmodx="clear "
 alias C="clear"
 alias dfh='df -h'
 alias freeh='free -mh'
@@ -28,8 +27,8 @@ aliasG dush='sudo du -sh '
 aliasG egrep='egrep --color=auto '
 aliasG fgrep='fgrep --color=auto '
 aliasG grep='grep --color=auto '
-aliasG h="history -10 " # last 10 history commands
-aliasG hr="history | grep " # +command
+alias h="history -10" # last 10 history commands
+aliasG hg="history | grep " # +command
 aliasG nta='sudo netstat -poeta '
 aliasG psa='sudo ps -aux '
 
@@ -55,16 +54,16 @@ if command -v systemctl &> /dev/null
 then
   #Basic systemctl commands
   aliasG systemctl="sudo systemctl "
-  alias ctl="systemctl "
+  aliasG ctl="systemctl "
   # Credits to: https://gist.github.com/Feniksovich
-  alias ctlsp="systemctl stop "
-  alias ctlst="systemctl start "
-  alias ctlrt="systemctl restart "
-  alias ctls="systemctl status "
+  aliasG ctlsp="systemctl stop "
+  aliasG ctlst="systemctl start "
+  aliasG ctlrt="systemctl restart "
+  aliasG ctls="systemctl status "
 
   # Enable/Disable commands for units
-  alias ctle='systemctl enable '
-  alias ctld='systemctl disable '
+  aliasG ctle='systemctl enable '
+  aliasG ctld='systemctl disable '
 
   # Start and then view status of service
   ctlsts ()
@@ -81,28 +80,29 @@ then
   }
 
   # Masking Units to disabling them
-  alias ctlmask='systemctl mask '
-  alias ctlunmask='systemctl unmask '
+  aliasG ctlmask='systemctl mask '
+  aliasG ctlunmask='systemctl unmask '
 
   # List failed units and reset systemd system status
-  alias ctlfailed='systemctl --failed --all '
-  alias ctlrf='systemctl reset-failed '
+  aliasG ctlfailed='systemctl --failed --all '
+  aliasG ctlrf='systemctl reset-failed '
 
-  alias ctldrd="systemctl daemon-reload "
+  aliasG ctldrd="systemctl daemon-reload "
 fi
 
 if command -v iptables &> /dev/null
 then
+  aliasG it='iptables '
   # Lookup iptables chain
-  alias lookup="iptables --line-numbers -nvL "
+  aliasG itlookup="iptables --line-numbers -nvL "
 fi
 
 if command -v apt &> /dev/null
 then
-  alias j="journalctl "
-  alias jf="j --follow "
-  alias ju="j -xeu "
-  alias juf="j -feu "
+  aliasG j="journalctl "
+  aliasG jf="journalctl --follow "
+  aliasG ju="journalctl -xeu "
+  aliasG juf="journalctl -feu "
 fi
 
 if command -v apt &> /dev/null
@@ -134,10 +134,12 @@ fi
 
 if command -v fwupdmgr &>/dev/null
 then
-  alias fwcheck='\
-  sudo fwupdmgr refresh --force && \
-  sudo fwupdmgr get-updates && \
-  sudo fwupdmgr get-updates'
+  fwcheck ()
+  {
+    sudo fwupdmgr refresh --force
+    sudo fwupdmgr get-updates
+    sudo fwupdmgr get-updates
+  }
 fi
 
 if command -v tmux &> /dev/null
@@ -151,21 +153,22 @@ then
 fi
 
 if command -v nvim &> /dev/null ; then
-  alias e='nvim '
-  alias nv='nvim '
-  alias vi='nvim '
-  alias vim='nvim '
+  aliasG e='nvim '
+  aliasG nv='nvim '
+  aliasG vi='nvim '
+  aliasG vim='nvim '
   aliasG E='| nvim '
-  if command -v nvr &> /dev/null ; then
-    alias nvimr='nvim --listen /tmp/nvimsocket '
-    alias nvrs='nvr -s '
+  if command -v nvr &> /dev/null
+  then
+    aliasG nvimr='nvim --listen /tmp/nvimsocket '
+    aliasG nvrs='nvr -s '
   fi
 fi
 
 if command -v xclip &> /dev/null
 then
-    aliasG Xp='xclip -o '
-    aliasG Xy=' | xclip -i '
+  aliasG Xp='xclip -o '
+  aliasG Xy=' | xclip -i '
 fi
 if command -v clipboard &> /dev/null
 then
@@ -180,16 +183,16 @@ fi
 
 if command -v ranger &> /dev/null
 then
-    alias rw='ranger '
+  aliasG rw='ranger '
 fi
 
 if command -v fdfind &> /dev/null
 then
-    alias fd='fdfind '
+  aliasG fd='fdfind '
 fi
 
 if command -v zoxide &> /dev/null ; then
-  alias cd='z '
+  aliasG cd='z '
 fi
 
 if command -v exa &> /dev/null
@@ -204,11 +207,11 @@ fi
 
 if command -v git &> /dev/null
 then
-  alias g='git '
+  aliasG g='git '
   function dotfiles {
-     git --git-dir=$HOME/.dotfiles_git/ --work-tree=$HOME $@
+    git --git-dir=$HOME/.dotfiles_git/ --work-tree=$HOME $@
   }    
-  alias dot='dotfiles '
+  aliasG dot='dotfiles '
 fi
 
 if command -v kubectl &> /dev/null
@@ -225,22 +228,18 @@ fi
 
 if command -v docker &> /dev/null
 then
-    alias dk='docker '
+    aliasG dk='docker '
 fi
 
 if command -v ansible &> /dev/null
 then
-    alias a='ansible '
+    aliasG a='ansible '
+    aliasG ap='ansible-playbook '
 fi
 
 if command -v podman &> /dev/null
 then
-    alias pd='podman '
-fi
-
-if command -v iptables &> /dev/null
-then
-  alias it='iptables '
+    aliasG pd='podman '
 fi
 
 aliasG xway='env -u WAYLAND_DISPLAY '
@@ -259,7 +258,8 @@ then
   }
   # alias myip='curl http://ipecho.net/plain; echo '
   alias myip='curl icanhazip.com'
-  alias wimp='curl https://wttr.in/imperia'
+  # alias wimp='curl https://wttr.in/imperia'
+  alias wimp='wth imperia'
 fi
 
 checkSum () {
@@ -297,8 +297,14 @@ getCharge ()
   local mode=$(sudo cat /sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode)
   echo "Conservation mode: ${mode}"
 }
-alias stopCharge='echo 1 | sudo tee /sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode'
-alias startCharge='echo 0 | sudo tee /sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode'
+stopCharge ()
+{
+  echo 1 | sudo tee /sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode
+}
+startCharge ()
+{
+  echo 0 | sudo tee /sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode
+}
 
 # Credits to Connor - https://stackoverflow.com/questions/24283097/reusing-output-from-last-command-in-bash
 # Usage
