@@ -84,3 +84,4 @@ echo $computerName | lolcat
 echo $shellName | lolcat
 echo $theDate | lolcat
 echo $theTime | lolcat
+if [  $(command -v fortune) ] && [ $(command -v cowsay) ] ; then fortune | cowsay ; fi
