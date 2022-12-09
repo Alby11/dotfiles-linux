@@ -91,3 +91,6 @@
 [submodule "gitdepot/dotfiles-stash"]
 	path = gitdepot/dotfiles-stash
 	url = git@github.com:Alby11/dotfiles-stash.git
+[submodule "gitdepot/dracula-tilix"]
+	path = gitdepot/dracula-tilix
+	url = https://github.com/dracula/tilix.git

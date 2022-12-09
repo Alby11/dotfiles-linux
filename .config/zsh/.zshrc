@@ -77,11 +77,11 @@ if command -v neofetch &> /dev/null; then neofetch; fi
 # userName=$( echo "user  $(whoami)" | figlet -o -k -c -f small )
 # computerName=$( echo "on  $(cat /etc/hostname)" | figlet -o -k -c -f small )
 # shellName=$( echo "with  $SHELL" | figlet -o -k -c -f small )
-theDate=$( date +"%a %y%m%d" | figlet -o -k -c -f small )
-theTime=$( date +"%X %Z" | figlet -o -k -c -f small )
-echo $userName | lolcat
-echo $computerName | lolcat
-echo $shellName | lolcat
-echo $theDate | lolcat
-echo $theTime | lolcat
+# theDate=$( date +"%a %y%m%d" | figlet -o -k -c -f small )
+# theTime=$( date +"%X %Z" | figlet -o -k -c -f small )
+# echo $userName | lolcat
+# echo $computerName | lolcat
+# echo $shellName | lolcat
+# echo $theDate | lolcat
+# echo $theTime | lolcat
 if [  $(command -v fortune) ] && [ $(command -v cowsay) ] ; then fortune | cowsay ; fi

@@ -261,7 +261,8 @@ declare -a packets=(
 )
 installPackets "lpm" "${packets[@]}"
 # STARSHIP
-curl -ss https://starship.rs/install.sh | sh
+# curl -ss https://starship.rs/install.sh | sh
+dnf copr enable atim/starship 
 
 ### Fonts
 # Nerd Fonts
