@@ -46,10 +46,13 @@ deleted = "🗑️  ×${count}"
 style = "bright-white"
 format = "$all_status$ahead_behind"
 
+[username]
+style_user = "bold dimmed blue"
+show_always = true
+
 [hostname]
 ssh_only = false
-format = "<[$hostname]($style)>"
-trim_at = "-"
+format = " on <[$hostname]($style)>"
 style = "bold dimmed white"
 disabled = false
 
@@ -60,7 +63,7 @@ style = "bold green"
 
 [memory_usage]
 format = "$symbol[${ram}( | ${swap})]($style) "
-threshold = 70
+# threshold = 70
 style = "bold dimmed white"
 disabled = false
 
@@ -76,10 +79,6 @@ time_format = "%T"
 format = "🕙 $time($style) "
 style = "bright-white"
 disabled = false
-
-[username]
-style_user = "bold dimmed blue"
-show_always = true
 
 [nodejs]
 format = "via [🤖 $version](bold green) "
