@@ -3,6 +3,41 @@
 # Get editor completions based on the config schema
 "$schema" = 'https://starship.rs/config-schema.json'
 
+command_timeout = 1000
+add_newline = true
+
+format = """
+[╭─](color2)\
+    [【](color7)\
+      $username\
+      [@](color7)\
+      $hostname \
+      $directory\      
+    [】](color7)
+[│](color2)\
+    $git_branch\
+    $git_status\
+    $package\
+    $python\
+    $nodejs\    
+    $custom
+[╰─](color2)\
+    $memory_usage\
+    $time\
+    $cmd_duration\    
+    $shell"""
+
+palette = "pywal"
+[palettes.pywal]
+color0="#0D0C0B"
+color1="#656555"
+color2="#5B5E61"
+color3="#5E6265"
+color4="#67696B"
+color5="#BA593C"
+color6="#907566"
+color7="#cebdac"
+color8="#908478"
 [battery]
 full_symbol = "🔋"
 charging_symbol = "🔌"

@@ -2,7 +2,6 @@
 
 # comments are supported like this
 # rupa/z
-zsh-users/zsh-completions
 
 # empty lines are skipped
 
@@ -108,3 +107,6 @@ sunlei/zsh-ssh
 vasyharan/zsh-brew-services
 viasite-ansible/zsh-ansible-server
 MichaelAquilina/zsh-you-should-use
+
+# Others
+MichaelAquilina/zsh-auto-notify
