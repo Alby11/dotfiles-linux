@@ -34,7 +34,7 @@ aliasG psa='sudo ps -aux '
 
 if command -v ssh-add &> /dev/null
 then
-  alias sshkey='eval $(ssh-agent);ssh-add ~/.ssh/id_*' #2>/dev/null'
+  alias sshadd='eval $(ssh-agent) ; for i in $(/bin/ls ~/.ssh/id_* | grep -v pub) ; do ssh-add $i ; done'
 fi
 
 if command -v ss &> /dev/null
