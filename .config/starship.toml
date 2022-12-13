@@ -58,6 +58,7 @@ color8 = "#f8f8f2"
 powershell_indicator = "_"
 bash_indicator = ""
 zsh_indicator = "z_"
+style = "color1"
 disabled= false
 
 [battery]
@@ -115,7 +116,7 @@ format = "[$user](color1)"
 [hostname]
 ssh_only = false
 format = "<[$hostname]($style)>"
-style = "purple"
+style = "color5"
 # format = "<(color3)[$hostname] >"
 disabled = false
 
@@ -184,5 +185,6 @@ printf "%s%s" "$ICON" "$URL"
 directories = [".git"]
 when = 'git rev-parse --is-inside-work-tree 2> /dev/null'
 shell = ["bash","--norc","--noprofile"]
-style = "bright-yellow bold"
+# style = "bright-yellow bold"
+style = "color3 bold"
 format = " at [$output]($style)"
