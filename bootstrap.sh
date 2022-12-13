@@ -202,7 +202,7 @@ declare -a packets=(
 )
 installPackets "lpm" "${packets[@]}"
 pipinstall pip
-pipinstall virtualenv
+pipinstall virtualenv virtualenvwrapper
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 60
 sudo update-alternatives --auto python
 

@@ -192,7 +192,7 @@ then
 fi
 
 if command -v zoxide &> /dev/null ; then
-  aliasG cd='z '
+  # aliasG cd='z '
 fi
 
 if command -v exa &> /dev/null

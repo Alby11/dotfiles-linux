@@ -10,7 +10,7 @@ format = """
 [╭─](color2)\
     [【](color7)\
       $username\
-      [@](color7)\
+      [ @ ](color7)\
       $hostname \
       $directory\      
     [】](color7)
@@ -25,7 +25,9 @@ format = """
     $memory_usage\
     $time\
     $cmd_duration\    
-    $shell"""
+    $shell\
+    $character\
+"""
 
 palette = "pywal"
 [palettes.pywal]
@@ -38,6 +40,12 @@ color5="#BA593C"
 color6="#907566"
 color7="#cebdac"
 color8="#908478"
+
+[shell]
+powershell_indicator = "_"
+bash_indicator = ""
+disabled= false
+
 [battery]
 full_symbol = "🔋"
 charging_symbol = "🔌"
@@ -56,7 +64,11 @@ format = " took [$duration]($style)"
 
 [directory]
 truncation_length = 5
-format = "[$path]($style)[$lock_symbol]($lock_style) "
+# format = "[$path]($style)[$lock_symbol]($lock_style) "
+format = "[$path]($style) [$read_only]($read_only_style) "
+truncation_symbol = "…/"
+read_only = "🔒"
+read_only_style = "red"
 
 [git_branch]
 format = " [$symbol$branch]($style) "
@@ -84,10 +96,11 @@ format = "$all_status$ahead_behind"
 [username]
 style_user = "bold dimmed blue"
 show_always = true
+format = "[$user](color1)"
 
 [hostname]
 ssh_only = false
-format = " on <[$hostname]($style)>"
+format = "<[$hostname]($style)>"
 style = "bold dimmed white"
 disabled = false
 
@@ -98,7 +111,7 @@ style = "bold green"
 
 [memory_usage]
 format = "$symbol[${ram}( | ${swap})]($style) "
-# threshold = 70
+threshold = -1
 style = "bold dimmed white"
 disabled = false
 
