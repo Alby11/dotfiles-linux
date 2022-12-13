@@ -7,21 +7,21 @@ command_timeout = 1000
 add_newline = true
 
 format = """
-[╭─](color2)\
+[╭─](color1)\
     [【](color7)\
       $username\
       [ @ ](color7)\
       $hostname \
       $directory\      
     [】](color7)
-[│](color2)\
+[│](color1)\
     $git_branch\
     $git_status\
     $package\
     $python\
     $nodejs\    
     $custom
-[╰─](color2)\
+[╰─](color1)\
     $memory_usage\
     $time\
     $cmd_duration\    
@@ -115,7 +115,8 @@ format = "[$user](color1)"
 [hostname]
 ssh_only = false
 format = "<[$hostname]($style)>"
-style = "bold dimmed white"
+style = "purple"
+# format = "<(color3)[$hostname] >"
 disabled = false
 
 [julia]
@@ -139,7 +140,7 @@ style = "bold green"
 [time]
 time_format = "%T"
 format = "🕙 $time($style) "
-style = "bright-white"
+style = "green"
 disabled = false
 
 [nodejs]
