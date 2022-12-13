@@ -29,21 +29,35 @@ format = """
     $character\
 """
 
-palette = "pywal"
-[palettes.pywal]
-color0="#0D0C0B"
-color1="#656555"
-color2="#5B5E61"
-color3="#5E6265"
-color4="#67696B"
-color5="#BA593C"
-color6="#907566"
-color7="#cebdac"
-color8="#908478"
 
+palette = "dracula"
+[palettes.dracula]
+color0 = "#8be9fd"
+color1 = "#50fa7b"
+color2 = "#6272a4"
+color3 = "#ffb86c"
+color4 = "#ff79c6"
+color5 = "#bd93f9"
+color6 = "#ff5555"
+color7 = "#f1fa8c"
+color8 = "#f8f8f2"
+
+# palette = "draculax"
+# [palettes.draculax]
+# cyan = "#8be9fd"
+# green = "#50fa7b"
+# grey = "#6272a4"
+# orange = "#ffb86c"
+# pink = "#ff79c6"
+# purple = "#bd93f9"
+# red = "#ff5555"
+# white = "#f8f8f2"
+# yellow = "#f1fa8c"
+#
 [shell]
 powershell_indicator = "_"
 bash_indicator = ""
+zsh_indicator = "z_"
 disabled= false
 
 [battery]
@@ -53,7 +67,7 @@ discharging_symbol = "⚡"
 
 [[battery.display]]
 threshold = 30
-style = "bold red"
+style = "bold color7"
 
 [character]
 error_symbol = "[✖](bold red) "
@@ -73,7 +87,7 @@ read_only_style = "red"
 [git_branch]
 format = " [$symbol$branch]($style) "
 symbol = "🍣 "
-style = "bold yellow"
+style = "bold color5"
 
 [git_commit]
 commit_hash_length = 8
