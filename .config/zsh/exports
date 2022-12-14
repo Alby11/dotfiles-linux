@@ -6,15 +6,23 @@ git config --global core.editor.nvim.path "/usr/bin/nvim"
 git config --global diff.tool nvim
 git config --global diff.tool.nvim.path "/usr/bin/nvim"
 git config --global diff.tool.nvim.cmd "nvim -d \"$local\" \"$remote\""
+git config --global core.pager 'nvim -'
 git config --global init.default.branch main
 git config --global core.fsmonitor false
 
-# set up environment, depending on os
-if grep -qi microsoft /proc/version
+### set up environment, depending on os
+if find /dev -iname '*vmware*' &> /dev/null
 then
-  echo "ubuntu on wsl"
-elif grep -qi ubuntu /proc/version ; then
-  echo "native ubuntu linux"
+  echo "Linux on VMware"
+elif grep -qi microsoft /proc/version
+then
+  echo "Linux on wsl"
+fi
+
+if [ -e /etc/fedora-release ] ; then
+	family='u'
+else
+	family='r'
 fi
 
 # Make neovim the default editor.
@@ -48,7 +56,8 @@ export LC_ALL='en_US.UTF-8';
 export LESS_TERMCAP_md="${yellow}";
 
 # Don’t clear the screen after quitting a manual page.
-export MANPAGER='less -X';
+export MANPAGER='nvim +Man!'
+export MANWIDTH=999
 
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
@@ -73,6 +82,19 @@ EXPORT_DIR $HOME/.cargo/bin
 EXPORT_DIR $HOME/gitdepot/bat-extras/src
 
 export KUBECONFIG=$KUBECONFIG:$HOME/.kube/config:$HOME/.kube/configs/kubeconfig.yaml
+
+### Initialize Zoxide
+if command -v zoxide &> /dev/null
+then
+  eval "$(zoxide init zsh)" 
+fi
+
+### Initialize Starship
+if command -v starship &>/dev/null
+then
+  eval "$(starship init zsh)"
+fi
+
 # GWSL
 # export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0.0 #GWSL
 # export PULSE_SERVER=tcp:$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}') #GWSL

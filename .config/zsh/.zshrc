@@ -39,18 +39,6 @@ SOURCE_RCFILE $ZSH_CONFIG_HOME/antidoterc
 # Exports
 SOURCE_RCFILE $ZSH_CONFIG_HOME/exports
 
-### Initialize Zoxide
-if command -v zoxide &> /dev/null
-then
-  eval "$(zoxide init zsh)" 
-fi
-
-### Initialize Starship
-if command -v starship &>/dev/null
-then
-  eval "$(starship init zsh)"
-fi
-
 # dot fetch origin main ; dot diff --quiet main main || echo 'directory differ'
 # Uncomment the following line to enable command auto-correction.
 # ENABLE_CORRECTION="true"
