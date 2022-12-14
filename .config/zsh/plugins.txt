@@ -41,7 +41,7 @@ ohmyzsh/ohmyzsh path:plugins/history-substring-search
 ohmyzsh/ohmyzsh path:plugins/kubectl
 ohmyzsh/ohmyzsh path:plugins/kubectx
 ohmyzsh/ohmyzsh path:plugins/last-working-dir
-ohmyzsh/ohmyzsh path:plugins/magic-enter
+# ohmyzsh/ohmyzsh path:plugins/magic-enter
 ohmyzsh/ohmyzsh path:plugins/minikube
 ohmyzsh/ohmyzsh path:plugins/node
 ohmyzsh/ohmyzsh path:plugins/npm
