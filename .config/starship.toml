@@ -12,7 +12,7 @@ format = """
       $username\
       [ @ ](color7)\
       $hostname \
-      $directory\      
+      $directory \      
     [】](color7)
 [│](color1)\
     $git_branch\
@@ -24,7 +24,7 @@ format = """
 [╰─](color1)\
     $memory_usage\
     $time\
-    $cmd_duration\    
+    $cmd_duration \    
     $shell\
     $character\
 """
@@ -75,7 +75,7 @@ error_symbol = "[✖](bold red) "
 
 [cmd_duration]
 min_time = 10_000  # Show command duration over 10,000 milliseconds (=10 sec)
-format = " took [$duration]($style)"
+format = "took [$duration]($style)"
 
 [directory]
 truncation_length = 5

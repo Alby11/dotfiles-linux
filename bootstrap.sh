@@ -107,7 +107,6 @@ elif $family == 'u' then
 fi
 sudo dnf group install "C Development Tools and Libraries" "Development Tools"
 declare -a packets=(
-  "ansible"
   "autojump"
   "build-essential"
   "chafa"
@@ -158,12 +157,16 @@ fi
 if [ $family == 'u' ]
 then
   sudo add-apt-repository -y ppa:git-core/ppa
+  uninstall git
 elif [ $family == 'r' ]
 then
-  echo
+  sudo dnf copr enable atim/lazygit -y
 fi
-uninstall git
-lpminstall git 
+declare -a packets=(
+  "git"
+  "lazygit"
+}
+installPackets "lpm" "${packets[@]}"
 git config --global user.name $gitHubUser
 git config --global user.email $gitHubEmail
 unset $gitHubUser
@@ -177,7 +180,6 @@ git config --global diff.tool.nvim.path "/usr/bin/nvim"
 git config --global diff.tool.nvim.cmd "nvim -d \"$local\" \"$remote\""
 git config --global init.default.branch main
 git config --global core.fsmonitor false
-
 
 ### CARGO
 #dnf install cmake freetype-devel fontconfig-devel libxcb-devel libxkbcommon-devel g++
@@ -199,6 +201,8 @@ declare -a packets=(
   "python3-venv"
   "python3-dev"
   "python3-pip"
+  "ansible"
+  "ansible-lint"
 )
 installPackets "lpm" "${packets[@]}"
 pipinstall pip
