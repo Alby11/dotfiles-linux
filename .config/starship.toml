@@ -145,7 +145,7 @@ style = "green"
 disabled = false
 
 [nodejs]
-format = "via [🤖 $version](bold green) "
+format = " via [🤖 $version](bold green) "
 
 [git_state]
 format = '\(:[$state( $progress_current/$progress_total)]($style)\)'
