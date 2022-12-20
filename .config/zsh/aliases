@@ -274,6 +274,19 @@ fi
 
 aliasG xway='env -u WAYLAND_DISPLAY '
 
+if [[ `command -v remmina` ]]
+then
+
+  rdp ()
+  {
+    [ $1 ] && remmina -c rdp://$1 &
+  }
+  vnc ()
+  {
+    [ $1 ] && remmina -c vnc://$1 &
+    }
+fi
+
 if [[ `command -v flatpak` ]]
 then
 
@@ -285,13 +298,6 @@ then
     }
   fi
 
-  if [[ `flatpak list | grep -i org.remmina.Remmina` ]]
-  then
-    remmina ()
-    {
-      flatpak run org.remmina.Remmina $1 &
-    }
-  fi
 fi
 
 if command -v curl &> /dev/null
