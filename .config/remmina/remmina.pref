@@ -92,6 +92,7 @@ rdp_deviceScaleFactor=0
 rdp_desktopScaleFactor=0
 rdp_desktopOrientation=0
 always_show_notes=false
+recent_VNC=console-18.fllicarli.im
 
 [ssh_colors]
 background=rgb(213,204,186)
