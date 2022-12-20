@@ -138,6 +138,7 @@ if command -v dnf &> /dev/null
 then
     aliasG dnf='sudo dnf '
     aliasG dnfs='sudo dnf search '
+    aliasG dnff='sudo dnf info '
     aliasG dnfq='sudo dnf repoquery '
     aliasG dnfu='sudo dnf check-update '
     aliasG dnfup='sudo dnf upgrade -y '
@@ -273,21 +274,24 @@ fi
 
 aliasG xway='env -u WAYLAND_DISPLAY '
 
-if [[ `flatpak list | grep -i com.visualstudio.code` ]]
+if [[ `command -v flatpak` ]]
 then
-  code ()
-  {
-    echo yes
-    flatpak run com.visualstudio.code $1
-  }
-fi
 
-if [[ `flatpak list | grep -i org.remmina.Remmina` ]]
-then
-  remmina ()
-  {
-    flatpak run org.remmina.Remmina $1
-  }
+  if [[ `flatpak list | grep -i com.visualstudio.code` ]]
+  then
+    code ()
+    {
+      flatpak run com.visualstudio.code $1 &
+    }
+  fi
+
+  if [[ `flatpak list | grep -i org.remmina.Remmina` ]]
+  then
+    remmina ()
+    {
+      flatpak run org.remmina.Remmina $1 &
+    }
+  fi
 fi
 
 if command -v curl &> /dev/null
