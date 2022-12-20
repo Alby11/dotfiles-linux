@@ -273,6 +273,23 @@ fi
 
 aliasG xway='env -u WAYLAND_DISPLAY '
 
+if [[ `flatpak list | grep -i com.visualstudio.code` ]]
+then
+  code ()
+  {
+    echo yes
+    flatpak run com.visualstudio.code $1
+  }
+fi
+
+if [[ `flatpak list | grep -i org.remmina.Remmina` ]]
+then
+  remmina ()
+  {
+    flatpak run org.remmina.Remmina $1
+  }
+fi
+
 if command -v curl &> /dev/null
 then
   # Creditst to Jeremy "Jay" LaCroix
