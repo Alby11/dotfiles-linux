@@ -59,9 +59,11 @@ fi
 
 if command -v systemctl &> /dev/null
 then
-  #Basic systemctl commands
+  # Basic systemctl commands
   aliasG systemctl="sudo systemctl "
   aliasG ctl="systemctl "
+  # Daemons reload
+  aliasG ctldr="systemctl daemon-reload"
   # Credits to: https://gist.github.com/Feniksovich
   aliasG ctlsp="systemctl stop "
   aliasG ctlst="systemctl start "
@@ -84,6 +86,12 @@ then
   ctlrts ()
   {
     systemctl restart "$1"
+    systemctl status "$1"
+  }
+  # Stop and then view status of service
+  ctlsps ()
+  {
+    systemctl stop "$1"
     systemctl status "$1"
   }
 
