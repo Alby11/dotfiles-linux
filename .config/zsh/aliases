@@ -66,6 +66,7 @@ then
   aliasG ctlsp="systemctl stop "
   aliasG ctlst="systemctl start "
   aliasG ctlrt="systemctl restart "
+  aliasG ctlrl="systemctl reload "
   aliasG ctls="systemctl status "
 
   # Enable/Disable commands for units
