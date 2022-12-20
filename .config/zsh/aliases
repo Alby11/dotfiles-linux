@@ -147,6 +147,7 @@ then
     aliasG dnfr='sudo dnf remove '
     aliasG dnfar='sudo dnf autoremove '
     aliasG dnfc='sudo dnf copr '
+    aliasG dnfuua='sudo dnfu ; dnfup ; dnfar'
 fi
 
 if command -v fwupdmgr &>/dev/null
