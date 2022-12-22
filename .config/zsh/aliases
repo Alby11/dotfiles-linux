@@ -1,6 +1,6 @@
 # Aliases
 
-if [ $SHELL = "/bin/zsh" ]
+if [[ `echo $SHELL` == '/bin/zsh' ]]
 then
   echo "On ZSH, using alias -g"
   alias -g aliasG='alias -g '
@@ -12,6 +12,7 @@ fi
 aliasG sudo='sudo '
 
 alias SC="source $ZDOTDIR/.zshrc"
+alias SA="source $ZDOTDIR/aliases"
 
 aliasG fastping='ping -c 100 -s 2 '
 
@@ -211,6 +212,7 @@ fi
 
 if command -v zoxide &> /dev/null ; then
   # aliasG cd='z '
+  echo
 fi
 
 if command -v exa &> /dev/null
@@ -259,6 +261,8 @@ fi
 if command -v docker &> /dev/null
 then
     aliasG dk='docker '
+    aliasG dkc='docker-compose '
+
     watchtower ()
     {
       docker login
