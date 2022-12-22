@@ -259,6 +259,15 @@ fi
 if command -v docker &> /dev/null
 then
     aliasG dk='docker '
+    watchtower ()
+    {
+      docker login
+      docker run -d \
+        --name watchtower \
+        -v $HOME/.docker/config.json:/config.json \
+        -v /var/run/docker.sock:/var/run/docker.sock \
+        containrrr/watchtower --interval 60
+    }
 fi
 
 if command -v ansible &> /dev/null
