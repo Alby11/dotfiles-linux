@@ -65,7 +65,7 @@ ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(
     "pcomplete"
     "copy-earlier-word"
 )
-bindkey '^l' autosuggest-accept # ctrl-l, hjk
+bindkey '^J' autosuggest-accept # ctrl-l, hjk
 # magic-enter
 MAGIC_ENTER_GIT_COMMAND='git status -u .'
 # MAGIC_ENTER_OTHER_COMMAND='ls -lh .'
