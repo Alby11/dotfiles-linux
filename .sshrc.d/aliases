@@ -1,0 +1,391 @@
+#!/usr/bin/env bash
+# aliases
+theShell=$(echo "$SHELL" | cut -d '/' -f 3)
+
+alias grep='grep --color=auto '
+# if 'alias -g' is available, define an alias that can be used on zshrc
+# but doesn't brake everything if we are on bash
+alias -g G='| grep -i ' 2>/dev/null
+if [[ $? == 0 ]]; then # I know, it's dirty...
+	alias -g aliasG="alias -g "
+else
+	alias aliasG="alias "
+fi
+
+alias sudo="sudo "
+alias Sb="source ~/.bashrc"
+alias Sba="source ~/.bash_aliases"
+alias Sbe="source ~/.bash_exports"
+alias Sz="source \$ZDOTDIR/.zshrc"
+alias Sza="source \$ZDOTDIR/aliases"
+alias Sze="source \$ZDOTDIR/exports"
+fastping() {
+	ping -c 100 -s 2
+}
+alias C="clear"
+alias dfh='df -h'
+alias freeh='free -mh'
+alias EE='exit'
+chx() {
+	chmod +x "$1"
+}
+chxr() {
+	chmod -R +x "$1"
+}
+dush() {
+	sudo du -sh
+}
+alias h="history -10" # last 10 history commands
+hg() {
+	history | grep "$1" # +command
+}
+alias nta='sudo netstat -poeta '
+psa() {
+	sudo ps -aux
+}
+
+if command -v ss &>/dev/null; then
+	alias ssa='sudo ss -poeta '
+fi
+
+if command -v notify-send &>/dev/null; then
+	# Credits to: https://gist.github.com/Feniksovich
+	# Add an "alert" alias for long running commands.  Use like so:
+	#   sleep 10; alert
+	alias alert='notify-send --urgency=low -i \
+        "$([ $? = 0 ] && echo terminal || \
+    echo error)" "$(history|tail -n1 | \
+        sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"' \
+		;
+fi
+
+if command -v systemctl &>/dev/null; then
+	# Basic systemctl commands
+	alias systemctl="sudo systemctl "
+	alias ctl="systemctl "
+	# Daemons reload
+	alias ctldr="systemctl daemon-reload"
+	# Credits to: https://gist.github.com/Feniksovich
+	alias ctlsp="systemctl stop "
+	alias ctlst="systemctl start "
+	alias ctlrt="systemctl restart "
+	alias ctlrl="systemctl reload "
+	alias ctls="systemctl status "
+
+	# Enable/Disable commands for units
+	alias ctle='systemctl enable '
+	alias ctld='systemctl disable '
+
+	# Start and then view status of service
+	ctlsts() {
+		bash -c sudo systemctl start "$1"
+		bash -c sudo systemctl status "$1"
+	}
+
+	# Restart and then view status of service
+	ctlrts() {
+		bash -c sudo systemctl restart "$1"
+		bash -c sudo systemctl status "$1"
+	}
+	# Stop and then view status of service
+	ctlsps() {
+		bash -c sudo systemctl stop "$1"
+		bash -c sudo systemctl status "$1"
+	}
+
+	# Masking Units to disabling them
+	alias ctlmask='systemctl mask '
+	alias ctlunmask='systemctl unmask '
+
+	# List failed units and reset systemd system status
+	alias ctlfailed='systemctl --failed --all '
+	alias ctlrf='systemctl reset-failed '
+
+	alias ctldrd="systemctl daemon-reload "
+fi
+
+if command -v iptables &>/dev/null; then
+	alias it='iptables '
+	# Lookup iptables chain
+	alias itlookup="iptables --line-numbers -nvL "
+fi
+
+if command -v journalctl &>/dev/null; then
+	alias j="journalctl"
+	alias jf="journalctl --follow"
+	alias ju="journalctl --catalog --pager-end --unit"
+	alias juf="journalctl --follow --catalog --unit"
+	alias jfk="journalctl --follow --dmesg"
+fi
+
+if command -v apt &>/dev/null; then
+	alias apt='sudo apt '
+	alias apts='sudo apt search '
+	alias aptu='sudo apt update '
+	alias aptup='sudo apt upgrade -y '
+	alias aptdup='sudo apt dist-upgrade -y '
+	alias apti='sudo apt install -y '
+	alias aptr='sudo apt remove '
+	alias aptar='sudo apt autoremove '
+	alias aptap='sudo apt autopurge '
+fi
+
+if command -v dnf &>/dev/null; then
+	alias dnf='sudo dnf '
+	alias dnfs='sudo dnf search '
+	alias dnff='sudo dnf info '
+	alias dnfq='sudo dnf repoquery '
+	alias dnfu='sudo dnf check-update '
+	alias dnfup='sudo dnf upgrade -y '
+	alias dnfds='sudo dnf distro-sync -y '
+	alias dnfi='sudo dnf install -y '
+	alias dnfr='sudo dnf remove '
+	alias dnfar='sudo dnf autoremove '
+	alias dnfc='sudo dnf copr '
+	alias dnfuua='sudo dnfu ; dnfup ; dnfar'
+fi
+
+if command -v fwupdmgr &>/dev/null; then
+	fwcheck() {
+		sudo fwupdmgr refresh --force
+		sudo fwupdmgr get-updates
+		sudo fwupdmgr get-updates
+	}
+fi
+
+if command -v tmux &>/dev/null; then
+	alias T='tmux '
+	alias tls='tmux ls '
+	alias ta='tmux attach -t '
+	alias tn='tmux new -s '
+	alias tr='tmux rename-session -t '
+	alias tk='tmux kill-session -t '
+fi
+
+if command -v nvim &>/dev/null; then
+	alias e='nvim '
+	alias nv='nvim '
+	alias vi='nvim '
+	alias vim='nvim '
+	alias E='| nvim '
+	if command -v nvr &>/dev/null; then
+		alias nvimr='nvim --listen /tmp/nvimsocket '
+		alias nvrs='nvr -s '
+	fi
+fi
+
+if command -v xclip &>/dev/null; then
+	alias Xp='xclip -o '
+	alias Xy=' | xclip -i '
+fi
+if command -v clipboard &>/dev/null; then
+	alias Cp="clipboard "
+	alias Cy=' | clipboard '
+fi
+if command -v wl-copy &>/dev/null; then
+	alias Wp="wl-paste "
+	alias Wy=' | wl-copy '
+fi
+
+if command -v ranger &>/dev/null; then
+	alias rw='ranger '
+fi
+
+if command -v fdfind &>/dev/null; then
+	alias fd='fdfind '
+fi
+
+if command -v zoxide &>/dev/null; then
+	# alias cd='z '
+	echo
+fi
+
+if command -v exa &>/dev/null; then
+	alias ola='/bin/ls -lahi --color=auto '
+	alias ols='/bin/ls --color=auto '
+	alias ls="exa --icons --git --group-directories-first "
+	alias ll="exa -lg --icons --git --group-directories-first "
+	alias la="exa -aglm --icons --git --group-directories-first "
+	alias lt="exa -L 2 --icons --tree --git-ignore --group-directories-first "
+fi
+
+if command -v git &>/dev/null; then
+	alias g='git '
+	function dotfiles {
+		git --git-dir="$HOME"/.dotfiles_git/ --work-tree="$HOME" "$@"
+	}
+	alias dot='dotfiles '
+fi
+
+installKubectl() {
+	curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+	curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+	echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
+	if [[ $? == 0 ]]; then
+		chmod +x kubectl
+		mkdir -p ~/.local/bin
+		mv ./kubectl ~/.local/bin/kubectl
+	fi
+}
+if command -v kubectl &>/dev/null; then
+	source <(kubectl completion "$theShell")
+	alias k='kubectl '
+fi
+
+if command -v minikube &>/dev/null; then
+	source <(minikube completion "$theShell")
+	alias mk='minikube '
+fi
+
+if command -v docker &>/dev/null; then
+	source <(docker completion "$theShell")
+	alias dk='docker '
+	alias dkc='docker-compose '
+
+	watchtower() {
+		docker login
+		docker run -d \
+			--name watchtower \
+			-v "$HOME"/.docker/config.json:/config.json \
+			-v /var/run/docker.sock:/var/run/docker.sock \
+			containrrr/watchtower --interval 60
+	}
+fi
+
+if command -v ansible &>/dev/null; then
+	alias a='ansible '
+	alias ap='ansible-playbook '
+	alias ag='ansible-galaxy '
+fi
+
+if command -v podman &>/dev/null; then
+	source <(podman completion "$theShell")
+	alias pd='podman '
+fi
+
+alias xway='env -u WAYLAND_DISPLAY '
+
+if [[ $(command -v remmina) ]]; then
+
+	rdp() {
+		[ "$1" ] && remmina -c rdp://"$1" &
+	}
+	vnc() {
+		[ "$1" ] && remmina -c vnc://"$1" &
+	}
+fi
+
+if [[ $(command -v flatpak) ]]; then
+
+	if [[ $(flatpak list | grep -i com.visualstudio.code) ]]; then
+		code() {
+			flatpak run com.visualstudio.code "$1" &
+		}
+	fi
+
+fi
+
+if command -v curl &>/dev/null; then
+	# Creditst to Jeremy "Jay" LaCroix
+	# <https://www.learnlinux.tv/10-linux-terminal-tips-and-tricks-to-enhance-your-workflow/
+	c() {
+		# Ask cheat.sh website for details about a Linux command.
+		curl -m 10 "http://cheat.sh/${1}" 2>/dev/null || printf '%s\n' "[ERROR] Something broke"
+	}
+	alias speedtest='curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python -'
+	wth() {
+		curl -m 10 "https://wttr.in/${1}" 2>/dev/null || printf '%s\n' "[ERROR] Something broke"
+	}
+	# alias myip='curl http://ipecho.net/plain; echo '
+	alias myip='curl icanhazip.com'
+	# alias wimp='curl https://wttr.in/imperia'
+	alias wimp='wth imperia'
+fi
+
+checkSum() {
+	if [ "$1" = "" ] || [ "$2" = "" ] || [ "$3" = "" ]; then
+		echo "Usage: checkmd5 [md5|sha1|sha256|sha512] [file] [sum]"
+		return 2
+	fi
+	if [ "$1" != "md5" ] && [ "$1" != "sha1" ] && [ "$1" != "sha256" ] && [ "$1" != "sha512" ]; then
+		echo "algorithm (firt paramater) must be [md5|sha1|sha256|sha512]"
+		return 3
+	fi
+	local command="${1}sum"
+	if command -v "$command" &>/dev/null; then
+		local sum=$("$command" "$2" | cut -d ' ' -f 1)
+		echo "Given: $3"
+		echo "Calculated: $sum"
+		if [ "$sum" = "$3" ]; then
+			echo "${command} OK"
+			return 0
+		else
+			echo "${command} NOT OK!!"
+			return 1
+		fi
+		echo "Command ${command} is not installed."
+		return 4
+	fi
+}
+
+getCharge() {
+	local mode=$(sudo cat /sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode)
+	echo "Conservation mode: ${mode}"
+}
+stopCharge() {
+	echo 1 | sudo tee /sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode
+}
+startCharge() {
+	echo 0 | sudo tee /sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode
+}
+
+# Credits to Connor - https://stackoverflow.com/questions/24283097/reusing-output-from-last-command-in-bash
+# Usage
+# $ find . -name 'filename' | cap
+# /path/to/filename
+#
+# $ ret
+# /path/to/filename
+# capture the output of a command so it can be retrieved with ret
+cap() { tee /tmp/capture.out; }
+
+# return the output of the most recent command that was captured by cap
+ret() { cat /tmp/capture.out; }
+
+if [ "$(command -v fzf)" ] && [ "$(command -v rg)" ] && [ "$(command -v bat)" ]; then
+	export FZF_BASE=/usr/bin/fzf
+	export FZF_DEFAULT_COMMAND='rg --ignore-case --files --no-ignore-vcs --hidden '
+	# catppucin theme
+	# export FZF_DEFAULT_OPTS=' \
+	# --preview bat --border=rounded  \
+	# --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
+	# --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
+	# --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"'
+	# alias fzfb="fzf \
+	# --preview bat --border=rounded  \
+	# --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
+	# --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
+	# --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
+	# ; "
+	# dracula theme
+	export FZF_DEFAULT_OPTS="\
+    --preview bat --border=rounded  \
+    --color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 \
+    --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9 \
+    --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 \
+    --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4 \
+    ;"
+	DISABLE_FZF_AUTO_COMPLETION="false"
+	DISABLE_FZF_KEY_BINDINGS="true"
+	alias fzfb="fzf \
+    # --preview bat --color=always --style=numbers --line-range=:500 {} \
+    --preview bat --border=rounded  \
+    --color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 \
+    --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9 \
+    --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 \
+    --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4 \
+    ;"
+	aliasG R='| rg '
+else
+	echo "fzf|rg|bat missing..."
+fi
