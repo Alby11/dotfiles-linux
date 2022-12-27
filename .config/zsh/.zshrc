@@ -77,6 +77,7 @@ function start_agent {
     . "${SSH_ENV}" > /dev/null
     # /usr/bin/ssh-add;
     for file in ~/.ssh/id_* ; do
+        if [[ $(ls $file | grep pub ) ]]; then continue ; fi
         eval $(keychain --eval $file)
     done
 }
