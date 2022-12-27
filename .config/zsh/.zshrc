@@ -1,23 +1,25 @@
+#!/usr/bin/env zsh
+# .zshrc
 ### SOURCING/EXPORTING UTILITIES
 export function SOURCE_RCFILE()
 {
-  if [ -f $1 ]
-  then
-    source $1
-    echo "$1 successfully sourced ... "
-    return
-  fi
-  echo "$1 not sourced ... "
+    if [ -f $1 ]
+    then
+        source $1
+        echo "$1 successfully sourced ... "
+        return
+    fi
+    echo "$1 not sourced ... "
 }
 export function EXPORT_DIR()
 {
-  if [ -d $1 ] 
-  then
-    export PATH=$1:$PATH
-    echo "$1 successfully exported ... "
-    return
-  fi
-  echo "$1 not exported ... "
+    if [ -d $1 ]
+    then
+        export PATH=$1:$PATH
+        echo "$1 successfully exported ... "
+        return
+    fi
+    echo "$1 not exported ... "
 }
 
 # export zsh config directory
@@ -59,6 +61,35 @@ HIST_STAMPS="yyyy-mm-dd"
 
 # Aliases
 SOURCE_RCFILE $ZSH_CONFIG_HOME/aliases
+
+# load ssh after each reboot (re-uses same ssh-agent instance)
+if [[ ! $( command -v keychain ) ]]; then
+    sudo dnf install -y keychain &> /dev/null
+    sudo rpm install -y keychain &> /dev/null
+    sudo apt install -y keychain &> /dev/null
+fi
+SSH_ENV="$HOME/.ssh/agent-environment"
+function start_agent {
+    echo "Initialising new SSH agent..."
+    /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
+    echo succeeded
+    chmod 600 "${SSH_ENV}"
+    . "${SSH_ENV}" > /dev/null
+    # /usr/bin/ssh-add;
+    for file in ~/.ssh/id_* ; do
+        eval $(keychain --eval $file)
+    done
+}
+# Source SSH settings, if applicable
+if [ -f "${SSH_ENV}" ]; then
+    . "${SSH_ENV}" > /dev/null
+    # ps ${SSH_AGENT_PID} doesn't work under cywgin
+    ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
+        start_agent;
+    }
+else
+    start_agent;
+fi
 
 # Welcome message
 if command -v neofetch &> /dev/null; then neofetch; fi
