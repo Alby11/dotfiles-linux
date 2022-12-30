@@ -1,3 +1,6 @@
+#!/usr/bin/env bash
+# exports
+
 ### GIT
 git config --global core.autocrlf false
 git config --global credential.helper manager-core
@@ -13,16 +16,16 @@ git config --global core.fsmonitor false
 ### set up environment, depending on os
 if find /dev -iname '*vmware*' &> /dev/null
 then
-  echo "Linux on VMware"
+    echo "Linux on VMware"
 elif grep -qi microsoft /proc/version
 then
-  echo "Linux on wsl"
+    echo "Linux on wsl"
 fi
 
 if [ -e /etc/fedora-release ] ; then
-	family='u'
+    family='u'
 else
-	family='r'
+    family='r'
 fi
 
 # Make neovim the default editor.
@@ -86,13 +89,13 @@ export KUBECONFIG=$KUBECONFIG:$HOME/.kube/config:$HOME/.kube/configs/kubeconfig.
 ### Initialize Zoxide
 if command -v zoxide &> /dev/null
 then
-  eval "$(zoxide init zsh)" 
+    eval "$(zoxide init zsh)"
 fi
 
 ### Initialize Starship
 if command -v starship &>/dev/null
 then
-  eval "$(starship init zsh)"
+    eval "$(starship init zsh)"
 fi
 
 # GWSL
