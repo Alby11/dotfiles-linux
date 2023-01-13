@@ -100,3 +100,6 @@
 [submodule ".ansible"]
 	path = .ansible
 	url = git@bitbucket.org:fratellicarli/ansible.git
+[submodule "gitdepot/keep-presence"]
+	path = gitdepot/keep-presence
+	url = https://github.com/carrot69/keep-presence.git
