@@ -10,7 +10,8 @@
 # to the user's home directory starting with `~/`.
 import:
   #  - /path/to/alacritty.yml
-  - ~/gitdepot/dracula-alacritty/dracula.yml
+  # - ~/gitdepot/dracula-alacritty/dracula.yml
+  - ~/gitdepot/catppuccin-alacritty/catppuccin-mocha.yml
 # Any items in the `env` entry below will be added as
 # environment variables. Some entries may override variables
 # set by alacritty itself.
@@ -49,7 +50,6 @@ window:
   padding:
     x: 2
     y: 2
-
   # Spread additional padding evenly around the terminal content.
   #dynamic_padding: false
 
@@ -63,13 +63,11 @@ window:
   #     - transparent: Title bar, transparent background and title bar buttons
   #     - buttonless: Title bar, transparent background and no title bar buttons
   decorations: full
-
   # Background opacity
   #
   # Window opacity as a floating point number from `0.0` to `1.0`.
   # The value `0.0` is completely transparent and `1.0` is opaque.
   opacity: 0.8
-
   # Startup Mode (changes require restart)
   #
   # Values for `startup_mode`:
@@ -80,13 +78,10 @@ window:
   # Values for `startup_mode` (macOS only):
   #   - SimpleFullscreen
   startup_mode: Windowed
-
   # Window title
   title: Alacritty
-
   # Allow terminal applications to change Alacritty's window title.
   dynamic_title: true
-
   # Window class (Linux/BSD only):
   # class:
   # Application instance name
@@ -100,15 +95,12 @@ window:
   # Commonly supported values are `dark` and `light`. Set this to `None` to use
   # the default theme variant.
   decorations_theme_variant: dark
-
   #scrolling:
   # Maximum number of lines in the scrollback buffer.
   # Specifying '0' will disable scrolling.
   history: 10000
-
   # Scrolling distance multiplier.
   #multiplier: 3
-
 # Font configuration
 font:
   # Normal (roman) font face
@@ -120,22 +112,18 @@ font:
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
     family: CaskaydiaCove Nerd Font
-
     # The `style` can be specified to pick a specific face.
     style: Regular
-
   # Bold font face
   bold:
     # Font family
     family: CaskaydiaCove Nerd Font
-
     #
     # If the bold family is not specified, it will fall back to the
     # value specified for the normal font.
 
     # The `style` can be specified to pick a specific face.
     style: Semibold
-
   # Italic font face
   italic:
     # Font family
@@ -143,10 +131,8 @@ font:
     # If the italic family is not specified, it will fall back to the
     # value specified for the normal font.
     family: CaskaydiaCove Nerd Font
-
     # The `style` can be specified to pick a specific face.
     style: Italic
-
   # Bold italic font face
   bold_italic:
     # Font family
@@ -154,13 +140,10 @@ font:
     # If the bold italic family is not specified, it will fall back to the
     # value specified for the normal font.
     family: CaskaydiaCove Nerd Font
-
     # The `style` can be specified to pick a specific face.
     style: Semibold Italic
-
   # Point size
   size: 8.0
-
   # Offset is the extra space around each character. `offset.y` can be thought
   # of as modifying the line spacing, and `offset.x` as modifying the letter
   # spacing.
@@ -181,10 +164,8 @@ font:
   # characters (Unicode points 2500 - 259f).
   #
   #builtin_box_drawing: true
-
 # If `true`, bold text is drawn using the bright color variants.
 draw_bold_text_with_bright_colors: false
-
 # Colors (Tomorrow Night)
 #colors:
 # Default colors
@@ -354,14 +335,11 @@ bell:
   #   - EaseOutCirc
   #   - Linear
   animation: EaseOutCirc
-
   # Duration of the visual bell flash in milliseconds. A `duration` of `0` will
   # disable the visual bell animation.
   duration: 500
-
   # Visual bell animation color.
   color: "#ff79c6"
-
   # Bell Command
   #
   # This program is executed whenever the bell is rung.
@@ -374,7 +352,6 @@ bell:
   #     args: ["Hello, World!"]
   #
   #command: None
-
 selection:
   # This string contains all characters that are used as separators for
   # "semantic words" in Alacritty.
@@ -382,7 +359,6 @@ selection:
 
   # When set to `true`, selected text will be copied to the primary clipboard.
   save_to_clipboard: true
-
 cursor:
   # Cursor style
   #style:
@@ -393,7 +369,6 @@ cursor:
   #   - _ Underline
   #   - | Beam
   shape: Underline
-
   # Cursor blinking state
   #
   # Values for `blinking`:
@@ -402,7 +377,6 @@ cursor:
   #   - On: Enable blinking by default
   #   - Always: Force the cursor to always blink
   blinking: Always
-
   # Vi mode cursor style
   #
   # If the vi mode cursor style is `None` or not specified, it will fall back to
@@ -410,10 +384,8 @@ cursor:
   #
   # See `cursor.style` for available options.
   vi_mode_style: Block
-
   # Cursor blinking interval in milliseconds.
   blink_interval: 500
-
   # Time after which cursor stops blinking, in seconds.
   #
   # Specifying '0' will disable timeout for blinking.
@@ -426,10 +398,8 @@ cursor:
   # Thickness of the cursor relative to the cell width as floating point number
   # from `0.0` to `1.0`.
   #thickness: 0.15
-
 # Live config reload (changes require restart)
 live_config_reload: true
-
 # Shell
 #
 # You can set `shell.program` to the path of your favorite shell, e.g.
@@ -455,7 +425,6 @@ live_config_reload: true
 
 # Offer IPC using `alacritty msg` (unix only)
 #ipc_socket: true
-
 mouse:
   # Click settings
   #
@@ -467,7 +436,6 @@ mouse:
 
   # If this is `true`, the cursor is temporarily hidden when typing.
   hide_when_typing: true
-
 # Hints
 #
 # Terminal hints can be used to find text or hyperlink in the visible part of
@@ -506,9 +474,7 @@ hints:
   #   - MoveViModeCursor
   #       Move the vi mode cursor to the beginning of the hint.
   enabled:
-    - regex:
-        "(ipfs:|ipns:|magnet:|mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)\
-        [^\u0000-\u001F\u007F-\u009F<>\"\\s{-}\\^⟨⟩`]+"
+    - regex: "(ipfs:|ipns:|magnet:|mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)[^\0-\x1F\x7F-\x9F<>\"\\s{-}\\^⟨⟩`]+"
       hyperlinks: true
       command: xdg-open
       post_processing: true
