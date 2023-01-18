@@ -30,20 +30,20 @@ format = """
 """
 
 
-palette = "dracula"
-[palettes.dracula]
-color0 = "#8be9fd"
-color1 = "#50fa7b"
-color2 = "#6272a4"
-color3 = "#ffb86c"
-color4 = "#ff79c6"
-color5 = "#bd93f9"
-color6 = "#ff5555"
-color7 = "#f1fa8c"
-color8 = "#f8f8f2"
+# palette = "dracula"
+# [palettes.dracula]
+# color0 = "#8be9fd"
+# color1 = "#50fa7b"
+# color2 = "#6272a4"
+# color3 = "#ffb86c"
+# color4 = "#ff79c6"
+# color5 = "#bd93f9"
+# color6 = "#ff5555"
+# color7 = "#f1fa8c"
+# color8 = "#f8f8f2"
 
-# palette = "draculax"
-# [palettes.draculax]
+palette = "catppuccin"
+[palettes.catppuccin]
 # cyan = "#8be9fd"
 # green = "#50fa7b"
 # grey = "#6272a4"
@@ -53,7 +53,16 @@ color8 = "#f8f8f2"
 # red = "#ff5555"
 # white = "#f8f8f2"
 # yellow = "#f1fa8c"
-#
+color0 = "#89b4fa"
+color1 = "#a6e3a1"
+color2 = "#7f849c"
+color3 = "#fab387"
+color4 = "#f5c2e7"
+color5 = "#b4befe"
+color6 = "#f38ba8"
+color7 = "#f9e2af"
+color8 = "#cdd6f4"
+
 [shell]
 powershell_indicator = "_"
 bash_indicator = ""
