@@ -103,3 +103,6 @@
 [submodule "gitdepot/keep-presence"]
 	path = gitdepot/keep-presence
 	url = https://github.com/carrot69/keep-presence.git
+[submodule "gitdepot/catppuccin-alacritty"]
+	path = gitdepot/catppuccin-alacritty
+	url = https://github.com/catppuccin/alacritty
