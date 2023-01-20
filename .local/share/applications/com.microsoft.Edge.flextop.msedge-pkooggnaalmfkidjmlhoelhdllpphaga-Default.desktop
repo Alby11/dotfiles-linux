@@ -1,0 +1,27 @@
+#!/usr/bin/env xdg-open
+
+[Desktop Entry]
+Version=1.0
+Terminal=false
+Type=Application
+Name=Outlook (PWA)
+MimeType=x-scheme-handler/mailto
+Exec=flatpak 'run' '--command=/app/bin/edge' 'com.microsoft.Edge' '--profile-directory=Default' '--app-id=pkooggnaalmfkidjmlhoelhdllpphaga' '--app-url=https://outlook.office365.com/mail/' '%U'
+Icon=/home/tallonea/.local/share/applications/outlook.png
+StartupWMClass=crx__pkooggnaalmfkidjmlhoelhdllpphaga
+Actions=New-event;New-message;Open-calendar
+
+X-Flatpak-Part-Of=com.microsoft.Edge
+TryExec=/var/lib/flatpak/exports/bin/com.microsoft.Edge
+
+[Desktop Action New-event]
+Name=New event
+Exec=flatpak 'run' '--command=/app/bin/edge' 'com.microsoft.Edge' '--profile-directory=Default' '--app-id=pkooggnaalmfkidjmlhoelhdllpphaga' '--app-url=https://outlook.office365.com/mail/' '--app-launch-url-for-shortcuts-menu-item=https://outlook.office365.com/calendar/deeplink/compose'
+
+[Desktop Action New-message]
+Name=New message
+Exec=flatpak 'run' '--command=/app/bin/edge' 'com.microsoft.Edge' '--profile-directory=Default' '--app-id=pkooggnaalmfkidjmlhoelhdllpphaga' '--app-url=https://outlook.office365.com/mail/' '--app-launch-url-for-shortcuts-menu-item=https://outlook.office365.com/mail/deeplink/compose'
+
+[Desktop Action Open-calendar]
+Name=Open calendar
+Exec=flatpak 'run' '--command=/app/bin/edge' 'com.microsoft.Edge' '--profile-directory=Default' '--app-id=pkooggnaalmfkidjmlhoelhdllpphaga' '--app-url=https://outlook.office365.com/mail/' '--app-launch-url-for-shortcuts-menu-item=https://outlook.office365.com/calendar'
