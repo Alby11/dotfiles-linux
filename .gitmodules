@@ -115,3 +115,6 @@
 [submodule "gitdepot/catppuccin-grub"]
 	path = gitdepot/catppuccin-grub
 	url = https://github.com/catppuccin/grub.git
+[submodule "gitdepot/catppuccin-tilix"]
+	path = gitdepot/catppuccin-tilix
+	url = https://github.com/catppuccin/tilix.git
