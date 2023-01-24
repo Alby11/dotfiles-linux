@@ -112,3 +112,6 @@
 [submodule "gitdepot/catppuccin-gtk"]
 	path = gitdepot/catppuccin-gtk
 	url = https://github.com/catppuccin/gtk
+[submodule "gitdepot/catppuccin-grub"]
+	path = gitdepot/catppuccin-grub
+	url = https://github.com/catppuccin/grub.git
