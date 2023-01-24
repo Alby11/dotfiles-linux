@@ -106,3 +106,6 @@
 [submodule "gitdepot/catppuccin-alacritty"]
 	path = gitdepot/catppuccin-alacritty
 	url = https://github.com/catppuccin/alacritty
+[submodule "/home/tallonea/.config/qutebrowser/catppuccin"]
+	path = /home/tallonea/.config/qutebrowser/catppuccin
+	url = https://github.com/catppuccin/qutebrowser.git
