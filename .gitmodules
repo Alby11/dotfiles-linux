@@ -109,3 +109,6 @@
 [submodule "/home/tallonea/.config/qutebrowser/catppuccin"]
 	path = /home/tallonea/.config/qutebrowser/catppuccin
 	url = https://github.com/catppuccin/qutebrowser.git
+[submodule "gitdepot/catppuccin-gtk"]
+	path = gitdepot/catppuccin-gtk
+	url = https://github.com/catppuccin/gtk
