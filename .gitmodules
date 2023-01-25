@@ -111,7 +111,7 @@
 	url = https://github.com/catppuccin/qutebrowser
 [submodule "gitdepot/catppuccin-gtk"]
 	path = gitdepot/catppuccin-gtk
-	url = https://github.com/catppuccin/gtk
+	url = https://github.com/catppuccin/gtk.git
 [submodule "gitdepot/catppuccin-grub"]
 	path = gitdepot/catppuccin-grub
 	url = https://github.com/catppuccin/grub.git
