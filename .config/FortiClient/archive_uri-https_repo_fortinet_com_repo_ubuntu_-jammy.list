@@ -1,4 +1,0 @@
-#deb https://repo.fortinet.com/repo/7.0/ubuntu/ xenial multiverse
-deb [arch=amd64 signed-by=/usr/share/keyrings/forticlient.gpg] https://repo.fortinet.com/repo/7.0/ubuntu/ /bionic multiverse
-#deb https://repo.fortinet.com/repo/7.0/debian/ stable non-free
-# deb-src https://repo.fortinet.com/repo/ubuntu/ focal main
