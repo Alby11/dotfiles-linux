@@ -1,6 +1,7 @@
 #!/bin/sh
 
-helpMessage=$(cat << EOS
+helpMessage=$(
+    cat <<EOS
 dotfiles2git v0.0.1\n
 Alberto Tallone <@gmail.com>\n
 A convenient dotfiles management system\n
@@ -29,104 +30,95 @@ curDir=$(pwd)
 paramSubCmd=$2
 commitDate="$(date +%Y%m%d_%H:%M:%S)"
 
-dotfiles ()
-{
-   git --git-dir=$HOME/.dotfiles_git/ --work-tree=$HOME $@
+dotfiles() {
+    git --git-dir=$HOME/.dotfiles_git/ --work-tree=$HOME $@
 }
 
-dotfilesStatus () {
-  dotfiles status
+dotfilesStatus() {
+    dotfiles status
 }
 
-dotfilesAdd ()
-{
-  dotfiles add $paramSubCmd 
+dotfilesAdd() {
+    dotfiles add $paramSubCmd
 }
 
-dotfilesAddall ()
-{
-  dotfiles add -u 
+dotfilesAddall() {
+    dotfiles add -u
 }
 
-dotfilesRm ()
-{
-  dotfiles rm $paramSubCmd
+dotfilesRm() {
+    dotfiles rm $paramSubCmd
 }
 
-dotfilesCommit ()
-{
-  dotfiles commit -m $commitDate
+dotfilesCommit() {
+    dotfiles commit -m $commitDate
 }
 
-dotfilesPush ()
-{
-  dotfiles push -v
+dotfilesPush() {
+    dotfiles push -v
 }
 
-dotfilesPull ()
-{
-  dotfiles pull -v
+dotfilesPull() {
+    dotfiles pull -v
 }
 
-dotfilesSubupdate ()
-{
-  dotfiles submodule update --remote --merge
+dotfilesSubupdate() {
+    dotfiles submodule update --init --remote --merge --recursive
 }
 
-dotfilesSync ()
-{
-  dotfilesStatus
-  dotfilesAddall
-  dotfilesCommit
-  dotfilesPush
+dotfilesSync() {
+    dotfilesStatus
+    dotfilesAddall
+    dotfilesCommit
+    dotfilesPush
 }
 
 cd $HOME
 
 case "$1" in
-  "status")
-  dotfilesStatus
-  ;;
+    "status")
+        dotfilesStatus
+        ;;
 
-  "add")
-  dotfilesAdd
-  ;;
+    "add")
+        dotfilesAdd
+        ;;
 
-  "addall")
-  dotfilesAddall
-  ;;
+    "addall")
+        dotfilesAddall
+        ;;
 
-  "rm")
-  dotfilesRm
-  ;;
+    "rm")
+        dotfilesRm
+        ;;
 
-  "commit")
-  dotfilesCommit
-  ;;
+    "commit")
+        dotfilesCommit
+        ;;
 
-  "push")
-  dotfilesPush
-  ;;
+    "push")
+        dotfilesPush
+        ;;
 
-  "pull")
-  dotfilesPull
-  ;;
+    "pull")
+        dotfilesPull
+        ;;
 
-  "subupdate")
-  dotfilesSubupdate
-  ;;
+    "subupdate")
+        dotfilesSubupdate
+        ;;
 
-  "sync")
-  dotfilesSync
-  ;;
+    "sync")
+        dotfilesSync
+        ;;
 
-  "--version")
-  echo $helpMessage | head -n 1 
-  ;;
+    "--version")
+        echo $helpMessage | head -n 1
+        ;;
 
-  *)
-  echo $helpMessage
-  ;;
+    *)
+        echo $helpMessage
+        ;;
 
 esac
 
