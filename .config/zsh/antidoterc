@@ -58,6 +58,8 @@ setopt EXTENDED_HISTORY
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export LESSOPEN='| lessfilter-fzf %s'
 export FZF_PREVIEW_ADVANCED=true
+# interactive cd
+source .config/zsh/ohmyzsh/plugins/zsh-interactive-cd/zsh-interactive-cd.plugin.zsh
 # zsh-autosuggestions
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=245'
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(
