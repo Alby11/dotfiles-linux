@@ -91,3 +91,6 @@ gateway_usage=0
 no-suppress=0
 sound=local
 websockets=0
+window_height=480
+window_width=640
+scale=2
