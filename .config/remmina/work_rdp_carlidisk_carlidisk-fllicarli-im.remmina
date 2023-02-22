@@ -91,4 +91,4 @@ freerdp_log_level=INFO
 sound=local
 window_height=200
 scale=2
-window_width=356
+window_width=365
