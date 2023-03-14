@@ -7,7 +7,8 @@ Type=Application
 Name=Outlook (PWA)
 MimeType=x-scheme-handler/mailto
 Exec=flatpak 'run' '--command=/app/bin/edge' 'com.microsoft.Edge' '--profile-directory=Default' '--app-id=pkooggnaalmfkidjmlhoelhdllpphaga' '--app-url=https://outlook.office365.com/mail/' '%U'
-Icon=/home/tallonea/.local/share/applications/outlook.png
+Icon=msedge-pkooggnaalmfkidjmlhoelhdllpphaga-Default
+NoDisplay=true
 StartupWMClass=crx__pkooggnaalmfkidjmlhoelhdllpphaga
 Actions=New-event;New-message;Open-calendar
 
