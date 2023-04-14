@@ -25,9 +25,6 @@
 [submodule "gitdepot/bash-snippets"]
 	path = gitdepot/bash-snippets
 	url = https://github.com/alexanderepstein/bash-snippets
-[submodule "gitdepot/bat-extras"]
-	path = gitdepot/bat-extras
-	url = https://github.com/eth-p/bat-extras
 [submodule ".config/zsh/dracula_zsh-syntax-highlighting"]
 	path = .config/zsh/dracula_zsh-syntax-highlighting
 	url = https://github.com/dracula/zsh-syntax-highlighting.git
