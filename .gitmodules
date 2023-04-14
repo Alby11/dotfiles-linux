@@ -115,3 +115,6 @@
 [submodule "gitdepot/catppuccin-tilix"]
 	path = gitdepot/catppuccin-tilix
 	url = https://github.com/catppuccin/tilix.git
+[submodule "gitdepot/bat-extras"]
+	path = gitdepot/bat-extras
+	url = https://github.com/eth-p/bat-extras.git
