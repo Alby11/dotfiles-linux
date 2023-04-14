@@ -106,9 +106,6 @@
 [submodule "/home/tallonea/.config/qutebrowser/catppuccin"]
 	path = .config/qutebrowser/catppuccin
 	url = https://github.com/catppuccin/qutebrowser
-[submodule "gitdepot/catppuccin-gtk"]
-	path = gitdepot/catppuccin-gtk
-	url = https://github.com/catppuccin/gtk.git
 [submodule "gitdepot/catppuccin-grub"]
 	path = gitdepot/catppuccin-grub
 	url = https://github.com/catppuccin/grub.git
@@ -118,3 +115,6 @@
 [submodule "gitdepot/bat-extras"]
 	path = gitdepot/bat-extras
 	url = https://github.com/eth-p/bat-extras.git
+[submodule "gitdepot/catppuccin-gtk"]
+	path = gitdepot/catppuccin-gtk
+	url = https://github.com/catppuccin/gtk
