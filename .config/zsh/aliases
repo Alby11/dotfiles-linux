@@ -391,3 +391,9 @@ if [ "$(command -v fzf)" ] && [ "$(command -v rg)" ] && [ "$(command -v bat)" ];
 else
     echo "fzf|rg|bat missing..."
 fi
+
+#launc interception-tolls in background
+interception() {
+  sudo /usr/bin/udevmon -c /etc/interception/udevmon.yaml &;
+  sudo nice -n -20 udevmon
+}
