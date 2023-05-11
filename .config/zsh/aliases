@@ -394,6 +394,7 @@ fi
 
 #launc interception-tolls in background
 interception() {
+  sudo ln -sf /usr/lib64/libyaml-cpp.so.0.7.0 /usr/lib64/libyaml-cpp.so.0.6
   sudo /usr/bin/udevmon -c /etc/interception/udevmon.yaml &;
   sudo nice -n -20 udevmon
 }
