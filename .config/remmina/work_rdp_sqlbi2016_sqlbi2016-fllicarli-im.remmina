@@ -88,5 +88,5 @@ disable-smooth-scrolling=0
 gateway_usage=0
 sound=local
 websockets=0
-keyboard_grab=1
+keyboard_grab=0
 scale=2
