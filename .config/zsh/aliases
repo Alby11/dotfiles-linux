@@ -424,3 +424,7 @@ fortibug () {
   nmcli con up $connection 2> /dev/null
   echo "Done."
 }
+
+stopDaemons () {
+  ctlsp cyservice.service sentinelone.service
+}
