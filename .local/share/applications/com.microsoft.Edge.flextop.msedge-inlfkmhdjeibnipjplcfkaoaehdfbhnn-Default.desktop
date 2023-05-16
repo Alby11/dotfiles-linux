@@ -4,7 +4,7 @@
 Version=1.0
 Terminal=false
 Type=Application
-Name=Microsoft OneDrive (PWA)
+Name=Microsoft OneDrive (Edge)
 Exec=flatpak 'run' '--command=/app/bin/edge' 'com.microsoft.Edge' '--profile-directory=Default' '--app-id=inlfkmhdjeibnipjplcfkaoaehdfbhnn' '--app-url=https://fllicarli-my.sharepoint.com/personal/a_tallone_oliocarli_it1/_layouts/15/onedrive.aspx'
 Icon=/home/tallonea/.local/share/applications/onedrive.png
 StartupWMClass=crx__inlfkmhdjeibnipjplcfkaoaehdfbhnn

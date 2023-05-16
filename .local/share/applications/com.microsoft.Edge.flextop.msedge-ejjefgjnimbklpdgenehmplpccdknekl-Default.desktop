@@ -4,7 +4,7 @@
 Version=1.0
 Terminal=false
 Type=Application
-Name=Microsoft Azure portal (PWA)
+Name=Microsoft Azure portal (Edge)
 Exec=flatpak 'run' '--command=/app/bin/edge' 'com.microsoft.Edge' '--profile-directory=Default' '--app-id=ejjefgjnimbklpdgenehmplpccdknekl' '--app-url=https://portal.azure.com/?pwa=1'
 Icon=/home/tallonea/.local/share/applications/azure.png
 StartupWMClass=crx__ejjefgjnimbklpdgenehmplpccdknekl
