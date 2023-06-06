@@ -89,3 +89,4 @@ disable-smooth-scrolling=0
 gateway_usage=0
 websockets=0
 freerdp_log_level=INFO
+scale=2
