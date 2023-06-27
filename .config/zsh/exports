@@ -38,6 +38,9 @@ export CLICOLOR=1
 # export TERM color variable for Neovim inside Tmux
 export TERM="xterm-256color"
 
+# source OH-MY-ZSH main script 
+SOURCE_RCFILE $ZSH/oh-my-zsh.sh
+
 # Enable persistent REPL history for `node`.
 export NODE_REPL_HISTORY=~/.node_history;
 # Allow 32³ entries; the default is 1000.

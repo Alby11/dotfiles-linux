@@ -99,7 +99,7 @@ unixorn/fzf-zsh-plugin branch:main
 # completions
 srijanshetty/zsh-pip-completion
 zsh-users/zsh-completions
-3v1n0/zsh-bash-completions-fallback
+# 3v1n0/zsh-bash-completions-fallback
 MenkeTechnologies/zsh-cargo-completion
 greymd/docker-zsh-completion
 lukechilds/zsh-better-npm-completion

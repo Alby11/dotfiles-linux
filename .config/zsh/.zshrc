@@ -25,7 +25,8 @@ export function EXPORT_DIR()
 # export zsh config directory
 export ZSH_CONFIG_HOME="$HOME/.config/zsh"
 export ZDOTDIR=$ZSH_CONFIG_HOME
-
+# export oh-my-zsh config directory
+export ZSH="$ZSH_CONFIG_HOME/ohmyzsh"
 
 # Basic auto/tab complete:
 autoload -Uz compinit
