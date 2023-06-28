@@ -118,3 +118,6 @@
 [submodule "gitdepot/catppuccin-gtk"]
 	path = gitdepot/catppuccin-gtk
 	url = https://github.com/catppuccin/gtk
+[submodule "gitdepot/catppuccin-cursors"]
+	path = gitdepot/catppuccin-cursors
+	url = https://github.com/catppuccin/cursors
