@@ -121,3 +121,6 @@
 [submodule "gitdepot/catppuccin-cursors"]
 	path = gitdepot/catppuccin-cursors
 	url = https://github.com/catppuccin/cursors
+[submodule "gitdepot/try"]
+	path = gitdepot/try
+	url = https://github.com/binpash/try.git
