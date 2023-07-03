@@ -106,3 +106,4 @@ if command -v neofetch &> /dev/null; then neofetch; fi
 # echo $theDate | lolcat
 # echo $theTime | lolcat
 if [  $(command -v fortune) ] && [ $(command -v cowsay) ] ; then fortune | cowsay ; fi
+cd ~
