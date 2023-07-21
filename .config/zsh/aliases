@@ -2,7 +2,6 @@
 # aliases
 theShell=$(echo "$SHELL" | cut -d '/' -f 3)
 
-alias grep='grep --color=auto '
 # if 'alias -g' is available, define an alias that can be used on zshrc
 # but doesn't brake everything if we are on bash
 alias -g G='| grep -i ' 2>/dev/null
@@ -11,6 +10,7 @@ if [[ $? == 0 ]]; then # I know, it's dirty...
 else
     alias aliasG="alias "
 fi
+alias grep='grep --color=auto '
 
 alias sudo="sudo "
 alias Sb="source ~/.bashrc"
@@ -23,9 +23,11 @@ fastping() {
     ping -c 100 -s 2
 }
 alias C="clear"
-alias dfh='df -h'
-alias freeh='free -mh'
+alias dfh='sudo df -h'
+alias freeh='sudo free -mh'
 alias EE='exit'
+alias chmod='sudo chmod '
+alias chown='sudo chown '
 chx() {
     chmod +x "$1"
 }
