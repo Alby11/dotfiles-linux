@@ -90,3 +90,5 @@ gateway_usage=0
 websockets=0
 freerdp_log_level=INFO
 scale=2
+window_height=200
+window_width=276
