@@ -401,6 +401,11 @@ interception() {
   sudo nice -n -20 udevmon
 }
 
+#Converts all .wav to .mp3 in the current git-dir
+convertMp3Wav () {
+  mkdir wav; for i in *.mp3; do ffmpeg -i "$i" "./wav/${i%.*}.wav"; done
+}
+
 fortibug () {
    echo "Try to connect to the VPN now"
   x=99
