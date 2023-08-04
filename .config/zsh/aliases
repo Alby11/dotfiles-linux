@@ -435,3 +435,78 @@ fortibug () {
 stopDaemons () {
   ctlsp cyservice.service sentinelone.service
 }
+
+### GRET SCRIPTS TO MOUNT SSHFS AND DINAMYCALLY CREATE AND DESTROY MOUNT POINTS
+### WITH AUTOCOMPLETE!!! Credits: ChatGPT
+
+
+# Define an empty array to store the attached servers
+ATTACHED_SERVERS=()
+
+# Define a function to add a server to the ATTACHED_SERVERS array
+add_attached_server() {
+    local server_name="$1"
+    if ! [[ " ${ATTACHED_SERVERS[@]} " =~ " ${server_name} " ]]; then
+        ATTACHED_SERVERS+=("$server_name")
+    fi
+}
+
+# Define a function to remove a server from the ATTACHED_SERVERS array
+remove_attached_server() {
+    local server_name="$1"
+    ATTACHED_SERVERS=("${ATTACHED_SERVERS[@]/$server_name}")
+}
+
+# Define a function to mount a remote directory using sshfs
+mount_server() {
+    # Set the server name, user, and port from the arguments
+    SERVER_NAME="$1"
+    SSH_USER="$2"
+    SSH_PORT="$3"
+    # Set the remote directory to mount
+    REMOTE_DIR="/"
+    # Set the local mount point
+    MOUNT_POINT="$HOME/mnt/$SERVER_NAME"
+    # Create the mount point if it does not exist
+    if [ ! -d "$MOUNT_POINT" ]; then
+        mkdir -p "$MOUNT_POINT"
+    fi
+    # Build the sshfs command with the specified user and port, if provided
+    SSHFS_CMD="sshfs $SERVER_NAME:$REMOTE_DIR $MOUNT_POINT"
+    if [ -n "$SSH_USER" ]; then
+        SSHFS_CMD="$SSHFS_CMD -o User=$SSH_USER"
+    fi
+    if [ -n "$SSH_PORT" ]; then
+        SSHFS_CMD="$SSHFS_CMD -o Port=$SSH_PORT"
+    fi
+    # Mount the remote directory using sshfs
+    if eval $SSHFS_CMD; then
+        # Add the server name to the ATTACHED_SERVERS array
+        add_attached_server "$SERVER_NAME"
+    fi
+}
+
+# Define a function to unmount a remote directory and remove the local mount point
+unmount_server() {
+    # Set the server name from the first argument
+    SERVER_NAME="$1"
+    # Set the local mount point
+    MOUNT_POINT="$HOME/mnt/$SERVER_NAME"
+    # Unmount the remote directory using fusermount
+    fusermount -u $MOUNT_POINT
+    # Remove the local mount point directory
+    rmdir $MOUNT_POINT
+    # Remove the server name from the ATTACHED_SERVERS array
+    remove_attached_server "$SERVER_NAME"
+}
+
+# Define a custom completion function for the mount_server and unmount_server functions
+_mount_server_completion() {
+    local cur="${COMP_WORDS[COMP_CWORD]}"
+    COMPREPLY=( $(compgen -W "${ATTACHED_SERVERS[*]}" -- "$cur") )
+}
+
+# Register the custom completion function for the mount_server and unmount_server functions
+complete -F _mount_server_completion mount_server unmount_server
+
+### END OF SSHFS SCRIPTS BLOCK
