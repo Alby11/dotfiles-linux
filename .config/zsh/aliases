@@ -559,6 +559,6 @@ function backup_home() {
 
   # Create the backup
   echo "Starting backup..."
-  tar "${EXCLUDE_OPTS[@]}" --checkpoint=.1000 --checkpoint-action=exec='printf "\r%4d MB written"' -czf ${BACKUP_DEST}/home_backup.tar.gz ~/
+  tar "${EXCLUDE_OPTS[@]}" --checkpoint=.1000 --checkpoint-action=exec='printf "\r%4d MB written" $TAR_CHECKPOINT' -czf ${BACKUP_DEST}/home_backup.tar.gz ~/
   echo -e "\nBackup complete!"
 }
