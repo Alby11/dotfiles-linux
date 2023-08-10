@@ -537,3 +537,28 @@ _mount_server_completion() {
 complete -F _mount_server_completion mount_server unmount_server
 
 ### END OF SSHFS SCRIPTS BLOCK
+# Profile backup script by ChatGPT
+function backup_home() {
+  # Check if a backup destination was provided
+  if [ -z "$1" ]; then
+    echo "Usage: backup_home BACKUP_DEST"
+    return 1
+  fi
+
+  # Set the backup destination
+  local BACKUP_DEST="$1"
+
+  # Set the directories to exclude
+  local EXCLUDE_DIRS=( "chrome" "edge" "onedrive" "onedriveFratelliCarli" ".var" )
+
+  # Create the exclude options for the tar command
+  local EXCLUDE_OPTS=()
+  for dir in "${EXCLUDE_DIRS[@]}"; do
+    EXCLUDE_OPTS+=("--exclude=${dir}")
+  done
+
+  # Create the backup
+  echo "Starting backup..."
+  tar "${EXCLUDE_OPTS[@]}" --checkpoint=.1000 --checkpoint-action=exec='printf "\r%4d MB written"' -czf ${BACKUP_DEST}/home_backup.tar.gz ~/
+  echo -e "\nBackup complete!"
+}
