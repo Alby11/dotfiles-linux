@@ -35,7 +35,34 @@ chxr() {
     chmod -R +x "$1"
 }
 dush() {
-    sudo du -sh
+    if [ -n "$ZSH_VERSION" ]; then
+        setopt +o nomatch
+        du -hs "$1"/.[^.]* "$1"/*
+        setopt -o nomatch
+    elif [ -n "$BASH_VERSION" ]; then
+        if compgen -G "$1"/.[^.]* > /dev/null; then
+            du -hs "$1"/.[^.]* "$1"/*
+        else
+            du -hs "$1"/*
+        fi
+    else
+        echo "Unsupported shell"
+    fi
+}
+sudush() {
+    if [ -n "$ZSH_VERSION" ]; then
+        setopt +o nomatch
+        sudo du -hs "$1"/.[^.]* "$1"/*
+        setopt -o nomatch
+    elif [ -n "$BASH_VERSION" ]; then
+        if compgen -G "$1"/.[^.]* > /dev/null; then
+            sudo du -hs "$1"/.[^.]* "$1"/*
+        else
+            sudo du -hs "$1"/*
+        fi
+    else
+        echo "Unsupported shell"
+    fi
 }
 alias h="history -10" # last 10 history commands
 hg() {
