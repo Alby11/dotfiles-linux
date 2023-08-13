@@ -549,7 +549,7 @@ function backup_home() {
   local BACKUP_DEST="$1"
 
   # Set the directories to exclude
-  local EXCLUDE_DIRS=( "chrome" "edge" "onedrive" "onedriveFratelliCarli" ".var" )
+  local EXCLUDE_DIRS=( "chrome" "edge" "onedrive" "onedriveFratelliCarli" ".var" ".cache" ".go")
 
   # Create the exclude options for the tar command
   local EXCLUDE_OPTS=()
