@@ -531,7 +531,7 @@ remove_attached_server() {
 }
 
 # Define a function to mount a remote directory using sshfs
-mount_server() {
+sshmount() {
     # Set the server name, user, and port from the arguments
     SERVER_NAME="$1"
     SSH_USER="$2"
@@ -560,7 +560,7 @@ mount_server() {
 }
 
 # Define a function to unmount a remote directory and remove the local mount point
-unmount_server() {
+sshumount() {
     # Set the server name from the first argument
     SERVER_NAME="$1"
     # Set the local mount point
@@ -573,14 +573,14 @@ unmount_server() {
     remove_attached_server "$SERVER_NAME"
 }
 
-# Define a custom completion function for the mount_server and unmount_server functions
-_mount_server_completion() {
+# Define a custom completion function for the sshmount and sshumount functions
+_sshmount_completion() {
     local cur="${COMP_WORDS[COMP_CWORD]}"
     COMPREPLY=( $(compgen -W "${ATTACHED_SERVERS[*]}" -- "$cur") )
 }
 
-# Register the custom completion function for the mount_server and unmount_server functions
-complete -F _mount_server_completion mount_server unmount_server
+# Register the custom completion function for the sshmount and sshumount functions
+complete -F _sshmount_completion sshmount sshumount
 ### END OF SSHFS SCRIPTS BLOCK
 
 # Profile backup script by ChatGPT
