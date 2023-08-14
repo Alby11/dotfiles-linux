@@ -505,8 +505,6 @@ stopDaemons () {
 
 ### GRET SCRIPTS TO MOUNT SSHFS AND DINAMYCALLY CREATE AND DESTROY MOUNT POINTS
 ### WITH AUTOCOMPLETE!!! Credits: ChatGPT
-
-
 # Define an empty array to store the attached servers
 ATTACHED_SERVERS=()
 
@@ -575,8 +573,8 @@ _mount_server_completion() {
 
 # Register the custom completion function for the mount_server and unmount_server functions
 complete -F _mount_server_completion mount_server unmount_server
-
 ### END OF SSHFS SCRIPTS BLOCK
+
 # Profile backup script by ChatGPT
 function backup_home() {
   # Check if a backup destination was provided
