@@ -131,6 +131,46 @@ if command -v systemctl &>/dev/null; then
     alias ctlrf='systemctl reset-failed '
 
     alias ctldrd="systemctl daemon-reload "
+    ### Start of ctlact block
+    # The ctlact function is a utility for managing systemd services.
+    # It takes an action (start, stop, restart, or status) as the first argument
+    # and one or more service names as additional arguments.
+    # The function performs the specified action on all the specified services
+    # and then displays their status.
+    #
+    # Usage: ctlact ACTION SERVICE [SERVICE...]
+    #
+    # Examples:
+    #   ctlact restart apache2 nginx
+    #   ctlact status sshd
+    # Credits: ChatGPT
+    ctlact() {
+      local action=$1
+      shift
+      for service in "$@"; do
+        systemctl $action $service
+        systemctl status $service
+      done
+    }
+    _ctlact() {
+        local cur prev opts
+        COMPREPLY=()
+        cur="${COMP_WORDS[COMP_CWORD]}"
+        prev="${COMP_WORDS[COMP_CWORD-1]}"
+        opts="start stop restart status"
+
+        if [[ ${prev} == ctlact ]]; then
+            COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+            return 0
+        fi
+
+        if [[ ${prev} == start || ${prev} == stop || ${prev} == restart || ${prev} == status ]]; then
+            COMPREPLY=( $(compgen -W "$(systemctl list-unit-files --type=service | awk '{print $1}')" -- ${cur}) )
+            return 0
+        fi
+    }
+    complete -F _ctlact ctlact
+    ### End of ctlact block
 fi
 
 if command -v iptables &>/dev/null; then
