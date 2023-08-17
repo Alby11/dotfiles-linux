@@ -1,0 +1,63 @@
+#
+# Example of xxh config file `~/.config/xxh/config.xxhc` (`$XDG_CONFIG_HOME`)
+#
+# The `hosts` section contains host names or regular expression patterns to match hostname.
+#
+# If hostname in xxh command is matched with many sections the options will be added from all
+# sections and the options with same name will be overwritten by the last matched section.
+#
+# Options without argument should be added in appropriate yaml format but empty.
+# Example for `+if` mode below.
+#
+#--------------------------------------------------------------------------------------------------
+# Example `~/.config/xxh/config.xxhc` (`$XDG_CONFIG_HOME`)
+#--------------------------------------------------------------------------------------------------
+#hosts:
+#  myhost:                     # settings for myhost
+#    -p: 2222                    # set special port
+#    +s: xxh-shell-zsh           # use zsh shell
+#    +I: xxh-shell-zsh           # install xxh-shell before connect
+#    +I: xxh-plugin-zsh-ohmyzsh  # install xxh-plugin before connect
+#    +e:                         # simple environment variables
+#      - ZSH_THEME="clean"       # set ohmyzsh theme
+#      - MYENV="hello world"     # another environment variable
+#    +hhh: "~"                   # use user default home directory on host (/home/user instead of /home/user/.xxh)
+#
+#  "company-.*":        # for all hosts by regex pattern
+#    +s: xonsh            # use xonsh shell
+#    +hh: /tmp/.xxh       # use special xxh home directory (++host-xxh-home)
+#    +if:                 # force reinstall xxh every connect (++install-force)
+hosts:
+  ".*":                       # for all hosts
+    # -p: 2222                    # set special port
+    +s: zsh                    # use Fish shell
+    +I:                         # install xxh packages (if not installed)
+      - xxh-plugin-prerun-dotfiles+git+https://github.com/Alby11/xxh-plugin-prerun-dotfiles
+      - xxh-shell-zsh             # install portable Zsh
+      # - xxh-plugin-zsh-ohmyzsh    # install Oh My Zsh plugin for xxh
+      # - Alby11/xxh-plugin-prerun-dotfiles  # install Oh My Zsh plugin for xxh
+    +e:                         # set simple environment variables
+      # - ZSH_THEME="clean"         # set ohmyzsh theme
+      - MYENV="hello world"       # another environment variable
+    +if:                          # force install xxh every time
+    # +hh: /tmp/.xxh                # use special xxh home directory
+    # +hhr:                         # remove host xxh home after disconnect
+    # +hhh: "~"                   # set /home/user as home directory
+
+  myhost:                     # settings for myhost
+    -p: 2222                    # set special port
+    +s: zsh                     # use zsh shell                         
+    +I:                         # install xxh packages (if not installed)
+      - xxh-shell-zsh             # install portable Zsh
+      - xxh-plugin-zsh-ohmyzsh    # install Oh My Zsh plugin for xxh
+    +e:                         # set simple environment variables
+      - ZSH_THEME="clean"         # set ohmyzsh theme
+      - MYENV="hello world"       # another environment variable
+    +hhh: "~"                   # set /home/user as home directory
+
+  "company-.*":               # for all hosts by regex pattern
+    +s: xonsh                     # use xonsh shell
+    +hh: /tmp/.xxh                # use special xxh home directory
+    +if:                          # force install xxh every time
+    +hhr:                         # remove host xxh home after disconnect
+    +I: xxh-plugin-prerun-core    # midnight commander (mc) config as prerun xxh plugin    +hhr:                # remove host xxh home after disconnect (++host-xxh-home-remove)
