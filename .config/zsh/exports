@@ -96,6 +96,9 @@ EXPORT_DIR $HOME/gitdepot/bat-extras/src
 
 export KUBECONFIG=$KUBECONFIG:$HOME/.kube/config:$HOME/.kube/configs/kubeconfig.yaml
 
+# if present, source FZF
+[ -f ~/.fzf.zsh ] && SOURCE_RCFILE ~/.fzf.zsh
+
 ### Initialize Zoxide
 if command -v zoxide &> /dev/null
 then

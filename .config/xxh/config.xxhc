@@ -30,18 +30,22 @@
 hosts:
   ".*":                       # for all hosts
     # -p: 2222                    # set special port
-    +s: zsh                    # use Fish shell
-    +I:                         # install xxh packages (if not installed)
+    +s: zsh                    # use ZSH shell
+    +RI:                         # install xxh packages (if not installed)
+      - xxh-plugin-prerun-starship+git+https://github.com/izissise/xxh-plugin-prerun-starship
+      - xxh-plugin-prerun-zoxide   
+      - xxh-plugin-prerun-zsh-exa+git+https://github.com/experiences/xxh-plugin-zsh-exa
+      # - xxh-plugin-prerun-portabletools+git+https://github.com/coandco/xxh-plugin-prerun-portabletools
       - xxh-plugin-prerun-dotfiles+git+https://github.com/Alby11/xxh-plugin-prerun-dotfiles
       - xxh-shell-zsh             # install portable Zsh
+      - xxh-plugin-zsh-fzf+git+https://github.com/nom05/xxh-plugin-zsh-fzf
       # - xxh-plugin-zsh-ohmyzsh    # install Oh My Zsh plugin for xxh
-      # - Alby11/xxh-plugin-prerun-dotfiles  # install Oh My Zsh plugin for xxh
     +e:                         # set simple environment variables
       # - ZSH_THEME="clean"         # set ohmyzsh theme
       - MYENV="hello world"       # another environment variable
     +if:                          # force install xxh every time
     # +hh: /tmp/.xxh                # use special xxh home directory
-    # +hhr:                         # remove host xxh home after disconnect
+    +hhr:                         # remove host xxh home after disconnect
     # +hhh: "~"                   # set /home/user as home directory
 
   myhost:                     # settings for myhost

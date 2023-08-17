@@ -124,3 +124,6 @@
 [submodule "gitdepot/try"]
 	path = gitdepot/try
 	url = https://github.com/binpash/try.git
+[submodule ".fzf"]
+	path = .fzf
+	url = https://github.com/junegunn/fzf.git
