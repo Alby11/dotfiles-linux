@@ -29,10 +29,16 @@ else
 fi
 
 # Make neovim the default editor.
-export VISUAL='nvim';
-export EDITOR='nvim';
-
-export LESS='-M'
+export VISUAL='nvim'
+export EDITOR='nvim'
+# Make most the default pager if present, if not use more
+export PAGER='more'
+if command -v most &>/dev/null
+then
+  export PAGER='most'
+fi
+#export LESS='-M'
+# set CLICOLOR
 export CLICOLOR=1
 
 # export TERM color variable for Neovim inside Tmux
