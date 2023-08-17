@@ -211,6 +211,7 @@ fi
 if command -v dnf &>/dev/null; then
     alias dnf='sudo dnf '
     alias dnfs='sudo dnf search '
+    alias dnfp='sudo dnf provides '
     alias dnff='sudo dnf info '
     alias dnfl='sudo dnf list '
     alias dnfli='sudo dnf list --installed '
