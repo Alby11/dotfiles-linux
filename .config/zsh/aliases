@@ -660,3 +660,8 @@ function backup_home() {
   tar "${EXCLUDE_OPTS[@]}" --checkpoint=.1000 --checkpoint-action=exec='printf "\r%4d MB written" $TAR_CHECKPOINT' -czf ${BACKUP_DEST}/home_backup.tar.gz ~/
   echo -e "\nBackup complete!"
 }
+
+# Update pip packages
+pip_update() {
+  pip --disable-pip-version-check list --outdated --format=json | python -c "import json, sys; print('\n'.join([x['name'] for x in json.load(sys.stdin)]))" | xargs -n1 pip install -U
+}
