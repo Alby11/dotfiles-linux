@@ -382,31 +382,116 @@ if command -v curl &>/dev/null; then
     alias wimp='wth imperia'
 fi
 
+# This script defines a function named `checkSum` that can be used to verify the
+# checksum of a file using a specified algorithm. The function takes three arguments:
+# the algorithm to use (md5, sha1, sha256, or sha512), the file to check, and the
+# expected checksum value. The function calculates the checksum of the given file
+# using the specified algorithm and compares it to the expected value. If the calculated
+# and expected values match, it prints a message indicating that the checksum is OK;
+# otherwise, it prints a message indicating that the checksum is not OK.
+#
+# Usage: checkSum [md5|sha1|sha256|sha512] [file] [sum]
+#
+# Example: checkSum md5 myfile.txt d41d8cd98f00b204e9800998ecf8427e
+
 checkSum() {
-    if [ "$1" = "" ] || [ "$2" = "" ] || [ "$3" = "" ]; then
-        echo "Usage: checkmd5 [md5|sha1|sha256|sha512] [file] [sum]"
+    if [ "$1" = "--help" ]; then
+        echo "Usage: checkSum [md5|sha1|sha256|sha512] [file] [sum]"
+        return 0
+    fi
+
+    if [ "$#" -ne 3 ]; then
+        echo "Error: Invalid number of arguments"
+        echo "Usage: checkSum [md5|sha1|sha256|sha512] [file] [sum]"
         return 2
     fi
-    if [ "$1" != "md5" ] && [ "$1" != "sha1" ] && [ "$1" != "sha256" ] && [ "$1" != "sha512" ]; then
-        echo "algorithm (firt paramater) must be [md5|sha1|sha256|sha512]"
+
+    local algorithm="$1"
+    local file="$2"
+    local expected_sum="$3"
+
+    if ! [[ "$algorithm" =~ ^(md5|sha1|sha256|sha512)$ ]]; then
+        echo "Error: Invalid algorithm"
+        echo "Algorithm (first parameter) must be one of: md5, sha1, sha256, sha512"
         return 3
     fi
-    local command="${1}sum"
-    if command -v "$command" &>/dev/null; then
-        local sum=$("$command" "$2" | cut -d ' ' -f 1)
-        echo "Given: $3"
-        echo "Calculated: $sum"
-        if [ "$sum" = "$3" ]; then
-            echo "${command} OK"
-            return 0
-        else
-            echo "${command} NOT OK!!"
-            return 1
-        fi
-        echo "Command ${command} is not installed."
+
+    if [ ! -f "$file" ]; then
+        echo "Error: File not found"
+        echo "File (second parameter) must be a valid file path"
         return 4
     fi
+
+    local command="${algorithm}sum"
+    if ! command -v "$command" &>/dev/null; then
+        echo "Error: Command not found"
+        echo "Command ${command} is not installed on this system"
+        return 5
+    fi
+
+    local calculated_sum=$("$command" "$file" | cut -d ' ' -f 1)
+    echo "Given: $expected_sum"
+    echo "Calculated: $calculated_sum"
+
+    if [ "$(echo "$calculated_sum" | tr '[:upper:]' '[:lower:]')" = "$(echo "$expected_sum" | tr '[:upper:]' '[:lower:]')" ]; then
+        if [ "$calculated_sum" != "$expected_sum" ]; then
+            echo "Warning: Case mismatch between given and calculated checksums"
+        fi
+        echo "${command} OK"
+        return 0
+    else
+        echo "${command} NOT OK!!"
+        return 1
+    fi
 }
+if [ -n "$BASH_VERSION" ]; then
+    # Bash completion function
+    _checkSum() {
+        local cur prev words cword
+        _init_completion || return
+
+        case $prev in
+            checkSum)
+                COMPREPLY=($(compgen -W "md5 sha1 sha256 sha512 --help" -- "$cur"))
+                return 0
+                ;;
+        esac
+
+        _filedir
+    }
+
+    complete -F _checkSum checkSum
+elif [ -n "$ZSH_VERSION" ]; then
+    # Zsh completion function
+    #compdef checkSum
+
+    _checkSum() {
+        local curcontext="$curcontext" state line expl ret=1
+
+        _arguments -C \
+          '1: :->algorithm' \
+          '2: :_files' \
+          '*::arg:->args' && ret=0
+
+        case $state in
+          (algorithm)
+              _wanted algorithm expl 'algorithm' compadd md5 sha1 sha256 sha512 --help && ret=0
+              ;;
+          (args)
+              _message 'checksum value'
+              ret=0
+              ;;
+          (*) 
+              ret=1 
+              ;;
+        esac
+
+        return ret
+    }
+
+    compdef _checkSum checkSum
+fi
+# End of checkSum block
 
 getCharge() {
     local mode=$(sudo cat /sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode)
