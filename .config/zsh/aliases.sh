@@ -18,20 +18,21 @@ if command -v bat &>/dev/null
 then
   aliasG B='| bat '
 fi
-if command -v batgrep.sh &>/dev/null
+if command -v batgrep &>/dev/null
 then
-  aliasG G='| batgrep.sh -i '
-  aliasG batgrep='batgrep.sh -i '
+  aliasG G='| batgrep -i '
+  aliasG OG='| /bin/grep -i '
+  aliasG grep='batgrep '
+  aliasG bgrep='batgrep '
+  aliasG ogrep='/bin/grep '
 fi
-if command -v batman.sh &>/dev/null
+if command -v batman &>/dev/null
 then
-  aliasG man='batman.sh '
-  aliasG batman='batman.sh '
+  aliasG man='batman '
 fi
-if command -v batdiff.sh &>/dev/null
+if command -v batdiff &>/dev/null
 then
-  aliasG diff='| batdiff.sh '
-  aliasG batdiff='batdiff.sh '
+  aliasG diff='| batdiff '
 fi
 aliasG sudo="sudo "
 aliasG Sb="source ~/.bashrc"

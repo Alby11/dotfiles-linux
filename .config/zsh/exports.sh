@@ -99,23 +99,22 @@ EXPORT_DIR $HOME/.local/bin
 EXPORT_DIR $HOME/.cargo/bin
 
 # bat extras scripts
-EXPORT_DIR $HOME/gitdepot/bat-extras/src
+# EXPORT_DIR $HOME/gitdepot/bat-extras/src
 # batpipe, a bat-based preprocessor for less and bat.
-# Version: 2023.03.21-git (ceaac1b)
+# Version: 2022.07.27
 # Homepage: https://github.com/eth-p/bat-extras
 # Copyright (C) 2019-2021 eth-p | MIT License
 # 
 # To use batpipe, eval the output of this command in your shell init script.
-if command -v batpipe.sh 2>/dev/null
-then
-  LESSOPEN="|~/gitdepot/bat-extras/src/batpipe.sh %s";
-  export LESSOPEN;
-  unset LESSCLOSE;
-  LESS="$LESS -R";
-  BATPIPE="color";
-  export LESS;
-  export BATPIPE;
-fi
+LESSOPEN="|/usr/bin/batpipe %s";
+export LESSOPEN;
+unset LESSCLOSE;
+
+# The following will enable colors when using batpipe with less:
+LESS="$LESS -R";
+BATPIPE="color";
+export LESS;
+export BATPIPE;
 
 # KUBECONFIG
 export KUBECONFIG=$KUBECONFIG:$HOME/.kube/config:$HOME/.kube/configs/kubeconfig.yaml
