@@ -6,14 +6,33 @@ theShell=$(echo "$SHELL" | cut -d '/' -f 3)
 
 # if 'alias -g' is available, define an alias that can be used on zshrc
 # but doesn't brake everything if we are on bash
-alias -g G='| grep -i ' 2>/dev/null
 if [[ $? == 0 ]]; then # I know, it's dirty...
     alias -g aliasG="alias -g "
 else
     alias aliasG="alias "
 fi
 aliasG grep='grep --color=auto '
-
+aliasG G='| grep -i '
+# bat-extras
+if command -v bat &>/dev/null
+then
+  aliasG B='| bat '
+fi
+if command -v batgrep.sh &>/dev/null
+then
+  aliasG G='| batgrep.sh -i '
+  aliasG batgrep='batgrep.sh -i '
+fi
+if command -v batman.sh &>/dev/null
+then
+  aliasG man='batman.sh '
+  aliasG batman='batman.sh '
+fi
+if command -v batdiff.sh &>/dev/null
+then
+  aliasG diff='| batdiff.sh '
+  aliasG batdiff='batdiff.sh '
+fi
 aliasG sudo="sudo "
 aliasG Sb="source ~/.bashrc"
 aliasG Sba="source ~/.bash_aliases"
@@ -29,6 +48,8 @@ aliasG EE='exit'
 aliasG chmod='sudo chmod '
 aliasG chown='sudo chown '
 aliasG h="history -10" # last 10 history commands
+aliasG hh="history -20" # last 10 history commands
+aliasG hhh="history -30" # last 10 history commands
 
 if command -v ss &>/dev/null; then
     alias ssa='sudo ss -poeta '
