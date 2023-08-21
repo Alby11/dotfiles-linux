@@ -1,3 +1,4 @@
+#!/usr/bin/zsh
 #!/usr/bin/env zsh
 # .zshrc
 ### SOURCING/EXPORTING UTILITIES
@@ -40,7 +41,7 @@ compinit
 SOURCE_RCFILE $ZSH_CONFIG_HOME/antidoterc
 
 # Exports
-SOURCE_RCFILE $ZSH_CONFIG_HOME/exports
+SOURCE_RCFILE $ZSH_CONFIG_HOME/exports.sh
 
 # dot fetch origin main ; dot diff --quiet main main || echo 'directory differ'
 # Uncomment the following line to enable command auto-correction.
@@ -61,7 +62,9 @@ HIST_STAMPS="yyyy-mm-dd"
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
 # Aliases
-SOURCE_RCFILE $ZSH_CONFIG_HOME/aliases
+SOURCE_RCFILE $ZSH_CONFIG_HOME/aliases.sh
+# Functions
+SOURCE_RCFILE $ZSH_CONFIG_HOME/functions.sh
 
 # load ssh after each reboot (re-uses same ssh-agent instance)
 if [[ ! $( command -v keychain ) ]]; then
