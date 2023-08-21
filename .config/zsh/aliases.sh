@@ -60,9 +60,6 @@ if command -v systemctl &>/dev/null; then
     # Enable/Disable commands for units
     alias ctle='systemctl enable '
     alias ctld='systemctl disable '
-    complete -F _ctl_completion ctlsts
-    complete -F _ctl_completion ctlrts
-    complete -F _ctl_completion ctlsps
     # Masking Units to disabling them
     alias ctlmask='systemctl mask '
     alias ctlunmask='systemctl unmask '
