@@ -388,49 +388,6 @@ _sshmount_completion() {
 # Register the custom completion function for the sshmount and sshumount functions
 complete -F _sshmount_completion sshmount sshumount
 ### END OF SSHFS SCRIPTS BLOCK
-# This function sets up a remote server for SSH access.
-# It takes one required argument and two optional arguments: host, user (optional), and ssh_key_path (optional).
-# - host: the hostname or IP address of the remote system
-# - user (optional): the username on the remote system (defaults to the current local user)
-# - ssh_key_path (optional): the path to your local SSH key (if not specified, the key will not be copied)
-#
-# The function performs the following operations:
-# 1. Copies your local zsh configuration files and scripts to the remote server.
-# 2. Installs zsh on the remote system if it is not already installed.
-# 3. Sources your zsh user environment on the remote shell by adding a line to the remote .zshrc file.
-# 4. If ssh_key_path is specified, copies your SSH key to the remote server to allow for passwordless login in the future, if it is not already present.
-# 5. Opens an interactive zsh session on the remote server.
-function sshenv() {
-    if [[ $1 == "--help" || -z $1 ]]; then
-        echo "Usage: sshenv host [user] [ssh_key_path]"
-        echo "Sets up a remote server for SSH access."
-        echo "  host: the hostname or IP address of the remote system"
-        echo "  user (optional): the username on the remote system (defaults to the current local user)"
-        echo "  ssh_key_path (optional): the path to your local SSH key (if not specified, the key will not be copied)"
-        return
-    fi
-    host=$1
-    user=${2:-$USER}
-    ssh_key_path=$3
-    # Set the ZDOTDIR variable
-    source ~/.zshenv
-    # Copy local zsh configuration files and scripts to remote server
-    if [[ -n $ssh_key_path ]]; then
-        rsync -avz -e "ssh -i $ssh_key_path" ~/.zshenv $ZDOTDIR $user@$host:~
-    else
-        rsync -avz ~/.zshenv $ZDOTDIR $user@$host:~
-    fi
-    # Install zsh if missing
-    ssh $user@$host 'which zsh || (sudo apt-get update && sudo apt-get install -y zsh)'
-    # Source zsh user environment
-    ssh $user@$host 'echo "source ~/.zshenv" >> ~/.zshrc'
-    # Copy ssh key to remote server if specified and not already present
-    if [[ -n $ssh_key_path ]]; then
-        ssh-keygen -y -f $ssh_key_path | ssh $user@$host "mkdir -p ~/.ssh; grep -q -F \"$(cat $ssh_key_path.pub)\" ~/.ssh/authorized_keys || cat >> ~/.ssh/authorized_keys"
-    fi
-    # SSH into remote server and start zsh shell
-    ssh -t $user@$host zsh
-}
 # Profile backup script by ChatGPT
 function backup_home() {
   # Check if a backup destination was provided
