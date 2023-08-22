@@ -6,13 +6,12 @@ theShell=$(echo "$SHELL" | cut -d '/' -f 3)
 
 # if 'alias -g' is available, define an alias that can be used on zshrc
 # but doesn't brake everything if we are on bash
-if [[ $? == 0 ]]; then # I know, it's dirty...
-    alias -g aliasG="alias -g "
+if [[ $? == 0 ]] # I know, it's dirty...
+then 
+  alias -g aliasG="alias -g "
 else
-    alias aliasG="alias "
+  alias aliasG="alias "
 fi
-aliasG grep='grep --color=auto '
-aliasG G='| grep -i '
 # bat-extras
 if command -v bat &>/dev/null
 then
@@ -20,11 +19,14 @@ then
 fi
 if command -v batgrep &>/dev/null
 then
-  aliasG G='| batgrep -i '
-  aliasG OG='| /bin/grep -i '
-  aliasG grep='batgrep '
-  aliasG bgrep='batgrep '
-  aliasG ogrep='/bin/grep '
+  aliasG G='| batgrep -i'
+  aliasG OG='| /bin/grep -i'
+  aliasG grep='batgrep'
+  aliasG bgrep='batgrep'
+  aliasG ogrep='/bin/grep'
+else
+  aliasG grep='grep --color=auto '
+  aliasG G='| grep -i '
 fi
 if command -v batman &>/dev/null
 then
