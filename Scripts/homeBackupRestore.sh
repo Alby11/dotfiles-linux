@@ -7,6 +7,21 @@ BACKUP_DIR=~/backup/$(basename $0 .sh)
 # Create the backup/restore directory
 mkdir -p $BACKUP_DIR
 
+# Spinning cursor animation
+function spinner {
+    local pid=$1
+    local delay=0.1
+    local spinstr='|/-\'
+    while [ "$(ps a | awk '{print $1}' | grep $pid)" ]; do
+        local temp=${spinstr#?}
+        printf " [%c]  " "$spinstr"
+        local spinstr=$temp${spinstr%"$temp"}
+        sleep $delay
+        printf "\b\b\b\b\b\b"
+    done
+    printf "    \b\b\b\b"
+}
+
 # Backup function
 function backup_home {
     # Check if a previous backup is already present
@@ -21,7 +36,7 @@ function backup_home {
     fi
 
     # Set the directories to exclude
-    local EXCLUDE_DIRS=( ".cache" ".cargo/registry" ".go" ".local/share" ".mozilla" ".var" "chrome" "edge" "mnt" "onedrive" "onedriveFratelliCarli" "tmp")
+    local EXCLUDE_DIRS=( ".cache" ".cargo/registry" ".go" ".local/share" ".mozilla" ".var" "chrome" "edge" "Downloads" "mnt" "onedrive" "onedriveFratelliCarli" "Pictures" "tmp" "Videos")
 
     # Add the backup directory to the list of excluded directories
     EXCLUDE_DIRS+=("$(realpath --relative-to=$HOME $BACKUP_DIR)")
@@ -40,15 +55,27 @@ function backup_home {
             TAR_EXCLUDE_OPTS+=("--exclude=${dir}")
         done
 
+        # Start the spinning cursor animation in the background
+        (spinner $BASHPID) &
+
         # Create the backup as a tar file with best compression
         echo "Starting backup..."
-        tar "${TAR_EXCLUDE_OPTS[@]}" --checkpoint=.1000 --checkpoint-action=exec='printf "\r%4d MB written" $TAR_CHECKPOINT' -czf ${BACKUP_DIR}/home_backup.tar.gz ~/
-        echo -e "\nBackup complete!"
+        tar "${TAR_EXCLUDE_OPTS[@]}" -czf ${BACKUP_DIR}/home_backup.tar.gz ~/
+        echo "Backup complete!"
+
+        # Stop the spinning cursor animation
+        kill "$!"
     else
+        # Start the spinning cursor animation in the background
+        (spinner $BASHPID) &
+
         # Create the backup using rsync
         echo "Starting backup..."
         rsync -aP "${EXCLUDE_OPTS[@]}" ~/ $BACKUP_DIR/
         echo "Backup complete!"
+
+        # Stop the spinning cursor animation
+        kill "$!"
     fi
 
     # Calculate the size of the backup in bytes
@@ -68,16 +95,30 @@ function backup_home {
 function restore_home {
     # Check if tar option is specified
     if [ "$2" == "tar" ]; then
-        # Extract the backup from tar file
-        echo "Starting restore..."
-        tar -xzf ${BACKUP_DIR}/home_backup.tar.gz -C /
-        echo "Restore complete!"
-    else
-        # Restore the backup using rsync
-        echo "Starting restore..."
-        rsync -aP $BACKUP_DIR/ ~/
-        echo "Restore complete!"
-    fi
+
+      # Start the spinning cursor animation in the background 
+      (spinner $BASHPID) & 
+
+      # Extract the backup from tar file 
+      echo "Starting restore..." 
+      tar -xzf ${BACKUP_DIR}/home_backup.tar.gz -C / 
+      echo "Restore complete!" 
+
+      # Stop spinning cursor animation 
+      kill "$!" 
+      
+   else 
+      # Start spinning cursor animation in background 
+      (spinner $BASHPID) & 
+
+      # Restore using rsync 
+      echo "Starting restore..." 
+      rsync -aP $BACKUP_DIR/ ~/ 
+      echo "Restore complete!" 
+
+      # Stop spinning cursor animation 
+      kill "$!" 
+   fi 
 }
 
 # Display usage message
