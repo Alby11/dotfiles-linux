@@ -88,9 +88,6 @@
 [submodule "gitdepot/dotfiles-stash"]
 	path = gitdepot/dotfiles-stash
 	url = git@github.com:Alby11/dotfiles-stash.git
-[submodule "gitdepot/dracula-tilix"]
-	path = gitdepot/dracula-tilix
-	url = https://github.com/dracula/tilix.git
 [submodule "gitdepot/dracula-xresources"]
 	path = gitdepot/dracula-xresources
 	url = https://github.com/dracula/xresources.git
@@ -109,9 +106,6 @@
 [submodule "gitdepot/catppuccin-grub"]
 	path = gitdepot/catppuccin-grub
 	url = https://github.com/catppuccin/grub.git
-[submodule "gitdepot/catppuccin-tilix"]
-	path = gitdepot/catppuccin-tilix
-	url = https://github.com/catppuccin/tilix.git
 [submodule "gitdepot/catppuccin-gtk"]
 	path = gitdepot/catppuccin-gtk
 	url = https://github.com/catppuccin/gtk
