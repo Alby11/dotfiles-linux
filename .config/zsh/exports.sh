@@ -33,17 +33,20 @@ fi
 export VISUAL='nvim'
 export EDITOR='nvim'
 # Make most the default pager if present, if not use more
-export PAGER='more'
-if command -v most &>/dev/null
-then
-  export PAGER='most'
-fi
-#export LESS='-M'
+export PAGER='less -M -R'
+# if command -v most &>/dev/null
+# then
+#   export PAGER='most'
+# fi
+export LESS='-M -R'
 # set CLICOLOR
 export CLICOLOR=1
 
 # export TERM color variable for Neovim inside Tmux
 export TERM="xterm-256color"
+
+# export COLORTERM to make most detect 24 bit truecolor
+COLORTERM=truecolor
 
 # source OH-MY-ZSH main script 
 SOURCE_RCFILE $ZSH/oh-my-zsh.sh

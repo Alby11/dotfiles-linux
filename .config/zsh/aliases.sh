@@ -13,28 +13,28 @@ else
   alias aliasG="alias "
 fi
   aliasG grep='grep --color=auto '
-  aliasG G='| grep -i '
+  aliasG G=' | grep -i '
 # bat-extras
 if command -v bat &>/dev/null
 then
-  aliasG B='| bat '
+  aliasG B=' | bat --show-all'
 fi
 if command -v batgrep &>/dev/null
 then
-  aliasG BG='| batgrep -i'
-  aliasG bgrep='batgrep'
+  aliasG BG=' | batgrep --ignore-case --color '
+  aliasG bgrep='batgrep --ignore-case --color '
 fi
 if command -v batman &>/dev/null
 then
-  aliasG bman='batman'
+  aliasG bman='batman k'
 fi
 if command -v batdiff &>/dev/null
 then
-  aliasG bdiff='| batdiff '
+  aliasG bdiff=' | batdiff '
 fi
 if command -v batwatch &>/dev/null
 then
-  aliasG bwatch='batwatch'
+  aliasG bwatch='batwatch '
 fi
 aliasG sudo="sudo "
 aliasG Sb="source ~/.bashrc"
