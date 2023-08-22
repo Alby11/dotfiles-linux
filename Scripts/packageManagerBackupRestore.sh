@@ -2,7 +2,7 @@
 # Backup and restore script for Fedora, Ubuntu, and Arch Linux
 
 # Set the backup directory
-BACKUP_DIR=~/backup/packageManagerBackupRestore
+BACKUP_DIR=~/backup/$(basename $0 .sh)
 
 # Detect the Linux distribution
 if [ -f /etc/os-release ]; then

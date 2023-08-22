@@ -388,27 +388,6 @@ _sshmount_completion() {
 # Register the custom completion function for the sshmount and sshumount functions
 complete -F _sshmount_completion sshmount sshumount
 ### END OF SSHFS SCRIPTS BLOCK
-# Profile backup script by ChatGPT
-function backup_home() {
-  # Check if a backup destination was provided
-  if [ -z "$1" ]; then
-    echo "Usage: backup_home BACKUP_DEST"
-    return 1
-  fi
-  # Set the backup destination
-  local BACKUP_DEST="$1"
-  # Set the directories to exclude
-  local EXCLUDE_DIRS=( "chrome" "edge" "onedrive" "onedriveFratelliCarli" ".var" ".cache" ".go")
-  # Create the exclude options for the tar command
-  local EXCLUDE_OPTS=()
-  for dir in "${EXCLUDE_DIRS[@]}"; do
-    EXCLUDE_OPTS+=("--exclude=${dir}")
-  done
-  # Create the backup
-  echo "Starting backup..."
-  tar "${EXCLUDE_OPTS[@]}" --checkpoint=.1000 --checkpoint-action=exec='printf "\r%4d MB written" $TAR_CHECKPOINT' -czf ${BACKUP_DEST}/home_backup.tar.gz ~/
-  echo -e "\nBackup complete!"
-}
 # Update pip packages
 pip_update() {
   pip --disable-pip-version-check list --outdated --format=json | python -c "import json, sys; print('\n'.join([x['name'] for x in json.load(sys.stdin)]))" | xargs -n1 pip install -U
