@@ -33,12 +33,12 @@ fi
 export VISUAL='nvim'
 export EDITOR='nvim'
 # Make most the default pager if present, if not use more
-export PAGER='less -M -R'
+export PAGER='less'
+export LESS='-M -R'
 # if command -v most &>/dev/null
 # then
 #   export PAGER='most'
 # fi
-export LESS='-M -R'
 # set CLICOLOR
 export CLICOLOR=1
 
@@ -75,7 +75,7 @@ export LESS_TERMCAP_md="${yellow}";
 ### Uncomment only one of these!
 
 ### "bat" as manpager
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+# export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 ### "vim" as manpager
 # export MANPAGER='/bin/bash -c "vim -MRn -c \"set buftype=nofile showtabline=0 ft=man ts=8 nomod nolist norelativenumber nonu noma\" -c \"normal L\" -c \"nmap q :qa<CR>\"</dev/tty <(col -b)"'
@@ -114,9 +114,9 @@ export LESSOPEN;
 unset LESSCLOSE;
 
 # The following will enable colors when using batpipe with less:
-LESS="$LESS -R";
+# LESS="$LESS -R";
 BATPIPE="color";
-export LESS;
+# export LESS;
 export BATPIPE;
 
 # KUBECONFIG

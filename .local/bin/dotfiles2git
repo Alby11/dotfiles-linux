@@ -64,7 +64,8 @@ dotfilesPull() {
 
 dotfilesSubupdate() {
     # dotfiles submodule update --init --remote --merge --recursive
-    dotfiles submodule update --remote --merge --recursive
+    # dotfiles submodule update --remote --merge --recursive
+    dotfiles submodule update --checkout --recursive
 }
 
 dotfilesSync() {
