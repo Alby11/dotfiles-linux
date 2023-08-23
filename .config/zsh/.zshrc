@@ -38,7 +38,7 @@ compinit
 # autoload -Uz promptinit && promptinit # && prompt pure
 
 ### ANTIDOTE
-SOURCE_RCFILE $ZSH_CONFIG_HOME/antidoterc
+SOURCE_RCFILE $ZSH_CONFIG_HOME/.antidoterc
 
 # Exports
 SOURCE_RCFILE $ZSH_CONFIG_HOME/exports.sh
