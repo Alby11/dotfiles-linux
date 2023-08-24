@@ -115,3 +115,6 @@
 [submodule ".fzf"]
 	path = .fzf
 	url = https://github.com/junegunn/fzf.git
+[submodule "gitdepot/xxh-plugin-prerun-dotfiles"]
+	path = gitdepot/xxh-plugin-prerun-dotfiles
+	url = https://github.com/Alby11/xxh-plugin-prerun-dotfiles.git
