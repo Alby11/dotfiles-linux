@@ -393,8 +393,11 @@ pip_update() {
   pip --disable-pip-version-check list --outdated --format=json | python -c "import json, sys; print('\n'.join([x['name'] for x in json.load(sys.stdin)]))" | xargs -n1 pip install -U
 }
 sync_xxh_config() {
-    /bin/bash -c "echo rsync --archive --verbose --delete $(du -sh ~/.config/* | grep -E '0-9' | grep -Ev '(zsh|nvim)' | cut -d / -f5- | sed "s/^/--exclude '/;s/$/'/" | /bin/tr '\n' ' ') ~/.config ~/tmp/xxh-plugin-prerun-dotfiles/home"
-}
-sync_under_MB() {
-    /bin/bash -c eval "rsync --archive --verbose --delete $(du -sh ~/.config/* | grep -E '0-9' | grep -Ev '(zsh|nvim)' | cut -d / -f5- | sed "s/^/--exclude '/;s/$/'/" | /bin/tr '\n' ' ') $1 $2"
+  local destination="$HOME/tmp/xxh-plugin-prerun-dotfiles/home"
+  local exclusions=$(du -sh $HOME/.config/* | grep -E '[0-9](M|G)' | grep -Ev '(zsh|nvim)' | cut -d / -f5- | sed "s/^/--exclude '/;s/$/'/" | /bin/tr '\n' ' ')
+  local options="--archive --verbose --delete $exclusions $HOME/.config $destination"
+  /bin/bash -c "rsync $options"
+  git -C $destination add $destination/.config
+  git -C $destination commit  -m 'edit .config' 
+  git -C $destination push 
 }
