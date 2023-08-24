@@ -36,6 +36,8 @@ hosts:
       - xxh-plugin-prerun-starship+git+https://github.com/izissise/xxh-plugin-prerun-starship
       - xxh-plugin-prerun-zoxide   
       - xxh-plugin-prerun-zsh-exa+git+https://github.com/experiences/xxh-plugin-zsh-exa
+      - xxh-plugin-prerun-zsh-bat+git+https://github.com/experiences/xxh-plugin-zsh-bat
+      - xxh-plugin-prerun-zsh-ripgrep+git+https://github.com/experiences/xxh-plugin-zsh-ripgrep
       # - xxh-plugin-prerun-portabletools+git+https://github.com/coandco/xxh-plugin-prerun-portabletools
       - xxh-plugin-prerun-dotfiles+git+https://github.com/Alby11/xxh-plugin-prerun-dotfiles
       - xxh-plugin-zsh-fzf+git+https://github.com/nom05/xxh-plugin-zsh-fzf

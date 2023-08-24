@@ -392,3 +392,6 @@ complete -F _sshmount_completion sshmount sshumount
 pip_update() {
   pip --disable-pip-version-check list --outdated --format=json | python -c "import json, sys; print('\n'.join([x['name'] for x in json.load(sys.stdin)]))" | xargs -n1 pip install -U
 }
+xxh_config() {
+    /bin/bash -c "rsync --archive --verbose --delete $(du -sh ~/.config/* | grep -E '0-9' | grep -Ev '(zsh|nvim)' | cut -d / -f5- | sed "s/^/--exclude '/;s/$/'/" | /bin/tr '\n' ' ') ~/.config ~/tmp/xxh-plugin-prerun-dotfiles/home"
+}

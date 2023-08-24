@@ -278,4 +278,3 @@ else
 fi
 
 aliasG resetSound='/bin/systemctl --user restart pipewire.service'
-aliasG xxh_config='/bin/bash -c rsync --archive --verbose --delete --exclude 'FortiClient' --exclude 'gtk-4.0' --exclude 'libreoffice' --exclude 'Microsoft' /home/tallonea/.config /home/tallonea/tmp/xxh-plugin-prerun-dotfiles/home'
