@@ -278,3 +278,13 @@ else
 fi
 
 aliasG resetSound='/bin/systemctl --user restart pipewire.service'
+
+# PIP block 
+if command -v pip &>/dev/null
+then
+  aliasG pipi='pip install '
+  aliasG pipiu='pip install --user '
+  aliasG pipu='pip uninstall '
+  aliasG pipuu='pip uninstall --user '
+fi
+# end of PIP block

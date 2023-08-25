@@ -389,8 +389,11 @@ _sshmount_completion() {
 complete -F _sshmount_completion sshmount sshumount
 ### END OF SSHFS SCRIPTS BLOCK
 # Update pip packages
-pip_update() {
+pipue() {
   pip --disable-pip-version-check list --outdated --format=json | python -c "import json, sys; print('\n'.join([x['name'] for x in json.load(sys.stdin)]))" | xargs -n1 pip install -U
+}
+pipueu() {
+  pip --disable-pip-version-check list --user --outdated --format=json | python -c "import json, sys; print('\n'.join([x['name'] for x in json.load(sys.stdin)]))" | xargs -n1 pip install --user -U
 }
 sync_xxh_config() {
   local origin="$HOME/.config"
@@ -406,5 +409,9 @@ sync_xxh_config() {
   git -C $destination push origin HEAD:master 
 }
 vmware_scan_new_disk() {
-  for host in /sys/class/scsi_host/*; do echo "- - -" | sudo tee $host/scan; ls /dev/sd* ; done
+  for host in /sys/class/scsi_host/*
+  do
+    echo "- - -" | sudo tee $host/scan
+    ls /dev/sd*
+  done
 }
