@@ -31,7 +31,7 @@ hosts:
   ".*":                       # for all hosts
     # -p: 2222                    # set special port
     +s: zsh                    # use ZSH shell
-    +IR:                         # install xxh packages (if not installed)
+    +RI:                         # install xxh packages (if not installed)
       - xxh-plugin-prerun-core+git+https://github.com/xxh/xxh-plugin-prerun-core
       - xxh-plugin-prerun-python+git+https://github.com/alby11/xxh-plugin-prerun-python
       - xxh-plugin-prerun-portabletools+git+https://github.com/alby11/xxh-plugin-prerun-portabletools
@@ -41,21 +41,21 @@ hosts:
       - xxh-plugin-prerun-zsh-ranger+git+https://github.com/alby11/xxh-plugin-prerun-zsh-ranger
       - xxh-plugin-prerun-docker+git+https://github.com/xxh/xxh-plugin-prerun-docker
       - xxh-plugin-prerun-starship+git+https://github.com/izissise/xxh-plugin-prerun-starship
+      - xxh-plugin-prerun-dotfiles+git+https://github.com/Alby11/xxh-plugin-prerun-dotfiles
       # - xxh-plugin-prerun-zsh-ripgrep+git+https://github.com/experiences/xxh-plugin-zsh-ripgrep
       # - xxh-plugin-prerun-xxh+git+https://github.com/xxh/xxh-plugin-prerun-xxh
     +I:
-      - xxh-plugin-prerun-dotfiles+git+https://github.com/Alby11/xxh-plugin-prerun-dotfiles
       - xxh-shell-fish            # install portable fish
       - xxh-shell-osquery            # install portable osquery
       - xxh-shell-xonsh            # install portable xonsh
       - xxh-shell-zsh             # install portable Zsh
-      - xxh-plugin-zsh-ohmyzsh    # install Oh My Zsh plugin for xxh
+      # - xxh-plugin-zsh-ohmyzsh    # install Oh My Zsh plugin for xxh
       # - xxh-plugin-zsh-fzf+git+https://github.com/nom05/xxh-plugin-zsh-fzf
     +e:                         # set simple environment variables
       - ZDOTDIR=$XXH_HOME/.config/zsh       # another environment variable
-    # +if:                          # force install xxh every time
+    +if:                          # force install xxh every time
     # +hh: /tmp/.xxh                # use special xxh home directory
-    # +hhr:                         # remove host xxh home after disconnect
+    +hhr:                         # remove host xxh home after disconnect
     # +hhh: "~"                   # set /home/user as home directory
 
   myhost:                     # settings for myhost
