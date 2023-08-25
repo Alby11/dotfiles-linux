@@ -405,3 +405,6 @@ sync_xxh_config() {
   git -C $destination commit  -m 'edit .config' 
   git -C $destination push origin HEAD:master 
 }
+vmware_scan_new_disk() {
+  for host in /sys/class/scsi_host/*; do echo "- - -" | sudo tee $host/scan; ls /dev/sd* ; done
+}
