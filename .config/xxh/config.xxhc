@@ -29,28 +29,29 @@
 #    +if:                 # force reinstall xxh every connect (++install-force)
 hosts:
   ".*":                       # for all hosts
-    # -p: 2222                    # set special port
+    # -p: 22                    # set special port
     +s: zsh                    # use ZSH shell
     +RI:                         # install xxh packages (if not installed)
-      - xxh-plugin-prerun-core+git+https://github.com/xxh/xxh-plugin-prerun-core
-      - xxh-plugin-prerun-python+git+https://github.com/alby11/xxh-plugin-prerun-python
-      - xxh-plugin-prerun-portabletools+git+https://github.com/alby11/xxh-plugin-prerun-portabletools
-      - xxh-plugin-prerun-zsh-exa+git+https://github.com/experiences/xxh-plugin-zsh-exa
-      - xxh-plugin-prerun-zsh-bat+git+https://github.com/experiences/xxh-plugin-zsh-bat
-      - xxh-plugin-prerun-zoxide   
-      - xxh-plugin-prerun-zsh-ranger+git+https://github.com/alby11/xxh-plugin-prerun-zsh-ranger
-      - xxh-plugin-prerun-docker+git+https://github.com/xxh/xxh-plugin-prerun-docker
+      # - xxh-plugin-prerun-core+git+https://github.com/xxh/xxh-plugin-prerun-core
+      # - xxh-plugin-prerun-python+git+https://github.com/alby11/xxh-plugin-prerun-python
+      # - xxh-plugin-prerun-portabletools+git+https://github.com/alby11/xxh-plugin-prerun-portabletools
+      # - xxh-plugin-prerun-zsh-exa+git+https://github.com/experiences/xxh-plugin-zsh-exa
+      # - xxh-plugin-prerun-zsh-bat+git+https://github.com/experiences/xxh-plugin-zsh-bat
+      # - xxh-plugin-prerun-zoxide   
+      # - xxh-plugin-prerun-zsh-ranger+git+https://github.com/alby11/xxh-plugin-prerun-zsh-ranger
+      # - xxh-plugin-prerun-docker+git+https://github.com/xxh/xxh-plugin-prerun-docker
       - xxh-plugin-prerun-starship+git+https://github.com/izissise/xxh-plugin-prerun-starship
-      - xxh-plugin-prerun-dotfiles+git+https://github.com/Alby11/xxh-plugin-prerun-dotfiles
+      - xxh-plugin-prerun-dotfiles+git+https://github.com/alby11/xxh-plugin-prerun-dotfiles
       # - xxh-plugin-prerun-zsh-ripgrep+git+https://github.com/experiences/xxh-plugin-zsh-ripgrep
       # - xxh-plugin-prerun-xxh+git+https://github.com/xxh/xxh-plugin-prerun-xxh
-    +I:
-      - xxh-shell-fish            # install portable fish
-      - xxh-shell-osquery            # install portable osquery
-      - xxh-shell-xonsh            # install portable xonsh
-      - xxh-shell-zsh             # install portable Zsh
+      # - xxh-shell-fish            # install portable fish
+      # - xxh-shell-osquery            # install portable osquery
+      # - xxh-shell-xonsh            # install portable xonsh
+      - xxh-plugin-zsh-zshenv+git+https://github.com/alby11/xxh-plugin-zsh-zshenv    # install Oh My Zsh plugin for xxh
       # - xxh-plugin-zsh-ohmyzsh    # install Oh My Zsh plugin for xxh
       # - xxh-plugin-zsh-fzf+git+https://github.com/nom05/xxh-plugin-zsh-fzf
+    +I:
+      - xxh-shell-zsh             # install portable Zsh
     +e:                         # set simple environment variables
       - ZDOTDIR=$XXH_HOME/.config/zsh       # another environment variable
     +if:                          # force install xxh every time
