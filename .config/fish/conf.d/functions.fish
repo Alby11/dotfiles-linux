@@ -131,14 +131,14 @@ if command docker > /dev/null
     end
 end
 
-if command remmina > /dev/null 
-    function rdp 
-        if test -n "$argv[1]"; remmina -c rdp://"$argv[1]" &; end 
-    end 
-    function vnc 
-        if test -n "$argv[1]"; remmina -c vnc://"$argv[1]" &; end 
-    end 
-end 
+# if command remmina > /dev/null 
+#     function rdp 
+#         if test -n "$argv[1]"; remmina -c rdp://"$argv[1]" &; end 
+#     end 
+#     function vnc 
+#         if test -n "$argv[1]"; remmina -c vnc://"$argv[1]" &; end 
+#     end 
+# end 
 
 if command flatpak > /dev/null 
     if flatpak list | grep -i com.visualstudio.code > /dev/null 
