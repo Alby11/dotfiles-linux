@@ -1,5 +1,4 @@
 #!/usr/bin/zsh
-#!/usr/bin/env sh
 # aliases
 
 theShell=$(echo "$SHELL" | cut -d '/' -f 3)
@@ -114,6 +113,7 @@ if command -v apt &>/dev/null; then
     aliasG aptp='sudo dpkg '
     aliasG aptf='sudo apt show '
     aliasG aptl='sudo apt list '
+    aliasG aptlu='sudo apt list --upgradable'
     aliasG aptli='sudo apt list --installed'
     aliasG aptu='sudo apt update '
     aliasG aptup='sudo apt upgrade -y '
