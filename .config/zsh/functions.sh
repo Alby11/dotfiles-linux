@@ -396,14 +396,18 @@ pipueu() {
   pip --disable-pip-version-check list --user --outdated --format=json | python -c "import json, sys; print('\n'.join([x['name'] for x in json.load(sys.stdin)]))" | xargs -n1 pip install --user -U
 }
 sync_xxh_config() {
-  local origin="$HOME/.config"
+  local origins=("$HOME/.config") #"$HOME/.ssh")
   local destination="$HOME/gitdepot/xxh-plugin-prerun-dotfiles/home"
   local options="--archive --verbose --delete"
   local exclude_array=("Microsoft*" "remmina")
   local exclude_string=$(printf " --exclude '%s'" "${exclude_array[@]}")
-  local exclusions=$(du -sh ${origin}/* | grep -E '[0-9](M|G)' | grep -Ev '(zsh|nvim)' | cut -d / -f5- | sed "s/^/--exclude '/;s/$/'/" | /bin/tr '\n' ' ')
-  local arguments="$options $exclusions $exclude_string $origin $destination"
-  /bin/bash -c "rsync $arguments"
+  for origin in $origins
+  do
+    echo $origin
+    local exclusions=$(du -sh ${origin}/* | grep -E '[0-9](M|G)' | grep -Ev '(zsh|nvim)' | cut -d / -f5- | sed "s/^/--exclude '/;s/$/'/" | /bin/tr '\n' ' ')
+    local arguments="$options $exclusions $exclude_string $origin $destination"
+    /bin/bash -c "rsync $arguments"
+  done
   git -C $destination add $destination/.config
   git -C $destination commit  -m 'edit .config' 
   git -C $destination push origin HEAD:master 

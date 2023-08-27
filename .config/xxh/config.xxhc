@@ -41,7 +41,6 @@ hosts:
       - xxh-plugin-prerun-zsh-ranger+git+https://github.com/alby11/xxh-plugin-prerun-zsh-ranger
       - xxh-plugin-prerun-docker+git+https://github.com/xxh/xxh-plugin-prerun-docker
       - xxh-plugin-prerun-starship+git+https://github.com/izissise/xxh-plugin-prerun-starship
-      - xxh-plugin-prerun-dotfiles+git+https://github.com/alby11/xxh-plugin-prerun-dotfiles
       # - xxh-plugin-prerun-zsh-ripgrep+git+https://github.com/experiences/xxh-plugin-zsh-ripgrep
       # - xxh-plugin-prerun-xxh+git+https://github.com/xxh/xxh-plugin-prerun-xxh
       - xxh-shell-fish            # install portable fish
@@ -51,6 +50,7 @@ hosts:
       # - xxh-plugin-zsh-fzf+git+https://github.com/nom05/xxh-plugin-zsh-fzf
       - xxh-plugin-zsh-zshenv+git+https://github.com/alby11/xxh-plugin-zsh-zshenv    # install Oh My Zsh plugin for xxh
     +I:
+      - xxh-plugin-prerun-dotfiles+git+https://github.com/alby11/xxh-plugin-prerun-dotfiles
       - xxh-shell-zsh             # install portable Zsh
     +e:                         # set simple environment variables
       - ZDOTDIR=$XXH_HOME/.config/zsh       # another environment variable
