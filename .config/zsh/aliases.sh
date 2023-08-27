@@ -111,6 +111,10 @@ fi
 if command -v apt &>/dev/null; then
     aliasG apt='sudo apt '
     aliasG apts='sudo apt search '
+    aliasG aptp='sudo dpkg '
+    aliasG aptf='sudo apt show '
+    aliasG aptl='sudo apt list '
+    aliasG aptli='sudo apt list --installed'
     aliasG aptu='sudo apt update '
     aliasG aptup='sudo apt upgrade -y '
     aliasG aptdup='sudo apt dist-upgrade -y '

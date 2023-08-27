@@ -45,11 +45,13 @@ hosts:
       # - xxh-plugin-prerun-zsh-ripgrep+git+https://github.com/experiences/xxh-plugin-zsh-ripgrep
       # - xxh-plugin-prerun-xxh+git+https://github.com/xxh/xxh-plugin-prerun-xxh
       - xxh-plugin-prerun-dotfiles+git+https://github.com/alby11/xxh-plugin-prerun-dotfiles
+      - xxh-plugin-bash-ohmybash    # install Oh My Bash plugin for xxh
       - xxh-shell-fish            # install portable fish
+      - xxh-plugin-fish-ohmyfish    # install Oh My Fish plugin for xxh
       - xxh-shell-osquery            # install portable osquery
       - xxh-shell-xonsh            # install portable xonsh
       - xxh-shell-zsh             # install portable Zsh
-      # - xxh-plugin-zsh-ohmyzsh    # install Oh My Zsh plugin for xxh
+      - xxh-plugin-zsh-ohmyzsh    # install Oh My Zsh plugin for xxh
       # - xxh-plugin-zsh-fzf+git+https://github.com/nom05/xxh-plugin-zsh-fzf
       # - xxh-plugin-zsh-zshenv+git+https://github.com/alby11/xxh-plugin-zsh-zshenv    # install Oh My Zsh plugin for xxh
     +e:                         # set simple environment variables
