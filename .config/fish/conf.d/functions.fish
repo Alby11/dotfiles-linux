@@ -1,421 +1,369 @@
-#!/usr/bin/zsh
-#functions
-fastping() {
+#!/usr/bin/fish
+# functions.fish
+
+function fastping
     ping -c 100 -s 2
-}
-chx() {
-    chmod +x "$1"
-}
-chxr() {
-    chmod -R +x "$1"
-}
-dush() {
-    if [ -n "$ZSH_VERSION" ]; then
-        setopt +o nomatch
-        du -hs "$1"/.[^.]* "$1"/*
-        setopt -o nomatch
-    elif [ -n "$BASH_VERSION" ]; then
-        if compgen -G "$1"/.[^.]* > /dev/null; then
-            du -hs "$1"/.[^.]* "$1"/*
+end
+
+function chx
+    chmod +x "$argv[1]"
+end
+
+function chxr
+    chmod -R +x "$argv[1]"
+end
+
+function dush
+    if test -n "$ZSH_VERSION"
+        set -l nomatch
+        du -hs "$argv[1]"/.[^.]* "$argv[1]"/*
+        set +l nomatch
+    else if test -n "$BASH_VERSION"
+        if compgen -G "$argv[1]"/.[^.]* > /dev/null
+            du -hs "$argv[1]"/.[^.]* "$argv[1]"/*
         else
-            du -hs "$1"/*
-        fi
+            du -hs "$argv[1]"/*
+        end
     else
         echo "Unsupported shell"
-    fi
-}
-sudush() {
-    if [ -n "$ZSH_VERSION" ]; then
-        setopt +o nomatch
-        sudo du -hs "$1"/.[^.]* "$1"/*
-        setopt -o nomatch
-    elif [ -n "$BASH_VERSION" ]; then
-        if compgen -G "$1"/.[^.]* > /dev/null; then
-            sudo du -hs "$1"/.[^.]* "$1"/*
+    end
+end
+
+function sudush
+    if test -n "$ZSH_VERSION"
+        set -l nomatch
+        sudo du -hs "$argv[1]"/.[^.]* "$argv[1]"/*
+        set +l nomatch
+    else if test -n "$BASH_VERSION"
+        if compgen -G "$argv[1]"/.[^.]* > /dev/null
+            sudo du -hs "$argv[1]"/.[^.]* "$argv[1]"/*
         else
-            sudo du -hs "$1"/*
-        fi
+            sudo du -hs "$argv[1]"/*
+        end
     else
         echo "Unsupported shell"
-    fi
-}
-hg() {
-    history | grep "$1" # +command
-}
-psa() {
+    end
+end
+
+function hg
+    history | grep "$argv[1]"
+end
+
+function psa
     sudo ps -aux
-}
-if command -v systemctl &>/dev/null; then
+end
+
+if command systemctl > /dev/null
     # Basic systemctl commands
-    # Daemons reload
-    # Credits to: https://gist.github.com/Feniksovich
-    # Enable/Disable commands for units
+    
     # Start and then view status of service
-    ctlsts() {
-        sudo systemctl start "$1"
-        sudo systemctl status "$1"
-    }
+    function ctlsts
+        sudo systemctl start $argv[1]
+        sudo systemctl status $argv[1]
+    end
+    
     # Restart and then view status of service
-    ctlrts() {
-        sudo systemctl restart "$1"
-        sudo systemctl status "$1"
-    }
+    function ctlrts
+        sudo systemctl restart $argv[1]
+        sudo systemctl status $argv[1]
+    end
+    
     # Stop and then view status of service
-    ctlsps() {
-        sudo systemctl stop "$1"
-        sudo systemctl status "$1"
-    }
-    _ctl_completion() {
-        local cur=${COMP_WORDS[COMP_CWORD]}
-        local services=$(systemctl list-unit-files --type=service --state=enabled,disabled | awk '{print $1}')
-        COMPREPLY=( $(compgen -W "ctlsts ctlrts ctlsps $services" -- $cur) )
-    }
-    complete -F _ctl_completion ctlsts
-    complete -F _ctl_completion ctlrts
-    complete -F _ctl_completion ctlsps
-    # Masking Units to disabling them
-    # List failed units and reset systemd system status
-    ### Start of ctlact block
+    function ctlsps
+        sudo systemctl stop $argv[1]
+        sudo systemctl status $argv[1]
+    end
+    
     # The ctlact function is a utility for managing systemd services.
-    # It takes an action (start, stop, restart, or status) as the first argument
+    # It takes an action (start, stop, restart, or status) as the first argument,
     # and one or more service names as additional arguments.
-    # The function performs the specified action on all the specified services
+    # The function performs the specified action on all the specified services,
     # and then displays their status.
-    #
+    
     # Usage: ctlact ACTION SERVICE [SERVICE...]
-    #
+    
     # Examples:
     #   ctlact restart apache2 nginx
     #   ctlact status sshd
-    # Credits: ChatGPT
-    ctlact() {
-      local action=$1
-      shift
-      for service in "$@"; do
-        systemctl $action $service
-        systemctl status $service
-      done
-    }
-    _ctlact() {
-        local cur prev opts
-        COMPREPLY=()
-        cur="${COMP_WORDS[COMP_CWORD]}"
-        prev="${COMP_WORDS[COMP_CWORD-1]}"
-        opts="start stop restart status"
-        if [[ ${prev} == ctlact ]]; then
-            COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
-            return 0
-        fi
-        if [[ ${prev} == start || ${prev} == stop || ${prev} == restart || ${prev} == status ]]; then
-            COMPREPLY=( $(compgen -W "$(systemctl list-unit-files --type=service | awk '{print $1}')" -- ${cur}) )
-            return 0
-        fi
-    }
-    complete -F _ctlact ctlact
-fi
-### End of ctlact block
-if command -v fwupdmgr &>/dev/null; then
-    fwcheck() {
+    
+    function ctlact 
+      set action $argv[1]
+      for service in $argv[2..-1]
+          systemctl $action $service 
+          systemctl status $service 
+      end 
+    end 
+end 
+
+if command fwupdmgr > /dev/null
+    function fwcheck
         sudo fwupdmgr refresh --force
         sudo fwupdmgr get-updates
-    }
-fi
-if command -v git &>/dev/null; then
-    function dotfiles {
-        git --git-dir="$HOME"/.dotfiles_git/ --work-tree="$HOME" "$@"
-    }
-fi
-installKubectl() {
-    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-    curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
-    echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
-    if [[ $? == 0 ]]; then
+    end
+end
+
+if command git > /dev/null
+    function dotfiles
+        git --git-dir="$HOME"/.dotfiles_git/ --work-tree="$HOME" $argv
+    end
+end
+
+function installKubectl
+    curl -LO "https://dl.k8s.io/release/(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+    curl -LO "https://dl.k8s.io/(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+    echo "(cat kubectl.sha256)  kubectl" | sha256sum --check
+    if test $status = 0
         chmod +x kubectl
         mkdir -p ~/.local/bin
         mv ./kubectl ~/.local/bin/kubectl
-    fi
-}
-if command -v docker &>/dev/null; then
-    source <(docker completion "$theShell")
-    watchtower() {
+    end
+end
+
+if command docker > /dev/null
+    source (docker completion fish | psub)
+    function watchtower
         docker login
         docker run -d \
             --name watchtower \
             -v "$HOME"/.docker/config.json:/config.json \
             -v /var/run/docker.sock:/var/run/docker.sock \
             containrrr/watchtower --interval 60
-    }
-fi
-if [[ $(command -v remmina) ]]; then
-    rdp() {
-        [ "$1" ] && remmina -c rdp://"$1" &
-    }
-    vnc() {
-        [ "$1" ] && remmina -c vnc://"$1" &
-    }
-fi
-if [[ $(command -v flatpak) ]]; then
-    if [[ $(flatpak list | grep -i com.visualstudio.code) ]]; then
-        code() {
-            flatpak run com.visualstudio.code "$1" &
-        }
-    fi
-fi
-if command -v curl &>/dev/null; then
-    # Creditst to Jeremy "Jay" LaCroix
-    # <https://www.learnlinux.tv/10-linux-terminal-tips-and-tricks-to-enhance-your-workflow/
-    c() {
-        # Ask cheat.sh website for details about a Linux command.
-        curl -m 10 "http://cheat.sh/${1}" 2>/dev/null || printf '%s\n' "[ERROR] Something broke"
-    }
-    wth() {
-        curl -m 10 "https://wttr.in/${1}" 2>/dev/null || printf '%s\n' "[ERROR] Something broke"
-    }
-fi
-# This script defines a function named `checkSum` that can be used to verify the
-# checksum of a file using a specified algorithm. The function takes three arguments:
-# the algorithm to use (md5, sha1, sha256, or sha512), the file to check, and the
-# expected checksum value. The function calculates the checksum of the given file
-# using the specified algorithm and compares it to the expected value. If the calculated
-# and expected values match, it prints a message indicating that the checksum is OK;
-# otherwise, it prints a message indicating that the checksum is not OK.
-#
-# Usage: checkSum [md5|sha1|sha256|sha512] [file] [sum]
-#
-# Example: checkSum md5 myfile.txt d41d8cd98f00b204e9800998ecf8427e
-checkSum() {
-    if [ "$1" = "--help" ]; then
+    end
+end
+
+if command remmina > /dev/null 
+    function rdp 
+        if test -n "$argv[1]"; remmina -c rdp://"$argv[1]" &; end 
+    end 
+    function vnc 
+        if test -n "$argv[1]"; remmina -c vnc://"$argv[1]" &; end 
+    end 
+end 
+
+if command flatpak > /dev/null 
+    if flatpak list | grep -i com.visualstudio.code > /dev/null 
+        function code 
+            flatpak run com.visualstudio.code $argv[1] & 
+        end 
+    end 
+end 
+
+if command curl > /dev/null 
+    # Creditst to Jeremy "Jay" LaCroix 
+    # <https://www.learnlinux.tv/10-linux-terminal-tips-and-tricks-to-enhance-your-workflow/ 
+    function c 
+        # Ask cheat.sh website for details about a Linux command. 
+        curl -m 10 "http://cheat.sh/$argv[1]" 2>/dev/null || printf '%s\n' "[ERROR] Something broke" 
+    end 
+    
+    function wth 
+        curl -m 10 "https://wttr.in/$argv[1]" 2>/dev/null || printf '%s\n' "[ERROR] Something broke" 
+    end 
+end 
+
+function checkSum
+    if test "$argv[1]" = "--help"
         echo "Usage: checkSum [md5|sha1|sha256|sha512] [file] [sum]"
         return 0
-    fi
-    if [ "$#" -ne 3 ]; then
+    end
+    if test (count $argv) -ne 3
         echo "Error: Invalid number of arguments"
         echo "Usage: checkSum [md5|sha1|sha256|sha512] [file] [sum]"
         return 2
-    fi
-    local algorithm="$1"
-    local file="$2"
-    local expected_sum="$3"
-    if ! [[ "$algorithm" =~ ^(md5|sha1|sha256|sha512)$ ]]; then
+    end
+    set algorithm $argv[1]
+    set file $argv[2]
+    set expected_sum $argv[3]
+    if not string match -r '^(md5|sha1|sha256|sha512)$' $algorithm > /dev/null
         echo "Error: Invalid algorithm"
         echo "Algorithm (first parameter) must be one of: md5, sha1, sha256, sha512"
         return 3
-    fi
-    if [ ! -f "$file" ]; then
+    end
+    if not test -f $file
         echo "Error: File not found"
         echo "File (second parameter) must be a valid file path"
         return 4
-    fi
-    local command="${algorithm}sum"
-    if ! command -v "$command" &>/dev/null; then
+    end
+    set command "$algorithm"sum
+    if not command -v $command > /dev/null
         echo "Error: Command not found"
-        echo "Command ${command} is not installed on this system"
+        echo "Command $command is not installed on this system"
         return 5
-    fi
-    local calculated_sum=$("$command" "$file" | cut -d ' ' -f 1)
+    end
+    set calculated_sum ($command $file | cut -d ' ' -f 1)
     echo "Given: $expected_sum"
     echo "Calculated: $calculated_sum"
-    if [ "$(echo "$calculated_sum" | tr '[:upper:]' '[:lower:]')" = "$(echo "$expected_sum" | tr '[:upper:]' '[:lower:]')" ]; then
-        if [ "$calculated_sum" != "$expected_sum" ]; then
+    if test (echo $calculated_sum | tr '[:upper:]' '[:lower:]') = (echo $expected_sum | tr '[:upper:]' '[:lower:]')
+        if test $calculated_sum != $expected_sum
             echo "Warning: Case mismatch between given and calculated checksums"
-        fi
-        echo "${command} OK"
+        end
+        echo "$command OK"
         return 0
     else
-        echo "${command} NOT OK!!"
+        echo "$command NOT OK!!"
         return 1
-    fi
-}
-if [ -n "$BASH_VERSION" ]; then
-    # Bash completion function
-    _checkSum() {
-        local cur prev words cword
-        _init_completion || return
-        case $prev in
-            checkSum)
-                COMPREPLY=($(compgen -W "md5 sha1 sha256 sha512 --help" -- "$cur"))
-                return 0
-                ;;
-        esac
-        _filedir
-    }
-    complete -F _checkSum checkSum
-elif [ -n "$ZSH_VERSION" ]; then
-    # Zsh completion function
-    #compdef checkSum
-    _checkSum() {
-        local curcontext="$curcontext" state line expl ret=1
-        _arguments -C \
-          '1: :->algorithm' \
-          '2: :_files' \
-          '*::arg:->args' && ret=0
-        case $state in
-          (algorithm)
-              _wanted algorithm expl 'algorithm' compadd md5 sha1 sha256 sha512 --help && ret=0
-              ;;
-          (args)
-              _message 'checksum value'
-              ret=0
-              ;;
-          (*) 
-              ret=1 
-              ;;
-        esac
-        return ret
-    }
-    compdef _checkSum checkSum
-fi
+    end
+end
 # End of checkSum block
-getCharge() {
-    local mode=$(sudo cat /sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode)
-    echo "Conservation mode: ${mode}"
-}
-stopCharge() {
+
+function getCharge
+    set mode (sudo cat /sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode)
+    echo "Conservation mode: $mode"
+end
+
+function stopCharge
     echo 1 | sudo tee /sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode
-}
-startCharge() {
+end
+
+function startCharge
     echo 0 | sudo tee /sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode
-}
-# Credits to Connor - https://stackoverflow.com/questions/24283097/reusing-output-from-last-command-in-bash
-# Usage
-# $ find . -name 'filename' | cap
-# /path/to/filename
-#
-# $ ret
-# /path/to/filename
+end
+
 # capture the output of a command so it can be retrieved with ret
-cap() { tee /tmp/capture.out; }
+function cap
+    tee /tmp/capture.out
+end
+
 # return the output of the most recent command that was captured by cap
-ret() { cat /tmp/capture.out; }
+function ret
+    cat /tmp/capture.out
+end
+
 #launch interception-tolls in background
-interception() {
-  sudo ln -sf /usr/lib64/libyaml-cpp.so.0.7.0 /usr/lib64/libyaml-cpp.so.0.6
-  sudo /usr/bin/udevmon -c /etc/interception/udevmon.yaml &;
-  sudo nice -n -20 udevmon
-}
+function interception
+    sudo ln -sf /usr/lib64/libyaml-cpp.so.0.7.0 /usr/lib64/libyaml-cpp.so.0.6
+    sudo /usr/bin/udevmon -c /etc/interception/udevmon.yaml &
+    sudo nice -n -20 udevmon
+end
+
 #Converts all .wav to .mp3 in the current git-dir
-convertMp3Wav () {
-  mkdir wav; for i in *.mp3; do ffmpeg -i "$i" "./wav/${i%.*}.wav"; done
-}
-fortibug () {
-   echo "Try to connect to the VPN now"
-  x=99
-  while [ $x -ne 0 ]
-  do
-    echo "Waiting for VPN connection..."
-    sleep 1
-    connection=$(nmcli connection show | grep -oP '^vpn\S*')
-    x=$?
-  done
-  echo "VPN connection $connection was created! Waiting for 'device-reapply'..."
-  x=99
-  while [ $x -ne 0 ]
-  do
-    nmcli -f GENERAL.STATE con show $connection 2> /dev/null
-    x=${PIPESTATUS[0]}
-    sleep 1
-    echo "Still waiting..."
-  done
-  echo "Device is unmanaged. Setting it to 'up' again..."
-  nmcli con up $connection 2> /dev/null
-  echo "Done."
-}
-stopDaemons () {
-  ctlsp cyservice.service sentinelone.service
-}
-### GRET SCRIPTS TO MOUNT SSHFS AND DINAMYCALLY CREATE AND DESTROY MOUNT POINTS
-### WITH AUTOCOMPLETE!!! Credits: ChatGPT
+function convertMp3Wav 
+    mkdir wav; for i in *.mp3; ffmpeg -i $i ./wav/(string replace '.mp3' '.wav' $i); end 
+end
+
+function fortibug 
+    echo "Try to connect to the VPN now"
+    set x 99
+    while test $x -ne 0 
+        echo "Waiting for VPN connection..."
+        sleep 1 
+        set connection (nmcli connection show | grep -oP '^vpn\S*')
+        set x $status 
+    end 
+    echo "VPN connection $connection was created! Waiting for 'device-reapply'..."
+    set x 99 
+    while test $x -ne 0 
+        nmcli -f GENERAL.STATE con show $connection ^&1 > /dev/null 
+        set x $status 
+        sleep 1 
+        echo "Still waiting..."
+    end 
+    echo "Device is unmanaged. Setting it to 'up' again..."
+    nmcli con up $connection ^&1 > /dev/null 
+    echo "Done."
+end 
+
+function stopDaemons 
+    ctlsps cyservice.service sentinelone.service 
+end 
+
 # Define an empty array to store the attached servers
-ATTACHED_SERVERS=()
+set ATTACHED_SERVERS
+
 # Define a function to add a server to the ATTACHED_SERVERS array
-add_attached_server() {
-    local server_name="$1"
-    if ! [[ " ${ATTACHED_SERVERS[@]} " =~ " ${server_name} " ]]; then
-        ATTACHED_SERVERS+=("$server_name")
-    fi
-}
+function add_attached_server
+    set server_name $argv[1]
+    if not contains $server_name $ATTACHED_SERVERS
+        set ATTACHED_SERVERS $server_name $ATTACHED_SERVERS
+    end
+end
+
 # Define a function to remove a server from the ATTACHED_SERVERS array
-remove_attached_server() {
-    local server_name="$1"
-    ATTACHED_SERVERS=("${ATTACHED_SERVERS[@]/$server_name}")
-}
+function remove_attached_server
+    set server_name $argv[1]
+    set -e ATTACHED_SERVERS[(contains -i $server_name $ATTACHED_SERVERS)]
+end
+
 # Define a function to mount a remote directory using sshfs
-sshmount() {
+function sshmount
     # Set the server name, user, and port from the arguments
-    SERVER_NAME="$1"
-    SSH_USER="$2"
-    SSH_PORT="$3"
+    set SERVER_NAME $argv[1]
+    set SSH_USER $argv[2]
+    set SSH_PORT $argv[3]
     # Set the remote directory to mount
-    REMOTE_DIR="/"
+    set REMOTE_DIR "/"
     # Set the local mount point
-    MOUNT_POINT="$HOME/mnt/$SERVER_NAME"
+    set MOUNT_POINT "$HOME/mnt/$SERVER_NAME"
     # Create the mount point if it does not exist
-    if [ ! -d "$MOUNT_POINT" ]; then
-        mkdir -p "$MOUNT_POINT"
-    fi
+    if not test -d $MOUNT_POINT
+        mkdir -p $MOUNT_POINT
+    end
     # Build the sshfs command with the specified user and port, if provided
-    SSHFS_CMD="sshfs $SERVER_NAME:$REMOTE_DIR $MOUNT_POINT"
-    if [ -n "$SSH_USER" ]; then
-        SSHFS_CMD="$SSHFS_CMD -o User=$SSH_USER"
-    fi
-    if [ -n "$SSH_PORT" ]; then
-        SSHFS_CMD="$SSHFS_CMD -o Port=$SSH_PORT"
-    fi
+    set SSHFS_CMD "sshfs $SERVER_NAME:$REMOTE_DIR $MOUNT_POINT"
+    if test -n "$SSH_USER"
+        set SSHFS_CMD "$SSHFS_CMD -o User=$SSH_USER"
+    end
+    if test -n "$SSH_PORT"
+        set SSHFS_CMD "$SSHFS_CMD -o Port=$SSH_PORT"
+    end
     # Mount the remote directory using sshfs
-    if eval $SSHFS_CMD; then
+    if eval $SSHFS_CMD
         # Add the server name to the ATTACHED_SERVERS array
-        add_attached_server "$SERVER_NAME"
-    fi
-}
+        add_attached_server $SERVER_NAME
+    end
+end
+
 # Define a function to unmount a remote directory and remove the local mount point
-sshumount() {
-    # Set the server name from the first argument
-    SERVER_NAME="$1"
-    # Set the local mount point
-    MOUNT_POINT="$HOME/mnt/$SERVER_NAME"
-    # Unmount the remote directory using fusermount
-    fusermount -u $MOUNT_POINT
-    # Remove the local mount point directory
-    rmdir $MOUNT_POINT
-    # Remove the server name from the ATTACHED_SERVERS array
-    remove_attached_server "$SERVER_NAME"
-}
-# Define a custom completion function for the sshmount and sshumount functions
-_sshmount_completion() {
-    local cur="${COMP_WORDS[COMP_CWORD]}"
-    COMPREPLY=( $(compgen -W "${ATTACHED_SERVERS[*]}" -- "$cur") )
-}
-# Register the custom completion function for the sshmount and sshumount functions
-complete -F _sshmount_completion sshmount sshumount
+function sshumount 
+    # Set the server name from the first argument 
+    set SERVER_NAME $argv[1] 
+    # Set the local mount point 
+    set MOUNT_POINT "$HOME/mnt/$SERVER_NAME" 
+    # Unmount the remote directory using fusermount 
+    fusermount -u $MOUNT_POINT 
+    # Remove the local mount point directory 
+    rmdir $MOUNT_POINT 
+    # Remove the server name from the ATTACHED_SERVERS array 
+    remove_attached_server $SERVER_NAME 
+end 
+
+# Define a custom completion function for the sshmount and sshumount functions 
+function _sshmount_completion 
+  complete -c sshmount -c sshumount -xa "($ATTACHED_SERVERS)" 
+end 
+
 ### END OF SSHFS SCRIPTS BLOCK
+
 # Update pip packages
-pipue() {
-  pip --disable-pip-version-check list --outdated --format=json | python -c "import json, sys; print('\n'.join([x['name'] for x in json.load(sys.stdin)]))" | xargs -n1 pip install -U
-}
-pipueu() {
-  pip --disable-pip-version-check list --user --outdated --format=json | python -c "import json, sys; print('\n'.join([x['name'] for x in json.load(sys.stdin)]))" | xargs -n1 pip install --user -U
-}
-sync_xxh_config() {
-  local origins=("$HOME/.config") #"$HOME/.ssh")
-  local destination="$HOME/gitdepot/xxh-plugin-prerun-dotfiles/home"
-  local options="--archive --verbose --delete"
-  local exclude_array=("Microsoft*" "remmina")
-  local exclude_string=$(printf " --exclude '%s'" "${exclude_array[@]}")
-  for origin in $origins
-  do
-    echo $origin
-    local exclusions=$(du -sh ${origin}/* | grep -E '[0-9](M|G)' | grep -Ev '(zsh|nvim)' | cut -d / -f5- | sed "s/^/--exclude '/;s/$/'/" | /bin/tr '\n' ' ')
-    local arguments="$options $exclusions $exclude_string $origin $destination"
-    /bin/bash -c "rsync $arguments"
-  done
-  git -C $destination add $destination/.config
-  git -C $destination commit  -m 'edit .config' 
-  git -C $destination push origin HEAD:master 
-}
-vmware_scan_new_disk() {
-  for host in /sys/class/scsi_host/*
-  do
-    echo "- - -" | sudo tee $host/scan
-    ls /dev/sd*
-  done
-}
+function pipue
+    pip --disable-pip-version-check list --outdated --format=json | python -c "import json, sys; print('\n'.join([x['name'] for x in json.load(sys.stdin)]))" | xargs -n1 pip install -U
+end
+
+function pipueu
+    pip --disable-pip-version-check list --user --outdated --format=json | python -c "import json, sys; print('\n'.join([x['name'] for x in json.load(sys.stdin)]))" | xargs -n1 pip install --user -U
+end
+
+function sync_xxh_config
+    set origins $HOME/.config
+    set destination $HOME/gitdepot/xxh-plugin-prerun-dotfiles/home
+    set options "--archive --verbose --delete"
+    set exclude_array "Microsoft*" "remmina"
+    set exclude_string (printf " --exclude '%s'" $exclude_array)
+    for origin in $origins
+        echo $origin
+        set exclusions (du -sh $origin/* | grep -E '[0-9]' | grep -Ev '(zsh|nvim)' | cut -d / -f5- | sed "s/^/--exclude '/;s/\$/'/" | /bin/tr '\n' ' ')
+        set arguments "$options $exclusions $exclude_string $origin $destination"
+        /bin/bash -c "rsync $arguments"
+    end
+    git -C $destination add $destination/.config
+    git -C $destination commit  -m 'edit .config' 
+    git -C $destination push origin HEAD:master 
+end
+
+function vmware_scan_new_disk
+    for host in /sys/class/scsi_host/*
+        echo "- - -" | sudo tee $host/scan
+        ls /dev/sd*
+    end
+end
+
