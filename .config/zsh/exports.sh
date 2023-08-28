@@ -102,10 +102,10 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 SOURCE_RCFILE $ZSH_CONFIG_HOME/catppuccin_tty/src/mocha.sh
 # SOURCE_RCFILE $gitdepot/dracula_tty/dracula-tty.sh
 
-  ZSH syntax highlighting
-source /home/tallonea/.cache/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-zsh-users-SLASH-zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# ZSH syntax highlighting
 SOURCE_RCFILE $ZSH_CONFIG_HOME/catppuccin_zsh-syntax-highlighting/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh
 # SOURCE_RCFILE $ZDOTDIR/dracula_zsh-syntax-highlighting/zsh-syntax-highlighting.sh
+SOURCE_RCFILE $HOME/.cache/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-zsh-users-SLASH-zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
 
 # user-s bin path
 EXPORT_DIR $HOME/.local/bin
@@ -169,3 +169,8 @@ fi
 
 # export DISPLAY
 #DISPLAY=:1
+
+# ZSH syntax highlighting
+SOURCE_RCFILE $ZSH_CONFIG_HOME/catppuccin_zsh-syntax-highlighting/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh
+# SOURCE_RCFILE $ZDOTDIR/dracula_zsh-syntax-highlighting/zsh-syntax-highlighting.sh
+SOURCE_RCFILE $HOME/.cache/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-zsh-users-SLASH-zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh

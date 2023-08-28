@@ -99,10 +99,11 @@ if [ -f "${SSH_ENV}" ]; then
 else
     start_agent;
 fi
+
 # ZSH syntax highlighting
-source /home/tallonea/.cache/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-zsh-users-SLASH-zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 SOURCE_RCFILE $ZSH_CONFIG_HOME/catppuccin_zsh-syntax-highlighting/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh
 # SOURCE_RCFILE $ZDOTDIR/dracula_zsh-syntax-highlighting/zsh-syntax-highlighting.sh
+SOURCE_RCFILE $HOME/.cache/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-zsh-users-SLASH-zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
 
 # Welcome message
 if command -v neofetch &> /dev/null; then neofetch; fi
@@ -118,3 +119,8 @@ if command -v neofetch &> /dev/null; then neofetch; fi
 # echo $theTime | lolcat
 if [  $(command -v fortune) ] && [ $(command -v cowsay) ] ; then fortune | cowsay ; fi
 cd ~
+
+# ZSH syntax highlighting
+SOURCE_RCFILE $ZSH_CONFIG_HOME/catppuccin_zsh-syntax-highlighting/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh
+# SOURCE_RCFILE $ZDOTDIR/dracula_zsh-syntax-highlighting/zsh-syntax-highlighting.sh
+SOURCE_RCFILE $HOME/.cache/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-zsh-users-SLASH-zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
