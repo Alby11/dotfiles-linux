@@ -65,6 +65,10 @@ HIST_STAMPS="yyyy-mm-dd"
 SOURCE_RCFILE $ZSH_CONFIG_HOME/aliases.sh
 # Functions
 SOURCE_RCFILE $ZSH_CONFIG_HOME/functions.sh
+for f in $ZSH_CONFIG_HOME/functions/*
+do
+  SOURCE_RCFILE $f
+done
 
 # load ssh after each reboot (re-uses same ssh-agent instance)
 if [[ ! $( command -v keychain ) ]]; then

@@ -257,29 +257,6 @@ if command -v curl > /dev/null
     alias wimp 'wth imperia'
 end
 
-if command -v fzf > /dev/null; and command -v rg > /dev/null; and command -v bat > /dev/null
-    set FZF_BASE /usr/bin/fzf
-    set FZF_DEFAULT_COMMAND 'rg --ignore-case --files --no-ignore-vcs --hidden '
-    
-    # catppucin theme
-    set FZF_DEFAULT_OPTS " --preview bat --border=rounded \
---color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
---color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
---color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
-;"
-    
-    alias fzfb "fzf \
---preview bat --border=rounded \
---color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
---color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
---color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
-;"
-    
-    # alias R '| rg '
-else
-    echo "fzf|rg|bat missing..."
-end
-
 alias resetSound '/bin/systemctl --user restart pipewire.service'
 
 # PIP block 

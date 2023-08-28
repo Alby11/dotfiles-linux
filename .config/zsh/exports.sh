@@ -1,18 +1,20 @@
 #!/usr/bin/env zsh
-#!/usr/bin/env bash
-# exports
+# exports.zsh
 
 ### GIT
 git config --global core.autocrlf false
-git config --global credential.helper manager-core
-git config --global core.editor nvim
-git config --global core.editor.nvim.path "/usr/bin/nvim"
-git config --global diff.tool nvim
-git config --global diff.tool.nvim.path "/usr/bin/nvim"
-git config --global diff.tool.nvim.cmd "nvim -d \"$local\" \"$remote\""
-git config --global core.pager 'nvim -'
-git config --global init.default.branch main
 git config --global core.fsmonitor false
+git config --global credential.helper manager-core
+git config --global core.editor less
+git config --global core.editor.less.path "/usr/bin/less"
+git config --global core.editor.less.cmd "/usr/bin/less -R"
+git config --global diff.tool less
+git config --global diff.tool.less.path "/usr/bin/less"
+git config --global diff.tool.less.cmd "less -R \"$local\" \"$remote\""
+git config --global core.pager 'less'
+git config --global core.pager.less.path "/usr/bin/less"
+git config --global core.pager.less.cmd 'less -R'
+git config --global init.default.branch main
 
 ### set up environment, depending on os
 if find /dev -iname '*vmware*' &> /dev/null
@@ -35,10 +37,28 @@ export EDITOR='nvim'
 # Make most the default pager if present, if not use more
 export PAGER='less'
 export LESS='-M -R'
+### SET MANPAGER
+### Uncomment only one of these!
+
+### same as $PAGER
+export MANPAGER=$PAGER
+
+### "less" as manpager
+# export MANPAGER='less'
+
+### "bat" as manpager
+# export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
+### "most" as manpager
 # if command -v most &>/dev/null
 # then
 #   export PAGER='most'
+#   export MANPAGER='most'
 # fi
+
+# Highlight section titles in manual pages.
+export LESS_TERMCAP_md="${yellow}";
+
 # set CLICOLOR
 export CLICOLOR=1
 
@@ -68,26 +88,13 @@ export HISTCONTROL='ignoreboth';
 export LANG='en_US.UTF-8';
 export LC_ALL='en_US.UTF-8';
 
-# Highlight section titles in manual pages.
-export LESS_TERMCAP_md="${yellow}";
-
-### SET MANPAGER
-### Uncomment only one of these!
-
-### "bat" as manpager
-# export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-
-### "vim" as manpager
-# export MANPAGER='/bin/bash -c "vim -MRn -c \"set buftype=nofile showtabline=0 ft=man ts=8 nomod nolist norelativenumber nonu noma\" -c \"normal L\" -c \"nmap q :qa<CR>\"</dev/tty <(col -b)"'
-
-### "nvim" as manpager
-# export MANPAGER="nvim -c 'set ft=man' -"
 
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # set ZSH as VSCode default shell for the integrated terminal
 [[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
+
 ### GITHUB repos exports
 [ -d ~/gitdepot ] && gitdepot=~/gitdepot
 
@@ -123,7 +130,18 @@ export BATPIPE;
 export KUBECONFIG=$KUBECONFIG:$HOME/.kube/config:$HOME/.kube/configs/kubeconfig.yaml
 
 # if present, source FZF
-[ -f ~/.fzf.zsh ] && SOURCE_RCFILE ~/.fzf.zsh
+if [ -f ~/.fzf.zsh ]
+then
+  SOURCE_RCFILE ~/.fzf.zsh
+  export FZF_BASE=/usr/bin/fzf
+  export FZF_DEFAULT_COMMAND='rg --ignore-case --files --no-ignore-vcs --hidden '
+  # catppucin theme
+  export FZF_DEFAULT_OPTS=" --preview bat --border=rounded \
+    --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
+    --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
+    --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
+  ;"
+fi
 
 ### Initialize Zoxide
 if command -v zoxide &> /dev/null
