@@ -2,8 +2,8 @@
 
 # You can change the names/locations of these if you prefer.
 antidote_dir=${ZDOTDIR:-~}/antidote
-plugins_txt=${ZDOTDIR:-~}/.plugins.txt
-static_file=${ZDOTDIR:-~}/.plugins.zsh
+plugins_txt=${ZDOTDIR:-~}/.zsh_plugins.txt
+static_file=${ZDOTDIR:-~}/.zsh_plugins.zsh
 
 # Clone antidote if necessary and generate a static plugin file.
 if [[ ! $static_file -nt $plugins_txt ]]; then
