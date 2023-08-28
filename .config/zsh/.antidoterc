@@ -32,9 +32,6 @@ export VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true
 export VI_MODE_SET_CURSOR=true
 export MODE_INDICATOR="%F{white}+%f"
 export INSERT_MODE_INDICATOR="%F{yellow}+%f"
-#-syntax-highlighting
-source $ZDOTDIR/catppuccin_zsh-syntax-highlighting/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh
-# source $ZDOTDIR/dracula_zsh-syntax-highlighting/zsh-syntax-highlighting.sh
 # zsh-history-substring-search
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
