@@ -42,7 +42,6 @@ aliasG Sbe="source ~/.bash_exports"
 aliasG Sz="source \$ZDOTDIR/.zshrc"
 aliasG Sza="source \$ZDOTDIR/aliases.sh"
 aliasG Sze="source \$ZDOTDIR/exports.sh"
-aliasG Szf="source \$ZDOTDIR/functions.sh"
 aliasG C="clear"
 aliasG dfh='sudo df -h'
 aliasG freeh='sudo free -mh'
