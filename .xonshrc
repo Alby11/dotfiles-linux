@@ -1,0 +1,5 @@
+# XONSH WEBCONFIG START
+xontrib load vox
+# XONSH WEBCONFIG END
+
+execx($(starship init xonsh))
