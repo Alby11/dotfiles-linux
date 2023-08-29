@@ -23,8 +23,6 @@ export function EXPORT_DIR()
     echo "$1 not exported ... "
 }
 
-SOURCE_RCFILE $ZSH_CONFIG_HOME/catppuccin_zsh-syntax-highlighting/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh
-SOURCE_RCFILE $HOME/.config/zsh/catppuccin_zsh-syntax-highlighting/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh
 # export zsh config directory
 export ZSH_CONFIG_HOME="$HOME/.config/zsh"
 export ZDOTDIR=$ZSH_CONFIG_HOME

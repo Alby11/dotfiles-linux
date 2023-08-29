@@ -1,9 +1,12 @@
 # ~/.config/zsh//antidoterc
 
 # You can change the names/locations of these if you prefer.
-antidote_dir=${ZDOTDIR:-~}/antidote
-plugins_txt=${ZDOTDIR:-~}/.zsh_plugins.txt
-static_file=${ZDOTDIR:-~}/.zsh_plugins.zsh
+# antidote_dir=${ZDOTDIR:-~}/antidote
+# plugins_txt=${ZDOTDIR:-~}/.zsh_plugins.txt
+# static_file=${ZDOTDIR:-~}/.zsh_plugins.zsh
+antidote_dir=$ZDOTDIR/.antidote
+plugins_txt=$ZDOTDIR/.zsh_plugins.txt
+static_file=$ZDOTDIR/.zsh_plugins.zsh
 
 # Clone antidote if necessary and generate a static plugin file.
 if [[ ! $static_file -nt $plugins_txt ]]; then
@@ -24,7 +27,7 @@ autoload -Uz $antidote_dir/functions/antidote
 source $static_file
 
 # cleanup
-rm -f $static_file
+# rm -f $static_file
 unset antidote_dir plugins_txt static_file
 ### PLUGINS CONFIGURATIONS
 # vi mode
