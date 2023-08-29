@@ -1,29 +1,36 @@
 #!/usr/bin/env zsh
 # exports.zsh
 
+# user-s bin path
+EXPORT_DIR $HOME/.local/bin
+
+### export CARGO
+EXPORT_DIR $HOME/.cargo/bin
+
 ### GIT
 git config --global core.autocrlf false
 git config --global core.fsmonitor false
 git config --global credential.helper manager-core
+git config --global init.default.branch main
 git config --global core.editor less
 git config --global core.editor.less.path "/usr/bin/less"
-git config --global core.editor.less.cmd "/usr/bin/less -R"
+git config --global core.editor.less.cmd "less -R"
+git config --global core.editor nvim
+git config --global core.editor.nvim.path "/usr/bin/nvim"
+git config --global core.editor.nvim.cmd "nvim"
 git config --global diff.tool less
 git config --global diff.tool.less.path "/usr/bin/less"
 git config --global diff.tool.less.cmd "less -R \"$local\" \"$remote\""
-git config --global core.pager 'less'
+git config --global diff.tool nvim
+git config --global diff.tool.nvim.path "/usr/bin/nvim"
+git config --global diff.tool.nvim.cmd "nvim -d \"$local\" \"$remote\""
+git config --global core.pager less
 git config --global core.pager.less.path "/usr/bin/less"
 git config --global core.pager.less.cmd 'less -R'
-git config --global init.default.branch main
+git config --global core.pager nvimpager
+git config --global core.pager.nvimpager.path "$HOME/.local/bin/nvimpager"
+git config --global core.pager.nvimpager.cmd "nvimpager -p"
 
-### set up environment, depending on os
-if find /dev -iname '*vmware*' &> /dev/null
-then
-    echo "Linux on VMware"
-elif grep -qi microsoft /proc/version
-then
-    echo "Linux on wsl"
-fi
 
 if [ -e /etc/fedora-release ] ; then
     family='u'
@@ -31,30 +38,23 @@ else
     family='r'
 fi
 
-# Make neovim the default editor.
+### SET EDITOR
 export VISUAL='nvim'
 export EDITOR='nvim'
-# Make most the default pager if present, if not use more
+
+### SET PAGER
 export PAGER='less'
 export LESS='-M -R'
+if command -v nvimpager &>/dev/null
+then
+  export PAGER='nvimpager'
+fi
+
 ### SET MANPAGER
-### Uncomment only one of these!
-
-### same as $PAGER
+# same as $PAGER
 export MANPAGER=$PAGER
-
-### "less" as manpager
-# export MANPAGER='less'
-
 ### "bat" as manpager
 # export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-
-### "most" as manpager
-# if command -v most &>/dev/null
-# then
-#   export PAGER='most'
-#   export MANPAGER='most'
-# fi
 
 # Highlight section titles in manual pages.
 export LESS_TERMCAP_md="${yellow}";
@@ -106,12 +106,6 @@ SOURCE_RCFILE $ZSH_CONFIG_HOME/catppuccin_tty/src/mocha.sh
 # ZSH syntax highlighting
 SOURCE_RCFILE $ZSH_CONFIG_HOME/catppuccin_zsh-syntax-highlighting/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh
 # SOURCE_RCFILE $ZDOTDIR/dracula_zsh-syntax-highlighting/zsh-syntax-highlighting.sh
-
-# user-s bin path
-EXPORT_DIR $HOME/.local/bin
-
-### export CARGO
-EXPORT_DIR $HOME/.cargo/bin
 
 # bat extras scripts
 # EXPORT_DIR $HOME/gitdepot/bat-extras/src

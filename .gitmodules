@@ -121,3 +121,6 @@
 [submodule "gitdepot/kitty-scrollback.nvim"]
 	path = gitdepot/kitty-scrollback.nvim
 	url = git@github.com:mikesmithgh/kitty-scrollback.nvim.git
+[submodule "gitdepot/nvimpager"]
+	path = gitdepot/nvimpager
+	url = git@github.com:lucc/nvimpager.git

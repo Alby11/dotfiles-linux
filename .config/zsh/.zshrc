@@ -23,6 +23,7 @@ export function EXPORT_DIR()
     echo "$1 not exported ... "
 }
 
+export XDG_CONFIG_HOME="$HOME/.config"
 # export zsh config directory
 export ZSH_CONFIG_HOME="$HOME/.config/zsh"
 export ZDOTDIR=$ZSH_CONFIG_HOME
