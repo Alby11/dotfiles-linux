@@ -124,3 +124,6 @@
 [submodule "gitdepot/nvimpager"]
 	path = gitdepot/nvimpager
 	url = git@github.com:lucc/nvimpager.git
+[submodule "gitdepot/awesome-chatgpt-prompts.git"]
+	path = gitdepot/awesome-chatgpt-prompts.git
+	url = git@github.com:f/awesome-chatgpt-prompts.git
