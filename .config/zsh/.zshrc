@@ -32,11 +32,11 @@ export ZSH="$ZSH_CONFIG_HOME/ohmyzsh"
 
 # Basic auto/tab complete:
 autoload -Uz compinit
-# zstyle ':completion:*' menu select
-# zmodload zsh/complist
+zstyle ':completion:*' menu select
+zmodload zsh/complist
 compinit
-# _comp_options+=(globdots)		# Include hidden files.
-# autoload -Uz promptinit && promptinit # && prompt pure
+_comp_options+=(globdots)		# Include hidden files.
+autoload -Uz promptinit && promptinit # && prompt pure
 
 ### ANTIDOTE
 SOURCE_RCFILE $ZSH_CONFIG_HOME/.antidoterc

@@ -163,6 +163,14 @@ if command -v nvim &>/dev/null; then
     fi
 fi
 
+if command -v nvimpager &>/dev/null
+then
+  aliasG np='nvimpager'
+  aliasG npc='nvimpager -c'
+  aliasG npp='nvimpager -p'
+  aliasG NP='| nvimpager -c -'
+fi
+
 if command -v xclip &>/dev/null; then
     aliasG Xp='xclip -o '
     aliasG Xy=' | xclip -i '
@@ -220,7 +228,7 @@ if command -v docker &>/dev/null; then
 fi
 
 if command -v ansible &>/dev/null; then
-    aliasG a='ansible '
+    alias a='ansible '
     aliasG ap='ansible-playbook '
     aliasG ag='ansible-galaxy '
 fi

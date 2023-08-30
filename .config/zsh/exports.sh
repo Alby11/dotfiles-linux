@@ -39,15 +39,21 @@ else
 fi
 
 ### SET EDITOR
-export VISUAL='nvim'
-export EDITOR='nvim'
+export VISUAL='vi'
+export EDITOR='vi'
+if command -v nvim &>/dev/null
+then
+  export VISUAL='nvim'
+  export EDITOR='nvim'
+fi
 
 ### SET PAGER
 export PAGER='less'
 export LESS='-M -R'
 if command -v nvimpager &>/dev/null
 then
-  export PAGER='nvimpager'
+  export PAGER='nvimpager -p'
+  export NVIMPAGER_NVIM='nvim'
 fi
 
 ### SET MANPAGER
@@ -57,7 +63,7 @@ export MANPAGER=$PAGER
 # export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 # Highlight section titles in manual pages.
-export LESS_TERMCAP_md="${yellow}";
+# export LESS_TERMCAP_md="${yellow}";
 
 # set CLICOLOR
 export CLICOLOR=1
@@ -109,6 +115,7 @@ SOURCE_RCFILE $ZSH_CONFIG_HOME/catppuccin_zsh-syntax-highlighting/themes/catppuc
 
 # bat extras scripts
 # EXPORT_DIR $HOME/gitdepot/bat-extras/src
+
 # batpipe, a bat-based preprocessor for less and bat.
 # Version: 2022.07.27
 # Homepage: https://github.com/eth-p/bat-extras
