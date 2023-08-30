@@ -102,7 +102,7 @@ else
 fi
 
 # Welcome message
-if command -v neofetch &> /dev/null; then neofetch; fi
+# if command -v neofetch &> /dev/null; then neofetch; fi
 # userName=$( echo "user  $(whoami)" | figlet -o -k -c -f small )
 # computerName=$( echo "on  $(cat /etc/hostname)" | figlet -o -k -c -f small )
 # shellName=$( echo "with  $SHELL" | figlet -o -k -c -f small )
@@ -113,5 +113,5 @@ if command -v neofetch &> /dev/null; then neofetch; fi
 # echo $shellName | lolcat
 # echo $theDate | lolcat
 # echo $theTime | lolcat
-if [  $(command -v fortune) ] && [ $(command -v cowsay) ] ; then fortune | cowsay ; fi
+# if [  $(command -v fortune) ] && [ $(command -v cowsay) ] ; then fortune | cowsay ; fi
 cd ~
