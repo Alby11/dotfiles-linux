@@ -56,9 +56,10 @@ hosts:
       # - xxh-plugin-zsh-zshenv+git+https://github.com/alby11/xxh-plugin-zsh-zshenv    # install Oh My Zsh plugin for xxh
     +e:                         # set simple environment variables
       - ZDOTDIR=$XXH_HOME/.config/zsh       # another environment variable
-    +if:                          # force install xxh every time
+      - ZSH_CONFIG_HOME=$ZDOTDIR       # another environment variable
+    # +if:                          # force install xxh every time
     # +hh: /tmp/.xxh                # use special xxh home directory
-    +hhr:                         # remove host xxh home after disconnect
+    # +hhr:                         # remove host xxh home after disconnect
     # +hhh: "~"                   # set /home/user as home directory
 
   myhost:                     # settings for myhost

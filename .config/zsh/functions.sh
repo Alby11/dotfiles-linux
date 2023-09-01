@@ -321,7 +321,8 @@ fortibug () {
   echo "Done."
 }
 stopDaemons () {
-  ctlsp cyservice.service sentinelone.service
+  sudo systemctl stop cyservice.service sentinelone.service dcservice.service
+  sudo systemctl status cyservice.service sentinelone.service dcservice.service
 }
 ### GRET SCRIPTS TO MOUNT SSHFS AND DINAMYCALLY CREATE AND DESTROY MOUNT POINTS
 ### WITH AUTOCOMPLETE!!! Credits: ChatGPT
