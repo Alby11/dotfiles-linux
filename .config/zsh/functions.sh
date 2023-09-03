@@ -397,21 +397,22 @@ pipueu() {
   pip --disable-pip-version-check list --user --outdated --format=json | python -c "import json, sys; print('\n'.join([x['name'] for x in json.load(sys.stdin)]))" | xargs -n1 pip install --user -U
 }
 sync_xxh_config() {
-  local origins=("$HOME/.config") #"$HOME/.ssh")
+  local origins=("$HOME/.config" "$HOME/.local/bin" "$HOME/.zshenv") #"$HOME/.ssh")
   local destination="$HOME/gitdepot/xxh-plugin-prerun-dotfiles/home"
   local options="--archive --verbose --delete"
-  local exclude_array=("Microsoft*" "remmina")
+  local exclude_array=("Microsoft*" "remmina" "Forticlient")
   local exclude_string=$(printf " --exclude '%s'" "${exclude_array[@]}")
   for origin in $origins
   do
-    local exclusions=$(du -sh ${origin}/* | grep -E '[0-9](M|G)' | grep -Ev '(zsh|nvim)' | cut -d / -f5- | sed "s/^/--exclude '/;s/$/'/" | /bin/tr '\n' ' ')
+    local exclusions=$(/bin/du -sh ${origin}/* | /bin/grep -E '[0-9](M|G)' | /bin/grep -Ev '(zsh|nvim)' | /bin/cut -d / -f5- | /bin/sed "s/^/--exclude '/;s/$/'/" | /bin/tr '\n' ' ')
     local arguments="$options $exclusions $exclude_string $origin $destination"
     /bin/bash -c "rsync $arguments"
   done
   git -C $destination status
-  git -C $destination add --all $destination/.
-  git -C $destination commit  -m 'edit home files' 
-  git -C $destination push origin HEAD:master 
+  git -C $destination add --update
+  git -C $destination add $destination/.
+  git -C $destination commit  --message 'edit home files' 
+  git -C $destination push #origin HEAD:master 
   git -C $destination status
 }
 vmware_scan_new_disk() {
