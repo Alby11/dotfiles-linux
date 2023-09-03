@@ -321,8 +321,8 @@ fortibug () {
   echo "Done."
 }
 stopDaemons () {
-  sudo systemctl stop cyservice.service sentinelone.service dcservice.service
-  sudo systemctl status cyservice.service sentinelone.service dcservice.service
+  sudo systemctl stop cyservice.service sentinelone.service dcservice.service SysAidAgent.service SysAidSessionUtilities.service
+  sudo systemctl status cyservice.service sentinelone.service dcservice.service SysAidAgent.service SysAidSessionUtilities.service
 }
 ### GRET SCRIPTS TO MOUNT SSHFS AND DINAMYCALLY CREATE AND DESTROY MOUNT POINTS
 ### WITH AUTOCOMPLETE!!! Credits: ChatGPT
@@ -421,3 +421,4 @@ vmware_scan_new_disk() {
     ls /dev/sd*
   done
 }
+
