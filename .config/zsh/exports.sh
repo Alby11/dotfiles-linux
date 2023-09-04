@@ -46,24 +46,26 @@ then
   export VISUAL='nvim'
   export EDITOR='nvim'
 fi
-
 ### SET PAGER
 export PAGER='less'
 export LESS='-M -R'
+# Highlight section titles in manual pages.
+export LESS_TERMCAP_md="${yellow}";
+if command -v bat &>/dev/null
+then
+  export PAGER="sh -c 'col -bx | bat -l man -p'"
+fi
 if command -v nvimpager &>/dev/null
 then
   export PAGER='nvimpager -p'
   export NVIMPAGER_NVIM='nvim'
 fi
-
-### SET MANPAGER
-# same as $PAGER
-export MANPAGER=$PAGER
-### "bat" as manpager
-# export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-
-# Highlight section titles in manual pages.
-# export LESS_TERMCAP_md="${yellow}";
+if command -v nvim &>/dev/null
+then
+  export PAGER="/bin/nvim -c 'Man!' -o -"
+  export MANPAGER="/bin/nvim -c 'Man!' -o -"
+fi
+# export MANPAGER=$PAGER
 
 # set CLICOLOR
 export CLICOLOR=1
