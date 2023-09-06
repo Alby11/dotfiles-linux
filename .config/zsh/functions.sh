@@ -399,6 +399,7 @@ pipueu() {
 sync_xxh_config() {
   local origins=("$HOME/.config" "$HOME/.local/bin" "$HOME/.zshenv") #"$HOME/.ssh")
   local destination="$HOME/gitdepot/xxh-plugin-prerun-dotfiles/home"
+  local repository="$HOME/gitdepot/xxh-plugin-prerun-dotfiles"
   local options="--archive --verbose --delete"
   local exclude_array=("Microsoft*" "remmina" "Forticlient")
   local exclude_string=$(printf " --exclude '%s'" "${exclude_array[@]}")
@@ -408,12 +409,12 @@ sync_xxh_config() {
     local arguments="$options $exclusions $exclude_string $origin $destination"
     /bin/bash -c "rsync $arguments"
   done
-  git -C $destination status
-  git -C $destination add --update
-  git -C $destination add $destination/.
-  git -C $destination commit  --message 'edit home files' 
-  git -C $destination push #origin HEAD:master 
-  git -C $destination status
+  git -C $repository status
+  git -C $repository add --update
+  git -C $repository add $repository/.
+  git -C $repository commit  --message 'edit home files' 
+  git -C $repository push #origin HEAD:master 
+  git -C $repository status
 }
 vmware_scan_new_disk() {
   for host in /sys/class/scsi_host/*

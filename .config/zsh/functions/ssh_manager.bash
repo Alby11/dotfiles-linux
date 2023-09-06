@@ -1,58 +1,138 @@
-#!/bin/bash
+#!/bin/env zsh
 
-# Function to manage ssh sessions, configurations, and keys
 ssh_manager() {
-    # Prompt for key type
-    echo "Enter the key type (rsa, dsa, ecdsa, ed25519) [ed25519]: "
-    read keytype
-    keytype=${keytype:-ed25519}
+    if [[ "$1" == "--help" ]]; then
+        echo "This script manages SSH keys and the ~/.ssh/config file."
+        echo "It prompts the user for input and performs actions based on the user's choices."
+        return 0
+    fi
 
-    # Prompt for remote server address and username
-    echo "Enter the remote server address: "
-    read remoteaddr
-    echo "Enter the remote username: "
-    read remoteuser
+    # Prompt for connection name
+    echo "Enter a connection name (Host ...):"
+    read connection_name
 
-    # Create a new ssh key
-    echo "Creating a new ssh key..."
-    ssh-keygen -t $keytype -f ~/.ssh/id_${keytype}_${remoteaddr}_${remoteuser}
-    echo "Key created successfully"
+    # Check if connection name already exists in ~/.ssh/config
+    if grep -q "Host $connection_name" "$HOME/.ssh/config"; then
+        echo "Connection name already exists in ~/.ssh/config. Choose an option:"
+        echo "1. Delete all configurations and insert new one"
+        echo "2. Delete specific configuration and insert new one"
+        echo "3. Leave file as is and exit"
+        read option
 
-    # Copy the ssh key to the remote server
-    echo "Copying the ssh key to the remote server..."
-    ssh-copy-id -i ~/.ssh/id_${keytype}_${remoteaddr}_${remoteuser} $remoteuser@$remoteaddr
-    echo "Key copied successfully"
+        case $option in
+            1)
+                # Delete all configurations
+                sed -i "/Host $connection_name/,/^$/d" "$HOME/.ssh/config"
+                ;;
+            2)
+                # Delete specific configuration
+                sed -i "/Host $connection_name/,/^$/d" "$HOME/.ssh/config"
+                ;;
+            3)
+                # Leave file as is and exit
+                return 0
+                ;;
+            *)
+                echo "Invalid option"
+                return 1
+                ;;
+        esac
+    fi
 
-    # Add a new entry to the ssh config file
-    echo "Adding a new entry to the ssh config file..."
-    echo "Enter the name for this config entry: "
-    read entryname
+    # Prompt for server hostname/IP address
+    echo "Enter server hostname/IP address:"
+    read server_hostname
 
-    echo "" >> ~/.ssh/config
-    echo "Host $entryname" >> ~/.ssh/config
-    echo "  HostName $remoteaddr" >> ~/.ssh/config
-    echo "  User $remoteuser" >> ~/.ssh/config
-    echo "  IdentityFile ~/.ssh/id_${keytype}_${remoteaddr}_${remoteuser}" >> ~/.ssh/config
+    # Check if server hostname/IP address already exists in ~/.ssh/config
+    if grep -q "HostName $server_hostname" "$HOME/.ssh/config"; then
+        echo "Server hostname/IP address already exists in ~/.ssh/config. Choose an option:"
+        echo "1. Delete all configurations and insert new one"
+        echo "2. Delete specific configuration and insert new one"
+        echo "3. Leave file as is and exit"
+        read option
 
-    echo "Config added successfully"
+        case $option in
+            1)
+                # Delete all configurations
+                sed -i "/HostName $server_hostname/,/^$/d" "$HOME/.ssh/config"
+                ;;
+            2)
+                # Delete specific configuration
+                sed -i "/HostName $server_hostname/,/^$/d" "$HOME/.ssh/config"
+                ;;
+            3)
+                # Leave file as is and exit
+                return 0
+                ;;
+            *)
+                echo "Invalid option"
+                return 1
+                ;;
+        esac
+    fi
 
-	# Check if user is already present in sudoers file
-	sudoer_check=$(ssh $remoteuser@$remoteaddr "sudo grep -w '$username' /etc/sudoers")
-	if [ -z "$sudoer_check" ]; then
-		echo "Should the user be able to use sudo without a password? (y/n): "
-		read without_password
+    # Prompt for key type, with default value of rsa
+    key_type="rsa"
+    echo "Enter key type (default: rsa):"
+    read input_key_type
+    if [[ -n "$input_key_type" ]]; then
+        key_type="$input_key_type"
+    fi
 
-		if [ "$without_password" == "y" ]; then
-			ssh $remoteuser@$remoteaddr "echo '$username ALL=(ALL) NOPASSWD:ALL' | sudo tee -a /etc/sudoers"
-			else
-			ssh $remoteuser@$remoteaddr "echo '$username ALL=(ALL) ALL' | sudo tee -a /etc/sudoers"
-			fi
+    # Set key filename based on hostname without domain (or use IP address if no hostname)
+    key_filename="${server_hostname%%.*}"
 
-			echo "User added to sudoers successfully"
-	else 
-		echo "$username is already present in sudoers file"
-	fi 
+    # Check if key already exists locally, prompt for overwriting if it does
+    if [[ -f "$HOME/.ssh/$key_filename" ]]; then
+        echo "Key already exists locally. Overwrite? (y/n)"
+        read overwrite_local
+
+        if [[ "$overwrite_local" == "y" ]]; then
+            ssh-keygen -t "$key_type" -f "$HOME/.ssh/$key_filename" -N ""
+        fi
+    else
+        ssh-keygen -t "$key_type" -f "$HOME/.ssh/$key_filename" -N ""
+    fi
+
+    # Prompt for server login username for connection and configuration
+    echo "Enter server login username for connection and configuration:"
+    read server_username
+
+    # Check if key already exists remotely, prompt for overwriting if it does
+    if ssh "$server_username@$server_hostname" stat "$HOME/.ssh/authorized_keys" \> /dev/null 2\>\&1; then
+        echo "Key already exists remotely. Overwrite? (y/n)"
+        read overwrite_remote
+
+        if [[ "$overwrite_remote" == "y" ]]; then
+            ssh-copy-id -i "$HOME/.ssh/$key_filename.pub" "$server_username@$server_hostname"
+        fi
+    else
+        ssh-copy-id -i "$HOME/.ssh/$key_filename.pub" "$server_username@$server_hostname"
+    fi
+
+    # Prompt for sudoer status of username on server
+    echo "Should the username be a sudoer on the server? (y/n)"
+    read sudoer_status
+
+    if [[ "$sudoer_status" == "y" ]]; then
+        # Print directions to edit sudoers file, including both nopasswd and no nopasswd options.
+        echo "To make the user a sudoer on the server, follow these steps:"
+        echo "1. SSH into the server using 'ssh $server_username@$server_hostname'"
+        echo "2. Run 'sudo visudo' to edit the sudoers file"
+        echo "3. Add the following line to the file to grant sudo access without password:"
+        echo "   $server_username ALL=(ALL) NOPASSWD:ALL"
+        echo "   OR, add the following line to the file to grant sudo access with password:"
+        echo "   $server_username ALL=(ALL) ALL"
+        echo "4. Save and close the file"
+    fi
+
+    # Add new connection to ~/.ssh/config
+    {
+        echo "Host $connection_name"
+        echo "    HostName $server_hostname"
+        echo "    User $server_username"
+        echo "    IdentityFile $HOME/.ssh/$key_filename"
+    } >> "$HOME/.ssh/config"
+
+    echo "SSH configuration complete."
 }
-
-# Run the ssh_manager function
-ssh_manager
