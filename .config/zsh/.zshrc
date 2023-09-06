@@ -7,8 +7,12 @@ export function SOURCE_RCFILE()
     if [ -f $1 ]
     then
         source $1
+        if command -v lolcat &>/dev/null
+        then
+          echo "$1 successfully sourced ... " | lolcat
+          return
+        fi
         echo "$1 successfully sourced ... "
-        return
     fi
     echo "$1 not sourced ... "
 }
@@ -17,8 +21,12 @@ export function EXPORT_DIR()
     if [ -d $1 ]
     then
         export PATH=$1:$PATH
+        if command -v lolcat &>/dev/null
+        then
+          echo "$1 successfully exported ... " | lolcat
+          return
+        fi
         echo "$1 successfully exported ... "
-        return
     fi
     echo "$1 not exported ... "
 }
