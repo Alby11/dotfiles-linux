@@ -178,8 +178,11 @@ if command -v ranger &>/dev/null; then
     aliasG rw='ranger '
 fi
 
-if command -v fdfind &>/dev/null; then
+if command -v fd &>/dev/null; then
+    aliasG fdh='fd -H '
+elif command -v fdfind &>/dev/null; then
     aliasG fd='fdfind '
+    aliasG fdh='fdfind -H '
 fi
 
 if command -v zoxide &>/dev/null; then
