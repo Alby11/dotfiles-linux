@@ -31,8 +31,7 @@ hosts:
   ".*":                       # for all hosts
     -p: "22"                 # set special port
     +s: zsh                    # use ZSH shell
-    +RI:                         # install xxh packages (if not installed)
-      - xxh-plugin-prerun-dotfiles+git+https://github.com/alby11/xxh-plugin-prerun-dotfiles
+    # +RI:                         # install xxh packages (if not installed)
     +I:
       - xxh-plugin-prerun-core+git+https://github.com/xxh/xxh-plugin-prerun-core
       - xxh-plugin-prerun-python+git+https://github.com/alby11/xxh-plugin-prerun-python
@@ -45,6 +44,7 @@ hosts:
       - xxh-plugin-prerun-starship+git+https://github.com/izissise/xxh-plugin-prerun-starship
       # - xxh-plugin-prerun-zsh-ripgrep+git+https://github.com/experiences/xxh-plugin-zsh-ripgrep
       # - xxh-plugin-prerun-xxh+git+https://github.com/xxh/xxh-plugin-prerun-xxh
+      - xxh-plugin-prerun-dotfiles+git+https://github.com/alby11/xxh-plugin-prerun-dotfiles
       - xxh-plugin-bash-ohmybash    # install Oh My Bash plugin for xxh
       - xxh-shell-fish            # install portable fish
       - xxh-plugin-fish-ohmyfish    # install Oh My Fish plugin for xxh
@@ -55,7 +55,7 @@ hosts:
       # - xxh-plugin-zsh-fzf+git+https://github.com/nom05/xxh-plugin-zsh-fzf
       # - xxh-plugin-zsh-zshenv+git+https://github.com/alby11/xxh-plugin-zsh-zshenv    # install Oh My Zsh plugin for xxh
     +e:                         # set simple environment variables
-      - ZDOTDIR=$XXH_HOME/.config/zsh       # another environment variable
+      - ZDOTDIR=$HOME/.config/zsh       # another environment variable
       - ZSH_CONFIG_HOME=$ZDOTDIR       # another environment variable
     # +if:                          # force install xxh every time
     # +hh: /tmp/.xxh                # use special xxh home directory
