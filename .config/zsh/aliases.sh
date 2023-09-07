@@ -1,16 +1,6 @@
 #!/usr/bin/zsh
 # aliases
 
-theShell=$(echo "$SHELL" | cut -d '/' -f 3)
-
-# if 'alias -g' is available, define an alias that can be used on zshrc
-# but doesn't brake everything if we are on bash
-if [[ $? == 0 ]] # I know, it's dirty...
-then 
-  alias -g aliasG="alias -g "
-else
-  alias aliasG="alias "
-fi
   aliasG grep='grep --color=auto '
   aliasG G=' | grep -i '
 # bat-extras

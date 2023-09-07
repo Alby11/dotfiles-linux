@@ -13,23 +13,26 @@ git config --global core.fsmonitor false
 git config --global credential.helper manager-core
 git config --global init.default.branch main
 git config --global core.editor less
-git config --global core.editor.less.path "/usr/bin/less"
+git config --global core.editor.less.path "$(which less)"
 git config --global core.editor.less.cmd "less -R"
 git config --global core.editor nvim
-git config --global core.editor.nvim.path "/usr/bin/nvim"
+git config --global core.editor.nvim.path "$(which nvim)"
 git config --global core.editor.nvim.cmd "nvim"
 git config --global diff.tool less
-git config --global diff.tool.less.path "/usr/bin/less"
+git config --global diff.tool.less.path "$(which less)"
 git config --global diff.tool.less.cmd "less -R \"$local\" \"$remote\""
 git config --global diff.tool nvim
-git config --global diff.tool.nvim.path "/usr/bin/nvim"
+git config --global diff.tool.nvim.path "$(which nvim)"
 git config --global diff.tool.nvim.cmd "nvim -d \"$local\" \"$remote\""
 git config --global core.pager less
-git config --global core.pager.less.path "/usr/bin/less"
+git config --global core.pager.less.path "$(which less)"
 git config --global core.pager.less.cmd 'less -R'
 git config --global core.pager nvimpager
-git config --global core.pager.nvimpager.path "$HOME/.local/bin/nvimpager"
+git config --global core.pager.nvimpager.path "$(which nvimpager)"
 git config --global core.pager.nvimpager.cmd "nvimpager -p"
+git config --global core.pager nvim
+git config --global core.pager.nvim.path "$(which nvim)"
+git config --global core.pager.nvim.cmd "$(which nvim) -c 'Man!' -o -"
 
 
 if [ -e /etc/fedora-release ] ; then
@@ -53,7 +56,8 @@ export LESS='-M -R'
 export LESS_TERMCAP_md="${yellow}";
 if command -v bat &>/dev/null
 then
-  export PAGER="sh -c 'col -bx | bat -l man -p'"
+  # export PAGER="sh -c 'col -bx | bat -l man -p'"
+  export PAGER="$SHELL -c 'col -bx | bat -l man -p'"
 fi
 if command -v nvimpager &>/dev/null
 then
@@ -62,8 +66,8 @@ then
 fi
 if command -v nvim &>/dev/null
 then
-  export PAGER="/bin/nvim -c 'Man!' -o -"
-  export MANPAGER="/bin/nvim -c 'Man!' -o -"
+  export PAGER="$(which nvim) -c 'Man!' -o -"
+  export MANPAGER="$(which nvim) -c 'Man!' -o -"
 fi
 # export MANPAGER=$PAGER
 
@@ -115,6 +119,9 @@ SOURCE_RCFILE $ZSH_CONFIG_HOME/catppuccin_tty/src/mocha.sh
 SOURCE_RCFILE $ZSH_CONFIG_HOME/catppuccin_zsh-syntax-highlighting/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh
 # SOURCE_RCFILE $ZDOTDIR/dracula_zsh-syntax-highlighting/zsh-syntax-highlighting.sh
 
+# ZSH interactive cd
+SOURCE_RCFILE $ZSH/plugins/zsh-interactive-cd/zsh-interactive-cd.plugin.zsh
+
 # bat extras scripts
 # EXPORT_DIR $HOME/gitdepot/bat-extras/src
 
@@ -124,7 +131,7 @@ SOURCE_RCFILE $ZSH_CONFIG_HOME/catppuccin_zsh-syntax-highlighting/themes/catppuc
 # Copyright (C) 2019-2021 eth-p | MIT License
 # 
 # To use batpipe, eval the output of this command in your shell init script.
-LESSOPEN="|/usr/bin/batpipe %s";
+LESSOPEN="|$(which batpipe) %s";
 export LESSOPEN;
 unset LESSCLOSE;
 
@@ -138,37 +145,32 @@ export BATPIPE;
 export KUBECONFIG=$KUBECONFIG:$HOME/.kube/config:$HOME/.kube/configs/kubeconfig.yaml
 
 # if present, source FZF
-if [ -f ~/.fzf.zsh ]
+if command -v fzf &>/dev/null
 then
-  SOURCE_RCFILE ~/.fzf.zsh
-  export FZF_BASE=/usr/bin/fzf
+  if command -v antidote &>/dev/null
+  then
+    antidote bundle "https://github.com/unixorn/fzf-zsh-plugin" LOLCAT
+  elif [ -f $HOME/.fzf.zsh ]
+  then
+    SOURCE_RCFILE $HOME/.fzf.zsh
+  fi
+  export FZF_BASE="$(which fzf)"
   export FZF_DEFAULT_COMMAND='rg --ignore-case --files --no-ignore-vcs --hidden '
   # catppucin theme
   export FZF_DEFAULT_OPTS=" --preview bat --border=rounded \
     --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
     --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
-    --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
-  ;"
+    --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 "
 fi
 
 ### Initialize Zoxide
 if command -v zoxide &> /dev/null
 then
-    eval "$(zoxide init zsh)"
+  eval "$(zoxide init $theShell)"
 fi
 
 ### Initialize Starship
 if command -v starship &>/dev/null
 then
-    eval "$(starship init zsh)"
+  eval "$(starship init $theShell)"
 fi
-
-# GWSL
-# export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0.0 #GWSL
-# export PULSE_SERVER=tcp:$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}') #GWSL
-# export LIBGL_ALWAYS_INDIRECT=1 #GWSL
-# export GDK_SCALE=2 #GWSL
-# export QT_SCALE_FACTOR=2 #GWSL
-
-# export DISPLAY
-#DISPLAY=:1

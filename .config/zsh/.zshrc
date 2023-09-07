@@ -1,34 +1,44 @@
 #!/usr/bin/env zsh
 # .zshrc
 
+# if 'alias -g' is available, define an alias that can be used on zshrc
+# but doesn't brake everything if we are on bash
+export theShell=$(echo "$SHELL" | cut -d '/' -f 3)
+if [[ "$SHELL" == *zsh* ]]
+then 
+  alias -g aliasG="alias -g "
+else
+  alias aliasG="alias "
+fi
+
+#Define an alias for '| lolcat' if present, if not pipe to tee
+if command -v lolcat &>/dev/null
+then
+  aliasG LOLCAT=' | lolcat'
+else
+  aliasG LOLCAT=' | tee'
+fi
+
 ### SOURCING/EXPORTING UTILITIES
 export function SOURCE_RCFILE()
 {
     if [ -f $1 ]
     then
-        source $1
-        if command -v lolcat &>/dev/null
-        then
-          echo "$1 successfully sourced ... " | lolcat
-          return
-        fi
-        echo "$1 successfully sourced ... "
+      source $1
+      echo "$1 successfully sourced ... " LOLCAT
+    else
+    echo "$1 not sourced ... " LOLCAT
     fi
-    echo "$1 not sourced ... "
 }
 export function EXPORT_DIR()
 {
     if [ -d $1 ]
     then
-        export PATH=$1:$PATH
-        if command -v lolcat &>/dev/null
-        then
-          echo "$1 successfully exported ... " | lolcat
-          return
-        fi
-        echo "$1 successfully exported ... "
+      export PATH=$1:$PATH
+      echo "$1 successfully exported ... " LOLCAT
+    else
+    echo "$1 not exported ... " LOLCAT
     fi
-    echo "$1 not exported ... "
 }
 
 export XDG_CONFIG_HOME="$HOME/.config"
