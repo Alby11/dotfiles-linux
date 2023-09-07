@@ -14,7 +14,7 @@ fi
 #Define an alias for '| lolcat' if present, if not pipe to tee
 if command -v lolcat &>/dev/null
 then
-  aliasG LOLCAT=' | lolcat'
+  aliasG LOLCAT=' | lolcat -b'
 else
   aliasG LOLCAT=' | tee'
 fi
@@ -27,7 +27,7 @@ export function SOURCE_RCFILE()
       source $1
       echo "$1 successfully sourced ... " LOLCAT
     else
-    echo "$1 not sourced ... " LOLCAT
+    echo "$1 not sourced ... " LOLCAT -i
     fi
 }
 export function EXPORT_DIR()
@@ -37,7 +37,7 @@ export function EXPORT_DIR()
       export PATH=$1:$PATH
       echo "$1 successfully exported ... " LOLCAT
     else
-    echo "$1 not exported ... " LOLCAT
+    echo "$1 not exported ... " LOLCAT -i
     fi
 }
 
