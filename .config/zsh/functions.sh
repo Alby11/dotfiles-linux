@@ -397,24 +397,58 @@ pipueu() {
   pip --disable-pip-version-check list --user --outdated --format=json | python -c "import json, sys; print('\n'.join([x['name'] for x in json.load(sys.stdin)]))" | xargs -n1 pip install --user -U
 }
 sync_xxh_config() {
-  local origins=("$HOME/.config" "$HOME/.local/bin" "$HOME/.zshenv") #"$HOME/.ssh")
-  local destination="$HOME/gitdepot/xxh-plugin-prerun-dotfiles/home"
-  local repository="$HOME/gitdepot/xxh-plugin-prerun-dotfiles"
+  usage() {
+    echo "Usage: sync_xxh_config [options]"
+    echo "Options:"
+    echo "  --help: Display this help message"
+    echo "  --ssh-server=SERVER, -s SERVER: Specify an SSH server to synchronize with"
+  }
+
+  local origins=("$HOME/.config" "$HOME/.local/bin" "$HOME/.zshenv")
+  local destinations=("$HOME/gitdepot/xxh-plugin-prerun-dotfiles/home")
+  local repositories=("$HOME/gitdepot/xxh-plugin-prerun-dotfiles")
   local options="--archive --verbose --delete"
-  local exclude_array=("Microsoft*" "remmina" "Forticlient")
+  local exclude_array=("FortiClient" ".git" ".gitignore" ".gitmodules" ".gitattributes" "Microsoft*" "rabbitvcs" "remmina" ".ssh" )
   local exclude_string=$(printf " --exclude '%s'" "${exclude_array[@]}")
+  # Add ssh servers as parameters and set destination to '/home/tallonea/.xxh' for ssh servers
+  while [ $# -gt 0 ]; do
+    case "$1" in
+      --ssh-server=*|-s=*)
+        local ssh_server="${1#*=}"
+        destinations+=("$ssh_server:/home/tallonea/.xxh")
+        shift
+        ;;
+      --help)
+        usage
+        shift
+        ;;
+      *)
+        printf "Error: Invalid argument\n"
+        return 1
+        ;;
+    esac
+  done
+
   for origin in $origins
   do
-    local exclusions=$(/bin/du -sh ${origin}/* | /bin/grep -E '[0-9](M|G)' | /bin/grep -Ev '(zsh|nvim)' | /bin/cut -d / -f5- | /bin/sed "s/^/--exclude '/;s/$/'/" | /bin/tr '\n' ' ')
-    local arguments="$options $exclusions $exclude_string $origin $destination"
-    /bin/bash -c "rsync $arguments"
+    local exclusions=$(/bin/du -sh ${origin}/* | /bin/grep -E '0-9' | /bin/grep -Ev '(zsh|nvim|\.git)' | /bin/cut -d / -f5- | /bin/sed "s/^/--exclude '/;s/$/'/" | /bin/tr '\n' ' ')
+    for destination in $destinations
+    do
+      echo -e "\n### $origin ###"
+      echo -e "### $destination ###\n"
+      local arguments="$options $exclusions $exclude_string $origin $destination"
+      /bin/bash -c "rsync $arguments"
+    done
   done
-  git -C $repository status
-  git -C $repository add --update
-  git -C $repository add $repository/.
-  git -C $repository commit  --message 'edit home files' 
-  git -C $repository push #origin HEAD:master 
-  git -C $repository status
+  for repository in $repositories
+  do
+    git -C $repository status
+    git -C $repository add --update
+    git -C $repository add $repository/.
+    git -C $repository commit  --message 'edit home files' 
+    git -C $repository push #origin HEAD:master 
+    git -C $repository status
+  done
 }
 vmware_scan_new_disk() {
   for host in /sys/class/scsi_host/*
