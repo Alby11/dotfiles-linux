@@ -1,6 +1,5 @@
 #!/usr/bin/env zsh
 # .zshrc
-
 # if 'alias -g' is available, define an alias that can be used on zshrc
 # but doesn't brake everything if we are on bash
 export theShell=$(echo "$SHELL" | cut -d '/' -f 3)
@@ -83,11 +82,11 @@ HIST_STAMPS="yyyy-mm-dd"
 # Aliases
 SOURCE_RCFILE $ZSH_CONFIG_HOME/aliases.sh
 # Functions
-SOURCE_RCFILE $ZSH_CONFIG_HOME/functions.sh
-for f in $ZSH_CONFIG_HOME/functions/*
-do
-  SOURCE_RCFILE $f
-done
+# SOURCE_RCFILE $ZSH_CONFIG_HOME/functions.sh
+# for f in $ZSH_CONFIG_HOME/functions/*
+# do
+#   SOURCE_RCFILE $f
+# done
 
 # load ssh after each reboot (re-uses same ssh-agent instance)
 if [[ ! $( command -v keychain ) ]]; then
@@ -132,4 +131,4 @@ fi
 # echo $theDate | lolcat
 # echo $theTime | lolcat
 # if [  $(command -v fortune) ] && [ $(command -v cowsay) ] ; then fortune | cowsay ; fi
-cd ~
+# cd ~
