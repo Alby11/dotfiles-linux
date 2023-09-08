@@ -41,7 +41,7 @@ setopt extended_glob
 ZFUNCDIR=${ZFUNCDIR:-$ZDOTDIR/functions}
 fpath=($ZFUNCDIR $fpath)
 autoload -Uz $fpath[1]/*(.:t)
-
+echocat $fpath[1]/*(.:t)
 # Set the path to the Oh My Zsh installation directory
 export ZSH=${ZSH:-$ZDOTDIR/.oh-my-zsh}
 
@@ -57,6 +57,7 @@ export ZSH=${ZSH:-$ZDOTDIR/.oh-my-zsh}
 source ${ZDOTDIR:-~}/.antidote/antidote.zsh
 antidote load
 
+SOURCE_RCFILE $ZFUNCDIR/functions
 # Basic auto/tab complete:
 # autoload -Uz compinit
 # zmodload zsh/complist

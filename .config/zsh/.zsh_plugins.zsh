@@ -7,6 +7,7 @@ source /home/tallonea/.cache/antidote/mattmc3/zman/zman.plugin.zsh
 fpath+=( /home/tallonea/.cache/antidote/agkozak/zsh-z )
 source /home/tallonea/.cache/antidote/agkozak/zsh-z/zsh-z.plugin.zsh
 source $ZDOTDIR/.aliases
+source $ZFUNCDIR/functions
 fpath+=( /home/tallonea/.cache/antidote/belak/zsh-utils/prompt )
 source /home/tallonea/.cache/antidote/belak/zsh-utils/prompt/prompt.plugin.zsh
 export PATH="/home/tallonea/.cache/antidote/romkatv/zsh-bench:$PATH"
