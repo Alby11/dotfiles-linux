@@ -44,6 +44,10 @@ export XDG_CONFIG_HOME="$HOME/.config"
 # export zsh config directory
 export ZSH_CONFIG_HOME="$HOME/.config/zsh"
 export ZDOTDIR=$ZSH_CONFIG_HOME
+# Set omz variables prior to loading omz plugins
+# see issue https://github.com/ohmyzsh/ohmyzsh/issues/11762
+ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/oh-my-zsh"
+mkdir -p $ZSH_CACHE_DIR/completions
 # export oh-my-zsh config directory
 export ZSH="$ZSH_CONFIG_HOME/ohmyzsh"
 
