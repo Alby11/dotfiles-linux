@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/zsh
 
 helpMessage=$(
     cat <<EOS
@@ -30,7 +30,7 @@ curDir=$(pwd)
 paramSubCmd=$2
 commitDate="$(date +%Y%m%d_%H:%M:%S)"
 
-dotfiles() {
+export function dotfiles () {
     git --git-dir=$HOME/.dotfiles_git/ --work-tree=$HOME $@
 }
 
@@ -114,6 +114,11 @@ case "$1" in
         dotfilesSync
         ;;
 
+    "subsync")
+        dotfilesSubupdate
+        dotfilesSync
+        ;;
+
     "--version")
         echo $helpMessage | head -n 1
         ;;
@@ -130,7 +135,7 @@ unset helpMessage
 unset curDir
 unset paramSubCmd
 
-unset -f dofilesStatus
+unset -f dotfilesStatus
 unset -f dotfilesAdd
 unset -f dotfilesAddall
 unset -f dotfilesRm
