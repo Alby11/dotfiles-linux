@@ -41,7 +41,6 @@ agkozak/zsh-z
 #
 ###
 $ZDOTDIR/.aliases
-$ZDOTDIR/.exports
 
 ### Local Plugins with Variables
 #
