@@ -1,5 +1,5 @@
 #!/usr/bin/zsh
-#functions
+
 fastping() {
     ping -c 100 -s 2
 }
@@ -136,7 +136,7 @@ installKubectl() {
     fi
 }
 if command -v docker &>/dev/null; then
-    source <(docker completion "$theShell")
+    source <(docker completion zsh)
     watchtower() {
         docker login
         docker run -d \

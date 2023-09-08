@@ -5,8 +5,13 @@
 
 echocat '.aliases - Set whatever shell aliases you want.'
 
+alias _=sudo
+
+if command -v grep &>/dev/null
+then
   alias grep='grep --color=auto '
   alias G=' | grep -i '
+fi
 # bat-extras
 if command -v bat &>/dev/null
 then
@@ -209,17 +214,17 @@ if command -v git &>/dev/null; then
 fi
 
 if command -v kubectl &>/dev/null; then
-    source <(kubectl completion "$theShell")
+    source <(kubectl completion zsh)
     alias k='kubectl '
 fi
 
 if command -v minikube &>/dev/null; then
-    source <(minikube completion "$theShell")
+    source <(minikube completion zsh)
     alias mk='minikube '
 fi
 
 if command -v docker &>/dev/null; then
-    source <(docker completion "$theShell")
+    source <(docker completion zsh)
     alias dk='docker '
     alias dkc='docker-compose '
 fi
@@ -231,7 +236,7 @@ if command -v ansible &>/dev/null; then
 fi
 
 if command -v podman &>/dev/null; then
-    source <(podman completion "$theShell")
+    source <(podman completion zsh)
     alias pd='podman '
 fi
 
@@ -287,6 +292,16 @@ fi
 
 alias resetSound='/bin/systemctl --user restart pipewire.service'
 
+### Python block
+# url encode/decode
+if command -v python &>/dev/null
+then
+  alias urldecode='python3 -c "import sys, urllib.parse as ul; \
+    print(ul.unquote_plus(sys.argv[1]))"'
+  alias urlencode='python3 -c "import sys, urllib.parse as ul; \
+    print (ul.quote_plus(sys.argv[1]))"'
+fi
+### End of Python block
 # PIP block 
 if command -v pip &>/dev/null
 then
