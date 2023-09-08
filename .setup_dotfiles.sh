@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 : '
 convenience functions for setting up or restoring dotfiles bare repo
 to call them, create a Gist and use something like:

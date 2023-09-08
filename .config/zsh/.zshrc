@@ -1,37 +1,51 @@
-#!/usr/bin/env zsh
-# .zshrc
-# if 'alias -g' is available, define an alias that can be used on zshrc
-# but doesn't brake everything if we are on bash
-export theShell=$(echo "$SHELL" | cut -d '/' -f 3)
-if [[ "$SHELL" == *zsh* ]]
-then 
-  alias -g aliasG="alias -g "
-else
-  alias aliasG="alias "
-fi
+#!/bin/zsh
+#
+# .zshrc - Zsh file loaded on interactive shell sessions.
+#
 
-#Define an alias for '| lolcat' if present, if not pipe to tee
-if command -v lolcat &>/dev/null
-then
-  if  lolcat --version | grep -E 'moe@busyloop.net' &>/dev/null
-  then
-    aliasG LOLCAT=' | lolcat -t -a'
-  else
-    aliasG LOLCAT=' | lolcat -b'
-  fi
-else
-  aliasG LOLCAT=' | tee'
-fi
+echo '.zshrc - Zsh file loaded on interactive shell sessions.'
+
+# Zsh options.
+setopt extended_glob
+
+# Initialize the Zsh completion system
+# This enables advanced command-line completion features
+autoload -Uz compinit && compinit
+
+# Autoload functions you might want to use with antidote.
+ZFUNCDIR=${ZFUNCDIR:-$ZDOTDIR/functions}
+fpath=($ZFUNCDIR $fpath)
+autoload -Uz $fpath[1]/*(.:t)
+
+# Set the path to the Oh My Zsh installation directory
+export ZSH=${ZSH:-$ZDOTDIR/.oh-my-zsh}
+
+
+# Source zstyles you might use with antidote.
+[[ -e ${ZDOTDIR:-~}/.zstyles ]] && source ${ZDOTDIR:-~}/.zstyles
 
 ### SOURCING/EXPORTING UTILITIES
-export function SOURCE_RCFILE()
-{
-    if [ -f $1 ]
-    then
-      source $1
-      echo "$1 successfully sourced ... " LOLCAT
+export function echocat() {
+    if [ -x "$(command -v lolcat)" ]; then
+      if  lolcat --version | grep -E 'moe@busyloop.net' &>/dev/null
+      then
+        alias lolcat='lolcat -ta'
+      else
+        alias lolcat='lolcat -b'
+      fi
+        echo "$1" | lolcat
+        unalias lolcat
     else
-    echo "$1 not sourced ... " LOLCAT -i
+        echo "$1"
+    fi
+}
+
+export function SOURCE_RCFILE() {
+    if [ -f "$1" ]; then
+        source "$1"
+        echocat "$1 successfully sourced ... "
+    else
+        echocat "$1 not sourced ... "
     fi
 }
 export function EXPORT_DIR()
@@ -39,36 +53,33 @@ export function EXPORT_DIR()
     if [ -d $1 ]
     then
       export PATH=$1:$PATH
-      echo "$1 successfully exported ... " LOLCAT
+      echocat "$1 successfully exported ... "
     else
-    echo "$1 not exported ... " LOLCAT -i
+    echocat "$1 not exported ... "
     fi
 }
 
-export XDG_CONFIG_HOME="$HOME/.config"
-# export zsh config directory
-export ZSH_CONFIG_HOME="$HOME/.config/zsh"
-export ZDOTDIR=$ZSH_CONFIG_HOME
-# Set omz variables prior to loading omz plugins
-# see issue https://github.com/ohmyzsh/ohmyzsh/issues/11762
-ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/oh-my-zsh"
-mkdir -p $ZSH_CACHE_DIR/completions
-# export oh-my-zsh config directory
-export ZSH="$ZSH_CONFIG_HOME/ohmyzsh"
+# Clone antidote if necessary.
+[[ -d ${ZDOTDIR:-~}/.antidote ]] ||
+  git clone https://github.com/mattmc3/antidote ${ZDOTDIR:-~}/.antidote
+
+# Create an amazing Zsh config using antidote plugins.
+source ${ZDOTDIR:-~}/.antidote/antidote.zsh
+antidote load
 
 # Basic auto/tab complete:
-autoload -Uz compinit
-zstyle ':completion:*' menu select
-zmodload zsh/complist
-compinit
-_comp_options+=(globdots)		# Include hidden files.
-autoload -Uz promptinit && promptinit # && prompt pure
+# autoload -Uz compinit
+# zmodload zsh/complist
+# compinit
+# _comp_options+=(globdots)		# Include hidden files.
+# autoload -Uz promptinit && promptinit # && prompt pure
+
 
 ### ANTIDOTE
-SOURCE_RCFILE $ZSH_CONFIG_HOME/.antidoterc
+# SOURCE_RCFILE $ZSH_CONFIG_HOME/.antidoterc
 
 # Exports
-SOURCE_RCFILE $ZSH_CONFIG_HOME/exports.sh
+# SOURCE_RCFILE $ZSH_CONFIG_HOME/exports.sh
 
 # dot fetch origin main ; dot diff --quiet main main || echo 'directory differ'
 # Uncomment the following line to enable command auto-correction.
@@ -85,19 +96,7 @@ COMPLETION_WAITING_DOTS="true"
 # see 'man strftime' for details.
 HIST_STAMPS="yyyy-mm-dd"
 
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Aliases
-SOURCE_RCFILE $ZSH_CONFIG_HOME/aliases.sh
-# Functions
-# SOURCE_RCFILE $ZSH_CONFIG_HOME/functions.sh
-# for f in $ZSH_CONFIG_HOME/functions/*
-# do
-#   SOURCE_RCFILE $f
-# done
-
-# load ssh after each reboot (re-uses same ssh-agent instance)
+### LOAD SSH AFTER EACH REBOOT (RE-USES SAME SSH-AGENT INSTANCE)
 if [[ ! $( command -v keychain ) ]]; then
     sudo dnf install -y keychain &> /dev/null
     sudo rpm install -y keychain &> /dev/null
@@ -126,18 +125,4 @@ if [ -f "${SSH_ENV}" ]; then
 else
     start_agent;
 fi
-
-# Welcome message
-# if command -v neofetch &> /dev/null; then neofetch; fi
-# userName=$( echo "user  $(whoami)" | figlet -o -k -c -f small )
-# computerName=$( echo "on  $(cat /etc/hostname)" | figlet -o -k -c -f small )
-# shellName=$( echo "with  $SHELL" | figlet -o -k -c -f small )
-# theDate=$( date +"%a %y%m%d" | figlet -o -k -c -f small )
-# theTime=$( date +"%X %Z" | figlet -o -k -c -f small )
-# echo $userName | lolcat
-# echo $computerName | lolcat
-# echo $shellName | lolcat
-# echo $theDate | lolcat
-# echo $theTime | lolcat
-# if [  $(command -v fortune) ] && [ $(command -v cowsay) ] ; then fortune | cowsay ; fi
-# cd ~
+### END OF SSH BLOCK

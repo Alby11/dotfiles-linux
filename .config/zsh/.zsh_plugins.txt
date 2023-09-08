@@ -1,15 +1,112 @@
-# .zsh_plugins.txt
+#!/bin/zsh
 
-# comments are supported like this
-# rupa/z
+#
+# .zsh_plugins.txt - antidote plugins file
+#
 
-# empty lines are skipped
+echo '.zsh_plugins.txt - antidote plugins file'
+
+### Overview
+#
+# The `.zsh_plugins.txt` file is used by antidote to configure Zsh bundles. Bundles are
+# just a fancy way of referring to Zsh utilities, frameworks, prompts, or plugins.
+# `.zsh_plugins.txt` is used by antidote to generate a static `.zsh_plugins.zsh` file,
+# which can then be sourced in your `.zshrc`. You can use this file as a starting point
+# for your own config. Strip out instructional comments (ie: lines beginning with a '#')
+# and any plugins you don't need, then add what you like and make it yours!
+#
+# NOTE: Order matters in this file! Some bundles need to be last, and others are
+# prerequisites. Read the documentation for the plugins you use to ensure proper
+# configuration.
+#
+###
+
+
+### Regular Plugins
+#
+# Plugins are the simplest kind of bundles. You can point to a full git URL, or if you
+# assume GitHub.com, then you can use the user/repo shorthand.
+#
+###
+https://github.com/peterhurford/up.zsh
+rummik/zsh-tailf
+mattmc3/zman
+agkozak/zsh-z
+
+
+### Local Plugins
+#
+# Plugins don't have to come from GitHub. You can also use local files or directories to
+# host your own custom plugins.
+#
+###
+$ZDOTDIR/.aliases
+$ZDOTDIR/.exports
+
+### Local Plugins with Variables
+#
+# If you want to use variables in this file, you will need to use the envsubst utility.
+# It may come installed on your system, or be available in your OS package manager. Or,
+# you can use the Python one-liner wrapper function included in this sample project.
+# To replace environment variables, you need to change your `antidote bundle` call to
+# this.
+#
+#   zsh_plugins=${ZDOTDIR:-~}/.zsh_plugins.zsh
+#   envsubst <${zsh_plugins:r}.txt | antidote bundle >|$zsh_plugins
+#
+###
+# reference your own plugins
+# $ZSH_CUSTOM/plugins/nodejs
+# $ZSH_CUSTOM/plugins/python
+# $ZSH_CUSTOM/plugins/ruby
+### Prompts
+#
+# You can make certain themes available to the built-in Zsh prompt command using the
+# `kind:fpath` annotation. A theme is not active for the prompt until this command is
+# run:
+#
+#   autoload -Uz promptinit && promptinit
+#   prompt ${prompt_name:-pure}
+#
+# There are two ways to load prompts.
+# - Add multiple prompt plugins to your `$fpath` with `kind:fpath` and then later in
+#   your .zshrc run the Zsh built-in `prompt` to select the theme.
+# - Or, just load one prompt like a regular plugin.
+#
+
+#   with prompt plugins, remember to add this to your .zshrc:
+#   `autoload -Uz promptinit && promptinit && prompt pure`
+belak/zsh-utils path:prompt
 
 # annotations are also allowed:
 romkatv/zsh-bench kind:path
 olets/zsh-abbr    kind:defer
 
-# frameworks like oh-my-zsh are supported
+### Frameworks
+#
+# Frameworks are a collection of Zsh features, settings, and plugins meant to ease
+# Zsh configuration. Unfortunately, all that power can come with serious drawbacks.
+# Frameworks can often set more settings or aliases than you need, cluttering your Zsh
+# config and slowing things down. Use with caution!
+#
+# Frameworks are handled in antidote using the `path:location/of/plugin` annotation.
+#
+###
+
+### Framework: Oh-My-Zsh
+#
+# Oh-My-Zsh is a very popular Zsh framework. You might choose to use plugins from OMZ
+# in your own config. Depending on which plugins you use, you may also need to include
+# OMZ's entire "lib" directory. If you do this, be careful - "lib" configures a lot of
+# very broad settings. If you are familiar with what you are doing, you may choose to
+# only include parts of "lib".
+#
+#   # use all of lib
+#   ohmyzsh/ohmyzsh path:lib
+#   # -OR-, only use only the specific files we care about
+#   ohmyzsh/ohmyzsh path:lib/clipboard.zsh
+#
+####
 ohmyzsh/ohmyzsh path:lib
 ohmyzsh/ohmyzsh path:plugins/ag kind:fpath
 ohmyzsh/ohmyzsh path:plugins/aliases
@@ -68,45 +165,80 @@ ohmyzsh/ohmyzsh path:plugins/web-search
 ohmyzsh/ohmyzsh path:plugins/yum
 ohmyzsh/ohmyzsh path:plugins/zoxide
 
-# or lighter-weight ones like zsh-utils
-# belak/zsh-utils path:editor
-# belak/zsh-utils path:history
-# belak/zsh-utils path:prompt
-# belak/zsh-utils path:utility
-# belak/zsh-utils path:completion
-
-# prompts:
-#   with prompt plugins, remember to add this to your .zshrc:
-#   `autoload -Uz promptinit && promptinit && prompt pure`
-# sindresorhus/pure     kind:fpath
-# romkatv/powerlevel10k kind:fpath
-
-# popular fish-like plugins
-mattmc3/zfunctions
-zsh-users/zsh-autosuggestions
-zdharma-continuum/fast-syntax-highlighting # kind:defer #conflicts with next
-zsh-users/zsh-syntax-highlighting
-zsh-users/zsh-history-substring-search
+### Framework: zsh-utils
+#
+# zsh-utils is a micro-framework that is also well suited to pair with antidote. It
+# provides much of the same core functionality from other bigger frameworks without the
+# bloat or performance hit. Using zsh-utils, you may find you don't need much else.
+# If you want a really thin framework, this is great.
+#
+###ke zsh-utils
+belak/zsh-utils path:editor
+belak/zsh-utils path:history
+belak/zsh-utils path:utility
 
 # History
 # wulfgarpro/history-sync
 # larkery/zsh-histdb
 # jimhester/per-directory-history
 
-# FZF
-unixorn/fzf-zsh-plugin branch:main
+### Deferred Plugins
+#
+# Antidote allows you to defer loading plugins. This is similar to concepts like "turbo
+# mode" in other plugin managers. Antidote handles deferring plugins by leveraging
+# romkatv/zsh-defer, which "defers execution of a zsh command until zsh has nothing else
+# to do and is waiting for user input". In general, you should not defer plugins unless
+# you know for sure they properly support deferred loading, and there are no adverse
+# side-effects (see: https://github.com/romkatv/zsh-defer#Caveats). However, for
+# certain plugins, this can greatly increase your zsh startup speed.
+#
+###
+# Syntax highlighting
+zsh-users/zsh-syntax-highlighting kind:defer
+# zdharma-continuum/fast-syntax-highlighting kind:defer
 
-# completions
-srijanshetty/zsh-pip-completion
-zsh-users/zsh-completions
-3v1n0/zsh-bash-completions-fallback
-MenkeTechnologies/zsh-cargo-completion
-greymd/docker-zsh-completion
-lukechilds/zsh-better-npm-completion
-sunlei/zsh-ssh
-vasyharan/zsh-brew-services
-viasite-ansible/zsh-ansible-server
-MichaelAquilina/zsh-you-should-use
+### Completions
+#
+# You may want to add some additional completions to Zsh. Completions look in your fpath
+# for completion functions, which are functions named with a leading underscore
+# (eg: _git). You need to add all supplemental completions to your fpath prior to
+# running `compinit` to use completions functionality properly. You will want to find
+# a completion plugin that runs `compinit` for you, or you can run it yourself in
+# your .zshrc after antidote loads like this:
+#
+#   autoload -Uz compinit && compinit
+#
+###
+
+# zsh-users/zsh-completions is a popular plugin for adding supplemental completions.
+# We combine the `path:` and `kind:fpath` annotations here:
+srijanshetty/zsh-pip-completion path:src kind:fpath
+3v1n0/zsh-bash-completions-fallback path:src kind:fpath
+MenkeTechnologies/zsh-cargo-completion path:src kind:fpath
+greymd/docker-zsh-completion path:src kind:fpath
+lukechilds/zsh-better-npm-completion path:src kind:fpath
+sunlei/zsh-ssh path:src kind:fpath
+vasyharan/zsh-brew-services path:src kind:fpath
+viasite-ansible/zsh-ansible-server path:src kind:fpath
+MichaelAquilina/zsh-you-should-use path:src kind:fpath
+zsh-users/zsh-completions path:src kind:fpath
+
+# Compinit plugins should be near the end of .zsh_plugins.txt so that $fpath has been
+# fully populated. Use zsh-utils for its completion plugin.
+belak/zsh-utils path:completion
+
+### Final Plugins
+#
+# Remember plugin order matters! Put plugins that need run last at the bottom of your
+# .zsh_plugins.txt file.
+#
+###
+
+# These popular core plugins should be loaded at the end
+# unixorn/fzf-zsh-plugin branch:main
+zsh-users/zsh-autosuggestions kind:defer
+mattmc3/zfunctions kind:defer
+zsh-users/zsh-history-substring-search
 
 # Others
 #MichaelAquilina/zsh-auto-notify
