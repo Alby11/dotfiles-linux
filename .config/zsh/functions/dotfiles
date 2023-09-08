@@ -16,5 +16,14 @@ dotDir="$HOME/.dotfiles_git/"
 dotBranch="main"
 
 export function dotfiles () {
-  git --git-dir="$dotDir" --work-tree="$HOME" "$@"
+    git --git-dir=$HOME/.dotfiles_git/ --work-tree=$HOME $@
 }
+# Define the completion function
+_dot() {
+  # Load the completion function for git
+  _git
+  # Call the completion function for git
+  _git "$@"
+}
+# Associate the completion function with the dot command
+compdef _dot dot

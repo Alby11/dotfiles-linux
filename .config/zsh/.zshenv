@@ -5,6 +5,7 @@
 
 # NOTE: .zshenv needs to live at ~/.zshenv, not in $ZDOTDIR!
 
+
 # use lolcat as a special echo command
 export function echocat() {
   if [ -x "$(command -v lolcat)" ]; then

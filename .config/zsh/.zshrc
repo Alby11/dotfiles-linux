@@ -5,6 +5,10 @@
 
 echocat '.zshrc - Zsh file loaded on interactive shell sessions.'
 
+# Initialize the Zsh completion system
+# This enables advanced command-line completion features
+autoload -Uz compinit && compinit
+
 ### GIT CONFIG
 git config --global core.autocrlf false
 git config --global core.fsmonitor false
@@ -32,10 +36,6 @@ git config --global core.pager.nvim.cmd "$(which nvim) -c 'Man!' -o -"
 
 # Zsh options.
 setopt extended_glob
-
-# Initialize the Zsh completion system
-# This enables advanced command-line completion features
-autoload -Uz compinit && compinit
 
 # Autoload functions you might want to use with antidote.
 ZFUNCDIR=${ZFUNCDIR:-$ZDOTDIR/functions}
