@@ -12,19 +12,6 @@ setopt extended_glob
 # This enables advanced command-line completion features
 autoload -Uz compinit && compinit
 
-# Autoload functions you might want to use with antidote.
-ZFUNCDIR=${ZFUNCDIR:-$ZDOTDIR/functions}
-fpath=($ZFUNCDIR $fpath)
-autoload -Uz $fpath[1]/*(.:t)
-
-# Set the path to the Oh My Zsh installation directory
-export ZSH=${ZSH:-$ZDOTDIR/.oh-my-zsh}
-
-
-# Source zstyles you might use with antidote.
-[[ -e ${ZDOTDIR:-~}/.zstyles ]] && source ${ZDOTDIR:-~}/.zstyles
-
-### SOURCING/EXPORTING UTILITIES
 export function echocat() {
     if [ -x "$(command -v lolcat)" ]; then
       if  lolcat --version | grep -E 'moe@busyloop.net' &>/dev/null
@@ -40,6 +27,19 @@ export function echocat() {
     fi
 }
 
+# Autoload functions you might want to use with antidote.
+ZFUNCDIR=${ZFUNCDIR:-$ZDOTDIR/functions}
+fpath=($ZFUNCDIR $fpath)
+autoload -Uz $fpath[1]/*(.:t)
+
+# Set the path to the Oh My Zsh installation directory
+export ZSH=${ZSH:-$ZDOTDIR/.oh-my-zsh}
+
+
+# Source zstyles you might use with antidote.
+[[ -e ${ZDOTDIR:-~}/.zstyles ]] && source ${ZDOTDIR:-~}/.zstyles
+
+### SOURCING/EXPORTING UTILITIES
 export function SOURCE_RCFILE() {
     if [ -f "$1" ]; then
         source "$1"
@@ -55,7 +55,7 @@ export function EXPORT_DIR()
       export PATH=$1:$PATH
       echocat "$1 successfully exported ... "
     else
-    echocat "$1 not exported ... "
+      echocat "$1 not exported ... "
     fi
 }
 
@@ -72,7 +72,6 @@ antidote load
 # zmodload zsh/complist
 # compinit
 # _comp_options+=(globdots)		# Include hidden files.
-# autoload -Uz promptinit && promptinit # && prompt pure
 
 
 ### ANTIDOTE
@@ -83,7 +82,7 @@ antidote load
 
 # dot fetch origin main ; dot diff --quiet main main || echo 'directory differ'
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # You can also set it to another string to have that shown instead of the default red dots.
@@ -126,3 +125,4 @@ else
     start_agent;
 fi
 ### END OF SSH BLOCK
+cd $HOME

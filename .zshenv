@@ -16,7 +16,7 @@ export ZDOTDIR=${ZDOTDIR:-$XDG_CONFIG_HOME/zsh}
 
 # Set omz variables prior to loading omz plugins
 # see issue https://github.com/ohmyzsh/ohmyzsh/issues/11762
-ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/oh-my-zsh"
+export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/oh-my-zsh"
 mkdir -p $ZSH_CACHE_DIR/completions
 
 ## You can use .zprofile to set environment vars for non-login, non-interactive shells.
