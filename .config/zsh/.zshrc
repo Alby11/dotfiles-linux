@@ -13,7 +13,12 @@ fi
 #Define an alias for '| lolcat' if present, if not pipe to tee
 if command -v lolcat &>/dev/null
 then
-  aliasG LOLCAT=' | lolcat -b'
+  if  lolcat --version | grep -E 'moe@busyloop.net' &>/dev/null
+  then
+    aliasG LOLCAT=' | lolcat -t -a'
+  else
+    aliasG LOLCAT=' | lolcat -b'
+  fi
 else
   aliasG LOLCAT=' | tee'
 fi
