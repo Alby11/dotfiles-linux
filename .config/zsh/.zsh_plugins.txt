@@ -40,7 +40,7 @@ agkozak/zsh-z
 # host your own custom plugins.
 #
 ###
-$ZDOTDIR/.aliases
+# $ZDOTDIR/.aliases
 
 ### Local Plugins with Variables
 #
@@ -236,5 +236,6 @@ zsh-users/zsh-autosuggestions kind:defer
 mattmc3/zfunctions kind:defer
 zsh-users/zsh-history-substring-search
 
+$ZDOTDIR/.aliases
 # Others
 #MichaelAquilina/zsh-auto-notify
