@@ -14,7 +14,7 @@ export function echocat() {
       else
         alias lolcat='lolcat -b'
       fi
-        echo "$1" | lolcat
+        echo "$1" | lolcat `[[ -n "$2" ]] && echo "$2"`
         unalias lolcat
     else
         echo "$1"
@@ -29,7 +29,7 @@ export function SOURCE_RCFILE() {
         source "$1"
         echocat "$1 successfully sourced ... "
     else
-        echocat "$1 not sourced ... "
+        echocat "$1 not sourced ... " -i
     fi
 }
 export function EXPORT_DIR()
@@ -38,7 +38,7 @@ export function EXPORT_DIR()
       export PATH=$1:$PATH
       echocat "$1 successfully exported ... "
     else
-      echocat "$1 not exported ... "
+      echocat "$1 not exported ... " -i
     fi
 }
 

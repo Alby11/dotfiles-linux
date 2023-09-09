@@ -37,25 +37,25 @@ git config --global core.pager.nvim.cmd "$(which nvim) -c 'Man!' -o -"
 # Zsh options.
 setopt extended_glob
 
-# Autoload functions you might want to use with antidote.
-ZFUNCDIR=${ZFUNCDIR:-$ZDOTDIR/functions}
-fpath=($ZFUNCDIR $fpath)
-autoload -Uz $fpath[1]/*(.:t)
-echocat $fpath[1]/*(.:t)
 # Set the path to the Oh My Zsh installation directory
 export ZSH=${ZSH:-$ZDOTDIR/.oh-my-zsh}
 
-
 # Source zstyles you might use with antidote.
-[[ -e ${ZDOTDIR:-~}/.zstyles ]] && source ${ZDOTDIR:-~}/.zstyles
+[[ -e ${ZDOTDIR:-~}/.zstyles ]] && SOURCE_RCFILE ${ZDOTDIR:-~}/.zstyles
 
 # Clone antidote if necessary.
 [[ -d ${ZDOTDIR:-~}/.antidote ]] ||
   git clone https://github.com/mattmc3/antidote ${ZDOTDIR:-~}/.antidote
 
 # Create an amazing Zsh config using antidote plugins.
-source ${ZDOTDIR:-~}/.antidote/antidote.zsh
+SOURCE_RCFILE ${ZDOTDIR:-~}/.antidote/antidote.zsh
 antidote load
+
+# Autoload functions you might want to use with antidote.
+ZFUNCDIR=${ZFUNCDIR:-$ZDOTDIR/functions}
+fpath=($ZFUNCDIR $fpath)
+autoload -Uz $fpath[1]/*(.:t)
+echocat $fpath[1]/*(.:t)
 
 SOURCE_RCFILE $ZFUNCDIR/functions
 # Basic auto/tab complete:
