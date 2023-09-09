@@ -17,6 +17,9 @@ dotBranch="main"
 
 export function dotfiles () {
     git --git-dir=$HOME/.dotfiles_git/ --work-tree=$HOME $@
+  # Initialize the Zsh completion system
+  # This enables advanced command-line completion features
+  autoload -Uz compinit && compinit
   # Define the completion function
   _dot() {
     # Load the completion function for git
