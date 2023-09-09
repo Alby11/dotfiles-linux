@@ -1,6 +1,5 @@
 #!/usr/bin/zsh
 
-echocat "functions"
 fastping() {
     ping -c 100 -s 2
 }

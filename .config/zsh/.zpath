@@ -4,6 +4,7 @@
 #
 
 echocat '.zpath - Zsh PATH setup file'
+
 # Ensure path arrays do not contain duplicates.
 typeset -gU path fpath
 

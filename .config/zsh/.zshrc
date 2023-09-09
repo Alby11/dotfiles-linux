@@ -8,6 +8,7 @@ echocat '.zshrc - Zsh file loaded on interactive shell sessions.'
 # Initialize the Zsh completion system
 # This enables advanced command-line completion features
 autoload -Uz compinit && compinit
+autoload -Uz promptinit && promptinit
 
 ### GIT CONFIG
 git config --global core.autocrlf false

@@ -34,14 +34,16 @@ export function dotfiles () {
     git --git-dir=$HOME/.dotfiles_git/ --work-tree=$HOME $@
 }
 
-  _dot() {
-    # Load the completion function for git
-    _git
-    # Call the completion function for git
-    _git "$@"
-  }
-  # Associate the completion function with the dot command
-  compdef _dot dot
+# Define the completion function
+_dotfiles() {
+  # Load the completion function for git
+  _git
+  # Call the completion function for git
+  _git "$@"
+}
+# Associate the completion function with the dotfiles and dotcommand
+compdef _dotfiles dotfiles
+compdef _dotfiles dot
 
 dotfilesStatus() {
     dotfiles status

@@ -72,9 +72,6 @@ $ZDOTDIR/.aliases
 #   your .zshrc run the Zsh built-in `prompt` to select the theme.
 # - Or, just load one prompt like a regular plugin.
 #
-
-#   with prompt plugins, remember to add this to your .zshrc:
-#   `autoload -Uz promptinit && promptinit && prompt pure`
 belak/zsh-utils path:prompt
 
 # annotations are also allowed:

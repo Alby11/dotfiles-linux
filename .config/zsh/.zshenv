@@ -77,9 +77,9 @@ if command -v batpipe &>/dev/null; then
   export LESSOPEN;
   unset LESSCLOSE;
   # The following will enable colors when using batpipe with less:
-  # LESS="$LESS -R";
+  LESS="$LESS -R";
   BATPIPE="color";
-  # export LESS;
+  export LESS;
   export BATPIPE;
 fi
 
