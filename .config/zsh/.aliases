@@ -5,22 +5,22 @@
 
 echocat '.aliases - Set whatever shell aliases you want.'
 
-alias _=sudo
+alias -g _=sudo
 
 if command -v grep &>/dev/null
 then
-  alias grep='grep --color=auto '
-  alias G=' | grep -i '
+  alias -g grep='grep --color=auto '
+  alias -g G=' | grep -i '
 fi
 # bat-extras
 if command -v bat &>/dev/null
 then
-  alias B=' | bat --show-all'
+  alias -g B=' | bat --show-all'
 fi
 if command -v batgrep &>/dev/null
 then
-  alias BG=' | batgrep --ignore-case --color '
-  alias bgrep='batgrep --ignore-case --color '
+  alias -g BG=' | batgrep --ignore-case --color '
+  alias -g bgrep='batgrep --ignore-case --color '
 fi
 if command -v batman &>/dev/null
 then
@@ -28,13 +28,13 @@ then
 fi
 if command -v batdiff &>/dev/null
 then
-  alias bdiff=' | batdiff '
+  alias -g bdiff=' | batdiff '
 fi
 if command -v batwatch &>/dev/null
 then
   alias bwatch='batwatch '
 fi
-alias sudo="sudo "
+alias -g sudo="sudo "
 alias Sb="source ~/.bashrc"
 alias Sba="source ~/.bash_aliases"
 alias Sbe="source ~/.bash_exports"
@@ -59,7 +59,7 @@ if command -v notify-send &>/dev/null; then
   # Credits to: https://gist.github.com/Feniksovich
   # Add an "alert" alias for long running commands.  Use like so:
   #   sleep 10; alert
-  alias alert='notify-send --urgency=low -i \
+  alias -g alert='notify-send --urgency=low -i \
     "$([ $? = 0 ] && echo terminal || \
   echo error)" "$(history|tail -n1 | \
     sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"' \
@@ -167,20 +167,20 @@ then
   alias np='nvimpager'
   alias npc='nvimpager -c'
   alias npp='nvimpager -p'
-  alias NP='| nvimpager -c -'
+  alias -g NP='| nvimpager -c -'
 fi
 
 if command -v xclip &>/dev/null; then
-    alias Xp='xclip -o '
-    alias Xy=' | xclip -i '
+    alias -g Xp='xclip -o '
+    alias -g Xy=' | xclip -i '
 fi
 if command -v clipboard &>/dev/null; then
-    alias Cp="clipboard "
-    alias Cy=' | clipboard '
+    alias -g Cp="clipboard "
+    alias -g Cy=' | clipboard '
 fi
 if command -v wl-copy &>/dev/null; then
-    alias Wp="wl-paste "
-    alias Wy=' | wl-copy '
+    alias -g Wp="wl-paste "
+    alias -g Wy=' | wl-copy '
 fi
 
 if command -v ranger &>/dev/null; then
@@ -230,7 +230,7 @@ if command -v docker &>/dev/null; then
 fi
 
 if command -v ansible &>/dev/null; then
-    alias a='ansible '
+    alias an='ansible '
     alias ap='ansible-playbook '
     alias ag='ansible-galaxy '
 fi
@@ -261,7 +261,7 @@ if [ "$(command -v fzf)" ] && [ "$(command -v rg)" ] && [ "$(command -v bat)" ];
 --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
 --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
 ;"
-    alias fzfb="fzf \
+    alias -g fzfb="fzf \
 --preview bat --border=rounded \
 --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
 --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
@@ -285,7 +285,7 @@ if [ "$(command -v fzf)" ] && [ "$(command -v rg)" ] && [ "$(command -v bat)" ];
         # --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 \
         # --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4 \
         # ;"
-    alias R='| rg '
+    alias -g R='| rg '
 else
     echo "fzf|rg|bat missing..."
 fi
@@ -296,9 +296,9 @@ alias resetSound='/bin/systemctl --user restart pipewire.service'
 # url encode/decode
 if command -v python &>/dev/null
 then
-  alias urldecode='python3 -c "import sys, urllib.parse as ul; \
+  alias -g urldecode='python3 -c "import sys, urllib.parse as ul; \
     print(ul.unquote_plus(sys.argv[1]))"'
-  alias urlencode='python3 -c "import sys, urllib.parse as ul; \
+  alias -g urlencode='python3 -c "import sys, urllib.parse as ul; \
     print (ul.quote_plus(sys.argv[1]))"'
 fi
 ### End of Python block
