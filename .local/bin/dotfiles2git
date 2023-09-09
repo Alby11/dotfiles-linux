@@ -7,7 +7,7 @@ Alberto Tallone <@gmail.com>\n
 A convenient dotfiles management system\n
 \n
 USAGE:\n
-\tdotfiles_git <SUBCOMMAND>\n
+\tdotfiles2git <SUBCOMMAND>\n
 \n
 OPTIONS:\n
 \t--help\t\tPrint help information\n
