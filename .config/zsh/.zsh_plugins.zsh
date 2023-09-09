@@ -7,7 +7,6 @@ source /home/tallonea/.cache/antidote/mattmc3/zman/zman.plugin.zsh
 fpath+=( /home/tallonea/.cache/antidote/agkozak/zsh-z )
 source /home/tallonea/.cache/antidote/agkozak/zsh-z/zsh-z.plugin.zsh
 source $ZDOTDIR/.aliases
-source $ZFUNCDIR/functions
 fpath+=( /home/tallonea/.cache/antidote/belak/zsh-utils/prompt )
 source /home/tallonea/.cache/antidote/belak/zsh-utils/prompt/prompt.plugin.zsh
 export PATH="/home/tallonea/.cache/antidote/romkatv/zsh-bench:$PATH"
@@ -130,8 +129,6 @@ fpath+=( /home/tallonea/.cache/antidote/ohmyzsh/ohmyzsh/plugins/ubuntu )
 source /home/tallonea/.cache/antidote/ohmyzsh/ohmyzsh/plugins/ubuntu/ubuntu.plugin.zsh
 fpath+=( /home/tallonea/.cache/antidote/ohmyzsh/ohmyzsh/plugins/urltools )
 source /home/tallonea/.cache/antidote/ohmyzsh/ohmyzsh/plugins/urltools/urltools.plugin.zsh
-fpath+=( /home/tallonea/.cache/antidote/ohmyzsh/ohmyzsh/plugins/vi-mode )
-source /home/tallonea/.cache/antidote/ohmyzsh/ohmyzsh/plugins/vi-mode/vi-mode.plugin.zsh
 fpath+=( /home/tallonea/.cache/antidote/ohmyzsh/ohmyzsh/plugins/virtualenv )
 source /home/tallonea/.cache/antidote/ohmyzsh/ohmyzsh/plugins/virtualenv/virtualenv.plugin.zsh
 fpath+=( /home/tallonea/.cache/antidote/ohmyzsh/ohmyzsh/plugins/virtualenvwrapper )
