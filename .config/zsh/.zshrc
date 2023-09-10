@@ -5,11 +5,6 @@
 
 echocat '.zshrc - Zsh file loaded on interactive shell sessions.'
 
-# Initialize the Zsh completion system
-# This enables advanced command-line completion features
-autoload -Uz compinit && compinit
-autoload -Uz promptinit && promptinit
-
 ### GIT CONFIG
 git config --global core.autocrlf false
 git config --global core.fsmonitor false
@@ -48,6 +43,11 @@ export ZSH=${ZSH:-$ZDOTDIR/.oh-my-zsh}
 [[ -d ${ZDOTDIR:-~}/.antidote ]] ||
   git clone https://github.com/mattmc3/antidote ${ZDOTDIR:-~}/.antidote
 
+# Initialize the Zsh completion system
+# This enables advanced command-line completion features
+autoload -Uz compinit && compinit
+autoload -Uz promptinit && promptinit
+
 # Create an amazing Zsh config using antidote plugins.
 SOURCE_RCFILE ${ZDOTDIR:-~}/.antidote/antidote.zsh
 antidote load
@@ -57,8 +57,8 @@ ZFUNCDIR=${ZFUNCDIR:-$ZDOTDIR/functions}
 fpath=($ZFUNCDIR $fpath)
 autoload -Uz $fpath[1]/*(.:t)
 echocat $fpath[1]/*(.:t)
+SOURCE_RCFILE $ZDOTDIR/.functions
 
-SOURCE_RCFILE $ZFUNCDIR/functions
 # Basic auto/tab complete:
 # autoload -Uz compinit
 # zmodload zsh/complist
