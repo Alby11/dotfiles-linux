@@ -25,6 +25,7 @@ source $static_file
 
 # cleanup
 unset antidote_dir plugins_txt static_file
+rm -f $static_file
 ### PLUGINS CONFIGURATIONS
 # vi mode
 export VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true
