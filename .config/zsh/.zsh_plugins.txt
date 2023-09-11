@@ -21,6 +21,8 @@ echo '.zsh_plugins.txt - antidote plugins file'
 #
 ###
 
+### Priority Plugins
+romkatv/zsh-defer
 
 ### Regular Plugins
 #
@@ -58,6 +60,7 @@ agkozak/zsh-z
 # $ZSH_CUSTOM/plugins/nodejs
 # $ZSH_CUSTOM/plugins/python
 # $ZSH_CUSTOM/plugins/ruby
+
 ### Prompts
 #
 # You can make certain themes available to the built-in Zsh prompt command using the
@@ -230,7 +233,10 @@ belak/zsh-utils path:completion
 #
 ###
 $ZDOTDIR/.aliases
+$ZDOTDIR/.functions
 jeffreytse/zsh-vi-mode
+# zs_set_path=1
+psprint/zsh-sweep
 
 # These popular core plugins should be loaded at the end
 # unixorn/fzf-zsh-plugin branch:main
@@ -240,3 +246,4 @@ zsh-users/zsh-history-substring-search
 
 # Others
 #MichaelAquilina/zsh-auto-notify
+#

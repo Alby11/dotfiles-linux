@@ -50,6 +50,7 @@ autoload -Uz promptinit && promptinit
 
 # Create an amazing Zsh config using antidote plugins.
 SOURCE_RCFILE ${ZDOTDIR:-~}/.antidote/antidote.zsh
+zs_set_path=1 #zsh-sweep
 antidote load
 
 # Autoload functions you might want to use with antidote.
@@ -57,7 +58,6 @@ ZFUNCDIR=${ZFUNCDIR:-$ZDOTDIR/functions}
 fpath=($ZFUNCDIR $fpath)
 autoload -Uz $fpath[1]/*(.:t)
 echocat $fpath[1]/*(.:t)
-SOURCE_RCFILE $ZDOTDIR/.functions
 
 # Basic auto/tab complete:
 # autoload -Uz compinit

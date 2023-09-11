@@ -1,3 +1,5 @@
+fpath+=( /home/tallonea/.cache/antidote/romkatv/zsh-defer )
+source /home/tallonea/.cache/antidote/romkatv/zsh-defer/zsh-defer.plugin.zsh
 fpath+=( /home/tallonea/.cache/antidote/peterhurford/up.zsh )
 source /home/tallonea/.cache/antidote/peterhurford/up.zsh/up.plugin.zsh
 fpath+=( /home/tallonea/.cache/antidote/rummik/zsh-tailf )
@@ -161,8 +163,11 @@ fpath+=( /home/tallonea/.cache/antidote/zsh-users/zsh-completions/src )
 fpath+=( /home/tallonea/.cache/antidote/belak/zsh-utils/completion )
 source /home/tallonea/.cache/antidote/belak/zsh-utils/completion/completion.plugin.zsh
 source $ZDOTDIR/.aliases
+source $ZDOTDIR/.functions
 fpath+=( /home/tallonea/.cache/antidote/jeffreytse/zsh-vi-mode )
 source /home/tallonea/.cache/antidote/jeffreytse/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+fpath+=( /home/tallonea/.cache/antidote/psprint/zsh-sweep )
+source /home/tallonea/.cache/antidote/psprint/zsh-sweep/zsh-sweep.plugin.zsh
 fpath+=( /home/tallonea/.cache/antidote/zsh-users/zsh-autosuggestions )
 zsh-defer source /home/tallonea/.cache/antidote/zsh-users/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 fpath+=( /home/tallonea/.cache/antidote/mattmc3/zfunctions )
