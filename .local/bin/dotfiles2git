@@ -42,6 +42,7 @@ _dotfiles() {
   _git "$@"
 }
 # Associate the completion function with the dotfiles and dotcommand
+autoload -Uz compinit && compinit
 compdef _dotfiles dotfiles
 compdef _dotfiles dot
 
