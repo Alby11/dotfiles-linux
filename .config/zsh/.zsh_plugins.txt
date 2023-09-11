@@ -230,6 +230,7 @@ belak/zsh-utils path:completion
 #
 ###
 $ZDOTDIR/.aliases
+jeffreytse/zsh-vi-mode
 
 # These popular core plugins should be loaded at the end
 # unixorn/fzf-zsh-plugin branch:main

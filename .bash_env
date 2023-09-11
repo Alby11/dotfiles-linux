@@ -1,0 +1,9 @@
+#!/bin/bash
+#
+# .bash_env - Bash environment file, loaded always.
+#
+
+# NOTE: .bash_env needs to live at ~/.bash_env
+   if [ -f $HOME/.zshenv ]; then
+           source $HOME/.zshenv
+   fi
