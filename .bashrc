@@ -124,7 +124,6 @@ if ! shopt -oq posix; then
         . /etc/bash_completion
     fi
 fi
-
 # Welcome message
 if command -v neofetch &> /dev/null; then neofetch; fi
 # userName=$( echo "user  $(whoami)" | figlet -o -k -c -f small )
@@ -132,8 +131,3 @@ if command -v neofetch &> /dev/null; then neofetch; fi
 # shellName=$( echo "with  $SHELL" | figlet -o -k -c -f small )
 theDate=$( date +"%a %y%m%d" | figlet -o -k -c -f small )
 theTime=$( date +"%X %Z" | figlet -o -k -c -f small )
-echo $userName | lolcat
-echo $computerName | lolcat
-echo $shellName | lolcat
-echo $theDate | lolcat
-echo $theTime | lolcat
