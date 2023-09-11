@@ -160,10 +160,10 @@ fpath+=( /home/tallonea/.cache/antidote/MichaelAquilina/zsh-you-should-use/src )
 fpath+=( /home/tallonea/.cache/antidote/zsh-users/zsh-completions/src )
 fpath+=( /home/tallonea/.cache/antidote/belak/zsh-utils/completion )
 source /home/tallonea/.cache/antidote/belak/zsh-utils/completion/completion.plugin.zsh
+source $ZDOTDIR/.aliases
 fpath+=( /home/tallonea/.cache/antidote/zsh-users/zsh-autosuggestions )
 zsh-defer source /home/tallonea/.cache/antidote/zsh-users/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 fpath+=( /home/tallonea/.cache/antidote/mattmc3/zfunctions )
 zsh-defer source /home/tallonea/.cache/antidote/mattmc3/zfunctions/zfunctions.plugin.zsh
 fpath+=( /home/tallonea/.cache/antidote/zsh-users/zsh-history-substring-search )
 source /home/tallonea/.cache/antidote/zsh-users/zsh-history-substring-search/zsh-history-substring-search.plugin.zsh
-source $ZDOTDIR/.aliases
