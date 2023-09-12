@@ -11,7 +11,6 @@ antidoteList="$(antidote list)"
 string="Aloxaf/fzf-tab"
 if [[ $antidoteList =~ $string ]]; then
   autoload -Uz enable-fzf-tab
-  echo 'tetretetet'
 fi
 string="lincheney/fzf-tab-completion"
 if [[ $antidoteList =~ $string ]]; then
