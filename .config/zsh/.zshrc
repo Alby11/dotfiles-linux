@@ -48,16 +48,22 @@ export ZSH=${ZSH:-$ZDOTDIR/.oh-my-zsh}
 autoload -Uz compinit && compinit
 autoload -Uz promptinit && promptinit
 
-# Create an amazing Zsh config using antidote plugins.
-SOURCE_RCFILE ${ZDOTDIR:-~}/.antidote/antidote.zsh
-zs_set_path=1 #zsh-sweep
-antidote load
-
 # Autoload functions you might want to use with antidote.
 ZFUNCDIR=${ZFUNCDIR:-$ZDOTDIR/functions}
 fpath=($ZFUNCDIR $fpath)
 autoload -Uz $fpath[1]/*(.:t)
 echocat $fpath[1]/*(.:t)
+
+# Create an amazing Zsh config using antidote plugins.
+SOURCE_RCFILE ${ZDOTDIR:-~}/.antidote/antidote.zsh
+zs_set_path=1 #zsh-sweep
+antidote load
+autoload -Uz compinit && compinit
+
+# zsh_unplugged - https://github.com/mattmc3/zsh_unplugged
+# SOURCE_RCFILE $ZDOTDIR/.zsh_unpluggedrc
+# SOURCE_RCFILE $ZDOTDIR/.aliases
+# SOURCE_RCFILE $ZDOTDIR/.functions
 
 # Basic auto/tab complete:
 # autoload -Uz compinit
@@ -65,8 +71,6 @@ echocat $fpath[1]/*(.:t)
 # compinit
 # _comp_options+=(globdots)		# Include hidden files.
 
-
-# dot fetch origin main ; dot diff --quiet main main || echo 'directory differ'
 # Uncomment the following line to enable command auto-correction.
 ENABLE_CORRECTION="true"
 
@@ -119,29 +123,10 @@ SOURCE_RCFILE $ZSH/plugins/zsh-interactive-cd/zsh-interactive-cd.plugin.zsh
 # KUBECONFIG
 export KUBECONFIG=$KUBECONFIG:$HOME/.kube/config:$HOME/.kube/configs/kubeconfig.yaml
 
-# if present, source FZF
-if command -v fzf &>/dev/null
-then
-  if command -v antidote &>/dev/null
-  then
-    antidote bundle "https://github.com/unixorn/fzf-zsh-plugin" | echocat
-  elif [ -f $HOME/.fzf.zsh ]
-  then
-    SOURCE_RCFILE $HOME/.fzf.zsh
-  fi
-  export FZF_BASE="$(which fzf)"
-  export FZF_DEFAULT_COMMAND='rg --ignore-case --files --no-ignore-vcs --hidden '
-  # catppucin theme
-  export FZF_DEFAULT_OPTS=" --preview bat --border=rounded \
-    --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
-    --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
-    --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 "
-fi
-
 ### Initialize Zoxide
 if command -v zoxide &> /dev/null
 then
-  eval "$(zoxide init zsh)"
+  # eval "$(zoxide init zsh)"
 fi
 
 ### Initialize Starship

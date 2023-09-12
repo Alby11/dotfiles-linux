@@ -22,7 +22,6 @@ echo '.zsh_plugins.txt - antidote plugins file'
 ###
 
 ### Priority Plugins
-romkatv/zsh-defer
 
 ### Regular Plugins
 #
@@ -232,18 +231,19 @@ belak/zsh-utils path:completion
 # .zsh_plugins.txt file.
 #
 ###
-$ZDOTDIR/.aliases
-$ZDOTDIR/.functions
 jeffreytse/zsh-vi-mode
 # zs_set_path=1
 psprint/zsh-sweep
 
 # These popular core plugins should be loaded at the end
 # unixorn/fzf-zsh-plugin branch:main
+unixorn/fzf-zsh-plugin kind:defer
 zsh-users/zsh-autosuggestions kind:defer
 mattmc3/zfunctions kind:defer
 zsh-users/zsh-history-substring-search
+romkatv/zsh-defer
 
 # Others
+$ZDOTDIR/.aliases
+$ZDOTDIR/.functions
 #MichaelAquilina/zsh-auto-notify
-#

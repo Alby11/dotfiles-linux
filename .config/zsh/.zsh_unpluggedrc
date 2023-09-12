@@ -7,231 +7,162 @@ if [[ ! -d $ZPLUGINDIR/zsh_unplugged ]]; then
 fi
 source $ZPLUGINDIR/zsh_unplugged/zsh_unplugged.zsh
 
-# make list of the Zsh plugins you use
+##? Clone a plugin, identify its init file, source it, and add it to your fpath.
+function plugin-load {
+  local repo plugdir initfile initfiles=()
+  : ${ZPLUGINDIR:=${ZDOTDIR:-~/.config/zsh}/plugins}
+  for repo in $@; do
+    plugdir=$ZPLUGINDIR/${repo:t}
+    initfile=$plugdir/${repo:t}.plugin.zsh
+    if [[ ! -d $plugdir ]]; then
+      echo "Cloning $repo..."
+      git clone -q --depth 1 --recursive --shallow-submodules \
+        https://github.com/$repo $plugdir
+    fi
+    if [[ ! -e $initfile ]]; then
+      initfiles=($plugdir/*.{plugin.zsh,zsh-theme,zsh,sh}(N))
+      (( $#initfiles )) || { echo >&2 "No init file '$repo'." && continue }
+      ln -sf $initfiles[1] $initfile
+    fi
+    fpath+=$plugdir
+    (( $+functions[zsh-defer] )) && zsh-defer . $initfile || . $initfile
+  done
+}
+
+# declare a simple plugin-clone function, leaving the user to source plugins themselves
+function plugin-clone {
+  local repo plugdir initfile initfiles=()
+  ZPLUGINDIR=${ZPLUGINDIR:-${ZDOTDIR:-$HOME/.config/zsh}/plugins}
+  for repo in $@; do
+    plugdir=$ZPLUGINDIR/${repo:t}
+    initfile=$plugdir/${repo:t}.plugin.zsh
+    if [[ ! -d $plugdir ]]; then
+      echo "Cloning $repo..."
+      git clone -q --depth 1 --recursive --shallow-submodules \
+        https://github.com/$repo $plugdir
+    fi
+    if [[ ! -e $initfile ]]; then
+      initfiles=($plugdir/*.{plugin.zsh,zsh-theme,zsh,sh}(N))
+      (( $#initfiles )) && ln -sf $initfiles[1] $initfile
+    fi
+  done
+}
+
+# now, plugin-source is a separate thing
+function plugin-source {
+  local plugdir
+  ZPLUGINDIR=${ZPLUGINDIR:-${ZDOTDIR:-$HOME/.config/zsh}/plugins}
+  for plugdir in $@; do
+    [[ $plugdir = /* ]] || plugdir=$ZPLUGINDIR/$plugdir
+    fpath+=$plugdir
+    local initfile=$plugdir/${plugdir:t}.plugin.zsh
+    (( $+functions[zsh-defer] )) && zsh-defer . $initfile || . $initfile
+  done
+}
+
+function plugin-compile {
+  ZPLUGINDIR=${ZPLUGINDIR:-$HOME/.config/zsh/plugins}
+  autoload -U zrecompile
+  local f
+  for f in $ZPLUGINDIR/**/*.zsh{,-theme}(N); do
+    zrecompile -pq "$f"
+  done
+}
+
+function plugin-update {
+  ZPLUGINDIR=${ZPLUGINDIR:-$HOME/.config/zsh/plugins}
+  for d in $ZPLUGINDIR/*/.git(/); do
+    echo "Updating ${d:h:t}..."
+    command git -C "${d:h}" pull --ff --recurse-submodules --depth 1 --rebase --autostash
+  done
+}
+
+# make a list of github repos
 repos=(
-  ### Priority Plugins
-  romkatv/zsh-defer
+  # not-sourcable plugins
+  romkatv/zsh-bench
 
-  ### Regular Plugins
-  #
-  # Plugins are the simplest kind of bundles. You can point to a full git URL, or if you
-  # assume GitHub.com, then you can use the user/repo shorthand.
-  #
-  ###
-  https://github.com/peterhurford/up.zsh
-  rummik/zsh-tailf
-  mattmc3/zman
-  agkozak/zsh-z
+  # projects with nested plugins
+  belak/zsh-utils
+  ohmyzsh/ohmyzsh
 
-
-  ### Local Plugins
-  #
-  # Plugins don't have to come from GitHub. You can also use local files or directories to
-  # host your own custom plugins.
-  #
-  ###
-  # $ZDOTDIR/.aliases
-
-  ### Local Plugins with Variables
-  #
-  # If you want to use variables in this file, you will need to use the envsubst utility.
-  # It may come installed on your system, or be available in your OS package manager. Or,
-  # you can use the Python one-liner wrapper function included in this sample project.
-  # To replace environment variables, you need to change your `antidote bundle` call to
-  # this.
-  #
-  #   zsh_plugins=${ZDOTDIR:-~}/.zsh_plugins.zsh
-  #   envsubst <${zsh_plugins:r}.txt | antidote bundle >|$zsh_plugins
-  #
-  ###
-  # reference your own plugins
-  # $ZSH_CUSTOM/plugins/nodejs
-  # $ZSH_CUSTOM/plugins/python
-  # $ZSH_CUSTOM/plugins/ruby
-  ### Prompts
-  #
-  # You can make certain themes available to the built-in Zsh prompt command using the
-  # `kind:fpath` annotation. A theme is not active for the prompt until this command is
-  # run:
-  #
-  #   autoload -Uz promptinit && promptinit
-  #   prompt ${prompt_name:-pure}
-  #
-  # There are two ways to load prompts.
-  # - Add multiple prompt plugins to your `$fpath` with `kind:fpath` and then later in
-  #   your .zshrc run the Zsh built-in `prompt` to select the theme.
-  # - Or, just load one prompt like a regular plugin.
-  #
-  belak/zsh-utils path:prompt
-
-  # annotations are also allowed:
-  romkatv/zsh-bench kind:path
-  olets/zsh-abbr    kind:defer
-
-  ### Frameworks
-  #
-  # Frameworks are a collection of Zsh features, settings, and plugins meant to ease
-  # Zsh configuration. Unfortunately, all that power can come with serious drawbacks.
-  # Frameworks can often set more settings or aliases than you need, cluttering your Zsh
-  # config and slowing things down. Use with caution!
-  #
-  # Frameworks are handled in antidote using the `path:location/of/plugin` annotation.
-  #
-  ###
-
-  ### Framework: Oh-My-Zsh
-  #
-  # Oh-My-Zsh is a very popular Zsh framework. You might choose to use plugins from OMZ
-  # in your own config. Depending on which plugins you use, you may also need to include
-  # OMZ's entire "lib" directory. If you do this, be careful - "lib" configures a lot of
-  # very broad settings. If you are familiar with what you are doing, you may choose to
-  # only include parts of "lib".
-  #
-  #   # use all of lib
-  #   ohmyzsh/ohmyzsh path:lib
-  #   # -OR-, only use only the specific files we care about
-  #   ohmyzsh/ohmyzsh path:lib/clipboard.zsh
-  #
-  ####
-  ohmyzsh/ohmyzsh path:lib
-  ohmyzsh/ohmyzsh path:plugins/ag kind:fpath
-  ohmyzsh/ohmyzsh path:plugins/aliases
-  ohmyzsh/ohmyzsh path:plugins/autoenv
-  ohmyzsh/ohmyzsh path:plugins/battery
-  ohmyzsh/ohmyzsh path:plugins/brew kind:fpath
-  ohmyzsh/ohmyzsh path:plugins/colemak kind:fpath
-  ohmyzsh/ohmyzsh path:plugins/colored-man-pages
-  ohmyzsh/ohmyzsh path:plugins/colorize
-  ohmyzsh/ohmyzsh path:plugins/command-not-found
-  ohmyzsh/ohmyzsh path:plugins/compleat
-  ohmyzsh/ohmyzsh path:plugins/copybuffer
-  ohmyzsh/ohmyzsh path:plugins/copyfile
-  ohmyzsh/ohmyzsh path:plugins/copypath
-  ohmyzsh/ohmyzsh path:plugins/cp
-  ohmyzsh/ohmyzsh path:plugins/debian
-  ohmyzsh/ohmyzsh path:plugins/docker
-  ohmyzsh/ohmyzsh path:plugins/docker-compose
-  ohmyzsh/ohmyzsh path:plugins/extract
-  ohmyzsh/ohmyzsh path:plugins/fd kind:fpath
-  ohmyzsh/ohmyzsh path:plugins/fzf
-  ohmyzsh/ohmyzsh path:plugins/git
-  ohmyzsh/ohmyzsh path:plugins/github
-  ohmyzsh/ohmyzsh path:plugins/gitignore
-  ohmyzsh/ohmyzsh path:plugins/golang
-  ohmyzsh/ohmyzsh path:plugins/gpg-agent
-  ohmyzsh/ohmyzsh path:plugins/history
-  ohmyzsh/ohmyzsh path:plugins/history-substring-search
-  ohmyzsh/ohmyzsh path:plugins/kubectl
-  ohmyzsh/ohmyzsh path:plugins/kubectx
-  ohmyzsh/ohmyzsh path:plugins/last-working-dir
-  ohmyzsh/ohmyzsh path:plugins/magic-enter
-  ohmyzsh/ohmyzsh path:plugins/minikube
-  ohmyzsh/ohmyzsh path:plugins/node
-  ohmyzsh/ohmyzsh path:plugins/npm
-  ohmyzsh/ohmyzsh path:plugins/nvm
-  ohmyzsh/ohmyzsh path:plugins/pep8 kind:fpath
-  ohmyzsh/ohmyzsh path:plugins/pip
-  ohmyzsh/ohmyzsh path:plugins/pyenv
-  ohmyzsh/ohmyzsh path:plugins/python
-  ohmyzsh/ohmyzsh path:plugins/ripgrep kind:fpath
-  ohmyzsh/ohmyzsh path:plugins/rsync
-  ohmyzsh/ohmyzsh path:plugins/sprunge
-  ohmyzsh/ohmyzsh path:plugins/ssh-agent
-  ohmyzsh/ohmyzsh path:plugins/sudo
-  ohmyzsh/ohmyzsh path:plugins/systemd
-  ohmyzsh/ohmyzsh path:plugins/tmux
-  ohmyzsh/ohmyzsh path:plugins/tmuxinator
-  ohmyzsh/ohmyzsh path:plugins/ubuntu
-  ohmyzsh/ohmyzsh path:plugins/urltools
-  # ohmyzsh/ohmyzsh path:plugins/vi-mode
-  ohmyzsh/ohmyzsh path:plugins/virtualenv
-  ohmyzsh/ohmyzsh path:plugins/virtualenvwrapper
-  ohmyzsh/ohmyzsh path:plugins/vscode
-  ohmyzsh/ohmyzsh path:plugins/web-search
-  ohmyzsh/ohmyzsh path:plugins/yum
-  ohmyzsh/ohmyzsh path:plugins/zoxide
-
-  ### Framework: zsh-utils
-  #
-  # zsh-utils is a micro-framework that is also well suited to pair with antidote. It
-  # provides much of the same core functionality from other bigger frameworks without the
-  # bloat or performance hit. Using zsh-utils, you may find you don't need much else.
-  # If you want a really thin framework, this is great.
-  #
-  ###ke zsh-utils
-  belak/zsh-utils path:editor
-  belak/zsh-utils path:history
-  belak/zsh-utils path:utility
-
-  # History
-  # wulfgarpro/history-sync
-  # larkery/zsh-histdb
-  # jimhester/per-directory-history
-
-  ### Deferred Plugins
-  #
-  # Antidote allows you to defer loading plugins. This is similar to concepts like "turbo
-  # mode" in other plugin managers. Antidote handles deferring plugins by leveraging
-  # romkatv/zsh-defer, which "defers execution of a zsh command until zsh has nothing else
-  # to do and is waiting for user input". In general, you should not defer plugins unless
-  # you know for sure they properly support deferred loading, and there are no adverse
-  # side-effects (see: https://github.com/romkatv/zsh-defer#Caveats). However, for
-  # certain plugins, this can greatly increase your zsh startup speed.
-  #
-  ###
-  # Syntax highlighting
-  zsh-users/zsh-syntax-highlighting kind:defer
-  # zdharma-continuum/fast-syntax-highlighting kind:defer
-
-  ### Completions
-  #
-  # You may want to add some additional completions to Zsh. Completions look in your fpath
-  # for completion functions, which are functions named with a leading underscore
-  # (eg: _git). You need to add all supplemental completions to your fpath prior to
-  # running `compinit` to use completions functionality properly. You will want to find
-  # a completion plugin that runs `compinit` for you, or you can run it yourself in
-  # your .zshrc after antidote loads like this:
-  #
-  #   autoload -Uz compinit && compinit
-  #
-  ###
-
-  # zsh-users/zsh-completions is a popular plugin for adding supplemental completions.
-  # We combine the `path:` and `kind:fpath` annotations here:
-  srijanshetty/zsh-pip-completion path:src kind:fpath
-  3v1n0/zsh-bash-completions-fallback path:src kind:fpath
-  MenkeTechnologies/zsh-cargo-completion path:src kind:fpath
-  greymd/docker-zsh-completion path:src kind:fpath
-  lukechilds/zsh-better-npm-completion path:src kind:fpath
-  sunlei/zsh-ssh path:src kind:fpath
-  vasyharan/zsh-brew-services path:src kind:fpath
-  viasite-ansible/zsh-ansible-server path:src kind:fpath
-  MichaelAquilina/zsh-you-should-use path:src kind:fpath
-  zsh-users/zsh-completions path:src kind:fpath
-
-  # Compinit plugins should be near the end of .zsh_plugins.txt so that $fpath has been
-  # fully populated. Use zsh-utils for its completion plugin.
-  belak/zsh-utils path:completion
-
-  ### Final Plugins
-  #
-  # Remember plugin order matters! Put plugins that need run last at the bottom of your
-  # .zsh_plugins.txt file.
-  #
-  ###
-  $ZDOTDIR/.aliases
-  $ZDOTDIR/.functions
+  # regular plugins
   jeffreytse/zsh-vi-mode
-
-  # These popular core plugins should be loaded at the end
-  # unixorn/fzf-zsh-plugin branch:main
-  zsh-users/zsh-autosuggestions kind:defer
-  mattmc3/zfunctions kind:defer
+  zsh-users/zsh-autosuggestions
   zsh-users/zsh-history-substring-search
-
-  # Others
-  #MichaelAquilina/zsh-auto-notify
+  zdharma-continuum/fast-syntax-highlighting
+zsh-users/zsh-syntax-highlighting
+  olets/zsh-abbr   
+  mattmc3/zman
+  mattmc3/zfunctions
+  romkatv/zsh-defer
 )
+plugin-clone $repos
 
-# now load your plugins
-plugin-load $repos
+# zsh-bench doesn't have a plugin file
+# it just needs added to your $PATH
+export PATH="$ZPLUGINDIR/zsh-bench:$PATH"
+
+# Oh-My-Zsh plugins rely on stuff in its lib directory
+ZSH=$ZPLUGINDIR/ohmyzsh
+for _f in $ZSH/lib/*.zsh; do
+  source $_f
+done
+unset _f
+
+# source other plugins
+plugins=(
+  # ohmyzsh/plugins/magic-enter
+  # ohmyzsh/plugins/history-substring-search
+  # ohmyzsh/plugins/z
+  fast-syntax-highlighting
+  zsh-autosuggestions
+)
+plugin-source $plugins
+
+### PLUGINS CONFIGURATIONS
+# vi mode
+export VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true
+export VI_MODE_SET_CURSOR=true
+export MODE_INDICATOR="%F{white}+%f"
+export INSERT_MODE_INDICATOR="%F{yellow}+%f"
+### Zsh Vi Mode - https://github.com/jeffreytse/zsh-vi-mode
+# Only changing the escape key to `jk` in insert mode, we still
+# keep using the default keybindings `^[` in other modes
+ZVM_VI_INSERT_ESCAPE_BINDKEY=kj
+# Change to Zsh's default readkey engine
+# ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_ZLE # Default
+ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_NEX # Better, beta
+# zsh-history-substring-search
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+bindkey -M emacs '^P' history-substring-search-up
+bindkey -M emacs '^N' history-substring-search-down
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
+# zsh-history
+export ZSH_HISTORY_FILE_NAME=".zsh_history"
+export ZSH_HISTORY_FILE="${HOME}/${ZSH_HISTORY_FILE_NAME}"
+export ZSH_HISTORY_PROJ="$ZDOTDIR/zsh-history"
+export ZSH_HISTORY_FILE_ENC_NAME="zsh_history"
+export ZSH_HISTORY_FILE_ENC="${ZSH_HISTORY_PROJ}/${ZSH_HISTORY_FILE_ENC_NAME}"
+export ZSH_HISTORY_COMMIT_MSG="latest $(date)"
+export HISTSIZE=1000000000
+export SAVEHIST=$HISTSIZE
+setopt EXTENDED_HISTORY
+# per-directory-history
+# export PER_DIRECTORY_HISTORY_TOGGLE=''
+export LESSOPEN='| lessfilter-fzf %s'
+export FZF_PREVIEW_ADVANCED=true
+# zsh-autosuggestions
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=245'
+ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(
+    "expand-or-complete"
+    "pcomplete"
+    "copy-earlier-word"
+)
+bindkey '^J' autosuggest-accept # ctrl-l, hjk
+# magic-enter
+MAGIC_ENTER_GIT_COMMAND='git status -u .'
+# MAGIC_ENTER_OTHER_COMMAND='ls -lh .'
+MAGIC_ENTER_OTHER_COMMAND=''

@@ -11,5 +11,4 @@ echocat '.zstyles - Set zstyle settings for plugins that need them.'
 
 zstyle ':antidote:bundle' file ${ZDOTDIR:-~}/.zsh_plugins.txt
 zstyle ':antidote:bundle' use-friendly-names 'yes'
-
 zstyle ':completion:*' menu select
