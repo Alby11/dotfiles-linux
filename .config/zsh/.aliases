@@ -286,6 +286,8 @@ if [ "$(command -v fzf)" ] && [ "$(command -v rg)" ] && [ "$(command -v bat)" ];
         # --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4 \
         # ;"
     alias -g R='| rg '
+    alias -g rf="rg . | fzf"
+    alias -g rfl="rg . | fzf | cut -d ":" -f 1"
 else
     echo "fzf|rg|bat missing..."
 fi
