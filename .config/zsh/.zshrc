@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/env zsh
 #
 # .zshrc - Zsh file loaded on interactive shell sessions.
 #
@@ -33,15 +33,8 @@ git config --global core.pager.nvim.cmd "$(which nvim) -c 'Man!' -o -"
 # Zsh options.
 setopt extended_glob
 
-# Set the path to the Oh My Zsh installation directory
-export ZSH=${ZSH:-$ZDOTDIR/.oh-my-zsh}
-
 # Source zstyles you might use with antidote.
-[[ -e ${ZDOTDIR:-~}/.zstyles ]] && SOURCE_RCFILE ${ZDOTDIR:-~}/.zstyles
-
-# Clone antidote if necessary.
-[[ -d ${ZDOTDIR:-~}/.antidote ]] ||
-  git clone https://github.com/mattmc3/antidote ${ZDOTDIR:-~}/.antidote
+[[ -e ${ZDOTDIR:-$HOME}/.zstyles ]] && SOURCE_RCFILE ${ZDOTDIR:-~}/.zstyles
 
 # Initialize the Zsh completion system
 # This enables advanced command-line completion features
@@ -49,21 +42,24 @@ autoload -Uz compinit && compinit
 autoload -Uz promptinit && promptinit
 
 # Autoload functions you might want to use with antidote.
-ZFUNCDIR=${ZFUNCDIR:-$ZDOTDIR/functions}
-fpath=($ZFUNCDIR $fpath)
-autoload -Uz $fpath[1]/*(.:t)
-echocat $fpath[1]/*(.:t)
+# ZFUNCDIR=${ZFUNCDIR:-$ZDOTDIR/functions}
+# fpath=($ZFUNCDIR $fpath)
+# autoload -Uz $fpath[1]/*(.:t)
+# echocat $fpath[1]/*(.:t)
 
+# Clone antidote if necessary.
+[[ -d ${ZDOTDIR:-$HOME}/.antidote ]] ||
+  git clone https://github.com/mattmc3/antidote ${ZDOTDIR:-$HOME}/.antidote
 # Create an amazing Zsh config using antidote plugins.
 SOURCE_RCFILE ${ZDOTDIR:-~}/.antidote/antidote.zsh
-zs_set_path=1 #zsh-sweep
-antidote load
-autoload -Uz compinit && compinit
-
-# zsh_unplugged - https://github.com/mattmc3/zsh_unplugged
-# SOURCE_RCFILE $ZDOTDIR/.zsh_unpluggedrc
-# SOURCE_RCFILE $ZDOTDIR/.aliases
-# SOURCE_RCFILE $ZDOTDIR/.functions
+# Set the path to the Oh My Zsh installation directory
+if command -v antidote &>/dev/null; then
+  antidote load
+  autoload -Uz compinit && compinit
+  export ZSH=${ZSH:-$(antidote path ohmyzsh/ohmyzsh)}
+else
+  echocat "antidot is not installed/in PATH and oh-my-zsh dir not set up"
+fi
 
 # Basic auto/tab complete:
 # autoload -Uz compinit
@@ -107,7 +103,7 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 [[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
 
 ### GITHUB repos exports
-[ -d ~/gitdepot ] && gitdepot=~/gitdepot
+[ -d $HOME/gitdepot ] && gitdepot=$HOME/gitdepot
 
 # TTY theme
 SOURCE_RCFILE $ZDOTDIR/catppuccin_tty/src/mocha.sh
@@ -118,7 +114,7 @@ SOURCE_RCFILE $ZDOTDIR/catppuccin_zsh-syntax-highlighting/themes/catppuccin_moch
 # SOURCE_RCFILE $ZDOTDIR/dracula_zsh-syntax-highlighting/zsh-syntax-highlighting.sh
 
 # ZSH interactive cd
-SOURCE_RCFILE $ZSH/plugins/zsh-interactive-cd/zsh-interactive-cd.plugin.zsh
+# SOURCE_RCFILE $ZSH/plugins/zsh-interactive-cd/zsh-interactive-cd.plugin.zsh
 
 # KUBECONFIG
 export KUBECONFIG=$KUBECONFIG:$HOME/.kube/config:$HOME/.kube/configs/kubeconfig.yaml

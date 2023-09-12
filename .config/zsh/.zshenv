@@ -1,10 +1,9 @@
-#!/bin/zsh
+#!/bin/env zsh
 #
 # .zshenv - Zsh environment file, loaded always.
 #
 
 # NOTE: .zshenv needs to live at ~/.zshenv, not in $ZDOTDIR!
-
 
 # use lolcat as a special echo command
 export function echocat() {
@@ -42,7 +41,6 @@ export function EXPORT_DIR()
     fi
 }
 
-
 # fiexport XDG_CONFIG_HOME="$HOME/.config"
 # Set ZDOTDIR if you want to re-home Zsh.
 # export ZSH_CONFIG_HOME="$HOME/.config/zsh"
@@ -53,6 +51,7 @@ export ZDOTDIR=${ZDOTDIR:-$XDG_CONFIG_HOME/zsh}
 # Set omz variables prior to loading omz plugins
 # see issue https://github.com/ohmyzsh/ohmyzsh/issues/11762
 export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/oh-my-zsh"
+export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}"
 mkdir -p $ZSH_CACHE_DIR/completions
 
 #
@@ -73,7 +72,7 @@ fi
 
 if command -v batpipe &>/dev/null; then
   # To use batpipe, eval the output of this command in your shell init script.
-  LESSOPEN="|$(which batpipe) %s";
+  # LESSOPEN="|$(which batpipe) %s";
   export LESSOPEN;
   unset LESSCLOSE;
   # The following will enable colors when using batpipe with less:

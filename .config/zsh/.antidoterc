@@ -1,4 +1,4 @@
-# ~/.config/zsh//antidoterc
+#!/bin/env zsh
 
 # You can change the names/locations of these if you prefer.
 antidote_dir=${ZDOTDIR:-~}/.antidote
@@ -35,10 +35,10 @@ unset antidote_dir plugins_txt static_file
 ### Zsh Vi Mode - https://github.com/jeffreytse/zsh-vi-mode
 # Only changing the escape key to `jk` in insert mode, we still
 # keep using the default keybindings `^[` in other modes
-ZVM_VI_INSERT_ESCAPE_BINDKEY=kj
+export ZVM_VI_INSERT_ESCAPE_BINDKEY=kj
 # Change to Zsh's default readkey engine
-# ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_ZLE # Default
-ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_NEX # Better, beta
+# export ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_ZLE # Default
+export ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_NEX # Better, beta
 # zsh-history-substring-search
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
@@ -58,7 +58,7 @@ export SAVEHIST=$HISTSIZE
 setopt EXTENDED_HISTORY
 # per-directory-history
 # export PER_DIRECTORY_HISTORY_TOGGLE=''
-export LESSOPEN='| lessfilter-fzf %s'
+# fzf
 export FZF_PREVIEW_ADVANCED=true
 export FZF_BASE="$(which fzf)"
 export FZF_DEFAULT_COMMAND='rg --ignore-case --files --no-ignore-vcs --hidden '
@@ -67,6 +67,7 @@ export FZF_DEFAULT_OPTS=" --preview bat --border=rounded \
   --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
   --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
   --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 "
+export LESSOPEN='| lessfilter-fzf %s'
 # zsh-autosuggestions
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=245'
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(
@@ -76,6 +77,8 @@ ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(
 )
 bindkey '^J' autosuggest-accept # ctrl-l, hjk
 # magic-enter
-MAGIC_ENTER_GIT_COMMAND='git status -u .'
+export MAGIC_ENTER_GIT_COMMAND='git status -u .'
 # MAGIC_ENTER_OTHER_COMMAND='ls -lh .'
-MAGIC_ENTER_OTHER_COMMAND=''
+export MAGIC_ENTER_OTHER_COMMAND=''
+#zsh-sweep
+export zs_set_path=1
