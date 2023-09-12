@@ -108,4 +108,5 @@ sync_home() {
     git -C $repository push
     git -C $repository status
   done
+  rm -rfv .xxh/.xxh/plugins/xxh-plugin-prerun-dotfiles
 }
