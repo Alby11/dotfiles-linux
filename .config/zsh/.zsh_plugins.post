@@ -1,0 +1,24 @@
+#!/bin/env zsh
+
+#
+# .zsh_plugins.post - post-antidote plugins file
+#
+
+echocat '.zsh_plugins.post - post-antidote plugins file'
+
+antidoteList="$(antidote list)"
+
+string="Aloxaf/fzf-tab"
+if [[ $antidoteList =~ $string ]]; then
+  autoload -Uz enable-fzf-tab
+  echo 'tetretetet'
+fi
+string="lincheney/fzf-tab-completion"
+if [[ $antidoteList =~ $string ]]; then
+  # alias -g grep='/bin/grep'
+  # SOURCE_RCFILE "$(antidote path lincheney/fzf-tab-completion)/$theShell/\
+  #   fzf-$theShell-completion.sh" \
+  #   ;
+  # bindkey '^I' fzf_completion
+  # zstyle ':completion:*' fzf-search-display true
+fi

@@ -19,12 +19,6 @@ autoload -Uz promptinit && promptinit
 # Source GIT configuration
 SOURCE_RCFILE $XDG_CONFIG_HOME/git/.git.conf
 
-# Autoload functions you might want to use with antidote.
-# ZFUNCDIR=${ZFUNCDIR:-$ZDOTDIR/functions}
-# fpath=($ZFUNCDIR $fpath)
-# autoload -Uz $fpath[1]/*(.:t)
-# echocat $fpath[1]/*(.:t)
-
 # Create an amazing Zsh config using antidote plugins.
 # Set the path to the Oh My Zsh installation directory
 SOURCE_RCFILE ${ZDOTDIR:-$HOME}/.antidote/antidote.zsh
@@ -33,8 +27,14 @@ if command -v antidote &>/dev/null; then
   export ZSH=${ZSH:-$(antidote path ohmyzsh/ohmyzsh)}
   antidote load ${ZDOTDIR:-$HOME}/.zsh_plugins.txt
   rm -f ${ZDOTDIR:-$HOME}/.zsh_plugins.zsh #rm static file
+  SOURCE_RCFILE ${ZDOTDIR:-$HOME}/.zsh_plugins.post
 else
-  echocat "antidote is not installed/present PATH"
+  echocat "A plugin manager is either:\n \
+    not installed\n \
+    present in PATH\n \
+    not configured\n \
+    not working\n \
+    ;"
 fi
 
 # Basic auto/tab complete:

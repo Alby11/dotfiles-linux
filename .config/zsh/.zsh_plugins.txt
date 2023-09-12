@@ -4,7 +4,7 @@
 # .zsh_plugins.txt - antidote plugins file
 #
 
-echo '.zsh_plugins.txt - antidote plugins file'
+echocat '.zsh_plugins.txt - antidote plugins file'
 
 ### Overview
 #
@@ -29,6 +29,7 @@ echo '.zsh_plugins.txt - antidote plugins file'
 # assume GitHub.com, then you can use the user/repo shorthand.
 #
 ###
+xPMo/zsh-ls-colors
 https://github.com/peterhurford/up.zsh
 rummik/zsh-tailf
 mattmc3/zman
@@ -108,7 +109,7 @@ olets/zsh-abbr    kind:defer
 ohmyzsh/ohmyzsh path:lib
 ohmyzsh/ohmyzsh path:plugins/ag kind:fpath
 ohmyzsh/ohmyzsh path:plugins/aliases
-ohmyzsh/ohmyzsh path:plugins/autoenv
+ohmyzsh/ohmyzsh path:plugins/autoenv kind:defer
 ohmyzsh/ohmyzsh path:plugins/battery
 ohmyzsh/ohmyzsh path:plugins/brew kind:fpath
 ohmyzsh/ohmyzsh path:plugins/colemak kind:fpath
@@ -235,8 +236,9 @@ jeffreytse/zsh-vi-mode
 psprint/zsh-sweep
 
 # These popular core plugins should be loaded at the end
-Aloxaf/fzf-tab kind:defer
 unixorn/fzf-zsh-plugin branch:main kind:defer
+Aloxaf/fzf-tab kind:defer
+# lincheney/fzf-tab-completion kind:defer
 zsh-users/zsh-autosuggestions kind:defer
 mattmc3/zfunctions kind:defer
 zsh-users/zsh-history-substring-search

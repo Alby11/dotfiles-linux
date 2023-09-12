@@ -5,6 +5,8 @@
 
 # NOTE: .zshenv needs to live at ~/.zshenv, not in $ZDOTDIR!
 
+export theShell="$(echo $SHELL | grep -o '[^\/]*$')"
+
 # use lolcat as a special echo command
 export function echocat() {
   if [ -x "$(command -v lolcat)" ]; then
