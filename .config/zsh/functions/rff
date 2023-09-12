@@ -1,0 +1,7 @@
+#!/bin/env zsh
+
+#Fuzzy search every line in every file and open it with vi/vim/neovim
+
+rff() {
+  vi $(find . -type f '/' | fzf)
+}
