@@ -2,6 +2,6 @@
 
 #Fuzzy search every line in every file and open it with vi/vim/neovim
 
-rfs() {
+fzf-rg-find() {
   vi $(rg . | fzf | cut -d ':' -f 1)
 }
