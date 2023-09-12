@@ -232,7 +232,6 @@ belak/zsh-utils path:completion
 #
 ###
 jeffreytse/zsh-vi-mode
-# zs_set_path=1
 psprint/zsh-sweep
 
 # These popular core plugins should be loaded at the end

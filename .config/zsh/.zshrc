@@ -5,41 +5,19 @@
 
 echocat '.zshrc - Zsh file loaded on interactive shell sessions.'
 
-### GIT CONFIG
-git config --global core.autocrlf false
-git config --global core.fsmonitor false
-git config --global credential.helper manager-core
-git config --global init.default.branch main
-git config --global core.editor less
-git config --global core.editor.less.path "$(which less)"
-git config --global core.editor.less.cmd "less -R"
-git config --global core.editor nvim
-git config --global core.editor.nvim.path "$(which nvim)"
-git config --global core.editor.nvim.cmd "nvim"
-git config --global diff.tool less
-git config --global diff.tool.less.path "$(which less)"
-git config --global diff.tool.less.cmd "less -R \"$local\" \"$remote\""
-git config --global diff.tool nvim
-git config --global diff.tool.nvim.path "$(which nvim)"
-git config --global diff.tool.nvim.cmd "nvim -d \"$local\" \"$remote\""
-git config --global core.pager less
-git config --global core.pager.less.path "$(which less)"
-git config --global core.pager.less.cmd 'less -R'
-git config --global core.pager nvim
-git config --global core.pager.nvim.path "$(which nvim)"
-git config --global core.pager.nvim.cmd "$(which nvim) -c 'Man!' -o -"
-### END OF GIT CONFIG
-
 # Zsh options.
 setopt extended_glob
-
-# Source zstyles you might use with antidote.
-[[ -e ${ZDOTDIR:-$HOME}/.zstyles ]] && SOURCE_RCFILE ${ZDOTDIR:-~}/.zstyles
 
 # Initialize the Zsh completion system
 # This enables advanced command-line completion features
 autoload -Uz compinit && compinit
 autoload -Uz promptinit && promptinit
+
+# Source zstyles you might use with antidote.
+[[ -e ${ZDOTDIR:-$HOME}/.zstyles ]] && SOURCE_RCFILE ${ZDOTDIR:-~}/.zstyles
+
+# Source GIT configuration
+SOURCE_RCFILE $XDG_CONFIG_HOME/git/.git.conf
 
 # Autoload functions you might want to use with antidote.
 # ZFUNCDIR=${ZFUNCDIR:-$ZDOTDIR/functions}
@@ -47,25 +25,21 @@ autoload -Uz promptinit && promptinit
 # autoload -Uz $fpath[1]/*(.:t)
 # echocat $fpath[1]/*(.:t)
 
-# Clone antidote if necessary.
-[[ -d ${ZDOTDIR:-$HOME}/.antidote ]] ||
-  git clone https://github.com/mattmc3/antidote ${ZDOTDIR:-$HOME}/.antidote
 # Create an amazing Zsh config using antidote plugins.
-SOURCE_RCFILE ${ZDOTDIR:-~}/.antidote/antidote.zsh
 # Set the path to the Oh My Zsh installation directory
+SOURCE_RCFILE ${ZDOTDIR:-$HOME}/.antidote/antidote.zsh
 if command -v antidote &>/dev/null; then
-  antidote load
-  autoload -Uz compinit && compinit
+  SOURCE_RCFILE ${ZDOTDIR:-$HOME}/.zsh_plugins.conf
   export ZSH=${ZSH:-$(antidote path ohmyzsh/ohmyzsh)}
+  antidote load ${ZDOTDIR:-$HOME}/.zsh_plugins.txt
+  rm -f ${ZDOTDIR:-$HOME}/.zsh_plugins.zsh #rm static file
 else
-  echocat "antidot is not installed/in PATH and oh-my-zsh dir not set up"
+  echocat "antidote is not installed/present PATH"
 fi
 
 # Basic auto/tab complete:
-# autoload -Uz compinit
-# zmodload zsh/complist
-# compinit
-# _comp_options+=(globdots)		# Include hidden files.
+autoload -Uz compinit && zmodload zsh/complist ; compinit
+_comp_options+=(globdots)		# Include hidden files.
 
 # Uncomment the following line to enable command auto-correction.
 ENABLE_CORRECTION="true"
