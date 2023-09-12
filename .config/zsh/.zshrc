@@ -24,7 +24,6 @@ SOURCE_RCFILE $XDG_CONFIG_HOME/git/.git.conf
 SOURCE_RCFILE ${ZDOTDIR:-$HOME}/.antidote/antidote.zsh
 if command -v antidote &>/dev/null; then
   SOURCE_RCFILE ${ZDOTDIR:-$HOME}/.zsh_plugins.conf
-  export ZSH=${ZSH:-$(antidote path ohmyzsh/ohmyzsh)}
   antidote load ${ZDOTDIR:-$HOME}/.zsh_plugins.txt
   rm -f ${ZDOTDIR:-$HOME}/.zsh_plugins.zsh #rm static file
   SOURCE_RCFILE ${ZDOTDIR:-$HOME}/.zsh_plugins.post
