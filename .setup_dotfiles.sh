@@ -33,3 +33,25 @@ dotfilesRestore () {
   dotfiles config --local status.showUntrackedFiles no
   dotfiles checkout || echo -e 'Deal with conflicting files, then run (possibly with -f flag if you are OK with overwriting)\ndotfiles checkout'
 }
+
+dotfiles config --global core.fsmonitor false
+dotfiles config --global credential.helper manager-core
+dotfiles config --global init.default.branch main
+dotfiles config --global core.editor less
+dotfiles config --global core.editor.less.path "$(which less)"
+dotfiles config --global core.editor.less.cmd "less -R"
+dotfiles config --global core.editor nvim
+dotfiles config --global core.editor.nvim.path "$(which nvim)"
+dotfiles config --global core.editor.nvim.cmd "nvim"
+dotfiles config --global diff.tool less
+dotfiles config --global diff.tool.less.path "$(which less)"
+dotfiles config --global diff.tool.less.cmd "less -R \"$local\" \"$remote\""
+dotfiles config --global diff.tool nvim
+dotfiles config --global diff.tool.nvim.path "$(which nvim)"
+dotfiles config --global diff.tool.nvim.cmd "nvim -d \"$local\" \"$remote\""
+dotfiles config --global core.pager less
+dotfiles config --global core.pager.less.path "$(which less)"
+dotfiles config --global core.pager.less.cmd 'less -R'
+dotfiles config --global core.pager nvim
+dotfiles config --global core.pager.nvim.path "$(which nvim)"
+dotfiles config --global core.pager.nvim.cmd "$(which nvim) -c 'Man!' -o -"

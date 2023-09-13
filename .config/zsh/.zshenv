@@ -65,6 +65,11 @@ export VISUAL="${VISUAL:-vim}"
 export PAGER="${PAGER:-less}"
 # Highlight section titles in manual pages.
 export LESS_TERMCAP_md="${yellow}";
+if command -v lesspipe.sh &>/dev/null; then
+  export LESSOPEN='| lessfilter-fzf %s'
+else
+  echocat 'LESSOPEN: lessfilter.sh in not installed or in PATH'
+fi
 if command -v nvim &>/dev/null; then
   export EDITOR="${$(which nvim):-$EDITOR}"
   export VISUAL="${$(which nvim):-$VISUAL}"

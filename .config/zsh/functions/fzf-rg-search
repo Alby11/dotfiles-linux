@@ -3,5 +3,5 @@
 #Fuzzy search every line in every file and open it with vi/vim/neovim
 
 fzf-rg-search() {
-  vi $(find . -type f '/' | fzf)
+  vi $(rg . | fzf | cut -d ':' -f 1)
 }
