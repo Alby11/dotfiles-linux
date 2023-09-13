@@ -236,15 +236,15 @@ jeffreytse/zsh-vi-mode
 psprint/zsh-sweep
 
 # These popular core plugins should be loaded at the end
-zsh-users/zsh-autosuggestions kind:defer
-mattmc3/zfunctions kind:defer
+zsh-users/zsh-autosuggestions          kind:defer
+mattmc3/zfunctions                     kind:defer
 zsh-users/zsh-history-substring-search
 romkatv/zsh-defer
 
 # Others
 $ZDOTDIR/.aliases
 $ZDOTDIR/.functions
-unixorn/fzf-zsh-plugin branch:main kind:defer #kind:fpath
-Aloxaf/fzf-tab kind:defer
-# lincheney/fzf-tab-completion kind:defer
-#MichaelAquilina/zsh-auto-notify
+unixorn/fzf-zsh-plugin             kind:defer branch:main 
+Aloxaf/fzf-tab                     kind:defer
+# lincheney/fzf-tab-completion     kind:defer
+# MichaelAquilina/zsh-auto-notify

@@ -8,10 +8,18 @@ echocat '.zsh_plugins.post - post-antidote plugins file'
 
 antidoteList="$(antidote list)"
 
+if command -v lessfilter-fzf &>/dev/null; then
+  export LESSOPEN='| lessfilter-fzf %s'
+else
+  echocat "LESSOPEN: lessfilter-fzf in not installed or in PATH
+  leaving - $(echo $LESSOPEN) - instead" -i
+fi
+
 string="Aloxaf/fzf-tab"
 if [[ $antidoteList =~ $string ]]; then
   autoload -Uz enable-fzf-tab
 fi
+
 string="lincheney/fzf-tab-completion"
 if [[ $antidoteList =~ $string ]]; then
   # alias -g grep='/bin/grep'
@@ -21,3 +29,5 @@ if [[ $antidoteList =~ $string ]]; then
   # bindkey '^I' fzf_completion
   # zstyle ':completion:*' fzf-search-display true
 fi
+
+unset antidoteList

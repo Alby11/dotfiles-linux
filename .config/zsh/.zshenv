@@ -8,7 +8,7 @@
 export theShell="$(echo $SHELL | grep -o '[^\/]*$')"
 
 # use lolcat as a special echo command
-export function echocat() {
+export echocat() {
   if [ -x "$(command -v lolcat)" ]; then
       if  lolcat --version | grep -E 'moe@busyloop.net' &>/dev/null; then
         alias lolcat='lolcat -ta'
@@ -25,7 +25,7 @@ export function echocat() {
 echocat '.zshenv - Zsh environment file, loaded always.'
 
 ### SOURCING/EXPORTING UTILITIES
-export function SOURCE_RCFILE() {
+export SOURCE_RCFILE() {
     if [ -f "$1" ]; then
         source "$1"
         echocat "$1 successfully sourced ... "
@@ -33,7 +33,7 @@ export function SOURCE_RCFILE() {
         echocat "$1 not sourced ... " -i
     fi
 }
-export function EXPORT_DIR()
+export EXPORT_DIR()
 {
     if [ -d $1 ]; then
       export PATH=$1:$PATH
@@ -48,45 +48,42 @@ export function EXPORT_DIR()
 # export ZSH_CONFIG_HOME="$HOME/.config/zsh"
 # export ZDOTDIR=$ZSH_CONFIG_HOME
 # Set ZDOTDIR if you want to re-home Zsh.
-export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
-export ZDOTDIR=${ZDOTDIR:-$XDG_CONFIG_HOME/zsh}
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+export ZDOTDIR="${ZDOTDIR:-$XDG_CONFIG_HOME/zsh}"
 # Set omz variables prior to loading omz plugins
 # see issue https://github.com/ohmyzsh/ohmyzsh/issues/11762
-export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/oh-my-zsh"
 export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}"
 mkdir -p $ZSH_CACHE_DIR/completions
 
 #
 # Editors
 #
-
 export EDITOR="${EDITOR:-vim}"
 export VISUAL="${VISUAL:-vim}"
 export PAGER="${PAGER:-less}"
+export MANPAGER="${MANPAGER:-$PAGER}"
+### Setting up less
 # Highlight section titles in manual pages.
-export LESS_TERMCAP_md="${yellow}";
+export LESS_TERMCAP_md="${yellow}"
 if command -v lesspipe.sh &>/dev/null; then
-  export LESSOPEN='| lessfilter-fzf %s'
+  lesspipe.sh | source /dev/stdin
 else
-  echocat 'LESSOPEN: lessfilter.sh in not installed or in PATH'
-fi
-if command -v nvim &>/dev/null; then
-  export EDITOR="${$(which nvim):-$EDITOR}"
-  export VISUAL="${$(which nvim):-$VISUAL}"
-  export PAGER="${$(which nvim):-$PAGER}"
-  export MANPAGER="$(which nvim) -c 'Man!' -o -"
+  echocat 'LESSOPEN: lesspipe.sh in not installed or in PATH' -i
 fi
 
+if command -v bat &>/dev/null; then
+  LESSCOLORIZER="bat --style=full --theme=catppuccin-mocha"
+fi
 if command -v batpipe &>/dev/null; then
   # To use batpipe, eval the output of this command in your shell init script.
-  # LESSOPEN="|$(which batpipe) %s";
-  export LESSOPEN;
-  unset LESSCLOSE;
+  LESSOPEN="|$(which batpipe) %s"
+  export LESSOPEN
+  unset LESSCLOSE
   # The following will enable colors when using batpipe with less:
-  LESS="$LESS -R";
-  BATPIPE="color";
-  export LESS;
-  export BATPIPE;
+  LESS="$LESS -R"
+  BATPIPE="color"
+  export LESS
+  export BATPIPE
 fi
 
 #
