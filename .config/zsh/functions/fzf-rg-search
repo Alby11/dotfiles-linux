@@ -1,7 +1,10 @@
 #!/bin/env zsh
 
-#Fuzzy search every line in every file and open it with vi/vim/neovim
 
+if [ ! command -v fzf &>/dev/null ] || [ ! command -v rg &>/dev/null ] ; then
+  echocat -i "fzf and/or rg not installed, unable to declare fzf-rg-find()"
+  return 1
+fi
 fzf-rg-search() {
-  vi $(rg . | fzf | cut -d ':' -f 1)
+    vi $(rg . | fzf | cut -d ':' -f 1)
 }

@@ -1,7 +1,17 @@
 #!/bin/env zsh
 
-#Fuzzy search every line in every file and open it with vi/vim/neovim
+#Fuzzy find random file and open it with vi/vim/neovim
+
+if [ ! command -v fzf &>/dev/null ] || [ ! command -v rg &>/dev/null ] ; then
+  echocat -i "fzf and/or rg not installed, unable to declare fzf-rg-find()"
+  return 1
+fi
 
 fzf-rg-find() {
-  vi $(find . -type f '/' | fzf)
+  if command -v fd &>/dev/null; then
+    vi $(fd --type f --unrestricted . --regex './' | fzf)
+  else
+    echocat -i "rg not installed, using find (fzf-rg-find())"
+    vi $(find . -regextype sed -regex '/' -type f | fzf)
+  fi
 }
