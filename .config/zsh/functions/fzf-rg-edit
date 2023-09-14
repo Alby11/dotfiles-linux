@@ -1,59 +1,50 @@
 #!/usr/bin/env bash
 
-set -o pipefail
+# This script uses ripgrep (rg) and fzf to search for a term in your files and open the file in your default editor at the line where the term was found.
+
+set -o pipefail  # Exit if any command in a pipeline fails
 if [[ -n "$DEBUG" ]]; then
-  set -x
+  set -x  # Print commands and their arguments as they are executed (for debugging)
 fi
 
+# Function to print an error message and exit with an error code
 fail() {
-  printf '%s\n' "$1" >&2
-  exit "${2-1}"
+  printf '%s\n' "$1" >&2  # Print the first argument as an error message
+  exit "${2-1}"  # Exit with the second argument as the error code, or 1 if no second argument is provided
 }
 
+# Function to check if a command exists
 has() {
-  which "$@" > /dev/null 2>&1
+  which "$@" > /dev/null 2>&1  # Redirect stdout and stderr to /dev/null
 }
 
-fzf-rg-edit() {
-  local case_sensitive="--case-sensitive"
-  local fixed_strings=""
-  while (( "$#" )); do
-    case "$1" in
-      -i)
-        case_sensitive="--ignore-case"
-        shift
-        ;;
-      -e)
-        fixed_strings="-F"
-        shift
-        ;;
-      *)
-        break
-        ;;
-    esac
-  done
+# Check if ripgrep is installed
+if ! has rg; then
+  fail "Can't find rg - install ripgrep and try again."
+fi
 
-  if has bat; then
-    file_and_line=$(
-      rg $case_sensitive $fixed_strings --hidden --color=always --line-number "$1" | fzf --ansi --no-multi --select-1 --exit-0 \
-        --preview 'echo {} | cut -d: -f1,2 | xargs -r sh -c '\''bat --color=always --line-range :500 "$@"'\'' _'
-      )
-    if [[ -n "$file_and_line" ]]; then
-      filename=$(echo "$file_and_line" | cut -d: -f1)
-      line_number=$(echo "$file_and_line" | cut -d: -f2)
-      $EDITOR +$line_number "$filename"
-    fi
-  else
-    file_and_line=$(
-      rg $case_sensitive $fixed_strings --hidden --color=always --line-number "$1" | fzf --ansi --no-multi --select-1 --exit-0 \
-        --preview 'echo {} | cut -d: -f1,2 | xargs -r sh -c '\''head -100 "$@"'\'' _'
-      )
-    if [[ -n "$file_and_line" ]]; then
-      filename=$(echo "$file_and_line" | cut -d: -f1)
-      line_number=$(echo "$file_and_line" | cut -d: -f2)
-      $EDITOR +$line_number "$filename"
-    fi
+# Define the main function of the script
+fzf-rg-edit(){
+  if [[ $# == 0 ]]; then
+    echo 'Error: search term was not provided.'
+    return
+  fi
+  
+  # Use ripgrep to search for the term in your files, then pipe the results to fzf for selection
+  match=$(
+    rg --color=always --line-number --hidden --case-sensitive "$1" |
+      fzf --no-multi --delimiter : \
+        --preview "less -N {2}: {1}" # --preview "head -100 {2}: {1}"
+  )
+  
+  # Extract the filename and line number from the selected result
+  file=$(echo "$match" | cut -d':' -f1)
+  
+  # Open the file in your default editor at the line where the term was found
+  if [[ -n $file ]]; then
+    "$EDITOR" "$file" +"$(echo "$match" | cut -d':' -f2)"
   fi
 }
 
-fzf-rg-edit $@
+# Call the main function with all command-line arguments
+fzf-rg-edit "$@"

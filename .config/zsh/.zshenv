@@ -22,6 +22,8 @@ export ECHOCAT() {
   fi
 }
 
+ECHOCAT ".zshenv - Zsh environment file, loaded always. SHLVL $SHLVL"
+
 # This function checks if the given commands are available on the system.
 # It takes an array of command names as an argument.
 # Each command name should be a separate argument.
@@ -49,8 +51,6 @@ export CHECK_COMMANDS() {
   done
   return 0  # Return a success status
 }
-
-# ECHOCAT '.zshenv - Zsh environment file, loaded always.'
 
 ### SOURCING/EXPORTING UTILITIES
 export SOURCE_RCFILE() {

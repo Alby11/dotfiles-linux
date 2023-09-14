@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 
 dush() {
     if [ -n "$ZSH_VERSION" ]; then
@@ -15,4 +15,3 @@ dush() {
         echo "Unsupported shell"
     fi
 }
-echo "ljsad;fksjad;flkj"

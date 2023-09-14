@@ -43,8 +43,8 @@ else
 fi
 
 # Basic auto/tab complete:
-autoload -Uz compinit && zmodload zsh/complist ; compinit
-_comp_options+=(globdots)		# Include hidden files.
+# autoload -Uz compinit && zmodload zsh/complist ; compinit
+# _comp_options+=(globdots)		# Include hidden files.
 
 # Uncomment the following line to enable command auto-correction.
 export ENABLE_CORRECTION="true"
