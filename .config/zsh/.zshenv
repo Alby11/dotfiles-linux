@@ -5,11 +5,11 @@
 
 # NOTE: .zshenv needs to live at ~/.zshenv, not in $ZDOTDIR!
 
-export theShell="$(echo $SHELL | grep -o '[^\/]*$')"
+export THE_SHELL="$(echo $SHELL | grep -o '[^\/]*$')"
 
 # use lolcat as a special echo command
-export echocat() {
-  if [ -x "$(command -v lolcat)" ]; then
+export ECHOCAT() {
+  if command -v lolcat &>/dev/null; then
       if  lolcat --version | grep -E 'moe@busyloop.net' &>/dev/null; then
         alias lolcat='lolcat -ta'
       else
@@ -22,24 +22,51 @@ export echocat() {
     fi
 }
 
-echocat '.zshenv - Zsh environment file, loaded always.'
+# This function checks if the given commands are available on the system.
+# It takes an array of command names as an argument.
+# Each command name should be a separate argument.
+# You can pass an array variable or directly pass an array as arguments.
+#
+# Usage:
+#   CHECK_COMMANDS "${array[@]}"  # Pass array variable
+#   CHECK_COMMANDS "cmd1" "cmd2" "cmd3"  # Directly pass an array
+#
+#   if CHECK_COMMANDS "fzf" "fd" "head" "bat"; then
+#     echo "All commands are available."
+#   else
+#     echo "Some commands are missing."
+#   fi
+# The function will return a success status if all commands are available,
+# or a failure status if any command is not found.
+
+export CHECK_COMMANDS() {
+  local cmds=("$@")  # Store the arguments in an array
+  for cmd in "${cmds[@]}"; do  # Iterate over each command
+    if ! command -v "$cmd" > /dev/null 2>&1; then  # Check if the command is available
+      ECHOCAT "Error: Required command '$cmd' not found. Please install it and try again."
+      return 1  # Return a failure status
+    fi
+  done
+  return 0  # Return a success status
+}
+
+# ECHOCAT '.zshenv - Zsh environment file, loaded always.'
 
 ### SOURCING/EXPORTING UTILITIES
 export SOURCE_RCFILE() {
     if [ -f "$1" ]; then
         source "$1"
-        echocat "$1 successfully sourced ... "
+        ECHOCAT "$1 successfully sourced ... "
     else
-        echocat "$1 not sourced ... " -i
+        ECHOCAT "$1 not sourced ... " -i
     fi
 }
-export EXPORT_DIR()
-{
+export EXPORT_DIR() {
     if [ -d $1 ]; then
       export PATH=$1:$PATH
-      echocat "$1 successfully exported ... "
+      ECHOCAT "$1 successfully exported ... "
     else
-      echocat "$1 not exported ... " -i
+      ECHOCAT "$1 not exported ... " -i
     fi
 }
 
@@ -68,20 +95,20 @@ export LESS_TERMCAP_md="${yellow}"
 if command -v lesspipe.sh &>/dev/null; then
   lesspipe.sh | source /dev/stdin
 else
-  echocat 'LESSOPEN: lesspipe.sh in not installed or in PATH' -i
+  ECHOCAT 'LESSOPEN: lesspipe.sh in not installed or in PATH' -i
 fi
 
 if command -v bat &>/dev/null; then
-  LESSCOLORIZER="bat --style=full --theme=catppuccin-mocha"
+  export LESSCOLORIZER="bat --style=full --theme=catppuccin-mocha"
 fi
 if command -v batpipe &>/dev/null; then
   # To use batpipe, eval the output of this command in your shell init script.
-  LESSOPEN="|$(which batpipe) %s"
+  export LESSOPEN="|$(which batpipe) %s"
   export LESSOPEN
   unset LESSCLOSE
   # The following will enable colors when using batpipe with less:
-  LESS="$LESS -R"
-  BATPIPE="color"
+  export LESS="$LESS -R"
+  export BATPIPE="color"
   export LESS
   export BATPIPE
 fi

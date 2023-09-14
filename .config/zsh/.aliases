@@ -3,7 +3,7 @@
 # .aliases - Set whatever shell aliases you want.
 #
 
-echocat '.aliases - Set whatever shell aliases you want.'
+ECHOCAT '.aliases - Set whatever shell aliases you want.'
 
 alias -g _="sudo"
 
@@ -196,14 +196,14 @@ elif command -v fdfind &>/dev/null; then
 fi
 
 if command -v exa &>/dev/null; then
-  alias ola='/bin/ls -lahi --color=auto '
+  alias ola='/bin/ls -lahi --color=always '
   alias ols='/bin/ls --color=auto '
   alias ls="exa --icons --git --group-directories-first "
   alias ll="exa -lg --icons --git --group-directories-first "
   alias la="exa -aglm --icons --git --group-directories-first "
   alias lt="exa -L 2 --icons --tree --git-ignore --group-directories-first "
 else
-  alias la="/bin/ls -lAh --colors"
+  alias la="/bin/ls -lAh --color=always"
 fi
 
 if command -v git &>/dev/null; then

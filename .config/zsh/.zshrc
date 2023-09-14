@@ -3,7 +3,7 @@
 # .zshrc - Zsh file loaded on interactive shell sessions.
 #
 
-echocat '.zshrc - Zsh file loaded on interactive shell sessions.'
+ECHOCAT '.zshrc - Zsh file loaded on interactive shell sessions.'
 
 # Zsh options.
 setopt extended_glob
@@ -32,10 +32,9 @@ SOURCE_RCFILE ${ZDOTDIR:-$HOME}/.antidote/antidote.zsh
 if command -v antidote &>/dev/null; then
   SOURCE_RCFILE ${ZDOTDIR:-$HOME}/.zsh_plugins.conf
   antidote load ${ZDOTDIR:-$HOME}/.zsh_plugins.txt
-  rm -f ${ZDOTDIR:-$HOME}/.zsh_plugins.zsh #rm static file
   SOURCE_RCFILE ${ZDOTDIR:-$HOME}/.zsh_plugins.post
 else
-  echocat "A plugin manager is either: \
+  ECHOCAT "A plugin manager is either: \
     not installed \
     present in PATH \
     not configured \
@@ -48,24 +47,24 @@ autoload -Uz compinit && zmodload zsh/complist ; compinit
 _comp_options+=(globdots)		# Include hidden files.
 
 # Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="true"
+export ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # You can also set it to another string to have that shown instead of the default red dots.
 # e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
 # Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
-COMPLETION_WAITING_DOTS="true"
+export COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to change the command execution time
 # or set a custom format using the strftime function format specifications,
 # see 'man strftime' for details.
-HIST_STAMPS="yyyy-mm-dd"
+export HIST_STAMPS="yyyy-mm-dd"
 
 # export TERM color variable for Neovim inside Tmux
 export TERM="xterm-256color"
 
 # export COLORTERM to make most detect 24 bit truecolor
-COLORTERM=truecolor
+export COLORTERM=truecolor
 
 # Make Python use UTF-8 encoding for output to stdin, stdout, and stderr.
 export PYTHONIOENCODING='UTF-8';
@@ -100,14 +99,12 @@ SOURCE_RCFILE $ZDOTDIR/catppuccin_zsh-syntax-highlighting/themes/catppuccin_moch
 export KUBECONFIG=$KUBECONFIG:$HOME/.kube/config:$HOME/.kube/configs/kubeconfig.yaml
 
 ### Initialize Zoxide
-if command -v zoxide &> /dev/null
-then
+if CHECK_COMMANDS "zoxide"; then
   # eval "$(zoxide init zsh)"
 fi
 
 ### Initialize Starship
-if command -v starship &>/dev/null
-then
+if CHECK_COMMANDS "starship"; then
   eval "$(starship init zsh)"
 fi
 
@@ -118,7 +115,7 @@ if [[ ! $( command -v keychain ) ]]; then
     sudo rpm install -y keychain &> /dev/null
     sudo apt install -y keychain &> /dev/null
 fi
-SSH_ENV="$HOME/.ssh/agent-environment"
+export SSH_ENV="$HOME/.ssh/agent-environment"
 function start_agent {
     echo "Initialising new SSH agent..."
     /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"

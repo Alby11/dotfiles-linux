@@ -93,8 +93,8 @@ sync_home() {
     local exclusions=$(/bin/du -sh ${origin}/* | /bin/grep -E '0-9' | /bin/grep -Ev '(zsh|nvim|\.git[a-z]*$)' | /bin/cut -d / -f5- | /bin/sed "s/^/--exclude '/;s/$/'/" | /bin/tr '\n' ' ')
     for destination in $destinations
     do
-      echocat "\n### ORIGIN: $origin ###"
-      echocat "### DESTINATION: $destination ###\n"
+      ECHOCAT "\n### ORIGIN: $origin ###"
+      ECHOCAT "### DESTINATION: $destination ###\n"
       local arguments="$options $exclusions $exclude_string $origin $destination"
       /bin/bash -c "rsync $arguments"
     done

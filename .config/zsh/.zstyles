@@ -3,7 +3,7 @@
 # .zstyles - Set zstyle settings for plugins that need them.
 #
 
-echocat '.zstyles - Set zstyle settings for plugins that need them.'
+ECHOCAT '.zstyles - Set zstyle settings for plugins that need them.'
 
 #
 # Antidote
