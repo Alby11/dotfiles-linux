@@ -6,5 +6,5 @@ if [ ! command -v fzf &>/dev/null ] || [ ! command -v rg &>/dev/null ] ; then
   return 1
 fi
 fzf-rg-search() {
-    vi $(rg . | fzf | cut -d ':' -f 1)
+    vi $(rg --hidden . | fzf | cut -d ':' -f 1)
 }
