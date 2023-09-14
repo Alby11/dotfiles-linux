@@ -8,6 +8,11 @@ echocat '.zsh_plugins.post - post-antidote plugins file'
 
 antidoteList="$(antidote list)"
 
+string="ohmyzsh/ohmyzsh"
+if [[ $antidoteList =~ $string ]]; then
+  export ZSH=$(antidote path ohmyzsh/ohmyzsh)
+fi
+
 if command -v lessfilter-fzf &>/dev/null; then
   export LESSOPEN='| lessfilter-fzf %s'
 else

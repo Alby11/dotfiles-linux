@@ -232,8 +232,8 @@ belak/zsh-utils path:completion
 # .zsh_plugins.txt file.
 #
 ###
-jeffreytse/zsh-vi-mode
-psprint/zsh-sweep
+# jeffreytse/zsh-vi-mode
+# psprint/zsh-sweep
 
 # These popular core plugins should be loaded at the end
 zsh-users/zsh-autosuggestions          kind:defer

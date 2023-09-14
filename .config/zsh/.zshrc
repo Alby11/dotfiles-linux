@@ -14,7 +14,7 @@ autoload -Uz compinit && compinit
 autoload -Uz promptinit && promptinit
 
 # Source zstyles you might use with antidote.
-[[ -e ${ZDOTDIR:-$HOME}/.zstyles ]] && SOURCE_RCFILE ${ZDOTDIR:-~}/.zstyles
+[[ -e ${ZDOTDIR:-$HOME}/.zstyles ]] && SOURCE_RCFILE ${ZDOTDIR:-$HOME}/.zstyles
 
 # Source GIT configuration
 SOURCE_RCFILE $XDG_CONFIG_HOME/git/.git.conf
@@ -126,7 +126,7 @@ function start_agent {
     chmod 600 "${SSH_ENV}"
     . "${SSH_ENV}" > /dev/null
     # /usr/bin/ssh-add;
-    for file in ~/.ssh/id_* ; do
+    for file in $HOME/.ssh/id_* ; do
         if [[ $(ls $file | grep pub ) ]]; then continue ; fi
         eval $(keychain --eval $file)
     done

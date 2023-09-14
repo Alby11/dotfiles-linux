@@ -5,11 +5,11 @@
 
 echocat '.aliases - Set whatever shell aliases you want.'
 
-alias -g _=sudo
+alias -g _="sudo"
 
 if command -v grep &>/dev/null
 then
-  alias -g grep='grep --color=auto '
+  alias grep='grep --color=auto '
   alias -g G=' | grep -i '
 fi
 # bat-extras
@@ -20,11 +20,11 @@ fi
 if command -v batgrep &>/dev/null
 then
   alias -g BG=' | batgrep --ignore-case --color '
-  alias -g bgrep='batgrep --ignore-case --color '
+  alias bgrep='batgrep --ignore-case --color '
 fi
 if command -v batman &>/dev/null
 then
-  alias bman='batman k'
+  alias bman='batman'
 fi
 if command -v batdiff &>/dev/null
 then
@@ -34,7 +34,7 @@ if command -v batwatch &>/dev/null
 then
   alias bwatch='batwatch '
 fi
-alias -g sudo="sudo "
+
 alias C="clear"
 alias EE='exit'
 alias Sb="source ~/.bashrc"
@@ -51,7 +51,6 @@ alias h="history -10" # last 10 history commands
 alias hh="history -20" # last 10 history commands
 alias hhh="history -30" # last 10 history commands
 alias ssar="ss -ar"
-alias ss-fzf="ss -ar | fzf"
 
 if command -v ss &>/dev/null; then
     alias ssa='sudo ss -poeta '
@@ -196,18 +195,15 @@ elif command -v fdfind &>/dev/null; then
     alias fdh='fdfind -H '
 fi
 
-if command -v zoxide &>/dev/null; then
-    # alias cd='z '
-    echo
-fi
-
 if command -v exa &>/dev/null; then
-    alias ola='/bin/ls -lahi --color=auto '
-    alias ols='/bin/ls --color=auto '
-    alias ls="exa --icons --git --group-directories-first "
-    alias ll="exa -lg --icons --git --group-directories-first "
-    alias la="exa -aglm --icons --git --group-directories-first "
-    alias lt="exa -L 2 --icons --tree --git-ignore --group-directories-first "
+  alias ola='/bin/ls -lahi --color=auto '
+  alias ols='/bin/ls --color=auto '
+  alias ls="exa --icons --git --group-directories-first "
+  alias ll="exa -lg --icons --git --group-directories-first "
+  alias la="exa -aglm --icons --git --group-directories-first "
+  alias lt="exa -L 2 --icons --tree --git-ignore --group-directories-first "
+else
+  alias la="/bin/ls -lAh --colors"
 fi
 
 if command -v git &>/dev/null; then
