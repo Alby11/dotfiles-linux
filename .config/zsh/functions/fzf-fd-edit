@@ -1,50 +1,61 @@
 #!/usr/bin/env bash
 
-# Check if rg is installed, if not use grep and print a warning
-if ! command -v rg &> /dev/null
-then
-    echo "rg could not be found, using grep instead"
-    SEARCH_CMD="grep -r"
-else
-    SEARCH_CMD="rg"
+# This script uses fd and fzf to find and edit files.
+# fd is a simple, fast and user-friendly alternative to find.
+# fzf is a general-purpose command-line fuzzy finder.
+
+# Exit if any command fails
+set -o pipefail
+
+# Print each command before executing it if DEBUG is set
+if [[ -n "$DEBUG" ]]; then
+  set -x
 fi
 
-fzf-rg-edit() {
-  # Check for required commands
-  for cmd in fzf $SEARCH_CMD; do
-    if ! command -v $cmd &> /dev/null; then
-      echo "Error: Required command '$cmd' not found. Please install it and try again."
-      exit 1
-    fi
-  done
-
-  # Parse options
-  local OPTIND opt i f path="."
-  while getopts "iFh" opt; do
-    case ${opt} in
-      i ) i="-i" ;;
-      F ) f="-F" ;;
-      h ) echo "Usage: fzf-rg-edit [-i] [-F] [path]"
-          echo "  -i: Case insensitive search"
-          echo "  -F: Fixed string search"
-          echo "  path: Directory to start search from (default is current directory)"
-          return ;;
-      \? ) echo "Invalid Option: -$OPTARG" 1>&2; return ;;
-    esac
-  done
-  shift $((OPTIND -1))
-
-  # If a path is provided, use it as the starting point for the search
-  if [[ $# -gt 0 ]]; then path="$1"; fi
-
-  # Use fzf with rg to search for the pattern in all files (even hidden) starting from the current directory, recursively.
-  # When a file is selected with enter in fzf, it opens the file in the default editor.
-  local file=$(find "$path" -type f | $SEARCH_CMD $i $f "$(fzf --print-query)" | awk -F: '{print $1}' | sort -u | fzf)
-  
-  if [[ -n "$file" ]]; then
-    ${EDITOR:-vi} "$file"
-  fi
+# fail function: print an error message to stderr and exit with an error code
+fail() {
+  printf '%s\n' "$1" >&2  # Send message to stderr. Exclude >&2 if you don't want it that way.
+  exit "${2-1}"  # Return a code specified by $2 or 1 by default.
 }
 
-# Call the function with all provided arguments
-fzf-rg-edit "$@"
+# has function: check if a command is available
+has() {
+  which "$@" > /dev/null 2>&1
+}
+
+# If bat is installed, use bat for file previews
+if has bat; then
+  fd-find-edit() {
+    # Use fd to find files and fzf to select one
+    # If a file is selected, open it in the default editor
+    file=$(
+      fd --hidden --follow --exclude .git . "$1" | fzf --query="$1" --no-multi --select-1 --exit-0 \
+        --preview 'bat --color=always --line-range :500 {}'
+      )
+    if [[ -n "$file" ]]; then
+      $EDITOR "$file"
+    fi
+  }
+else
+  # If bat is not installed, use head for file previews
+  fd-find-edit() {
+    file=$(
+      fd --hidden --follow --exclude .git . "$1" | fzf --query="$1" --no-multi --select-1 --exit-0 \
+        --preview 'head -100 {}'
+      )
+    if [[ -n "$file" ]]; then
+      $EDITOR "$file"
+    fi
+  }
+fi
+
+# Check for help flag
+if [[ $1 == "--help" ]]; then
+  echo "Usage: ./fd-find-edit.sh [search query]"
+  echo "Search for files containing [search query] and open the selected file in your default editor."
+  echo "The search is case-insensitive and includes hidden files."
+  echo "If bat is installed on your system, it will be used for syntax-highlighted previews; otherwise, head will be used."
+else
+  # Call the fd-find-edit function with all script arguments
+  fd-find-edit $@
+fi
