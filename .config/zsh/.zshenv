@@ -10,16 +10,16 @@ export THE_SHELL="$(echo $SHELL | grep -o '[^\/]*$')"
 # use lolcat as a special echo command
 export ECHOCAT() {
   if command -v lolcat &>/dev/null; then
-      if  lolcat --version | grep -E 'moe@busyloop.net' &>/dev/null; then
-        alias lolcat='lolcat -ta'
-      else
-        alias lolcat='lolcat -b'
-      fi
-        echo "$1" | lolcat `[[ -n "$2" ]] && echo "$2"`
-        unalias lolcat
+    if  lolcat --version | grep -E 'moe@busyloop.net' &>/dev/null; then
+      alias lolcat='lolcat -ta'
     else
-        echo "$1"
+      alias lolcat='lolcat -b'
     fi
+      echo "$1" | lolcat `[[ -n "$2" ]] && echo "$2"`
+      unalias lolcat
+  else
+      echo "$1"
+  fi
 }
 
 # This function checks if the given commands are available on the system.

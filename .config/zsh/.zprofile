@@ -3,7 +3,7 @@
 # .zprofile - Zsh file loaded on login.
 #
 
-echocat '.zprofile - Zsh file loaded on login.'
+ECHOCAT '.zprofile - Zsh file loaded on login.'
 
 #
 # Browser

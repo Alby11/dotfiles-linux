@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
-#
-# Original source: https://bluz71.github.io/2018/11/26/fuzzy-finding-in-bash-with-fzf.html
 
 set -o pipefail
 if [[ -n "$DEBUG" ]]; then
@@ -8,37 +6,54 @@ if [[ -n "$DEBUG" ]]; then
 fi
 
 fail() {
-  printf '%s\n' "$1" >&2  ## Send message to stderr. Exclude >&2 if you don't want it that way.
-  exit "${2-1}"  ## Return a code specified by $2 or 1 by default.
+  printf '%s\n' "$1" >&2
+  exit "${2-1}"
 }
 
 has() {
   which "$@" > /dev/null 2>&1
 }
 
-# Functions from https://bluz71.github.io/2018/11/26/fuzzy-finding-in-bash-with-fzf.html
-if has bat; then
-  fzf-rg-edit() {
-    file=$(
-      rg --files --hidden | fzf --query="$1" --no-multi --select-1 --exit-0 \
-        --preview 'bat --color=always --line-range :500 {}'
-      )
-    if [[ -n "$file" ]]; then
-      $EDITOR "$file"
-    fi
-  }
-else
-  # No bat installed, so use head
-  fzf-rg-edit() {
-    file=$(
-      rg --files --hidden | fzf --query="$1" --no-multi --select-1 --exit-0 \
-        --preview 'head -100 {}'
-      )
-    if [[ -n "$file" ]]; then
-      $EDITOR "$file"
-    fi
-  }
-fi
+fzf-rg-edit() {
+  local case_sensitive="--case-sensitive"
+  local fixed_strings=""
+  while (( "$#" )); do
+    case "$1" in
+      -i)
+        case_sensitive="--ignore-case"
+        shift
+        ;;
+      -e)
+        fixed_strings="-F"
+        shift
+        ;;
+      *)
+        break
+        ;;
+    esac
+  done
 
-# shellcheck disable=SC2068
+  if has bat; then
+    file_and_line=$(
+      rg $case_sensitive $fixed_strings --hidden --color=always --line-number "$1" | fzf --ansi --no-multi --select-1 --exit-0 \
+        --preview 'echo {} | cut -d: -f1,2 | xargs -r sh -c '\''bat --color=always --line-range :500 "$@"'\'' _'
+      )
+    if [[ -n "$file_and_line" ]]; then
+      filename=$(echo "$file_and_line" | cut -d: -f1)
+      line_number=$(echo "$file_and_line" | cut -d: -f2)
+      $EDITOR +$line_number "$filename"
+    fi
+  else
+    file_and_line=$(
+      rg $case_sensitive $fixed_strings --hidden --color=always --line-number "$1" | fzf --ansi --no-multi --select-1 --exit-0 \
+        --preview 'echo {} | cut -d: -f1,2 | xargs -r sh -c '\''head -100 "$@"'\'' _'
+      )
+    if [[ -n "$file_and_line" ]]; then
+      filename=$(echo "$file_and_line" | cut -d: -f1)
+      line_number=$(echo "$file_and_line" | cut -d: -f2)
+      $EDITOR +$line_number "$filename"
+    fi
+  fi
+}
+
 fzf-rg-edit $@

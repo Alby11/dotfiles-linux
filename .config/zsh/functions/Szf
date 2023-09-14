@@ -1,3 +1,5 @@
+#!/bin/env zsh
+
 if [[ -e $ZDOTDIR/functions.sh ]] && [[ -e $ZDOTDIR/functions ]]
 then
   Szf ()

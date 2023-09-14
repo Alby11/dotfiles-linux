@@ -4,8 +4,6 @@
 # .zsh_plugins.txt - antidote plugins file
 #
 
-echocat '.zsh_plugins.txt - antidote plugins file'
-
 ### Overview
 #
 # The `.zsh_plugins.txt` file is used by antidote to configure Zsh bundles. Bundles are
