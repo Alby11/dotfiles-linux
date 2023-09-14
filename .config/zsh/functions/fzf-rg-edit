@@ -1,50 +1,43 @@
 #!/usr/bin/env bash
 
-# This script uses ripgrep (rg) and fzf to search for a term in your files and open the file in your default editor at the line where the term was found.
-
-set -o pipefail  # Exit if any command in a pipeline fails
+set -o pipefail
 if [[ -n "$DEBUG" ]]; then
-  set -x  # Print commands and their arguments as they are executed (for debugging)
+  set -x
 fi
 
-# Function to print an error message and exit with an error code
 fail() {
-  printf '%s\n' "$1" >&2  # Print the first argument as an error message
-  exit "${2-1}"  # Exit with the second argument as the error code, or 1 if no second argument is provided
+  printf '%s\n' "$1" >&2  ## Send message to stderr. Exclude >&2 if you don't want it that way.
+  exit "${2-1}"  ## Return a code specified by $2 or 1 by default.
 }
 
-# Function to check if a command exists
 has() {
-  which "$@" > /dev/null 2>&1  # Redirect stdout and stderr to /dev/null
+  which "$@" > /dev/null 2>&1
 }
 
-# Check if ripgrep is installed
-if ! has rg; then
-  fail "Can't find rg - install ripgrep and try again."
+if has bat; then
+  fzf-find-edit() {
+    file=$(
+      fd --type f --hidden --follow --exclude .git -E "node_modules" -I -g "$1" | \
+      fzf --no-multi --select-1 --exit-0 \
+        --preview 'bat --color=always --line-range :500 {}'
+      )
+    if [[ -n "$file" ]]; then
+      $EDITOR "$file"
+    fi
+  }
+else
+  # No bat installed, so use head
+  fzf-find-edit() {
+    file=$(
+      fd --type f --hidden --follow --exclude .git -E "node_modules" -I -g "$1" | \
+      fzf --no-multi --select-1 --exit-0 \
+        --preview 'head -100 {}'
+      )
+    if [[ -n "$file" ]]; then
+      $EDITOR "$file"
+    fi
+  }
 fi
 
-# Define the main function of the script
-fzf-rg-edit(){
-  if [[ $# == 0 ]]; then
-    echo 'Error: search term was not provided.'
-    return
-  fi
-  
-  # Use ripgrep to search for the term in your files, then pipe the results to fzf for selection
-  match=$(
-    rg --color=never --line-number --hidden --case-sensitive "$1" |
-      fzf --no-multi --delimiter : \
-        --preview "less -N {2}: {1}" # --preview "head -100 {2}: {1}"
-  )
-  
-  # Extract the filename and line number from the selected result
-  file=$(echo "$match" | cut -d':' -f1)
-  
-  # Open the file in your default editor at the line where the term was found
-  if [[ -n $file ]]; then
-    "$EDITOR" "$file" +"$(echo "$match" | cut -d':' -f2)"
-  fi
-}
-
-# Call the main function with all command-line arguments
-fzf-rg-edit "$@"
+# shellcheck disable=SC2068
+fzf-find-edit $@
