@@ -32,7 +32,7 @@ fzf-rg-edit(){
   
   # Use ripgrep to search for the term in your files, then pipe the results to fzf for selection
   match=$(
-    rg --color=always --line-number --hidden --case-sensitive "$1" |
+    rg --color=never --line-number --hidden --case-sensitive "$1" |
       fzf --no-multi --delimiter : \
         --preview "less -N {2}: {1}" # --preview "head -100 {2}: {1}"
   )
