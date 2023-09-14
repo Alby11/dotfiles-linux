@@ -19,22 +19,20 @@ autoload -Uz promptinit && promptinit
 # Source GIT configuration
 SOURCE_RCFILE $XDG_CONFIG_HOME/git/.git.conf
 
-if command -v nvim &>/dev/null; then
-  # export EDITOR="${$(which nvim):-$EDITOR}"
-  # export VISUAL="${$(which nvim):-$VISUAL}"
-  # export PAGER="${$(which nvim):-$PAGER}"
-  # export MANPAGER="$(which nvim) -c 'Man!' -o -"
-fi
+#
+# Editors
+#
+SOURCE_RCFILE $ZDOTDIR/.zeditor
 
 # Create an amazing Zsh config using antidote plugins.
 # Set the path to the Oh My Zsh installation directory
 SOURCE_RCFILE ${ZDOTDIR:-$HOME}/.antidote/antidote.zsh
-if command -v antidote &>/dev/null; then
+if CHECK_COMMANDS "antidote"; then
   SOURCE_RCFILE ${ZDOTDIR:-$HOME}/.zsh_plugins.conf
   antidote load ${ZDOTDIR:-$HOME}/.zsh_plugins.txt
   SOURCE_RCFILE ${ZDOTDIR:-$HOME}/.zsh_plugins.post
 else
-  ECHOCAT "A plugin manager is either: \
+  FAIL "A plugin manager is either: \
     not installed \
     present in PATH \
     not configured \

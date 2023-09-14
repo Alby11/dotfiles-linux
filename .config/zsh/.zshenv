@@ -99,37 +99,6 @@ export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}"
 mkdir -p $ZSH_CACHE_DIR/completions
 
 #
-# Editors
-#
-export EDITOR="${EDITOR:-vim}"
-export VISUAL="${VISUAL:-vim}"
-export PAGER="${PAGER:-less}"
-export MANPAGER="${MANPAGER:-$PAGER}"
-### Setting up less
-# Highlight section titles in manual pages.
-export LESS_TERMCAP_md="${yellow}"
-if command -v lesspipe.sh &>/dev/null; then
-  lesspipe.sh | source /dev/stdin
-else
-  ECHOCAT 'LESSOPEN: lesspipe.sh in not installed or in PATH' -i
-fi
-
-if command -v bat &>/dev/null; then
-  export LESSCOLORIZER="bat --style=full --theme=catppuccin-mocha"
-fi
-if command -v batpipe &>/dev/null; then
-  # To use batpipe, eval the output of this command in your shell init script.
-  export LESSOPEN="|$(which batpipe) %s"
-  export LESSOPEN
-  unset LESSCLOSE
-  # The following will enable colors when using batpipe with less:
-  export LESS="$LESS -R"
-  export BATPIPE="color"
-  export LESS
-  export BATPIPE
-fi
-
-#
 # Paths
 #
 
