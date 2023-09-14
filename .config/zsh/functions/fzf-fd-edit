@@ -41,7 +41,7 @@ else
   fd-find-edit() {
     file=$(
       fd --hidden --follow --exclude .git . "$1" | fzf --query="$1" --no-multi --select-1 --exit-0 \
-        --preview 'head -100 {}'
+        --preview 'less -N -S -R -+F -+X -M {}' # --preview 'head -100 {}'
       )
     if [[ -n "$file" ]]; then
       $EDITOR "$file"
@@ -57,5 +57,5 @@ if [[ $1 == "--help" ]]; then
   echo "If bat is installed on your system, it will be used for syntax-highlighted previews; otherwise, head will be used."
 else
   # Call the fd-find-edit function with all script arguments
-  fd-find-edit $@
+  fd-find-edit "$@"
 fi

@@ -31,7 +31,7 @@ else
     file=$(
       fd --type f --hidden --follow --exclude .git -E "node_modules" -I -g "$1" | \
       fzf --no-multi --select-1 --exit-0 \
-        --preview 'head -100 {}'
+        --preview 'less -N -S -R -+F -+X -M {}' # --preview 'head -100 {}'
       )
     if [[ -n "$file" ]]; then
       $EDITOR "$file"
