@@ -7,7 +7,7 @@
 
 export THE_SHELL="$(echo $SHELL | grep -o '[^\/]*$')"
 
-# use lolcat as a special echo command
+# use lolcat as a special printf command
 export ECHOCAT() {
   if command -v lolcat &>/dev/null; then
     if  lolcat --version | grep -E 'moe@busyloop.net' &>/dev/null; then
@@ -15,14 +15,31 @@ export ECHOCAT() {
     else
       alias lolcat='lolcat -b'
     fi
-      echo "$1" | lolcat `[[ -n "$2" ]] && echo "$2"`
-      unalias lolcat
+    # printf "%s" "$1" | lolcat `[[ -n "$2" ]] && printf "%s" "$2"`
+    printf "%s\n" "$1" | lolcat `[[ -n "$2" ]] && printf "%s" "$2"`
+    unalias lolcat
   else
-      echo "$1"
+    printf "%s\n" "$1"
   fi
 }
 
 ECHOCAT ".zshenv - Zsh environment file, loaded always. SHLVL $SHLVL"
+
+# Function to print an error message and exit/return with an error/return code
+export FAIL() {
+  if [[ -z "$2" ]]; then
+    ECHOCAT "$1" -i # Print the first argument as a message using ECHOCAT
+  elif [[ "$2" == "x" ]]; then
+    ECHOCAT "$1" >&2 -i # Print the first argument as an error message using ECHOCAT
+    exit "${3-1}"  # Exit with the third argument as the error code, or 1 if no third argument is provided
+  elif [[ "$2" == "r" ]]; then
+    ECHOCAT "$1" >&2 -i # Print the first argument as an error message using ECHOCAT
+    return "${3-1}"  # Return with the third argument as the error code, or 1 if no third argument is provided
+  else
+    echo "Error: Invalid second argument to FAIL function. Expected 'r', 'x', or empty, got '$2'." -i
+    return 1
+  fi
+}
 
 # This function checks if the given commands are available on the system.
 # It takes an array of command names as an argument.
@@ -45,8 +62,7 @@ export CHECK_COMMANDS() {
   local cmds=("$@")  # Store the arguments in an array
   for cmd in "${cmds[@]}"; do  # Iterate over each command
     if ! command -v "$cmd" > /dev/null 2>&1; then  # Check if the command is available
-      ECHOCAT "Error: Required command '$cmd' not found. Please install it and try again."
-      return 1  # Return a failure status
+      FAIL "Error: Required command '$cmd' not found. Please install it and try again." r 1 # Return a failure status
     fi
   done
   return 0  # Return a success status
@@ -58,7 +74,7 @@ export SOURCE_RCFILE() {
         source "$1"
         ECHOCAT "$1 successfully sourced ... "
     else
-        ECHOCAT "$1 not sourced ... " -i
+        FAIL "$1 not sourced ... "
     fi
 }
 export EXPORT_DIR() {
@@ -66,7 +82,7 @@ export EXPORT_DIR() {
       export PATH=$1:$PATH
       ECHOCAT "$1 successfully exported ... "
     else
-      ECHOCAT "$1 not exported ... " -i
+      FAIL "$1 not exported ... "
     fi
 }
 
@@ -131,5 +147,5 @@ fi
 # both here (if we're not a login shell) and from the .zprofile file (which
 # is only sourced if we are a login shell).
 if [[ $SHLVL == 1 && ! -o LOGIN && -f $ZDOTDIR/.zpath ]]; then
-    source $ZDOTDIR/.zpath
+    SOURCE_RCFILE $ZDOTDIR/.zpath
 fi

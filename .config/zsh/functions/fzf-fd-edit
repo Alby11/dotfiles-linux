@@ -23,6 +23,16 @@ has() {
   which "$@" > /dev/null 2>&1
 }
 
+# Check if ripgrep is installed
+if ! has fd; then
+  fail "Can't find fd - install fd-find and try again."
+fi
+
+# Check if fzf is installed
+if ! has fzf; then
+  fail "Can't find fzf - install fzf and try again."
+fi
+
 # If bat is installed, use bat for file previews
 if has bat; then
   fd-find-edit() {

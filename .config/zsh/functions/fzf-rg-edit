@@ -26,6 +26,11 @@ if ! has rg; then
   fail "Can't find rg - install ripgrep and try again."
 fi
 
+# Check if fzf is installed
+if ! has fzf; then
+  fail "Can't find fzf - install fzf and try again."
+fi
+
 # Define the main function of the script
 fzf-rg-edit(){
   # Check for help flag
