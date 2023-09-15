@@ -12,7 +12,10 @@ string="ohmyzsh/ohmyzsh"
 if [[ $antidote_list =~ $string ]]; then
   export ZSH=$(antidote path ohmyzsh/ohmyzsh)
 fi
-
+string="zdharma-continuum/fast-syntax-highlighting"
+if [[ $antidote_list =~ $string ]]; then
+  fast-theme XDG:catppuccin-mocha
+fi
 string="unixorn/fzf-zsh-plugin"
 if [[ $antidote_list =~ $string ]]; then
   export LESSOPEN='| lessfilter-fzf %s'
@@ -20,12 +23,10 @@ else
   ECHOCAT "LESSOPEN: lessfilter-fzf in not installed or in PATH
   leaving - $(echo $LESSOPEN) - instead" -i
 fi
-
 string="Aloxaf/fzf-tab"
 if [[ $antidote_list =~ $string ]]; then
   autoload -Uz enable-fzf-tab
 fi
-
 string="lincheney/fzf-tab-completion"
 if [[ $antidote_list =~ $string ]]; then
   # alias -g grep='/bin/grep'
