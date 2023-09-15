@@ -1,0 +1,19 @@
+#!/usr/bin/env zsh
+
+local CATPPUCCIN_GTK_DIR="$HOME/gitdepot/catppuccin-gtk"
+local cur_dir="$(pwd)"
+cd $CATPPUCCIN_GTK_DIR
+virtualenv -p python3 venv  # to be created only once and only if you need a virtual env
+source venv/bin/activate  
+pip install -r requirements.txt
+python install.py all -a all -d "$HOME/.themes"
+python install.py mocha -a sky --tweaks rimless -d "$HOME/.themes"
+python install.py --help
+cd $cur_dir
+THEME_DIR="$HOME/.themes/Catppuccin-Mocha-Standard-Lavender-Dark-hdpi"
+mkdir -p "${HOME}/.config/gtk-4.0" \
+ln -sf "${THEME_DIR}/gtk-4.0/assets" "${HOME}/.config/gtk-4.0/assets" \
+ln -sf "${THEME_DIR}/gtk-4.0/gtk.css" "${HOME}/.config/gtk-4.0/gtk.css" \
+ln -sf "${THEME_DIR}/gtk-4.0/gtk-dark.css" "${HOME}/.config/gtk-4.0/gtk-dark.css"
+sudo flatpak override --filesystem="$HOME/.themes"
+sudo flatpak override --env=GTK_THEME="Catppuccin-Mocha-Standard-Lavender-Dark-hdpi"
