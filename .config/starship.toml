@@ -29,19 +29,6 @@ format = """
     $character\
 """
 
-
-# palette = "dracula"
-# [palettes.dracula]
-# color0 = "#8be9fd"
-# color1 = "#50fa7b"
-# color2 = "#6272a4"
-# color3 = "#ffb86c"
-# color4 = "#ff79c6"
-# color5 = "#bd93f9"
-# color6 = "#ff5555"
-# color7 = "#f1fa8c"
-# color8 = "#f8f8f2"
-
 palette = "catppuccin"
 [palettes.catppuccin]
 # cyan = "#8be9fd"
