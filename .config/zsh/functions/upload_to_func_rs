@@ -1,0 +1,38 @@
+#!/usr/bin/env zsh
+
+
+# Function to upload a file or text to paste.rs
+upload_to_paste_rs() {
+    # If the argument is --help, display usage information
+    if [[ "$1" == "--help" ]]
+    then
+        echo "Usage: upload_to_paste_rs [file|text]"
+        echo "Uploads the content of a file or a text string to paste.rs"
+        echo "Example:"
+        echo "  upload_to_paste_rs myfile.txt  # Uploads the content of myfile.txt"
+        echo "  upload_to_paste_rs \"Hello, world!\"  # Uploads the text string"
+        return 0
+    fi
+
+    # Check if an argument was provided
+    if [[ -z "$1" ]]
+    then
+        echo "Please provide a file or text as an argument."
+        return 1
+    fi
+
+    # If the argument is a file, upload its content
+    if [[ -f "$1" ]]
+    then
+        # Use curl to send a POST request with the content of the file
+        response=$(curl -X POST --data-binary "@$1" https://paste.rs)
+    # If the argument is not a file, treat it as text
+    else
+        # Use curl to send a POST request with the text string
+        response=$(curl -X POST -d "$1" https://paste.rs)
+    fi
+
+    # Display the URL of the paste
+    echo "Your paste is available at: $response"
+    echo $response | wl-copy
+}
