@@ -3,7 +3,14 @@
 # .zpath - Zsh PATH setup file
 #
 
-ECHOCAT '.zpath - Zsh PATH setup file'
+# Define some colors
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NC='\033[0m' # No Color
+
+
+# Use them in printf
+printf "${GREEN}.zpath - Zsh PATH setup file${NC}\n"
 
 # Ensure path arrays do not contain duplicates.
 typeset -gU path fpath

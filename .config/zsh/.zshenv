@@ -5,6 +5,18 @@
 
 # NOTE: .zshenv needs to live at ~/.zshenv, not in $ZDOTDIR!
 
+# Some people insist on setting their PATH here to affect things like ssh.
+# Those that do should probably use $SHLVL to ensure that this only happens
+# the first time the shell is started (to avoid overriding a customized
+# environment).  Also, the various profile/rc/login files all get sourced
+# *after* this file, so they will override this value.  One solution is to
+# put your path-setting code into a file named .zpath, and source it from
+# both here (if we're not a login shell) and from the .zprofile file (which
+# is only sourced if we are a login shell).
+if [[ $SHLVL == 1 && ! -o LOGIN && -f $ZDOTDIR/.zpath ]]; then
+    source $ZDOTDIR/.zpath
+fi
+
 export THE_SHELL="$(echo $SHELL | grep -o '[^\/]*$')"
 
 # use lolcat as a special printf command
@@ -93,28 +105,13 @@ export EXPORT_DIR() {
 # Set ZDOTDIR if you want to re-home Zsh.
 export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 export ZDOTDIR="${ZDOTDIR:-$XDG_CONFIG_HOME/zsh}"
-# Set omz variables prior to loading omz plugins
-# see issue https://github.com/ohmyzsh/ohmyzsh/issues/11762
-export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}"
-mkdir -p $ZSH_CACHE_DIR/completions
 
 #
 # Paths
 #
 
 ## You can use .zprofile to set environment vars for non-login, non-interactive shells.
-# if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
-#   source "${ZDOTDIR:-$HOME}/.zprofile"
-# fi
-
-# Some people insist on setting their PATH here to affect things like ssh.
-# Those that do should probably use $SHLVL to ensure that this only happens
-# the first time the shell is started (to avoid overriding a customized
-# environment).  Also, the various profile/rc/login files all get sourced
-# *after* this file, so they will override this value.  One solution is to
-# put your path-setting code into a file named .zpath, and source it from
-# both here (if we're not a login shell) and from the .zprofile file (which
-# is only sourced if we are a login shell).
-if [[ $SHLVL == 1 && ! -o LOGIN && -f $ZDOTDIR/.zpath ]]; then
-    SOURCE_RCFILE $ZDOTDIR/.zpath
+ if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
+   SOURCE_RCFILE "${ZDOTDIR:-$HOME}/.zprofile"
 fi
+

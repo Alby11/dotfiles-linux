@@ -9,10 +9,10 @@ ECHOCAT '.zeditor - Zsh file loaded to export editor, visual, pager ...'
 #
 # Editors
 #
-export EDITOR="${EDITOR:-vim}"
-export VISUAL="${VISUAL:-vim}"
-export PAGER="${PAGER:-less}"
-export MANPAGER="${MANPAGER:-$PAGER}"
+export EDITOR="$(which vim)"
+export VISUAL="$EDITOR"
+export PAGER="$(which less)"
+export MANPAGER="$PAGER"
 ### Setting up less
 # Highlight section titles in manual pages.
 export LESS_TERMCAP_md="${yellow}"
@@ -21,7 +21,6 @@ if command -v lesspipe.sh &>/dev/null; then
 else
   ECHOCAT 'LESSOPEN: lesspipe.sh in not installed or in PATH' -i
 fi
-
 if command -v bat &>/dev/null; then
   export LESSCOLORIZER="bat --style=full --theme=catppuccin-mocha"
 fi
@@ -36,11 +35,9 @@ if command -v batpipe &>/dev/null; then
   export LESS
   export BATPIPE
 fi
-
 if command -v nvim &>/dev/null; then
   # export EDITOR="${$(which nvim):-$EDITOR}"
   # export VISUAL="${$(which nvim):-$VISUAL}"
   # export PAGER="${$(which nvim):-$PAGER}"
   # export MANPAGER="$(which nvim) -c 'Man!' -o -"
 fi
-
