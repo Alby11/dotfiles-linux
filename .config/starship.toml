@@ -7,21 +7,21 @@ command_timeout = 1000
 add_newline = true
 
 format = """
-[╭─](color1)\
-    [【](color7)\
+[╭─](rosewater)\
+    [【](flamingo)\
       $username\
-      [ @ ](color7)\
+      [ @ ](flamingo)\
       $hostname \
       $directory \      
-    [】](color7)
-[│](color1)\
+    [】](flamingo)
+[│](rosewater)\
     $git_branch\
     $git_status\
     $package\
     $python\
     $nodejs\    
     $custom
-[╰─](color1)\
+[╰─](rosewater)\
     $memory_usage\
     $time\
     $cmd_duration \    
@@ -29,32 +29,13 @@ format = """
     $character\
 """
 
-palette = "catppuccin"
-[palettes.catppuccin]
-# cyan = "#8be9fd"
-# green = "#50fa7b"
-# grey = "#6272a4"
-# orange = "#ffb86c"
-# pink = "#ff79c6"
-# purple = "#bd93f9"
-# red = "#ff5555"
-# white = "#f8f8f2"
-# yellow = "#f1fa8c"
-color0 = "#89b4fa"
-color1 = "#a6e3a1"
-color2 = "#7f849c"
-color3 = "#fab387"
-color4 = "#f5c2e7"
-color5 = "#b4befe"
-color6 = "#f38ba8"
-color7 = "#f9e2af"
-color8 = "#cdd6f4"
+palette = "catppuccin_mocha"
 
 [shell]
 powershell_indicator = "_"
 bash_indicator = ""
 zsh_indicator = "z_"
-style = "color1"
+style = "rosewater"
 disabled= false
 
 [battery]
@@ -64,19 +45,18 @@ discharging_symbol = "⚡"
 
 [[battery.display]]
 threshold = 30
-style = "bold color7"
+style = "bold flamingo"
 
 [character]
-error_symbol = "[✖](bold red) "
+error_symbol = "[✖](bold pink) "
 
 [cmd_duration]
-min_time = 10_000  # Show command duration over 10,000 milliseconds (=10 sec)
+min_time = 10_000
 format = "took [$duration]($style)"
 
 [directory]
 truncation_length = 5
-# format = "[$path]($style)[$lock_symbol]($lock_style) "
-format = "[$path]($style) [$read_only]($read_only_style) "
+format = "[$path]($style) [$read_only]($mauve) "
 truncation_symbol = "…/"
 read_only = "🔒"
 read_only_style = "red"
@@ -84,11 +64,11 @@ read_only_style = "red"
 [git_branch]
 format = " [$symbol$branch]($style) "
 symbol = "🍣 "
-style = "bold color5"
+style = "bold red"
 
 [git_commit]
 commit_hash_length = 8
-style = "bold white"
+style = "bold maroon"
 
 [git_status]
 conflicted = "⚔️ "
@@ -107,13 +87,12 @@ format = "$all_status$ahead_behind"
 [username]
 style_user = "bold dimmed blue"
 show_always = true
-format = "[$user](color1)"
+format = "[$user](sky)"
 
 [hostname]
 ssh_only = false
 format = "<[$hostname]($style)>"
-style = "color5"
-# format = "<(color3)[$hostname] >"
+style = "sapphire"
 disabled = false
 
 [julia]
@@ -124,7 +103,7 @@ style = "bold green"
 [memory_usage]
 format = "$symbol[${ram}( | ${swap})]($style) "
 threshold = -1
-style = "color4"
+style = "lavender"
 disabled = false
 
 [package]
@@ -132,7 +111,7 @@ disabled = true
 
 [rust]
 format = "[$symbol$version]($style) "
-style = "bold green"
+style = "bold yellow"
 
 [time]
 time_format = "%T"
@@ -141,13 +120,13 @@ style = "green"
 disabled = false
 
 [nodejs]
-format = " via [🤖 $version](bold green) "
+format = " via [🤖 $version](yellow) "
 
 [git_state]
 format = '\(:[$state( $progress_current/$progress_total)]($style)\)'
 
 [python]
-format = 'via [${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
+format = 'via [${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($text)'
 
 [custom.git_host]
 command = """
@@ -181,6 +160,33 @@ printf "%s%s" "$ICON" "$URL"
 directories = [".git"]
 when = 'git rev-parse --is-inside-work-tree 2> /dev/null'
 shell = ["bash","--norc","--noprofile"]
-# style = "bright-yellow bold"
-style = "color3 bold"
-format = " at [$output]($style)"
+style = "subtext0"
+format = " at [$output]($overlay2)"
+
+[palettes.catppuccin_mocha]
+rosewater = "#f5e0dc"
+flamingo = "#f2cdcd"
+pink = "#f5c2e7"
+mauve = "#cba6f7"
+red = "#f38ba8"
+maroon = "#eba0ac"
+peach = "#fab387"
+yellow = "#f9e2af"
+green = "#a6e3a1"
+teal = "#94e2d5"
+sky = "#89dceb"
+sapphire = "#74c7ec"
+blue = "#89b4fa"
+lavender = "#b4befe"
+text = "#cdd6f4"
+subtext1 = "#bac2de"
+subtext0 = "#a6adc8"
+overlay2 = "#9399b2"
+overlay1 = "#7f849c"
+overlay0 = "#6c7086"
+surface2 = "#585b70"
+surface1 = "#45475a"
+surface0 = "#313244"
+base = "#1e1e2e"
+mantle = "#181825"
+crust = "#11111b"

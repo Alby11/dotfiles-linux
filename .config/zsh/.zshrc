@@ -138,3 +138,4 @@ else
 fi
 ### END OF SSH BLOCK
 cd $HOME
+curl -o /home/tallonea/.Xresources https://raw.githubusercontent.com/catppuccin/xresources/main/mocha.Xresources && xrdb /home/tallonea/.Xresources
