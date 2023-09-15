@@ -141,6 +141,7 @@ ohmyzsh/ohmyzsh                             path:plugins/node
 ohmyzsh/ohmyzsh                             path:plugins/npm
 ohmyzsh/ohmyzsh                             path:plugins/nvm
 ohmyzsh/ohmyzsh                             path:plugins/pep8 kind:fpath
+ohmyzsh/ohmyzsh                             path:plugins/per-directory-history
 ohmyzsh/ohmyzsh                             path:plugins/pip
 ohmyzsh/ohmyzsh                             path:plugins/pyenv
 ohmyzsh/ohmyzsh                             path:plugins/python
@@ -154,7 +155,7 @@ ohmyzsh/ohmyzsh                             path:plugins/tmux
 ohmyzsh/ohmyzsh                             path:plugins/tmuxinator
 ohmyzsh/ohmyzsh                             path:plugins/ubuntu
 ohmyzsh/ohmyzsh                             path:plugins/urltools
-ohmyzsh/ohmyzsh                             path:plugins/vi-mode
+# ohmyzsh/ohmyzsh                             path:plugins/vi-mode
 ohmyzsh/ohmyzsh                             path:plugins/virtualenv
 ohmyzsh/ohmyzsh                             path:plugins/virtualenvwrapper
 ohmyzsh/ohmyzsh                             path:plugins/vscode
@@ -178,7 +179,7 @@ belak/zsh-utils                             path:completion
 # History
 # wulfgarpro/history-sync
 # larkery/zsh-histdb
-jimhester/per-directory-history
+# jimhester/per-directory-history
 
 ### Deferred Plugins
 #

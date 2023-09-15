@@ -14,7 +14,7 @@ if [[ $antidote_list =~ $string ]]; then
 fi
 string="zdharma-continuum/fast-syntax-highlighting"
 if [[ $antidote_list =~ $string ]]; then
-  fast-theme XDG:catppuccin-mocha
+  # fast-theme XDG:catppuccin-mocha
 fi
 string="unixorn/fzf-zsh-plugin"
 if [[ $antidote_list =~ $string ]]; then
