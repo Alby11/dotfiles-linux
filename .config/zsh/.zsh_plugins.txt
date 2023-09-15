@@ -73,7 +73,6 @@ agkozak/zsh-z
 #   your .zshrc run the Zsh built-in `prompt` to select the theme.
 # - Or, just load one prompt like a regular plugin.
 #
-belak/zsh-utils                             path:prompt
 
 # annotations are also allowed:
 romkatv/zsh-bench                           kind:path
@@ -171,15 +170,15 @@ ohmyzsh/ohmyzsh                             path:plugins/zoxide
 # If you want a really thin framework, this is great.
 #
 ###ke zsh-utils
-belak/zsh-utils                             path:editor
-belak/zsh-utils                             path:history
-belak/zsh-utils                             path:utility
-belak/zsh-utils                             path:completion
+# belak/zsh-utils                             path:completion
+# belak/zsh-utils                             path:editor
+# belak/zsh-utils                             path:history
+# belak/zsh-utils                             path:prompt
+# belak/zsh-utils                             path:utility
 
 # History
 # wulfgarpro/history-sync
 # larkery/zsh-histdb
-# jimhester/per-directory-history
 
 ### Deferred Plugins
 #
@@ -231,8 +230,8 @@ zsh-users/zsh-completions                   path:src kind:fpath
 # .zsh_plugins.txt file.
 #
 ###
-# jeffreytse/zsh-vi-mode
-# psprint/zsh-sweep
+jeffreytse/zsh-vi-mode
+psprint/zsh-sweep
 
 # These popular core plugins should be loaded at the end
 unixorn/fzf-zsh-plugin                      branch:main 
@@ -240,7 +239,6 @@ Aloxaf/fzf-tab
 # lincheney/fzf-tab-completion     kind:defer
 zsh-users/zsh-autosuggestions               kind:defer
 zsh-users/zsh-history-substring-search
-romkatv/zsh-defer
 
 # Others
 # MichaelAquilina/zsh-auto-notify

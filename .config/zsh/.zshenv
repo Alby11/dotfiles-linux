@@ -35,7 +35,7 @@ export ECHOCAT() {
   fi
 }
 
-ECHOCAT ".zshenv - Zsh environment file, loaded always. SHLVL $SHLVL"
+# ECHOCAT ".zshenv - Zsh environment file, loaded always. SHLVL $SHLVL"
 
 # Function to print an error message and exit/return with an error/return code
 export FAIL() {
@@ -111,7 +111,6 @@ export ZDOTDIR="${ZDOTDIR:-$XDG_CONFIG_HOME/zsh}"
 #
 
 ## You can use .zprofile to set environment vars for non-login, non-interactive shells.
- if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
-   SOURCE_RCFILE "${ZDOTDIR:-$HOME}/.zprofile"
+if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
+  SOURCE_RCFILE "${ZDOTDIR:-$HOME}/.zprofile"
 fi
-

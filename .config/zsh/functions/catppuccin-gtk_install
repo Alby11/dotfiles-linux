@@ -1,4 +1,6 @@
 #!/usr/bin/env zsh
+#
+setopt localoptions extendedglob warncreateglobal typesetsilent noshortloops
 
 catppuccin-gtk_install() {
   local cur_dir="$(pwd)"
@@ -22,7 +24,7 @@ catppuccin-gtk_install() {
   python install.py --help
   deactivate
   cd $cur_dir
-  THEME_DIR="$HOME/.themes/$catppuccin_theme"
+  local THEME_DIR="$HOME/.themes/$catppuccin_theme"
   mkdir -p ${HOME}/.config/gtk-4.0
   rm -fv ${HOME}/.config/gtk-4.0/assets
   rm -fv ${HOME}/.config/gtk-4.0/gtk.css
