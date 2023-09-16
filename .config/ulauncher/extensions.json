@@ -5,5 +5,61 @@
         "updated_at": "2023-09-16T15:54:42.194596",
         "last_commit": "fd0745d43e79e945c1f531c4654131a8c0fe72d7",
         "last_commit_time": "2021-03-14T09:46:56"
+    },
+    "com.github.jyvern.ulauncher-ssh": {
+        "id": "com.github.jyvern.ulauncher-ssh",
+        "url": "https://github.com/jyvern/ulauncher-ssh",
+        "updated_at": "2023-09-16T16:12:10.112316",
+        "last_commit": "47168e6ea45878787536ae5670612509f5dddced",
+        "last_commit_time": "2021-08-29T16:30:14"
+    },
+    "com.github.khanghy3004.vim-with-fuzzy-finder-in-ulauncher": {
+        "id": "com.github.khanghy3004.vim-with-fuzzy-finder-in-ulauncher",
+        "url": "https://github.com/khanghy3004/vim-with-fuzzy-finder-in-ulauncher",
+        "updated_at": "2023-09-16T16:13:05.078558",
+        "last_commit": "1e7ddcbfde1a7b490ac2e527a645353e360a2e61",
+        "last_commit_time": "2023-05-19T00:39:22"
+    },
+    "com.github.tuanpham-dev.ulauncher-better-calculator": {
+        "id": "com.github.tuanpham-dev.ulauncher-better-calculator",
+        "url": "https://github.com/tuanpham-dev/ulauncher-better-calculator",
+        "updated_at": "2023-09-16T16:14:02.092800",
+        "last_commit": "48f0592a2a8ac9ec2589a06b562141e1a2d9b25f",
+        "last_commit_time": "2023-04-24T13:55:30"
+    },
+    "com.github.dynobo.ulauncher-list-keywords": {
+        "id": "com.github.dynobo.ulauncher-list-keywords",
+        "url": "https://github.com/dynobo/ulauncher-list-keywords",
+        "updated_at": "2023-09-16T16:14:24.151805",
+        "last_commit": "1cbb4380576335c83373a940a27874b7f6a873ea",
+        "last_commit_time": "2022-11-12T01:27:29"
+    },
+    "com.github.brpaz.ulauncher-jira": {
+        "id": "com.github.brpaz.ulauncher-jira",
+        "url": "https://github.com/brpaz/ulauncher-jira",
+        "updated_at": "2023-09-16T16:14:33.173112",
+        "last_commit": "d826a0d5d50987bec0752d45e5d5ae6f5700bd62",
+        "last_commit_time": "2022-07-24T09:54:53"
+    },
+    "com.github.jmakhack.ulauncher-neofetch-runner": {
+        "id": "com.github.jmakhack.ulauncher-neofetch-runner",
+        "url": "https://github.com/jmakhack/ulauncher-neofetch-runner",
+        "updated_at": "2023-09-16T16:15:33.482211",
+        "last_commit": "01934930ce69073ad6c7a08c4189d6ecdbf0e12e",
+        "last_commit_time": "2022-07-09T08:48:43"
+    },
+    "com.github.hillaryychan.ulauncher-fzf": {
+        "id": "com.github.hillaryychan.ulauncher-fzf",
+        "url": "https://github.com/hillaryychan/ulauncher-fzf",
+        "updated_at": "2023-09-16T16:16:49.180431",
+        "last_commit": "e8137dae6448041fc53ae418263501b068857073",
+        "last_commit_time": "2023-05-16T12:35:35"
+    },
+    "com.github.hoaper.ulauncher-zh0per": {
+        "id": "com.github.hoaper.ulauncher-zh0per",
+        "url": "https://github.com/Hoaper/ulauncher-zh0per",
+        "updated_at": "2023-09-16T16:17:01.768960",
+        "last_commit": "8f6d8d88d7d4f75732f5f32bde554287d3635586",
+        "last_commit_time": "2023-01-29T12:35:09"
     }
 }

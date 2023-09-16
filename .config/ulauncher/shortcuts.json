@@ -28,5 +28,25 @@
         "is_default_search": true,
         "run_without_argument": false,
         "added": 1694872138.7786407
+    },
+    "a13868dd-3d19-46d7-8c01-36667c31d6d0": {
+        "id": "a13868dd-3d19-46d7-8c01-36667c31d6d0",
+        "name": "Bing Search",
+        "keyword": "b",
+        "cmd": "https://www.bing.com/search?q=%s",
+        "icon": null,
+        "is_default_search": false,
+        "run_without_argument": false,
+        "added": 1694873200.7944722
+    },
+    "6d88e7cc-fb38-4c22-9843-da07a6628a76": {
+        "id": "6d88e7cc-fb38-4c22-9843-da07a6628a76",
+        "name": "Github",
+        "keyword": "g",
+        "cmd": "https://github.com/search?q=%s",
+        "icon": null,
+        "is_default_search": true,
+        "run_without_argument": false,
+        "added": 1694873310.8168786
     }
 }
