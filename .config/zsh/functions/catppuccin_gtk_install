@@ -1,0 +1,86 @@
+#!/usr/bin/env zsh
+
+# Set shell options and error handling.
+setopt localoptions extendedglob warncreateglobal typesetsilent noshortloops
+
+install_dependencies() {
+  # Install required packages.
+  sudo dnf install -y ostree libappstream-glib gtk-murrine-engine gnome-themes-extra sassc
+}
+
+clone_and_install_theme() {
+  # Define theme and directory variables.
+  local catppuccin_theme="Catppuccin-Mocha-Standard-Pink-Dark"
+  local catppuccin_flavour="mocha"
+  local catppuccin_accent="pink"
+  local cur_dir="$(pwd)"
+  local stylepak_dir="${cur_dir}/stylepak"
+  local catppuccin_gtk_dir="${cur_dir}/gtk"
+  local THEME_DIR="${HOME}/.themes/${catppuccin_theme}"
+
+  # Remove existing Catppuccin themes.
+  rm -rf "${HOME}/.themes/Catppuccin*"
+
+  # Clone stylepak and Catppuccin GTK theme.
+  git clone https://github.com/refi64/stylepak "${stylepak_dir}"
+  git clone https://github.com/catppuccin/gtk "${catppuccin_gtk_dir}"
+
+  # Install the Catppuccin GTK theme.
+  (
+    cd "${stylepak_dir}"
+    chmod +x stylepak
+    ./stylepak install-user "${catppuccin_theme}"
+    ./stylepak clear-cache
+  )
+
+  # Cleanup: Remove temporary directories.
+  rm -rf "${stylepak_dir}"
+  rm -rf "${catppuccin_gtk_dir}"
+}
+
+configure_gtk() {
+  # Create GTK configuration directories if they don't exist.
+  mkdir -p "${HOME}/.config/gtk-4.0"
+
+  # Remove existing GTK configuration files (if any).
+  rm -fv "${HOME}/.config/gtk-4.0/assets"
+  rm -fv "${HOME}/.config/gtk-4.0/gtk.css"
+  rm -fv "${HOME}/.config/gtk-4.0/gtk-dark.css"
+
+  # Create symbolic links for GTK configuration.
+  ln -sfv "${THEME_DIR}/gtk-4.0/assets" "${HOME}/.config/gtk-4.0/assets"
+  ln -sfv "${THEME_DIR}/gtk-4.0/gtk.css" "${HOME}/.config/gtk-4.0/gtk.css"
+  ln -sfv "${THEME_DIR}/gtk-4.0/gtk-dark.css" "${HOME}/.config/gtk-4.0/gtk-dark.css"
+}
+
+setup_virtualenv() {
+  # Create a Python virtual environment.
+  local catppuccin_gtk="${cur_dir}/gtk"
+  (
+    cd "${catppuccin_gtk}"
+    virtualenv -p python3 venv
+    source venv/bin/activate
+    pip install -r requirements.txt
+    python install.py $catppuccin_flavour -a $catppuccin_accent --tweaks black -d "${HOME}/.themes"
+    python install.py --help
+    deactivate
+  )
+}
+
+configure_flatpak() {
+  # Override Flatpak settings.
+  sudo flatpak -v override --filesystem="${HOME}/.themes"
+  sudo flatpak -v override --env=GTK_THEME="${catppuccin_theme}"
+}
+
+# Main function for installation.
+catppuccin_gtk_install() {
+  install_dependencies
+  clone_and_install_theme
+  configure_gtk
+  setup_virtualenv
+  configure_flatpak
+}
+
+# Run the installation.
+catppuccin-gtk_install
