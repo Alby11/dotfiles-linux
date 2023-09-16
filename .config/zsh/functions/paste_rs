@@ -1,4 +1,4 @@
-# paste_rs.zsh
+#!/usr/bin/env zsh
 
 # Zsh function for interacting with paste.rs
 paste_rs() {
@@ -8,53 +8,25 @@ paste_rs() {
     # The second argument is the ID of the paste (for get and delete commands)
     local id=$2
 
+    # The third argument is the optional extension (for get command)
+    local ext=$3
+
     # Ensure the history file exists
     local history_file="$ZDOTDIR/.paste_rs_history"
     touch $history_file
 
     case $command in
         upload)
-            # Upload data to paste.rs and save the URL to the history file
-            local data=${2:-$(cat)}
-            local url=$(echo -n "$data" | curl -X POST --data-binary @- https://paste.rs)
-            echo $url >> $history_file
-            echo "Uploaded. URL: $url"
-            printf '\nAdd to clipboard?(yY/nN)'
-            read clip
-            if [[ "$clip" =~ ^yY?$ ]]; then
-                # If 'clip' starts with 'y' or 'Y', try to copy 'url' to clipboard
-                if command -v wl-copy &> /dev/null; then
-                    # If 'wl-copy' command exists, use it to copy 'url' to clipboard
-                    echo $url | wl-copy
-                elif command -v xclip &> /dev/null; then
-                    # If 'xclip' command exists, use it to copy 'url' to clipboard
-                    echo $url | xclip -selection clipboard
-                else
-                    # If neither 'wl-copy' nor 'xclip' exists, print error message
-                    echo "\nNo clipboard utilities available."
-                fi
-            elif [[ ! "$clip" =~ ^nN?$ ]]; then
-                # If 'clip' does not start with 'n' or 'N', print message
-                echo "\n\nNo copy."
-            fi
+            upload_to_paste_rs $id
             ;;
         get)
-            # Retrieve a paste by ID
-            curl -X GET https://paste.rs/$id
+            get_from_paste_rs $id $ext
             ;;
         delete)
-            # Delete a paste by ID
-            curl -X DELETE https://paste.rs/$id
-            echo "Deleted paste $id"
+            delete_from_paste_rs $id
             ;;
         --help)
-            # Display help information
-            echo "Usage: paste_rs <command> [<id>]"
-            echo ""
-            echo "Commands:"
-            echo "  upload   Upload data to paste.rs. Use 'cat yourfile.txt | paste_rs upload' to upload a file."
-            echo "  get      Retrieve a paste by ID. Use 'paste_rs get <id>' to retrieve a paste."
-            echo "  delete   Delete a paste by ID. Use 'paste_rs delete <id>' to delete a paste."
+            display_help
             ;;
         *)
             echo "Invalid command. Use 'upload', 'get', 'delete', or '--help'."
@@ -62,31 +34,73 @@ paste_rs() {
     esac
 }
 
-# Autocomplete function for paste_rs
-_paste_rs() {
-    local -a commands
-    commands=(
-        'upload:Upload data to paste.rs'
-        'get:Retrieve a paste by ID'
-        'delete:Delete a paste by ID'
-    )
+upload_to_paste_rs() {
+    local data=${1:-$(cat)}
+    local url=$(echo -n "$data" | curl -X POST --data-binary @- https://paste.rs 2>/dev/null)
 
-    if (( CURRENT == 2 )); then
-        _describe -t commands 'paste.rs command' commands
-        return
+    if [[ $? -ne 0 ]]; then
+        echo "Failed to upload data to paste.rs"
+        return 1
     fi
 
-    case "$words[2]" in
-        get|delete)
-            if (( CURRENT == 3 )); then
-                # Autocomplete with IDs from the history file
-                local -a ids
-                ids=("${(@f)$(cut -d'/' -f4 $ZDOTDIR/.paste_rs_history)}")
-                _describe -t ids 'paste id' ids
-            fi
-            ;;
-    esac
+    echo $url >> $history_file
+    echo "Uploaded. URL: $url"
+
+    printf '\nAdd to clipboard? (Y/n): '
+    read clip
+
+    if [[ "$clip" =~ ^[Yy]?$ ]]; then
+        copy_to_clipboard $url
+    fi
 }
 
-# Register _paste_rs as a completion for paste_rs
-compdef _paste_rs paste_rs
+get_from_paste_rs() {
+    local id=$1
+
+    if [[ -z "$id" ]]; then
+        echo "You must provide an ID to retrieve a paste."
+        return 1
+    fi
+
+    local ext=$2
+
+    if [[ -n "$ext" ]]; then
+        curl -X GET https://paste.rs/$id.$ext 2>/dev/null || echo "Failed to retrieve paste."
+    else
+        curl -X GET https://paste.rs/$id 2>/dev/null || echo "Failed to retrieve paste."
+    fi
+}
+
+delete_from_paste_rs() {
+    local id=$1
+
+    if [[ -z "$id" ]]; then
+        echo "You must provide an ID to delete a paste."
+        return 1
+    fi
+
+    curl -X DELETE https://paste.rs/$id 2>/dev/null || echo "Failed to delete paste."
+}
+
+display_help() {
+    echo "Usage: paste_rs <command> [<id> [<ext>]]"
+    echo ""
+    echo "Commands:"
+    echo "  upload   Upload data to paste.rs. Use 'cat yourfile.txt | paste_rs upload' to upload a file."
+    echo "  get      Retrieve a paste by ID with an optional extension. Use 'paste_rs get <id> <ext>' to retrieve a paste."
+    echo "  delete   Delete a paste by ID. Use 'paste_rs delete <id>' to delete a paste."
+}
+
+copy_to_clipboard() {
+    local url=$1
+
+    if command -v wl-copy &> /dev/null; then
+        echo $url | wl-copy
+        echo "\nURL copied to clipboard."
+    elif command -v xclip &> /dev/null; then
+        echo $url | xclip -selection clipboard
+        echo "\nURL copied to clipboard."
+    else
+        echo "\nNo clipboard utilities available."
+    fi
+}
