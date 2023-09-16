@@ -18,7 +18,9 @@ paste_rs() {
             local data=${2:-$(cat)}
             local url=$(echo -n "$data" | curl -X POST --data-binary @- https://paste.rs)
             echo $url >> $history_file
-            echo "Uploaded. URL: $url"
+            echo "Uploaded. URL: $url\nAdd to clipboard?"
+            read clip
+            if [ $clip =~ ^[yY]([eE][sS])?$ ]; then echo $url | wl-copy; fi
             ;;
         get)
             # Retrieve a paste by ID
