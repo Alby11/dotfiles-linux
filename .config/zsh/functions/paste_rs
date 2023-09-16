@@ -104,3 +104,32 @@ copy_to_clipboard() {
         echo "\nNo clipboard utilities available."
     fi
 }
+
+# Autocomplete function for paste_rs
+_paste_rs() {
+    local -a commands
+    commands=(
+        'upload:Upload data to paste.rs'
+        'get:Retrieve a paste by ID with an optional extension'
+        'delete:Delete a paste by ID'
+    )
+
+    if (( CURRENT == 2 )); then
+        _describe -t commands 'paste.rs command' commands
+        return
+    fi
+
+    case "$words[2]" in
+        get|delete)
+            if (( CURRENT == 3 )); then
+                # Autocomplete with IDs from the history file
+                local -a ids
+                ids=("${(@f)$(cut -d'/' -f4 $ZDOTDIR/.paste_rs_history)}")
+                _describe -t ids 'paste id' ids
+            fi
+            ;;
+    esac
+}
+
+# Register _paste_rs as a completion for paste_rs
+compdef _paste_rs paste_rs
