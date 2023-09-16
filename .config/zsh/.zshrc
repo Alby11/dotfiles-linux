@@ -106,7 +106,8 @@ fi
 
 ### Initialize Starship
 if CHECK_COMMANDS "starship"; then
-  eval "$(starship init zsh)"
+  export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/starship.jonasleonhard.toml" && \
+    eval "$(starship init zsh)"
 fi
 
 ### SSH BLOCK
