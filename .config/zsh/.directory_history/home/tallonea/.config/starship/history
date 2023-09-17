@@ -1,4 +1,0 @@
-: 1694871923:0;mv starship.toml starship.toml.catppuccin_mocha
-: 1694871968:0;e starship.jonasleonhard.toml
-: 1694872010:0;mv starship.toml.catppuccin_mocha starship.catppuccin_mocha.toml
-: 1694872029:0;exa -aglm --icons --group-directories-first
