@@ -106,6 +106,7 @@ olets/zsh-abbr                              kind:defer
 ohmyzsh/ohmyzsh                             path:lib
 ohmyzsh/ohmyzsh                             path:plugins/ag kind:fpath
 ohmyzsh/ohmyzsh                             path:plugins/aliases
+ohmyzsh/ohmyzsh                             path:plugins/ansible
 ohmyzsh/ohmyzsh                             path:plugins/autoenv
 ohmyzsh/ohmyzsh                             path:plugins/battery
 ohmyzsh/ohmyzsh                             path:plugins/brew kind:fpath
@@ -119,41 +120,69 @@ ohmyzsh/ohmyzsh                             path:plugins/copyfile
 ohmyzsh/ohmyzsh                             path:plugins/copypath
 ohmyzsh/ohmyzsh                             path:plugins/cp
 ohmyzsh/ohmyzsh                             path:plugins/debian
+ohmyzsh/ohmyzsh                             path:plugins/dnf
+ohmyzsh/ohmyzsh                             path:plugins/dnote kind:fpath
 ohmyzsh/ohmyzsh                             path:plugins/docker kind:fpath
 ohmyzsh/ohmyzsh                             path:plugins/docker-compose kind:fpath
+ohmyzsh/ohmyzsh                             path:plugins/docker-machine
+ohmyzsh/ohmyzsh                             path:plugins/emoji
+ohmyzsh/ohmyzsh                             path:plugins/emotty
 ohmyzsh/ohmyzsh                             path:plugins/extract
+ohmyzsh/ohmyzsh                             path:plugins/fasd
 ohmyzsh/ohmyzsh                             path:plugins/fd kind:fpath
+ohmyzsh/ohmyzsh                             path:plugins/firewalld
 ohmyzsh/ohmyzsh                             path:plugins/fzf
+ohmyzsh/ohmyzsh                             path:plugins/gh kind:fpath
+ohmyzsh/ohmyzsh                             path:plugins/git-auto-fetch
+ohmyzsh/ohmyzsh                             path:plugins/git-commit
+ohmyzsh/ohmyzsh                             path:plugins/git-extras kind:fpath
+ohmyzsh/ohmyzsh                             path:plugins/gitast kind:fpath
+ohmyzsh/ohmyzsh                             path:plugins/git-flow kind:fpath
+ohmyzsh/ohmyzsh                             path:plugins/git-lfs
 ohmyzsh/ohmyzsh                             path:plugins/git
 ohmyzsh/ohmyzsh                             path:plugins/github
 ohmyzsh/ohmyzsh                             path:plugins/gitignore
-ohmyzsh/ohmyzsh                             path:plugins/golang
+ohmyzsh/ohmyzsh                             path:plugins/globalias
+ohmyzsh/ohmyzsh                             path:plugins/gnu-utils
+ohmyzsh/ohmyzsh                             path:plugins/golang kind:fpath
 ohmyzsh/ohmyzsh                             path:plugins/gpg-agent
 ohmyzsh/ohmyzsh                             path:plugins/history
 ohmyzsh/ohmyzsh                             path:plugins/history-substring-search
+ohmyzsh/ohmyzsh                             path:plugins/keychain
 ohmyzsh/ohmyzsh                             path:plugins/kubectl kind:fpath
 ohmyzsh/ohmyzsh                             path:plugins/kubectx
 ohmyzsh/ohmyzsh                             path:plugins/last-working-dir
 ohmyzsh/ohmyzsh                             path:plugins/magic-enter
+ohmyzsh/ohmyzsh                             path:plugins/man
 ohmyzsh/ohmyzsh                             path:plugins/minikube kind:fpath
+ohmyzsh/ohmyzsh                             path:plugins/nmap
 ohmyzsh/ohmyzsh                             path:plugins/node
-ohmyzsh/ohmyzsh                             path:plugins/npm
-ohmyzsh/ohmyzsh                             path:plugins/nvm
+ohmyzsh/ohmyzsh                             path:plugins/npm kind:fpath
+ohmyzsh/ohmyzsh                             path:plugins/nvm kind:fpath
 ohmyzsh/ohmyzsh                             path:plugins/pep8 kind:fpath
 ohmyzsh/ohmyzsh                             path:plugins/per-directory-history
 ohmyzsh/ohmyzsh                             path:plugins/pip kind:fpath
+ohmyzsh/ohmyzsh                             path:plugins/podman kind:fpath
 ohmyzsh/ohmyzsh                             path:plugins/pyenv
+ohmyzsh/ohmyzsh                             path:plugins/pylint kind:fpath
 ohmyzsh/ohmyzsh                             path:plugins/python
+ohmyzsh/ohmyzsh                             path:plugins/qrcode
 ohmyzsh/ohmyzsh                             path:plugins/ripgrep kind:fpath
-ohmyzsh/ohmyzsh                             path:plugins/rsync
+ohmyzsh/ohmyzsh                             path:plugins/rsync kind:fpath
+ohmyzsh/ohmyzsh                             path:plugins/screen
+ohmyzsh/ohmyzsh                             path:plugins/shrink-path
 ohmyzsh/ohmyzsh                             path:plugins/sprunge
-ohmyzsh/ohmyzsh                             path:plugins/ssh-agent
-ohmyzsh/ohmyzsh                             path:plugins/sudo kind:fpath
-ohmyzsh/ohmyzsh                             path:plugins/systemd kind:fpath
+ohmyzsh/ohmyzsh                             path:plugins/ssh-agent kind:fpath
+# ohmyzsh/ohmyzsh                             path:plugins/sudo
+ohmyzsh/ohmyzsh                             path:plugins/systemadmin
+ohmyzsh/ohmyzsh                             path:plugins/systemd
+ohmyzsh/ohmyzsh                             path:plugins/thefuck
+ohmyzsh/ohmyzsh                             path:plugins/transfer
 ohmyzsh/ohmyzsh                             path:plugins/timer
 ohmyzsh/ohmyzsh                             path:plugins/tmux
 ohmyzsh/ohmyzsh                             path:plugins/tmuxinator
 ohmyzsh/ohmyzsh                             path:plugins/ubuntu
+ohmyzsh/ohmyzsh                             path:plugins/universalarchive
 ohmyzsh/ohmyzsh                             path:plugins/urltools
 # ohmyzsh/ohmyzsh                             path:plugins/vi-mode
 ohmyzsh/ohmyzsh                             path:plugins/virtualenv
@@ -161,6 +190,7 @@ ohmyzsh/ohmyzsh                             path:plugins/virtualenvwrapper
 ohmyzsh/ohmyzsh                             path:plugins/vscode
 ohmyzsh/ohmyzsh                             path:plugins/web-search
 ohmyzsh/ohmyzsh                             path:plugins/yum
+ohmyzsh/ohmyzsh                             path:plugins/zbell
 ohmyzsh/ohmyzsh                             path:plugins/zoxide
 
 ### Framework: zsh-utils
