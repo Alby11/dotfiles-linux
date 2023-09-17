@@ -2,3 +2,16 @@
 cd ulauncher\
 chmod +x ./install.sh
 : 1694870445:0;..
+: 1694961940:0;git clone https://github.com/catppuccin/papirus-folders.git\
+cd papirus-folders
+: 1694962160:0;papirus_icons_install
+: 1694962307:0;cd papirus-folders
+: 1694962381:0;papirus_icons_install
+: 1694962445:0;cd papirus-folders
+: 1694962882:0;rm -rf *
+: 1694962884:0;exa -aglm --icons --group-directories-first
+: 1694962889:0;papirus_icons_install
+: 1694963277:0;dot add $ZFUNCDIR
+: 1694963279:0;dst
+: 1694963290:0;la
+: 1694963291:0;cd

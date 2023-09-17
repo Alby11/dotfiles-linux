@@ -225,3 +225,41 @@ dnf install SwayNotificationCenter
 : 1694960677:0;dotfiles2git sync
 : 1694960689:0;dot add Scripts
 : 1694960690:0;dotfiles2git sync
+: 1694960741:0;sway
+: 1694960762:0;dnf copr enable erikreider/SwayNotificationCenter\
+dnf install SwayNotificationCenter
+: 1694960777:0;<
+: 1694960789:0;swaync
+: 1694960803:0;swaync-client
+: 1694960814:0;swaync-client -R
+: 1694960832:0;md .config/swaync
+: 1694960844:0;cp /etc/xdg/swaync/config.json .config/swaync
+: 1694960854:0;swaync-client -R
+: 1694960863:0;swaync-client --reload-config
+: 1694960914:0;exec swaync
+: 1694960970:0;swaync-client -tC
+: 1694960974:0;swaync-client -t
+: 1694961244:0;dnf copr disable erikreider/SwayNotificationCenter\
+dnf autoremove SwayNotificationCenter
+: 1694961343:0;wget -qO- https://git.io/papirus-icon-theme-install | DESTDIR="$HOME/.icons" sh
+: 1694961382:0;e $ZFUNCDIR/papirus_icons_install
+: 1694961512:0;papirus_icons_install
+: 1694961661:0;rm -rf .icons/ePapirus*
+: 1694961667:0;rm -rf .icons/Papirus*
+: 1694961682:0;papirus_icons_install
+: 1694961897:0;dnfar papirus-icon-theme-20230801-1.fc38.noarch
+: 1694961922:0;papirus_icons_install
+: 1694961933:0;cd tmp
+: 1694962139:0;rm -rf  .icons/*apirus*
+: 1694962154:0;cd tmp
+: 1694962283:0;cd tpm
+: 1694962287:0;cd tmp
+: 1694962782:0;sudo dnf config-manager --add-repo https://download.opensuse.org/repositories/home:SmartFinn:hardcode-tray/Fedora_37/home:SmartFinn:hardcode-tray.repo\
+sudo dnf install hardcode-tray\
+sudo -E hardcode-tray --conversion-tool RSVGConvert --size 22 --theme Papirus-Dark
+: 1694962814:0;sudo dnf config-manager --help
+: 1694962868:0;EE
+: 1694962875:0;cd tmp
+: 1694963300:0;la .config/dconf/user 
+: 1694963304:0;e .config/dconf/user 
+: 1694963308:0;dotfiles2git sync
