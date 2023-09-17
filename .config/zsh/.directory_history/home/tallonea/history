@@ -223,3 +223,5 @@ dnf install SwayNotificationCenter
 : 1694960656:0;Scripts/packageManagerBackupRestore.sh
 : 1694960669:0;Scripts/packageManagerBackupRestore.sh backup
 : 1694960677:0;dotfiles2git sync
+: 1694960689:0;dot add Scripts
+: 1694960690:0;dotfiles2git sync
