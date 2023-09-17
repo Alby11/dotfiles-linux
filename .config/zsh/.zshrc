@@ -10,7 +10,9 @@ setopt extended_glob
 
 # Initialize the Zsh completion system
 # This enables advanced command-line completion features
+zmodload zsh/complist
 autoload -Uz compinit && compinit
+_comp_options+=(globdots) # With hidden files
 autoload -Uz promptinit && promptinit
 
 # Source zstyles you might use with antidote.
@@ -39,6 +41,9 @@ else
     not working \
     ;"
 fi
+
+### Set up ZSH Autocomplete
+# SOURCE_RCFILE $ZDOTDIR/.zcompletion.zsh
 
 # Basic auto/tab complete:
 # autoload -Uz compinit && zmodload zsh/complist ; compinit

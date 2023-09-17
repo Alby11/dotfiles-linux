@@ -150,6 +150,7 @@ ohmyzsh/ohmyzsh                             path:plugins/sprunge
 ohmyzsh/ohmyzsh                             path:plugins/ssh-agent
 ohmyzsh/ohmyzsh                             path:plugins/sudo kind:fpath
 ohmyzsh/ohmyzsh                             path:plugins/systemd kind:fpath
+ohmyzsh/ohmyzsh                             path:plugins/timer
 ohmyzsh/ohmyzsh                             path:plugins/tmux
 ohmyzsh/ohmyzsh                             path:plugins/tmuxinator
 ohmyzsh/ohmyzsh                             path:plugins/ubuntu
