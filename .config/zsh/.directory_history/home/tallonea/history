@@ -266,3 +266,9 @@ sudo -E hardcode-tray --conversion-tool RSVGConvert --size 22 --theme Papirus-Da
 : 1694963445:0;dnfuua
 : 1694963456:0;dnfcu
 : 1694965454:0;dotfiles2git sync
+: 1694965469:0;la
+: 1694965481:0;rm ROVERECARL-Preavvisod_\[Raccomandata_23082420112842\].tn.pdf
+: 1694965482:0;la
+: 1694965494:0;cat autoscan.log
+: 1694965497:0;rm autoscan.log
+: 1694965503:0;dotfiles2git sync
