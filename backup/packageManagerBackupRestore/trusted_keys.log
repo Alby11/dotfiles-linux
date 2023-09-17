@@ -16,3 +16,4 @@ gpg-pubkey-e419396d-5b2dcced --> Fortinet\FortiClient (Fortinet FortiClient RPM 
 gpg-pubkey-5f915c16-5e8fadb8 --> jstaf_onedriver (None) <jstaf#onedriver@copr.fedorahosted.org> public key
 gpg-pubkey-c9d8b80b-54c2e310 --> osquery (osquery) <osquery@fb.com> public key
 gpg-pubkey-e1aaf77e-641335c2 --> awood_bat-extras (None) <awood#bat-extras@copr.fedorahosted.org> public key
+gpg-pubkey-307f80b9-62dbf226 --> erikreider_SwayNotificationCenter (None) <erikreider#SwayNotificationCenter@copr.fedorahosted.org> public key

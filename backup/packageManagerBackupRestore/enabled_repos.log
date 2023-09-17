@@ -1,25 +1,25 @@
-repo id                                                      repo name
-copr:copr.fedorainfracloud.org:agriffis:neovim-nightly       Copr repo for neovim-nightly owned by agriffis
-copr:copr.fedorainfracloud.org:atim:lazygit                  Copr repo for lazygit owned by atim
-copr:copr.fedorainfracloud.org:atim:starship                 Copr repo for starship owned by atim
-copr:copr.fedorainfracloud.org:awood:bat-extras              Copr repo for bat-extras owned by awood
-copr:copr.fedorainfracloud.org:fszymanski:interception-tools Copr repo for interception-tools owned by fszymanski
-copr:copr.fedorainfracloud.org:jstaf:onedriver               Copr repo for onedriver owned by jstaf
-copr:copr.fedorainfracloud.org:skidnik:termite               Copr repo for termite owned by skidnik
-copr:copr.fedorainfracloud.org:tokariew:glow                 Copr repo for glow owned by tokariew
-fedora                                                       Fedora 38 - x86_64
-fedora-cisco-openh264                                        Fedora 38 openh264 (From Cisco) - x86_64
-fedora-modular                                               Fedora Modular 38 - x86_64
-firefoxpwa                                                   FirefoxPWA
-microsoft-edge-beta                                          microsoft-edge-beta
-osquery-s3-rpm-repo                                          name=osquery RPM repository - x86_64
-packages-microsoft-com-prod                                  packages-microsoft-com-prod
-rpmfusion-free                                               RPM Fusion for Fedora 38 - Free
-rpmfusion-free-updates                                       RPM Fusion for Fedora 38 - Free - Updates
-rpmfusion-nonfree                                            RPM Fusion for Fedora 38 - Nonfree
-rpmfusion-nonfree-updates                                    RPM Fusion for Fedora 38 - Nonfree - Updates
-teams                                                        teams
-teamviewer                                                   TeamViewer - x86_64
-updates                                                      Fedora 38 - x86_64 - Updates
-updates-modular                                              Fedora Modular 38 - x86_64 - Updates
-vivaldi                                                      vivaldi
+repo id                                                          repo name
+copr:copr.fedorainfracloud.org:agriffis:neovim-nightly           Copr repo for neovim-nightly owned by agriffis
+copr:copr.fedorainfracloud.org:atim:lazygit                      Copr repo for lazygit owned by atim
+copr:copr.fedorainfracloud.org:atim:starship                     Copr repo for starship owned by atim
+copr:copr.fedorainfracloud.org:awood:bat-extras                  Copr repo for bat-extras owned by awood
+copr:copr.fedorainfracloud.org:erikreider:SwayNotificationCenter Copr repo for SwayNotificationCenter owned by erikreider
+copr:copr.fedorainfracloud.org:fszymanski:interception-tools     Copr repo for interception-tools owned by fszymanski
+copr:copr.fedorainfracloud.org:jstaf:onedriver                   Copr repo for onedriver owned by jstaf
+copr:copr.fedorainfracloud.org:skidnik:termite                   Copr repo for termite owned by skidnik
+copr:copr.fedorainfracloud.org:tokariew:glow                     Copr repo for glow owned by tokariew
+fedora                                                           Fedora 38 - x86_64
+fedora-cisco-openh264                                            Fedora 38 openh264 (From Cisco) - x86_64
+fedora-modular                                                   Fedora Modular 38 - x86_64
+microsoft-edge-beta                                              microsoft-edge-beta
+osquery-s3-rpm-repo                                              name=osquery RPM repository - x86_64
+packages-microsoft-com-prod                                      packages-microsoft-com-prod
+rpmfusion-free                                                   RPM Fusion for Fedora 38 - Free
+rpmfusion-free-updates                                           RPM Fusion for Fedora 38 - Free - Updates
+rpmfusion-nonfree                                                RPM Fusion for Fedora 38 - Nonfree
+rpmfusion-nonfree-updates                                        RPM Fusion for Fedora 38 - Nonfree - Updates
+teams                                                            teams
+teamviewer                                                       TeamViewer - x86_64
+updates                                                          Fedora 38 - x86_64 - Updates
+updates-modular                                                  Fedora Modular 38 - x86_64 - Updates
+vivaldi                                                          vivaldi
