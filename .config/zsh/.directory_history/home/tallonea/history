@@ -1,0 +1,215 @@
+: 1694789101:0;echo $HISTFILE
+: 1694789119:0;cat $HISTFILE
+: 1694789155:0;rm .zsh_history
+: 1694789224:0;fc -R $HISTFILE]
+: 1694789226:0;fc -R $HISTFILE
+: 1694789234:0;dotfiles2git subupdate ; dotfiles2git sync ; dotfiles2git status
+: 1694789256:0;dst -u R hist
+: 1694789975:0;upload_to_func_rs
+: 1694789978:0;upload_to_func_rs --help
+: 1694790153:0;upload_to_func_rs -h
+: 1694790191:0;echo text | upload_to_func_rs -e 1 -c
+: 1694791111:0;paste_rs create "123"
+: 1694791121:0;paste_rs retrieve
+: 1694792201:0;curl https://api.warwickfulfillment.com/
+: 1694792207:0;curl https://api.warwickfulfillment.com/ | Wy
+: 1694792211:0;curl https://api.warwickfulfillment.com/ Wy
+: 1694792238:0;curl https://api.warwickfulfillment.com/ -o | wl-copy
+: 1694792242:0;curl https://api.warwickfulfillment.com/ | wl-copy
+: 1694793844:0;paste_rs --help
+: 1694794468:0;dot add $ZFUNCDIR/paste_rs.zsh
+: 1694794548:0;dot add $ZFUNCDIR/paste_rs
+: 1694794610:0;dnfuua
+: 1694794821:0;neofetch
+: 1694800507:0;per-directory-history-toggle-history
+: 1694801262:0;antidote purge jimhester/per-directory-history
+: 1694801273:0;antidote load
+: 1694800084:0;e
+: 1694802448:0;k
+: 1694802556:0;-
+: 1694802783:0;hsi fzf
+: 1694802801:0;exa -aglm --icons --group-directories-first
+: 1694802855:0;bindkey --help
+: 1694802859:0;bindkey help
+: 1694802867:0;bindkey
+: 1694802873:0;bindkey R G
+: 1694802899:0;bindkey R 'g'
+: 1694802961:0;bindkey R 'G'
+: 1694802975:0;bindkey R '^'
+: 1694803125:0;antidote list
+: 1694803151:0;antidote list R hist
+: 1694803293:0;fzf-fd-edit .cache/antidote
+: 1694803400:0;.cache/antidote/ohmyzsh/ohmyzsh/plugins/per-directory-history/per-directory-history.plugin.zsh
+: 1694803406:0;source .cache/antidote/ohmyzsh/ohmyzsh/plugins/per-directory-history/per-directory-history.plugin.zsh
+: 1694803597:0;ls
+: 1694803603:0;autoscan
+: 1694803982:0;
+: 1694804479:0;echo $PER_DIRECTORY_HISTORY_TOGGLE
+: 1694804551:0;rm -rf .cache/antidote/ohmyzsh/ohmyzsh/plugins/vi-mode
+: 1694804604:0;rg 'per' $ZDOTDIR/.zsh_plugins.zsh
+: 1694804631:0;rg 'per' $ZDOTDIR/.zsh_plugins.zsh R 109
+: 1694804638:0;rg 'per' $ZDOTDIR/.zsh_plugins.zsh R '109'
+: 1694804644:0;rg 'per' $ZDOTDIR/.zsh_plugins.zsh | rg 109
+: 1694804648:0;rg 'per' $ZDOTDIR/.zsh_plugins.zsh 
+: 1694804703:0;rg 'per' $ZDOTDIR/.zsh_plugins.zsh | grep 109
+: 1694804705:0;rg 'per' $ZDOTDIR/.zsh_plugins.zsh | grep 10
+: 1694804707:0;rg 'per' $ZDOTDIR/.zsh_plugins.zsh | grep 1
+: 1694804712:0;rg 'per' $ZDOTDIR/.zsh_plugins.zsh | grep '1'
+: 1694804721:0;rg 'per' $ZDOTDIR/.zsh_plugins.zsh | cut -d : -f 1
+: 1694804738:0;source /home/tallonea/.cache/antidote/ohmyzsh/ohmyzsh/plugins/per-directory-history/per-directory-history.plugin.zsh
+: 1694804769:0;source $ZDOTDIR/.zsh_plugins.conf
+: 1694804784:0;$ZDOTDIR/.zsh_plugins.zsh
+: 1694804842:0;source $ZDOTDIR/.zsh_plugins.zsh
+: 1694804860:0;e $ZDOTDIR/.zsh_plugins.zsh
+: 1694804953:0;rm $ZDOTDIR/.zsh_plugins.zsh
+: 1694804955:0;antidote purge romkatv/zsh-defer
+: 1694805035:0;antidote purge belak/zsh-utils
+: 1694805058:0;
+: 1694805206:0;zsweep
+: 1694805217:0;zsweep $ZFUNCDIR/paste_rs
+: 1694805291:0;e $ZFUNCDIR/catppuccin-gtk_install
+: 1694805327:0;zsweep $ZFUNCDIR/catppuccin-gtk_install
+: 1694805374:0;e $ZFUNCDIR/catppuccin-gtk_install ^^ zsweep $ZFUNCDIR/catppuccin-gtk_install
+: 1694805381:0;e $ZFUNCDIR/catppuccin-gtk_install && zsweep $ZFUNCDIR/catppuccin-gtk_install
+: 1694805438:0;cd $ZDOTDIR
+: 1694836935:0;paste_rs
+: 1694836942:0;paste_rs upload test
+: 1694837003:0;cd $ZFUNCDIR
+: 1694869744:0;cd .icons/Catppuccin-Mocha-Pink-Cursors
+: 1694870201:0;dnfi ulauncher-5.15.2-1.fc38.noarch
+: 1694870334:0;ctls ulauncher
+: 1694870393:0;cd tmp
+: 1694870452:0;la .config/ulauncher
+: 1694870455:0;la .config/ulauncher/user-themes
+: 1694870468:0;dush .config/ulauncher/user-themes
+: 1694870471:0;dush .config/ulauncher/
+: 1694870501:0;dot add .config/ulauncher
+: 1694870502:0;dotfiles2git subsync
+: 1694870898:0;cd Downloads
+: 1694871049:0;dush .icons
+: 1694871100:0;rsync -av .icons onedrive/profileFiles/gnome
+: 1694871237:0;rm -rf onedrive/profileFiles/gnome/.icons
+: 1694871282:0;la
+: 1694871299:0;da $ZFUNCDIR
+: 1694871303:0;dst
+: 1694871316:0;dotfiles2git sync
+: 1694871335:0;e .config/starship.toml
+: 1694871620:0;mkdir .config/starship
+: 1694871633:0;cp .config/starship.toml .config/starship
+: 1694871911:0;cd .config/starship
+: 1694872040:0;exa -aglm --icons --group-directories-first
+: 1694872043:0;cd .config
+: 1694872078:0;rm -rf .config/starship.toml
+: 1694872095:0;dot rm .config/starship.toml
+: 1694872103:0;dot add .config/starship
+: 1694872106:0;dotfiles2git sync
+: 1694872121:0;dnfcu
+: 1694872128:0;dnfuua
+: 1694872136:0;ulauncher
+: 1694872200:0;cd $ZFUNCDIR
+: 1694872432:0;cd .config/ulauncher
+: 1694872634:0;exa -aglm --icons --group-directories-first
+: 1694872644:0;la .config/remmina
+: 1694872716:0;dnfi wmctrl
+: 1694872863:0;dot add .config/ulauncher
+: 1694872864:0;dst
+: 1694872872:0;dotfiles2git sync
+: 1694872933:0;ctls ulauncher
+: 1694873760:0;which alacritty
+: 1694873880:0;pip3 install py_expression_eval --user
+: 1694874042:0;pip3 install  --userar
+: 1694874047:0;pip3 install --user jira
+: 1694874097:0;dotfiles2git sync
+: 1694874136:0;pip3 install --user memoization
+: 1694876806:0;dotfiles2git sync
+: 1694876927:0;la
+: 1694877038:0;dotfiles2git sync
+: 1694877049:0;dot add .config/ulauncher
+: 1694877051:0;dotfiles2git sync
+: 1694877106:0;e .config/ulauncher/ext_preferences/com.github.brpaz.ulauncher-jira.db
+: 1694877122:0;cd
+: 1694877190:0;dotfiles2git sync
+: 1694877619:0;dnfuua
+: 1694877628:0;stopDaemons
+: 1694885818:0;dnfuua
+: 1694885916:0;startCharge
+: 1694888067:0;dot add gitdepot/profileFiles/firefox
+: 1694888098:0;dot rm -rf --cached gitdepot/profileFiles/firefox
+: 1694888102:0;dot rm -rf --cached gitdepot/profileFiles/firefox/
+: 1694888109:0;z profilefiles
+: 1694888141:0;dotfiles2git sync
+: 1694889163:0;exa -aglm --icons --group-directories-first
+: 1694889168:0;C
+: 1694889181:0;cd $ZFUNCDIR
+: 1694889901:0;dot add $ZFUNCDIR/paste_rs
+: 1694889919:0;dcmsg 'new version from BChat'
+: 1694889921:0;dp
+: 1694889925:0;dotfiles2git sync
+: 1694889934:0;paste_rs upload test
+: 1694889991:0;paste_rs upload 'test' a
+: 1694890002:0;paste_rs --help
+: 1694890019:0;paste_rs upload 'test'
+: 1694890032:0;paste_rs get 
+: 1694890115:0;paste_rs upload 'prova'
+: 1694890121:0;paste_rs upload "prova"
+: 1694890143:0;paste_rs get 67OMf
+: 1694890165:0;paste_rs delete X4kpC
+: 1694890236:0;da $ZFUNCDIR
+: 1694890248:0;dcmsg 'better version from BChat'
+: 1694890532:0;paste_rs 
+: 1694890592:0;paste_rs upload $(cat .config/zsh/.zsh_plugins.txt)
+: 1694890656:0;dotfiles2git sync
+: 1694890818:0;stacer --help
+: 1694890832:0;e
+: 1694890849:0;sync_home
+: 1694892131:0;getCharge
+: 1694892137:0;stopCharge
+: 1694892138:0;getCharge
+: 1694892237:0;alacritty --help
+: 1694892247:0;~/.cargo/bin/alacritty -e '/bin/zsh -c "{command}; exec /bin/zsh"'
+: 1694892264:0;~/.cargo/bin/alacritty -e '/bin/zsh -c "{ls}; exec /bin/zsh"'
+: 1694892372:0;dotfiles2git sync
+: 1694892382:0;antidote load
+: 1694892396:0;e
+: 1694892480:0;docker 
+: 1694892500:0;dk clone-in-kitty
+: 1694892503:0;clone-in-kitty
+: 1694892512:0;clone-in-kitty 
+: 1694892678:0;rm -rf .cache/antidote
+: 1694892729:0;dotfiles2git sync
+: 1694892803:0;e
+: 1694892814:0;dnfcu
+: 1694892822:0;dotfiles2git subsync
+: 1694892859:0;exa -aglm --icons --group-directories-first
+: 1694892862:0;Sz
+: 1694892892:0;./gitdepot/kitty-scrollback.nvim/scripts/kittyscrollbackgeneratekittens.sh
+: 1694892913:0;exa -aglm --icons --group-directories-first
+: 1694892917:0;T
+: 1694892938:0;EE
+: 1694935328:0;e .config/zsh/.zcompletion.zsh
+: 1694935367:0;antidote list R kube
+: 1694935373:0;antidote list R 'kube'
+: 1694935377:0;antidote list
+: 1694935387:0;antidote list R compl
+: 1694935458:0;antidote list R zsh
+: 1694935467:0;antidote list R zsh-compl
+: 1694935861:0;exa -aglm --icons --group-directories-first
+: 1694935863:0;\
+
+: 1694935871:0;exa -aglm --icons --group-directories-first
+: 1694935878:0;zmodload zsh/complist\
+
+: 1694935912:0;vman
+: 1694936290:0;zmodload zsh/zprof
+: 1694936292:0;la
+: 1694936334:0;dotfiles2git subsync
+: 1694959783:0;dnfcu
+: 1694959847:0;for i in $(seq 1 10); do /usr/bin/time zsh -i -c exit; done
+: 1694960306:0;dot add $ZDOTDIR/.ztools.zsh
+: 1694960309:0;dot add $ZDOTDIR
+: 1694960332:0;dot rm -rf $ZDOTDIR/.oh-my-zsh
+: 1694960350:0;dS deinit -f $ZDOTDIR/.oh-my-zsh
+: 1694960352:0;dot rm -rf $ZDOTDIR/.oh-my-zsh
+: 1694960382:0;rm -rf $ZDOTDIR/.oh-my-zsh  
+: 1694960385:0;dot add $ZDOTDIR
+: 1694960391:0;dotfiles2git sync

@@ -1,0 +1,13 @@
+: 1694870901:0;la
+: 1694870915:0;la -r
+: 1694870924:0;la -tr
+: 1694870927:0;la -t
+: 1694870931:0;la --help
+: 1694870947:0;la -U
+: 1694870953:0;la -Ur
+: 1694870963:0;la bz2
+: 1694870969:0;la R bz2
+: 1694870984:0;tar xvfz Catppuccin-SE.tar.bz2
+: 1694870993:0;tar xvfj Catppuccin-SE.tar.bz2
+: 1694871010:0;mv Catppuccin-SE ../.icons
+: 1694871044:0;cd

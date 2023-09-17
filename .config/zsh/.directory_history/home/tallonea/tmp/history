@@ -1,0 +1,4 @@
+: 1694870395:0;git clone https://github.com/catppuccin/ulauncher.git\
+cd ulauncher\
+chmod +x ./install.sh
+: 1694870445:0;..

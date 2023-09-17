@@ -1,0 +1,82 @@
+: 1694790278:0;mv upload_to_func_rs upload_to_paste_rs
+: 1694790296:0;source upload_to_paste_rs
+: 1694790368:0;e upload_to_paste_rs
+: 1694790389:0;echo upload_to_paste_rs| upload_to_paste_rs
+: 1694790394:0;echo upload_to_paste_rs| upload_to_paste_rs -i
+: 1694790403:0;echo upload_to_paste_rs | upload_to_paste_rs 
+: 1694790410:0;echo upload_to_pasrs | upload_to_paste_rs 
+: 1694790501:0;source upload_to_paste_rs && echo upload_to_pasrs | upload_to_paste_rs 
+: 1694790514:0;source upload_to_paste_rs && echo upload_to_pasrs | upload_to_paste_rs -c
+: 1694790529:0;upload_to_paste_rs -h
+: 1694790534:0;upload_to_paste_rs -l
+: 1694790572:0;upload_to_paste_rs -i GuIeT
+: 1694790661:0;mv upload_to_paste_rs paste_rs
+: 1694790859:0;e paste_rs.py
+: 1694790939:0;python paste_rs.py retrieve *
+: 1694790967:0;python paste_rs.py create "123"
+: 1694790969:0;python paste_rs.py retrieve 
+: 1694790972:0;python paste_rs.py retrieve
+: 1694790996:0;python3 paste_rs.py create "123"
+: 1694791451:0;rm paste*
+: 1694791513:0;touch paste_rs.zsh
+: 1694791516:0;e paste_rs.zsh
+: 1694791952:0;curl https://api.warwickfulfillment.com/
+: 1694793895:0;paste_rs
+: 1694793897:0;paste_rs --help
+: 1694794014:0;source paste_rs.zsh
+: 1694794016:0;paste_rs test
+: 1694794048:0;source paste_rs.zsh && paste_rs upload test
+: 1694794154:0;curl -X POST --data-binary test https://paste.rs
+: 1694794439:0;source paste_rs.zsh && paste_rs retrieve 
+: 1694794511:0;mv paste_rs paste_rs.zsh
+: 1694794527:0;mv paste_rs.zsh paste_rs
+: 1694794563:0;z nvim
+: 1694801445:0;antidote load .zsh_plugins.txt
+: 1694801450:0;antidote bundle .zsh_plugins.txt
+: 1694801458:0;cd ..
+: 1694801529:0;ls
+: 1694802462:0;ld
+: 1694802475:0;man ld
+: 1694802487:0;c ld
+: 1694802531:0;..
+: 1694805820:0;la
+: 1694805823:0;dot add catppuccin-gtk_install
+: 1694805829:0;dot add do_update_grub
+: 1694805846:0;dot add paste_rs
+: 1694805850:0;cp ../ew .
+: 1694805854:0;mv ../ew .
+: 1694805858:0;dot add ew
+: 1694805892:0;ew catppuccin-gtk_install
+: 1694806258:0;ew catppuccin_gtk_install
+: 1694806848:0;
+: 1694806866:0;cd ../.directory_history
+: 1694836479:0;e paste_rs
+: 1694837013:0;paste_rs upload test
+: 1694837023:0;paste_rs upload teste
+: 1694837418:0;source paste_rs.zsh && paste_rs upload "test"
+: 1694865554:0;stopDaemons
+: 1694865636:0;wl-copy
+: 1694866013:0;read --help
+: 1694866017:0;man read
+: 1694866418:0;c read
+: 1694866751:0;exa -aglm --icons --group-directories-first
+: 1694866764:0;source paste_rs && paste_rs upload "test"
+: 1694867425:0;dotfiles2git sync
+: 1694867677:0;source paste_rs && paste_rs get 
+: 1694867839:0;source paste_rs && paste_rs get 67OMf:\  
+: 1694867869:0;source paste_rs && paste_rs get
+: 1694867882:0;source paste_rs && paste_rs get 6pV0T
+: 1694870293:0;systemctl --user enable --now ulauncher
+: 1694870363:0;sudo systemctl --user enable --now ulauncher
+: 1694870392:0;cd
+: 1694871148:0;dotfiles2git subsync
+: 1694871245:0;d
+: 1694871252:0;~
+: 1694872216:0;
+: 1694872222:0;sudo systemctl --user enable --now ulauncher
+: 1694872227:0;sudo systemctl --user enable --now ulauncher.service
+: 1694872240:0;sudo ls /etc/systemd/system
+: 1694872258:0;sudo ls /usr/lib/systemd/system
+: 1694872263:0;sudo ls /usr/lib/systemd/system R ula
+: 1694872428:0;cd
+: 1694889188:0;e paste_rs

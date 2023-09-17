@@ -1,0 +1,19 @@
+: 1694801523:0;exa -aglm --icons --group-directories-first
+: 1694802544:0;~
+: 1694802567:0;e .zsh_history
+: 1694802599:0;cd
+: 1694802638:0;la .directory_history
+: 1694802644:0;la .directory_history/home/tallonea/history
+: 1694802648:0;la .directory_history/home/tallonea
+: 1694802673:0;e .zsh_plugins.conf
+: 1694805449:0;e ew
+: 1694805534:0;source ew
+: 1694805553:0;ew functions/catppuccin-gtk_install
+: 1694805817:0;la
+: 1694805819:0;cd functions
+: 1694806965:0;dotfiles2git subsync
+: 1694836432:0;echo test | paste_rs create
+: 1694836450:0;paste_rs
+: 1694836458:0;echo test | paste_rs upload
+: 1694836477:0;cd $ZFUNCDIR
+: 1694872053:0;cd catppuccin_tty
