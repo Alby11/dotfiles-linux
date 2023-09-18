@@ -12,9 +12,9 @@ string="ohmyzsh/ohmyzsh"
 if [[ $antidote_list =~ $string ]]; then
   export ZSH=$(antidote path ohmyzsh/ohmyzsh)
 fi
-string="zdharma-continuum/fast-syntax-highlighting"
+string="zdharma-continuum/fast-syntax-highlighting" w
 if [[ $antidote_list =~ $string ]]; then
-  fast-theme XDG:catppuccin-mocha
+  fast-theme XDG:catppuccin-mocha 
 fi
 string="unixorn/fzf-zsh-plugin"
 if [[ $antidote_list =~ $string ]]; then
