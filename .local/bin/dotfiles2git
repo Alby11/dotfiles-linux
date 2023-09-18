@@ -124,7 +124,7 @@ case "$1" in
         dotfilesSync
         ;;
 
-    "subsync")
+    "syncsub")
         dotfilesSubupdate
         dotfilesSync
         ;;
