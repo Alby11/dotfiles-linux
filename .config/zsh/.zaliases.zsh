@@ -15,7 +15,12 @@ fi
 # bat-extras
 if command -v bat &>/dev/null
 then
-  alias -g B=' | bat --show-all'
+  alias -g B=' | bat'
+  alias -g BF=' | bat --style=full'
+  alias -g batf='bat --style=full'
+  alias bathelp='bat --plain --language=help'
+  alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
+  alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
 fi
 if command -v batgrep &>/dev/null
 then
@@ -247,51 +252,39 @@ alias xway='env -u WAYLAND_DISPLAY '
 if command -v curl &>/dev/null; then
     # Creditst to Jeremy "Jay" LaCroix
     # <https://www.learnlinux.tv/10-linux-terminal-tips-and-tricks-to-enhance-your-workflow/
-    alias speedtest='curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python -'
+    alias speedtest='curl -s \
+      https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py \
+      | python - \
+      ;'
     # alias myip='curl http://ipecho.net/plain; echo '
     alias myip='curl icanhazip.com'
     # alias wimp='curl https://wttr.in/imperia'
     alias wimp='wth imperia'
 fi
 
-if [ "$(command -v fzf)" ] && [ "$(command -v rg)" ] && [ "$(command -v bat)" ]; then
-    export FZF_BASE=/usr/bin/fzf
-    export FZF_DEFAULT_COMMAND='rg --ignore-case --files --no-ignore-vcs --hidden '
-    # catppucin theme
-    export FZF_DEFAULT_OPTS=" --preview bat --border=rounded \
---color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
---color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
---color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
-;"
-    alias -g fzfb="fzf \
---preview bat --border=rounded \
---color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
---color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
---color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
-;"
-    # dracula theme
-    # export FZF_DEFAULT_OPTS="\
-        # --preview bat --border=rounded  \
-        # --color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 \
-        # --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9 \
-        # --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 \
-        # --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4 \
-        # ;"
-    # DISABLE_FZF_AUTO_COMPLETION="false"
-    # DISABLE_FZF_KEY_BINDINGS="true"
-    # alias fzfb="fzf \
-        # # --preview bat --color=always --style=numbers --line-range=:500 {} \
-        # --preview bat --border=rounded  \
-        # --color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 \
-        # --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9 \
-        # --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 \
-        # --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4 \
-        # ;"
-    alias -g R='| rg '
-    alias -g rf="rg . | fzf"
-    alias -g rfl="rg . | fzf | cut -d ":" -f 1"
+if [ "$(command -v fzf)" ] && [ "$(command -v rg)" ]; then 
+  export FZF_BASE=$(which fzf)
+  export FZF_DEFAULT_OPTS=" \
+   --ansi \
+   --extended \
+   --border=rounded \
+   --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
+   --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
+   --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
+  export FZF_DEFAULT_COMMAND="rg --ignore-case --files --no-ignore-vcs --hidden "
+  export DISABLE_FZF_AUTO_COMPLETION="false"
+  export DISABLE_FZF_KEY_BINDINGS="false"
+  alias -g R='| rg '
+  alias -g rf="rg . | fzf"
+  alias -g rfl="rg . | fzf | cut -d ":" -f 1"
+  if [ "$(command -v bat)" ]; then
+    export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --preview=$(which bat)"
+  else
+    export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --preview=$(which less)"
+    echo "bat missing..."
+  fi
 else
-    echo "fzf|rg|bat missing..."
+  echo "fzf&rg missing..."
 fi
 
 alias resetSound='/bin/systemctl --user restart pipewire.service'

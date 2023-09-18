@@ -101,14 +101,6 @@ SOURCE_RCFILE $ZDOTDIR/catppuccin_zsh-syntax-highlighting/themes/catppuccin_moch
 # ZSH interactive cd
 # SOURCE_RCFILE $ZSH/plugins/zsh-interactive-cd/zsh-interactive-cd.plugin.zsh
 
-# KUBECONFIG
-export KUBECONFIG=$KUBECONFIG:$HOME/.kube/config:$HOME/.kube/configs/kubeconfig.yaml
-
-### Initialize Zoxide
-if CHECK_COMMANDS "zoxide"; then
-  # eval "$(zoxide init zsh)"
-fi
-
 ### Initialize Starship
 if CHECK_COMMANDS "starship"; then
   export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/starship.jonasleonhard.toml" && \
