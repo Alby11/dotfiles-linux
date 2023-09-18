@@ -127,3 +127,6 @@
 [submodule "/home/tallonea/.config/bat/syntaxes/sublime-purescript-syntax"]
 	path = /home/tallonea/.config/bat/syntaxes/sublime-purescript-syntax
 	url = https://github.com/tellnobody1/sublime-purescript-syntax
+[submodule ".config/bat/syntaxes/sublime-purescript-syntax"]
+	path = .config/bat/syntaxes/sublime-purescript-syntax
+	url = https://github.com/tellnobody1/sublime-purescript-syntax
