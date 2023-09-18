@@ -1,10 +1,10 @@
 #!/bin/env zsh
 
 #
-# .functions - Set whatever shell functions you want.
+# .zfunctions.zsh - Set whatever shell functions you want.
 #
 
-ECHOCAT '.functions - Set whatever shell functions you want.'
+ECHOCAT '.zfunctions.zsh - Set whatever shell functions you want.'
 
 hping() {
   ping -c 3 -s 2 "$1"

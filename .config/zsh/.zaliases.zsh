@@ -1,9 +1,9 @@
 #!/bin/env zsh
 #
-# .aliases - Set whatever shell aliases you want.
+# .zaliases.zsh - Set whatever shell aliases you want.
 #
 
-ECHOCAT '.aliases - Set whatever shell aliases you want.'
+ECHOCAT '.zaliases.zsh - Set whatever shell aliases you want.'
 
 alias -g _="sudo"
 

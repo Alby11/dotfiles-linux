@@ -208,7 +208,7 @@ fpath+=( /home/tallonea/.cache/antidote/zsh-users/zsh-autosuggestions )
 zsh-defer source /home/tallonea/.cache/antidote/zsh-users/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 fpath+=( /home/tallonea/.cache/antidote/zsh-users/zsh-history-substring-search )
 source /home/tallonea/.cache/antidote/zsh-users/zsh-history-substring-search/zsh-history-substring-search.plugin.zsh
-zsh-defer source /home/tallonea/.config/zsh/.aliases
-zsh-defer source /home/tallonea/.config/zsh/.functions
+zsh-defer source $ZDOTDIR/.zaliases.zsh
+zsh-defer source $ZDOTDIR/.zfunctions.zsh
 fpath+=( /home/tallonea/.cache/antidote/mattmc3/zfunctions )
 zsh-defer source /home/tallonea/.cache/antidote/mattmc3/zfunctions/zfunctions.plugin.zsh
