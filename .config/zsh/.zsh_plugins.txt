@@ -190,7 +190,7 @@ ohmyzsh/ohmyzsh                             path:plugins/virtualenvwrapper
 ohmyzsh/ohmyzsh                             path:plugins/vscode
 ohmyzsh/ohmyzsh                             path:plugins/web-search
 ohmyzsh/ohmyzsh                             path:plugins/yum
-ohmyzsh/ohmyzsh                             path:plugins/zbell
+# ohmyzsh/ohmyzsh                             path:plugins/zbell
 ohmyzsh/ohmyzsh                             path:plugins/zoxide
 
 ### Framework: zsh-utils
@@ -268,11 +268,11 @@ psprint/zsh-sweep
 unixorn/fzf-zsh-plugin                      branch:main 
 Aloxaf/fzf-tab                              
 # lincheney/fzf-tab-completion     kind:defer
-zsh-users/zsh-autosuggestions               kind:defer
+zsh-users/zsh-autosuggestions
 zsh-users/zsh-history-substring-search
 
 # Others
 # MichaelAquilina/zsh-auto-notify
-$ZDOTDIR/.zaliases.zsh                          kind:defer
-$ZDOTDIR/.zfunctions.zsh                        kind:defer
+$ZDOTDIR/.zaliases.zsh                      kind:defer
+$ZDOTDIR/.zfunctions.zsh                    kind:defer
 mattmc3/zfunctions                          kind:defer

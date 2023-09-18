@@ -180,8 +180,6 @@ fpath+=( /home/tallonea/.cache/antidote/ohmyzsh/ohmyzsh/plugins/web-search )
 source /home/tallonea/.cache/antidote/ohmyzsh/ohmyzsh/plugins/web-search/web-search.plugin.zsh
 fpath+=( /home/tallonea/.cache/antidote/ohmyzsh/ohmyzsh/plugins/yum )
 source /home/tallonea/.cache/antidote/ohmyzsh/ohmyzsh/plugins/yum/yum.plugin.zsh
-fpath+=( /home/tallonea/.cache/antidote/ohmyzsh/ohmyzsh/plugins/zbell )
-source /home/tallonea/.cache/antidote/ohmyzsh/ohmyzsh/plugins/zbell/zbell.plugin.zsh
 fpath+=( /home/tallonea/.cache/antidote/ohmyzsh/ohmyzsh/plugins/zoxide )
 source /home/tallonea/.cache/antidote/ohmyzsh/ohmyzsh/plugins/zoxide/zoxide.plugin.zsh
 fpath+=( /home/tallonea/.cache/antidote/zdharma-continuum/fast-syntax-highlighting )
@@ -205,7 +203,7 @@ source /home/tallonea/.cache/antidote/unixorn/fzf-zsh-plugin/fzf-zsh-plugin.plug
 fpath+=( /home/tallonea/.cache/antidote/Aloxaf/fzf-tab )
 source /home/tallonea/.cache/antidote/Aloxaf/fzf-tab/fzf-tab.plugin.zsh
 fpath+=( /home/tallonea/.cache/antidote/zsh-users/zsh-autosuggestions )
-zsh-defer source /home/tallonea/.cache/antidote/zsh-users/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
+source /home/tallonea/.cache/antidote/zsh-users/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 fpath+=( /home/tallonea/.cache/antidote/zsh-users/zsh-history-substring-search )
 source /home/tallonea/.cache/antidote/zsh-users/zsh-history-substring-search/zsh-history-substring-search.plugin.zsh
 zsh-defer source $ZDOTDIR/.zaliases.zsh
