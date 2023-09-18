@@ -22,6 +22,7 @@ else
   ECHOCAT 'LESSOPEN: lesspipe.sh in not installed or in PATH' -i
 fi
 if command -v bat &>/dev/null; then
+  bat cache --build >/dev/null 1>&2
   export LESSCOLORIZER="bat --style=full --theme=catppuccin-mocha"
 fi
 if command -v batpipe &>/dev/null; then
