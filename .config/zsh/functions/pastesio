@@ -44,7 +44,7 @@ function pastesio() {
       local format="$3"
       local expiration="$4"
 
-      local response=$(curl -X POST https://pastes.io/api/paste/create \
+      local response=$(curl -X POST https://pastes.io/api/paste/ \
         -H 'Content-Type: application/json' \
         -d '{
           "content": "'"$content"'",
