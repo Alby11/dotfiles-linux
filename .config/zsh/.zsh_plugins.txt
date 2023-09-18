@@ -190,7 +190,7 @@ ohmyzsh/ohmyzsh                             path:plugins/virtualenvwrapper
 ohmyzsh/ohmyzsh                             path:plugins/vscode
 ohmyzsh/ohmyzsh                             path:plugins/web-search
 ohmyzsh/ohmyzsh                             path:plugins/yum
-# ohmyzsh/ohmyzsh                             path:plugins/zbell
+ohmyzsh/ohmyzsh                             path:plugins/zbell
 ohmyzsh/ohmyzsh                             path:plugins/zoxide
 
 ### Framework: zsh-utils

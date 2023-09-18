@@ -14,7 +14,11 @@ if [[ $antidote_list =~ $string ]]; then
 fi
 string="zdharma-continuum/fast-syntax-highlighting" w
 if [[ $antidote_list =~ $string ]]; then
-  fast-theme XDG:catppuccin-mocha 
+  fast_theme="$(antidote path zdharma-continuum/fast-syntax-highlighting)"
+  fast_theme="$fast_theme/fast-syntax-highlighting.plugin.zsh"
+  [[ -f "$fast_theme" ]] && \
+    source "$fast_theme" && \
+    fast-theme XDG:catppuccin-mocha > /dev/null 2>&1
 fi
 string="unixorn/fzf-zsh-plugin"
 if [[ $antidote_list =~ $string ]]; then
