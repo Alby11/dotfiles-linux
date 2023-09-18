@@ -12,9 +12,9 @@ string="ohmyzsh/ohmyzsh"
 if [[ $antidote_list =~ $string ]]; then
   export ZSH=$(antidote path ohmyzsh/ohmyzsh)
 fi
-string="zdharma-continuum/fast-syntax-highlighting" w
+string="zdharma-continuum/fast-syntax-highlighting"
 if [[ $antidote_list =~ $string ]]; then
-  fast_theme="$(antidote path zdharma-continuum/fast-syntax-highlighting)"
+  local fast_theme="$(antidote path zdharma-continuum/fast-syntax-highlighting)"
   fast_theme="$fast_theme/fast-syntax-highlighting.plugin.zsh"
   [[ -f "$fast_theme" ]] && \
     source "$fast_theme" && \

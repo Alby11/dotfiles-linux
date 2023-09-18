@@ -1,0 +1,136 @@
+#!/usr/bin/env zsh
+
+# Usage: pastesio [create|get|delete] [args...]
+# - create: Create a new paste
+#   - Usage: pastesio create "content" "title" "format" "expiration"
+#     - content: The content of the paste. This is a mandatory parameter.
+#     - title: The title of the paste. This is an optional parameter.
+#     - format: The syntax highlighting for the paste (e.g., "bash", "python", etc.). This is an optional parameter.
+#     - expiration: When the paste should expire ("10m", "1h", etc.). This is an optional parameter.
+# - get: Retrieve an existing paste
+#   - Usage: pastesio get paste_id
+#     - paste_id: The ID of the paste you want to retrieve. This is a mandatory parameter.
+# - delete: Delete an existing paste
+#   - Usage: pastesio delete paste_id
+#     - paste_id: The ID of the paste you want to delete. This is a mandatory parameter.
+
+function pastesio() {
+  local history_file="$ZDOTDIR/.pastesio_history"
+
+  if [[ "$1" == "-h" || "$1" == "--help" || -z "$1" ]]; then
+    echo "Usage: pastesio [create|get|delete] [args...]"
+    echo "- create: Create a new paste"
+    echo "  - Usage: pastesio create \"content\" \"title\" \"format\" \"expiration\""
+    echo "    - content: The content of the paste. This is a mandatory parameter."
+    echo "    - title: The title of the paste. This is an optional parameter."
+    echo "    - format: The syntax highlighting for the paste (e.g., \"bash\", \"python\", etc.). This is an optional parameter."
+    echo "    - expiration: When the paste should expire (\"10m\", \"1h\", etc.). This is an optional parameter."
+    echo "- get: Retrieve an existing paste"
+    echo "  - Usage: pastesio get paste_id"
+    echo "    - paste_id: The ID of the paste you want to retrieve. This is a mandatory parameter."
+    echo "- delete: Delete an existing paste"
+    echo "  - Usage: pastesio delete paste_id"
+    echo "    - paste_id: The ID of the paste you want to delete. This is a mandatory parameter."
+    return 0
+  fi
+
+  local command="$1"
+  shift
+
+  case "$command" in
+    create)
+      local content="$1"
+      local title="$2"
+      local format="$3"
+      local expiration="$4"
+
+      local response=$(curl -X POST https://pastes.io/api/paste/create \
+        -H 'Content-Type: application/json' \
+        -d '{
+          "content": "'"$content"'",
+          "title": "'"$title"'",
+          "format": "'"$format"'",
+          "expiration": "'"$expiration"'"
+        }')
+
+      echo "$response"
+
+      # Extract the paste ID from the response and add it to the history file
+      local paste_id=$(echo "$response" | grep -oP '"id": "\K[^"]+')
+      echo "$paste_id" >> "$history_file"
+      ;;
+    get)
+      local paste_id="$1"
+
+      curl -X GET https://pastes.io/api/pastes/$paste_id
+
+      # Add the retrieved paste ID to the history file
+      echo "$paste_id" >> "$history_file"
+      ;;
+    delete)
+      local paste_id="$1"
+
+      curl -X DELETE https://pastes.io/api/pastes/$paste_id
+
+      # Remove the deleted paste ID from the history file
+      sed -i "/$paste_id/d" "$history_file"
+      ;;
+    *)
+      echo "Invalid command '$command'. See 'pastesio --help'."
+      return 1
+      ;;
+  esac
+}
+
+# Add this to your .zshrc file for tab completion for the pastesio command and paste IDs
+compdef '_values "commands" create get delete' pastesio
+
+# autoload -Uz compinit && compinit
+
+_pastesio() {
+  local curcontext="$curcontext" state line expl ret=1
+  typeset -A opt_args
+
+  _arguments -C \
+    '1: :->cmds' \
+    '*:: :->args' && ret=0
+
+  case $state in
+    cmds)
+      case $line[1] in
+        get|delete)
+          _arguments '2: :_pastesio_paste_ids'
+          ret=0
+          ;;
+        *)
+          _files
+          ret=0
+          ;;
+      esac
+      ;;
+    args)
+      case $line[1] in
+        get|delete)
+          _arguments '2: :_pastesio_paste_ids'
+          ret=0
+          ;;
+        *)
+          _files
+          ret=0
+          ;;
+      esac
+      ;;
+  esac
+
+  return ret
+}
+
+_pastesio_paste_ids() {
+  local history_file="$ZDOTDIR/.pastesio_history"
+
+  if [[ ! -f "$history_file" ]]; then return; fi
+
+  compadd $(cat "$history_file")
+}
+
+compdef _pastesio pastesio
