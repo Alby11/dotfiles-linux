@@ -70,8 +70,7 @@ done
 # Get a list of all files in the directories
 for dir in "${FUNCTION_DIRS[@]}"; do
     if [[ -d $dir ]]; then
-        func_files=$(/bin/ls $dir)
-
+        func_files=($dir/*)
         # Loop through the files and autoload each one
         for func in $func_files; do
             autoload -Uz $func
