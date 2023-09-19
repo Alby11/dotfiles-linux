@@ -62,27 +62,25 @@ pastesio() {
       local title="$3"
       local syntax="$4"
       local password="$5"
-      local status="$6"
+      local pastesio_status="$6"
       local expire="$7"
-      echo $status
+      echo "\n$status"
       # Define the request
       local request="curl --location --request POST 'https://pastes.io/api/paste/create' \
           --header 'Accept: application/json' \
           --header \"Authorization: Bearer $bearer_token\" \
           --form \"content=\"$content\"\" \
-          --form \"status=\"$status\"\" \
+          --form \"status=\"$pastesio_status\"\" \
           --form \"expire=\"$expire\"\" \
           --form \"title=\"$title\"\" \
           --form \"syntax=\"$syntax\"\" \
           --form \"password=\"$password\"\""
 
-      echo $request
-
       # Execute the request and get the response
       local response=$(eval "$request")
 
-      # Print the response
-      echo $response
+      # Extract and print the paste URL
+      echo $response | jq -r '.success.paste_url'
 
       # Extract the paste ID from the response and add it to the history file
       local paste_id=$(echo "$response" | grep -oP '"slug": "\K[^"]+')
