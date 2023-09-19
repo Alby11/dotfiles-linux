@@ -34,21 +34,25 @@ pastesio() {
   fi
 
   local history_file="$ZDOTDIR/.pastesio_history"
+
   # Authenticate and get the bearer token
   local username="$PASTES_IO_USER"
   local password="$PASTES_IO_PASS"
 
   # Define the request
-  login_request=$(curl --location --request POST 'https://pastes.io/api/login' \
+  local request="curl --location --request POST 'https://pastes.io/api/login' \
       --header 'Accept: application/json' \
-      --form "username=\"$username\"" \
-      --form "password=\"$password\"")
+      --form 'username=\"$username\"' \
+      --form 'password=\"$password\"'"
 
-  # Get the response
-  login_response=$($login_request)
+  echo $request
+  # Execute the request and get the response
+  local response=$(eval "$request")
+
+  echo $response
 
   # Extract the bearer token from the response
-  local bearer_token=$(echo "$login_response" | grep -oP '"api_token":"\K[^"]+')
+  local bearer_token=$(echo "$response" | grep -oP '"api_token":"\K[^"]+')
 
   local command="$1"
 
@@ -60,24 +64,25 @@ pastesio() {
       local password="$5"
       local status="$6"
       local expire="$7"
-
+      echo $status
       # Define the request
-      request=$(curl --location --request POST 'https://pastes.io/api/paste/create' \
+      local request="curl --location --request POST 'https://pastes.io/api/paste/create' \
           --header 'Accept: application/json' \
-          --header "Authorization: Bearer $bearer_token" \
-          --form "content=\"$content\"" \
-          --form "status=\"$status\"" \
-          --form "expire=\"$expire\"" \
-          --form "title=\"$title\"" \
-          --form "syntax=\"$syntax\"" \
-          --form "password=\"$password\"")
+          --header \"Authorization: Bearer $bearer_token\" \
+          --form \"content=\"$content\"\" \
+          --form \"status=\"$status\"\" \
+          --form \"expire=\"$expire\"\" \
+          --form \"title=\"$title\"\" \
+          --form \"syntax=\"$syntax\"\" \
+          --form \"password=\"$password\"\""
 
       echo $request
 
-      # Get the response
-      response=$($request)
+      # Execute the request and get the response
+      local response=$(eval "$request")
 
-      echo "$response"
+      # Print the response
+      echo $response
 
       # Extract the paste ID from the response and add it to the history file
       local paste_id=$(echo "$response" | grep -oP '"slug": "\K[^"]+')
@@ -88,12 +93,14 @@ pastesio() {
       local slug="$2"
       local password="$3"
 
-      local response=$(curl --location --request POST "https://pastes.io/api/pastes/$slug" \
-        --header 'Accept: application/json' \
-        --header "Authorization: Bearer $bearer_token" \
-        --form "password=\"$password\"")
+      # Define the request
+      local request="curl --location --request POST \"https://pastes.io/api/pastes/$slug\" \
+          --header 'Accept: application/json' \
+          --header \"Authorization: Bearer $bearer_token\" \
+          --form \"password=\"$password\"\""
 
-      echo "$response"
+      # Execute the request and get the response
+      local response=$(eval "$request")
 
       # Add the retrieved paste slug to the history file
       echo "$slug" >> "$history_file"
@@ -101,28 +108,39 @@ pastesio() {
     delete)
       local slug="$2"
 
-      local response=$(curl --location --request POST "https://pastes.io/api/paste/delete" \
-        --header 'Accept: application/json' \
-        --header "Authorization: Bearer $bearer_token" \
-        --form "slug=\"$slug\"")
+      # Define the request
+      local request="curl --location --request POST \"https://pastes.io/api/paste/delete\" \
+          --header 'Accept: application/json' \
+          --header \"Authorization: Bearer $bearer_token\" \
+          --form \"slug=\"$slug\"\""
 
-      echo "$response"
+      # Execute the request and get the response
+      local response=$(eval "$request")
+
 
       # Remove the deleted paste slug from the history file
       sed -i "/$slug/d" "$history_file"
       ;;
     mypastes)
-      local response=$(curl --location --request GET 'https://pastes.io/api/my-pastes' \
-        --header 'Accept: application/json' \
-        --header "Authorization: Bearer $bearer_token")
 
-      echo "$response"
+      # Define the request
+      local request="curl --location --request GET 'https://pastes.io/api/my-pastes' \
+          --header 'Accept: application/json' \
+          --header \"Authorization: Bearer $bearer_token\""
+
+      # Execute the request and get the response
+      local response=$(eval "$request")
+
       ;;
     deleteall)
       # First, get all of your pastes
-      local response=$(curl --location --request GET 'https://pastes.io/api/my-pastes' \
-        --header 'Accept: application/json' \
-        --header "Authorization: Bearer $bearer_token")
+      # Define the request
+      local request="curl --location --request GET 'https://pastes.io/api/my-pastes' \
+          --header 'Accept: application/json' \
+          --header \"Authorization: Bearer $bearer_token\""
+
+      # Get the response
+      local response=$(eval "$request")
 
       # Extract all the slugs from the response
       local slugs=$(echo "$response" | grep -oP '"slug": "\K[^"]+')
