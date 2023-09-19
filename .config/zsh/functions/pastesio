@@ -17,19 +17,26 @@
 pastesio() {
 
   if [[ "$1" == "-h" || "$1" == "--help" || -z "$1" ]]; then
-    echo "Usage: pastesio [create|get|delete] [args...]"
+    echo "Usage: pastesio [create|get|delete|mypastes|deleteall] [args...]"
     echo "- create: Create a new paste"
-    echo "  - Usage: pastesio create \"content\" \"title\" \"format\" \"expiration\""
+    echo "  - Usage: pastesio create -c \"content\" [-s \"status\"] [-e \"expire\"] [-t \"title\"] [-y \"syntax\"] [-p \"password\"]"
     echo "    - content: The content of the paste. This is a mandatory parameter."
+    echo "    - status: The status of the paste (public = 0, unlisted = 1, private = 2). This is an optional parameter."
+    echo "    - expire: When the paste should expire (\"10m\", \"1h\", etc.). This is an optional parameter."
     echo "    - title: The title of the paste. This is an optional parameter."
-    echo "    - format: The syntax highlighting for the paste (e.g., \"bash\", \"python\", etc.). This is an optional parameter."
-    echo "    - expiration: When the paste should expire (\"10m\", \"1h\", etc.). This is an optional parameter."
+    echo "    - syntax: The syntax highlighting for the paste (e.g., \"bash\", \"python\", etc.). This is an optional parameter."
+    echo "    - password: The password for the paste. This is an optional parameter."
     echo "- get: Retrieve an existing paste"
-    echo "  - Usage: pastesio get paste_id"
+    echo "  - Usage: pastesio get -i \"paste_id\" [-p \"password\"]"
     echo "    - paste_id: The ID of the paste you want to retrieve. This is a mandatory parameter."
+    echo "    - password: The password for the paste. This is an optional parameter."
     echo "- delete: Delete an existing paste"
-    echo "  - Usage: pastesio delete paste_id"
+    echo "  - Usage: pastesio delete -i \"paste_id\""
     echo "    - paste_id: The ID of the paste you want to delete. This is a mandatory parameter."
+    echo "- mypastes: Retrieve all your pastes"
+    echo "  - Usage: pastesio mypastes"
+    echo "- deleteall: Delete all your pastes"
+    echo "  - Usage: pastesio deleteall"
     return 0
   fi
 
@@ -45,51 +52,55 @@ pastesio() {
       --form 'username=\"$username\"' \
       --form 'password=\"$password\"'"
 
-  echo $request
   # Execute the request and get the response
   local response=$(eval "$request")
-
-  echo $response
 
   # Extract the bearer token from the response
   local bearer_token=$(echo "$response" | grep -oP '"api_token":"\K[^"]+')
 
   local command="$1"
 
-  case "$command" in
-    create)
-      local content="$2"
-      local title="$3"
-      local syntax="$4"
-      local password="$5"
-      local pastesio_status="$6"
-      local expire="$7"
-      echo "\n$status"
-      # Define the request
-      local request="curl --location --request POST 'https://pastes.io/api/paste/create' \
-          --header 'Accept: application/json' \
-          --header \"Authorization: Bearer $bearer_token\" \
-          --form \"content=\"$content\"\" \
-          --form \"status=\"$pastesio_status\"\" \
-          --form \"expire=\"$expire\"\" \
-          --form \"title=\"$title\"\" \
-          --form \"syntax=\"$syntax\"\" \
-          --form \"password=\"$password\"\""
+case "$command" in
+  create)
+    local OPTIND opt
+    local content status expire title syntax password
 
-      # Execute the request and get the response
-      local response=$(eval "$request")
+    while getopts ":c:s:e:t:y:p:" opt; do
+      case ${opt} in
+        c) content="$OPTARG" ;;
+        s) status="$OPTARG" ;;
+        e) expire="$OPTARG" ;;
+        t) title="$OPTARG" ;;
+        y) syntax="$OPTARG" ;;
+        p) password="$OPTARG" ;;
+        \?) echo "Invalid option -$OPTARG" >&2; return 1 ;;
+      esac
+    done
 
-      # Extract and print the paste URL
-      echo $response | jq -r '.success.paste_url'
+    # Define the request
+    local request="curl --location --request POST 'https://pastes.io/api/paste/create' \
+        --header 'Accept: application/json' \
+        --header \"Authorization: Bearer $bearer_token\" \
+        --form \"content=\"$content\"\" \
+        --form \"status=\"$status\"\" \
+        --form \"expire=\"$expire\"\" \
+        --form \"title=\"$title\"\" \
+        --form \"syntax=\"$syntax\"\" \
+        --form \"password=\"$password\"\""
 
-      # Extract the paste ID from the response and add it to the history file
-      local paste_id=$(echo "$response" | grep -oP '"slug": "\K[^"]+')
-      echo "$paste_id" >> "$history_file"
-      ;;
+    # Execute the request and get the response
+    local response=$(eval "$request")
 
+    # Extract and print the paste URL
+    echo $response | jq -r '.success.paste_url'
+
+    # Extract the paste ID from the response and add it to the history file
+    local paste_id=$(echo "$response" | grep -oP '"slug": "\K[^"]+')
+    echo "$paste_id" >> "$history_file"
+    ;;
     get)
       local slug="$2"
-      local password="$3"
+      local password="${3:-}"
 
       # Define the request
       local request="curl --location --request POST \"https://pastes.io/api/pastes/$slug\" \
@@ -103,109 +114,74 @@ pastesio() {
       # Add the retrieved paste slug to the history file
       echo "$slug" >> "$history_file"
       ;;
-    delete)
-      local slug="$2"
 
-      # Define the request
-      local request="curl --location --request POST \"https://pastes.io/api/paste/delete\" \
-          --header 'Accept: application/json' \
-          --header \"Authorization: Bearer $bearer_token\" \
-          --form \"slug=\"$slug\"\""
+   delete)
+     local slug="$2"
 
-      # Execute the request and get the response
-      local response=$(eval "$request")
+     # Define the request
+     local request="curl --location --request POST \"https://pastes.io/api/paste/delete\" \
+         --header 'Accept: application/json' \
+         --header \"Authorization: Bearer $bearer_token\" \
+         --form \"slug=\"$slug\"\""
 
+     # Execute the request and get the response
+     local response=$(eval "$request")
 
-      # Remove the deleted paste slug from the history file
-      sed -i "/$slug/d" "$history_file"
-      ;;
-    mypastes)
+     # Remove the deleted paste slug from the history file
+     sed -i "/$slug/d" "$history_file"
+     ;;
 
-      # Define the request
-      local request="curl --location --request GET 'https://pastes.io/api/my-pastes' \
-          --header 'Accept: application/json' \
-          --header \"Authorization: Bearer $bearer_token\""
+   mypastes)
 
-      # Execute the request and get the response
-      local response=$(eval "$request")
+     # Define the request
+     local request="curl --location --request GET 'https://pastes.io/api/my-pastes' \
+         --header 'Accept: application/json' \
+         --header \"Authorization: Bearer $bearer_token\""
 
-      ;;
-    deleteall)
-      # First, get all of your pastes
-      # Define the request
-      local request="curl --location --request GET 'https://pastes.io/api/my-pastes' \
-          --header 'Accept: application/json' \
-          --header \"Authorization: Bearer $bearer_token\""
+     # Execute the request and get the response
+     local response=$(eval "$request")
 
-      # Get the response
-      local response=$(eval "$request")
+     ;;
 
-      # Extract all the slugs from the response
-      local slugs=$(echo "$response" | grep -oP '"slug": "\K[^"]+')
+   deleteall)
+     # First, get all of your pastes
+     # Define the request
+     local request="curl --location --request GET 'https://pastes.io/api/my-pastes' \
+         --header 'Accept: application/json' \
+         --header \"Authorization: Bearer $bearer_token\""
 
-      # Loop over each slug and delete the corresponding paste
-      for slug in $slugs; do
-        curl --location --request POST "https://pastes.io/api/paste/delete" \
-          --header 'Accept: application/json' \
-          --header "Authorization: Bearer $bearer_token" \
-          --form "slug=\"$slug\""
+     # Get the response
+     local response=$(eval "$request")
 
-        # Remove the deleted paste slug from the history file
-        sed -i "/$slug/d" "$history_file"
-      done
-      ;;
-  esac
+     # Extract all the slugs from the response
+     local slugs=$(echo "$response" | grep -oP '"slug": "\K[^"]+')
+
+     # Loop over each slug and delete the corresponding paste
+     for slug in $slugs; do
+       curl --location --request POST "https://pastes.io/api/paste/delete" \
+         --header 'Accept: application/json' \
+         --header "Authorization: Bearer $bearer_token" \
+         --form "slug=\"$slug\""
+
+       # Remove the deleted paste slug from the history file
+       sed -i "/$slug/d" "$history_file"
+     done
+     ;;
+ esac
 }
 
-# Add this to your .zshrc file for tab completion for the pastesio command and paste IDs
-compdef '_values "commands" create get delete' pastesio
+# Completion script for the pastesio function
+_complete_pastesio() {
+  local cur prev opts
+  COMPREPLY=()
+  cur="${COMP_WORDS[COMP_CWORD]}"
+  prev="${COMP_WORDS[COMP_CWORD-1]}"
+  opts="-c -s -e -t -y -p"
 
-# autoload -Uz compinit && compinit
-
-_pastesio() {
-  local curcontext="$curcontext" state line expl ret=1
-  typeset -A opt_args
-
-  _arguments -C \
-    '1: :->cmds' \
-    '*:: :->args' && ret=0
-
-  case $state in
-    cmds)
-      case $line[1] in
-        get|delete)
-          _arguments '2: :_pastesio_paste_ids'
-          ret=0
-          ;;
-        *)
-          _files
-          ret=0
-          ;;
-      esac
-      ;;
-    args)
-      case $line[1] in
-        get|delete)
-          _arguments '2: :_pastesio_paste_ids'
-          ret=0
-          ;;
-        *)
-          _files
-          ret=0
-          ;;
-      esac
-      ;;
-  esac
-
-  return ret
+  if [[ ${cur} == -* ]]; then
+    COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+    return 0
+  fi
 }
 
-_pastesio_paste_ids() {
-  local history_file="$ZDOTDIR/.pastesio_history"
-
-  if [[ ! -f "$history_file" ]]; then return; fi
-
-  compadd $(cat "$history_file")
-}
-
-compdef _pastesio pastesio
+complete -F _complete_pastesio pastesio
