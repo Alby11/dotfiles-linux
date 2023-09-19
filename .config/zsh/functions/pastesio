@@ -14,18 +14,8 @@
 #   - Usage: pastesio delete paste_id
 #     - paste_id: The ID of the paste you want to delete. This is a mandatory parameter.
 
-export function pastesio() {
-  local history_file="$ZDOTDIR/.pastesio_history"
-  local api_token
-  # Authenticate and get the bearer token
-  local username="$PASTES_IO_USER"
-  local password="$PASTES_IO_PASS"
-  local login_response=$(curl --location --request POST 'https://pastes.io/api/login' \
-    --header 'Accept: application/json' \
-    --form "username=\"$username\"" \
-    --form "password=\"$password\"")
-  # Extract the bearer token from the response
-  local bearer_token=$(echo "$login_response" | grep -oP '"api_token":"\K[^"]+')
+pastesio() {
+
   if [[ "$1" == "-h" || "$1" == "--help" || -z "$1" ]]; then
     echo "Usage: pastesio [create|get|delete] [args...]"
     echo "- create: Create a new paste"
@@ -43,6 +33,23 @@ export function pastesio() {
     return 0
   fi
 
+  local history_file="$ZDOTDIR/.pastesio_history"
+  # Authenticate and get the bearer token
+  local username="$PASTES_IO_USER"
+  local password="$PASTES_IO_PASS"
+
+  # Define the request
+  login_request=$(curl --location --request POST 'https://pastes.io/api/login' \
+      --header 'Accept: application/json' \
+      --form "username=\"$username\"" \
+      --form "password=\"$password\"")
+
+  # Get the response
+  login_response=$($login_request)
+
+  # Extract the bearer token from the response
+  local bearer_token=$(echo "$login_response" | grep -oP '"api_token":"\K[^"]+')
+
   local command="$1"
 
   case "$command" in
@@ -54,15 +61,21 @@ export function pastesio() {
       local status="$6"
       local expire="$7"
 
-      local response=$(curl --location --request POST 'https://pastes.io/api/paste/create' \
-        --header 'Accept: application/json' \
-        --header "Authorization: Bearer $bearer_token" \
-        --form "content=\"$content\"" \
-        --form "status=\"$status\"" \
-        --form "expire=\"$expire\"" \
-        --form "title=\"$title\"" \
-        --form "syntax=\"$syntax\"" \
-        --form "password=\"$password\"")
+      # Define the request
+      request=$(curl --location --request POST 'https://pastes.io/api/paste/create' \
+          --header 'Accept: application/json' \
+          --header "Authorization: Bearer $bearer_token" \
+          --form "content=\"$content\"" \
+          --form "status=\"$status\"" \
+          --form "expire=\"$expire\"" \
+          --form "title=\"$title\"" \
+          --form "syntax=\"$syntax\"" \
+          --form "password=\"$password\"")
+
+      echo $request
+
+      # Get the response
+      response=$($request)
 
       echo "$response"
 
