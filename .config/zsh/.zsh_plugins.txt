@@ -20,6 +20,7 @@
 ###
 
 ### Priority Plugins
+romkatv/zsh-defer
 
 ### Regular Plugins
 #
@@ -76,7 +77,7 @@ agkozak/zsh-z
 
 # annotations are also allowed:
 romkatv/zsh-bench                           kind:path
-olets/zsh-abbr                              kind:defer
+olets/zsh-abbr                              #kind:defer
 
 ### Frameworks
 #
@@ -223,8 +224,8 @@ ohmyzsh/ohmyzsh                             path:plugins/zoxide
 #
 ###
 # Syntax highlighting
-# zsh-users/zsh-syntax-highlightin           kind:defer
-zdharma-continuum/fast-syntax-highlighting kind:defer
+# zsh-users/zsh-syntax-highlightin           #kind:defer
+zdharma-continuum/fast-syntax-highlighting #kind:defer
 
 ### Completions
 #
@@ -267,12 +268,12 @@ psprint/zsh-sweep
 # These popular core plugins should be loaded at the end
 unixorn/fzf-zsh-plugin                      branch:main 
 Aloxaf/fzf-tab                              
-# lincheney/fzf-tab-completion     kind:defer
+# lincheney/fzf-tab-completion     #kind:defer
 zsh-users/zsh-autosuggestions
 zsh-users/zsh-history-substring-search
 
 # Others
 # MichaelAquilina/zsh-auto-notify
-$ZDOTDIR/.zaliases.zsh                      kind:defer
-$ZDOTDIR/.zfunctions.zsh                    kind:defer
-mattmc3/zfunctions                          kind:defer
+$ZDOTDIR/.zaliases.zsh                      #kind:defer
+$ZDOTDIR/.zfunctions.zsh                    #kind:defer
+# mattmc3/zfunctions                          #kind:defer

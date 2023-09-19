@@ -10,13 +10,17 @@ setopt extended_glob
 
 # Initialize the Zsh completion system
 # This enables advanced command-line completion features
-zmodload zsh/complist
-autoload -Uz compinit && compinit
+autoload -Uz compinit && zmodload zsh/complist ; compinit
 _comp_options+=(globdots) # With hidden files
 autoload -Uz promptinit && promptinit
 
+### Set up ZSH Autocomplete
+# Credits:
+# https://github.com/Phantas0s/.dotfiles/blob/master/zsh/completion.zsh
+# SOURCE_RCFILE $ZDOTDIR/.zcompletion.zsh
+
 # Source zstyles you might use with antidote.
-[[ -e ${ZDOTDIR:-$HOME}/.zstyles ]] && SOURCE_RCFILE ${ZDOTDIR:-$HOME}/.zstyles
+SOURCE_RCFILE ${ZDOTDIR:-$HOME}/.zstyles
 
 # Source GIT configuration
 SOURCE_RCFILE $XDG_CONFIG_HOME/git/.git.conf
@@ -26,6 +30,16 @@ SOURCE_RCFILE $XDG_CONFIG_HOME/git/.git.conf
 #
 SOURCE_RCFILE $ZDOTDIR/.zeditor
 
+#
+# Xresources
+#
+SOURCE_RCFILE $ZDOTDIR/.zxresources.zsh
+
+### NPM
+if ! CHECK_COMMANDS "npm"; then
+  package_manager_install npm
+fi
+  
 # Create an amazing Zsh config using antidote plugins.
 # Set the path to the Oh My Zsh installation directory
 SOURCE_RCFILE ${ZDOTDIR:-$HOME}/.antidote/antidote.zsh
@@ -42,12 +56,29 @@ else
     ;"
 fi
 
-### Set up ZSH Autocomplete
-# SOURCE_RCFILE $ZDOTDIR/.zcompletion.zsh
+#
+# FPATH AUTOLOAD
+#
+# Define the directories that contain your functions
+FUNCTION_DIRS=("$ZDOTDIR/functions")
+# Loop through the directories and add each one to fpath
+for dir in "${FUNCTION_DIRS[@]}"; do
+    if [[ -d $dir ]]; then
+        fpath=( $dir "${fpath[@]}" )
+    fi
+done
+# Get a list of all files in the directories
+for dir in "${FUNCTION_DIRS[@]}"; do
+    if [[ -d $dir ]]; then
+        func_files=$(/bin/ls $dir)
 
-# Basic auto/tab complete:
-# autoload -Uz compinit && zmodload zsh/complist ; compinit
-# _comp_options+=(globdots)		# Include hidden files.
+        # Loop through the files and autoload each one
+        for func in $func_files; do
+            autoload -Uz $func
+        done
+    fi
+done
+### END OF FPATH AUTOLOAD
 
 # Uncomment the following line to enable command auto-correction.
 export ENABLE_CORRECTION="true"
@@ -115,7 +146,7 @@ if [[ ! $( command -v keychain ) ]]; then
     sudo apt install -y keychain &> /dev/null
 fi
 export SSH_ENV="$HOME/.ssh/agent-environment"
-function start_agent {
+start_agent() {
     echo "Initialising new SSH agent..."
     /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
     echo succeeded
@@ -137,6 +168,8 @@ if [ -f "${SSH_ENV}" ]; then
 else
     start_agent;
 fi
+unset -f start_agent
 ### END OF SSH BLOCK
+
+# Back to home
 cd $HOME
-curl -o /home/tallonea/.Xresources https://raw.githubusercontent.com/catppuccin/xresources/main/mocha.Xresources && xrdb /home/tallonea/.Xresources

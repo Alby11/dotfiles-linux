@@ -19,17 +19,17 @@ export function pastesio() {
   local api_token
 
   # Authenticate and get the bearer token
-  local username="$USERNAME"
-  local password="$PASSWORD"
-
-  local login_response=$(curl --location --request POST 'http://pastes.io/api/login' \
+  local username="$PASTES_IO_USER"
+  local password="$PASTES_IO_PASS"
+  echo "$username \n $password"
+  local login_response=$(curl --location --request POST 'https://pastes.io/api/login' \
     --header 'Accept: application/json' \
     --form "username=\"$username\"" \
     --form "password=\"$password\"")
-
+  echo $login_response
   # Extract the bearer token from the response
-  local bearer_token=$(echo "$login_response" | grep -oP '"api_token": "\K[^"]+')
-
+  local bearer_token=$(echo "$login_response" | grep -oP '"api_token":"\K[^"]+')
+  echo "Bearer: $bearer_token"
   if [[ "$1" == "-h" || "$1" == "--help" || -z "$1" ]]; then
     echo "Usage: pastesio [create|get|delete] [args...]"
     echo "- create: Create a new paste"
@@ -55,8 +55,8 @@ export function pastesio() {
       local title="$3"
       local syntax="$4"
       local password="$5"
-      local status="$6"
-      local expire="$7"
+      # local status="$6"
+      local expire="$6"
 
       local response=$(curl --location --request POST 'http://pastes.io/api/paste/create' \
         --header 'Accept: application/json' \

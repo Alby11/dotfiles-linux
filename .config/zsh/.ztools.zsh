@@ -5,7 +5,7 @@
 #
 
 # use lolcat as a special printf command
-export ECHOCAT() {
+ECHOCAT() {
   if command -v lolcat &>/dev/null; then
     if  lolcat --version | grep -E 'moe@busyloop.net' &>/dev/null; then
       alias lolcat='lolcat -ta'
@@ -23,7 +23,7 @@ export ECHOCAT() {
 # ECHOCAT ".ztools.zsh - tools for better profiling..."
 
 # Function to print an error message and exit/return with an error/return code
-export FAIL() {
+FAIL() {
   if [[ -z "$2" ]]; then
     ECHOCAT "$1" -i # Print the first argument as a message using ECHOCAT
   elif [[ "$2" == "x" ]]; then
@@ -54,8 +54,7 @@ export FAIL() {
 #   fi
 # The function will return a success status if all commands are available,
 # or a failure status if any command is not found.
-
-export CHECK_COMMANDS() {
+CHECK_COMMANDS() {
   local cmds=("$@")  # Store the arguments in an array
   for cmd in "${cmds[@]}"; do  # Iterate over each command
     if ! command -v "$cmd" > /dev/null 2>&1; then  # Check if the command is available
@@ -66,19 +65,44 @@ export CHECK_COMMANDS() {
 }
 
 ### SOURCING/EXPORTING UTILITIES
-export SOURCE_RCFILE() {
-    if [ -f "$1" ]; then
-        source "$1"
-        ECHOCAT "$1 successfully sourced ... "
-    else
-        FAIL "$1 not sourced ... "
-    fi
+SOURCE_RCFILE() {
+  if [ -f "$1" ]; then
+      source "$1"
+      ECHOCAT "$1 successfully sourced ... "
+  else
+      FAIL "$1 not sourced ... "
+  fi
 }
-export EXPORT_DIR() {
-    if [ -d $1 ]; then
-      export PATH=$1:$PATH
-      ECHOCAT "$1 successfully exported ... "
-    else
-      FAIL "$1 not exported ... "
-    fi
+
+EXPORT_DIR() {
+  if [ -d $1 ]; then
+    export PATH=$1:$PATH
+    ECHOCAT "$1 successfully exported ... "
+  else
+    FAIL "$1 not exported ... "
+  fi
 }
+
+for cmd in dnf apt; do
+  if CHECK_COMMANDS "$cmd"; then
+    case "$cmd" in
+      "dnf")
+        package_manager_install() {
+          sudo dnf install -y "$@"
+        }
+        package_manager_remove() {
+          sudo dnf autoremove -y "$@"
+        }
+        ;;
+      "apt")
+        package_manager_install() {
+          sudo apt-get install -y "$@"
+        }
+        package_manager_remove() {
+          sudo apt autoremove -y "$@"
+        }
+        ;;
+    esac
+    break
+  fi
+done

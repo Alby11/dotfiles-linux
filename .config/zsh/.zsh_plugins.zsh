@@ -1,3 +1,5 @@
+fpath+=( /home/tallonea/.cache/antidote/romkatv/zsh-defer )
+source /home/tallonea/.cache/antidote/romkatv/zsh-defer/zsh-defer.plugin.zsh
 fpath+=( /home/tallonea/.cache/antidote/xPMo/zsh-ls-colors )
 source /home/tallonea/.cache/antidote/xPMo/zsh-ls-colors/ls-colors.zsh
 fpath+=( /home/tallonea/.cache/antidote/peterhurford/up.zsh )
@@ -9,12 +11,8 @@ source /home/tallonea/.cache/antidote/mattmc3/zman/zman.plugin.zsh
 fpath+=( /home/tallonea/.cache/antidote/agkozak/zsh-z )
 source /home/tallonea/.cache/antidote/agkozak/zsh-z/zsh-z.plugin.zsh
 export PATH="/home/tallonea/.cache/antidote/romkatv/zsh-bench:$PATH"
-if ! (( $+functions[zsh-defer] )); then
-  fpath+=( /home/tallonea/.cache/antidote/romkatv/zsh-defer )
-  source /home/tallonea/.cache/antidote/romkatv/zsh-defer/zsh-defer.plugin.zsh
-fi
 fpath+=( /home/tallonea/.cache/antidote/olets/zsh-abbr )
-zsh-defer source /home/tallonea/.cache/antidote/olets/zsh-abbr/zsh-abbr.plugin.zsh
+source /home/tallonea/.cache/antidote/olets/zsh-abbr/zsh-abbr.plugin.zsh
 fpath+=( /home/tallonea/.cache/antidote/ohmyzsh/ohmyzsh/lib )
 source /home/tallonea/.cache/antidote/ohmyzsh/ohmyzsh/lib/bzr.zsh
 source /home/tallonea/.cache/antidote/ohmyzsh/ohmyzsh/lib/clipboard.zsh
@@ -185,7 +183,7 @@ source /home/tallonea/.cache/antidote/ohmyzsh/ohmyzsh/plugins/zbell/zbell.plugin
 fpath+=( /home/tallonea/.cache/antidote/ohmyzsh/ohmyzsh/plugins/zoxide )
 source /home/tallonea/.cache/antidote/ohmyzsh/ohmyzsh/plugins/zoxide/zoxide.plugin.zsh
 fpath+=( /home/tallonea/.cache/antidote/zdharma-continuum/fast-syntax-highlighting )
-zsh-defer source /home/tallonea/.cache/antidote/zdharma-continuum/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+source /home/tallonea/.cache/antidote/zdharma-continuum/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 fpath+=( /home/tallonea/.cache/antidote/srijanshetty/zsh-pip-completion/src )
 fpath+=( /home/tallonea/.cache/antidote/3v1n0/zsh-bash-completions-fallback/src )
 fpath+=( /home/tallonea/.cache/antidote/MenkeTechnologies/zsh-cargo-completion/src )
@@ -208,7 +206,5 @@ fpath+=( /home/tallonea/.cache/antidote/zsh-users/zsh-autosuggestions )
 source /home/tallonea/.cache/antidote/zsh-users/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 fpath+=( /home/tallonea/.cache/antidote/zsh-users/zsh-history-substring-search )
 source /home/tallonea/.cache/antidote/zsh-users/zsh-history-substring-search/zsh-history-substring-search.plugin.zsh
-zsh-defer source $ZDOTDIR/.zaliases.zsh
-zsh-defer source $ZDOTDIR/.zfunctions.zsh
-fpath+=( /home/tallonea/.cache/antidote/mattmc3/zfunctions )
-zsh-defer source /home/tallonea/.cache/antidote/mattmc3/zfunctions/zfunctions.plugin.zsh
+source $ZDOTDIR/.zaliases.zsh
+source $ZDOTDIR/.zfunctions.zsh

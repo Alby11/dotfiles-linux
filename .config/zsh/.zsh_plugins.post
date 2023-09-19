@@ -31,6 +31,10 @@ string="Aloxaf/fzf-tab"
 if [[ $antidote_list =~ $string ]]; then
   autoload -Uz enable-fzf-tab
 fi
+string="mattmc3/zfunctions"
+if [[ $antidote_list =~ $string ]]; then
+  (( $+functions[funcsave] )) && echo "zfunctions loaded" || echo "zfunctions not loaded"
+fi
 string="lincheney/fzf-tab-completion"
 if [[ $antidote_list =~ $string ]]; then
   # alias -g grep='/bin/grep'
