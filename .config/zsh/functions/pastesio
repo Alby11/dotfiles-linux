@@ -100,7 +100,7 @@ create)
   # Extract the paste URL
   local paste_url
   paste_url=$(echo "$response" | jq -r '.success.paste_url')
-  echo $paste_url
+
   if [ -z "$paste_url" ] || [ "$paste_url" = "null" ]; then
     echo "Failed to create the paste." >&2
     return 1
@@ -185,19 +185,3 @@ create)
      ;;
  esac
 }
-
-# Completion script for the pastesio function
-_complete_pastesio() {
-  local cur prev opts
-  COMPREPLY=()
-  cur="${COMP_WORDS[COMP_CWORD]}"
-  prev="${COMP_WORDS[COMP_CWORD-1]}"
-  opts="-c -s -e -t -y -p"
-
-  if [[ ${cur} == -* ]]; then
-    COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
-    return 0
-  fi
-}
-
-complete -F _complete_pastesio pastesio
