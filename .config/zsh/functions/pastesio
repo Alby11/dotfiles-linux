@@ -15,89 +15,105 @@
 #     - paste_id: The ID of the paste you want to delete. This is a mandatory parameter.
 
 pastesio() {
-
-  if [[ "$1" == "-h" || "$1" == "--help" || -z "$1" ]]; then
-    echo "Usage: pastesio [create|get|delete|mypastes|deleteall] [args...]"
-    echo "- create: Create a new paste"
-    echo "  - Usage: pastesio create -c \"content\" [-s \"status\"] [-e \"expire\"] [-t \"title\"] [-y \"syntax\"] [-p \"password\"]"
-    echo "    - content: The content of the paste. This is a mandatory parameter."
-    echo "    - status: The status of the paste (public = 0, unlisted = 1, private = 2). This is an optional parameter."
-    echo "    - expire: When the paste should expire (\"10m\", \"1h\", etc.). This is an optional parameter."
-    echo "    - title: The title of the paste. This is an optional parameter."
-    echo "    - syntax: The syntax highlighting for the paste (e.g., \"bash\", \"python\", etc.). This is an optional parameter."
-    echo "    - password: The password for the paste. This is an optional parameter."
-    echo "- get: Retrieve an existing paste"
-    echo "  - Usage: pastesio get -i \"paste_id\" [-p \"password\"]"
-    echo "    - paste_id: The ID of the paste you want to retrieve. This is a mandatory parameter."
-    echo "    - password: The password for the paste. This is an optional parameter."
-    echo "- delete: Delete an existing paste"
-    echo "  - Usage: pastesio delete -i \"paste_id\""
-    echo "    - paste_id: The ID of the paste you want to delete. This is a mandatory parameter."
-    echo "- mypastes: Retrieve all your pastes"
-    echo "  - Usage: pastesio mypastes"
-    echo "- deleteall: Delete all your pastes"
-    echo "  - Usage: pastesio deleteall"
-    return 0
-  fi
-
   local history_file="$ZDOTDIR/.pastesio_history"
-
-  # Authenticate and get the bearer token
   local username="$PASTES_IO_USER"
   local password="$PASTES_IO_PASS"
-
-  # Define the request
-  local request="curl --location --request POST 'https://pastes.io/api/login' \
-      --header 'Accept: application/json' \
-      --form 'username=\"$username\"' \
-      --form 'password=\"$password\"'"
-
-  # Execute the request and get the response
-  local response=$(eval "$request")
-
-  # Extract the bearer token from the response
-  local bearer_token=$(echo "$response" | grep -oP '"api_token":"\K[^"]+')
-
   local command="$1"
 
-case "$command" in
-  create)
-    local OPTIND opt
-    local content status expire title syntax password
+  # Authenticate and get the bearer token
+  local request="curl --location --request POST 'https://pastes.io/api/login' \\
+      --header 'Accept: application/json' \\
+      --form 'username=\"$username\"' \\
+      --form 'password=\"$password\"'"
 
-    while getopts ":c:s:e:t:y:p:" opt; do
-      case ${opt} in
-        c) content="$OPTARG" ;;
-        s) status="$OPTARG" ;;
-        e) expire="$OPTARG" ;;
-        t) title="$OPTARG" ;;
-        y) syntax="$OPTARG" ;;
-        p) password="$OPTARG" ;;
-        \?) echo "Invalid option -$OPTARG" >&2; return 1 ;;
-      esac
-    done
+  local response=$(eval "$request")
 
-    # Define the request
-    local request="curl --location --request POST 'https://pastes.io/api/paste/create' \
-        --header 'Accept: application/json' \
-        --header \"Authorization: Bearer $bearer_token\" \
-        --form \"content=\"$content\"\" \
-        --form \"status=\"$status\"\" \
-        --form \"expire=\"$expire\"\" \
-        --form \"title=\"$title\"\" \
-        --form \"syntax=\"$syntax\"\" \
-        --form \"password=\"$password\"\""
+  local bearer_token=$(echo "$response" | jq -r '.success.api_token')
 
-    # Execute the request and get the response
-    local response=$(eval "$request")
+  case "$command" in
+create)
+  local pastesio_status expire title syntax slug_password
+  local form_data=("status=2")  # Default to public
 
-    # Extract and print the paste URL
-    echo $response | jq -r '.success.paste_url'
+  # Capture all arguments after the command
+  local args=("$@")
 
-    # Extract the paste ID from the response and add it to the history file
-    local paste_id=$(echo "$response" | grep -oP '"slug": "\K[^"]+')
-    echo "$paste_id" >> "$history_file"
-    ;;
+  # Shift the command itself and process the remaining arguments
+  shift
+
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      -c) content="$2"; shift 2 ;;
+      -s) pastesio_status="$2"; shift 2 ;;
+      -e) expire="$2"; shift 2 ;;
+      -t) title="$2"; shift 2 ;;
+      -y) syntax="$2"; shift 2 ;;
+      -p) slug_password="$2"; shift 2 ;;
+      *) echo "Invalid option or argument: $1" >&2; return 1 ;;
+    esac
+  done
+
+  # Check for required content
+  if [ -z "$content" ]; then
+    echo "Content is required for creating a paste." >&2
+    return 1
+  fi
+
+  # Add optional parameters to the form data
+  if [ -n "$pastesio_status" ]; then
+    form_data=("status=\"$pastesio_status\"")
+  fi
+
+  if [ -n "$expire" ]; then
+    form_data+=("expire=\"$expire\"")
+  fi
+
+  if [ -n "$title" ]; then
+    form_data+=("title=\"$title\"")
+  fi
+
+  if [ -n "$syntax" ]; then
+    form_data+=("syntax=\"$syntax\"")
+  fi
+
+  if [ -n "$slug_password" ]; then
+    form_data+=("password=\"$slug_password\"")
+  fi
+
+  # Construct the request with form data
+  local request=("curl" "--location" "--request" "POST" "https://pastes.io/api/paste/create")
+  
+  for data in "${form_data[@]}"; do
+    request+=("--form" "$data")
+  done
+
+  request+=("--form" "content=\"$content\"")
+
+  # Add headers
+  request+=("--header" "\"Accept: application/json\"")
+  request+=("--header" "\"Authorization: Bearer $bearer_token\"")
+
+  # Execute the request and get the response
+  local response
+  response=$(bash -c "${request}")
+
+  # Extract the paste URL
+  local paste_url
+  paste_url=$(echo "$response" | jq -r '.success.paste_url')
+  echo $paste_url
+  if [ -z "$paste_url" ] || [ "$paste_url" = "null" ]; then
+    echo "Failed to create the paste." >&2
+    return 1
+  fi
+
+  # Print the paste URL
+  echo "Paste URL: $paste_url"
+
+  # Extract the paste ID from the response and add it to the history file
+  local paste_id
+  paste_id=$(echo "$response" | jq -r '.success.slug')
+  echo "$paste_id" >> "$history_file"
+  ;;
     get)
       local slug="$2"
       local password="${3:-}"
