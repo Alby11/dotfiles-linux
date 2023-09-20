@@ -1,50 +1,31 @@
-# ~/.zsh/completions/_pastesio
-# Autocompletion function for pastesio
+# Define an array of valid commands
+valid_commands=("create" "get" "delete" "mypastes" "deleteall" "help")
 
-_pastesio() {
-  local -a subcommands
-  subcommands=("create" "get" "delete" "mypastes" "deleteall")
+# Define an array of valid options for the create command
+valid_create_options=("-c" "-s" "-e" "-t" "-y" "-p")
 
-  _arguments -C \
-    "1: :->subcommand" \
-    "*:: :->args"
-
-  case $state in
-    (subcommand)
-      _describe "subcommand" subcommands
+# Function to provide autocomplete suggestions
+_pastesio_autocomplete() {
+  local cur prev
+  cur="${COMP_WORDS[COMP_CWORD]}"
+  prev="${COMP_WORDS[COMP_CWORD-1]}"
+  
+  case "$prev" in
+    create)
+      # Provide autocomplete suggestions for options when 'create' is the previous argument
+      COMPREPLY=($(compgen -W "${valid_create_options[*]}" -- "$cur"))
       ;;
-    (args)
-      case $words[1] in
-        (create)
-          _arguments \
-            '-c[Content for the paste]: :_files' \
-            '-s[Paste status]: :_values "public:Public private:Private unlisted:Unlisted"' \
-            '-e[Expiration date]: :_files' \
-            '-t[Title for the paste]: :_files' \
-            '-y[Syntax highlighting]: :_files' \
-            '-p[Password for the paste]: :_files'
-          ;;
-        (get)
-          _arguments \
-            ': :->slug' \
-            '-p[Password for the paste]: :_files'
-          ;;
-        (delete)
-          _arguments \
-            ': :->slug'
-          ;;
-        (mypastes)
-          ;;
-        (deleteall)
-          ;;
-      esac
+    get|delete)
+      # Provide autocomplete suggestions for slugs from the history file when 'get' or 'delete' is the previous argument
+      COMPREPLY=($(compgen -W "$(cat "$history_file" 2>/dev/null)" -- "$cur"))
       ;;
-    (slug)
-      # Provide suggestions for slug based on the history file
-      _wanted slugs expl 'slug' compadd $(< "$ZDOTDIR/.pastesio_history")
+    *)
+      # Provide autocomplete suggestions for valid commands when no previous argument matches
+      COMPREPLY=($(compgen -W "${valid_commands[*]}" -- "$cur"))
       ;;
   esac
 }
 
-# Call the completion function
-_pastesio "$@"
+# Register the _pastesio_autocomplete function for autocomplete
+complete -F _pastesio_autocomplete pastesio
+

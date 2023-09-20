@@ -1,24 +1,60 @@
 #!/usr/bin/env zsh
+#pastesio
 
-# Usage: pastesio [create|get|delete] [args...]
-# - create: Create a new paste
-#   - Usage: pastesio create "content" "title" "format" "expiration"
-#     - content: The content of the paste. This is a mandatory parameter.
-#     - title: The title of the paste. This is an optional parameter.
-#     - format: The syntax highlighting for the paste (e.g., "bash", "python", etc.). This is an optional parameter.
-#     - expiration: When the paste should expire ("10m", "1h", etc.). This is an optional parameter.
-# - get: Retrieve an existing paste
-#   - Usage: pastesio get paste_id
-#     - paste_id: The ID of the paste you want to retrieve. This is a mandatory parameter.
-# - delete: Delete an existing paste
-#   - Usage: pastesio delete paste_id
-#     - paste_id: The ID of the paste you want to delete. This is a mandatory parameter.
+# Define an array of valid commands
+valid_commands=("create" "get" "delete" "mypastes" "deleteall")
+
+# Define an array of valid options for the create command
+valid_create_options=("-c" "-s" "-e" "-t" "-y" "-p")
+
+# Function to provide autocomplete suggestions
+_pastesio_autocomplete() {
+  local cur prev
+  cur="${words[1]}"  # Zsh uses 'words' array instead of 'COMP_WORDS'
+  prev="${words[$CURRENT-1]}"
+  
+  case "$prev" in
+    create)
+      # Provide autocomplete suggestions for options when 'create' is the previous argument
+      reply=($(compgen -W "${valid_create_options[*]}" -- "$cur"))
+      ;;
+    get|delete)
+      # Provide autocomplete suggestions for slugs from the history file when 'get' or 'delete' is the previous argument
+      reply=($(compgen -W "$(cat "$history_file" 2>/dev/null)" -- "$cur"))
+      ;;
+    *)
+      # Provide autocomplete suggestions for valid commands when no previous argument matches
+      reply=($(compgen -W "${valid_commands[*]}" -- "$cur"))
+      ;;
+  esac
+}
+
+# Register the _pastesio_autocomplete function for autocomplete
+compctl -K _pastesio_autocomplete pastesio
 
 pastesio() {
   local history_file="$ZDOTDIR/.pastesio_history"
   local username="$PASTES_IO_USER"
   local password="$PASTES_IO_PASS"
   local command="$1"
+
+  # Function to display usage information
+  print_usage() {
+    echo "Usage: pastesio [command] [options]"
+    echo "Commands:"
+    echo "  create -c <content> [-s <status>] [-e <expire>] [-t <title>] [-y <syntax>] [-p <password>]"
+    echo "  get <slug> [password]"
+    echo "  delete <slug>"
+    echo "  mypastes"
+    echo "  deleteall"
+    echo "  help"
+  }
+
+  # Display usage information if --help or -h option is provided
+  if [[ "$command" = "help"  ]]; then
+    print_usage
+    return 0
+  fi
 
   # Authenticate and get the bearer token
   local request="curl --location --request POST 'https://pastes.io/api/login' \\
@@ -155,8 +191,8 @@ create)
          --header \"Authorization: Bearer $bearer_token\""
 
      # Execute the request and get the response
-     local response=$(eval "$request")
-
+     local response=$(bash -c "${request}")
+     echo $response | jq
      ;;
 
    deleteall)
@@ -167,21 +203,25 @@ create)
          --header \"Authorization: Bearer $bearer_token\""
 
      # Get the response
-     local response=$(eval "$request")
+     local response=$(bash -c "${request}")
 
      # Extract all the slugs from the response
-     local slugs=$(echo "$response" | grep -oP '"slug": "\K[^"]+')
+     local slugs=$(echo "$response" | jq '.data[].slug')
 
      # Loop over each slug and delete the corresponding paste
      for slug in $slugs; do
-       curl --location --request POST "https://pastes.io/api/paste/delete" \
+       echo "Slug: $slug \n \n"
+       request="curl --location --request POST 'https://pastes.io/api/paste/delete' \
          --header 'Accept: application/json' \
-         --header "Authorization: Bearer $bearer_token" \
-         --form "slug=\"$slug\""
-
+         --header \"Authorization: Bearer $bearer_token\" \
+         --form \"slug\"=$slug\""
+       echo $request
        # Remove the deleted paste slug from the history file
        sed -i "/$slug/d" "$history_file"
+       response=$(bash -c "${request}")
+       echo $response
      done
      ;;
  esac
 }
+# --form "slug=\"$slug\""
