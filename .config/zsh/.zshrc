@@ -60,7 +60,7 @@ fi
 # FPATH AUTOLOAD
 #
 # Define the directories that contain your functions
-FUNCTION_DIRS=("$ZDOTDIR/functions")
+FUNCTION_DIRS=("$ZDOTDIR/functions" "$ZDOTDIR/completions")
 # Loop through the directories and add each one to fpath
 for dir in "${FUNCTION_DIRS[@]}"; do
     if [[ -d $dir ]]; then

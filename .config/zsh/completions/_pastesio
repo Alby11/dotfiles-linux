@@ -1,0 +1,50 @@
+# ~/.zsh/completions/_pastesio
+# Autocompletion function for pastesio
+
+_pastesio() {
+  local -a subcommands
+  subcommands=("create" "get" "delete" "mypastes" "deleteall")
+
+  _arguments -C \
+    "1: :->subcommand" \
+    "*:: :->args"
+
+  case $state in
+    (subcommand)
+      _describe "subcommand" subcommands
+      ;;
+    (args)
+      case $words[1] in
+        (create)
+          _arguments \
+            '-c[Content for the paste]: :_files' \
+            '-s[Paste status]: :_values "public:Public private:Private unlisted:Unlisted"' \
+            '-e[Expiration date]: :_files' \
+            '-t[Title for the paste]: :_files' \
+            '-y[Syntax highlighting]: :_files' \
+            '-p[Password for the paste]: :_files'
+          ;;
+        (get)
+          _arguments \
+            ': :->slug' \
+            '-p[Password for the paste]: :_files'
+          ;;
+        (delete)
+          _arguments \
+            ': :->slug'
+          ;;
+        (mypastes)
+          ;;
+        (deleteall)
+          ;;
+      esac
+      ;;
+    (slug)
+      # Provide suggestions for slug based on the history file
+      _wanted slugs expl 'slug' compadd $(< "$ZDOTDIR/.pastesio_history")
+      ;;
+  esac
+}
+
+# Call the completion function
+_pastesio "$@"
