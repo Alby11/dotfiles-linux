@@ -8,12 +8,17 @@
 ECHOCAT() {
   if command -v lolcat &>/dev/null; then
     if  lolcat --version | grep -E 'moe@busyloop.net' &>/dev/null; then
-      alias lolcat='lolcat -ta'
+      alias lolcat='lolcat'
+      if [ "$2" = 'ERROR' ]; then
+        alias lolcat='lolcat -a -d 50'
+      fi
     else
       alias lolcat='lolcat -b'
+      if [ "$2" = 'ERROR' ]; then
+        alias lolcat='lolcat -bi'
+      fi
     fi
-    # printf "%s" "$1" | lolcat `[[ -n "$2" ]] && printf "%s" "$2"`
-    printf "%s\n" "$1" | lolcat `[[ -n "$2" ]] && printf "%s" "$2"`
+    printf "%s\n" "$1" | lolcat
     unalias lolcat
   else
     printf "%s\n" "$1"
@@ -25,15 +30,15 @@ ECHOCAT() {
 # Function to print an error message and exit/return with an error/return code
 FAIL() {
   if [[ -z "$2" ]]; then
-    ECHOCAT "$1" -i # Print the first argument as a message using ECHOCAT
+    ECHOCAT "$1" ERROR # Print the first argument as a message using ECHOCAT
   elif [[ "$2" == "x" ]]; then
-    ECHOCAT "$1" >&2 -i # Print the first argument as an error message using ECHOCAT
+    ECHOCAT "$1" >&2 ERROR # Print the first argument as an error message using ECHOCAT
     exit "${3-1}"  # Exit with the third argument as the error code, or 1 if no third argument is provided
   elif [[ "$2" == "r" ]]; then
-    ECHOCAT "$1" >&2 -i # Print the first argument as an error message using ECHOCAT
+    ECHOCAT "$1" >&2 ERROR # Print the first argument as an error message using ECHOCAT
     return "${3-1}"  # Return with the third argument as the error code, or 1 if no third argument is provided
   else
-    echo "Error: Invalid second argument to FAIL function. Expected 'r', 'x', or empty, got '$2'." -i
+    echo "Error: Invalid second argument to FAIL function. Expected 'r', 'x', or empty, got '$2'."
     return 1
   fi
 }
@@ -83,8 +88,8 @@ EXPORT_DIR() {
   fi
 }
 
-for cmd in dnf apt; do
-  if CHECK_COMMANDS "$cmd"; then
+for cmd in "dnf" "apt"; do
+  if  command -v $cmd >/dev/null; then
     case "$cmd" in
       "dnf")
         package_manager_install() {
