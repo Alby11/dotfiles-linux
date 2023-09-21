@@ -42,7 +42,13 @@ fi
   
 # Create an amazing Zsh config using antidote plugins.
 # Set the path to the Oh My Zsh installation directory
-SOURCE_RCFILE ${ZDOTDIR:-$HOME}/.antidote/antidote.zsh
+if [ -d $ZDOTDIR/.antidote ]; then
+  SOURCE_RCFILE ${ZDOTDIR:-$HOME}/.antidote/antidote.zsh
+else
+  git clone --depth=1 https://github.com/mattmc3/antidote.git \
+    ${ZDOTDIR:-~}/.antidote && \
+    SOURCE_RCFILE ${ZDOTDIR:-$HOME}/.antidote/antidote.zsh
+fi
 if CHECK_COMMANDS "antidote"; then
   SOURCE_RCFILE ${ZDOTDIR:-$HOME}/.zsh_plugins.conf
   antidote load ${ZDOTDIR:-$HOME}/.zsh_plugins.txt

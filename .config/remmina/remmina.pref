@@ -73,9 +73,9 @@ vte_shortcutkey_select_all=97
 vte_shortcutkey_increase_font=65365
 vte_shortcutkey_decrease_font=65366
 vte_shortcutkey_search_text=103
-vte_font=
-grab_color=#b4befe
-grab_color_switch=false
+vte_font=FiraCode Nerd Font Mono weight=450 8
+grab_color=#f5c2e7
+grab_color_switch=true
 vte_allow_bold_text=true
 vte_lines=512
 recent_RDP=desktop,192.168.103.107,w-tallonea.fllicarli.im
