@@ -1,0 +1,19 @@
+_mount_network_share() {
+  local cur prev opts
+  COMPREPLY=()
+  cur="${COMP_WORDS[COMP_CWORD]}"
+  prev="${COMP_WORDS[COMP_CWORD-1]}"
+  opts="-u -d -s -r -p -h"
+
+  if [[ ${cur} == -* ]] ; then
+    COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+    return 0
+  fi
+
+  if [[ ${prev} == "-p" ]] ; then
+    COMPREPLY=( $(compgen -W "samba nfs" -- ${cur}) )
+    return 0
+  fi
+}
+
+complete -F _mount_network_share mount_network_shareompdef _mount_network_share mount_network_share

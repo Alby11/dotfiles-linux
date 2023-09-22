@@ -1,0 +1,19 @@
+_unmount_network_share() {
+  local cur
+  COMPREPLY=()
+  cur="${COMP_WORDS[COMP_CWORD]}"
+
+  if [[ $cur == $HOME/mnt/* ]] ; then
+    COMPREPLY=( $(compgen -d -- "${cur}") )
+    COMPREPLY=( $(for i in "${COMPREPLY[@]}"; do mountpoint -q "$i" && echo "$i"; done) )
+    return 0
+  fi
+
+  if [[ $cur == $HOME/mnt ]] ; then
+    COMPREPLY=( $(compgen -d -- "${cur}/") )
+    COMPREPLY=( $(for i in "${COMPREPLY[@]}"; do mountpoint -q "$i" && echo "$i"; done) )
+    return 0
+  fi
+}
+
+complete -F _unmount_network_share unmount_network_share
