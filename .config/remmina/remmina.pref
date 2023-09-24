@@ -2,7 +2,7 @@
 secret=PMr4M/Sv8mQlXxsvDtGaVgDJCqdKwpddO9PXECW7IiE=
 datadir_path=/home/tallonea/.config/remmina
 remmina_file_name=%G_%P_%N_%h
-screenshot_path=/home/tallonea/Pictures/screenshots
+screenshot_path=/home/tallonea/Pictures/Screenshots
 screenshot_name=remmina_%p_%h_%Y%m%d-%H%M%S
 deny_screenshot_clipboard=false
 save_view_mode=true
