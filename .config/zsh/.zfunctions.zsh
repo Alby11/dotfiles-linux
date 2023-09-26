@@ -369,10 +369,10 @@ _sshmount_completion() {
 complete -F _sshmount_completion sshmount sshumount
 ### END OF SSHFS SCRIPTS BLOCK
 # Update pip packages
-pipue() {
+pip_update() {
   pip --disable-pip-version-check list --outdated --format=json | python -c "import json, sys; print('\n'.join([x['name'] for x in json.load(sys.stdin)]))" | xargs -n1 pip install -U
 }
-pipueu() {
+pip_update_user() {
   pip --disable-pip-version-check list --user --outdated --format=json | python -c "import json, sys; print('\n'.join([x['name'] for x in json.load(sys.stdin)]))" | xargs -n1 pip install --user -U
 }
 vmware_scan_new_disk() {
