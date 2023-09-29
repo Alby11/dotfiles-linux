@@ -56,6 +56,7 @@ alias h="history -10" # last 10 history commands
 alias hh="history -20" # last 10 history commands
 alias hhh="history -30" # last 10 history commands
 alias ssar="ss -ar"
+alias mountc='mount | column --table --table-columns --json'
 
 if command -v ss &>/dev/null; then
     alias ssa='sudo ss -poeta '
