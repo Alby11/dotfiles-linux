@@ -22,5 +22,6 @@ path=(
   $HOME/{.cargo,local}/{,s}bin(N)
   /opt/{homebrew,local}/{,s}bin(N)
   /usr/local/{,s}bin(N)
+  /opt/dwarfs/{,s}bin(N)
   $path
 )
