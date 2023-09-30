@@ -198,10 +198,16 @@ fpath+=( /home/tallonea/.cache/antidote/jeffreytse/zsh-vi-mode )
 source /home/tallonea/.cache/antidote/jeffreytse/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 fpath+=( /home/tallonea/.cache/antidote/psprint/zsh-sweep )
 source /home/tallonea/.cache/antidote/psprint/zsh-sweep/zsh-sweep.plugin.zsh
+if ! (( $+functions[zsh-defer] )); then
+  fpath+=( /home/tallonea/.cache/antidote/romkatv/zsh-defer )
+  source /home/tallonea/.cache/antidote/romkatv/zsh-defer/zsh-defer.plugin.zsh
+fi
 fpath+=( /home/tallonea/.cache/antidote/unixorn/fzf-zsh-plugin )
-source /home/tallonea/.cache/antidote/unixorn/fzf-zsh-plugin/fzf-zsh-plugin.plugin.zsh
+zsh-defer source /home/tallonea/.cache/antidote/unixorn/fzf-zsh-plugin/fzf-zsh-plugin.plugin.zsh
 fpath+=( /home/tallonea/.cache/antidote/Aloxaf/fzf-tab )
-source /home/tallonea/.cache/antidote/Aloxaf/fzf-tab/fzf-tab.plugin.zsh
+zsh-defer source /home/tallonea/.cache/antidote/Aloxaf/fzf-tab/fzf-tab.plugin.zsh
+fpath+=( /home/tallonea/.cache/antidote/johannchangpro/zsh-interactive-cd )
+zsh-defer source /home/tallonea/.cache/antidote/johannchangpro/zsh-interactive-cd/zsh-interactive-cd.plugin.zsh
 fpath+=( /home/tallonea/.cache/antidote/zsh-users/zsh-autosuggestions )
 source /home/tallonea/.cache/antidote/zsh-users/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 fpath+=( /home/tallonea/.cache/antidote/zsh-users/zsh-history-substring-search )

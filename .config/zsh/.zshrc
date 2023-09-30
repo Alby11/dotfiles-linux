@@ -54,7 +54,7 @@ if CHECK_COMMANDS "antidote"; then
   antidote load ${ZDOTDIR:-$HOME}/.zsh_plugins.txt
   SOURCE_RCFILE ${ZDOTDIR:-$HOME}/.zsh_plugins.post
 else
-  FAIL "A plugin manager is either: \
+  FAIL "A ZSH plugin manager is either: \
     not installed \
     present in PATH \
     not configured \
