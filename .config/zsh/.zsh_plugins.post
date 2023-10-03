@@ -12,6 +12,7 @@ string="ohmyzsh/ohmyzsh"
 if [[ $antidote_list =~ $string ]]; then
   export ZSH=$(antidote path ohmyzsh/ohmyzsh)
 fi
+
 string="zdharma-continuum/fast-syntax-highlighting"
 if [[ $antidote_list =~ $string ]]; then
   local fast_theme="$(antidote path zdharma-continuum/fast-syntax-highlighting)"
@@ -19,7 +20,41 @@ if [[ $antidote_list =~ $string ]]; then
   [[ -f "$fast_theme" ]] && \
     source "$fast_theme" && \
     fast-theme XDG:catppuccin-mocha > /dev/null 2>&1
+
+  chroma_single_word() {
+    (( next_word = 2 | 8192 ))
+
+    local __first_call="$1" __wrd="$2" __start_pos="$3" __end_pos="$4"
+    local __style
+
+    (( __first_call )) && { __style=${FAST_THEME_NAME}alias }
+    [[ -n "$__style" ]] && (( __start=__start_pos-${#PREBUFFER}, __end=__end_pos-${#PREBUFFER}, __start >= 0 )) && reply+=("$__start $__end ${FAST_HIGHLIGHT_STYLES[$__style]}")
+
+    (( this_word = next_word ))
+    _start_pos=$_end_pos
+
+    return 0
+  }
+
+  register_single_word_chroma() {
+    local word=$1
+    if [[ -x $(command -v $word) ]] || [[ -n $FAST_HIGHLIGHT["chroma-$word"] ]]; then
+      return 1
+    fi
+
+    FAST_HIGHLIGHT+=( "chroma-$word" chroma_single_word )
+    return 0
+  }
+
+  if [[ -n $FAST_HIGHLIGHT ]]; then
+    for abbr in ${(f)"$(abbr list-abbreviations)"}; do
+      if [[ $abbr != *' '* ]]; then
+        register_single_word_chroma ${(Q)abbr}
+      fi
+    done
+  fi
 fi
+
 string="unixorn/fzf-zsh-plugin"
 if [[ $antidote_list =~ $string ]]; then
   export LESSOPEN='| lessfilter-fzf %s'
@@ -27,14 +62,17 @@ else
   ECHOCAT "LESSOPEN: lessfilter-fzf in not installed or in PATH
   leaving - $(echo $LESSOPEN) - instead" -i
 fi
+
 string="Aloxaf/fzf-tab"
 if [[ $antidote_list =~ $string ]]; then
   autoload -Uz enable-fzf-tab
 fi
+
 string="mattmc3/zfunctions"
 if [[ $antidote_list =~ $string ]]; then
   (( $+functions[funcsave] )) && echo "zfunctions loaded" || echo "zfunctions not loaded"
 fi
+
 string="lincheney/fzf-tab-completion"
 if [[ $antidote_list =~ $string ]]; then
   # alias -g grep='/bin/grep'
