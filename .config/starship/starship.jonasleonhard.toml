@@ -22,7 +22,7 @@ $nodejs\
 $php\
 $python\
 $rust\
-](fg: #ffffff bg:yellow)\
+](fg: #000000 bg:yellow)\
 [](fg:yellow bg:flamingo)\
 [\
 $cmd_duration\
@@ -34,7 +34,6 @@ $docker_context\
 """
 # Set 'foo' as custom color palette
 palette = 'catppuccin'
-
 
 # Define custom colors
 [palettes.catppuccin]
@@ -52,97 +51,108 @@ sky = "#89dceb"
 sapphire = "#74c7ec"
 blue = "#89b4fa"
 lavender = "#b4befe"
-
+text = "#cdd6f4"
+subtext1 = "#bac2de"
+subtext0 = "#a6adc8"
+overlay2 = "#9399b2"
+overlay1 = "#7f849c"
+overlay0 = "#6c7086"
+surface2 = "#585b70"
+surface1 = "#45475a"
+surface0 = "#313244"
+base = "#1e1e2e"
+mantle = "#181825"
+crust = "#11111b"
 
 [git_commit]
-style = "fg:#ffffff bg:flamingo"
+style = "fg:text bg:flamingo"
 format = '[ #$hash $tag]($style)'
 
 [git_state]
-style = "fg:#ffffff bg:flamingo"
+style = "fg:text bg:flamingo"
 format = '[\[$state $progress_current/$progress_total\]]($style)'
 
 [git_branch]
-style = "fg:#000000 bg:peach"
+style = "fg:mantle bg:peach"
 format = "[ $symbol$branch(:$remote_branch)]($style)"
 
 [git_status]
-style = "fg:#000000 bg:peach"
+style = "fg:mantle bg:peach"
 format = '[ $all_status$ahead_behind ]($style)'
 
 [directory]
-style = "bg:blue fg:#000000"
+style = "fg:mantle bg:blue "
 format = "[ $path ]($style)"
 truncate_to_repo = false
 
 # Replace the "❯" und "x" symbol in the prompt with vim mode
 [character]
-success_symbol = "[](green)[ ](bold fg:#000000 bg:green)[](bg:blue fg:green)"
-error_symbol = "[](red)[ ](bold fg:#000000 bg:red)[](bg:blue fg:red)"
-vimcmd_symbol = "[](lavender)[ ](bold fg:#000000 bg:lavender)[](bg:blue fg:lavender)"
+success_symbol = "[](green)[ ](bold fg:mantle bg:green)[](bg:blue fg:green)"
+error_symbol = "[](red)[ ](bold fg:mantle bg:red)[](bg:blue fg:red)"
+vimcmd_symbol = "[](lavender)[ ](bold fg:mantle bg:lavender)[](bg:blue fg:lavender)"
 format = "$symbol"
 
 [cmd_duration]
-style = "fg:#ffffff bg:flamingo"
+style = "fg:blue bg:flamingo"
 format = " ﮫ [$duration]($style) "
 
 [docker_context]
-style = "fg:#ffffff bg:flamingo"
+style = "fg:blue bg:flamingo"
 format = " [$symbol$context]($style) "
 
 [java]
-style = "fg:#ffffff bg:yellow"
+style = "fg:mantle bg:pink"
 
 [kubernetes]
-style = "fg:#ffffff bg:yellow"
+style = "fg:mantle bg:pink"
 
 [c]
-style = "fg:#ffffff bg:yellow"
+style = "fg:mantle bg:pink"
 
 [cmake]
-style = "fg:#ffffff bg:yellow"
+style = "fg:mantle bg:pink"
 format = "[ $symbol]($style)"
 
 [container]
-style = "fg:#ffffff bg:yellow"
+style = "fg:mantle bg:pink"
 
 [dart]
-style = "fg:#ffffff bg:yellow"
+style = "fg:mantle bg:pink"
 format = "[ $symbol]($style)"
 
 [deno]
-style = "fg:#ffffff bg:yellow"
+style = "fg:mantle bg:pink"
 format = "[ $symbol]($style)"
 
 [dotnet]
-style = "fg:#ffffff bg:yellow"
+style = "fg:mantle bg:pink"
 format = "[ $symbol(🎯 $tfm )]($style)"
 
 [golang]
-style = "fg:#ffffff bg:yellow"
+style = "fg:mantle bg:pink"
 format = '[ $symbol]($style)'
 
 [kotlin]
-style = "fg:#ffffff bg:yellow"
+style = "fg:mantle bg:pink"
 format = '[ $symbol]($style)'
 
 [lua]
-style = "fg:#ffffff bg:yellow"
+style = "fg:mantle bg:pink"
 format = '[ $symbol]($style)'
 
 [nodejs]
-style = "fg:#ffffff bg:yellow"
+style = "fg:mantle bg:pink"
 format = '[ $symbol]($style)'
-not_capable_style = "fg:red bg:yellow"
+not_capable_style = "fg:red bg:pink"
 
 [php]
-style = "fg:#ffffff bg:yellow"
+style = "fg:mantle bg:pink"
 format = '[ $symbol]($style)'
 
 [python]
-style = "fg:#ffffff bg:yellow"
+style = "fg:mantle bg:pink"
 format = '[ $symbol]($style)'
 
 [rust]
-style = "fg:#ffffff bg:yellow"
+style = "fg:mantle bg:pink"
 format = '[ $symbol]($style)'

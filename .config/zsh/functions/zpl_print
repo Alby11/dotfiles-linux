@@ -1,0 +1,14 @@
+#!/usr/bin/env zsh
+
+zpl_print() {
+  if [[ -n $1 ]] && [[ -n $2 ]]; then
+    echo "Printing file:"
+    echo $1
+    echo "on printer:"
+    echo $2
+    echo "\n"
+    echo -en $(cat $1) | nc $2 9100
+  else
+    echo "Usage: zpl_print [file] [printer ip]"
+  fi
+}
