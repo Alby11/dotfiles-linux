@@ -1,7 +1,7 @@
 format = """
 $character\
 $directory\
-[](fg:mauve bg:peach)\
+[](fg:mantle bg:peach)\
 $git_branch\
 $git_status\
 $git_metrics\
