@@ -24,7 +24,7 @@ export THE_SHELL="$(echo $SHELL | grep -o '[^\/]*$')"
 
 [[ -f $ZDOTDIR/.ztools.zsh ]] && source $ZDOTDIR/.ztools.zsh
 
-# ECHOCAT ".zshenv - Zsh environment file, loaded always. SHLVL $SHLVL"
+ECHOCAT ".zshenv - Zsh environment file, loaded always. SHLVL $SHLVL"
 
 # fiexport XDG_CONFIG_HOME="$HOME/.config"
 # Set ZDOTDIR if you want to re-home Zsh.

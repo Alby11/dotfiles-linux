@@ -5,7 +5,7 @@ $directory\
 $git_branch\
 $git_status\
 $git_metrics\
-[](fg:peach bg:yellow)\
+[](fg:peach bg:lavender)\
 [\
 $c\
 $cmake\
@@ -22,8 +22,8 @@ $nodejs\
 $php\
 $python\
 $rust\
-](fg: #000000 bg:yellow)\
-[](fg:yellow bg:flamingo)\
+](fg: #000000 bg:mauve)\
+[](fg:lavender bg:flamingo)\
 [\
 $cmd_duration\
 $git_commit\
