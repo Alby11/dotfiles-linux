@@ -111,13 +111,6 @@
         "last_commit": "3b5f5fce4835aac17998e178f3eaf860541dbbc9",
         "last_commit_time": "2022-07-14T09:35:01"
     },
-    "com.github.lighttigerxiv.ulauncher-terminal-runner-extension": {
-        "id": "com.github.lighttigerxiv.ulauncher-terminal-runner-extension",
-        "url": "https://github.com/lighttigerXIV/ulauncher-terminal-runner-extension/",
-        "updated_at": "2023-10-05T08:51:44.946199",
-        "last_commit": "d6bc2157e5c0ef2f812e3051ddde334c7b485c2e",
-        "last_commit_time": "2023-05-02T22:50:12"
-    },
     "com.github.lighttigerxiv.ulauncher-session-manager": {
         "id": "com.github.lighttigerxiv.ulauncher-session-manager",
         "url": "https://github.com/lighttigerXIV/ulauncher-session-manager",
