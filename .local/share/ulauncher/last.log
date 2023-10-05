@@ -932,3 +932,146 @@
 2023-10-05 12:45:53,371 | DEBUG | ulauncher.api.server.ExtensionController: handleMessage() | Incoming response (KeywordQueryEvent, RenderResultListAction) from "com.github.pegoku.ulauncher-searx"
 2023-10-05 12:45:53,375 | DEBUG | ulauncher.ui.windows.UlauncherWindow: show_results() | render 2 results
 2023-10-05 12:45:54,637 | DEBUG | ulauncher.ui.windows.UlauncherWindow: show_results() | render 0 results
+2023-10-05 14:02:37,443 | DEBUG | ulauncher.utils.display: get_screens() | Found 3 monitor(s)
+2023-10-05 14:02:37,443 | DEBUG | ulauncher.utils.display: get_screens() |   Monitor 0 - X: 1080, Y: 0, W: 1920, H: 1080
+2023-10-05 14:02:37,443 | DEBUG | ulauncher.utils.display: get_screens() |   Monitor 1 - X: 0, Y: 0, W: 1080, H: 1920
+2023-10-05 14:02:37,443 | DEBUG | ulauncher.utils.display: get_screens() |   Monitor 2 - X: 1080, Y: 1080, W: 1920, H: 1080
+2023-10-05 14:02:37,443 | DEBUG | ulauncher.utils.display: get_screens() | Found 3 monitor(s)
+2023-10-05 14:02:37,443 | DEBUG | ulauncher.utils.display: get_screens() |   Monitor 0 - X: 1080, Y: 0, W: 1920, H: 1080
+2023-10-05 14:02:37,444 | DEBUG | ulauncher.utils.display: get_screens() |   Monitor 1 - X: 0, Y: 0, W: 1080, H: 1920
+2023-10-05 14:02:37,444 | DEBUG | ulauncher.utils.display: get_screens() |   Monitor 2 - X: 1080, Y: 1080, W: 1920, H: 1080
+2023-10-05 14:02:37,444 | DEBUG | ulauncher.ui.windows.UlauncherWindow: show_results() | render 0 results
+2023-10-05 14:02:38,657 | DEBUG | ulauncher.ui.windows.UlauncherWindow: show_results() | render 8 results
+2023-10-05 14:02:39,398 | DEBUG | ulauncher.api.server.ExtensionController: _send_event() | Send event KeywordQueryEvent to "com.github.noam09.ulauncher-remmina"
+2023-10-05 14:02:39,429 | DEBUG | ulauncher.api.server.ExtensionController: handleMessage() | Incoming response (KeywordQueryEvent, RenderResultListAction) from "com.github.noam09.ulauncher-remmina"
+2023-10-05 14:02:39,433 | DEBUG | ulauncher.ui.windows.UlauncherWindow: show_results() | render 8 results
+2023-10-05 14:02:40,105 | DEBUG | ulauncher.api.server.ExtensionController: _send_event() | Send event KeywordQueryEvent to "com.github.noam09.ulauncher-remmina"
+2023-10-05 14:02:40,151 | DEBUG | ulauncher.api.server.ExtensionController: handleMessage() | Incoming response (KeywordQueryEvent, RenderResultListAction) from "com.github.noam09.ulauncher-remmina"
+2023-10-05 14:02:40,156 | DEBUG | ulauncher.ui.windows.UlauncherWindow: show_results() | render 8 results
+2023-10-05 14:02:40,284 | DEBUG | ulauncher.api.server.ExtensionController: _send_event() | Send event KeywordQueryEvent to "com.github.noam09.ulauncher-remmina"
+2023-10-05 14:02:40,370 | DEBUG | ulauncher.api.server.ExtensionController: handleMessage() | Incoming response (KeywordQueryEvent, RenderResultListAction) from "com.github.noam09.ulauncher-remmina"
+2023-10-05 14:02:40,373 | DEBUG | ulauncher.ui.windows.UlauncherWindow: show_results() | render 2 results
+2023-10-05 14:02:40,863 | DEBUG | ulauncher.ui.windows.UlauncherWindow: show_results() | render 0 results
+2023-10-05 14:02:40,959 | DEBUG | ulauncher.api.server.ExtensionController: _send_event() | Send event ItemEnterEvent to "com.github.noam09.ulauncher-remmina"
+2023-10-05 14:18:55,179 | DEBUG | ulauncher.utils.display: get_screens() | Found 3 monitor(s)
+2023-10-05 14:18:55,179 | DEBUG | ulauncher.utils.display: get_screens() |   Monitor 0 - X: 1080, Y: 0, W: 1920, H: 1080
+2023-10-05 14:18:55,179 | DEBUG | ulauncher.utils.display: get_screens() |   Monitor 1 - X: 0, Y: 0, W: 1080, H: 1920
+2023-10-05 14:18:55,179 | DEBUG | ulauncher.utils.display: get_screens() |   Monitor 2 - X: 1080, Y: 1080, W: 1920, H: 1080
+2023-10-05 14:18:55,180 | DEBUG | ulauncher.utils.display: get_screens() | Found 3 monitor(s)
+2023-10-05 14:18:55,180 | DEBUG | ulauncher.utils.display: get_screens() |   Monitor 0 - X: 1080, Y: 0, W: 1920, H: 1080
+2023-10-05 14:18:55,180 | DEBUG | ulauncher.utils.display: get_screens() |   Monitor 1 - X: 0, Y: 0, W: 1080, H: 1920
+2023-10-05 14:18:55,180 | DEBUG | ulauncher.utils.display: get_screens() |   Monitor 2 - X: 1080, Y: 1080, W: 1920, H: 1080
+2023-10-05 14:18:55,180 | DEBUG | ulauncher.ui.windows.UlauncherWindow: show_results() | render 0 results
+2023-10-05 14:18:55,877 | DEBUG | ulauncher.ui.windows.UlauncherWindow: show_results() | render 7 results
+2023-10-05 14:18:56,066 | DEBUG | ulauncher.ui.windows.UlauncherWindow: show_results() | render 3 results
+2023-10-05 14:18:56,426 | DEBUG | ulauncher.api.server.ExtensionController: _send_event() | Send event KeywordQueryEvent to "com.github.kbialek.ulauncher-bitwarden"
+2023-10-05 14:18:56,524 | DEBUG | ulauncher.api.server.ExtensionController: handleMessage() | Incoming response (KeywordQueryEvent, RenderResultListAction) from "com.github.kbialek.ulauncher-bitwarden"
+2023-10-05 14:18:56,529 | DEBUG | ulauncher.ui.windows.UlauncherWindow: show_results() | render 1 results
+2023-10-05 14:18:57,609 | DEBUG | ulauncher.ui.windows.UlauncherWindow: show_results() | render 3 results
+2023-10-05 14:18:58,938 | INFO | ulauncher.api.shared.action.LaunchAppAction: run() | Run application Bitwarden (/var/lib/flatpak/exports/share/applications/com.bitwarden.desktop.desktop) Exec ['/usr/bin/flatpak', 'run', '--branch=stable', '--arch=x86_64', '--command=bitwarden', '--file-forwarding', 'com.bitwarden.desktop', '@@u', '@@']
+2023-10-05 14:18:58,955 | DEBUG | ulauncher.ui.windows.UlauncherWindow: show_results() | render 0 results
+2023-10-05 14:20:47,764 | DEBUG | ulauncher.utils.display: get_screens() | Found 3 monitor(s)
+2023-10-05 14:20:47,764 | DEBUG | ulauncher.utils.display: get_screens() |   Monitor 0 - X: 1080, Y: 0, W: 1920, H: 1080
+2023-10-05 14:20:47,764 | DEBUG | ulauncher.utils.display: get_screens() |   Monitor 1 - X: 0, Y: 0, W: 1080, H: 1920
+2023-10-05 14:20:47,764 | DEBUG | ulauncher.utils.display: get_screens() |   Monitor 2 - X: 1080, Y: 1080, W: 1920, H: 1080
+2023-10-05 14:20:47,765 | DEBUG | ulauncher.utils.display: get_screens() | Found 3 monitor(s)
+2023-10-05 14:20:47,765 | DEBUG | ulauncher.utils.display: get_screens() |   Monitor 0 - X: 1080, Y: 0, W: 1920, H: 1080
+2023-10-05 14:20:47,765 | DEBUG | ulauncher.utils.display: get_screens() |   Monitor 1 - X: 0, Y: 0, W: 1080, H: 1920
+2023-10-05 14:20:47,765 | DEBUG | ulauncher.utils.display: get_screens() |   Monitor 2 - X: 1080, Y: 1080, W: 1920, H: 1080
+2023-10-05 14:20:47,766 | DEBUG | ulauncher.ui.windows.UlauncherWindow: show_results() | render 0 results
+2023-10-05 14:20:49,071 | DEBUG | ulauncher.ui.windows.UlauncherWindow: show_results() | render 8 results
+2023-10-05 14:20:49,324 | DEBUG | ulauncher.api.server.ExtensionController: _send_event() | Send event KeywordQueryEvent to "com.github.noam09.ulauncher-remmina"
+2023-10-05 14:20:49,369 | DEBUG | ulauncher.api.server.ExtensionController: handleMessage() | Incoming response (KeywordQueryEvent, RenderResultListAction) from "com.github.noam09.ulauncher-remmina"
+2023-10-05 14:20:49,373 | DEBUG | ulauncher.ui.windows.UlauncherWindow: show_results() | render 8 results
+2023-10-05 14:20:49,551 | DEBUG | ulauncher.api.server.ExtensionController: _send_event() | Send event KeywordQueryEvent to "com.github.noam09.ulauncher-remmina"
+2023-10-05 14:20:49,583 | DEBUG | ulauncher.api.server.ExtensionController: handleMessage() | Incoming response (KeywordQueryEvent, RenderResultListAction) from "com.github.noam09.ulauncher-remmina"
+2023-10-05 14:20:49,587 | DEBUG | ulauncher.ui.windows.UlauncherWindow: show_results() | render 8 results
+2023-10-05 14:20:49,729 | DEBUG | ulauncher.api.server.ExtensionController: _send_event() | Send event KeywordQueryEvent to "com.github.noam09.ulauncher-remmina"
+2023-10-05 14:20:49,796 | DEBUG | ulauncher.api.server.ExtensionController: handleMessage() | Incoming response (KeywordQueryEvent, RenderResultListAction) from "com.github.noam09.ulauncher-remmina"
+2023-10-05 14:20:49,891 | DEBUG | ulauncher.api.server.ExtensionController: _send_event() | Send event KeywordQueryEvent to "com.github.noam09.ulauncher-remmina"
+2023-10-05 14:20:49,912 | DEBUG | ulauncher.api.server.ExtensionController: handleMessage() | Incoming response (KeywordQueryEvent, RenderResultListAction) from "com.github.noam09.ulauncher-remmina"
+2023-10-05 14:20:49,914 | DEBUG | ulauncher.ui.windows.UlauncherWindow: show_results() | render 2 results
+2023-10-05 14:20:50,718 | DEBUG | ulauncher.ui.windows.UlauncherWindow: show_results() | render 0 results
+2023-10-05 14:20:50,814 | DEBUG | ulauncher.api.server.ExtensionController: _send_event() | Send event ItemEnterEvent to "com.github.noam09.ulauncher-remmina"
+2023-10-05 14:21:33,569 | DEBUG | ulauncher.utils.display: get_screens() | Found 3 monitor(s)
+2023-10-05 14:21:33,569 | DEBUG | ulauncher.utils.display: get_screens() |   Monitor 0 - X: 1080, Y: 0, W: 1920, H: 1080
+2023-10-05 14:21:33,569 | DEBUG | ulauncher.utils.display: get_screens() |   Monitor 1 - X: 0, Y: 0, W: 1080, H: 1920
+2023-10-05 14:21:33,569 | DEBUG | ulauncher.utils.display: get_screens() |   Monitor 2 - X: 1080, Y: 1080, W: 1920, H: 1080
+2023-10-05 14:21:33,569 | DEBUG | ulauncher.utils.display: get_screens() | Found 3 monitor(s)
+2023-10-05 14:21:33,569 | DEBUG | ulauncher.utils.display: get_screens() |   Monitor 0 - X: 1080, Y: 0, W: 1920, H: 1080
+2023-10-05 14:21:33,569 | DEBUG | ulauncher.utils.display: get_screens() |   Monitor 1 - X: 0, Y: 0, W: 1080, H: 1920
+2023-10-05 14:21:33,569 | DEBUG | ulauncher.utils.display: get_screens() |   Monitor 2 - X: 1080, Y: 1080, W: 1920, H: 1080
+2023-10-05 14:21:33,569 | DEBUG | ulauncher.ui.windows.UlauncherWindow: show_results() | render 0 results
+2023-10-05 14:21:34,230 | DEBUG | ulauncher.ui.windows.UlauncherWindow: show_results() | render 8 results
+2023-10-05 14:21:34,579 | DEBUG | ulauncher.api.server.ExtensionController: _send_event() | Send event KeywordQueryEvent to "com.github.noam09.ulauncher-remmina"
+2023-10-05 14:21:34,618 | DEBUG | ulauncher.api.server.ExtensionController: handleMessage() | Incoming response (KeywordQueryEvent, RenderResultListAction) from "com.github.noam09.ulauncher-remmina"
+2023-10-05 14:21:34,623 | DEBUG | ulauncher.ui.windows.UlauncherWindow: show_results() | render 8 results
+2023-10-05 14:21:35,474 | DEBUG | ulauncher.api.server.ExtensionController: _send_event() | Send event KeywordQueryEvent to "com.github.noam09.ulauncher-remmina"
+2023-10-05 14:21:35,537 | DEBUG | ulauncher.api.server.ExtensionController: handleMessage() | Incoming response (KeywordQueryEvent, RenderResultListAction) from "com.github.noam09.ulauncher-remmina"
+2023-10-05 14:21:35,542 | DEBUG | ulauncher.ui.windows.UlauncherWindow: show_results() | render 8 results
+2023-10-05 14:21:35,651 | DEBUG | ulauncher.api.server.ExtensionController: _send_event() | Send event KeywordQueryEvent to "com.github.noam09.ulauncher-remmina"
+2023-10-05 14:21:35,749 | DEBUG | ulauncher.api.server.ExtensionController: handleMessage() | Incoming response (KeywordQueryEvent, RenderResultListAction) from "com.github.noam09.ulauncher-remmina"
+2023-10-05 14:21:35,794 | DEBUG | ulauncher.api.server.ExtensionController: _send_event() | Send event KeywordQueryEvent to "com.github.noam09.ulauncher-remmina"
+2023-10-05 14:21:35,864 | DEBUG | ulauncher.api.server.ExtensionController: handleMessage() | Incoming response (KeywordQueryEvent, RenderResultListAction) from "com.github.noam09.ulauncher-remmina"
+2023-10-05 14:21:35,865 | DEBUG | ulauncher.ui.windows.UlauncherWindow: show_results() | render 2 results
+2023-10-05 14:21:37,056 | DEBUG | ulauncher.ui.windows.UlauncherWindow: show_results() | render 0 results
+2023-10-05 14:21:37,153 | DEBUG | ulauncher.api.server.ExtensionController: _send_event() | Send event ItemEnterEvent to "com.github.noam09.ulauncher-remmina"
+2023-10-05 14:21:48,812 | DEBUG | ulauncher.utils.display: get_screens() | Found 3 monitor(s)
+2023-10-05 14:21:48,812 | DEBUG | ulauncher.utils.display: get_screens() |   Monitor 0 - X: 1080, Y: 0, W: 1920, H: 1080
+2023-10-05 14:21:48,812 | DEBUG | ulauncher.utils.display: get_screens() |   Monitor 1 - X: 0, Y: 0, W: 1080, H: 1920
+2023-10-05 14:21:48,812 | DEBUG | ulauncher.utils.display: get_screens() |   Monitor 2 - X: 1080, Y: 1080, W: 1920, H: 1080
+2023-10-05 14:21:48,813 | DEBUG | ulauncher.utils.display: get_screens() | Found 3 monitor(s)
+2023-10-05 14:21:48,813 | DEBUG | ulauncher.utils.display: get_screens() |   Monitor 0 - X: 1080, Y: 0, W: 1920, H: 1080
+2023-10-05 14:21:48,813 | DEBUG | ulauncher.utils.display: get_screens() |   Monitor 1 - X: 0, Y: 0, W: 1080, H: 1920
+2023-10-05 14:21:48,813 | DEBUG | ulauncher.utils.display: get_screens() |   Monitor 2 - X: 1080, Y: 1080, W: 1920, H: 1080
+2023-10-05 14:21:48,813 | DEBUG | ulauncher.ui.windows.UlauncherWindow: show_results() | render 0 results
+2023-10-05 14:21:49,267 | DEBUG | ulauncher.ui.windows.UlauncherWindow: show_results() | render 8 results
+2023-10-05 14:21:49,629 | DEBUG | ulauncher.api.server.ExtensionController: _send_event() | Send event KeywordQueryEvent to "com.github.noam09.ulauncher-remmina"
+2023-10-05 14:21:49,708 | DEBUG | ulauncher.api.server.ExtensionController: handleMessage() | Incoming response (KeywordQueryEvent, RenderResultListAction) from "com.github.noam09.ulauncher-remmina"
+2023-10-05 14:21:49,712 | DEBUG | ulauncher.ui.windows.UlauncherWindow: show_results() | render 8 results
+2023-10-05 14:21:49,855 | DEBUG | ulauncher.api.server.ExtensionController: _send_event() | Send event KeywordQueryEvent to "com.github.noam09.ulauncher-remmina"
+2023-10-05 14:21:49,918 | DEBUG | ulauncher.api.server.ExtensionController: handleMessage() | Incoming response (KeywordQueryEvent, RenderResultListAction) from "com.github.noam09.ulauncher-remmina"
+2023-10-05 14:21:49,923 | DEBUG | ulauncher.ui.windows.UlauncherWindow: show_results() | render 8 results
+2023-10-05 14:21:50,052 | DEBUG | ulauncher.api.server.ExtensionController: _send_event() | Send event KeywordQueryEvent to "com.github.noam09.ulauncher-remmina"
+2023-10-05 14:21:50,131 | DEBUG | ulauncher.api.server.ExtensionController: handleMessage() | Incoming response (KeywordQueryEvent, RenderResultListAction) from "com.github.noam09.ulauncher-remmina"
+2023-10-05 14:21:50,196 | DEBUG | ulauncher.api.server.ExtensionController: _send_event() | Send event KeywordQueryEvent to "com.github.noam09.ulauncher-remmina"
+2023-10-05 14:21:50,250 | DEBUG | ulauncher.api.server.ExtensionController: handleMessage() | Incoming response (KeywordQueryEvent, RenderResultListAction) from "com.github.noam09.ulauncher-remmina"
+2023-10-05 14:21:50,252 | DEBUG | ulauncher.ui.windows.UlauncherWindow: show_results() | render 2 results
+2023-10-05 14:21:51,496 | DEBUG | ulauncher.ui.windows.UlauncherWindow: show_results() | render 0 results
+2023-10-05 14:21:51,592 | DEBUG | ulauncher.api.server.ExtensionController: _send_event() | Send event ItemEnterEvent to "com.github.noam09.ulauncher-remmina"
+2023-10-05 14:37:55,490 | DEBUG | ulauncher.utils.display: get_screens() | Found 3 monitor(s)
+2023-10-05 14:37:55,490 | DEBUG | ulauncher.utils.display: get_screens() |   Monitor 0 - X: 1080, Y: 0, W: 1920, H: 1080
+2023-10-05 14:37:55,490 | DEBUG | ulauncher.utils.display: get_screens() |   Monitor 1 - X: 0, Y: 0, W: 1080, H: 1920
+2023-10-05 14:37:55,490 | DEBUG | ulauncher.utils.display: get_screens() |   Monitor 2 - X: 1080, Y: 1080, W: 1920, H: 1080
+2023-10-05 14:37:55,490 | DEBUG | ulauncher.utils.display: get_screens() | Found 3 monitor(s)
+2023-10-05 14:37:55,491 | DEBUG | ulauncher.utils.display: get_screens() |   Monitor 0 - X: 1080, Y: 0, W: 1920, H: 1080
+2023-10-05 14:37:55,491 | DEBUG | ulauncher.utils.display: get_screens() |   Monitor 1 - X: 0, Y: 0, W: 1080, H: 1920
+2023-10-05 14:37:55,491 | DEBUG | ulauncher.utils.display: get_screens() |   Monitor 2 - X: 1080, Y: 1080, W: 1920, H: 1080
+2023-10-05 14:37:55,491 | DEBUG | ulauncher.ui.windows.UlauncherWindow: show_results() | render 0 results
+2023-10-05 14:37:55,954 | DEBUG | ulauncher.ui.windows.UlauncherWindow: show_results() | render 8 results
+2023-10-05 14:37:56,246 | DEBUG | ulauncher.api.server.ExtensionController: _send_event() | Send event KeywordQueryEvent to "com.github.noam09.ulauncher-remmina"
+2023-10-05 14:37:56,325 | DEBUG | ulauncher.api.server.ExtensionController: handleMessage() | Incoming response (KeywordQueryEvent, RenderResultListAction) from "com.github.noam09.ulauncher-remmina"
+2023-10-05 14:37:56,334 | DEBUG | ulauncher.ui.windows.UlauncherWindow: show_results() | render 8 results
+2023-10-05 14:37:56,969 | DEBUG | ulauncher.api.server.ExtensionController: _send_event() | Send event KeywordQueryEvent to "com.github.noam09.ulauncher-remmina"
+2023-10-05 14:37:57,036 | DEBUG | ulauncher.api.server.ExtensionController: handleMessage() | Incoming response (KeywordQueryEvent, RenderResultListAction) from "com.github.noam09.ulauncher-remmina"
+2023-10-05 14:37:57,041 | DEBUG | ulauncher.ui.windows.UlauncherWindow: show_results() | render 8 results
+2023-10-05 14:37:57,165 | DEBUG | ulauncher.api.server.ExtensionController: _send_event() | Send event KeywordQueryEvent to "com.github.noam09.ulauncher-remmina"
+2023-10-05 14:37:57,254 | DEBUG | ulauncher.api.server.ExtensionController: handleMessage() | Incoming response (KeywordQueryEvent, RenderResultListAction) from "com.github.noam09.ulauncher-remmina"
+2023-10-05 14:37:57,257 | DEBUG | ulauncher.ui.windows.UlauncherWindow: show_results() | render 4 results
+2023-10-05 14:37:57,365 | DEBUG | ulauncher.api.server.ExtensionController: _send_event() | Send event KeywordQueryEvent to "com.github.noam09.ulauncher-remmina"
+2023-10-05 14:37:57,474 | DEBUG | ulauncher.api.server.ExtensionController: handleMessage() | Incoming response (KeywordQueryEvent, RenderResultListAction) from "com.github.noam09.ulauncher-remmina"
+2023-10-05 14:37:57,477 | DEBUG | ulauncher.ui.windows.UlauncherWindow: show_results() | render 2 results
+2023-10-05 14:37:58,499 | DEBUG | ulauncher.ui.windows.UlauncherWindow: show_results() | render 0 results
+2023-10-05 14:37:58,598 | DEBUG | ulauncher.api.server.ExtensionController: _send_event() | Send event ItemEnterEvent to "com.github.noam09.ulauncher-remmina"
+2023-10-05 15:07:51,314 | DEBUG | ulauncher.utils.display: get_screens() | Found 3 monitor(s)
+2023-10-05 15:07:51,314 | DEBUG | ulauncher.utils.display: get_screens() |   Monitor 0 - X: 1080, Y: 0, W: 1920, H: 1080
+2023-10-05 15:07:51,314 | DEBUG | ulauncher.utils.display: get_screens() |   Monitor 1 - X: 0, Y: 0, W: 1080, H: 1920
+2023-10-05 15:07:51,314 | DEBUG | ulauncher.utils.display: get_screens() |   Monitor 2 - X: 1080, Y: 1080, W: 1920, H: 1080
+2023-10-05 15:07:51,315 | DEBUG | ulauncher.utils.display: get_screens() | Found 3 monitor(s)
+2023-10-05 15:07:51,315 | DEBUG | ulauncher.utils.display: get_screens() |   Monitor 0 - X: 1080, Y: 0, W: 1920, H: 1080
+2023-10-05 15:07:51,315 | DEBUG | ulauncher.utils.display: get_screens() |   Monitor 1 - X: 0, Y: 0, W: 1080, H: 1920
+2023-10-05 15:07:51,315 | DEBUG | ulauncher.utils.display: get_screens() |   Monitor 2 - X: 1080, Y: 1080, W: 1920, H: 1080
+2023-10-05 15:07:51,315 | DEBUG | ulauncher.ui.windows.UlauncherWindow: show_results() | render 0 results
+2023-10-05 15:07:53,536 | DEBUG | ulauncher.ui.windows.UlauncherWindow: show_results() | render 9 results
+2023-10-05 15:07:54,914 | INFO | ulauncher.api.shared.action.LaunchAppAction: run() | Run application Extensions (/var/lib/flatpak/exports/share/applications/org.gnome.Extensions.desktop) Exec ['gapplication', 'launch', 'org.gnome.Extensions']
+2023-10-05 15:07:54,931 | DEBUG | ulauncher.ui.windows.UlauncherWindow: show_results() | render 0 results
