@@ -233,7 +233,7 @@ fi
 
 if command -v docker &>/dev/null; then
     source <(docker completion zsh)
-    alias dk='docker '
+    alias dkk='docker '
     alias dkc='docker-compose '
 fi
 
@@ -275,6 +275,7 @@ if [ "$(command -v fzf)" ] && [ "$(command -v rg)" ]; then
   export FZF_DEFAULT_COMMAND="rg --ignore-case --files --no-ignore-vcs --hidden "
   export DISABLE_FZF_AUTO_COMPLETION="false"
   export DISABLE_FZF_KEY_BINDINGS="false"
+  alias -g F='| fzf'
   alias -g R='| rg '
   alias -g rf="rg . | fzf"
   alias -g rfl="rg . | fzf | cut -d ":" -f 1"
