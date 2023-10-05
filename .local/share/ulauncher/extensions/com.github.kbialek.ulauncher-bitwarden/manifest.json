@@ -1,0 +1,72 @@
+{
+  "required_api_version": "^2.0.0",
+  "name": "Bitwarden Search",
+  "description": "Quickly search your Bitwarden password manager database",
+  "developer_name": "Krzysztof Bialek",
+  "icon": "images/bitwarden-search.svg",
+  "options": {
+    "query_debounce": 0.2
+  },
+  "preferences": [
+    {
+      "id": "search",
+      "type": "keyword",
+      "name": "Bitwarden vault search",
+      "description": "Search Bitwarden vault and copy passwords and other attributes to the clipboard",
+      "default_value": "bw"
+    },
+    {
+      "id": "sync",
+      "type": "keyword",
+      "name": "Bitwarden synchronization",
+      "description": "Synchronizes Bitwarden vault with the server",
+      "default_value": "bwsync"
+    },
+    {
+      "id": "lock",
+      "type": "keyword",
+      "name": "Bitwarden lock",
+      "description": "Locks Bitwarden vault",
+      "default_value": "bwlock"
+    },
+    {
+      "id": "server-url",
+      "type": "input",
+      "name": "Bitwarden Server Url",
+      "default_value": "https://vault.bitwarden.com"
+    },
+    {
+      "id": "email",
+      "type": "input",
+      "name": "User e-mail address",
+      "default_value": ""
+    },
+    {
+      "id": "mfa",
+      "type": "select",
+      "options": ["yes", "no"],
+      "name": "Enable MFA login",
+      "default_value": "no"
+    },
+    {
+      "id": "max-results",
+      "type": "input",
+      "name": "Maximum number of search results to display",
+      "default_value": "6"
+    },
+    {
+      "id": "inactivity-lock-timeout",
+      "type": "input",
+      "name": "Inactivity lock timeout",
+      "description": "Lock database if extension hasn't been used for a certain number of seconds. Set to 0 to never lock",
+      "default_value": "300"
+    },
+    {
+      "id": "session-store-cmd",
+      "type": "input",
+      "name": "Session store command",
+      "description": "Command called after successful login or unlock. SessionID is passed over stdin",
+      "default_value": ""
+    }
+  ]
+}

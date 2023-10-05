@@ -1,0 +1,57 @@
+{
+  "required_api_version": "^2.0.0",
+  "name": "SSH Launcher",
+  "description": "Launch SSH connections.",
+  "developer_name": "Jonas Bendlin",
+  "icon": "images/icon.png",
+  "options": {
+	"query_debounce": 0.1
+  },
+  "preferences": [
+	{
+	  "id": "ssh_launcher_kw",
+	  "type": "keyword",
+	  "name": "SSH Launcher",
+	  "description": "",
+	  "default_value": "ssh"
+	},
+	{
+		"id": "ssh_launcher_terminal",
+		"type": "input",
+		"name": "Terminal",
+		"description": "The Terminal to launch the connections in.",
+		"default_value": "xterm"
+	},
+	{
+		"id": "ssh_launcher_terminal_arg",
+		"type": "input",
+		"name": "Terminal arg",
+		"description": "Terminal arg to exec commands.",
+		"default_value": "-e"
+	},
+	{
+		"id": "ssh_launcher_terminal_cmd",
+		"type": "input",
+		"name": "Terminal cmd",
+		"description": "The command to start the terminal with. %SHELL equals the env var $SHELL and %CONN the selected connection.",
+		"default_value": "%SHELL -c 'ssh \"%CONN\"';%SHELL"
+	},
+	{
+		"id": "ssh_launcher_use_known_hosts",
+		"type": "select",
+		"name": "Use known_hosts",
+		"description": "Parse the ~/.ssh/known_hosts file for more suggestions.",
+		"options": [
+			{
+				"value": "True",
+				"text": "Yes"
+			},
+			{
+				"value": "False",
+				"text": "No"
+			}
+		],
+		"default_value": "True"
+	}
+  ]
+}

@@ -1,0 +1,26 @@
+{
+    "required_api_version": "^2.0.0",
+    "name": "Run commands",
+    "description": "Run commands via terminal",
+    "developer_name": "Maximus",
+    "icon": "images/icon.png",
+    "options": {
+      "query_debounce": 1
+    },
+    "preferences": [
+      {
+        "id": "kw",
+        "type": "keyword",
+        "name": "Executer",
+        "description": "Command execution via terminal",
+        "default_value": "_"
+      },
+      {
+        "id": "terminal",
+        "type": "input",
+        "name": "Template",
+        "description": "Type command template needed to be processed (check readme for more info)",
+        "default_value": "/bin/konsole -e '/bin/zsh -c \"{command}; exec /bin/zsh\"'"
+      }
+    ]
+  }
