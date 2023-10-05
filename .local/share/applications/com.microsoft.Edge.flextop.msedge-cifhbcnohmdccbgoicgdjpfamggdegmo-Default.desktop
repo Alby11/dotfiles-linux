@@ -4,7 +4,7 @@
 Version=1.0
 Terminal=false
 Type=Application
-Name=Microsoft Teams (Edge)
+Name=Microsoft Teams
 Exec=flatpak 'run' '--command=/app/bin/edge' 'com.microsoft.Edge' '--profile-directory=Default' '--app-id=cifhbcnohmdccbgoicgdjpfamggdegmo' '--app-url=https://teams.microsoft.com/?clientType=pwa'
 Icon=msedge-cifhbcnohmdccbgoicgdjpfamggdegmo-Default
 StartupWMClass=crx__cifhbcnohmdccbgoicgdjpfamggdegmo

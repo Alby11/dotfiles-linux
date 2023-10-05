@@ -13,13 +13,6 @@
         "last_commit": "47168e6ea45878787536ae5670612509f5dddced",
         "last_commit_time": "2021-08-29T16:30:14"
     },
-    "com.github.khanghy3004.vim-with-fuzzy-finder-in-ulauncher": {
-        "id": "com.github.khanghy3004.vim-with-fuzzy-finder-in-ulauncher",
-        "url": "https://github.com/khanghy3004/vim-with-fuzzy-finder-in-ulauncher",
-        "updated_at": "2023-09-16T16:13:05.078558",
-        "last_commit": "1e7ddcbfde1a7b490ac2e527a645353e360a2e61",
-        "last_commit_time": "2023-05-19T00:39:22"
-    },
     "com.github.tuanpham-dev.ulauncher-better-calculator": {
         "id": "com.github.tuanpham-dev.ulauncher-better-calculator",
         "url": "https://github.com/tuanpham-dev/ulauncher-better-calculator",
@@ -68,5 +61,110 @@
         "updated_at": "2023-09-16T17:09:58.206974",
         "last_commit": "e5c25ebc24142f064eaebb29f6e473ded6d6b315",
         "last_commit_time": "2022-10-19T06:09:55"
+    },
+    "com.github.glovecc.ulauncher-github-search": {
+        "id": "com.github.glovecc.ulauncher-github-search",
+        "url": "https://github.com/Glovecc/ulauncher-github-search",
+        "updated_at": "2023-10-05T08:36:53.467900",
+        "last_commit": "ee3ea43e905cf184449c328f0dadaa4395f3ec0c",
+        "last_commit_time": "2022-01-14T13:46:35"
+    },
+    "com.github.ygun.ulauncher-nm": {
+        "id": "com.github.ygun.ulauncher-nm",
+        "url": "https://github.com/ygun/ulauncher-nm",
+        "updated_at": "2023-10-05T08:44:31.543982",
+        "last_commit": "036a0b3b24fb325f7aa648872c916d04966e7101",
+        "last_commit_time": "2021-02-03T13:17:59"
+    },
+    "com.github.kleber-swf.ulauncher-turn-off-screen": {
+        "id": "com.github.kleber-swf.ulauncher-turn-off-screen",
+        "url": "https://github.com/kleber-swf/ulauncher-turn-off-screen",
+        "updated_at": "2023-10-05T08:44:54.023017",
+        "last_commit": "a461b89706008fcb5605b6e800fec29308b70a04",
+        "last_commit_time": "2020-11-18T20:05:35"
+    },
+    "com.github.melianmiko.ulauncher-nmcli": {
+        "id": "com.github.melianmiko.ulauncher-nmcli",
+        "url": "https://github.com/melianmiko/ulauncher-nmcli",
+        "updated_at": "2023-10-05T08:49:50.692721",
+        "last_commit": "fe967c947748616df602c9d022fec6d68a6b2cf2",
+        "last_commit_time": "2022-05-01T12:20:38"
+    },
+    "com.github.pegoku.ulauncher-searx": {
+        "id": "com.github.pegoku.ulauncher-searx",
+        "url": "https://github.com/Pegoku/ulauncher-searx",
+        "updated_at": "2023-10-05T08:50:01.700296",
+        "last_commit": "9047d246736a7a4cdf6c843cb26c987ccce36aae",
+        "last_commit_time": "2023-03-18T15:53:26"
+    },
+    "com.github.seofernando25.ulauncher-gpt": {
+        "id": "com.github.seofernando25.ulauncher-gpt",
+        "url": "https://github.com/SeoFernando25/ulauncher-gpt",
+        "updated_at": "2023-10-05T08:50:19.929364",
+        "last_commit": "2d51ff40fcbd501e64034f3c7be1cd35abc47d6b",
+        "last_commit_time": "2023-04-14T22:57:18"
+    },
+    "com.github.sevir.ulauncher-dotdesktop-opener": {
+        "id": "com.github.sevir.ulauncher-dotdesktop-opener",
+        "url": "https://github.com/sevir/ulauncher-dotdesktop-opener",
+        "updated_at": "2023-10-05T08:51:04.678347",
+        "last_commit": "3b5f5fce4835aac17998e178f3eaf860541dbbc9",
+        "last_commit_time": "2022-07-14T09:35:01"
+    },
+    "com.github.trepichio.ulauncher-window-switcher": {
+        "id": "com.github.trepichio.ulauncher-window-switcher",
+        "url": "https://github.com/trepichio/ulauncher-window-switcher",
+        "updated_at": "2023-10-05T08:51:31.705539",
+        "last_commit": "5d4b221c5d59f991d3b934f36ee7c1d6bbe419c4",
+        "last_commit_time": "2022-07-17T08:25:36"
+    },
+    "com.github.lighttigerxiv.ulauncher-terminal-runner-extension": {
+        "id": "com.github.lighttigerxiv.ulauncher-terminal-runner-extension",
+        "url": "https://github.com/lighttigerXIV/ulauncher-terminal-runner-extension/",
+        "updated_at": "2023-10-05T08:51:44.946199",
+        "last_commit": "d6bc2157e5c0ef2f812e3051ddde334c7b485c2e",
+        "last_commit_time": "2023-05-02T22:50:12"
+    },
+    "com.github.lighttigerxiv.ulauncher-session-manager": {
+        "id": "com.github.lighttigerxiv.ulauncher-session-manager",
+        "url": "https://github.com/lighttigerXIV/ulauncher-session-manager",
+        "updated_at": "2023-10-05T08:52:06.847148",
+        "last_commit": "39218fddb79d86150c4624d96b1a162eba89c993",
+        "last_commit_time": "2023-05-23T08:14:57"
+    },
+    "com.github.eckhoff42.ulauncher-favorite-directories": {
+        "id": "com.github.eckhoff42.ulauncher-favorite-directories",
+        "url": "https://github.com/Eckhoff42/Ulauncher-favorite-directories",
+        "updated_at": "2023-10-05T08:52:19.534020",
+        "last_commit": "ac1deaffb31562a7918b37b6331cce27adc4660e",
+        "last_commit_time": "2022-08-29T14:25:22"
+    },
+    "com.github.carlosmape.ulauncher-calendar": {
+        "id": "com.github.carlosmape.ulauncher-calendar",
+        "url": "https://github.com/Carlosmape/ulauncher-calendar",
+        "updated_at": "2023-10-05T08:52:53.039522",
+        "last_commit": "36e6d2f9b238a7723525522bd373a22626cf3be5",
+        "last_commit_time": "2022-10-31T15:47:41"
+    },
+    "com.github.eckhoff42.ulauncher-kill-process-on-click": {
+        "id": "com.github.eckhoff42.ulauncher-kill-process-on-click",
+        "url": "https://github.com/Eckhoff42/Ulauncher-Kill-process-on-click",
+        "updated_at": "2023-10-05T08:53:04.797248",
+        "last_commit": "1cc49319d1a8811a2db63b6111effbb5ba087494",
+        "last_commit_time": "2022-05-05T09:03:54"
+    },
+    "com.github.rapha149.ulauncher-deepl": {
+        "id": "com.github.rapha149.ulauncher-deepl",
+        "url": "https://github.com/Rapha149/ulauncher-deepl/",
+        "updated_at": "2023-10-05T08:53:20.549359",
+        "last_commit": "2dd4e692c5ed3b1c92258ae91354dcc370def909",
+        "last_commit_time": "2023-01-12T17:49:43"
+    },
+    "com.github.ultiblog.ulauncher-password-generator": {
+        "id": "com.github.ultiblog.ulauncher-password-generator",
+        "url": "https://github.com/Ultiblog/ULauncher-Password-Generator",
+        "updated_at": "2023-10-05T08:53:38.775441",
+        "last_commit": "de08e6b3ce1c58e4f2b23321702ba40fa2110f73",
+        "last_commit_time": "2022-11-11T12:05:05"
     }
 }
