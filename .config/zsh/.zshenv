@@ -8,6 +8,10 @@
 # Uncomment to use the profiling module
 zmodload zsh/zprof
 
+# Set ZDOTDIR if you want to re-home Zsh.
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+export ZDOTDIR="${ZDOTDIR:-$XDG_CONFIG_HOME/zsh}"
+
 # Some people insist on setting their PATH here to affect things like ssh.
 # Those that do should probably use $SHLVL to ensure that this only happens
 # the first time the shell is started (to avoid overriding a customized
@@ -25,14 +29,6 @@ export THE_SHELL="$(echo $SHELL | grep -o '[^\/]*$')"
 [[ -f $ZDOTDIR/.ztools.zsh ]] && source $ZDOTDIR/.ztools.zsh
 
 ECHOCAT ".zshenv - Zsh environment file, loaded always. SHLVL $SHLVL"
-
-# fiexport XDG_CONFIG_HOME="$HOME/.config"
-# Set ZDOTDIR if you want to re-home Zsh.
-# export ZSH_CONFIG_HOME="$HOME/.config/zsh"
-# export ZDOTDIR=$ZSH_CONFIG_HOME
-# Set ZDOTDIR if you want to re-home Zsh.
-export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
-export ZDOTDIR="${ZDOTDIR:-$XDG_CONFIG_HOME/zsh}"
 
 #
 # Paths
