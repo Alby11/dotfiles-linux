@@ -139,8 +139,12 @@ SOURCE_RCFILE $ZDOTDIR/catppuccin_zsh-syntax-highlighting/themes/catppuccin_moch
 
 ### Initialize Starship
 if CHECK_COMMANDS "starship"; then
-  export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/starship.jonasleonhard.toml" && \
-    eval "$(starship init zsh)"
+  if [[ $(whoami) == 'root' ]]; then
+    export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/root_starship.toml"
+  else
+    export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/user_starship.toml"
+  fi
+  eval "$(starship init zsh)"
 fi
 
 ### SSH BLOCK
