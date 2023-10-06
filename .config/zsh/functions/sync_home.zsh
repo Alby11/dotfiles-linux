@@ -1,0 +1,128 @@
+#!/usr/bin/env zsh
+
+sync_home() {
+  usage() {
+    echo "Usage: sync_home [options]"
+    echo "Options:"
+    echo "  --help, -h: Display this help message"
+    echo "  --ssh-server[=]SERVER, -s[=]SERVER: Specify an SSH server to \n\
+      synchronize with"
+    echo "  --xxh-server[=]SERVER, -x[=]SERVER: Specify an XXH server to \n\
+      synchronize with"
+    echo "  --username[=]USERNAME, -u[=]USERNAME: Specify the user that you \n\
+      want to sync with (need at least one of the previous parameters)"
+  }
+  local remote_servers=()
+  local origins=("$HOME/.config" "$HOME/.local/bin" "$HOME/.zshenv")
+  local destinations=("$HOME/gitdepot/xxh-plugin-prerun-dotfiles/home")
+  local repositories=("$HOME/gitdepot/xxh-plugin-prerun-dotfiles")
+  local options="--recursive --archive --update --delete --verbose"
+  local exclude_array=(
+    "abrt" "alacritty" "autostart" "Bitwarden CLI" "BraveSoftware"
+    "burn-my-windows" "chromium" "connections.db" "cv_debug.log" "dconf"
+    "dleyna-renderer-service.conf" "dnote" "enchant" "eog" "evince"
+    "evolution" "flameshot" "FortiClient" "freerdp" "gedit" "git-monitor.json"
+    "gnome-boxes" "gnome-control-center" "gnome-initial-setup-done"
+    "gnome-session" "GNOME-xdg-terminals.list" "goa-1.0" "google-chrome"
+    "google-chrome-beta" "google-chrome-unstable" "grammarly-languageserver"
+    "gsconnect" "gtk-3.0" "gtk-4.0" "gtk-4.0.backup" "homepage"  "ibus"
+    "interception" "KADOKAWA" "kitty" "lazygit" "libreoffice" "libvirt"
+    "Microsoft" "microsoft-edge-beta" "microsoft-edge-dev"
+    "Microsoft Teams - Preview" "mimeapps.list" "monitors.xml" "monitors.xml~"
+    "nautilus" "neofetch" "pulse" "QtProject.conf" "rabbitvcs"  "remmina"
+    "solaar"  "swaync" "systemd" "teams" "teamviewer" "thefuck"
+    "tiling-assistant" "ulauncher" "user-dirs.dirs" "user-dirs.locale"
+    "weston.ini" "xdg-terminals.list" "xfce4" "xonsh" "xxh"
+  )
+  local exclude_string=$(printf "--exclude '%s' " "${exclude_array[@]}")
+  # Add ssh servers as parameters and set destination to '/home/tallonea/.xxh' for ssh servers
+  while [ $# -gt 0 ]; do
+    case "$1" in
+      --username=*|-u=*)
+        local username="${1#*=}"
+        username_called=1
+        shift
+        ;;
+      --username|-u)
+        shift
+        local username="$1"
+        username_called=1
+        shift
+        ;;
+      --ssh-server=*|-s=*)
+        local ssh_server="${1#*=}"
+        remote_servers+=("$ssh_server")
+        destinations+=("$ssh_server:/home/tallonea")
+        shift
+        ;;
+      --ssh-server|-s)
+        shift
+        local ssh_server="$1"
+        echo $ssh_server
+        remote_servers+=("$ssh_server")
+        destinations+=("$ssh_server:/home/tallonea")
+        shift
+        ;;
+      --xxh-server=*|-x=*)
+        local ssh_server="${1#*=}"
+        remote_servers+=("$ssh_server")
+        destinations+=("$ssh_server:/home/tallonea/.xxh")
+        shift
+        ;;
+      --xxh-server|-x)
+        shift
+        local ssh_server="$1"
+        remote_servers+=("$ssh_server")
+        destinations+=("$ssh_server:/home/tallonea/.xxh")
+        shift
+        ;;
+      --help|-h)
+        usage
+        return 0
+        ;;
+      *)
+        printf "Error: Invalid argument\n"
+        return 1
+        ;;
+    esac
+  done
+
+  #Test is username is called with at least one remote server
+  if [[ $username_called -eq 1 && ${#destinations[@]} -le 1 ]]; then
+    echo "Error: You must specify at least one destination using: \n\
+      --ssh-server or --xxh-server options"
+    return 1
+  else
+    #Check if username exist on remote server(s)
+    for remote_server in $remote_servers
+    do
+      if [[ ! "$(ssh $(whoami)@$remote_server grep $username /etc/passwd)" ]]
+      then
+          echo "User $username does not exist on $remote_server. Aborting..."
+          return 1
+      fi
+    done
+  fi
+
+  for origin in $origins
+  do
+    local exclusions=$(/bin/du -sh ${origin}/* | /bin/grep -E '0-9' | /bin/grep -Ev '(zsh|nvim|\.git[a-z]*$)' | /bin/cut -d / -f5- | /bin/sed "s/^/--exclude '/;s/$/'/" | /bin/tr '\n' ' ')
+    for destination in $destinations
+    do
+      ECHOCAT "\n### ORIGIN: $origin ###"
+      ECHOCAT "### DESTINATION: $destination ###\n"
+      local arguments="$options $exclusions $exclude_string $origin $destination"
+      /bin/bash -c "rsync $arguments"
+    done
+  done
+  for repository in $repositories
+  do
+    git -C $repository status
+    git -C $repository add --update
+    git -C $repository add $repository/.
+    git -C $repository commit  --message 'edit home files' 
+    git -C $repository push
+    git -C $repository status
+  done
+  rm -rfv .xxh/.xxh/plugins/xxh-plugin-prerun-dotfiles
+}
