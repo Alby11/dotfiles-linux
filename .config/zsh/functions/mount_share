@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-function mount_network_share() {
+function mount_share() {
     if [[ $1 == "-h" ]]; then
         echo "Usage: mount_network_share -s [server] -r [share] -u [username] -d [domain] -p [protocol]"
         echo "Mounts a network share at the specified server."
@@ -50,27 +50,8 @@ function mount_network_share() {
     fi
 }
 
-function unmount_share() {
-    if [[ $1 == "-h" ]]; then
-        echo "Usage: unmount_share"
-        echo "Unmounts a previously mounted network share."
-        return
-    fi
-
-    local mount_point
-    # local FZF_DEFAULT_OPTS_SAVE=$FZF_DEFAULT_OPTS
-    # FZF_DEFAULT_OPTS="--color=bw"
-    # mount_point=$(/usr/bin/ls /home/$USER/mnt | fzf --no-color)
-    mount_point=$(/usr/bin/ls /home/$USER/mnt)
-    # FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS_SAVE
-    # unset $FZF_DEFAULT_OPTS_SAVE
-    if [[ -n $mount_point ]]; then
-        sudo umount "/home/$USER/mnt/$mount_point" && rmdir "/home/$USER/mnt/$mount_point"
-    fi
-}
-
 # Autocomplete function for protocols in mount_network_share function.
-function _mount_network_share() {
+function _mount_share() {
   local cur prev opts base
   COMPREPLY=()
   cur="${COMP_WORDS[COMP_CWORD]}"
@@ -87,18 +68,3 @@ function _mount_network_share() {
   return 0
 }
 complete -F _mount_network_share mount_network_share
-
-# Autocomplete function for unmount_share function.
-function _unmount_share() {
-  local cur prev opts base dir_list
-  COMPREPLY=()
-  cur="${COMP_WORDS[COMP_CWORD]}"
-  
-  # Autocomplete for directories in /home/user/mnt.
-  dir_list=$(ls /home/$USER/mnt)
-  COMPREPLY=( $(compgen -W "${dir_list}" -- ${cur}) )
-  
-  return 0
-}
-complete -F _unmount_share unmount_share
-
