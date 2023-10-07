@@ -1,0 +1,33 @@
+#!/usr/bin/env zsh
+
+function unmount_share() {
+    if [[ $1 == "-h" ]]; then
+        echo "Usage: unmount_share"
+        echo "Unmounts a previously mounted network share."
+        return
+    fi
+
+    local mount_point
+    # local FZF_DEFAULT_OPTS_SAVE=$FZF_DEFAULT_OPTS
+    # FZF_DEFAULT_OPTS="--color=bw"
+    # mount_point=$(/usr/bin/ls /home/$USER/mnt | fzf --no-color)
+    mount_point=$(/usr/bin/ls /home/$USER/mnt)
+    # FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS_SAVE
+    # unset $FZF_DEFAULT_OPTS_SAVE
+    if [[ -n $mount_point ]]; then
+        sudo umount "/home/$USER/mnt/$mount_point" && rmdir "/home/$USER/mnt/$mount_point"
+    fi
+}
+# Autocomplete function for unmount_share function.
+function _unmount_share() {
+  local cur prev opts base dir_list
+  COMPREPLY=()
+  cur="${COMP_WORDS[COMP_CWORD]}"
+  
+  # Autocomplete for directories in /home/user/mnt.
+  dir_list=$(ls /home/$USER/mnt)
+  COMPREPLY=( $(compgen -W "${dir_list}" -- ${cur}) )
+  
+  return 0
+}
+complete -F _unmount_share unmount_share
