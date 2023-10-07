@@ -5,7 +5,7 @@ valid_commands=("create" "get" "delete" "mypastes" "deleteall" "help")
 valid_create_options=("-c" "-s" "-e" "-t" "-y" "-p")
 
 # Function to provide autocomplete suggestions
-_pastesio_autocomplete() {
+_pastesio() {
   local cur prev
   cur="${COMP_WORDS[COMP_CWORD]}"
   prev="${COMP_WORDS[COMP_CWORD-1]}"
@@ -25,7 +25,3 @@ _pastesio_autocomplete() {
       ;;
   esac
 }
-
-# Register the _pastesio_autocomplete function for autocomplete
-complete -F _pastesio_autocomplete pastesio
-
