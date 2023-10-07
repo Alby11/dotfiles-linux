@@ -16,7 +16,10 @@ sync_home() {
   local origins=("$HOME/.config" "$HOME/.local/bin" "$HOME/.zshenv")
   local destinations=("$HOME/gitdepot/xxh-plugin-prerun-dotfiles/home")
   local repositories=("$HOME/gitdepot/xxh-plugin-prerun-dotfiles")
-  local options="--recursive --archive --update --delete --verbose"
+  local options="--recursive --archive --update \
+    -e \"ssh -t\" \
+    --delete --delete-delay --delete-excluded --force \
+    --compress --compress-choice lz4 --verbose"
   local exclude_array=(
     "abrt" "alacritty" "autostart" "Bitwarden CLI" "BraveSoftware"
     "burn-my-windows" "chromium" "connections.db" "cv_debug.log" "dconf"
