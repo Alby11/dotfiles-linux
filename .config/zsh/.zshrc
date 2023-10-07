@@ -69,19 +69,20 @@ fi
 FUNCTION_DIRS=("$ZDOTDIR/functions" "$ZDOTDIR/completions")
 # Loop through the directories and add each one to fpath
 for dir in "${FUNCTION_DIRS[@]}"; do
-    if [[ -d $dir ]]; then
-        fpath=( $dir "${fpath[@]}" )
-    fi
+  if [[ -d $dir ]]; then
+    fpath=( $dir "${fpath[@]}" )
+  fi
 done
 # Get a list of all files in the directories
 for dir in "${FUNCTION_DIRS[@]}"; do
-    if [[ -d $dir ]]; then
-        func_files=($dir/*)
-        # Loop through the files and autoload each one
-        for func in $func_files; do
-            autoload -Uz $func
-        done
-    fi
+  if [[ -d $dir ]]; then
+    ECHOCAT "Autoloading functons in: $dir"
+    func_files=($dir/*)
+    # Loop through the files and autoload each one
+    for func in $func_files; do
+      autoload -Uz $func
+    done
+  fi
 done
 ### END OF FPATH AUTOLOAD
 
@@ -150,32 +151,32 @@ fi
 ### SSH BLOCK
 ### LOAD SSH AFTER EACH REBOOT (RE-USES SAME SSH-AGENT INSTANCE)
 if [[ ! $( command -v keychain ) ]]; then
-    sudo dnf install -y keychain &> /dev/null
-    sudo rpm install -y keychain &> /dev/null
-    sudo apt install -y keychain &> /dev/null
+  sudo dnf install -y keychain &> /dev/null
+  sudo rpm install -y keychain &> /dev/null
+  sudo apt install -y keychain &> /dev/null
 fi
 export SSH_ENV="$HOME/.ssh/agent-environment"
 start_agent() {
-    echo "Initialising new SSH agent..."
-    /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
-    echo succeeded
-    chmod 600 "${SSH_ENV}"
-    . "${SSH_ENV}" > /dev/null
-    # /usr/bin/ssh-add;
-    for file in $HOME/.ssh/id_* ; do
-        if [[ $(ls $file | grep pub ) ]]; then continue ; fi
-        eval $(keychain --eval $file)
-    done
+  echo "Initialising new SSH agent..."
+  /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
+  echo succeeded
+  chmod 600 "${SSH_ENV}"
+  . "${SSH_ENV}" > /dev/null
+  # /usr/bin/ssh-add;
+  for file in $HOME/.ssh/id_* ; do
+    if [[ $(ls $file | grep pub ) ]]; then continue ; fi
+    eval $(keychain --eval $file)
+  done
 }
 # Source SSH settings, if applicable
 if [ -f "${SSH_ENV}" ]; then
-    . "${SSH_ENV}" > /dev/null
-    # ps ${SSH_AGENT_PID} doesn't work under cywgin
-    ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
-        start_agent;
-    }
-else
+  . "${SSH_ENV}" > /dev/null
+  # ps ${SSH_AGENT_PID} doesn't work under cywgin
+  ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
     start_agent;
+  }
+else
+  start_agent;
 fi
 unset -f start_agent
 ### END OF SSH BLOCK
