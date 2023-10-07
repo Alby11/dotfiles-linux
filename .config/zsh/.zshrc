@@ -66,7 +66,7 @@ fi
 # FPATH AUTOLOAD
 #
 # Define the directories that contain your functions
-FUNCTION_DIRS=("$ZDOTDIR/functions" "$ZDOTDIR/completions")
+local FUNCTION_DIRS=("$ZDOTDIR/functions")
 # Loop through the directories and add each one to fpath
 for dir in "${FUNCTION_DIRS[@]}"; do
   if [[ -d $dir ]]; then
@@ -85,6 +85,24 @@ for dir in "${FUNCTION_DIRS[@]}"; do
   fi
 done
 ### END OF FPATH AUTOLOAD
+
+# Define the directories that contain your completion functions
+FUNCTION_DIRS=("$ZDOTDIR/completions")
+# Get a list of all files in the directories
+for dir in "${FUNCTION_DIRS[@]}"; do
+  if [[ -d $dir ]]; then
+    ECHOCAT "Sourcing autocomplete functons in: $dir"
+    func_files=($dir/*)
+    # Loop through the files and source each one
+    for func in $func_files; do
+      source $func
+      # call complete command for the corrisponding and
+      # previously sourced zsh function script
+      complete -F $(basename $func) $(basename $func | sed -s 's/^.//')
+    done
+  fi
+done
+### END OF COMPLETION FUNCTIONS SOURCING
 
 # Uncomment the following line to enable command auto-correction.
 export ENABLE_CORRECTION="true"
