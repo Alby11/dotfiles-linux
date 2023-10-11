@@ -5,6 +5,8 @@
 
 # NOTE: .zshenv needs to live at ~/.zshenv, not in $ZDOTDIR!
 
+echo ".zshenv - Zsh environment file, loaded always. SHLVL $SHLVL" | lolcat
+
 # Uncomment to use the profiling module
 zmodload zsh/zprof
 
@@ -28,7 +30,6 @@ export THE_SHELL="$(echo $SHELL | grep -o '[^\/]*$')"
 
 [[ -f $ZDOTDIR/.ztools.zsh ]] && source $ZDOTDIR/.ztools.zsh
 
-ECHOCAT ".zshenv - Zsh environment file, loaded always. SHLVL $SHLVL"
 
 #
 # Paths
