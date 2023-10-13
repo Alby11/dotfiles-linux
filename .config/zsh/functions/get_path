@@ -1,0 +1,42 @@
+#!/usr/bin/env zsh
+
+# Define the function
+function get_path() {
+    # Check if an argument was provided
+    if [[ $# -eq 0 ]] ; then
+        echo 'Please provide a filename as an argument.'
+        return 1
+    fi
+
+    # Initialize variables
+    local filepath=""
+    local strip_filename=false
+
+    # Process arguments
+    for arg in "$@"; do
+        if [[ $arg == '--help' || $arg == '-h' ]]; then
+            echo 'Usage: get_path filename [--strip-filename|-d]'
+            echo 'Prints the full path of the given file.'
+            echo 'If --strip-filename or -d is provided, prints the path of the directory containing the file.'
+            return 0
+        elif [[ $arg == '--strip-filename' || $arg == '-d' ]]; then
+            strip_filename=true
+        else
+            filepath=$(readlink -f "$arg")
+        fi
+    done
+
+    # Check if a filename was provided
+    if [[ -z $filepath ]]; then
+        echo 'Please provide a filename as an argument.'
+        return 1
+    fi
+
+    # Strip filename if requested
+    if $strip_filename; then
+        filepath=$(dirname "$filepath")
+    fi
+
+    # Print the path
+    echo $filepath
+}
