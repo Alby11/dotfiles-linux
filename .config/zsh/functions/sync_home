@@ -22,7 +22,7 @@ sync_home() {
     --compress --compress-choice lz4 --verbose"
   local exclude_array=(
     "abrt" "alacritty" "autostart" "Bitwarden CLI" "BraveSoftware"
-    "burn-my-windows" "chromium" "connections.db" "cv_debug.log" "dconf"
+    "burn-my-windows" "chromium" "Code" "connections.db" "cv_debug.log" "dconf"
     "dleyna-renderer-service.conf" "dnote" "enchant" "eog" "evince"
     "evolution" "flameshot" "FortiClient" "freerdp" "gedit" "git-monitor.json"
     "gnome-boxes" "gnome-control-center" "gnome-initial-setup-done"
