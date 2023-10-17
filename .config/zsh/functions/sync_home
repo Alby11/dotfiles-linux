@@ -1,6 +1,7 @@
 #!/usr/bin/env zsh
 
 sync_home() {
+  setopt localoptions extendedglob warncreateglobal typesetsilent noshortloops 
   usage() {
     echo "Usage: sync_home [options]"
     echo "Options:"
@@ -19,7 +20,7 @@ sync_home() {
   local options="--recursive --archive --update \
     -e \"ssh -t\" \
     --delete --delete-delay --delete-excluded --force \
-    --compress --compress-choice lz4 --verbose"
+    --compress --verbose"
   local exclude_array=(
     "abrt" "alacritty" "autostart" "Bitwarden CLI" "BraveSoftware"
     "burn-my-windows" "chromium" "Code" "connections.db" "cv_debug.log" "dconf"
@@ -30,12 +31,12 @@ sync_home() {
     "google-chrome-beta" "google-chrome-unstable" "grammarly-languageserver"
     "gsconnect" "gtk-3.0" "gtk-4.0" "gtk-4.0.backup" "homepage"  "ibus"
     "interception" "KADOKAWA" "kitty" "lazygit" "libreoffice" "libvirt"
-    "Microsoft" "microsoft-edge-beta" "microsoft-edge-dev"
+    "Microsoft" "microsoft-edge-beta" "microsoft-edge-dev" "microsoftedge"
     "Microsoft Teams - Preview" "mimeapps.list" "monitors.xml" "monitors.xml~"
     "nautilus" "neofetch" "pulse" "QtProject.conf" "rabbitvcs"  "remmina"
     "solaar"  "swaync" "systemd" "teams" "teamviewer" "thefuck"
     "tiling-assistant" "ulauncher" "user-dirs.dirs" "user-dirs.locale"
-    "weston.ini" "xdg-terminals.list" "xfce4" "xonsh" "xxh"
+    "vivaldi" "weston.ini" "xdg-terminals.list" "xfce4" "xonsh" "xxh"
   )
   local exclude_string=$(printf "--exclude '%s' " "${exclude_array[@]}")
   # Add ssh servers as parameters and set destination to '/home/tallonea/.xxh' for ssh servers
@@ -82,10 +83,10 @@ sync_home() {
         # usage
         # return 0
         # ;;
-      --help|-h)
-        usage
-        return 0
-        ;;
+      # --help|-h)
+      #   usage
+      #   return 0
+      #   ;;
       *)
         printf "Error: Invalid argument\n"
         return 1
