@@ -143,6 +143,7 @@ if command -v dnf &>/dev/null; then
     alias dnfi='sudo dnf install -y '
     alias dnfr='sudo dnf remove '
     alias -g dnfar='sudo dnf autoremove '
+    alias -g dnflar='sudo dnf list autoremove '
     alias dnfk='sudo dnf copr '
     alias dnfuua='sudo dnfcu ; dnfup ; dnfar'
 fi
