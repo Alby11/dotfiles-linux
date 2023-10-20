@@ -83,4 +83,9 @@ if [[ $antidote_list =~ $string ]]; then
   # zstyle ':completion:*' fzf-search-display true
 fi
 
+string="zsh-users/zsh-autosuggestions"
+if [[ $antidote_list =~ $string ]]; then
+  bindkey '^J' autosuggest-accept # ctrl-l, hjk
+fi
+
 unset antidote_list
