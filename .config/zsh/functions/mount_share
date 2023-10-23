@@ -34,9 +34,9 @@ function mount_share() {
         
         if [[ $protocol == "samba" || $protocol == "cifs" ]]; then
             if [[ -n $domain ]]; then
-                sudo mount -t cifs "//$server/$share" "$mount_point" -o username=$username,domain=$domain
+                sudo mount -t cifs "//$server/$share" "$mount_point" -o rw,username=$username,domain=$domain
             else
-                sudo mount -t cifs "//$server/$share" "$mount_point" -o username=$username
+                sudo mount -t cifs "//$server/$share" "$mount_point" -o rw,username=$username
             fi
         elif [[ $protocol == "nfs" ]]; then
             sudo mount -t nfs "$server:$share" "$mount_point"
