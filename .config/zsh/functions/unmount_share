@@ -9,12 +9,16 @@ function unmount_share() {
 
     local mount_point
     # local FZF_DEFAULT_OPTS_SAVE=$FZF_DEFAULT_OPTS
-    # FZF_DEFAULT_OPTS="--color=bw"
+    local FZF_DEFAULT_OPTS="--color=bw"
+    mount_point=$(/usr/bin/ls $HOME/mnt | fzf --no-color)
+    # mount_point=$(/usr/bin/ls $HOME/mnt)
     # mount_point=$(/usr/bin/ls /home/$USER/mnt | fzf --no-color)
-    mount_point=$(/usr/bin/ls /home/$USER/mnt)
+    # mount_point=$(/usr/bin/ls /home/$USER/mnt)
     # FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS_SAVE
     # unset $FZF_DEFAULT_OPTS_SAVE
+    mount_point=$(echo "$HOME/mnt/$mount_point")
+    echo "Unmounting: $mount_point"
     if [[ -n $mount_point ]]; then
-        sudo umount "/home/$USER/mnt/$mount_point" && rmdir "/home/$USER/mnt/$mount_point"
+        sudo umount "$mount_point" && rmdir "$mount_point"
     fi
 }
