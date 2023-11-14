@@ -46,8 +46,8 @@ alias Sb="source ~/.bashrc"
 alias Sba="source ~/.bash_aliases"
 alias Sbe="source ~/.bash_exports"
 alias Sz="source \$ZDOTDIR/.zshrc"
-alias Sza="source \$ZDOTDIR/aliases.sh"
-alias Sze="source \$ZDOTDIR/exports.sh"
+alias Sza="source \$ZDOTDIR/.zaliases.sh"
+alias Sze="source \$ZDOTDIR/.zexports.sh"
 alias chmod='sudo chmod '
 alias chown='sudo chown '
 alias dfh='sudo /bin/df -h'
@@ -236,8 +236,41 @@ fi
 
 if command -v docker &>/dev/null; then
     source <(docker completion zsh)
-    alias dkk='docker '
-    alias dkc='docker-compose '
+    alias dkd='docker'
+    alias dkc='docker container'
+    alias dkci='docker container inspect'
+    alias dkcls='docker container ls'
+    alias dkcp='docker container update'
+    alias dkcs='docker container stats'
+    alias dkct='docker container top'
+    alias dki='docker image'
+    alias dkii='docker image inspect'
+    alias dkl='docker logs'
+    alias dkld='docker logs --details'
+    alias dklf='docker logs --follow'
+    alias dkldf='docker logs --details --follow'
+    alias dkn='docker network'
+    alias dknls='docker network ls'
+    alias dkni='docker network inspect'
+    alias dkps='docker ps'
+    alias dks='docker service'
+    alias dksi='docker service inspect'
+    alias dksl='docker service logs'
+    alias dksls='docker service ls'
+    alias dksp='docker service update'
+    alias dksps='docker service ps'
+    alias dkss='docker service scale'
+    alias dkk='docker-compose'
+    alias dkkc='docker-compose scale'
+    alias dkkr='docker-compose run'
+    alias dkkt='docker-compose top'
+    alias dkt='docker context'
+    alias dktls='docker context ls'
+    alias dktp='docker context update'
+    alias dkts='docker context show'
+    alias dktu='docker context use'
+    alias dkx='docker exec'
+    alias dkxit='docker exec --interactive --tty'
 fi
 
 if command -v ansible &>/dev/null; then
