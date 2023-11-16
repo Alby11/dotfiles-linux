@@ -61,7 +61,7 @@ alias ping="/usr/bin/ping"
 alias sping="/usr/bin/ping -c 5"
 
 if command -v ss &>/dev/null; then
-    alias ssa='sudo ss -poeta '
+    alias ssa='sudo ss -poenta '
 fi
 
 if command -v notify-send &>/dev/null; then

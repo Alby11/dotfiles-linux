@@ -14,7 +14,8 @@ _ss-fzf() {
   COMPREPLY=()
   cur="${COMP_WORDS[COMP_CWORD]}"
   prev="${COMP_WORDS[COMP_CWORD-1]}"
-  opts=$(ss --help | grep -o -e "-[a-zA-Z]" | tr '\n' ' ')
+  # opts=$(ss --help | grep -o -e "-[a-zA-Z]" | tr '\n' ' ')
+  opts=$(ss -poenta | grep -o -e "-[a-zA-Z]" | tr '\n' ' ')
 
   if [[ ${cur} == -* ]] ; then
     COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
