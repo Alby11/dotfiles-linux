@@ -200,4 +200,4 @@ unset -f start_agent
 ### END OF SSH BLOCK
 
 # Back to home
-cd $HOME
+# cd $HOME

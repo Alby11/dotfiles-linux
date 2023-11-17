@@ -46,8 +46,8 @@ alias Sb="source ~/.bashrc"
 alias Sba="source ~/.bash_aliases"
 alias Sbe="source ~/.bash_exports"
 alias Sz="source \$ZDOTDIR/.zshrc"
-alias Sza="source \$ZDOTDIR/.zaliases.sh"
-alias Sze="source \$ZDOTDIR/.zexports.sh"
+alias Sza="source \$ZDOTDIR/.zaliases.zsh"
+alias Sze="source \$ZDOTDIR/.zexports.zsh"
 alias chmod='sudo chmod '
 alias chown='sudo chown '
 alias dfh='sudo /bin/df -h'
@@ -270,12 +270,20 @@ if command -v docker &>/dev/null; then
     alias dksp='docker service update'
     alias dksps='docker service ps'
     alias dkss='docker service scale'
-    alias dkt='docker context'
+    alias dkt='docker stack'
+    alias dktc='docker stack config'
+    alias dktls='docker stack ls'
+    alias dktps='docker stack ps'
+    alias dkts='docker stack services'
+    alias dkx='docker context'
     alias dkv='docker volume'
+    alias dkvi='docker volume inspect'
+    alias dkvls='docker volume ls'
     alias dkxls='docker context ls'
     alias dkxp='docker context update'
     alias dkxs='docker context show'
     alias dkxu='docker context use'
+    alias dky='docker inspect'
 fi
 
 if command -v ansible &>/dev/null; then
