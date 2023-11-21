@@ -127,6 +127,11 @@ export TERM="xterm-256color"
 # export COLORTERM to make most detect 24 bit truecolor
 export COLORTERM=truecolor
 
+# set Ls_COLORS if vivid is installed
+if CHECK_COMMANDS "vivid"; then
+  export LS_COLORS="$(vivid generate catppuccin-mocha)"
+fi
+
 # Make Python use UTF-8 encoding for output to stdin, stdout, and stderr.
 export PYTHONIOENCODING='UTF-8';
 
