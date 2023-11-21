@@ -19,6 +19,10 @@ function unmount_share() {
     mount_point=$(echo "$HOME/mnt/$mount_point")
     echo "Unmounting: $mount_point"
     if [[ -n $mount_point ]]; then
-        sudo umount "$mount_point" && rmdir "$mount_point"
+        sudo fusermount -u "${mount_point}/dst"
+        sudo umount "${mount_point}/src"
+        rmdir "${mount_point}/dst"
+        rmdir "${mount_point}/src"
+        rmdir "${mount_point}"
     fi
 }

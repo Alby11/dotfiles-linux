@@ -33,17 +33,25 @@ function mount_share() {
         mkdir -p "$mount_point"
         
         if [[ $protocol == "samba" || $protocol == "cifs" ]]; then
+            mkdir -p "${mount_point}/src" 
+            mkdir -p "${mount_point}/dst" 
             if [[ -n $domain ]]; then
-                sudo mount -t cifs "//$server/$share" "$mount_point" -o rw,username=$username,domain=$domain
+                # sudo mount -t cifs "//$server/$share" "$mount_point" -o rw,username=$username,domain=$domain
+                sudo mount.cifs "//$server/$share" "${mount_point}/src" -o user=$username,dom=$domain
             else
-                sudo mount -t cifs "//$server/$share" "$mount_point" -o rw,username=$username
+                # sudo mount -t cifs "//$server/$share" "$mount_point" -o rw,username=$username
+                sudo mount.cifs "//$server/$share" "${mount_point}/src" -o user=$username
             fi
+            # sudo bindfs --map=$username/$(whoami) "${mount_point}/src" "${mount_point}/dst"
+            sudo bindfs --map=root/$(whoami) "${mount_point}/src" "${mount_point}/dst"
         elif [[ $protocol == "nfs" ]]; then
             sudo mount -t nfs "$server:$share" "$mount_point"
         fi
 
         if [[ $? -ne 0 ]]; then
-            rmdir "$mount_point"
+            rmdir  "${mount_point}/dst"
+            rmdir  "${mount_point}/src"
+            rmdir  "${mount_point}"
         fi
     else
         echo "Usage: mount_network_share -s [server] -r [share] -u [username] -d [domain] -p [protocol]"
