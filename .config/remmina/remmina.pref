@@ -95,6 +95,7 @@ always_show_notes=false
 recent_VNC=console-18.fllicarli.im
 lock_view_passwords=false
 recent_SSH=swarm-m-23.fllicarli.im:22
+shortcutkey_clipboard=98
 
 [ssh_colors]
 background=rgb(213,204,186)

@@ -212,5 +212,5 @@ fpath+=( /home/tallonea/.cache/antidote/zsh-users/zsh-autosuggestions )
 source /home/tallonea/.cache/antidote/zsh-users/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 fpath+=( /home/tallonea/.cache/antidote/zsh-users/zsh-history-substring-search )
 source /home/tallonea/.cache/antidote/zsh-users/zsh-history-substring-search/zsh-history-substring-search.plugin.zsh
-source $ZDOTDIR/.zaliases.zsh
-source $ZDOTDIR/.zfunctions.zsh
+source $ZDOTDIR/.zsh_aliases.sh
+source $ZDOTDIR/.zsh_functions.sh
