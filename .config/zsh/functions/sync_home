@@ -32,17 +32,17 @@ sync_home() {
     --verbose \
     "
   local exclude_array=(
-    ".config/*"
     "*"
   )
-  local exclude_string=$(printf "--exclude '%s' " "${exclude_array[@]}")
+  local exclude_string=$(printf "--exclude='%s' " "${exclude_array[@]}")
   local include_array=(
+    ".config/"
     ".config/zsh/***"
     ".config/nvim/***"
     ".config/starship/***"
     ".zshenv"
   )
-  local include_string=$(printf "--include '%s' " "${include_array[@]}")
+  local include_string=$(printf "--include='%s' " "${include_array[@]}")
   # Add ssh servers as parameters and set destination to '/home/tallonea/.xxh' for ssh servers
   while [ $# -gt 0 ]; do
     case "$1" in
@@ -61,7 +61,6 @@ sync_home() {
         local ssh_server="${1#*=}"
         remote_servers+=("$ssh_server")
         destinations+=("$ssh_server:$user_home")
-        destinations+=("$ssh_server:/home")
         shift
         ;;
       --ssh-server|-s)
@@ -70,7 +69,6 @@ sync_home() {
         remote_servers+=("$ssh_server")
         # destinations+=("$ssh_server:$user_home")
         destinations+=("$ssh_server:$user_home")
-        destinations+=("$ssh_server:/home")
         shift
         ;;
       --xxh-server=*|-x=*)
@@ -126,7 +124,7 @@ sync_home() {
       ECHOCAT "\n### ORIGIN: $origin ###"
       ECHOCAT "### DESTINATION: $destination ###\n"
       # local arguments="$options $exclusions $exclude_string $origin $destination"
-      local arguments="$options $include_string $exclude_string $origin $destination"
+      local arguments="$options $include_string $exclude_string ${origin}/ ${destination}/"
       echo $arguments
       /bin/bash -c "rsync $arguments"
     done
