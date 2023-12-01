@@ -88,4 +88,10 @@ if [[ $antidote_list =~ $string ]]; then
   bindkey '^J' autosuggest-accept # ctrl-l, hjk
 fi
 
+string="MichaelAquilina/zsh-you-should-use"
+if [[ $antidote_list =~ $string ]]; then
+  export YSU_MESSAGE_POSITION="after"
+  export YSU_MODE=ALL
+fi
+
 unset antidote_list

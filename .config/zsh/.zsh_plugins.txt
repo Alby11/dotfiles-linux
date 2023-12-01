@@ -34,7 +34,6 @@ rummik/zsh-tailf
 mattmc3/zman
 agkozak/zsh-z
 
-
 ### Local Plugins
 #
 # Plugins don't have to come from GitHub. You can also use local files or directories to
@@ -77,7 +76,8 @@ agkozak/zsh-z
 
 # annotations are also allowed:
 romkatv/zsh-bench                           kind:path
-olets/zsh-abbr                              #kind:defer
+olets/zsh-abbr
+MichaelAquilina/zsh-you-should-use          kind:defer
 
 ### Frameworks
 #
@@ -174,7 +174,7 @@ ohmyzsh/ohmyzsh                             path:plugins/screen
 ohmyzsh/ohmyzsh                             path:plugins/shrink-path
 ohmyzsh/ohmyzsh                             path:plugins/sprunge
 ohmyzsh/ohmyzsh                             path:plugins/ssh-agent kind:fpath
-# ohmyzsh/ohmyzsh                             path:plugins/sudo
+ohmyzsh/ohmyzsh                             path:plugins/sudo
 ohmyzsh/ohmyzsh                             path:plugins/systemadmin
 ohmyzsh/ohmyzsh                             path:plugins/systemd
 ohmyzsh/ohmyzsh                             path:plugins/thefuck
@@ -250,7 +250,6 @@ lukechilds/zsh-better-npm-completion        path:src kind:fpath
 sunlei/zsh-ssh                              path:src kind:fpath
 vasyharan/zsh-brew-services                 path:src kind:fpath
 viasite-ansible/zsh-ansible-server          path:src kind:fpath
-MichaelAquilina/zsh-you-should-use          path:src kind:fpath
 zsh-users/zsh-completions                   path:src kind:fpath
 
 # Compinit plugins should be near the end of .zsh_plugins.txt so that $fpath has been
@@ -275,6 +274,6 @@ zsh-users/zsh-history-substring-search
 
 # Others
 # MichaelAquilina/zsh-auto-notify
-$ZDOTDIR/.zsh_aliases.sh                      #kind:defer
-$ZDOTDIR/.zsh_functions.sh                    #kind:defer
-# mattmc3/zfunctions                          kind:defer
+$ZDOTDIR/.zsh_aliases.sh
+$ZDOTDIR/.zsh_functions.sh
+# mattmc3/zfunctions                        kind:defer
