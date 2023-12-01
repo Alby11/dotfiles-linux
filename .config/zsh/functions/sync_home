@@ -13,11 +13,14 @@ sync_home() {
     echo "  --username[=]USERNAME, -u[=]USERNAME: Specify the user that you
       want to sync with (need at least one of the previous parameters)"
   }
+  # set user_home as current user's one, in case $username not specified
+  local user_home=$HOME
   local remote_servers=()
-  local origins=("$HOME/.config" "$HOME/.local/bin" "$HOME/.zshenv")
+  local origins=("$HOME/.config" "$HOME/.config/zsh/.zshrc" "$HOME/.local/bin" "$HOME/.zshenv")
   local destinations=("$HOME/gitdepot/xxh-plugin-prerun-dotfiles/home")
   local repositories=("$HOME/gitdepot/xxh-plugin-prerun-dotfiles")
-  local options="--recursive --archive --update \
+  # local options="--recursive --archive --update \
+  local options="--recursive --archive \
     -e \"ssh -t\" \
     --delete --delete-delay --delete-excluded --force \
     --compress --verbose"
@@ -56,27 +59,27 @@ sync_home() {
       --ssh-server=*|-s=*)
         local ssh_server="${1#*=}"
         remote_servers+=("$ssh_server")
-        destinations+=("$ssh_server:/home/tallonea")
+        destinations+=("$ssh_server:$user_home")
         shift
         ;;
       --ssh-server|-s)
         shift
         local ssh_server="$1"
         remote_servers+=("$ssh_server")
-        destinations+=("$ssh_server:/home/tallonea")
+        destinations+=("$ssh_server:$user_home")
         shift
         ;;
       --xxh-server=*|-x=*)
         local ssh_server="${1#*=}"
         remote_servers+=("$ssh_server")
-        destinations+=("$ssh_server:/home/tallonea/.xxh")
+        destinations+=("$ssh_server:$user_home/.xxh")
         shift
         ;;
       --xxh-server|-x)
         shift
         local ssh_server="$1"
         remote_servers+=("$ssh_server")
-        destinations+=("$ssh_server:/home/tallonea/.xxh")
+        destinations+=("$ssh_server:$user_home/.xxh")
         shift
         ;;
       # --help|-h)
@@ -93,7 +96,8 @@ sync_home() {
         ;;
     esac
   done
-
+  # if $username has a value, set home accordingly
+  [ -n $username ] && user_home="/home/${username}"
   #Test is username is called with at least one remote server
   if [[ $username_called -eq 1 && ${#destinations[@]} -le 1 ]]; then
     echo "Error: You must specify at least one destination using: \n\

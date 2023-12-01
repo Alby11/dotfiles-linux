@@ -1,6 +1,8 @@
 format = """
 [](#f38ba8)\
 $username\
+[@ ](fg:#11111b bg:#f38ba8)\
+$hostname\
 [ﮊ](fg:#11111b bg:#f38ba8)\
 [](bg:#cdd6f4 fg:#f38ba8)\
 $directory\
@@ -34,6 +36,13 @@ show_always = true
 style_user = "fg:#11111b bg:#89b4fa"
 style_root = "fg:#11111b bg:#f38ba8"
 format = '[$user ]($style)'
+
+# Add a new section for the hostname
+[hostname]
+ssh_only = false
+style = "fg:#11111b bg:#f38ba8"
+ssh_symbol = '🌏 '
+format = '[$ssh_symbol$hostname]($style)'
 
 [directory]
 style = "fg:#11111b bg:#cdd6f4"

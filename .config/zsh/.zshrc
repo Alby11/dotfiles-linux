@@ -162,15 +162,16 @@ SOURCE_RCFILE $ZDOTDIR/catppuccin_zsh-syntax-highlighting/themes/catppuccin_moch
 # SOURCE_RCFILE $ZSH/plugins/zsh-interactive-cd/zsh-interactive-cd.plugin.zsh
 
 ### Initialize Starship
-if CHECK_COMMANDS "starship"; then
-  if [[ $(whoami) == 'root' ]]; then
-    export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/root_starship.toml"
-  else
-    # export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/user_starship.toml"
-    export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/starship.catppuccin_mocha.toml"
-  fi
-  eval "$(starship init zsh)"
+if ! CHECK_COMMANDS "starship"; then
+  curl -sSv https://starship.rs/install.sh | zsh
 fi
+if [[ $(whoami) == 'root' ]]; then
+  export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/root_starship.toml"
+else
+  export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/user_starship.toml"
+  # export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/starship.catppuccin_mocha.toml"
+fi
+eval "$(starship init zsh)"
 
 ### SSH BLOCK
 ### LOAD SSH AFTER EACH REBOOT (RE-USES SAME SSH-AGENT INSTANCE)
