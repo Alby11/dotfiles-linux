@@ -1,7 +1,7 @@
-#/usr/bin/env sh
+#!/usr/bin/env sh
 
 sys_disk_scan () {
   for host in /sys/class/scsi_host/host*; do
-    echo "- - -" > ${host}/scan
+    echo "- - -" > "${host}/scan"
   done
 }
