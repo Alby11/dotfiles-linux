@@ -16,32 +16,33 @@ sync_home() {
   # set user_home as current user's one, in case $username not specified
   local user_home=$HOME
   local remote_servers=()
-  local origins=("$HOME/.config" "$HOME/.config/zsh/.zshrc" "$HOME/.local/bin" "$HOME/.zshenv")
-  local destinations=("$HOME/gitdepot/xxh-plugin-prerun-dotfiles/home")
-  local repositories=("$HOME/gitdepot/xxh-plugin-prerun-dotfiles")
-  # local options="--recursive --archive --update \
-  local options="--recursive --archive \
-    -e \"ssh -t\" \
-    --delete --delete-delay --delete-excluded --force \
-    --compress --verbose"
+  # local origins=("$HOME/.config/***"  "$HOME/.local/bin/***" "$HOME/.zshenv")
+  local origins=("${HOME}")
+  local destinations=("${HOME}/gitdepot/xxh-plugin-prerun-dotfiles/home")
+  local repositories=("${HOME}/gitdepot/xxh-plugin-prerun-dotfiles")
+    # --ignore-existing \
+    # --ignore-times \
+    # --delete \
+    # --delete-excluded \
+  local options="\
+    --times \
+    --recursive \
+    --archive \
+    --compress \
+    --verbose \
+    "
   local exclude_array=(
-    "abrt" "alacritty" "autostart" "Bitwarden CLI" "BraveSoftware"
-    "burn-my-windows" "chromium" "Code" "connections.db" "cv_debug.log" "dconf"
-    "dleyna-renderer-service.conf" "dnote" "enchant" "eog" "evince"
-    "evolution" "flameshot" "FortiClient" "freerdp" "gedit" "git-monitor.json"
-    "gnome-boxes" "gnome-control-center" "gnome-initial-setup-done"
-    "gnome-session" "GNOME-xdg-terminals.list" "goa-1.0" "google-chrome"
-    "google-chrome-beta" "google-chrome-unstable" "grammarly-languageserver"
-    "gsconnect" "gtk-3.0" "gtk-4.0" "gtk-4.0.backup" "homepage"  "ibus"
-    "interception" "KADOKAWA" "kitty" "lazygit" "libreoffice" "libvirt"
-    "Microsoft" "microsoft-edge-beta" "microsoft-edge-dev" "microsoftedge"
-    "Microsoft Teams - Preview" "mimeapps.list" "monitors.xml" "monitors.xml~"
-    "nautilus" "neofetch" "pulse" "QtProject.conf" "rabbitvcs"  "remmina"
-    "solaar"  "swaync" "systemd" "teams" "teamviewer" "thefuck"
-    "tiling-assistant" "ulauncher" "user-dirs.dirs" "user-dirs.locale"
-    "vivaldi" "weston.ini" "xdg-terminals.list" "xfce4" "xonsh" "xxh"
+    ".config/*"
+    "*"
   )
   local exclude_string=$(printf "--exclude '%s' " "${exclude_array[@]}")
+  local include_array=(
+    ".config/zsh/***"
+    ".config/nvim/***"
+    ".config/starship/***"
+    ".zshenv"
+  )
+  local include_string=$(printf "--include '%s' " "${include_array[@]}")
   # Add ssh servers as parameters and set destination to '/home/tallonea/.xxh' for ssh servers
   while [ $# -gt 0 ]; do
     case "$1" in
@@ -60,13 +61,16 @@ sync_home() {
         local ssh_server="${1#*=}"
         remote_servers+=("$ssh_server")
         destinations+=("$ssh_server:$user_home")
+        destinations+=("$ssh_server:/home")
         shift
         ;;
       --ssh-server|-s)
         shift
         local ssh_server="$1"
         remote_servers+=("$ssh_server")
+        # destinations+=("$ssh_server:$user_home")
         destinations+=("$ssh_server:$user_home")
+        destinations+=("$ssh_server:/home")
         shift
         ;;
       --xxh-server=*|-x=*)
@@ -114,15 +118,16 @@ sync_home() {
       fi
     done
   fi
-
   for origin in $origins
   do
-    local exclusions=$(/bin/du -sh ${origin}/* | /bin/grep -E '0-9' | /bin/grep -Ev '(zsh|nvim|\.git[a-z]*$)' | /bin/cut -d / -f5- | /bin/sed "s/^/--exclude '/;s/$/'/" | /bin/tr '\n' ' ')
+    # local exclusions=$(/bin/du -sh ${origin}/* | /bin/grep -E '0-9' | /bin/grep -Ev '(zsh|nvim|\.git[a-z]*$)' | /bin/cut -d / -f5- | /bin/sed "s/^/--exclude '/;s/$/'/" | /bin/tr '\n' ' ')
     for destination in $destinations
     do
       ECHOCAT "\n### ORIGIN: $origin ###"
       ECHOCAT "### DESTINATION: $destination ###\n"
-      local arguments="$options $exclusions $exclude_string $origin $destination"
+      # local arguments="$options $exclusions $exclude_string $origin $destination"
+      local arguments="$options $include_string $exclude_string $origin $destination"
+      echo $arguments
       /bin/bash -c "rsync $arguments"
     done
   done

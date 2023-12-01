@@ -162,23 +162,20 @@ SOURCE_RCFILE $ZDOTDIR/catppuccin_zsh-syntax-highlighting/themes/catppuccin_moch
 # SOURCE_RCFILE $ZSH/plugins/zsh-interactive-cd/zsh-interactive-cd.plugin.zsh
 
 ### Initialize Starship
-if ! CHECK_COMMANDS "starship"; then
-  curl -sSv https://starship.rs/install.sh | zsh
+if [[ ! $( command -v starship ) ]]; then
+  curl -sSv 'https://starship.rs/install.sh' | sh
 fi
 if [[ $(whoami) == 'root' ]]; then
   export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/root_starship.toml"
 else
   export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/user_starship.toml"
-  # export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/starship.catppuccin_mocha.toml"
 fi
-eval "$(starship init zsh)"
+eval "$(starship init ${THE_SHELL})"
 
 ### SSH BLOCK
 ### LOAD SSH AFTER EACH REBOOT (RE-USES SAME SSH-AGENT INSTANCE)
 if [[ ! $( command -v keychain ) ]]; then
-  sudo dnf install -y keychain &> /dev/null
-  sudo rpm install -y keychain &> /dev/null
-  sudo apt install -y keychain &> /dev/null
+  package_manager_install keychain
 fi
 export SSH_ENV="$HOME/.ssh/agent-environment"
 start_agent() {
