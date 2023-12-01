@@ -166,7 +166,8 @@ if CHECK_COMMANDS "starship"; then
   if [[ $(whoami) == 'root' ]]; then
     export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/root_starship.toml"
   else
-    export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/user_starship.toml"
+    # export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/user_starship.toml"
+    export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/starship.catppuccin_mocha.toml"
   fi
   eval "$(starship init zsh)"
 fi
