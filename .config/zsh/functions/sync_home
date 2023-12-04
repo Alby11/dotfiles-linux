@@ -84,14 +84,14 @@ sync_home() {
         destinations+=("$ssh_server:$user_home/.xxh")
         shift
         ;;
-      # --help|-h)
-        # usage
-        # return 0
-        # ;;
-      # --help|-h)
-      #   usage
-      #   return 0
-      #   ;;
+      --Help|-H)
+        usage
+        return 0
+        ;;
+      --Help|-H)
+        usage
+        return 0
+        ;;
       *)
         printf "Error: Invalid argument\n"
         return 1

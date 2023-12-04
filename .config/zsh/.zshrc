@@ -187,7 +187,7 @@ start_agent() {
   # /usr/bin/ssh-add;
   for file in $HOME/.ssh/id_* ; do
     if [[ $(ls $file | grep pub ) ]]; then continue ; fi
-    eval $(keychain --eval $file)
+    eval $(keychain --eval $file > /dev/null 2&1 ) > /den/null 2&1
   done
 }
 # Source SSH settings, if applicable
