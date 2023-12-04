@@ -30,7 +30,6 @@ local_scalable_icon="$userhome/.local/share/icons/hicolor/scalable/apps/"
 global_scalable_icon="/usr/share/icons/hicolor/scalable/apps/"
 steam_icon="${global_icon}steam.png"
 
-
 # Allows timeout when launched via 'Run in Terminal'
 function gerror() { sleep 3; exit 1; }
 
