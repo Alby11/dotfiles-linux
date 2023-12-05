@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+clean_rsync() {
+    /usr/bin/env -i /usr/bin/rsync "$@"
+}

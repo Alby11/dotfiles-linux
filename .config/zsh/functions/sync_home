@@ -44,6 +44,17 @@ sync_home() {
     ".zshenv"
   )
   local include_string=$(printf "--include='%s' " "${include_array[@]}")
+
+  # Define a function named 'rsync' that will be used as a local alias in this script.
+  # This function uses 'env -i' to clear the environment before running the actual rsync command.
+  # The '"$@"' part passes all arguments given to this function along to the actual rsync command.
+  # the function defined below, ensuring a clean environment for the duration of the rsync command.
+  function rsync() {
+      /usr/bin/env -i /usr/bin/rsync "$@"
+  }
+
+# rest of your script here
+
   # Add ssh servers as parameters and set destination to '/home/tallonea/.xxh' for ssh servers
   while [ $# -gt 0 ]; do
     case "$1" in
