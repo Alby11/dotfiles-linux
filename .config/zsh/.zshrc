@@ -139,6 +139,8 @@ fi
 # Make Python use UTF-8 encoding for output to stdin, stdout, and stderr.
 export PYTHONIOENCODING='UTF-8';
 
+export JAVA_HOME=$(dirname $(dirname $(readlink $(readlink $(which javac)))))
+
 # Omit duplicates and commands that begin with a space from history.
 export HISTCONTROL='ignoreboth';
 
