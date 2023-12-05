@@ -1,4 +1,5 @@
-#!/usr/bin/env sh
-clean_rsync() {
-    /usr/bin/env -i /usr/bin/rsync "$@"
+#!/bin/zsh
+
+function rsync() {
+    (/usr/bin/env -i /usr/bin/bash -c "/usr/bin/rsync $@")
 }
