@@ -17,7 +17,7 @@ zmodload zsh/zprof
 export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 export ZDOTDIR="${ZDOTDIR:-$XDG_CONFIG_HOME/zsh}"
 
-[[ -f $ZDOTDIR/.ztools.zsh ]] && source $ZDOTDIR/.ztools.zsh
+[[ -f $ZDOTDIR/.ztools ]] && source $ZDOTDIR/.ztools
 
 if [[ $0 == /* ]]; then
     ECHOCAT "This is a login shell"
