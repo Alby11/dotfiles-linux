@@ -5,15 +5,16 @@
 
 # NOTE: .zshenv needs to live at ~/.zshenv, not in $ZDOTDIR!
 
-
-if command -v lolcat > /dev/null 2>&1; then
-  echo """
-  .zshenv - Zsh envfile, loaded always, as first. SHLVL $SHLVL
-  """ | lolcat
-else
-  echo """
-  .zshenv - Zsh envfile, loaded always, as first. SHLVL $SHLVL
-  """
+if [ -z "$SSH_CONNECTION" ]; then
+  if command -v lolcat > /dev/null 2>&1; then
+    echo """
+    .zshenv - Zsh envfile, loaded always, as first. SHLVL $SHLVL
+    """ | lolcat
+  else
+    echo """
+    .zshenv - Zsh envfile, loaded always, as first. SHLVL $SHLVL
+    """
+  fi
 fi
 
 # Uncomment to use the profiling module

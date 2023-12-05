@@ -4,24 +4,53 @@
 # .ztools.zsh - tools for better profiling...
 #
 
+for cmd in "dnf" "apt"; do
+  if  command -v $cmd >/dev/null; then
+    case "$cmd" in
+      "dnf")
+        package_manager_install() {
+          sudo dnf install -y "$@"
+        }
+        package_manager_remove() {
+          sudo dnf autoremove -y "$@"
+        }
+        ;;
+      "apt")
+        package_manager_install() {
+          sudo apt-get install -y "$@"
+        }
+        package_manager_remove() {
+          sudo apt autoremove -y "$@"
+        }
+        ;;
+    esac
+    alias pmi='package_manager_install'
+    alias pmr='package_manager_remove'
+    break
+  fi
+done
+
 # use lolcat as a special printf command
 ECHOCAT() {
-  if command -v lolcat &>/dev/null; then
-    if  lolcat --version | grep -E 'moe@busyloop.net' &>/dev/null; then
-      alias lolcat='lolcat'
-      if [ "$2" = 'ERROR' ]; then
-        alias lolcat='lolcat -a -d 50'
+  if [ -z "$SSH_CONNECTION" ]; then
+    if command -v lolcat &>/dev/null; then
+      if  lolcat --version | grep -E 'moe@busyloop.net' &>/dev/null; then
+        alias lolcat='lolcat'
+        if [ "$2" = 'ERROR' ]; then
+          alias lolcat='lolcat -a -d 50'
+        fi
+      else
+        alias lolcat='lolcat -b'
+        if [ "$2" = 'ERROR' ]; then
+          alias lolcat='lolcat -bi'
+        fi
       fi
+      printf "%s\n" "$1" | lolcat
+      unalias lolcat
     else
-      alias lolcat='lolcat -b'
-      if [ "$2" = 'ERROR' ]; then
-        alias lolcat='lolcat -bi'
-      fi
+      printf "%s\n" "$1"
+      pmi lolcat
     fi
-    printf "%s\n" "$1" | lolcat
-    unalias lolcat
-  else
-    printf "%s\n" "$1"
   fi
 }
 
@@ -88,26 +117,3 @@ EXPORT_DIR() {
   fi
 }
 
-for cmd in "dnf" "apt"; do
-  if  command -v $cmd >/dev/null; then
-    case "$cmd" in
-      "dnf")
-        package_manager_install() {
-          sudo dnf install -y "$@"
-        }
-        package_manager_remove() {
-          sudo dnf autoremove -y "$@"
-        }
-        ;;
-      "apt")
-        package_manager_install() {
-          sudo apt-get install -y "$@"
-        }
-        package_manager_remove() {
-          sudo apt autoremove -y "$@"
-        }
-        ;;
-    esac
-    break
-  fi
-done

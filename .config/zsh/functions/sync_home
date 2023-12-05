@@ -136,11 +136,10 @@ sync_home() {
       ECHOCAT "### DESTINATION: $destination ###\n"
       # local arguments="$options $exclusions $exclude_string $origin $destination"
       local arguments="$options $include_string $exclude_string ${origin}/ ${destination}/"
-      echo $arguments
+      # echo $arguments
       # /bin/bash -c "rsync $arguments"
-      local server="$(echo $destination | cut -d ':' -f 1)"
-      echo $server
-      ssh ${username}@${server} "rm -rfv $HOME/.config/zsh"
+      # local server="$(echo $destination | cut -d ':' -f 1)"
+      # ssh ${username}@${server} "rm -rfv $HOME/.config/zsh"
       clean_rsync $arguments
     done
   done

@@ -37,11 +37,11 @@ if [[ "$current_background" != "*background: #1E1E2E" || "$current_foreground" !
     sed -i '/^\*(background|foreground|color[0-9]{1,2}):/d' $HOME/.Xresources
 
     # Append the new theme to .Xresources file
-    echo "$new_theme" >> $HOME/.Xresources
+    ECHOCAT "$new_theme" >> $HOME/.Xresources
 
-    echo "Theme updated successfully."
+    ECHOCAT "Theme updated successfully."
 else 
-    echo "The current theme is already set as desired."
+    ECHOCAT "The current theme is already set as desired."
 fi
 
 # Merge .Xresources to X server resource database to apply changes immediately.
