@@ -26,6 +26,7 @@ sync_home() {
     # --delete-excluded \
   local options="\
     --times \
+    --protocol 29 \
     --recursive \
     --archive \
     --compress \

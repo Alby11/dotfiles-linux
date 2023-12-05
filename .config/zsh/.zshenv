@@ -5,10 +5,16 @@
 
 # NOTE: .zshenv needs to live at ~/.zshenv, not in $ZDOTDIR!
 
-echo """
-.zshenv - Zsh envfile, loaded always, as first. SHLVL $SHLVL
 
-""" | lolcat
+if command -v lolcat > /dev/null 2>&1; then
+  echo """
+  .zshenv - Zsh envfile, loaded always, as first. SHLVL $SHLVL
+  """ | lolcat
+else
+  echo """
+  .zshenv - Zsh envfile, loaded always, as first. SHLVL $SHLVL
+  """
+fi
 
 # Uncomment to use the profiling module
 zmodload zsh/zprof
