@@ -1,9 +1,13 @@
 #!/bin/env zsh
 #
-# .zshrc - Zsh file loaded on interactive shell sessions.
+# .zshrc
 #
 
-ECHOCAT '.zshrc - Zsh file loaded on interactive shell sessions.'
+ECHOCAT """
+.zshrc - Zsh file loaded on login/non-login shell sessions.
+login: after .zprofile and before .zlogin
+non-login: after .zshenv
+"""
 
 # Zsh options.
 setopt extended_glob

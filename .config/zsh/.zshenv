@@ -1,11 +1,14 @@
 #!/bin/env zsh
 #
-# .zshenv - Zsh environment file, loaded always.
+# .zshenv
 #
 
 # NOTE: .zshenv needs to live at ~/.zshenv, not in $ZDOTDIR!
 
-echo ".zshenv - Zsh environment file, loaded always. SHLVL $SHLVL" | lolcat
+echo """
+.zshenv - Zsh envfile, loaded always, as first. SHLVL $SHLVL
+
+""" | lolcat
 
 # Uncomment to use the profiling module
 zmodload zsh/zprof

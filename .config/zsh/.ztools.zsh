@@ -25,7 +25,7 @@ ECHOCAT() {
   fi
 }
 
-# ECHOCAT ".ztools.zsh - tools for better profiling..."
+ECHOCAT ".ztools.zsh - tools for better profiling..."
 
 # Function to print an error message and exit/return with an error/return code
 FAIL() {

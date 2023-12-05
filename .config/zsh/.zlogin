@@ -1,7 +1,9 @@
 #!/bin/env zsh
 #
-# .zlogin - Zsh file loaded on login, after .zshrc.
+# .zlogin
 #
 
-ECHOCAT '.zlogin - Zsh file loaded on login, after .zshrc.'
+ECHOCAT """
+.zlogin - Zsh file loaded lastly on login shell, after .zshrc.
+"""
 

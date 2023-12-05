@@ -1,9 +1,12 @@
 #!/bin/env zsh
 #
-# .zprofile - Zsh file loaded on login.
+# .zprofile
 #
 
-ECHOCAT '.zprofile - Zsh file loaded on login, right after .zshenv.'
+ECHOCAT """
+.zprofile - Zsh file loaded on login shell, right after .zshenv.
+and before .zshrc
+"""
 
 # Some people insist on setting their PATH here to affect things like ssh.
 # Those that do should probably use $SHLVL to ensure that this only happens
