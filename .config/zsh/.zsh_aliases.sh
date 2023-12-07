@@ -331,6 +331,7 @@ if [ "$(command -v fzf)" ] && [ "$(command -v rg)" ]; then
   alias -g R='| rg '
   alias -g rf="rg . | fzf"
   alias -g rfl="rg . | fzf | cut -d ":" -f 1"
+  alias -g rge='rg --regexp'
   if [ "$(command -v bat)" ]; then
     export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --preview=$(which bat)"
   else
