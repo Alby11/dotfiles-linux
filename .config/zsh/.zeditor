@@ -38,7 +38,7 @@ if CHECK_COMMANDS batpipe; then
   export BATPIPE
 fi
 # Neovim nightly with bob
-if ! CHECK_COMMANDS nvim ; then
+if ! CHECK_COMMANDS nvim > /dev/null ; then
   if ! CHECK_COMMANDS bob ; then
     if ! CHECK_COMMANDS cargo ; then
       package_manager_install rustup
