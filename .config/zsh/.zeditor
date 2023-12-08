@@ -10,23 +10,23 @@ ECHOCAT '.zeditor - Zsh file loaded to export editor, visual, pager ...'
 # Editors
 #
 
-export EDITOR="$(which vim)"
+export EDITOR="$(which vim > /dev/null 2>&1)"
 export VISUAL="$EDITOR"
 export PAGER="$(which less)"
 export MANPAGER="$PAGER"
 ### Setting up less
 # Highlight section titles in manual pages.
 export LESS_TERMCAP_md="${yellow}"
-if command -v lesspipe.sh &>/dev/null; then
+if CHECK_COMMANDS lesspipe.sh; then
   lesspipe.sh | source /dev/stdin
 else
   ECHOCAT 'LESSOPEN: lesspipe.sh in not installed or in PATH' -i
 fi
-if command -v bat &>/dev/null; then
-  bat cache --build >/dev/null 1>&2
+if CHECK_COMMANDS bat; then
+  bat cache --build >/dev/null 2>&1
   export LESSCOLORIZER="bat --style=full --theme=catppuccin-mocha"
 fi
-if command -v batpipe &>/dev/null; then
+if CHECK_COMMANDS batpipe; then
   # To use batpipe, eval the output of this command in your shell init script.
   export LESSOPEN="|$(which batpipe) %s"
   export LESSOPEN
@@ -48,7 +48,10 @@ if ! CHECK_COMMANDS nvim ; then
       --no-default-features \
       --features native-tls
   fi
-  PATH=$PATH:$HOME/.local/share/bob/nvim-bin
+  mkdir -p $HOME/.local/share/bash-completion/completions
+  bob complete bash > $HOME/.local/share/bash-completion/completions/bob
+  bob complete zsh > $ZDOTDIR/completions/_bob
+  export PATH=$PATH:$HOME/.local/share/bob/nvim-bin
   bob use nightly
 fi
 export EDITOR="${$(which nvim):-$EDITOR}"

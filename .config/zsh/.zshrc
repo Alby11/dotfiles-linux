@@ -26,13 +26,13 @@ autoload -Uz promptinit && promptinit
 # Source zstyles you might use with antidote.
 SOURCE_RCFILE ${ZDOTDIR:-$HOME}/.zstyles
 
-# Source GIT configuration
-SOURCE_RCFILE $XDG_CONFIG_HOME/git/.git.conf
-
 #
 # Editors
 #
 SOURCE_RCFILE $ZDOTDIR/.zeditor
+
+# Source GIT configuration
+SOURCE_RCFILE $XDG_CONFIG_HOME/git/.git.conf
 
 #
 # Xresources
