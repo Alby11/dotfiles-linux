@@ -139,6 +139,7 @@ fi
 # Make Python use UTF-8 encoding for output to stdin, stdout, and stderr.
 export PYTHONIOENCODING='UTF-8';
 
+# Export JAVA_HOME from default alternative
 export JAVA_HOME=$(dirname $(dirname $(readlink $(readlink $(which javac)))))
 
 # Omit duplicates and commands that begin with a space from history.
@@ -164,11 +165,8 @@ SOURCE_RCFILE $ZDOTDIR/catppuccin_tty/src/mocha.sh
 SOURCE_RCFILE $ZDOTDIR/catppuccin_zsh-syntax-highlighting/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh
 # SOURCE_RCFILE $ZDOTDIR/dracula_zsh-syntax-highlighting/zsh-syntax-highlighting.sh
 
-# ZSH interactive cd
-# SOURCE_RCFILE $ZSH/plugins/zsh-interactive-cd/zsh-interactive-cd.plugin.zsh
-
 ### Initialize Starship
-if [[ ! $( command -v starship ) ]]; then
+if ! CHECK_COMMANDS starship; then
   curl -sSv 'https://starship.rs/install.sh' | sh
 fi
 if [[ $(whoami) == 'root' ]]; then
@@ -180,7 +178,7 @@ eval "$(starship init ${THE_SHELL})"
 
 ### SSH BLOCK
 ### LOAD SSH AFTER EACH REBOOT (RE-USES SAME SSH-AGENT INSTANCE)
-if [[ ! $( command -v keychain ) ]]; then
+if ! CHECK_COMMANDS keychain; then
   package_manager_install keychain
 fi
 export SSH_ENV="$HOME/.ssh/agent-environment"

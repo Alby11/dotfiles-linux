@@ -9,6 +9,7 @@ ECHOCAT '.zeditor - Zsh file loaded to export editor, visual, pager ...'
 #
 # Editors
 #
+
 export EDITOR="$(which vim)"
 export VISUAL="$EDITOR"
 export PAGER="$(which less)"
@@ -36,9 +37,21 @@ if command -v batpipe &>/dev/null; then
   export LESS
   export BATPIPE
 fi
-if command -v nvim &>/dev/null; then
-  # export EDITOR="${$(which nvim):-$EDITOR}"
-  # export VISUAL="${$(which nvim):-$VISUAL}"
-  # export PAGER="${$(which nvim):-$PAGER}"
-  # export MANPAGER="$(which nvim) -c 'Man!' -o -"
+# Neovim nightly with bob
+if ! CHECK_COMMANDS nvim ; then
+  if ! CHECK_COMMANDS bob ; then
+    if ! CHECK_COMMANDS cargo ; then
+      package_manager_install rustup
+    fi
+    cargo install \
+      --git https://github.com/MordechaiHadad/bob.git \
+      --no-default-features \
+      --features native-tls
+  fi
+  PATH=$PATH:$HOME/.local/share/bob/nvim-bin
+  bob use nightly
 fi
+export EDITOR="${$(which nvim):-$EDITOR}"
+export VISUAL="${$(which nvim):-$VISUAL}"
+export PAGER="${$(which nvim):-$PAGER}"
+export MANPAGER="$(which nvim) -c 'Man!' -o -"

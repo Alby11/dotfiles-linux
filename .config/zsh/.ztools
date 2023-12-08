@@ -92,7 +92,8 @@ CHECK_COMMANDS() {
   local cmds=("$@")  # Store the arguments in an array
   for cmd in "${cmds[@]}"; do  # Iterate over each command
     if ! command -v "$cmd" > /dev/null 2>&1; then  # Check if the command is available
-      FAIL "Error: Required command '$cmd' not found. Please install it and try again." r 1 # Return a failure status
+      FAIL "Error: Required command '$cmd' not found. Please install it and try again."
+      return 1 # Return a failure status
     fi
   done
   return 0  # Return a success status
