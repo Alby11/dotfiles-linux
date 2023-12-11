@@ -41,12 +41,13 @@ fi
 if ! CHECK_COMMANDS nvim > /dev/null ; then
   if ! CHECK_COMMANDS bob ; then
     if ! CHECK_COMMANDS cargo ; then
-      package_manager_install cargo
+      package_manager_install cargo pkg-config
     fi
     cargo install \
       --git https://github.com/MordechaiHadad/bob.git \
       --no-default-features \
       --features native-tls
+    export PATH=$PATH:$HOME/.cargo/bin
   fi
   mkdir -p $HOME/.local/share/bash-completion/completions
   bob complete bash > $HOME/.local/share/bash-completion/completions/bob
