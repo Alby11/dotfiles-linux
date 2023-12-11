@@ -41,7 +41,7 @@ fi
 if ! CHECK_COMMANDS nvim > /dev/null ; then
   if ! CHECK_COMMANDS bob ; then
     if ! CHECK_COMMANDS cargo ; then
-      package_manager_install rustup
+      package_manager_install cargo
     fi
     cargo install \
       --git https://github.com/MordechaiHadad/bob.git \
