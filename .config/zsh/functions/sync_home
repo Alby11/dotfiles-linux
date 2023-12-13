@@ -37,6 +37,7 @@ sync_home() {
   local exclude_string=$(printf "--exclude='%s' " "${exclude_array[@]}")
   local include_array=(
     ".config/"
+    ".config/git/***"
     ".config/zsh/***"
     ".config/nvim/***"
     ".config/starship/***"
