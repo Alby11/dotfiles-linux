@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+# vim: filetype=zsh
 
 sync_home() {
   setopt localoptions extendedglob warncreateglobal typesetsilent noshortloops 
