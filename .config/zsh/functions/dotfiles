@@ -1,4 +1,4 @@
-#!/bin/zsh
+# vim: filetype=zsh
 
 : '
 convenience functions for setting up or restoring dotfiles bare repo

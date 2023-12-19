@@ -1,4 +1,4 @@
-#!/bin/env zsh
+# vim: filetype=zsh
 
 # Your ss-fzf function
 ss-fzf() {

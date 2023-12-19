@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+# vim: filetype=zsh
 
 #
 # .zxresources.zsh - Xresources configuration.

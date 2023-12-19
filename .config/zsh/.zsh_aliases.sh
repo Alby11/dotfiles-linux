@@ -1,4 +1,4 @@
-#!/bin/env zsh
+# vim: filetype=zsh
 #
 # .zaliases.zsh - Set whatever shell aliases you want.
 #

@@ -1,4 +1,4 @@
-#!/bin/env zsh
+# vim: filetype=zsh
 
 fzf-dot-branch() {
     dotfiles rev-parse HEAD > /dev/null 2>&1 || return

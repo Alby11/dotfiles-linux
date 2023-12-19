@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+# vim: filetype=zsh
 
 ping_until_fail() {
     local host=$1

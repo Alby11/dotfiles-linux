@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+# vim: filetype=zsh
 
 # This script uses ripgrep (rg) and fzf to search for a term in your files and open the file in your default editor at the line where the term was found.
 

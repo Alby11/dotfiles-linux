@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+# vim: filetype=zsh
 #pastesio
 
 # Define an array of valid commands

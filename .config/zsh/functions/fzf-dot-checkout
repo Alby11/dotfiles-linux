@@ -1,4 +1,4 @@
-#!/bin/env zsh
+# vim: filetype=zsh
 
 fzf-dotfiles-checkout() {
     dotfiles rev-parse HEAD > /dev/null 2>&1 || return

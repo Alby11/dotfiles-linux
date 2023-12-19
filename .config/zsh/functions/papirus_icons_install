@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+# vim: filetype=zsh
 
 # wget -qO- https://git.io/papirus-icon-theme-install | DESTDIR="$HOME/.icons" sh
 sudo dnf install papirus-icon-theme

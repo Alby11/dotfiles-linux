@@ -1,4 +1,4 @@
-#!/bin/env zsh
+# vim: filetype=zsh
 #
 # .zshrc
 #
@@ -206,3 +206,9 @@ else
 fi
 unset -f start_agent
 ### END OF SSH BLOCK
+
+### Pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] || curl https://pyenv.run | $0
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"

@@ -1,4 +1,4 @@
-#!/bin/env zsh
+# vim: filetype=zsh
 
 if [[ -e $ZDOTDIR/functions.sh ]] && [[ -e $ZDOTDIR/functions ]]
 then

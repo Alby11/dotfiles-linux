@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+# vim: filetype=zsh
 
 catppuccin_userstyle_install() {
   if [[ -n $1 ]]; then

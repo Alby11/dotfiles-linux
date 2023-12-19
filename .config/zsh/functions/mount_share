@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+# vim: filetype=zsh
 
 function mount_share() {
     if [[ $1 == "-h" ]]; then

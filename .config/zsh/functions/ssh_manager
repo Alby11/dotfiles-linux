@@ -1,4 +1,4 @@
-#!/bin/env zsh
+# vim: filetype=zsh
 
 ssh_manager() {
     if [[ "$1" == "--help" ]]; then

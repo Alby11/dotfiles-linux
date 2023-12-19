@@ -1,4 +1,4 @@
-#!/bin/env zsh
+# vim: filetype=zsh
 #
 # .zstyles - Set zstyle settings for plugins that need them.
 #

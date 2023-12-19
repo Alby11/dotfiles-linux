@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+# vim: filetype=zsh
 
 # This script uses fd and fzf to find and edit files.
 # fd is a simple, fast and user-friendly alternative to find.

@@ -1,4 +1,4 @@
-#!/bin/env zsh
+# vim: filetype=zsh
 #
 # .zlogin
 #
