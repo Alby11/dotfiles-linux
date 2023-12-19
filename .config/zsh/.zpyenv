@@ -1,0 +1,30 @@
+# vim: filetype=zsh
+
+### Pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+touch ${PYENV_ROOT}/default-packages
+[[ -d $PYENV_ROOT/bin ]] || curl https://pyenv.run | $0
+local plugins=(
+  "ashwinvis/pyenv-virtualenv-migrate"
+  "concordusapps/pyenv-implict"
+  "fizista/pyenv-choice"
+  "jawshooah/pyenv-default-packages"
+  "massongit/pyenv-pip-update"
+  "pyenv/pyenv-ccache"
+  "pyenv/pyenv-doctor"
+  "pyenv/pyenv-installer"
+  "pyenv/pyenv-pip-migrate"
+  "pyenv/pyenv-update"
+  "pyenv/pyenv-virtualenv"
+  "pyenv/pyenv-virtualenvwrapper"
+  "sprout42/pyenv-fix-version"
+  "zyrikby/pyenv-pip-upgrade"
+)
+for plugin in $plugins; do
+  local plugin_url="https://github.com/${plugin}.git"
+  local plugin_dir=${PYENV_ROOT}/plugins/$(echo $plugin | sed -E 's/pyenv\///')
+  [[ -d $plugin_dir ]] || git clone $plugin_url $plugin_dir
+done
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+### END of Pyenv block
