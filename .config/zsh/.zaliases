@@ -253,7 +253,11 @@ if command -v docker &>/dev/null; then
     alias dkis='docker images'
     alias dkk='docker-compose'
     alias dkkc='docker-compose scale'
-    alias dkkr='docker-compose run -d'
+    alias dkkc='docker-compose restart'
+
+    alias dkku='docker-compose up -d'
+    alias dkkuf='docker-compose up'
+
     alias dkkt='docker-compose top'
     alias dkl='docker logs'
     alias dkld='docker logs --details'
