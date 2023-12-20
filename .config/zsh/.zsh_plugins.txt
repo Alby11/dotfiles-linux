@@ -274,6 +274,6 @@ zsh-users/zsh-history-substring-search
 
 # Others
 # MichaelAquilina/zsh-auto-notify
-$ZDOTDIR/.zsh_aliases.sh
-$ZDOTDIR/.zsh_functions.sh
+$ZDOTDIR/.zaliases
+$ZDOTDIR/.zfunctions
 # mattmc3/zfunctions                        kind:defer
