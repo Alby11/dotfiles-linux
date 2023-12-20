@@ -2,9 +2,9 @@
 
 ### Pyenv
 export PYENV_ROOT="$HOME/.pyenv"
-mkdir -o $PYENV_ROOT
+[[ -d $PYENV_ROOT/bin ]] || curl https://pyenv.run | zsh
+mkdir -p $PYENV_ROOT
 touch ${PYENV_ROOT}/default-packages
-[[ -d $PYENV_ROOT/bin ]] || curl https://pyenv.run | $0
 local plugins=(
   "ashwinvis/pyenv-virtualenv-migrate"
   "concordusapps/pyenv-implict"
