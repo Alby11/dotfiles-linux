@@ -30,4 +30,4 @@ if [[ "$OSTYPE" == darwin* ]]; then
 fi
 
 # Pyenv
-$ZDOTDIR/.zpyenv
+SOURCE_RCFILE $ZDOTDIR/.zpyenv

@@ -208,4 +208,4 @@ unset -f start_agent
 ### END OF SSH BLOCK
 
 # Pyenv
-$ZDOTDIR/.zpyenv
+SOURCE_RCFILE $ZDOTDIR/.zpyenv
