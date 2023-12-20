@@ -2,6 +2,7 @@
 
 ### Pyenv
 export PYENV_ROOT="$HOME/.pyenv"
+mkdir -o $PYENV_ROOT
 touch ${PYENV_ROOT}/default-packages
 [[ -d $PYENV_ROOT/bin ]] || curl https://pyenv.run | $0
 local plugins=(
