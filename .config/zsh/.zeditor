@@ -40,9 +40,6 @@ fi
 # Neovim nightly with bob
 if ! CHECK_COMMANDS nvim > /dev/null ; then
   if ! CHECK_COMMANDS bob ; then
-    if ! CHECK_COMMANDS cargo ; then
-      package_manager_install cargo pkg-config
-    fi
     cargo install \
       --git https://github.com/MordechaiHadad/bob.git \
       --no-default-features \
@@ -54,6 +51,9 @@ if ! CHECK_COMMANDS nvim > /dev/null ; then
   bob complete zsh > $ZDOTDIR/completions/_bob
   export PATH=$PATH:$HOME/.local/share/bob/nvim-bin
   bob use nightly
+  if ! CHECK_COMMANDS stylua;then
+    cargo install stylua
+  fi
 fi
 export EDITOR="${$(which nvim):-$EDITOR}"
 export VISUAL="${$(which nvim):-$VISUAL}"

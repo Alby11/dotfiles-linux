@@ -23,48 +23,30 @@ autoload -Uz promptinit && promptinit
 # https://github.com/Phantas0s/.dotfiles/blob/master/zsh/completion.zsh
 # SOURCE_RCFILE $ZDOTDIR/.zcompletion.zsh
 
-# Source zstyles you might use with antidote.
-SOURCE_RCFILE ${ZDOTDIR:-$HOME}/.zstyles
-
-#
-# Editors
-#
-SOURCE_RCFILE $ZDOTDIR/.zeditor
-
 # Source GIT configuration
 SOURCE_RCFILE $XDG_CONFIG_HOME/git/.git.conf
 
-#
+### Packages
+SOURCE_RCFILE $ZDOTDIR/.zpackages
+
+# Source zstyles you might use with antidote.
+SOURCE_RCFILE ${ZDOTDIR:-$HOME}/.zstyles
+
+# Editors
+SOURCE_RCFILE $ZDOTDIR/.zeditor
+
 # Xresources
-#
 SOURCE_RCFILE $ZDOTDIR/.zxresources.zsh
 
-### NPM
-if ! CHECK_COMMANDS "npm"; then
-  package_manager_install npm
-fi
-  
 # Create an amazing Zsh config using antidote plugins.
 # Set the path to the Oh My Zsh installation directory
-if [ -d $ZDOTDIR/.antidote ]; then
-  SOURCE_RCFILE ${ZDOTDIR:-$HOME}/.antidote/antidote.zsh
-else
-  git clone --depth=1 https://github.com/mattmc3/antidote.git \
-    ${ZDOTDIR:-~}/.antidote && \
-    SOURCE_RCFILE ${ZDOTDIR:-$HOME}/.antidote/antidote.zsh
+if ! [[ -d ${ZDOTDIR:-~}/.antidote ]]; then
+  git clone --depth=1 https://github.com/mattmc3/antidote.git ${ZDOTDIR:-~}/.antidote
 fi
-if CHECK_COMMANDS "antidote"; then
-  SOURCE_RCFILE ${ZDOTDIR:-$HOME}/.zsh_plugins.conf
-  antidote load ${ZDOTDIR:-$HOME}/.zsh_plugins.txt
-  SOURCE_RCFILE ${ZDOTDIR:-$HOME}/.zsh_plugins.post
-else
-  FAIL "A ZSH plugin manager is either: \
-    not installed \
-    present in PATH \
-    not configured \
-    not working \
-    ;"
-fi
+SOURCE_RCFILE ${ZDOTDIR:-$HOME}/.antidote/antidote.zsh
+SOURCE_RCFILE ${ZDOTDIR:-$HOME}/.zsh_plugins.conf
+antidote load ${ZDOTDIR:-$HOME}/.zsh_plugins.txt
+SOURCE_RCFILE ${ZDOTDIR:-$HOME}/.zsh_plugins.post
 
 #
 # FPATH AUTOLOAD
@@ -132,9 +114,10 @@ export TERM="xterm-256color"
 export COLORTERM=truecolor
 
 # set Ls_COLORS if vivid is installed
-if CHECK_COMMANDS "vivid"; then
-  export LS_COLORS="$(vivid generate catppuccin-mocha)"
+if ! CHECK_COMMANDS "vivid"; then
+  cargo install vivid
 fi
+export LS_COLORS="$(vivid generate catppuccin-mocha)"
 
 # Make Python use UTF-8 encoding for output to stdin, stdout, and stderr.
 export PYTHONIOENCODING='UTF-8';

@@ -1,5 +1,7 @@
 # vim: filetype=zsh
 
 function flameshot_launch {
-  /usr/bin/flameshot > /dev/null 2>&1 &
+  # /usr/bin/flameshot > /dev/null 2>&1 &
+  $HOME/.local/bin/flameshot > /dev/null 2>&1 &
+
 }

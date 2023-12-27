@@ -11,7 +11,7 @@ for cmd in "dnf" "apt"; do
         package_manager_install() {
           sudo dnf install -y "$@"
         }
-        package_manager_remove() {
+        package_manager_autoremove() {
           sudo dnf autoremove -y "$@"
         }
         ;;
@@ -19,7 +19,7 @@ for cmd in "dnf" "apt"; do
         package_manager_install() {
           sudo apt-get install -y "$@"
         }
-        package_manager_remove() {
+        package_manager_autoremove() {
           sudo apt autoremove -y "$@"
         }
         ;;
