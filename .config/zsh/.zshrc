@@ -23,17 +23,17 @@ autoload -Uz promptinit && promptinit
 # https://github.com/Phantas0s/.dotfiles/blob/master/zsh/completion.zsh
 # SOURCE_RCFILE $ZDOTDIR/.zcompletion.zsh
 
-# Source GIT configuration
-SOURCE_RCFILE $XDG_CONFIG_HOME/git/.git.conf
-
 ### Packages
 SOURCE_RCFILE $ZDOTDIR/.zpackages
 
-# Source zstyles you might use with antidote.
-SOURCE_RCFILE ${ZDOTDIR:-$HOME}/.zstyles
-
 # Editors
 SOURCE_RCFILE $ZDOTDIR/.zeditor
+
+# Source GIT configuration
+SOURCE_RCFILE $XDG_CONFIG_HOME/git/.git.conf
+
+# Source zstyles you might use with antidote.
+SOURCE_RCFILE ${ZDOTDIR:-$HOME}/.zstyles
 
 # Xresources
 SOURCE_RCFILE $ZDOTDIR/.zxresources.zsh

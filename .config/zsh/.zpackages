@@ -2,6 +2,11 @@
 
 ECHOCAT ".zpackages - installing vital packages..."
 
+# CARGO 
+if ! CHECK_COMMANDS cargo > /dev/null; then
+  package_manager_install cargo pkg-config
+fi
+
 #PACKAGE MANAGER
 local pmpackages=(
   "npm"
@@ -10,6 +15,7 @@ local cargopackages=(
   "eza"
   "zoxide"
   "vivid"
+  "lolcrab"
   "zellij"
 )
 for cargopackage in $cargopackages; do
