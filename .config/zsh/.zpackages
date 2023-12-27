@@ -1,13 +1,11 @@
 # vim: filetype=zsh
 
+ECHOCAT ".zpackages - installing vital packages..."
+
 #PACKAGE MANAGER
 local pmpackages=(
   "npm"
 )
-# CARGO 
-if ! CHECK_COMMANDS cargo ; then
-  package_manager_install cargo pkg-config
-fi
 local cargopackages=(
   "eza"
   "zoxide"

@@ -8,11 +8,11 @@
 if [ -z "$SSH_CONNECTION" ]; then
   if command -v lolcat > /dev/null 2>&1; then
     echo """
-    .zshenv - Zsh envfile, loaded always, as first. SHLVL $SHLVL
+    .zshenv - Zsh envfile, loaded always, as first. SHLVL ( $SHLVL ) 
     """ | lolcat
   else
     echo """
-    .zshenv - Zsh envfile, loaded always, as first. SHLVL $SHLVL
+    .zshenv - Zsh envfile, loaded always, as first. SHLVL ( $SHLVL )
     """
   fi
 fi

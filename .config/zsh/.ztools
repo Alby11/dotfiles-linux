@@ -11,6 +11,9 @@ for cmd in "dnf" "apt"; do
         package_manager_install() {
           sudo dnf install -y "$@"
         }
+        package_manager_remove() {
+          sudo dnf remove -y "$@"
+        }
         package_manager_autoremove() {
           sudo dnf autoremove -y "$@"
         }
@@ -19,6 +22,9 @@ for cmd in "dnf" "apt"; do
         package_manager_install() {
           sudo apt-get install -y "$@"
         }
+        package_manager_remove() {
+          sudo apt remove -y "$@"
+        }
         package_manager_autoremove() {
           sudo apt autoremove -y "$@"
         }
@@ -26,35 +32,39 @@ for cmd in "dnf" "apt"; do
     esac
     alias pmi='package_manager_install'
     alias pmr='package_manager_remove'
+    alias pmar='package_manager_autoremove'
     break
   fi
 done
 
+# CARGO 
+if ! command -v cargo > /dev/null; then
+  package_manager_install cargo pkg-config
+fi
+
+# lolcrab cargo crate
+if ! command -v lolcrab > /dev/null; then
+  cargo install lolcrab
+fi
+local lolcrab_default_options="--custom \
+  f5e0dc f2cdcd f5c2e7 cba6f7 f38ba8 eba0ac fab387 f9e2af a6e3a1 94e2d5 89dceb 74c7ec 89b4fa \
+  b4befe"
+alias lolcat="${HOME}/.cargo/bin/lolcrab $lolcrab_default_options"
+alias lolcat_fail="${HOME}/.cargo/bin/lolcrab --gradient inferno --animate"
+alias lolcrab="${HOME}/.cargo/bin/lolcrab $lolcrab_default_options"
+
 # use lolcat as a special printf command
 ECHOCAT() {
   if [ -z "$SSH_CONNECTION" ]; then
-    if command -v lolcat &>/dev/null; then
-      if  lolcat --version | grep -E 'moe@busyloop.net' &>/dev/null; then
-        alias lolcat='lolcat'
-        if [ "$2" = 'ERROR' ]; then
-          alias lolcat='lolcat -a -d 50'
-        fi
-      else
-        alias lolcat='lolcat -b'
-        if [ "$2" = 'ERROR' ]; then
-          alias lolcat='lolcat -bi'
-        fi
-      fi
-      printf "%s\n" "$1" | lolcat
-      unalias lolcat
+    if [ "$2" = 'ERROR' ]; then
+      printf "%s\n" "$1" | lolcat_fail
     else
-      printf "%s\n" "$1"
-      pmi lolcat
+      printf "%s\n" "$1" | lolcat
     fi
   fi
 }
 
-ECHOCAT ".ztools.zsh - tools for better profiling..."
+ECHOCAT ".ztools - tools for better profiling..."
 
 # Function to print an error message and exit/return with an error/return code
 FAIL() {
