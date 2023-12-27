@@ -1,0 +1,21 @@
+# vim: filetype=zsh
+
+#PACKAGE MANAGER
+local pmpackages=(
+  "npm"
+)
+# CARGO 
+if ! CHECK_COMMANDS cargo ; then
+  package_manager_install cargo pkg-config
+fi
+local cargopackages=(
+  "eza"
+  "zoxide"
+  "vivid"
+  "zellij"
+)
+for cargopackage in $cargopackages; do
+  if ! CHECK_COMMANDS $cargopackage; then
+    cargo install $cargopackage
+  fi
+done
