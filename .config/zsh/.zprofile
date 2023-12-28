@@ -17,16 +17,12 @@ and before .zshrc
 # both here (if we're not a login shell) and from the .zprofile file (which
 # is only sourced if we are a login shell).
 # if [[ $SHLVL == 1 && ! -o LOGIN && -f $ZDOTDIR/.zpath ]]; then
-if [[ $SHLVL == 1 && -f $ZDOTDIR/.zpath ]]; then
-  source $ZDOTDIR/.zpath
-fi
-
-#
-# Browser
-#
-
-if [[ "$OSTYPE" == darwin* ]]; then
-  export BROWSER="${BROWSER:-open}"
+if [ -z "$SSH_CONNECTION" ]; then
+  if [[ $SHLVL == 1 && -f $ZDOTDIR/.zpath ]]; then
+    source $ZDOTDIR/.zpath
+  fi
+else
+    source $ZDOTDIR/.zpath
 fi
 
 # Pyenv

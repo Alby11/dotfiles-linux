@@ -40,7 +40,7 @@ for cmd in "dnf" "apt"; do
 done
 
 # CARGO 
-if ! command -v rustup > /dev/null; then
+if [[ ! -f $HOME/.cargo/bin/rustup ]]; then
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path
   package_manager_install \
     pkg-config \
