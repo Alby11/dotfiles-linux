@@ -28,3 +28,7 @@ path=(
   /opt/dwarfs/{,s}bin(N)
   $path
 )
+fpath=(
+  $ZDOTDIR/completion(N)
+  $fpath
+)

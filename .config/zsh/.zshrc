@@ -73,7 +73,7 @@ done
 ### END OF FPATH AUTOLOAD
 
 # Define the directories that contain your completion functions
-FUNCTION_DIRS=("$ZDOTDIR/completions")
+FUNCTION_DIRS=("$ZDOTDIR/completion")
 # Get a list of all files in the directories
 for dir in "${FUNCTION_DIRS[@]}"; do
   if [[ -d $dir ]]; then
