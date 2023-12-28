@@ -54,6 +54,8 @@ alias h="history -10" # last 10 history commands
 alias hh="history -20" # last 10 history commands
 alias hhh="history -30" # last 10 history commands
 alias ssar="ss -ar"
+alias sshnc='ssh -F /dev/null -o PreferredAuthentications=password'
+alias sshni='ssh -o PreferredAuthentications=password'
 alias mountc='mount | column --table --table-columns --json'
 alias ping="/usr/bin/ping"
 alias sping="/usr/bin/ping -c 5"
