@@ -42,13 +42,13 @@ done
 # CARGO 
 if [[ ! -f $HOME/.cargo/bin/rustup ]]; then
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path
-  package_manager_install \
-    pkg-config \
-    openssl
+  package_manager_install pkg-config > /dev/null || \
+    package_manager_install pkgconf-pkg-config
+  package_manager_install openssl
 fi
 # lolcrab cargo crate
-if ! command -v lolcrab > /dev/null; then
-  cargo install lolcrab
+if [[ ! -f $HOME/.cargo/bin/lolcrab ]]; then
+  $HOME/.cargo/bin/cargo install lolcrab
 fi
 local lolcrab_default_options="--custom \
   f5e0dc f2cdcd f5c2e7 cba6f7 f38ba8 eba0ac fab387 f9e2af a6e3a1 94e2d5 89dceb 74c7ec 89b4fa b4befe"
@@ -104,7 +104,7 @@ FAIL() {
 CHECK_COMMANDS() {
   local cmds=("$@")  # Store the arguments in an array
   for cmd in "${cmds[@]}"; do  # Iterate over each command
-    if ! command -v "$cmd" > /dev/null 2>&1; then  # Check if the command is available
+    if ! command -v "$cmd" > /dev/null; then  # Check if the command is available
       FAIL "Error: Required command '$cmd' not found. Please install it and try again."
       return 1 # Return a failure status
     fi

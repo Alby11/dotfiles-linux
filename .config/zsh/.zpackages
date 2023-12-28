@@ -4,8 +4,7 @@ ECHOCAT ".zpackages - installing vital packages..."
 
 #PACKAGE MANAGER
 # Determine the package manager and declare the appropriate function and packages
-# if $(echo $PACKAGE_MANAGER) = "dnf"; then
-if CHECK_COMMANDS dnf && ! CHECK_COMMANDS apt; then
+if CHECK_COMMANDS dnf > /dev/null && ! CHECK_COMMANDS apt > /dev/null; then
   # Function to check and install package for dnf
   local check_install() {
     if ! dnf list installed "$1" >/dev/null 2>&1; then
@@ -27,8 +26,7 @@ if CHECK_COMMANDS dnf && ! CHECK_COMMANDS apt; then
     # "ripgrep"
     "openssh-askpass"
   )
-# elif $(echo $PACKAGE_MANAGER) = "apt"; then
-elif CHECK_COMMANDS apt && ! CHECK_COMMANDS dnf; then
+elif CHECK_COMMANDS apt > /dev/null && ! CHECK_COMMANDS dnf > /dev/null; then
   # Function to check and install package for apt
   local check_install() {
     if ! dpkg -s "$1" >/dev/null 2>&1; then
