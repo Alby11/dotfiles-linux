@@ -17,6 +17,7 @@ for cmd in "dnf" "apt"; do
         package_manager_autoremove() {
           sudo dnf autoremove -y "$@"
         }
+        export PACKAGE_MANAGER="dnf"
         ;;
       "apt")
         package_manager_install() {
@@ -28,6 +29,7 @@ for cmd in "dnf" "apt"; do
         package_manager_autoremove() {
           sudo apt autoremove -y "$@"
         }
+        export PACKAGE_MANAGER="apt"
         ;;
     esac
     alias pmi='package_manager_install'
@@ -39,7 +41,10 @@ done
 
 # CARGO 
 if ! command -v cargo > /dev/null; then
-  package_manager_install cargo pkg-config
+  package_manager_install \
+    cargo \
+    pkg-config \
+    openssl
 fi
 
 # lolcrab cargo crate

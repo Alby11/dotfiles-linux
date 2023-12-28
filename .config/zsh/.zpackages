@@ -2,24 +2,92 @@
 
 ECHOCAT ".zpackages - installing vital packages..."
 
-# CARGO 
-if ! CHECK_COMMANDS cargo > /dev/null; then
-  package_manager_install cargo pkg-config
-fi
-
+# Function to check and install package for apt
+local check_install_apt() {
+    if ! dpkg -s "$1" >/dev/null 2>&1; then
+        ECHOCAT "$package (pm) is not installed globally. Installing..."
+        sudo apt update && sudo apt install -y "$1"
+    fi
+}
+# Function to check and install package for dnf
+local check_install_dnf() {
+    if ! dnf list installed "$1" >/dev/null 2>&1; then
+        ECHOCAT "$package (pm) is not installed globally. Installing..."
+        sudo dnf install -y "$1"
+    fi
+}
 #PACKAGE MANAGER
-local pmpackages=(
+if "$PACKAGE_MANAGER" = "dnf"; then
+local packages=(
+  "cargo"
+  "fd"
+  "fzf"
+  "keychain"
   "npm"
+  "openssl"
+  "python3-pip"
+  "pip"
+  "pkg-config"
+  "ripgrep"
+  "ssh-askpass"
 )
-local cargopackages=(
+elif "$PACKAGE_MANAGER" = "apt"; then
+local packages=(
+  "apt-utils"
+  "cargo"
+  "fd-find"
+  "fzf"
+  "keychain"
+  "npm"
+  "openssl"
+  "python3-pip"
+  "pip"
+  "pkg-config"
+  "ripgrep"
+  "ssh-askpass"
+)
+fi
+for package in $packages; do
+  # Determine the package manager and execute the appropriate function
+  if CHECK_COMMANDS apt; then
+    check_install_apt "$package"
+  elif CHECK_COMMANDS dnf; then
+    check_install_dnf "$package"
+  fi
+done
+packages=(
+  "bat"
   "eza"
-  "zoxide"
-  "vivid"
   "lolcrab"
+  "vivid"
   "zellij"
+  "zoxide"
 )
-for cargopackage in $cargopackages; do
-  if ! CHECK_COMMANDS $cargopackage; then
-    cargo install $cargopackage
+for package in $packages; do
+  if ! CHECK_COMMANDS $package; then
+    ECHOCAT "$package (cargo) is not installed globally. Installing..."
+    cargo install $package
+  fi
+done
+packages=(
+  "neovim"
+)
+for package in $packages; do
+  if ! npm list -g "$package" >/dev/null 2>&1; then
+    ECHOCAT "$package (npm) is not installed globally. Installing..."
+    sudo npm install -g "$package"
+  fi
+done
+packages=(
+  "autoenv"
+  "neovim"
+  "thefuck"
+  "virtualenv"
+  "virtualenvwrapper"
+)
+for package in $packages; do
+  if ! python -m pip show "$package" > /dev/null 2>&1; then
+      ECHOCAT "$package (pip) is not installed globally. Installing..."
+      sudo python -m pip install "$package"
   fi
 done
