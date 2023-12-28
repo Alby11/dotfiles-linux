@@ -12,12 +12,6 @@ non-login: after .zshenv
 # Zsh options.
 setopt extended_glob
 
-# Initialize the Zsh completion system
-# This enables advanced command-line completion features
-autoload -Uz compinit && zmodload zsh/complist ; compinit
-_comp_options+=(globdots) # With hidden files
-autoload -Uz promptinit && promptinit
-
 ### Set up ZSH Autocomplete
 # Credits:
 # https://github.com/Phantas0s/.dotfiles/blob/master/zsh/completion.zsh
@@ -47,48 +41,6 @@ SOURCE_RCFILE ${ZDOTDIR:-$HOME}/.antidote/antidote.zsh
 SOURCE_RCFILE ${ZDOTDIR:-$HOME}/.zsh_plugins.conf
 antidote load ${ZDOTDIR:-$HOME}/.zsh_plugins.txt
 SOURCE_RCFILE ${ZDOTDIR:-$HOME}/.zsh_plugins.post
-
-#
-# FPATH AUTOLOAD
-#
-# Define the directories that contain your functions
-local FUNCTION_DIRS=("$ZDOTDIR/functions")
-# Loop through the directories and add each one to fpath
-for dir in "${FUNCTION_DIRS[@]}"; do
-  if [[ -d $dir ]]; then
-    fpath=( $dir "${fpath[@]}" )
-  fi
-done
-# Get a list of all files in the directories
-for dir in "${FUNCTION_DIRS[@]}"; do
-  if [[ -d $dir ]]; then
-    ECHOCAT "Autoloading functons in: $dir"
-    func_files=($dir/*)
-    # Loop through the files and autoload each one
-    for func in $func_files; do
-      autoload -Uz $func
-    done
-  fi
-done
-### END OF FPATH AUTOLOAD
-
-# Define the directories that contain your completion functions
-FUNCTION_DIRS=("$ZDOTDIR/completion")
-# Get a list of all files in the directories
-for dir in "${FUNCTION_DIRS[@]}"; do
-  if [[ -d $dir ]]; then
-    ECHOCAT "Sourcing autocomplete functons in: $dir"
-    func_files=($dir/*)
-    # Loop through the files and source each one
-    for func in $func_files; do
-      source $func
-      # call complete command for the corrisponding and
-      # previously sourced zsh function script
-      complete -F $(basename $func) $(basename $func | sed -s 's/^.//')
-    done
-  fi
-done
-### END OF COMPLETION FUNCTIONS SOURCING
 
 # Uncomment the following line to enable command auto-correction.
 export ENABLE_CORRECTION="true"

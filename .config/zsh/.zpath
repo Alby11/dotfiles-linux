@@ -20,7 +20,7 @@ typeset -gU path fpath
 # Set the list of directories that zsh searches for commands.
 path=(
   $HOME/{,s}bin(N)
-  $HOME/.local/{,s}bin(N)
+  # $HOME/.local/{,s}bin(N)
   $HOME/{.cargo,local}/{,s}bin(N)
   $HOME/.local/share/bob/nvim-{,s}bin(N)
   /opt/{homebrew,local}/{,s}bin(N)
@@ -29,6 +29,15 @@ path=(
   $path
 )
 fpath=(
-  $ZDOTDIR/completion(N)
+  $ZDOTDIR/(completion,functions)(N)
   $fpath
 )
+# Initialize the Zsh completion system
+# This enables advanced command-line completion features
+autoload -Uz compinit && zmodload zsh/complist ; compinit
+_comp_options+=(globdots) # With hidden files
+autoload -Uz promptinit && promptinit
+for func in $ZDOTDIR/functions/*(.N); do
+  autoload -Uz $func
+done
+compinit -u
