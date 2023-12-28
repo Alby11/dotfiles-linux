@@ -2,6 +2,9 @@
 
 ### Pyenv
 export PYENV_ROOT="$HOME/.pyenv"
+if ! CHECK_COMMANDS pyenv; then
+  rm -rf $PYENV_ROOT
+fi
 [[ -d $PYENV_ROOT/bin ]] || curl https://pyenv.run | zsh
 mkdir -p $PYENV_ROOT
 touch ${PYENV_ROOT}/default-packages

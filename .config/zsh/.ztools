@@ -40,13 +40,12 @@ for cmd in "dnf" "apt"; do
 done
 
 # CARGO 
-if ! command -v cargo > /dev/null; then
+if ! command -v rustup > /dev/null; then
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path
   package_manager_install \
-    cargo \
     pkg-config \
     openssl
 fi
-
 # lolcrab cargo crate
 if ! command -v lolcrab > /dev/null; then
   cargo install lolcrab

@@ -2,73 +2,80 @@
 
 ECHOCAT ".zpackages - installing vital packages..."
 
-# Function to check and install package for apt
-local check_install_apt() {
-    if ! dpkg -s "$1" >/dev/null 2>&1; then
-        ECHOCAT "$package (pm) is not installed globally. Installing..."
-        sudo apt update && sudo apt install -y "$1"
-    fi
-}
-# Function to check and install package for dnf
-local check_install_dnf() {
-    if ! dnf list installed "$1" >/dev/null 2>&1; then
-        ECHOCAT "$package (pm) is not installed globally. Installing..."
-        sudo dnf install -y "$1"
-    fi
-}
 #PACKAGE MANAGER
-if "$PACKAGE_MANAGER" = "dnf"; then
-local packages=(
-  "cargo"
-  "fd"
-  "fzf"
-  "keychain"
-  "npm"
-  "openssl"
-  "python3-pip"
-  "pip"
-  "pkg-config"
-  "ripgrep"
-  "ssh-askpass"
-)
-elif "$PACKAGE_MANAGER" = "apt"; then
-local packages=(
-  "apt-utils"
-  "cargo"
-  "fd-find"
-  "fzf"
-  "keychain"
-  "npm"
-  "openssl"
-  "python3-pip"
-  "pip"
-  "pkg-config"
-  "ripgrep"
-  "ssh-askpass"
-)
+# Determine the package manager and declare the appropriate function and packages
+# if $(echo $PACKAGE_MANAGER) = "dnf"; then
+if CHECK_COMMANDS dnf && ! CHECK_COMMANDS apt; then
+  # Function to check and install package for dnf
+  local check_install() {
+    if ! dnf list installed "$1" >/dev/null 2>&1; then
+      echo $?
+      ECHOCAT "$package (pm) is not installed globally. Installing..."
+      sudo dnf install -y "$1"
+    fi
+  }
+  local packages=(
+    # "cargo"
+    # "fd-find"
+    "fzf"
+    "keychain"
+    "nodejs"
+    "nodejs-npm"
+    "openssl"
+    "python3-pip"
+    "pkgconf-pkg-config"
+    # "ripgrep"
+    "openssh-askpass"
+  )
+# elif $(echo $PACKAGE_MANAGER) = "apt"; then
+elif CHECK_COMMANDS apt && ! CHECK_COMMANDS dnf; then
+  # Function to check and install package for apt
+  local check_install() {
+    if ! dpkg -s "$1" >/dev/null 2>&1; then
+      ECHOCAT "$package (pm) is not installed globally. Installing..."
+      sudo apt update && sudo apt install -y "$1"
+    fi
+  }
+  local packages=(
+    "apt-file"
+    "apt-utils"
+    # "cargo"
+    # "fd-find"
+    "fzf"
+    "keychain"
+    "nodejs"
+    "npm"
+    "openssl"
+    "python3-pip"
+    "pkg-config"
+    # "ripgrep"
+    "openssh-askpass"
+  )
 fi
 for package in $packages; do
-  # Determine the package manager and execute the appropriate function
-  if CHECK_COMMANDS apt; then
-    check_install_apt "$package"
-  elif CHECK_COMMANDS dnf; then
-    check_install_dnf "$package"
-  fi
+  check_install "$package"
 done
+# CARGO
+if ! CHECK_COMMANDS rustup; then
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path
+fi
 packages=(
   "bat"
   "eza"
+  "fd-find"
   "lolcrab"
+  "ripgrep"
   "vivid"
   "zellij"
   "zoxide"
 )
 for package in $packages; do
-  if ! CHECK_COMMANDS $package; then
+  if ! cargo install --list | grep $package >/dev/null 2>&1; then
     ECHOCAT "$package (cargo) is not installed globally. Installing..."
     cargo install $package
   fi
 done
+# NPM
 packages=(
   "neovim"
 )
@@ -78,6 +85,7 @@ for package in $packages; do
     sudo npm install -g "$package"
   fi
 done
+# PIP
 packages=(
   "autoenv"
   "neovim"
