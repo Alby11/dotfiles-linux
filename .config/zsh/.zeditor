@@ -22,28 +22,49 @@ if CHECK_COMMANDS lesspipe.sh; then
 else
   ECHOCAT 'LESSOPEN: lesspipe.sh in not installed or in PATH' -i
 fi
+# BAT
 if ! CHECK_COMMANDS bat; then
   cargo install bat
 fi
 bat cache --build > /dev/null 2>&1
-export LESSCOLORIZER="bat --style=full --theme=catppuccin-mocha"
-if ! CHECK_COMMANDS batpipe; then
-  # Define the installation directory
-  local INSTALL_DIR="${HOME}/.local"
+# Ensure extended globbing is enabled
+setopt extended_glob
+# Define the directory and the base command
+local INSTALL_DIR="${HOME}/.local"
+local BASE_CMD="bat"
+# Define the suffixes
+local SUFFIXES=(diff grep man watch)
+# Flag to indicate if any file is missing
+local missing_file=false
+# Check each file individually
+for suffix in $SUFFIXES; do
+    if [[ ! -f "${INSTALL_DIR}/bin/${BASE_CMD}${suffix}" ]]; then
+        missing_file=true
+        break
+    fi
+done
+# If any file is missing, execute the installation steps
+if $missing_file; then
   # Clone the repository
   local CUR_DIR=$(pwd)
   cd /tmp
   git clone https://github.com/eth-p/bat-extras.git
   cd bat-extras
+
   # Build and install bat-extras
   ./build.sh --minify=all --install --prefix="$INSTALL_DIR"
-  # Go back to the previous directory and remove the cloned repo
+
+  # Cleanup: Go back to the previous directory and remove the cloned repo
   cd ..
   rm -rf bat-extras
-  cd $CUR_DIR
+  cd "$CUR_DIR"
+  unset CUR_DIR
+  # Notify the user
   ECHOCAT "bat-extras installed successfully in $INSTALL_DIR"
 fi
-# To use batpipe, eval the output of this command in your shell init script.
+# Clean up environment variables
+unset INSTALL_DIR BASE_CMD SUFFIXES PATTERN
+# END OF BAT BLOCK
 export LESSOPEN="|$(which batpipe) %s"
 export LESSOPEN
 unset LESSCLOSE

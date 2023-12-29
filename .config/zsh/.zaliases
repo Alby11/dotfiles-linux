@@ -54,8 +54,11 @@ alias h="history -10" # last 10 history commands
 alias hh="history -20" # last 10 history commands
 alias hhh="history -30" # last 10 history commands
 alias ssar="ss -ar"
+alias sshx="ssh -X"
 alias sshnc='ssh -F /dev/null -o PreferredAuthentications=password'
 alias sshni='ssh -o PreferredAuthentications=password'
+alias sshncx='ssh -X -F /dev/null -o PreferredAuthentications=password'
+alias sshnix='ssh -X -o PreferredAuthentications=password'
 alias mountc='mount | column --table --table-columns --json'
 alias ping="/usr/bin/ping"
 alias sping="/usr/bin/ping -c 5"
@@ -208,7 +211,7 @@ if command -v fd &>/dev/null; then
     alias fdh='fd --hidden'
 elif command -v fdfind &>/dev/null; then
     alias fd='fdfind '
-    alias fde='fdfind --hidden'
+    alias fdh='fdfind --hidden'
 fi
 
 if command -v eza &>/dev/null; then
@@ -353,8 +356,7 @@ alias resetSound='/bin/systemctl --user restart pipewire.service'
 
 ### Python block
 # url encode/decode
-if command -v python &>/dev/null
-then
+if command -v python &>/dev/null then
   alias -g urldecode='python3 -c "import sys, urllib.parse as ul; \
     print(ul.unquote_plus(sys.argv[1]))"'
   alias -g urlencode='python3 -c "import sys, urllib.parse as ul; \
@@ -362,12 +364,21 @@ then
 fi
 ### End of Python block
 # PIP block 
-if command -v pip &>/dev/null
-then
+if command -v pip &>/dev/null then
   alias pipi='pip install '
   alias pipiu='pip install --user '
   alias pipu='pip uninstall '
   alias pipuu='pip uninstall --user '
+  alias pipl='pip list'
+  alias piplu='pip list --user'
+fi
+if command -v pip-install &>/dev/null; then
+  alias pins='pip-install search'
+  alias pini='pip-install install'
+  alias pinu='pip-install uninstall'
+  alias pinl='pip-install list'
+  alias pinup='pip-install upgrade'
+  alias pinw='pip-install show'
 fi
 # end of PIP block
 ### git

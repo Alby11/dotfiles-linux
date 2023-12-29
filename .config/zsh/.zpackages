@@ -13,18 +13,37 @@ if CHECK_COMMANDS dnf > /dev/null && ! CHECK_COMMANDS apt > /dev/null; then
       sudo dnf install -y "$1"
     fi
   }
+
+  # Function to check and install package group for dnf
+  local check_install_group() {
+    if ! dnf group list hidden installed | grep -q "$1"; then
+      ECHOCAT "Package group '$1' is not installed globally. Installing..."
+      sudo dnf groupinstall -y "$1"
+    fi
+  }
   local packages=(
-    # "cargo"
-    # "fd-find"
+    "ca-certificates"
+    "curl"
     "fzf"
+    "gnome-tweaks"
+    "gnupg2"
     "keychain"
+    "lsb_release"
+    "luarocks"
     "nodejs"
     "nodejs-npm"
-    "openssl"
-    "python3-pip"
-    "pkgconf-pkg-config"
-    # "ripgrep"
     "openssh-askpass"
+    "openssl"
+    "pkgconf-pkg-config"
+    "python-unversioned-command"
+    "python3-pip"
+    "xclip"
+    # "cargo"
+    # "fd-find"
+    # "ripgrep"
+  )
+  local package_groups=(
+    "Development Tools"
   )
 elif CHECK_COMMANDS apt > /dev/null && ! CHECK_COMMANDS dnf > /dev/null; then
   # Function to check and install package for apt
@@ -37,23 +56,40 @@ elif CHECK_COMMANDS apt > /dev/null && ! CHECK_COMMANDS dnf > /dev/null; then
   local packages=(
     "apt-file"
     "apt-utils"
-    # "cargo"
-    # "fd-find"
+    "build-essentials"
+    "ca-certificates"
+    "curl"
     "fzf"
+    "gnome-tweaks"
+    "gnupg2"
+    "gpg"
     "keychain"
+    "lsb-release"
+    "luarocks"
     "nodejs"
     "npm"
     "openssl"
+    "pkg-config"
     "python-is-python3"
     "python3-pip"
-    "pkg-config"
-    # "ripgrep"
     "ssh-askpass"
+    "xclip"
+    # "cargo"
+    # "fd-find"
+    # "ripgrep"
   )
 fi
+# Install individual packages
 for package in $packages; do
   check_install "$package"
 done
+# Install package groups (if applicable)
+if [[ -n $package_groups ]]; then
+  for package_group in "${package_groups[@]}"; do
+    check_install_group "$package_group"
+  done
+fi
+unset check_install check_install_group
 # CARGO
 if ! CHECK_COMMANDS rustup; then
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path
@@ -69,7 +105,7 @@ packages=(
   "zoxide"
 )
 for package in $packages; do
-  if ! cargo install --list | grep $package >/dev/null 2>&1; then
+  if ! cargo install --list | grep -qE "^${package} v[0-9]+.[0-9]+.[0-9]+:" >/dev/null 2>&1; then
     ECHOCAT "$package (cargo) is not installed globally. Installing..."
     cargo install $package
   fi
@@ -88,6 +124,7 @@ done
 packages=(
   "autoenv"
   "neovim"
+  "pip-install"
   "thefuck"
   "virtualenv"
   "virtualenvwrapper"
@@ -98,3 +135,4 @@ for package in $packages; do
       sudo python -m pip install "$package"
   fi
 done
+unset package packages package_group package_groups
