@@ -1,7 +1,6 @@
 # vim: filetype=zsh
 
 ECHOCAT ".zpackages - installing vital packages..."
-
 #PACKAGE MANAGER
 # Determine the package manager and declare the appropriate function and packages
 if CHECK_COMMANDS dnf > /dev/null && ! CHECK_COMMANDS apt > /dev/null; then
@@ -13,7 +12,6 @@ if CHECK_COMMANDS dnf > /dev/null && ! CHECK_COMMANDS apt > /dev/null; then
       sudo dnf install -y "$1"
     fi
   }
-
   # Function to check and install package group for dnf
   local check_install_group() {
     if ! dnf group list hidden installed | grep -q "$1"; then
