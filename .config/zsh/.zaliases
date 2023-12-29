@@ -356,7 +356,7 @@ alias resetSound='/bin/systemctl --user restart pipewire.service'
 
 ### Python block
 # url encode/decode
-if command -v python &>/dev/null then
+if command -v python &>/dev/null; then
   alias -g urldecode='python3 -c "import sys, urllib.parse as ul; \
     print(ul.unquote_plus(sys.argv[1]))"'
   alias -g urlencode='python3 -c "import sys, urllib.parse as ul; \
@@ -364,7 +364,7 @@ if command -v python &>/dev/null then
 fi
 ### End of Python block
 # PIP block 
-if command -v pip &>/dev/null then
+if command -v pip &>/dev/null; then
   alias pipi='pip install '
   alias pipiu='pip install --user '
   alias pipu='pip uninstall '
