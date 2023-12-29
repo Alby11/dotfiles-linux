@@ -56,7 +56,7 @@ elif CHECK_COMMANDS apt > /dev/null && ! CHECK_COMMANDS dnf > /dev/null; then
   local packages=(
     "apt-file"
     "apt-utils"
-    "build-essentials"
+    "build-essential"
     "ca-certificates"
     "curl"
     "fzf"
