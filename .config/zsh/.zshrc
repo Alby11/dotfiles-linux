@@ -74,6 +74,9 @@ export LS_COLORS="$(vivid generate catppuccin-mocha)"
 # Make Python use UTF-8 encoding for output to stdin, stdout, and stderr.
 export PYTHONIOENCODING='UTF-8';
 
+# Export GOPATH
+export GOPATH=${HOME}/go
+
 # Export JAVA_HOME from default alternative
 export JAVA_HOME=$(dirname $(dirname $(readlink $(readlink $(which javac)))))
 
