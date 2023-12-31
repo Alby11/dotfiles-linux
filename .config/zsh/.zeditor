@@ -65,13 +65,14 @@ fi
 # Clean up environment variables
 unset INSTALL_DIR BASE_CMD SUFFIXES PATTERN
 # END OF BAT BLOCK
-export LESSOPEN="|$(which batpipe) %s"
-export LESSOPEN
+# export LESSOPEN="|$(which batpipe) %s"
+export LESSOPEN="$(which batpipe) %s"
+# export LESSOPEN
 unset LESSCLOSE
 # The following will enable colors when using batpipe with less:
 export LESS="$LESS -R"
 export BATPIPE="color"
-export LESS
+# export LESS
 # Neovim nightly with bob
 if ! CHECK_COMMANDS nvim > /dev/null ; then
   if ! CHECK_COMMANDS bob ; then
