@@ -143,10 +143,6 @@ fi
 if command -v curl &>/dev/null; then
     # Creditst to Jeremy "Jay" LaCroix
     # <https://www.learnlinux.tv/10-linux-terminal-tips-and-tricks-to-enhance-your-workflow/
-    c() {
-        # Ask cheat.sh website for details about a Linux command.
-        curl -m 10 "http://cheat.sh/${1}" 2>/dev/null || printf '%s\n' "[ERROR] Something broke"
-    }
     wth() {
         curl -m 10 "https://wttr.in/${1}" 2>/dev/null || printf '%s\n' "[ERROR] Something broke"
     }
