@@ -433,13 +433,13 @@ elif [ "$(uname -s)" = OpenBSD ] && [ -x /usr/bin/ftp ]; then
 	}
 else
 	command -v w3m >/dev/null || {
-		echo 'DEPENDENCY: install "curl" to use cht.sh' >&2
+		echo 'DEPENDENCY: install "w3m" to use cht.sh' >&2
 		exit 1
 	}
-	_w3m=$(command -v curl)
+	_w3m=$(command -v w3m)
 	if [ x"$CHTSH_w3m_OPTIONS" != x ]; then
 		w3m() {
-			$_w3m "${CHTSH_CURL_OPTIONS}" "$@"
+			$_w3m "${CHTSH_w3m_OPTIONS}" "$@"
 		}
 	fi
 fi
