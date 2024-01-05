@@ -140,8 +140,8 @@ fi
 
 if command -v dnf &>/dev/null; then
     alias dnf='sudo dnf '
-    alias dnfcu='sudo dnf check-update '
     alias dnfar='sudo dnf autoremove '
+    alias dnfcu='sudo dnf check-update '
     alias dnfds='sudo dnf distro-sync -y '
     alias dnff='sudo dnf info '
     alias dnfi='sudo dnf install -y '
@@ -154,7 +154,7 @@ if command -v dnf &>/dev/null; then
     alias dnfr='sudo dnf remove '
     alias dnfs='sudo dnf search '
     alias dnfup='sudo dnf upgrade -y '
-    alias dnfuua='sudo dnfcu ; dnfup ; dnfar'
+    alias dnfuua='sudo dnf check-update ; sudo dnf upgrade ; sudo dnf autoremove'
 fi
 
 
