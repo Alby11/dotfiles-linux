@@ -124,6 +124,7 @@ if command -v apt &>/dev/null; then
     alias apt='sudo apt '
     alias aptap='sudo apt autopurge '
     alias aptar='sudo apt autoremove '
+    alias aptc='sudo apt chek'
     alias aptdup='sudo apt dist-upgrade '
     alias aptfl='sudo apt-file -i list '
     alias apti='sudo apt install -y '
