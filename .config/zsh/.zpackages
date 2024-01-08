@@ -1,5 +1,5 @@
 # vim: filetype=zsh
-return 0
+[[ ! $INST_PACKAGES ]] && return 0
 ECHOCAT ".zpackages - installing vital packages..."
 #PACKAGE MANAGER
 # Determine the package manager and declare the appropriate function and packages
@@ -147,4 +147,7 @@ for package in $packages; do
       sudo python -m pip install "$package"
   fi
 done
+# Cleanup
 unset package packages package_group package_groups
+# Avoid re-run this script in subshells
+unset INST_PACKAGES
