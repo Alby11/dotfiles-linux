@@ -39,11 +39,12 @@ sync_home() {
     ".config/"
     ".config/bat/***"
     ".config/git/***"
-    ".config/zsh/***"
+    ".config/gitui/***"
     ".config/nvim/***"
     ".config/starship/***"
-    ".tmux/***"
+    ".config/zsh/***"
     ".tmux.conf"
+    ".tmux/***"
     ".zshenv"
   )
   local include_string=$(printf "--include='%s' " "${include_array[@]}")
