@@ -232,6 +232,10 @@ if command -v git &>/dev/null; then
     alias dot='dotfiles '
 fi
 
+if command -v gitui &>/dev/null; then
+  alias gitui="gitui -t mocha.ron"
+fi
+
 if command -v kubectl &>/dev/null; then
     source <(kubectl completion zsh)
     alias k='kubectl '
