@@ -44,7 +44,7 @@ sync_home() {
     ".config/starship/***"
     ".config/zsh/***"
     ".tmux.conf"
-    ".tmux/***"
+    # ".tmux/***"
     ".zshenv"
   )
   local include_string=$(printf "--include='%s' " "${include_array[@]}")
