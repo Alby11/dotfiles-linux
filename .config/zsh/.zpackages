@@ -1,5 +1,4 @@
 # vim: filetype=zsh
-[[ ! $INST_PACKAGES ]] && return 0
 ECHOCAT ".zpackages - installing vital packages..."
 #PACKAGE MANAGER
 # Determine the package manager and declare the appropriate function and packages

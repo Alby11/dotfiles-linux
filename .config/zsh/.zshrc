@@ -18,13 +18,7 @@ setopt extended_glob
 # SOURCE_RCFILE $ZDOTDIR/.zcompletion.zsh
 
 ### Packages
-if [ ! $INST_PACKAGES ]; then
-  echo "If you want to install needed packages do:" | lolcat
-  echo '> INST_PACKAGES=1'
-  echo '> Sz'
-  echo "\n"
-fi
-SOURCE_RCFILE $ZDOTDIR/.zpackages
+(SOURCE_RCFILE $ZDOTDIR/.zpackages > /dev/null 2>&1 &)
 
 # Editors
 SOURCE_RCFILE $ZDOTDIR/.zeditor

@@ -55,6 +55,29 @@ alias lolcat="${HOME}/.cargo/bin/lolcrab $lolcrab_default_options"
 alias lolcat_fail="${HOME}/.cargo/bin/lolcrab --gradient inferno --animate"
 alias lolcrab="${HOME}/.cargo/bin/lolcrab $lolcrab_default_options"
 
+IS_LOGIN_SHELL() {
+    # Check using shell option (most direct method)
+    if [[ -o login ]]; then
+        return 0
+    fi
+
+    # Check by inspecting $0 (second method)
+    if [[ $0 == -* ]]; then
+        return 0
+    fi
+
+    # Check using `ps` command (if available and as a fallback)
+    if command -v ps > /dev/null 2>&1; then
+        shell_process=$(ps -o comm= -p $$)
+        if [[ $shell_process == -* ]]; then
+            return 0
+        fi
+    fi
+
+    # If none of the above checks confirm a login shell
+    return 1
+}
+
 # use lolcat as a special printf command
 ECHOCAT() {
   if [ -z "$SSH_CONNECTION" ]; then
