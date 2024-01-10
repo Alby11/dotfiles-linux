@@ -95,9 +95,11 @@ elif CHECK_COMMANDS apt > /dev/null && ! CHECK_COMMANDS dnf > /dev/null; then
   )
 fi
 # Install individual packages
-for package in $packages; do
-  check_install "$package"
-done
+if [[ -n $packages ]]; then
+  for package in $packages; do
+    check_install "$package"
+  done
+fi
 # Install package groups (if applicable)
 if [[ -n $package_groups ]]; then
   for package_group in "${package_groups[@]}"; do

@@ -39,6 +39,12 @@ for cmd in "dnf" "apt"; do
   fi
 done
 
+# Function to check if the user has NOPASSWD privileges for a specific command
+WHOAMI_HAS_NOPASSWD() {
+    # Check if sudo allows the user to run the command without a password
+    sudo -nl | grep -q 'NOPASSWD: ALL' && return 0 || return 1
+}
+
 # CARGO 
 if [[ ! -f $HOME/.cargo/bin/rustup ]]; then
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path
