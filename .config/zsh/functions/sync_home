@@ -41,6 +41,7 @@ sync_home() {
     ".config/git/***"
     ".config/gitui/***"
     ".config/nvim/***"
+    ".config/ripgrep/***"
     ".config/starship/***"
     ".config/zsh/***"
     ".tmux.conf"

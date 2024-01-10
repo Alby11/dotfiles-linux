@@ -348,7 +348,7 @@ if [ "$(command -v fzf)" ] && [ "$(command -v rg)" ]; then
   export FZF_DEFAULT_COMMAND="rg --pretty --ignore-case --files --no-ignore-vcs --hidden"
   export DISABLE_FZF_AUTO_COMPLETION="false"
   export DISABLE_FZF_KEY_BINDINGS="false"
-  export RIPGREP_CONFIG_PATH=~/.config/ripgrep/ripgreprc
+  export RIPGREP_CONFIG_PATH="${HOME}/.config/ripgrep/ripgreprc"
   alias -g F='| fzf'
   alias -g rgg='rg --glob'
   alias -g R='| rg'
