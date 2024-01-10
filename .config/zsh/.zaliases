@@ -345,9 +345,10 @@ if [ "$(command -v fzf)" ] && [ "$(command -v rg)" ]; then
     export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --preview=$(which less)"
     echo "bat missing..."
   fi
-  export FZF_DEFAULT_COMMAND="rg --ignore-case --files --no-ignore-vcs --hidden"
+  export FZF_DEFAULT_COMMAND="rg --pretty --ignore-case --files --no-ignore-vcs --hidden"
   export DISABLE_FZF_AUTO_COMPLETION="false"
   export DISABLE_FZF_KEY_BINDINGS="false"
+  export RIPGREP_CONFIG_PATH=~/.config/ripgrep/ripgreprc
   alias -g F='| fzf'
   alias -g rgg='rg --glob'
   alias -g R='| rg'

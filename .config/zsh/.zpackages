@@ -1,5 +1,6 @@
 # vim: filetype=zsh
 ECHOCAT ".zpackages - installing vital packages..."
+local i_did_something=0
 #PACKAGE MANAGER
 # Determine the package manager and declare the appropriate function and packages
 if CHECK_COMMANDS dnf > /dev/null && ! CHECK_COMMANDS apt > /dev/null; then
@@ -8,6 +9,7 @@ if CHECK_COMMANDS dnf > /dev/null && ! CHECK_COMMANDS apt > /dev/null; then
     if ! dnf list installed "$1" >/dev/null 2>&1; then
       echo $?
       ECHOCAT "$package (pm) is not installed globally. Installing..."
+      i_did_something=1
       sudo dnf install -y "$1"
     fi
   }
@@ -15,6 +17,7 @@ if CHECK_COMMANDS dnf > /dev/null && ! CHECK_COMMANDS apt > /dev/null; then
   local check_install_group() {
     if ! dnf group list hidden installed | grep -q "$1"; then
       ECHOCAT "Package group '$1' is not installed globally. Installing..."
+      i_did_something=1
       sudo dnf groupinstall -y "$1"
     fi
   }
@@ -27,6 +30,7 @@ if CHECK_COMMANDS dnf > /dev/null && ! CHECK_COMMANDS apt > /dev/null; then
     "gnupg2"
     "golang"
     "keychain"
+    "libnotify"
     "lsb_release"
     "luarocks"
     "nodejs"
@@ -35,6 +39,7 @@ if CHECK_COMMANDS dnf > /dev/null && ! CHECK_COMMANDS apt > /dev/null; then
     "openssl"
     "perl"
     "pkgconf-pkg-config"
+    "polkit"
     "python-unversioned-command"
     "python3-pip"
     "shellcheck"
@@ -52,6 +57,7 @@ elif CHECK_COMMANDS apt > /dev/null && ! CHECK_COMMANDS dnf > /dev/null; then
   local check_install() {
     if ! dpkg -s "$1" >/dev/null 2>&1; then
       ECHOCAT "$package (pm) is not installed globally. Installing..."
+      i_did_something=1
       sudo apt update && sudo apt install -y "$1"
     fi
   }
@@ -68,6 +74,7 @@ elif CHECK_COMMANDS apt > /dev/null && ! CHECK_COMMANDS dnf > /dev/null; then
     "golang-go"
     "gpg"
     "keychain"
+    "libnotify-bin"
     "lsb-release"
     "luarocks"
     "nodejs"
@@ -75,6 +82,7 @@ elif CHECK_COMMANDS apt > /dev/null && ! CHECK_COMMANDS dnf > /dev/null; then
     "openssl"
     "perl"
     "pkg-config"
+    "policykit-1"
     "python-is-python3"
     "python3-pip"
     "shellcheck"
@@ -96,7 +104,6 @@ if [[ -n $package_groups ]]; then
     check_install_group "$package_group"
   done
 fi
-unset check_install check_install_group
 # CARGO
 if ! CHECK_COMMANDS rustup; then
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path
@@ -115,6 +122,7 @@ packages=(
 for package in $packages; do
   if ! cargo install --list | grep -qE "^${package} v[0-9]+.[0-9]+.[0-9]+:" >/dev/null 2>&1; then
     ECHOCAT "$package (cargo) is not installed globally. Installing..."
+    i_did_something=1
     cargo install $package
   fi
 done
@@ -129,6 +137,7 @@ packages=(
 for package in $packages; do
   if ! npm list -g "$package" >/dev/null 2>&1; then
     ECHOCAT "$package (npm) is not installed globally. Installing..."
+    i_did_something=1
     sudo npm install -g "$package"
   fi
 done
@@ -145,11 +154,14 @@ packages=(
 )
 for package in $packages; do
   if ! python -m pip show "$package" > /dev/null 2>&1; then
-      ECHOCAT "$package (pip) is not installed globally. Installing..."
-      sudo python -m pip install "$package"
+    ECHOCAT "$package (pip) is not installed globally. Installing..."
+    i_did_something=1
+    sudo python -m pip install "$package"
   fi
 done
-# Cleanup
-unset package packages package_group package_groups
 # Avoid re-run this script in subshells
-unset INST_PACKAGES
+if [ "$i_did_something" -eq 1 ]; then
+  notify-send "${basename "$0"}: Something has been installed, re-launch the shell..."
+fi
+# Cleanup
+unset package packages package_group package_groups i_did_something check_install check_install_group
