@@ -9,6 +9,9 @@ login: after .zprofile and before .zlogin
 non-login: after .zshenv
 """
 
+# Pyenv
+SOURCE_RCFILE $ZDOTDIR/.zpyenv
+
 # Zsh options.
 setopt extended_glob
 

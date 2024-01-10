@@ -12,7 +12,7 @@
 # Use them in printf
 #
 # printf "${GREEN}.zpath - Zsh PATH setup file${NC}\n"
-echo ".zpath - Zsh PATH setup file"
+ECHOCAT ".zpath - Zsh PATH setup file"
 
 # Ensure path arrays do not contain duplicates.
 typeset -gU path fpath

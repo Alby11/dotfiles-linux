@@ -6,4 +6,3 @@
 ECHOCAT """
 .zlogin - Zsh file loaded lastly on login shell, after .zshrc.
 """
-
