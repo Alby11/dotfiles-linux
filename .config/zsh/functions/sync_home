@@ -38,6 +38,7 @@ sync_home() {
   local include_array=(
     ".config/"
     ".config/bat/***"
+    ".config/fsh/***"
     ".config/git/***"
     ".config/gitui/***"
     ".config/nvim/***"
