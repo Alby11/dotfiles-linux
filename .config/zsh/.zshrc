@@ -26,7 +26,6 @@ if ! CHECK_NOPASSWD; then
   (SOURCE_RCFILE $ZDOTDIR/.zpackages > /dev/null 2>&1 &)
 fi
 
-
 # Editors
 SOURCE_RCFILE $ZDOTDIR/.zeditor
 
