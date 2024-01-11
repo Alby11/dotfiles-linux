@@ -25,6 +25,7 @@ path=(
   $HOME/{,.}go/{,s}bin(N)
   $HOME/.local/share/bob/nvim-{,s}bin(N)
   /opt/{homebrew,local}/{,s}bin(N)
+  /usr/libexec/openssh/(N)
   /usr/local/{,s}bin(N)
   /opt/dwarfs/{,s}bin(N)
   $path

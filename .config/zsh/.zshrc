@@ -21,13 +21,11 @@ setopt extended_glob
 # SOURCE_RCFILE $ZDOTDIR/.zcompletion.zsh
 
 ### Packages
-if [ ! WHOAMI_HAS_NOPASSWD ]; then
-  echo "whoami doesn't have nopasswd"
-  sudo -k
+if ! CHECK_NOPASSWD; then
   sudo -v
+  (SOURCE_RCFILE $ZDOTDIR/.zpackages > /dev/null 2>&1 &)
 fi
 
-(SOURCE_RCFILE $ZDOTDIR/.zpackages > /dev/null 2>&1 &)
 
 # Editors
 SOURCE_RCFILE $ZDOTDIR/.zeditor

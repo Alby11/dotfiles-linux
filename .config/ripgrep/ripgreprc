@@ -1,5 +1,33 @@
---pretty
---ignore-case
---files
---no-ignore-vcs
+# vim: filetype=ripgreprc
+# Show 1 line of context around each match (the line with the match, plus one line before and after).
+--context=1
+
+# Only print the paths with matched files, not the matched lines.
+# --files
+
+# Follow symbolic links while searching.
+--follow
+
+# Include hidden files and directories in the search.
 --hidden
+
+# Perform case-insensitive searching. If a pattern includes an uppercase letter, it is case-sensitive.
+--ignore-case
+
+# Do not respect version control system (VCS) ignore files (.gitignore, .ignore, etc.).
+--no-ignore-vcs
+
+# Alias for --color=always --heading --line-number, which enables colored output, prints the file heading, and line numbers for matches.
+--pretty
+
+# Override -i/--ignore-case if the search pattern contains an uppercase letter (smart case search).
+--smart-case
+
+# Sort results by file path.
+--sort=path
+
+# Output in a format that is compatible with Vim's built-in grep/search commands.
+--vimgrep
+
+# Print the path with the matched lines.
+# --with-filename

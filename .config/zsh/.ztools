@@ -39,6 +39,24 @@ for cmd in "dnf" "apt"; do
   fi
 done
 
+# Function to check for NOPASSWD privileges
+CHECK_NOPASSWD() {
+    local SUDO_ASKPASS=$(which ssh-askpass)
+    # Run sudo in non-interactive mode to avoid prompting for a password
+    local sudo_output=$(SUDO_ASKPASS=/bin/false sudo -ln 2>/dev/null)
+
+    if [[ $sudo_output == *"(ALL) NOPASSWD: ALL"* ]]; then
+        # The user has NOPASSWD for all commands
+        return 0
+    elif [[ $sudo_output == *"NOPASSWD:"* ]]; then
+        # The user has NOPASSWD for specific commands
+        return 0
+    else
+        # The user does not have NOPASSWD privileges
+        return 1
+    fi
+}
+
 # Function to check if the user has NOPASSWD privileges for a specific command
 WHOAMI_HAS_NOPASSWD() {
     # Check if sudo allows the user to run the command without a password

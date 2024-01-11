@@ -1,4 +1,6 @@
+#!/usr/bin/env zsh
 # vim: filetype=zsh
+
 ECHOCAT ".zpackages - installing vital packages..."
 local i_did_something=0
 #PACKAGE MANAGER
@@ -37,6 +39,7 @@ if CHECK_COMMANDS dnf > /dev/null && ! CHECK_COMMANDS apt > /dev/null; then
     "nodejs-npm"
     "openssh-askpass"
     "openssl"
+    "openssl-devel"
     "perl"
     "pkgconf-pkg-config"
     "polkit"
@@ -75,6 +78,7 @@ elif CHECK_COMMANDS apt > /dev/null && ! CHECK_COMMANDS dnf > /dev/null; then
     "gpg"
     "keychain"
     "libnotify-bin"
+    "libssl-dev"
     "lsb-release"
     "luarocks"
     "nodejs"
@@ -97,13 +101,13 @@ fi
 # Install individual packages
 if [[ -n $packages ]]; then
   for package in $packages; do
-    check_install "$package"
+    sudo check_install "$package"
   done
 fi
 # Install package groups (if applicable)
 if [[ -n $package_groups ]]; then
   for package_group in "${package_groups[@]}"; do
-    check_install_group "$package_group"
+    sudo check_install_group "$package_group"
   done
 fi
 # CARGO

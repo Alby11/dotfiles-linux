@@ -26,13 +26,15 @@ export ZDOTDIR="${ZDOTDIR:-$XDG_CONFIG_HOME/zsh}"
 
 [[ -f $ZDOTDIR/.ztools ]] && source $ZDOTDIR/.ztools
 
-echo "\n"
-if [[ IS_LOGIN_SHELL ]]; then
+if [ -z "$SSH_CONNECTION" ]; then
+  echo "\n"
+  if [[ IS_LOGIN_SHELL ]]; then
     ECHOCAT "This is a login shell"
-else
+  else
     ECHOCAT "This is not a login shell"
+  fi
+  echo "\n"
 fi
-echo "\n"
 
 export THE_SHELL="$(echo $SHELL | grep -o '[^\/]*$')"
 
