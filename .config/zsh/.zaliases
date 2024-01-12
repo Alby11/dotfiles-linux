@@ -59,7 +59,7 @@ alias sshnc='ssh -F /dev/null -o PreferredAuthentications=password'
 alias sshni='ssh -o PreferredAuthentications=password'
 alias sshncx='ssh -X -F /dev/null -o PreferredAuthentications=password'
 alias sshnix='ssh -X -o PreferredAuthentications=password'
-alias sshync='echo "Host: " ; read thehost ; sync_home -u $(whoami) -s $thehost ; ssh $thehost'
+alias sshync='echo "Host: "; read thehost; sync_home -u $(whoami) -s $thehost; ssh $thehost'; unset thehost;
 alias mountc='mount | column --table --table-columns --json'
 alias ping="/usr/bin/ping"
 alias sping="/usr/bin/ping -c 5"

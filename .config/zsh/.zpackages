@@ -1,30 +1,32 @@
-#!/usr/bin/env zsh
 # vim: filetype=zsh
 
-ECHOCAT ".zpackages - installing vital packages..."
-local i_did_something=0
+# Function to check for NOPASSWD privileges
+local check_nopasswd() {
+
+    # Use sudo in non-interactive mode to check for NOPASSWD
+    local sudo_output=$(SUDO_ASKPASS=/bin/false sudo -ln 2>/dev/null)
+
+    if [[ $sudo_output == *"(ALL) NOPASSWD: ALL"* ]] || [[ $sudo_output == *"NOPASSWD:"* ]]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+# If the user does not have NOPASSWD privileges, set SUDO_ASKPASS
+if ! check_nopasswd; then
+    export SUDO_ASKPASS=$(which ssh-askpass)
+    sudo -v
+fi
+
 #PACKAGE MANAGER
-# Determine the package manager and declare the appropriate function and packages
-if CHECK_COMMANDS dnf > /dev/null && ! CHECK_COMMANDS apt > /dev/null; then
-  # Function to check and install package for dnf
-  local check_install() {
-    if ! dnf list installed "$1" >/dev/null 2>&1; then
-      echo $?
-      ECHOCAT "$package (pm) is not installed globally. Installing..."
-      i_did_something=1
-      sudo dnf install -y "$1"
-    fi
-  }
-  # Function to check and install package group for dnf
-  local check_install_group() {
-    if ! dnf group list hidden installed | grep -q "$1"; then
-      ECHOCAT "Package group '$1' is not installed globally. Installing..."
-      i_did_something=1
-      sudo dnf groupinstall -y "$1"
-    fi
-  }
+# Check available package managers once and store the result
+[[ $(command -v dnf) ]] && has_dnf=1
+[[ $(command -v apt) ]] && has_apt=1
+[[ $(command -v pacman) ]] && has_pacman=1
+
+if [[ $has_dnf && ! $has_apt ]]; then
   local packages=(
-    "ca-certificates"
     "clang"
     "curl"
     "fzf"
@@ -37,38 +39,25 @@ if CHECK_COMMANDS dnf > /dev/null && ! CHECK_COMMANDS apt > /dev/null; then
     "luarocks"
     "nodejs"
     "nodejs-npm"
-    "openssh-askpass"
-    "openssl"
-    "openssl-devel"
     "perl"
-    "pkgconf-pkg-config"
-    "polkit"
     "python-unversioned-command"
     "python3-pip"
     "shellcheck"
     "shfmt"
     "xclip"
-    # "cargo"
-    # "fd-find"
-    # "ripgrep"
   )
-  local package_groups=(
-    "Development Tools"
-  )
-elif CHECK_COMMANDS apt > /dev/null && ! CHECK_COMMANDS dnf > /dev/null; then
-  # Function to check and install package for apt
-  local check_install() {
-    if ! dpkg -s "$1" >/dev/null 2>&1; then
-      ECHOCAT "$package (pm) is not installed globally. Installing..."
-      i_did_something=1
-      sudo apt update && sudo apt install -y "$1"
-    fi
-  }
+  local package_groups=""
+  sudo dnf install -y "${packages[@]}" 
+  sudo dnf groupinstall -y "${package_groups[@]}"
+elif [[ $has_apt && ! $has_dnf ]]; then
+  # Update package lists only if they are outdated
+  # Example: Check if '/var/lib/apt/periodic/update-success-stamp' is older than a day
+  if [[ $(find /var/lib/apt/periodic/update-success-stamp -mtime +1) ]]; then
+    sudo apt update
+  fi
   local packages=(
     "apt-file"
     "apt-utils"
-    "build-essential"
-    "ca-certificates"
     "clang-format"
     "curl"
     "fzf"
@@ -78,37 +67,18 @@ elif CHECK_COMMANDS apt > /dev/null && ! CHECK_COMMANDS dnf > /dev/null; then
     "gpg"
     "keychain"
     "libnotify-bin"
-    "libssl-dev"
     "lsb-release"
     "luarocks"
     "nodejs"
     "npm"
-    "openssl"
     "perl"
-    "pkg-config"
-    "policykit-1"
     "python-is-python3"
     "python3-pip"
     "shellcheck"
     "shfmt"
-    "ssh-askpass"
     "xclip"
-    # "cargo"
-    # "fd-find"
-    # "ripgrep"
   )
-fi
-# Install individual packages
-if [[ -n $packages ]]; then
-  for package in $packages; do
-    sudo check_install "$package"
-  done
-fi
-# Install package groups (if applicable)
-if [[ -n $package_groups ]]; then
-  for package_group in "${package_groups[@]}"; do
-    sudo check_install_group "$package_group"
-  done
+  sudo apt install -y $packages
 fi
 # CARGO
 if ! CHECK_COMMANDS rustup; then
@@ -125,13 +95,7 @@ packages=(
   "zellij"
   "zoxide"
 )
-for package in $packages; do
-  if ! cargo install --list | grep -qE "^${package} v[0-9]+.[0-9]+.[0-9]+:" >/dev/null 2>&1; then
-    ECHOCAT "$package (cargo) is not installed globally. Installing..."
-    i_did_something=1
-    cargo install $package
-  fi
-done
+cargo install $packages
 # NPM
 packages=(
   "@fsouza/prettierd"
@@ -140,13 +104,15 @@ packages=(
   "neovim"
   "solhint"
 )
-for package in $packages; do
+local -a missing_npm_packages
+for package in $npm_packages; do
   if ! npm list -g "$package" >/dev/null 2>&1; then
-    ECHOCAT "$package (npm) is not installed globally. Installing..."
-    i_did_something=1
-    sudo npm install -g "$package"
+    missing_npm_packages+=("$package")
   fi
 done
+if ((${#missing_npm_packages[@]} > 0)); then
+  sudo npm install -g ${missing_npm_packages[@]}
+fi
 # PIP
 packages=(
   "autoenv"
@@ -158,16 +124,5 @@ packages=(
   "virtualenv"
   "virtualenvwrapper"
 )
-for package in $packages; do
-  if ! python -m pip show "$package" > /dev/null 2>&1; then
-    ECHOCAT "$package (pip) is not installed globally. Installing..."
-    i_did_something=1
-    sudo python -m pip install "$package"
-  fi
-done
-# Avoid re-run this script in subshells
-if [ "$i_did_something" -eq 1 ]; then
-  notify-send "${basename "$0"}: Something has been installed, re-launch the shell..."
-fi
-# Cleanup
-unset package packages package_group package_groups i_did_something check_install check_install_group
+sudo python -m pip install "$packages"
+unset has_apt has_dnf has_pacman packages package_groups check_nopasswd

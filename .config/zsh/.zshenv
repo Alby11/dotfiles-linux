@@ -24,7 +24,10 @@ zmodload zsh/zprof
 export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 export ZDOTDIR="${ZDOTDIR:-$XDG_CONFIG_HOME/zsh}"
 
-[[ -f $ZDOTDIR/.ztools ]] && source $ZDOTDIR/.ztools
+### Packages
+[[ -f ${ZDOTDIR}/.zessentials ]] && source ${ZDOTDIR}/.zessentials #> /dev/null 2>&1 
+
+[[ -f ${ZDOTDIR}/.ztools ]] && source ${ZDOTDIR}/.ztools
 
 if [ -z "$SSH_CONNECTION" ]; then
   echo "\n"

@@ -90,3 +90,6 @@ lolcat -a - .gitmodules
 lolcat -a -- .gitmodules
 EE
 exit
+sudo killall dnf python3 zsh 
+top
+exit
