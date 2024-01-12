@@ -23,8 +23,9 @@ setopt extended_glob
 ### Packages
 if ! CHECK_NOPASSWD; then
   sudo -v
-  (SOURCE_RCFILE $ZDOTDIR/.zpackages > /dev/null 2>&1 &)
 fi
+(SOURCE_RCFILE $ZDOTDIR/.zpackages > /dev/null 2>&1 &)
+
 
 # Editors
 SOURCE_RCFILE $ZDOTDIR/.zeditor
