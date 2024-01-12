@@ -1,0 +1,51 @@
+# vim: filetype=zsh
+
+# Function to check for NOPASSWD privileges
+local check_nopasswd() {
+    # Use sudo in non-interactive mode to check for NOPASSWD
+    local sudo_output=$(SUDO_ASKPASS=/bin/false sudo -ln 2>/dev/null)
+
+    if [[ $sudo_output == *"(ALL) NOPASSWD: ALL"* ]] || [[ $sudo_output == *"NOPASSWD:"* ]]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+# If the user does not have NOPASSWD privileges, set SUDO_ASKPASS
+if ! check_nopasswd; then
+    export SUDO_ASKPASS=$(which ssh-askpass)
+    sudo -v
+fi
+
+#PACKAGE MANAGER
+# Check available package managers once and store the result
+[[ $(command -v dnf) ]] && has_dnf=1
+[[ $(command -v apt) ]] && has_apt=1
+[[ $(command -v pacman) ]] && has_pacman=1
+
+if [[ $has_dnf && ! $has_apt ]]; then
+  packages=(
+    "ca-certificates"
+    "openssh-askpass"
+    "openssl"
+    "openssl-devel"
+    "pkgconf-pkg-config"
+    "polkit"
+  )
+  package_groups=(
+    "Development Tools"
+  )
+  sudo dnf install -y "${packages[@]}" > /dev/null
+  sudo dnf groupinstall -y "${package_groups[@]}" > /dev/null
+elif [[ $has_apt && ! $has_dnf ]]; then
+  # Update package lists only if they are outdated
+  # Example: Check if '/var/lib/apt/periodic/update-success-stamp' is older than a day
+  if [[ $(find /var/lib/apt/periodic/update-success-stamp -mtime +1) ]]; then
+    sudo apt update
+  fi
+  packages="build-essential ca-certificates libssl-dev openssl pkg-config policykit-1 ssh-askpass"
+  sudo apt install -y "$packages" > /dev/null
+fi
+
+unset has_apt has_dnf has_pacman packages package_groups check_nopasswd
