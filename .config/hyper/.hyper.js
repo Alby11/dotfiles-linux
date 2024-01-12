@@ -6,14 +6,14 @@ module.exports = {
   config: {
     // choose either `'stable'` for receiving highly polished,
     // or `'canary'` for less polished but more frequent updates
-    updateChannel: "beta",
+    updateChannel: "canary",
     // default font size in pixels for all tabs
     fontSize: 11,
     // font family with optional fallbacks
     fontFamily:
-      'FiraCode Nerd Font, Menlo, "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
+      '"FiraCode Nerd Font", Menlo, "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
     // default font weight: 'normal' or 'bold'
-    fontWeight: "Retina",
+    fontWeight: "normal",
     // font weight for bold characters: 'normal' or 'bold'
     fontWeightBold: "bold",
     // line height as a relative unit
@@ -75,7 +75,6 @@ module.exports = {
       limeGreen: "#32CD32",
       lightCoral: "#F08080",
     },
-    catppuccinTheme: "Mocha",
     // the shell to run when spawning a new session (i.e. /usr/local/bin/fish)
     // if left empty, your system's login shell will be used by default
     //
@@ -103,7 +102,7 @@ module.exports = {
     // Supported Options:
     //  1. 'SOUND' -> Enables the bell as a sound
     //  2. false: turns off the bell
-    bell: "SOUND",
+    bell: "false",
     // An absolute file path to a sound file on the machine.
     // bellSoundURL: '/path/to/sound/file',
     // if `true` (without backticks and without quotes), selected text will automatically be copied to the clipboard
@@ -122,13 +121,13 @@ module.exports = {
     webGLRenderer: true,
     // keypress required for weblink activation: [ctrl|alt|meta|shift]
     // todo: does not pick up config changes automatically, need to restart terminal :/
-    webLinksActivationKey: "",
+    webLinksActivationKey: "ctrl",
     // if `false` (without backticks and without quotes), Hyper will use ligatures provided by some fonts
-    disableLigatures: true,
+    disableLigatures: false,
     // set to true to disable auto updates
     disableAutoUpdates: false,
     // set to true to enable screen reading apps (like NVDA) to read the contents of the terminal
-    screenReaderMode: false,
+    screenReaderMode: true,
     // set to true to preserve working directory when creating splits or tabs
     preserveCWD: true,
     // for advanced config flags please refer to https://hyper.is/#cfg
@@ -139,7 +138,19 @@ module.exports = {
   //   `hyperpower`
   //   `@company/project`
   //   `project#1.0.1`
-  plugins: ["hypurr#latest"],
+  plugins: [
+    "hypurr#latest",
+    "hyper-active-tab",
+    "hyper-pane",
+    "hyperpower",
+    "hyper-search",
+    "hyper-shellect",
+    "hyper-fading-scrollbar",
+    "hyper-opacity",
+    "hyper-savetext",
+    "hyper-launch-menu",
+    "hyper-tabs-enhanced",
+  ],
   // in development, you can create a directory under
   // `~/.hyper_plugins/local/` and include it here
   // to load it and avoid it being `npm install`ed
@@ -147,6 +158,15 @@ module.exports = {
   keymaps: {
     // Example
     // 'window:devtools': 'cmd+alt+o',
+  },
+  //     "hyper-opacity" plugin
+  opacity: {
+    focus: 0.6,
+    blur: 0.3,
+  },
+  catppuccinTheme: "Mocha",
+  shells: {
+    detectShells: true,
   },
 };
 //# sourceMappingURL=config-default.js.map
