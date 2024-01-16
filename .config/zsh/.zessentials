@@ -44,7 +44,15 @@ elif [[ $has_apt && ! $has_dnf ]]; then
   if [[ $(find /var/lib/apt/periodic/update-success-stamp -mtime +1) ]]; then
     sudo apt update
   fi
-  packages="build-essential ca-certificates libssl-dev openssl pkg-config policykit-1 ssh-askpass"
+  packages={
+    "build-essential"
+    "ca-certificates"
+    "libssl-dev"
+    "openssl"
+    "pkg-config"
+    "policykit-1"
+    "ssh-askpass"
+  }
   sudo apt install -y "$packages" > /dev/null
 fi
 

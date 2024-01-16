@@ -27,6 +27,7 @@ fi
 
 if [[ $has_dnf && ! $has_apt ]]; then
   local packages=(
+    "ccze"
     "clang"
     "curl"
     "fzf"
@@ -59,6 +60,7 @@ elif [[ $has_apt && ! $has_dnf ]]; then
   local packages=(
     "apt-file"
     "apt-utils"
+    "ccze"
     "clang-format"
     "curl"
     "fzf"

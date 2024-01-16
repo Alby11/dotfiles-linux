@@ -69,7 +69,6 @@ if command -v grc &>/dev/null; then
   alias nmap="grc nmap"
   alias ping="grc ping"
   alias ps='sudo grc ps'
-  alias rsync='grc rsync'
   alias ss="sudo grc ss"
   alias systemctl="sudo grc systemctl"
 else
@@ -77,6 +76,9 @@ else
   alias ps='sudo ps'
   alias ss="sudo ss"
   alias systemctl="sudo systemctl"
+fi
+if command -v ccze &>/dev/null; then
+  alias -g CC=' | ccze -A'
 fi
 alias fping="ping -c 5"
 alias neta='netstat -pouenta '
