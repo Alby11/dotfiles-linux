@@ -61,12 +61,20 @@ alias sshncx='ssh -X -F /dev/null -o PreferredAuthentications=password'
 alias sshnix='ssh -X -o PreferredAuthentications=password'
 alias sshync='echo "Host: "; read thehost; sync_home -u $(whoami) -s $thehost; ssh $thehost'; unset thehost;
 alias mountc='mount | column --table --table-columns --json'
-alias ping="/usr/bin/ping"
-alias sping="/usr/bin/ping -c 5"
-
-if command -v ss &>/dev/null; then
-    alias ssa='sudo ss -poenta '
+if command -v grc &>/dev/null; then
+  alias ping="grc ping"
+  alias ss="sudo grc ss"
+  alias ps='sudo grc ps'
+  alias netstat="sudo grc netstat"
+else
+  alias ss="sudo ss"
+  alias ps='sudo ps'
+  alias netstat="sudo netstat"
 fi
+alias fping="ping -c 5"
+alias ssa='ss -pouenta '
+alias neta='netstat -pouenta '
+alias psa='ps aux'
 
 if command -v notify-send &>/dev/null; then
   # Credits to: https://gist.github.com/Feniksovich

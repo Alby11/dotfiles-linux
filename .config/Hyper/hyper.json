@@ -1,7 +1,7 @@
 {
   "$schema": "./schema.json",
   "config": {
-    "updateChannel": "canary",
+    "updateChannel": "stable",
     "fontSize": 11,
     "fontFamily": "\"FiraCode Nerd Font\", Menlo, \"DejaVu Sans Mono\", Consolas, \"Lucida Console\", monospace",
     "fontWeight": "normal",
@@ -72,6 +72,7 @@
     ]
   },
   "plugins": [
+    "hypurr#latest",
     "hyper-active-tab",
     "hyper-pane",
     "hyperpower",
