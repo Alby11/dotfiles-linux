@@ -62,19 +62,26 @@ alias sshnix='ssh -X -o PreferredAuthentications=password'
 alias sshync='echo "Host: "; read thehost; sync_home -u $(whoami) -s $thehost; ssh $thehost'; unset thehost;
 alias mountc='mount | column --table --table-columns --json'
 if command -v grc &>/dev/null; then
-  alias ping="grc ping"
-  alias ss="sudo grc ss"
-  alias ps='sudo grc ps'
+  alias dig="grc dig"
+  alias ip="grc ip"
+  alias ncat="grc ncat"
   alias netstat="sudo grc netstat"
+  alias nmap="grc nmap"
+  alias ping="grc ping"
+  alias ps='sudo grc ps'
+  alias rsync='grc rsync'
+  alias ss="sudo grc ss"
+  alias systemctl="sudo grc systemctl"
 else
-  alias ss="sudo ss"
-  alias ps='sudo ps'
   alias netstat="sudo netstat"
+  alias ps='sudo ps'
+  alias ss="sudo ss"
+  alias systemctl="sudo systemctl"
 fi
 alias fping="ping -c 5"
-alias ssa='ss -pouenta '
 alias neta='netstat -pouenta '
 alias psa='ps aux'
+alias ssa='ss -pouenta '
 
 if command -v notify-send &>/dev/null; then
   # Credits to: https://gist.github.com/Feniksovich
@@ -89,9 +96,7 @@ fi
 
 if command -v systemctl &>/dev/null; then
     # Basic systemctl commands
-    alias systemctl="sudo systemctl "
-    alias systemctl="sudo systemctl "
-    alias ctl="systemctl "
+    alias ctl="systemctl" 
     alias sctl="/bin/systemctl"
     # Daemons reload
     alias ctldr="systemctl daemon-reload"
