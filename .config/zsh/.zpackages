@@ -91,6 +91,7 @@ packages=(
   "eza"
   "fd-find"
   "gitui"
+  "grc-rs"
   "lolcrab"
   "ripgrep"
   "vivid"
