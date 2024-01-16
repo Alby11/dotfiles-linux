@@ -53,7 +53,7 @@ elif [[ $has_apt && ! $has_dnf ]]; then
     "policykit-1"
     "ssh-askpass"
   )
-  sudo apt install -y "$packages" > /dev/null
+  sudo apt install -y "${packages[@]}" > /dev/null
 fi
 
 unset has_apt has_dnf has_pacman packages package_groups check_nopasswd
