@@ -233,12 +233,27 @@ elif command -v fdfind &>/dev/null; then
 fi
 
 if command -v eza &>/dev/null; then
-  alias ola='/bin/ls -lahi --color=always '
+  alias ola='/bin/ls -lahi --color=auto '
   alias ols='/bin/ls --color=auto '
-  alias ls="eza --icons --colour-scale --git --group-directories-first "
-  alias ll="eza -lg --icons --colour-scale --git --group-directories-first "
-  alias la="eza -aglm --icons --colour-scale --git --group-directories-first "
-  alias lt="eza -L 2 --icons --colour-scale --tree --git-ignore --group-directories-first "
+  alias ls="eza \
+    --icons \
+    --color=auto \
+    --color-scale=all \
+    --color-scale-mode=fixed \
+    --git \
+    --git-repos \
+    --group-directories-first"
+  alias ll="ls \
+    --long \
+    --group \
+    --time-style iso \
+    --modified"
+  alias llt="ll \
+    --sort=newest"
+  alias la="ll \
+    --all"
+  alias lat="la \
+    --sort=newest"
 else
   alias la="/bin/ls -lAh --color=always"
 fi
