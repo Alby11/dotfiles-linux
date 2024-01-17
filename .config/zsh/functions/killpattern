@@ -1,0 +1,6 @@
+#vim: filetype=zsh
+
+killpattern() {
+  pkill -f $1
+}
+

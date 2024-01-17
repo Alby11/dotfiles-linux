@@ -1,0 +1,6 @@
+#vim: filetype=zsh
+
+listuserprocs() {
+  ps -u $1 -o pid,cmd
+}
+
