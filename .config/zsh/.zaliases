@@ -658,3 +658,8 @@ alias gdup='git -c color.ui=false diff @{upstream}'
 alias gdw='git -c color.ui=false diff --word--c color.ui=false diff'
 alias gmtlvim='git mergetool --no-prompt --tool=nvim'
 ### end of Git block
+
+alias killuser='function _ku(){ pkill -u $1; }; _ku'
+alias logoutuser='function _lu(){ pkill -KILL -u $1; }; _lu'
+
+
