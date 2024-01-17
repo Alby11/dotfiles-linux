@@ -236,18 +236,19 @@ if command -v eza &>/dev/null; then
   alias ola='/bin/ls -lahi --color=auto '
   alias ols='/bin/ls --color=auto '
   alias ls="eza \
-    --icons \
-    --color=auto \
-    --color-scale=all \
     --color-scale-mode=fixed \
+    --color-scale=all \
+    --color=auto \
     --git \
     --git-repos \
-    --group-directories-first"
+    --group-directories-first \
+    --icons \
+    --mounts"
   alias ll="ls \
-    --long \
     --group \
-    --time-style iso \
-    --modified"
+    --long \
+    --modified \
+    --time-style iso"
   alias llt="ll \
     --sort=newest"
   alias la="ll \
@@ -255,7 +256,7 @@ if command -v eza &>/dev/null; then
   alias lat="la \
     --sort=newest"
 else
-  alias la="/bin/ls -lAh --color=always"
+  alias la="/bin/ls -lAhi --color=auto"
 fi
 
 if command -v git &>/dev/null; then
