@@ -177,11 +177,12 @@ fi
 
 if command -v tmux &>/dev/null; then
     alias T='tmux '
-    alias tls='tmux ls '
+    alias tS='tmux kill-server'
     alias ta='tmux attach -t '
+    alias tk='tmux kill-session -t '
+    alias tls='tmux ls '
     alias tn='tmux new -s '
     alias trs='tmux rename-session -t '
-    alias tk='tmux kill-session -t '
 fi
 
 if CHECK_COMMANDS "zellij"; then
