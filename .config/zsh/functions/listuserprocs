@@ -1,4 +1,15 @@
-#vim: filetype=zsh
+# vim: filetype=zsh
+
+listuserprocs() {
+  if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+    echo "Usage: listuserprocs USERNAME"
+    echo "Lists processes belonging to the specified user."
+    return
+  fi
+
+  ps -u $1 -o pid,cmd
+}
+
 
 listuserprocs() {
   ps -u $1 -o pid,cmd
