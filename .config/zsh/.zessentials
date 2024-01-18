@@ -39,10 +39,12 @@ if [[ $has_dnf && ! $has_apt ]]; then
   sudo dnf install -y "${packages[@]}" > /dev/null
   sudo dnf groupinstall -y "${package_groups[@]}" > /dev/null
 elif [[ $has_apt && ! $has_dnf ]]; then
+  # This tells debconf to use the noninteractive frontend, which doesn't ask any questions
+  export DEBIAN_FRONTEND=noninteractive
   # Update package lists only if they are outdated
   # Example: Check if '/var/lib/apt/periodic/update-success-stamp' is older than a day
   if [[ $(find /var/lib/apt/periodic/update-success-stamp -mtime +1) ]]; then
-    sudo apt update
+    sudo apt-get update
   fi
   packages=(
     "build-essential"
@@ -53,7 +55,9 @@ elif [[ $has_apt && ! $has_dnf ]]; then
     "policykit-1"
     "ssh-askpass"
   )
-  sudo apt install -y "${packages[@]}" > /dev/null
+  sudo apt-get install -y "${packages[@]}" > /dev/null
+  # unset the DEBIAN_FRONTEND variable to avoid potential unintended consequences in future operations
+  unset DEBIAN_FRONTEND
 fi
 
 unset has_apt has_dnf has_pacman packages package_groups check_nopasswd

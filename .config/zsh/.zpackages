@@ -52,10 +52,12 @@ if [[ $has_dnf && ! $has_apt ]]; then
   sudo dnf install -y "${packages[@]}" 
   sudo dnf groupinstall -y "${package_groups[@]}"
 elif [[ $has_apt && ! $has_dnf ]]; then
+  # This tells debconf to use the noninteractive frontend, which doesn't ask any questions
+  export DEBIAN_FRONTEND=noninteractive
   # Update package lists only if they are outdated
   # Example: Check if '/var/lib/apt/periodic/update-success-stamp' is older than a day
   if [[ $(find /var/lib/apt/periodic/update-success-stamp -mtime +1) ]]; then
-    sudo apt update
+    sudo apt-get update
   fi
   local packages=(
     "apt-file"
@@ -82,7 +84,9 @@ elif [[ $has_apt && ! $has_dnf ]]; then
     "shfmt"
     "xclip"
   )
-  sudo apt install -y $packages
+  sudo apt-get install -y "${packages[@]}" 
+  # unset the DEBIAN_FRONTEND variable to avoid potential unintended consequences in future operations
+  unset DEBIAN_FRONTEND
 fi
 # CARGO
 if ! CHECK_COMMANDS rustup; then
@@ -97,10 +101,11 @@ packages=(
   "lolcrab"
   "ripgrep"
   "vivid"
-  "zellij"
+  # "zellij"
   "zoxide"
 )
-cargo install $packages
+cargo install "${packages[@]}"
+ 
 # NPM
 packages=(
   "@fsouza/prettierd"
@@ -129,5 +134,7 @@ packages=(
   "virtualenv"
   "virtualenvwrapper"
 )
-sudo python -m pip install "$packages"
+sudo python -m pip install "${packages[@]}"
+
+ 
 unset has_apt has_dnf has_pacman packages package_groups check_nopasswd
