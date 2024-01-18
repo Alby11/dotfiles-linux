@@ -46,7 +46,9 @@ if [[ $has_dnf && ! $has_apt ]]; then
     "python3-pip"
     "shellcheck"
     "shfmt"
+    "wl-clipboard"
     "xclip"
+    "xsel"
   )
   local package_groups=""
   sudo dnf install -y "${packages[@]}" 
@@ -82,7 +84,9 @@ elif [[ $has_apt && ! $has_dnf ]]; then
     "python3-pip"
     "shellcheck"
     "shfmt"
+    "wl-clipboard"
     "xclip"
+    'xsel'
   )
   sudo apt-get install -y "${packages[@]}" 
   # unset the DEBIAN_FRONTEND variable to avoid potential unintended consequences in future operations
