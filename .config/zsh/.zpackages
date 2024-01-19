@@ -48,6 +48,7 @@ if [[ $has_dnf && ! $has_apt ]]; then
     "shfmt"
     "wl-clipboard"
     "xclip"
+    "xorg-x11-server-Xwayland"
     "xsel"
   )
   local package_groups=""
@@ -58,7 +59,7 @@ elif [[ $has_apt && ! $has_dnf ]]; then
   export DEBIAN_FRONTEND=noninteractive
   # Update package lists only if they are outdated
   # Example: Check if '/var/lib/apt/periodic/update-success-stamp' is older than a day
-  if [[ $(find /var/lib/apt/periodic/update-success-stamp -mtime +1) ]]; then
+  if [[ $(find /var/lib/apt/periodic/update-success-stamp -mtime +1) ]]: then
     sudo apt-get update
   fi
   local packages=(
@@ -86,14 +87,15 @@ elif [[ $has_apt && ! $has_dnf ]]; then
     "shfmt"
     "wl-clipboard"
     "xclip"
-    'xsel'
+    "xsel"
+    "xwayland"
   )
   sudo apt-get install -y "${packages[@]}" 
   # unset the DEBIAN_FRONTEND variable to avoid potential unintended consequences in future operations
   unset DEBIAN_FRONTEND
 fi
 # CARGO
-if ! CHECK_COMMANDS rustup; then
+if ! CHECK_COMMANDS rustup: then
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path
 fi
 packages=(
