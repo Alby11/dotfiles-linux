@@ -1,28 +1,25 @@
 # vim: filetype=zsh
-
 function unmount_share() {
-    if [[ $1 == "-h" ]]; then
-        echo "Usage: unmount_share"
+    if [[ $1 == "-h" || -z $1 ]]; then
+        echo "Usage: unmount_share <server_share>"
         echo "Unmounts a previously mounted network share."
         return
     fi
 
-    local mount_point
-    # local FZF_DEFAULT_OPTS_SAVE=$FZF_DEFAULT_OPTS
-    local FZF_DEFAULT_OPTS="--color=bw"
-    mount_point=$(/usr/bin/ls $HOME/mnt | fzf --no-color)
-    # mount_point=$(/usr/bin/ls $HOME/mnt)
-    # mount_point=$(/usr/bin/ls /home/$USER/mnt | fzf --no-color)
-    # mount_point=$(/usr/bin/ls /home/$USER/mnt)
-    # FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS_SAVE
-    # unset $FZF_DEFAULT_OPTS_SAVE
-    mount_point=$(echo "$HOME/mnt/$mount_point")
-    echo "Unmounting: $mount_point"
-    if [[ -n $mount_point ]]; then
-        sudo fusermount -u "${mount_point}/${mount_point}_dst"
-        sudo umount "${mount_point}/${mount_point}_src"
-        rmdir  "${mount_point}/${mount_point}_dst"
-        rmdir  "${mount_point}/${mount_point}_src"
-        rmdir "${mount_point}"
+    local server_share=$1
+    local server="${server_share%%_*}"
+    local share="${server_share##*_}"
+
+    local mount_point_host="${HOME}/mnt/${server}"
+    local mount_point_ro="${mount_point_host}/.${server}_${share}"
+    local mount_point_rw="${mount_point_host}/${server}_${share}"
+
+    echo "Unmounting: ${mount_point_rw}"
+    sudo fusermount -u "${mount_point_rw}"
+    sudo umount "${mount_point_ro}"
+    rmdir "${mount_point_rw}"
+    rmdir "${mount_point_ro}"
+    if [ $(ls -1A "${mount_point_host}" | wc -l) -eq 0 ]; then
+        rmdir "${mount_point_host}"
     fi
 }

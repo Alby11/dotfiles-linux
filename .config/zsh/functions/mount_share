@@ -29,29 +29,30 @@ function mount_share() {
 
     if [[ -n $server && -n $share ]]; then
         # Create a mount point named as "server_share"
-        local mount_point="/home/$USER/mnt/${server}_${share}"
-        mkdir -p "$mount_point"
+        local mount_point_host="${HOME}/mnt/${server}"
+        local mount_point_ro="${HOME}/mnt/${server}/.${server}_${share}"
+        local mount_point_rw="${HOME}/mnt/${server}/${server}_${share}"
+        mkdir -p "${mount_point_host}" 
+        mkdir -p "${mount_point_ro}" 
+        mkdir -p "${mount_point_rw}" 
         
         if [[ $protocol == "samba" || $protocol == "cifs" ]]; then
-            mkdir -p "${mount_point}/${mount_point}_src" 
-            mkdir -p "${mount_point}/${mount_point}_dst" 
             if [[ -n $domain ]]; then
-                # sudo mount -t cifs "//$server/$share" "$mount_point" -o rw,username=$username,domain=$domain
-                sudo mount.cifs "//$server/$share" "${mount_point}/src" -o user=$username,dom=$domain
+                sudo mount.cifs "//$server/$share" "${mount_point_ro}" -o user=$username,dom=$domain
             else
-                # sudo mount -t cifs "//$server/$share" "$mount_point" -o rw,username=$username
-                sudo mount.cifs "//$server/$share" "${mount_point}/src" -o user=$username
+                sudo mount.cifs "//$server/$share" "${mount_point_ro}" -o user=$username
             fi
-            # sudo bindfs --map=$username/$(whoami) "${mount_point}/src" "${mount_point}/dst"
-            sudo bindfs --map=root/$(whoami) "${mount_point}/src" "${mount_point}/dst"
+            sudo bindfs --map=root/$(whoami) "${mount_point_ro}" "${mount_point_rw}"
         elif [[ $protocol == "nfs" ]]; then
-            sudo mount -t nfs "$server:$share" "$mount_point"
+            sudo mount -t nfs "${server}:${share}" "${mount_point_rw}"
         fi
 
         if [[ $? -ne 0 ]]; then
-            rmdir  "${mount_point}/${mount_point}_dst"
-            rmdir  "${mount_point}/${mount_point}_src"
-            rmdir  "${mount_point}"
+          rmdir  "${mount_point_rw}"
+          rmdir  "${mount_point_ro}"
+          if [ $(ls -1A ${mount_point_host} | wc -l) -eq 0 ]; then
+             rmdir  "${mount_point_host}" 
+          fi
         fi
     else
         echo "Usage: mount_network_share -s [server] -r [share] -u [username] -d [domain] -p [protocol]"

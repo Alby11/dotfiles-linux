@@ -40,6 +40,7 @@ then
   alias bwatch='batwatch '
 fi
 
+alias SzAC='autoload -Uz compinit && compinit'
 alias C="clear"
 alias EE='exit'
 alias Sb="source ~/.bashrc"
@@ -60,7 +61,13 @@ alias sshni='ssh -o PreferredAuthentications=password'
 alias sshncx='ssh -X -F /dev/null -o PreferredAuthentications=password'
 alias sshnix='ssh -X -o PreferredAuthentications=password'
 alias sshync='echo "Host: "; read thehost; sync_home -u $(whoami) -s $thehost; ssh $thehost'; unset thehost;
-alias mountc='mount | column --table --table-columns --json'
+alias mount='sudo mount'
+alias umount='sudo umount'
+alias fusermount='sudo fusermount'
+alias fmount='sudo fusermount'
+alias fumount='sudo fusermount'
+alias mountc='sudo mount | column --table --table-columns=mountpoint,on,mount,type,typename,options'
+alias mountj='sudo mount | column --table --table-columns=mountpoint,on,mount,type,typename,options --json'
 if command -v grc &>/dev/null; then
   alias dig="grc dig"
   alias ip="grc ip"
@@ -70,12 +77,62 @@ if command -v grc &>/dev/null; then
   alias ping="grc ping"
   alias ps='sudo grc ps'
   alias ss="sudo grc ss"
-  alias systemctl="sudo grc systemctl"
+  if command -v systemctl &>/dev/null; then
+    # Basic systemctl commands
+    alias systemctl="sudo grc systemctl"
+    alias ctl="sudo grc systemctl" 
+    alias sctl="sudo grc /bin/systemctl"
+    # Daemons reload
+    alias ctldr="sudo grc systemctl daemon-reload"
+    # Credits to: https://gist.github.com/Feniksovich
+    alias ctlsp="sudo grc systemctl stop "
+    alias ctlst="sudo grc systemctl start "
+    alias ctlrt="sudo grc systemctl restart "
+    alias ctlrl="sudo grc systemctl reload "
+    alias ctls="sudo grc systemctl status "
+    # Enable/Disable commands for units
+    alias ctle='sudo grc systemctl enable '
+    alias ctld='sudo grc systemctl disable '
+    # Masking Units to disabling them
+    alias ctlmask='sudo grc systemctl mask '
+    alias ctlunmask='sudo grc systemctl unmask '
+    # List failed units and reset sudo grc systemd system status
+    alias ctlfailed='sudo grc systemctl --failed --all '
+    alias ctlrf='sudo grc systemctl reset-failed '
+    # List units
+    alias ctllu='sudo grc systemctl list-units '
+    alias ctllus='sudo grc systemctl list-units --type=service'
+  fi 
 else
   alias netstat="sudo netstat"
   alias ps='sudo ps'
   alias ss="sudo ss"
-  alias systemctl="sudo systemctl"
+  if command -v systemctl &>/dev/null; then
+    # Basic systemctl commands
+    alias systemctl="sudo systemctl"
+    alias ctl="sudo systemctl" 
+    alias sctl="sudo /bin/systemctl"
+    # Daemons reload
+    alias ctldr="sudo systemctl daemon-reload"
+    # Credits to: https://gist.github.com/Feniksovich
+    alias ctlsp="sudo systemctl stop "
+    alias ctlst="sudo systemctl start "
+    alias ctlrt="sudo systemctl restart "
+    alias ctlrl="sudo systemctl reload "
+    alias ctls="sudo systemctl status "
+    # Enable/Disable commands for units
+    alias ctle='sudo systemctl enable '
+    alias ctld='sudo systemctl disable '
+    # Masking Units to disabling them
+    alias ctlmask='sudo systemctl mask '
+    alias ctlunmask='sudo systemctl unmask '
+    # List failed units and reset sudo systemd system status
+    alias ctlfailed='sudo systemctl --failed --all '
+    alias ctlrf='sudo systemctl reset-failed '
+    # List units
+    alias ctllu='sudo systemctl list-units '
+    alias ctllus='sudo systemctl list-units --type=service'
+  fi
 fi
 if command -v ccze &>/dev/null; then
   alias -g CC=' | ccze -A'
@@ -94,32 +151,6 @@ if command -v notify-send &>/dev/null; then
   echo error)" "$(history|tail -n1 | \
     sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"' \
     ;
-fi
-
-if command -v systemctl &>/dev/null; then
-    # Basic systemctl commands
-    alias ctl="systemctl" 
-    alias sctl="/bin/systemctl"
-    # Daemons reload
-    alias ctldr="systemctl daemon-reload"
-    # Credits to: https://gist.github.com/Feniksovich
-    alias ctlsp="systemctl stop "
-    alias ctlst="systemctl start "
-    alias ctlrt="systemctl restart "
-    alias ctlrl="systemctl reload "
-    alias ctls="systemctl status "
-    # Enable/Disable commands for units
-    alias ctle='systemctl enable '
-    alias ctld='systemctl disable '
-    # Masking Units to disabling them
-    alias ctlmask='systemctl mask '
-    alias ctlunmask='systemctl unmask '
-    # List failed units and reset systemd system status
-    alias ctlfailed='systemctl --failed --all '
-    alias ctlrf='systemctl reset-failed '
-    # List units
-    alias ctllu='systemctl list-units '
-    alias ctllus='systemctl list-units --type=service'
 fi
 
 if command -v iptables &>/dev/null; then

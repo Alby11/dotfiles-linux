@@ -1,13 +1,20 @@
-# Autocomplete function for unmount_share function.
-function _unmount_share() {
-  local cur prev opts base dir_list
-  COMPREPLY=()
-  cur="${COMP_WORDS[COMP_CWORD]}"
-  
-  # Autocomplete for directories in /home/user/mnt.
-  dir_list=$(ls /home/$USER/mnt)
-  COMPREPLY=( $(compgen -W "${dir_list}" -- ${cur}) )
-  
-  return 0
+#compdef unmount_share
+
+_unmount_share() {
+    local -a mount_points
+    local cur
+
+    cur="${words[CURRENT]}"
+
+    # Generate the list of server_share options
+    mount_points=(${(M)${(f)"$(ls -d ${HOME}/mnt/*/*)"}##${HOME}/mnt/*/(*)_}:t)
+
+    # Apply completion
+    if (( ${#mount_points} )); then
+        _describe 'server_share' mount_points -- $cur
+    else
+        _message 'no mounted shares to unmount'
+    fi
 }
-complete -F _unmount_share unmount_share
+
+_unmount_share
