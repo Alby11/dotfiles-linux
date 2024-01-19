@@ -33,8 +33,8 @@ function mount_share() {
         mkdir -p "$mount_point"
         
         if [[ $protocol == "samba" || $protocol == "cifs" ]]; then
-            mkdir -p "${mount_point}/src" 
-            mkdir -p "${mount_point}/dst" 
+            mkdir -p "${mount_point}/${mount_point}_src" 
+            mkdir -p "${mount_point}/${mount_point}_dst" 
             if [[ -n $domain ]]; then
                 # sudo mount -t cifs "//$server/$share" "$mount_point" -o rw,username=$username,domain=$domain
                 sudo mount.cifs "//$server/$share" "${mount_point}/src" -o user=$username,dom=$domain
@@ -49,8 +49,8 @@ function mount_share() {
         fi
 
         if [[ $? -ne 0 ]]; then
-            rmdir  "${mount_point}/dst"
-            rmdir  "${mount_point}/src"
+            rmdir  "${mount_point}/${mount_point}_dst"
+            rmdir  "${mount_point}/${mount_point}_src"
             rmdir  "${mount_point}"
         fi
     else
