@@ -3,6 +3,11 @@ function unmount_share() {
     if [[ $1 == "-h" || -z $1 ]]; then
         echo "Usage: unmount_share <server_share>"
         echo "Unmounts a previously mounted network share."
+        if [[ -z $1 ]]; then
+          for server in $(ls ${HOME}/mnt); do
+            ls $server
+          done
+        fi
         return
     fi
 
