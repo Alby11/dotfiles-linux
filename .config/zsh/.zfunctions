@@ -1,4 +1,4 @@
-#!/bin/env zsh
+# vim: filetype=zsh
 
 #
 # .zfunctions.zsh - Set whatever shell functions you want.
@@ -7,9 +7,17 @@
 ECHOCAT '.zfunctions.zsh - Set whatever shell functions you want.'
 
 hping() {
+  if command -v grc &>/dev/null
+    ping -c 3 -s 2 "$1"
+    return
+  fi
   ping -c 3 -s 2 "$1"
 }
 fping() {
+  if command -v grc &>/dev/null
+    grc ping -c 20 -s 2 "$1"
+    return
+  fi
   ping -c 20 -s 2 "$1"
 }
 chx() {

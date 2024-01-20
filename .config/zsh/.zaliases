@@ -75,6 +75,7 @@ if command -v grc &>/dev/null; then
   alias netstat="sudo grc netstat"
   alias nmap="grc nmap"
   alias ping="grc ping"
+  alias traceroute="grc traceroute"
   alias ps='sudo grc ps'
   alias ss="sudo grc ss"
   if command -v systemctl &>/dev/null; then
@@ -137,7 +138,6 @@ fi
 if command -v ccze &>/dev/null; then
   alias -g CC=' | ccze -A'
 fi
-alias fping="ping -c 5"
 alias neta='netstat -pouenta '
 alias psa='ps aux'
 alias ssa='ss -pouenta '
