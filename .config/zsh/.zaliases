@@ -80,29 +80,29 @@ if command -v grc &>/dev/null; then
   alias ss="sudo grc ss"
   if command -v systemctl &>/dev/null; then
     # Basic systemctl commands
-    alias systemctl="sudo grc systemctl"
-    alias ctl="sudo grc systemctl" 
-    alias sctl="sudo grc /bin/systemctl"
+    alias systemctl="sudo systemctl"
+    alias ctl="sudo systemctl" 
+    alias sctl="sudo /bin/systemctl"
     # Daemons reload
-    alias ctldr="sudo grc systemctl daemon-reload"
+    alias ctldr="sudo systemctl daemon-reload"
     # Credits to: https://gist.github.com/Feniksovich
-    alias ctlsp="sudo grc systemctl stop "
-    alias ctlst="sudo grc systemctl start "
-    alias ctlrt="sudo grc systemctl restart "
-    alias ctlrl="sudo grc systemctl reload "
-    alias ctls="sudo grc systemctl status "
+    alias ctlsp="sudo systemctl stop "
+    alias ctlst="sudo systemctl start "
+    alias ctlrt="sudo systemctl restart "
+    alias ctlrl="sudo systemctl reload "
+    alias ctls="sudo systemctl status "
     # Enable/Disable commands for units
-    alias ctle='sudo grc systemctl enable '
-    alias ctld='sudo grc systemctl disable '
+    alias ctle='sudo systemctl enable '
+    alias ctld='sudo systemctl disable '
     # Masking Units to disabling them
-    alias ctlmask='sudo grc systemctl mask '
-    alias ctlunmask='sudo grc systemctl unmask '
-    # List failed units and reset sudo grc systemd system status
-    alias ctlfailed='sudo grc systemctl --failed --all '
-    alias ctlrf='sudo grc systemctl reset-failed '
+    alias ctlmask='sudo systemctl mask '
+    alias ctlunmask='sudo systemctl unmask '
+    # List failed units and reset sudo systemd system status
+    alias ctlfailed='sudo systemctl --failed --all '
+    alias ctlrf='sudo systemctl reset-failed '
     # List units
-    alias ctllu='sudo grc systemctl list-units '
-    alias ctllus='sudo grc systemctl list-units --type=service'
+    alias ctllu='sudo systemctl list-units '
+    alias ctllus='sudo systemctl list-units --type=service'
   fi 
 else
   alias netstat="sudo netstat"
