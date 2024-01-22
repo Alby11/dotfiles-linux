@@ -32,6 +32,7 @@ if [[ $has_dnf && ! $has_apt ]]; then
     "openssl-devel"
     "pkgconf-pkg-config"
     "polkit"
+    "readlink"
   )
   package_groups=(
     "Development Tools"
@@ -49,6 +50,7 @@ elif [[ $has_apt && ! $has_dnf ]]; then
   packages=(
     "build-essential"
     "ca-certificates"
+    "coreutils"
     "libssl-dev"
     "openssl"
     "pkg-config"

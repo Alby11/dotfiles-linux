@@ -283,11 +283,11 @@ if command -v eza &>/dev/null; then
     --long \
     --modified \
     --time-style iso"
-  alias llt="ll \
+  alias lln="ll \
     --sort=newest"
   alias la="ll \
     --all"
-  alias lat="la \
+  alias lan="la \
     --sort=newest"
 else
   alias la="/bin/ls -lAhi --color=auto"
@@ -311,6 +311,8 @@ if command -v minikube &>/dev/null; then
 fi
 
 if command -v docker &>/dev/null; then
+    alias dkb='docker build'
+    alias dkbt='docker build --tag'
     alias dkc='docker container'
     alias dkci='docker container inspect'
     alias dkcls='docker container ls'
@@ -342,6 +344,8 @@ if command -v docker &>/dev/null; then
     alias dknls='docker network ls'
     alias dkout='docker logout'
     alias dkps='docker ps'
+    alias dkr='docker run'
+    alias dkrit='docker run --interactive --tty'
     alias dks='docker service'
     alias dksi='docker service inspect'
     alias dksl='docker service logs'
