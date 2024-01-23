@@ -37,6 +37,9 @@ SOURCE_RCFILE ${ZDOTDIR:-$HOME}/.zstyles
 # Xresources
 SOURCE_RCFILE $ZDOTDIR/.zxresources.zsh
 
+# garabik/grc
+[[ -s "/etc/grc.zsh" ]] && source /etc/grc.zsh
+
 # Create an amazing Zsh config using antidote plugins.
 # Set the path to the Oh My Zsh installation directory
 if ! [[ -d ${ZDOTDIR:-~}/.antidote ]]; then
