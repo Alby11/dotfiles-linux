@@ -1,0 +1,7 @@
+# vim: filetype=zsh
+
+# Creditst to Jeremy "Jay" LaCroix
+# <https://www.learnlinux.tv/10-linux-terminal-tips-and-tricks-to-enhance-your-workflow/
+wth() {
+  curl -m 10 "https://wttr.in/${1}" 2>/dev/null || printf '%s\n' "[ERROR] Something broke"
+}

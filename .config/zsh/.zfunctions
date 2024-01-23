@@ -6,32 +6,6 @@
 
 ECHOCAT '.zfunctions.zsh - Set whatever shell functions you want.'
 
-hping() {
-  if command -v grc &>/dev/null
-    ping -c 3 -s 2 "$1"
-    return
-  fi
-  ping -c 3 -s 2 "$1"
-}
-fping() {
-  if command -v grc &>/dev/null
-    grc ping -c 20 -s 2 "$1"
-    return
-  fi
-  ping -c 20 -s 2 "$1"
-}
-chx() {
-  chmod +x "$1"
-}
-chxr() {
-  chmod -R +x "$1"
-}
-hg() {
-  history | grep "$1" # +command
-}
-psa() {
-  sudo ps -aux
-}
 if command -v systemctl &>/dev/null; then
     # Basic systemctl commands
     # Daemons reload
@@ -101,17 +75,6 @@ if command -v systemctl &>/dev/null; then
     complete -F _ctlact ctlact
 fi
 ### End of ctlact block
-if command -v fwupdmgr &>/dev/null; then
-    fwcheck() {
-        sudo fwupdmgr refresh --force
-        sudo fwupdmgr get-updates
-    }
-fi
-if command -v git &>/dev/null; then
-    function dotfiles {
-        git --git-dir="$HOME"/.dotfiles_git/ --work-tree="$HOME" "$@"
-    }
-fi
 installKubectl() {
     curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
     curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
@@ -147,13 +110,6 @@ if [[ $(command -v flatpak) ]]; then
             flatpak run com.visualstudio.code "$1" &
         }
     fi
-fi
-if command -v curl &>/dev/null; then
-    # Creditst to Jeremy "Jay" LaCroix
-    # <https://www.learnlinux.tv/10-linux-terminal-tips-and-tricks-to-enhance-your-workflow/
-    wth() {
-        curl -m 10 "https://wttr.in/${1}" 2>/dev/null || printf '%s\n' "[ERROR] Something broke"
-    }
 fi
 # This script defines a function named `checkSum` that can be used to verify the
 # checksum of a file using a specified algorithm. The function takes three arguments:
@@ -378,11 +334,4 @@ pip_update() {
 }
 pip_update_user() {
   pip --disable-pip-version-check list --user --outdated --format=json | python -c "import json, sys; print('\n'.join([x['name'] for x in json.load(sys.stdin)]))" | xargs -n1 pip install --user -U
-}
-vmware_scan_new_disk() {
-  for host in /sys/class/scsi_host/*
-  do
-    echo "- - -" | sudo tee $host/scan
-    ls /dev/sd*
-  done
 }

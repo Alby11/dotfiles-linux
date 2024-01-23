@@ -1,55 +1,5 @@
 # vim: filetype=zsh
 
-: '
-convenience functions for setting up or restoring dotfiles bare repo
-to call them, create a Gist and use something like:
----
-$gistURL="https://gist.github.com/Alby11/1843ee8b77631dbd550ab79675fbc27f"
-OUT="$(mktemp)"; wget -q -O - $gistURL > $OUT; . $OUT
-dotfilesRestore [dotfiles repo]
----
-Credits to: Jonathan Bowman
-https://dev.to/bowmanjd/store-home-directory-config-files-dotfiles-in-git-using-bash-zsh-or-powershell-the-bare-repo-approach-35l3
-'
-
-dotDir="$HOME/.dotfiles_git/"
-dotBranch="main"
-
-export function dotfiles () {
-    git --git-dir=$HOME/.dotfiles_git/ --work-tree=$HOME $@
+dotfiles() {
+    git --git-dir="$HOME"/.dotfiles_git/ --work-tree="$HOME" "$@"
 }
-
-dotfiles config --global core.fsmonitor false
-dotfiles config --global credential.helper manager-core
-dotfiles config --global init.default.branch main
-dotfiles config --global core.editor less
-dotfiles config --global core.editor.less.path "$(which less)"
-dotfiles config --global core.editor.less.cmd "less -R"
-dotfiles config --global core.editor nvim
-dotfiles config --global core.editor.nvim.path "$(which nvim)"
-dotfiles config --global core.editor.nvim.cmd "nvim"
-dotfiles config --global diff.tool less
-dotfiles config --global diff.tool.less.path "$(which less)"
-dotfiles config --global diff.tool.less.cmd "less -R \"$local\" \"$remote\""
-dotfiles config --global diff.tool nvim
-dotfiles config --global diff.tool.nvim.path "$(which nvim)"
-dotfiles config --global diff.tool.nvim.cmd "nvim -d \"$local\" \"$remote\""
-dotfiles config --global core.pager less
-dotfiles config --global core.pager.less.path "$(which less)"
-dotfiles config --global core.pager.less.cmd 'less -R'
-dotfiles config --global core.pager nvim
-dotfiles config --global core.pager.nvim.path "$(which nvim)"
-dotfiles config --global core.pager.nvim.cmd "$(which nvim) -c 'Man!' -o -"
-
-# Define the completion function
-_dotfiles() {
-  # Load the completion function for git
-  _git
-  # Call the completion function for git
-  _git "$@"
-}
-# Associate the completion function with the dotfiles and dot command
-# compdef _dotfiles dotfiles
-# compdef _dotfiles dotfiles
-complete -F _dotfiles dot
-complete -F _dotfiles dot
