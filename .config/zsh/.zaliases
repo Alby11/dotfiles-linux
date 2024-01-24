@@ -65,7 +65,7 @@ alias mount='sudo mount'
 alias umount='sudo umount'
 alias fusermount='sudo fusermount'
 alias fmount='sudo fusermount'
-alias fumount='sudo fusermount'
+alias fumount='sudo fusermount -u'
 alias mountc='sudo mount | column --table --table-columns=mountpoint,on,mount,type,typename,options'
 alias mountj='sudo mount | column --table --table-columns=mountpoint,on,mount,type,typename,options --json'
 if command -v grc &>/dev/null; then
