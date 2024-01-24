@@ -130,9 +130,6 @@
 [submodule ".config/bat/syntaxes/sublime-purescript-syntax"]
 	path = .config/bat/syntaxes/sublime-purescript-syntax
 	url = https://github.com/tellnobody1/sublime-purescript-syntax
-[submodule "gitdepot/liquidfiles_unix"]
-	path = gitdepot/liquidfiles_unix
-	url = https://github.com/liquidfiles/liquidfiles_unix.git
 [submodule "gitdepot/multi-monitors-add-on"]
 	path = gitdepot/multi-monitors-add-on
 	url = git@github.com:lazanet/multi-monitors-add-on.git
