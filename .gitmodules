@@ -136,3 +136,6 @@
 [submodule "gitdepot/multi-monitors-add-on"]
 	path = gitdepot/multi-monitors-add-on
 	url = git@github.com:lazanet/multi-monitors-add-on.git
+[submodule "gitdepot/bitwarden_duplicate_cleaner"]
+	path = gitdepot/bitwarden_duplicate_cleaner
+	url = https://gist.github.com/0bf7cd39947764896735997056ca74d7.git
