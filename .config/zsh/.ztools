@@ -177,3 +177,9 @@ EXPORT_DIR() {
   fi
 }
 
+CHECK_ONLINE() {
+if $(wget -q --spider http://www.google.com); then
+  return 0
+fi
+return 1
+}

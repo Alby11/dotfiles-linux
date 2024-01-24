@@ -41,7 +41,7 @@ SOURCE_RCFILE $ZDOTDIR/.zxresources.zsh
 [[ -s "/etc/grc.zsh" ]] && source /etc/grc.zsh
 
 # credentials
-SOURCE_RCFILE $ZDOTDIR/.zcred > /dev/null 2>&1 &
+SOURCE_RCFILE $ZDOTDIR/.zcred #> /dev/null 2>&1 &
 
 # Create an amazing Zsh config using antidote plugins.
 # Set the path to the Oh My Zsh installation directory
