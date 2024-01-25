@@ -55,6 +55,17 @@ if [[ $antidote_list =~ $string ]]; then
   fi
 fi
 
+string="olets/zsh-abbr"
+if [[ $antidote_list =~ $string ]]; then
+  export ABBR_DEFAULT_BINDINGS=0
+  bindkey -M viins    '^@' abbr-expand-and-space
+  bindkey -M viins    ' '  magic-space
+  bindkey -M isearch  "^@" magic-space
+  zvm_bindkey viins     '^@' abbr-expand-and-space
+  zvm_bindkey viins     ' '  magic-space 
+  zvm_bindkey isearch   '^@'  magic-space 
+fi
+
 string="unixorn/fzf-zsh-plugin"
 if [[ $antidote_list =~ $string ]]; then
   export LESSOPEN='| lessfilter-fzf %s'
@@ -94,4 +105,4 @@ if [[ $antidote_list =~ $string ]]; then
   export YSU_MODE=ALL
 fi
 
-unset antidote_list
+unset antidote_list string
