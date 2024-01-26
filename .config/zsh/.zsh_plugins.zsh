@@ -10,9 +10,8 @@ fpath+=( /home/tallonea/.cache/antidote/mattmc3/zman )
 source /home/tallonea/.cache/antidote/mattmc3/zman/zman.plugin.zsh
 fpath+=( /home/tallonea/.cache/antidote/agkozak/zsh-z )
 source /home/tallonea/.cache/antidote/agkozak/zsh-z/zsh-z.plugin.zsh
-export PATH="/home/tallonea/.cache/antidote/romkatv/zsh-bench:$PATH"
-fpath+=( /home/tallonea/.cache/antidote/olets/zsh-abbr )
-source /home/tallonea/.cache/antidote/olets/zsh-abbr/zsh-abbr.plugin.zsh
+fpath+=( /home/tallonea/.cache/antidote/jeffreytse/zsh-vi-mode )
+source /home/tallonea/.cache/antidote/jeffreytse/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 if ! (( $+functions[zsh-defer] )); then
   fpath+=( /home/tallonea/.cache/antidote/romkatv/zsh-defer )
   source /home/tallonea/.cache/antidote/romkatv/zsh-defer/zsh-defer.plugin.zsh
@@ -201,8 +200,6 @@ fpath+=( /home/tallonea/.cache/antidote/sunlei/zsh-ssh/src )
 fpath+=( /home/tallonea/.cache/antidote/vasyharan/zsh-brew-services/src )
 fpath+=( /home/tallonea/.cache/antidote/viasite-ansible/zsh-ansible-server/src )
 fpath+=( /home/tallonea/.cache/antidote/zsh-users/zsh-completions/src )
-fpath+=( /home/tallonea/.cache/antidote/jeffreytse/zsh-vi-mode )
-source /home/tallonea/.cache/antidote/jeffreytse/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 fpath+=( /home/tallonea/.cache/antidote/psprint/zsh-sweep )
 source /home/tallonea/.cache/antidote/psprint/zsh-sweep/zsh-sweep.plugin.zsh
 fpath+=( /home/tallonea/.cache/antidote/unixorn/fzf-zsh-plugin )

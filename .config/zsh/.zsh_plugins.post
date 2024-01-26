@@ -11,6 +11,16 @@ antidote_list="$(antidote list)"
 string="ohmyzsh/ohmyzsh"
 if [[ $antidote_list =~ $string ]]; then
   export ZSH=$(antidote path ohmyzsh/ohmyzsh)
+  # space expands all aliases, including global
+  bindkey -M emacs "^ " globalias
+  bindkey -M viins "^ " globalias
+
+  # control-space to make a normal space
+  bindkey -M emacs " " magic-space
+  bindkey -M viins " " magic-space
+
+  # normal space during searches
+  bindkey -M isearch "^ " magic-space
 fi
 
 string="zdharma-continuum/fast-syntax-highlighting"
@@ -57,13 +67,12 @@ fi
 
 string="olets/zsh-abbr"
 if [[ $antidote_list =~ $string ]]; then
-  export ABBR_DEFAULT_BINDINGS=0
-  bindkey -M viins    '^@' abbr-expand-and-space
-  bindkey -M viins    ' '  magic-space
-  bindkey -M isearch  "^@" magic-space
-  zvm_bindkey viins     '^@' abbr-expand-and-space
-  zvm_bindkey viins     ' '  magic-space 
-  zvm_bindkey isearch   '^@'  magic-space 
+  # zvm_bindkey         " "  self-insert
+  # zvm_bindkey         "^ " abbr-expand-and-space
+  # zvm_bindkey         "^M" abbr-expand-and-accept
+  # zvm_bindkey viins   " "  self-insert
+  # zvm_bindkey viins   "^ " abbr-expand-and-space
+  # zvm_bindkey viins   "^M" abbr-expand-and-spac
 fi
 
 string="unixorn/fzf-zsh-plugin"

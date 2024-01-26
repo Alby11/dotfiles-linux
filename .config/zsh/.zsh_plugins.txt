@@ -75,8 +75,9 @@ agkozak/zsh-z
 #
 
 # annotations are also allowed:
-romkatv/zsh-bench                           kind:path
-olets/zsh-abbr
+# romkatv/zsh-bench                           kind:path
+jeffreytse/zsh-vi-mode
+# olets/zsh-abbr
 MichaelAquilina/zsh-you-should-use          kind:defer
 
 ### Frameworks
@@ -261,7 +262,6 @@ zsh-users/zsh-completions                   path:src kind:fpath
 # .zsh_plugins.txt file.
 #
 ###
-jeffreytse/zsh-vi-mode
 psprint/zsh-sweep
 
 # These popular core plugins should be loaded at the end
