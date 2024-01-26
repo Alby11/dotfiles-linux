@@ -20,6 +20,7 @@ if [[ $antidote_list =~ $string ]]; then
   bindkey -M emacs " " magic-space
   bindkey -M viins " " magic-space
   # normal space during searches
+  bindkey -M isearch -r " "
   bindkey -M isearch "^ " magic-space
 fi
 
