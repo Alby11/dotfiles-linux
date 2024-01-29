@@ -24,37 +24,41 @@ function mount_share() {
       esac
     done
 
+    # Default values
     username=${username:-$USER}
     protocol=${protocol:-cifs}
 
-    if [[ -n $server && -n $share ]]; then
-        # Create a mount point named as "server_share"
-        local mount_point_host="${HOME}/mnt/${server}"
-        local mount_point_ro="${HOME}/mnt/${server}/.${server}_${share}"
-        local mount_point_rw="${HOME}/mnt/${server}/${server}_${share}"
-        mkdir -p "${mount_point_host}" 
-        mkdir -p "${mount_point_ro}" 
-        mkdir -p "${mount_point_rw}" 
-        
-        if [[ $protocol == "samba" || $protocol == "cifs" ]]; then
-            if [[ -n $domain ]]; then
-                sudo mount.cifs "//$server/$share" "${mount_point_ro}" -o user=$username,dom=$domain
-            else
-                sudo mount.cifs "//$server/$share" "${mount_point_ro}" -o user=$username
-            fi
-            sudo bindfs --map=root/$(whoami) "${mount_point_ro}" "${mount_point_rw}"
-        elif [[ $protocol == "nfs" ]]; then
-            sudo mount -t nfs "${server}:${share}" "${mount_point_rw}"
-        fi
-
-        if [[ $? -ne 0 ]]; then
-          rmdir  "${mount_point_rw}"
-          rmdir  "${mount_point_ro}"
-          if [ $(ls -1A ${mount_point_host} | wc -l) -eq 0 ]; then
-             rmdir  "${mount_point_host}" 
-          fi
-        fi
-    else
-        echo "Usage: mount_network_share -s [server] -r [share] -u [username] -d [domain] -p [protocol]"
+    # Input validation
+    if [[ -z $server ]] || [[ -z $share ]]; then
+        echo "Error: Server and share names are required."
+        return 1
     fi
+
+    # Check if server is reachable
+    if ! ping -c 1 $server &> /dev/null; then
+        echo "Error: Server $server is unreachable."
+        return 1
+    fi
+
+    # Construct mount path
+    local mount_path="$HOME/mnt/remoteserver/.remoteserver_share"
+
+    # Mount the share
+    if mount -t $protocol //$server/$share $mount_path -o username=$username,domain=$domain; then
+        echo "Mounted $share to $mount_path successfully."
+    else
+        echo "Error: Failed to mount $share."
+        return 1
+    fi
+
+    # Use fusermount for write permissions
+    local write_mount_path="$HOME/mnt/remoteserver/remoteserver_share"
+    if fusermount -o rw,allow_other $mount_path $write_mount_path; then
+        echo "Write permissions enabled on $write_mount_path."
+    else
+        echo "Error: Failed to enable write permissions."
+        return 1
+    fi
+
+    return 0
 }
