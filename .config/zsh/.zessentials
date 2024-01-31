@@ -27,6 +27,7 @@ fi
 if [[ $has_dnf && ! $has_apt ]]; then
   packages=(
     "ca-certificates"
+    "@Development Tools"
     "openssh-askpass"
     "openssl"
     "openssl-devel"
@@ -34,11 +35,11 @@ if [[ $has_dnf && ! $has_apt ]]; then
     "polkit"
     "readlink"
   )
-  package_groups=(
-    "Development Tools"
-  )
+  # package_groups=(
+  #   "Development Tools"
+  # )
   sudo dnf install -y "${packages[@]}" > /dev/null
-  sudo dnf groupinstall -y "${package_groups[@]}" > /dev/null
+  # sudo dnf groupinstall -y "${package_groups[@]}" > /dev/null
 elif [[ $has_apt && ! $has_dnf ]]; then
   # This tells debconf to use the noninteractive frontend, which doesn't ask any questions
   export DEBIAN_FRONTEND=noninteractive
