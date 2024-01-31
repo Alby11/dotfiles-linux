@@ -32,6 +32,9 @@ sync_home() {
     --verbose \
     "
   local exclude_array=(
+    ".config/zsh/.directory_history/*"
+    ".config/zsh/zsh-history/*"
+    ".config/zsh/.zsh_history"
     "*"
   )
   local exclude_string=$(printf "--exclude='%s' " "${exclude_array[@]}")
