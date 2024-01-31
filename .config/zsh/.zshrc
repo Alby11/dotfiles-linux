@@ -89,7 +89,7 @@ export PYTHONIOENCODING='UTF-8';
 export GOPATH=${HOME}/go
 
 # Export JAVA_HOME from default alternative
-export JAVA_HOME=$(dirname $(dirname $(readlink $(readlink $(which javac)))))
+export JAVA_HOME="$(dirname $(dirname $(readlink $(readlink $(which javac)))))"
 
 # Omit duplicates and commands that begin with a space from history.
 export HISTCONTROL='ignoreboth';

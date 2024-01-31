@@ -156,11 +156,16 @@ if command -v notify-send &>/dev/null; then
 fi
 
 if command -v iptables &>/dev/null; then
-    alias it='iptables '
+    alias iptables='sudo iptables'
+    alias it='sudo iptables '
     # Lookup iptables chain
-    alias itlookup="iptables --line-numbers -nvL "
+    alias itL="iptables --line-numbers -nvL "
 fi
 
+if command -v firewall-cmd &>/dev/null; then
+  alias fwcmd='sudo firewall-cmd'
+  alias fwcmdp='sudo firewall-cmd --permanent'
+fi
 if command -v journalctl &>/dev/null; then
     alias j="journalctl"
     alias jf="journalctl --follow"
