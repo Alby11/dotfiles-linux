@@ -56,13 +56,14 @@ if [[ $antidote_list =~ $string ]]; then
     FAST_HIGHLIGHT+=( "chroma-$word" chroma_single_word )
     return 0
   }
-
-  if [[ -n $FAST_HIGHLIGHT ]]; then
-    for abbr in ${(f)"$(abbr list-abbreviations)"}; do
-      if [[ $abbr != *' '* ]]; then
-        register_single_word_chroma ${(Q)abbr}
-      fi
-    done
+  if command -v abbr &>/dev/null; then
+    if [[ -n $FAST_HIGHLIGHT ]]; then
+      for abbr in ${(f)"$(abbr list-abbreviations)"}; do
+        if [[ $abbr != *' '* ]]; then
+          register_single_word_chroma ${(Q)abbr}
+        fi
+      done
+    fi
   fi
 fi
 
