@@ -1,166 +1,136 @@
 # vim: filetype=zsh
 
 sync_home() {
-  setopt localoptions extendedglob warncreateglobal typesetsilent noshortloops 
-  usage() {
-    echo "Usage: sync_home [options]"
-    echo "Options:"
-    echo "  --help, -h: Display this help messag\n"
-    echo "  --ssh-server[=]SERVER, -s[=]SERVER: Specify an SSH server to
+	setopt localoptions extendedglob warncreateglobal typesetsilent noshortloops
+	usage() {
+		echo "Usage: sync_home [options]"
+		echo "Options:"
+		echo "  --help, -h: Display this help messag\n"
+		echo "  --ssh-server[=]SERVER, -s[=]SERVER: Specify an SSH server to
       synchronize with\n"
-    echo "  --xxh-server[=]SERVER, -x[=]SERVER: Specify an XXH server to
-      synchronize with\n"
-    echo "  --username[=]USERNAME, -u[=]USERNAME: Specify the user that you
+		echo "  --username[=]USERNAME, -u[=]USERNAME: Specify the user that you
       want to sync with (need at least one of the previous parameters)"
-  }
-  # set user_home as current user's one, in case $username not specified
-  local user_home=$HOME
-  local remote_servers=()
-  # local origins=("$HOME/.config/***"  "$HOME/.local/bin/***" "$HOME/.zshenv")
-  local origins=("${HOME}")
-  local destinations=("${HOME}/gitdepot/xxh-plugin-prerun-dotfiles/home")
-  local repositories=("${HOME}/gitdepot/xxh-plugin-prerun-dotfiles")
-    # --ignore-existing \
-    # --ignore-times \
-    # --delete \
-    # --delete-excluded \
-  local options="\
+	}
+	# set user_home as current user's one, in case $username not specified
+	local user_home
+	user_home=$HOME
+	local remote_servers
+	# local origins=("$HOME/.config/***"  "$HOME/.local/bin/***" "$HOME/.zshenv")
+	local origins
+	origins=("${HOME}")
+	local destinations
+	local options
+	options="\
     --times \
     --recursive \
     --archive \
     --compress \
     --verbose \
     "
-  local exclude_array=(
-    ".config/zsh/.directory_history/*"
-    ".config/zsh/zsh-history/*"
-    ".config/zsh/.zsh_history"
-    "*"
-  )
-  local exclude_string=$(printf "--exclude='%s' " "${exclude_array[@]}")
-  local include_array=(
-    ".config/"
-    ".config/bat/***"
-    ".config/fsh/***"
-    ".config/git/***"
-    ".config/gitui/***"
-    ".config/nvim/***"
-    ".config/ripgrep/***"
-    ".config/starship/***"
-    ".config/zsh/***"
-    ".tmux.conf"
-    # ".tmux/***"
-    ".zshenv"
-  )
-  local include_string=$(printf "--include='%s' " "${include_array[@]}")
+	# --ignore-existing \
+	# --ignore-times \
+	# --delete \
+	# --delete-excluded \
+	local exclude_array
+	exclude_array=(
+		".config/zsh/.directory_history"
+		".config/zsh/zsh-history"
+		".config/zsh/.zsh_history"
+		"*"
+	)
+	local exclude_string
+	exclude_string=$(printf "--exclude='%s' " "${exclude_array[@]}")
+	local include_array
+	include_array=(
+		".config/"
+		".config/bat/***"
+		".config/fsh/***"
+		".config/git/***"
+		".config/gitui/***"
+		".config/nvim/***"
+		".config/ripgrep/***"
+		".config/starship/***"
+		".config/zsh/***"
+		".tmux.conf"
+		".zshenv"
+	)
+	local include_string
+	include_string=$(printf "--include='%s' " "${include_array[@]}")
 
-  # Define a function named 'rsync' that will be used as a local alias in this script.
-  # This function uses 'env -i' to clear the environment before running the actual rsync command.
-  # The '"$@"' part passes all arguments given to this function along to the actual rsync command.
-  # the function defined below, ensuring a clean environment for the duration of the rsync command.
-  function clean_rsync() {
-      (/usr/bin/env -i /usr/bin/bash -c "/usr/bin/rsync $@")
-  }
+	# Define a function named 'rsync' that will be used as a local alias in this script.
+	# This function uses 'env -i' to clear the environment before running the actual rsync command.
+	# The '"$@"' part passes all arguments given to this function along to the actual rsync command.
+	# the function defined below, ensuring a clean environment for the duration of the rsync command.
+	function clean_rsync() {
+		(/usr/bin/env -i /usr/bin/bash -c "/usr/bin/rsync $@")
+	}
 
-# rest of your script here
-
-  # Add ssh servers as parameters and set destination to '/home/tallonea/.xxh' for ssh servers
-  while [ $# -gt 0 ]; do
-    case "$1" in
-      --username=*|-u=*)
-        local username="${1#*=}"
-        username_called=1
-        shift
-        ;;
-      --username|-u)
-        shift
-        local username="$1"
-        username_called=1
-        shift
-        ;;
-      --ssh-server=*|-s=*)
-        local ssh_server="${1#*=}"
-        remote_servers+=("$ssh_server")
-        destinations+=("$ssh_server:$user_home")
-        shift
-        ;;
-      --ssh-server|-s)
-        shift
-        local ssh_server="$1"
-        remote_servers+=("$ssh_server")
-        # destinations+=("$ssh_server:$user_home")
-        destinations+=("$ssh_server:$user_home")
-        shift
-        ;;
-      --xxh-server=*|-x=*)
-        local ssh_server="${1#*=}"
-        remote_servers+=("$ssh_server")
-        destinations+=("$ssh_server:$user_home/.xxh")
-        shift
-        ;;
-      --xxh-server|-x)
-        shift
-        local ssh_server="$1"
-        remote_servers+=("$ssh_server")
-        destinations+=("$ssh_server:$user_home/.xxh")
-        shift
-        ;;
-      --Help|-H)
-        usage
-        return 0
-        ;;
-      --Help|-H)
-        usage
-        return 0
-        ;;
-      *)
-        printf "Error: Invalid argument\n"
-        return 1
-        ;;
-    esac
-  done
-  # if $username has a value, set home accordingly
-  [ -n $username ] && user_home="/home/${username}"
-  #Test is username is called with at least one remote server
-  if [[ $username_called -eq 1 && ${#destinations[@]} -le 1 ]]; then
-    echo "Error: You must specify at least one destination using: \n\
-      --ssh-server or --xxh-server options"
-    return 1
-  else
-    #Check if username exist on remote server(s)
-    for remote_server in $remote_servers
-    do
-      if [[ ! "$(ssh $(whoami)@$remote_server grep $username /etc/passwd)" ]]
-      then
-          echo "User $username does not exist on $remote_server. Aborting..."
-          return 1
-      fi
-    done
-  fi
-  for origin in $origins
-  do
-    # local exclusions=$(/bin/du -sh ${origin}/* | /bin/grep -E '0-9' | /bin/grep -Ev '(zsh|nvim|\.git[a-z]*$)' | /bin/cut -d / -f5- | /bin/sed "s/^/--exclude '/;s/$/'/" | /bin/tr '\n' ' ')
-    for destination in $destinations
-    do
-      ECHOCAT "\n### ORIGIN: $origin ###"
-      ECHOCAT "### DESTINATION: $destination ###\n"
-      # local arguments="$options $exclusions $exclude_string $origin $destination"
-      local arguments="$options $include_string $exclude_string ${origin}/ ${destination}/"
-      # echo $arguments
-      # /bin/bash -c "rsync $arguments"
-      # local server="$(echo $destination | cut -d ':' -f 1)"
-      # ssh ${username}@${server} "rm -rfv $HOME/.config/zsh"
-      clean_rsync $arguments
-    done
-  done
-  for repository in $repositories
-  do
-    git -C $repository status
-    git -C $repository add --update
-    git -C $repository add $repository/.
-    git -C $repository commit  --message 'edit home files' 
-    git -C $repository push
-    git -C $repository status
-  done
-  rm -rfv .xxh/.xxh/plugins/xxh-plugin-prerun-dotfiles
+	# Add ssh servers as parameters and set destination to '/home/tallonea/.xxh' for ssh servers
+	while [ $# -gt 0 ]; do
+		case "$1" in
+		--username=* | -u=*)
+			local username="${1#*=}"
+			username_called=1
+			shift
+			;;
+		--username | -u)
+			shift
+			local username="$1"
+			username_called=1
+			shift
+			;;
+		--ssh-server=* | -s=*)
+			local ssh_server="${1#*=}"
+			remote_servers+=("${ssh_server}")
+			destinations+=("${ssh_server}:${user_home}")
+			shift
+			;;
+		--ssh-server | -s)
+			shift
+			local ssh_server="$1"
+			remote_servers+=("${ssh_server}")
+			# destinations+=("$ssh_server:$user_home")
+			destinations+=("${ssh_server}:${user_home}")
+			shift
+			;;
+		--Help | -H)
+			usage
+			return 0
+			;;
+		*)
+			printf "Error: Invalid argument\n"
+			return 1
+			;;
+		esac
+	done
+	# if $username has a value, set home accordingly
+	[ -n "$username" ] && user_home="/home/${username}"
+	echo "${destinations[@]}"
+	#Test is username is called with at least one remote server
+	if [[ $username_called -eq 1 && ${#destinations[@]} -le 1 ]]; then
+		echo "Error: You must specify at least one destination using: \n\
+      --ssh-server|--ssh-server=|-s|-s="
+		return 1
+	else
+		#Check if username exist on remote server(s)
+		for remote_server in "${remote_servers[@]}"; do
+			if [[ ! "$(ssh $(whoami)@${remote_server} grep $username /etc/passwd)" ]]; then
+				echo "User $username does not exist on $remote_server. Aborting..."
+				return 1
+			fi
+		done
+	fi
+	for origin in "${origins[@]}"; do
+		for destination in "${destinations[@]}"; do
+			ECHOCAT "\n### ORIGIN: $origin ###"
+			ECHOCAT "### DESTINATION: $destination ###\n"
+			# local arguments="$options $exclusions $exclude_string $origin $destination"
+			local arguments="$options $include_string $exclude_string ${origin}/ ${destination}/"
+			# echo $arguments
+			# /bin/bash -c "rsync $arguments"
+			# local server="$(echo $destination | cut -d ':' -f 1)"
+			# ssh ${username}@${server} "rm -rfv $HOME/.config/zsh"
+			clean_rsync "$arguments"
+		done
+	done
 }
