@@ -55,11 +55,21 @@ alias h="history -10" # last 10 history commands
 alias hh="history -20" # last 10 history commands
 alias hhh="history -30" # last 10 history commands
 alias ssar="ss -ar"
-alias sshx="ssh -X"
-alias sshnc='ssh -F /dev/null -o PreferredAuthentications=password'
-alias sshni='ssh -o PreferredAuthentications=password'
-alias sshncx='ssh -X -F /dev/null -o PreferredAuthentications=password'
-alias sshnix='ssh -X -o PreferredAuthentications=password'
+alias ssht="ssh -t"
+# -X enable X11 forwarding
+alias sshX="ssh -X"
+# -t allocate pseudo termina
+alias sshtX="ssh -t -X"
+# -o PreferredAuthentications=password forces pwd auth
+alias sshpwd='ssh -o PreferredAuthentications=password'
+# -F /dev/null fake alternate config file to skip the real one
+alias sshnoconfpwd='ssh -F /dev/null -o PreferredAuthentications=password'
+alias sshXpwd='ssh -X -o PreferredAuthentications=password'
+alias sshXnoconfpwd='ssh -X -F /dev/null -o PreferredAuthentications=password'
+alias sshtpwd='ssh -t -o PreferredAuthentications=password'
+alias sshtnoconfpwd='ssh -t -F /dev/null -o PreferredAuthentications=password'
+alias sshtXpwd='ssh -t -X -o PreferredAuthentications=password'
+alias sshtXnoconfpwd='ssh -t -X -F /dev/null -o PreferredAuthentications=password'
 alias sshync='echo "Host: "; read thehost; sync_home -u $(whoami) -s $thehost; ssh $thehost'; unset thehost;
 alias mount='sudo mount'
 alias umount='sudo umount'
