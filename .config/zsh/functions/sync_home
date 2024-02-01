@@ -1,136 +1,126 @@
 # vim: filetype=zsh
 
+# local original_h_alias=$(alias -L -h 2>/dev/null)  # Save the original -h alias
+# unalias '-h' 2>/dev/null  # Safely remove the -h alias
+
 sync_home() {
-	setopt localoptions extendedglob warncreateglobal typesetsilent noshortloops
-	usage() {
-		echo "Usage: sync_home [options]"
-		echo "Options:"
-		echo "  --help, -h: Display this help messag\n"
-		echo "  --ssh-server[=]SERVER, -s[=]SERVER: Specify an SSH server to
-      synchronize with\n"
-		echo "  --username[=]USERNAME, -u[=]USERNAME: Specify the user that you
-      want to sync with (need at least one of the previous parameters)"
-	}
-	# set user_home as current user's one, in case $username not specified
-	local user_home
-	user_home=$HOME
-	local remote_servers
-	# local origins=("$HOME/.config/***"  "$HOME/.local/bin/***" "$HOME/.zshenv")
-	local origins
-	origins=("${HOME}")
-	local destinations
-	local options
-	options="\
-    --times \
-    --recursive \
-    --archive \
-    --compress \
-    --verbose \
-    "
-	# --ignore-existing \
-	# --ignore-times \
-	# --delete \
-	# --delete-excluded \
-	local exclude_array
-	exclude_array=(
-		".config/zsh/.directory_history"
-		".config/zsh/zsh-history"
-		".config/zsh/.zsh_history"
-		"*"
-	)
-	local exclude_string
-	exclude_string=$(printf "--exclude='%s' " "${exclude_array[@]}")
-	local include_array
-	include_array=(
-		".config/"
-		".config/bat/***"
-		".config/fsh/***"
-		".config/git/***"
-		".config/gitui/***"
-		".config/nvim/***"
-		".config/ripgrep/***"
-		".config/starship/***"
-		".config/zsh/***"
-		".tmux.conf"
-		".zshenv"
-	)
-	local include_string
-	include_string=$(printf "--include='%s' " "${include_array[@]}")
+    # Enable extended globbing and other useful options for script robustness
+    setopt localoptions extendedglob warncreateglobal typesetsilent noshortloops
 
-	# Define a function named 'rsync' that will be used as a local alias in this script.
-	# This function uses 'env -i' to clear the environment before running the actual rsync command.
-	# The '"$@"' part passes all arguments given to this function along to the actual rsync command.
-	# the function defined below, ensuring a clean environment for the duration of the rsync command.
-	function clean_rsync() {
-		(/usr/bin/env -i /usr/bin/bash -c "/usr/bin/rsync $@")
-	}
+    # Function to display usage information
+    usage() {
+        cat <<EOF
+Usage: sync_home [options]
+Options:
+  --help, -h: Display this help message
+  --ssh-server[=]SERVER, -s[=]SERVER: Specify an SSH server to synchronize with
+  --username[=]USERNAME, -u[=]USERNAME: Specify the user to sync with
+  --verbose, -v: Enable verbose output
+  --include PATTERN: Include files/directories matching PATTERN
+  --exclude PATTERN: Exclude files/directories matching PATTERN
+Example usage:
+  sync_home --ssh-server=example.com --username=john_doe --verbose --exclude=".cache" --include=".config/nvim"
+EOF
+    }
 
-	# Add ssh servers as parameters and set destination to '/home/tallonea/.xxh' for ssh servers
-	while [ $# -gt 0 ]; do
-		case "$1" in
-		--username=* | -u=*)
-			local username="${1#*=}"
-			username_called=1
-			shift
-			;;
-		--username | -u)
-			shift
-			local username="$1"
-			username_called=1
-			shift
-			;;
-		--ssh-server=* | -s=*)
-			local ssh_server="${1#*=}"
-			remote_servers+=("${ssh_server}")
-			destinations+=("${ssh_server}:${user_home}")
-			shift
-			;;
-		--ssh-server | -s)
-			shift
-			local ssh_server="$1"
-			remote_servers+=("${ssh_server}")
-			# destinations+=("$ssh_server:$user_home")
-			destinations+=("${ssh_server}:${user_home}")
-			shift
-			;;
-		--Help | -H)
-			usage
-			return 0
-			;;
-		*)
-			printf "Error: Invalid argument\n"
-			return 1
-			;;
-		esac
-	done
-	# if $username has a value, set home accordingly
-	[ -n "$username" ] && user_home="/home/${username}"
-	echo "${destinations[@]}"
-	#Test is username is called with at least one remote server
-	if [[ $username_called -eq 1 && ${#destinations[@]} -le 1 ]]; then
-		echo "Error: You must specify at least one destination using: \n\
-      --ssh-server|--ssh-server=|-s|-s="
-		return 1
-	else
-		#Check if username exist on remote server(s)
-		for remote_server in "${remote_servers[@]}"; do
-			if [[ ! "$(ssh $(whoami)@${remote_server} grep $username /etc/passwd)" ]]; then
-				echo "User $username does not exist on $remote_server. Aborting..."
-				return 1
-			fi
-		done
-	fi
-	for origin in "${origins[@]}"; do
-		for destination in "${destinations[@]}"; do
-			ECHOCAT "\n### ORIGIN: $origin ###"
-			ECHOCAT "### DESTINATION: $destination ###\n"
-			# local arguments="$options $exclusions $exclude_string $origin $destination"
-			local arguments="$options $include_string $exclude_string ${origin}/ ${destination}/"
-			# echo $arguments
-			# /bin/bash -c "rsync $arguments"
-			# local server="$(echo $destination | cut -d ':' -f 1)"
-			# ssh ${username}@${server} "rm -rfv $HOME/.config/zsh"
-			clean_rsync "$arguments"
-		done
-	done
+    local user_home=$HOME
+    local remote_servers=()
+    local origins=("$HOME")
+    local destinations=()
+    local options='--times --recursive --archive --compress --verbose'
+    # Start with excluding everything for correct processing
+    local exclude_array=('.config/zsh/.directory_history/' '.config/zsh/.zsh_history')
+    local include_array=('.config/' '.config/zsh/***' '.config/git/***' '.config/bat/***' '.config/nvim/***' '.config/fsh/***')
+    # Finally, add a catch-all exclude pattern to exclude everything else not explicitly included
+    local exclude_wildcard=" --exclude='*'"
+    local verbose=0
+    local exclude_string=""
+    local include_string=""
+    local ssh_server
+    local username
+
+    # Parse command-line options
+    while (( $# > 0 )); do
+        case "$1" in
+            --Help|-H)
+                usage
+                return 0
+                ;;
+            --ssh-server=*|-s=*)
+                ssh_server="${1#*=}"
+                remote_servers+=("$ssh_server")
+                ;;
+            --ssh-server|-s)
+                shift
+                ssh_server="$1"
+                remote_servers+=("$ssh_server")
+                ;;
+            --username=*|-u=*)
+                username="${1#*=}"
+                ;;
+            --username|-u)
+                shift
+                username="$1"
+                ;;
+            --verbose|-v)
+                verbose=1
+                ;;
+            --exclude)
+                shift
+                exclude_array+=("$1")
+                ;;
+            --include)
+                shift
+                include_array+=("$1")
+                ;;
+            *)
+                echo "Error: Invalid argument '$1'"
+                usage
+                return 1
+                ;;
+        esac
+        shift
+    done
+
+    # Build exclude and include strings
+    for pattern in "${exclude_array[@]}"; do
+        exclude_string+=" --exclude=${pattern}"
+    done
+    for pattern in "${include_array[@]}"; do
+        include_string+=" --include=${pattern}"
+    done
+
+    # Validate SSH servers and username
+    if [[ -z "$ssh_server" || -z "$username" ]]; then
+        echo "Error: SSH server and username are required."
+        usage
+        return 1
+    fi
+
+    # Set user home directory based on username
+    if [[ -n "$username" ]]; then
+        user_home="/home/$username"
+    fi
+
+    # Prepare destinations
+    for server in "${remote_servers[@]}"; do
+        destinations+=("$server:$user_home")
+    done
+
+    # Execute rsync for each origin to destination
+    for origin in "${origins[@]}"; do
+        for destination in "${destinations[@]}"; do
+            local args="$options $exclude_string $include_string $exclude_wildcard $origin/ $destination/"
+            [[ $verbose -eq 1 ]] && echo "Running rsync with args: $args"
+            # Ensuring variables are local to prevent global scope warnings
+            local pattern server
+            /usr/bin/env -i /usr/bin/bash -c "/usr/bin/rsync $args"
+        done
+    done
 }
+
+# At the end of the script, restore the original -h alias, if it was previously defined
+# [[ -n "$original_h_alias" ]] && eval "$original_h_alias"
+
+# Example usage:
+# sync_home --ssh-server=example.com --username=john_doe --verbose --exclude=".cache" --include=".config/nvim"
