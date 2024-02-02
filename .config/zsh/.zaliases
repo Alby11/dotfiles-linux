@@ -93,7 +93,6 @@ if command -v grc &>/dev/null; then
     # Basic systemctl commands
     alias systemctl="sudo systemctl"
     alias ctl="sudo systemctl" 
-    alias sctl="sudo /bin/systemctl"
     # Daemons reload
     alias ctldr="sudo systemctl daemon-reload"
     # Credits to: https://gist.github.com/Feniksovich
@@ -716,3 +715,8 @@ alias gmtlvim='git mergetool --no-prompt --tool=nvim'
 alias killuser='function _ku(){ pkill -u $1; }; _ku'
 alias logoutuser='function _lu(){ pkill -KILL -u $1; }; _lu'
 alias bwck='bw login --check && bw unlock --check'
+
+if [[ -d /opt/sentinelone ]]; then
+  alias sentinelctl='sudo sentinelctl'
+  alias sctl='sudo sentinelctl'
+fi
