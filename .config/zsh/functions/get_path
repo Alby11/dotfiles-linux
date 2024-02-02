@@ -76,10 +76,10 @@ function get_path() {
 
 	# if second argument is '-w' convert slashes
 	if $windows_bslash; then
-		echo $filepath | sed 's/\//\\/g'
+		echo "$filepath" | sed 's/\//\\/g'
 		return 0
 	fi
 
 	# Print the path
-	echo $filepath
+	echo "$filepath"
 }
