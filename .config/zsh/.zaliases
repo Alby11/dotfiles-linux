@@ -70,14 +70,19 @@ alias sshtpwd='ssh -t -o PreferredAuthentications=password'
 alias sshtnoconfpwd='ssh -t -F /dev/null -o PreferredAuthentications=password'
 alias sshtXpwd='ssh -t -X -o PreferredAuthentications=password'
 alias sshtXnoconfpwd='ssh -t -X -F /dev/null -o PreferredAuthentications=password'
-alias sshync='echo "Host: "; read thehost; sync_home -u $(whoami) -s $thehost; ssh $thehost'; unset thehost;
+alias sshync='echo "Host: "; read thehost; sync_home -u $(whoami) -s $thehost; ssh -tX $thehost'; \
+  unset thehost;
+alias sshyncpwd='echo "Host: "; read thehost; sync_home -u $(whoami) -s $thehost; \
+  ssh -tX -F /dev/null -o PreferredAuthentications=password $thehost'; unset thehost;
 alias mount='sudo mount'
 alias umount='sudo umount'
 alias fusermount='sudo fusermount'
 alias fmount='sudo fusermount'
 alias fumount='sudo fusermount -u'
-alias mountc='sudo mount | column --table --table-columns=mountpoint,on,mount,type,typename,options'
-alias mountj='sudo mount | column --table --table-columns=mountpoint,on,mount,type,typename,options --json'
+alias mountc='sudo mount | \
+  column --table --table-columns=mountpoint,on,mount,type,typename,options'
+alias mountj='sudo mount | \
+  column --table --table-columns=mountpoint,on,mount,type,typename,options --json'
 if command -v grc &>/dev/null; then
   alias dig="grc dig"
   alias ip="grc ip"
