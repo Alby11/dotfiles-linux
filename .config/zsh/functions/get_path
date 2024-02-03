@@ -8,9 +8,10 @@ function get_path() {
 
 	for arg in "$@"; do
 		if [[ $arg == '-h' || $arg == '--help' ]]; then
-			echo 'Usage: get_path filename [--strip-filename|-d]'
+			echo 'Usage: get_path filename [--strip-filename|-d|--windows|-w|--help|-h]'
 			echo 'Prints the full path of the given file.'
 			echo 'If --strip-filename or -d is provided, prints the path of the directory containing the file.'
+			echo 'If --windows or -w is provided, prints the path of the the file with backslashes.'
 			return 0
 		fi
 	done
