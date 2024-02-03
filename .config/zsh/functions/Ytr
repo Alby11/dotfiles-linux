@@ -1,0 +1,22 @@
+# vim: filetype=zsh
+# Ytr: Yank to Remote
+# Copies content from the local clipboard or piped input to the remote clipboard.
+# Usage: Ytr user@hostname
+# Or: echo "content" | Ytr user@hostname
+Ytr() {
+  # Check if the correct number of arguments is provided
+  if [ "$#" -ne 1 ]; then
+    echo "Usage: Ytr user@hostname"
+    return 1
+  fi
+  
+  # Check if input is being piped into the function
+  if [ -t 0 ]; then
+    # No input piped, so use the local clipboard content
+    wl-paste | ssh "$1" "wl-copy"
+  else
+    # Input is piped, so use the piped content
+    cat - | ssh "$1" "wl-copy"
+  fi
+}
+

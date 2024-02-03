@@ -1,0 +1,14 @@
+# vim: filetype=zsh
+# Yfr: Yank from Remote
+# Fetches content from the remote clipboard and places it into the local clipboard.
+# Usage: Yfr user@hostname
+Yfr() {
+  # Check if the correct number of arguments is provided
+  if [ "$#" -ne 1 ]; then
+    echo "Usage: Yfr user@hostname"
+    return 1
+  fi
+  
+  # Execute wl-paste on the remote machine and copy the output to the local clipboard
+  ssh "$1" "wl-paste" | wl-copy
+}
