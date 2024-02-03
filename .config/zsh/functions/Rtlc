@@ -1,0 +1,11 @@
+#vim: filetype=zsh
+# Rtlc: Fetch text from the remote server and place it into the local clipboard.
+Rtlc() {
+  if [ "$#" -ne 2 ]; then
+    echo "Usage: Rtlc user@hostname 'remote-command or cat remote-file'"
+    return 1
+  fi
+
+  ssh "$1" "$2" | wl-copy
+  echo "Remote text copied to local clipboard."
+}
