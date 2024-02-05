@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Flameshot
+Icon=/home/tallonea/.local/share/flameshot/share/icons/hicolor/128x128/apps/flameshot.png
+Exec=/home/tallonea/.local/bin/flameshot
+Comment=Flameshot
+Categories=Utility
+Terminal=false
