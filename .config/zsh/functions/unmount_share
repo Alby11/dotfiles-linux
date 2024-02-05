@@ -9,7 +9,7 @@ function unmount_share() {
         # Optionally list currently mounted shares
         if [[ -z $1 ]]; then
           echo "Currently mounted shares:"
-          find "${HOME}/mnt" -mindepth 1 -maxdepth 1 -type d -exec basename {} \;
+          find "${HOME}/mnt" -mindepth 1 -maxdepth 1 -type d ! -name '.*' -exec basename {} \;
         fi
         return
     fi
