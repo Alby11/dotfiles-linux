@@ -1,0 +1,14 @@
+# vim: filetype=zsh
+pwssh_session() {
+  if [[ $# -ne 2 ]]; then
+    echo "Usage: pwssh_session <user> <remoteServer>"
+    return 1
+  fi
+
+  local credentialUser="$1"
+  local remoteServer="$2"
+
+  # Use SSH to connect and start a PowerShell session on the remote server
+  # Escape PowerShell command more carefully
+  ssh -t "$remoteServer" 'pwsh -NoExit -Command "\$credential = Get-Credential -UserName '$credentialUser' -Message \"Enter your password\"; \$global:storedCredentials = \$credential"'
+}
