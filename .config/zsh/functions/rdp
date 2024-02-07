@@ -1,0 +1,4 @@
+# vim: filetype=zsh
+rdp() {
+  [ "$1" ] && remmina -c rdp://"$1" &
+}
