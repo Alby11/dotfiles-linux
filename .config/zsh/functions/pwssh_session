@@ -43,7 +43,7 @@ pwssh_session() {
   echo "To run the PowerShell script, log in to the remote server and execute:"
   echo "pwsh -File ${remoteScriptPath}\/pwsh_script.ps1"
   echo "The script will automatically delete itself after execution."
-  ssh -t $remoteServer "pwsh -NoExit -Command '${remoteScriptPath}/pwsh_script.ps1 ; exec $SHELL -l'"
+  ssh -t $remoteServer "pwsh -NoExit -Command '. ${remoteScriptPath}/pwsh_script.ps1 ; Remove-Item ${remoteScriptPath}/pwsh_script.ps1 -Force -Verbose'"
   ssh $remoteServer rm -v ${remoteScriptPath}/pwsh_script.ps1
 }
 
