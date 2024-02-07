@@ -1,27 +1,48 @@
 # vim: filetype=zsh
 pwssh_session() {
-  if [[ $# -ne 2 ]]; then
-    echo "Usage: pwssh_session <user> <remoteServer>"
-    return 1
-  fi
+  # Prompt for user and server
+  local credentialUser=${1}
+  local remoteServer=${2}
 
-  local credentialUser="$1"
-  local remoteServer="$2"
+  # Securely prompt for the password
+  # echo -n "Enter password: "
+  local passwordPlainText=""
+  echo -n "Enter password:"
+  stty sane
+  read -r passwordPlainText
 
-  # Use SSH to connect and start a PowerShell session on the remote server
-  # Escape PowerShell command more carefully
-    credentialUser=$credentialUser \
-      remoteServer=$remoteServer \
-      pwsh -NoExit -Command '
-        $credential = $(Get-Credential -UserName $env:credentialUser -Message "Enter your password")
-        $session = New-PSSession -Credential $credential -ComputerName $env:remoteServer
-        Invoke-Command -Session $session -ScriptBlock {
-          param(
-          $credential
-          )
-          Set-Variable -Name "credential" -Value $credential
-          pwsh -NoExit
-        } -ArgumentList $credential
-        Enter-PSSession -Session $session
-        '
+  # Define the script content
+    # \$credential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList ('${credentialUser}', (ConvertTo-SecureString '${password}' -AsPlainText -Force))
+  local scriptContent="
+    # Convert the plaintext password to a secure string
+    \$securePassword = ConvertTo-SecureString \""${passwordPlainText}"\"-AsPlainText -Force # Create the credential object
+    \$credential = New-Object System.Management.Automation.PSCredential (\""${credentialUser}"\", \$securePassword)
+    \$PSDefaultParameterValues['Get-ADUser:Credential'] = \$credential
+    \$PSDefaultParameterValues['Get-ADGroup:Credential'] = \$credential
+    # Any other PowerShell commands here
+    Remove-Item -Path \$MyInvocation.MyCommand.Path -Force
+  "
+  echo $scriptContent
+  unset passwordPlainText
+
+  # Define the remote script path
+  local localScriptPath="/tmp/pwsh_script.ps1"
+  local remoteScriptPath="~"
+
+  # Create the script file locally
+  echo $scriptContent > $localScriptPath
+
+  # Transfer the script to the remote server
+  scp $localScriptPath ${credentialUser}@${remoteServer}:${remoteScriptPath}
+
+  # Clean up the local script
+  rm -v $localScriptPath
+
+  # Instructions to execute the script remotely upon login
+  echo "To run the PowerShell script, log in to the remote server and execute:"
+  echo "pwsh -File ${remoteScriptPath}\/pwsh_script.ps1"
+  echo "The script will automatically delete itself after execution."
+  ssh $remoteServer
+  ssh $remoteServer rm -v ${remoteScriptPath}/pwsh_script.ps1
 }
+
