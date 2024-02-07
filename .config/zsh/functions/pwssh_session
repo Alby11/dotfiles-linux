@@ -9,7 +9,8 @@ pwssh_session() {
   local passwordPlainText=""
   echo -n "Enter password:"
   stty sane
-  read -r passwordPlainText
+  stty icrnl
+  read -s passwordPlainText
 
   # Define the script content
     # \$credential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList ('${credentialUser}', (ConvertTo-SecureString '${password}' -AsPlainText -Force))
@@ -19,10 +20,10 @@ pwssh_session() {
     \$credential = New-Object System.Management.Automation.PSCredential (\""${credentialUser}"\", \$securePassword)
     \$PSDefaultParameterValues['Get-ADUser:Credential'] = \$credential
     \$PSDefaultParameterValues['Get-ADGroup:Credential'] = \$credential
+    \$crd=\$credential
     # Any other PowerShell commands here
     Remove-Item -Path \$MyInvocation.MyCommand.Path -Force
   "
-  echo $scriptContent
   unset passwordPlainText
 
   # Define the remote script path
@@ -42,7 +43,7 @@ pwssh_session() {
   echo "To run the PowerShell script, log in to the remote server and execute:"
   echo "pwsh -File ${remoteScriptPath}\/pwsh_script.ps1"
   echo "The script will automatically delete itself after execution."
-  ssh $remoteServer
+  ssh -t $remoteServer "pwsh -NoExit -Command '${remoteScriptPath}/pwsh_script.ps1 ; exec $SHELL -l'"
   ssh $remoteServer rm -v ${remoteScriptPath}/pwsh_script.ps1
 }
 
