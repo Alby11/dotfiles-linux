@@ -1,5 +1,5 @@
 # vim: filetype=zsh
-pwssh_session() {
+pwssh() {
   # Prompt for user and server
   local credentialUser=${1}
   local remoteServer=${2}
@@ -17,10 +17,50 @@ pwssh_session() {
   local scriptContent="
     # Convert the plaintext password to a secure string
     \$securePassword = ConvertTo-SecureString \""${passwordPlainText}"\"-AsPlainText -Force # Create the credential object
-    \$credential = New-Object System.Management.Automation.PSCredential (\""${credentialUser}"\", \$securePassword)
-    \$PSDefaultParameterValues['Get-ADUser:Credential'] = \$credential
-    \$PSDefaultParameterValues['Get-ADGroup:Credential'] = \$credential
-    \$crd=\$credential
+    \$Credential = New-Object System.Management.Automation.PSCredential (\""${credentialUser}"\", \$securePassword)
+
+    function Set-DefaultCredentialForModule {
+        param(
+            [Parameter(Mandatory=\$true)]
+            [string]\$ModuleName,
+
+            [Parameter(Mandatory=\$true)]
+            [System.Management.Automation.PSCredential]\$Credential
+        )
+
+        # Attempt to import the module in case it's not already loaded
+        Import-Module \$ModuleName -ErrorAction SilentlyContinue
+
+        # Get all commands in the specified module
+        \$ModuleCmdlets = Get-Command -Module \$ModuleName
+
+        # Loop through each command and set the default Credential parameter
+        foreach (\$cmd in \$ModuleCmdlets) {
+            # Construct the parameter name string
+            \$paramName = \$cmd.Name + ':Credential'
+
+            # Check if the cmdlet has a Credential parameter
+            \$cmdParameters = Get-Command \$cmd.Name | Select-Object -ExpandProperty Parameters
+            if (\$cmdParameters.ContainsKey('Credential')) {
+                # Set the default Credential parameter for the cmdlet
+                \$PSDefaultParameterValues[\$paramName] = \$Credential
+            }
+        }
+    }
+
+    # Define an array of modules
+    \$ModuleList = @(
+      'ActiveDirectory'
+    )
+
+    # Loop through each module and set the default Credential parameter
+    foreach (\$Module in \$ModuleList) {
+      Set-DefaultCredentialForModule -ModuleName \$Module -Credential \$Credential
+    }
+
+    # Set a Credential shorthand for manual use
+    \$crd = \$Credential
+
     # Any other PowerShell commands here
     Remove-Item -Path \$MyInvocation.MyCommand.Path -Force
   "
