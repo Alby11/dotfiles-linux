@@ -74,6 +74,7 @@ alias sshync='echo "Host: "; read thehost; sync_home -u $(whoami) -s $thehost; s
   unset thehost;
 alias sshyncpwd='echo "Host: "; read thehost; sync_home -u $(whoami) -s $thehost; \
   ssh -tX -F /dev/null -o PreferredAuthentications=password $thehost'; unset thehost;
+alias sshcidncpwd='ssh-copy-id -o PreferredAuthentications=password -F /dev/null -f -i'
 alias mount='sudo mount'
 alias umount='sudo umount'
 alias fusermount='sudo fusermount'
@@ -393,9 +394,10 @@ if command -v docker &>/dev/null; then
 fi
 
 if command -v ansible &>/dev/null; then
-    alias an='ansible '
-    alias ap='ansible-playbook '
-    alias ag='ansible-galaxy '
+    alias an='ansible'
+    alias ana='ansible all'
+    alias ap='ansible-playbook'
+    alias ag='ansible-galaxy'
 fi
 
 if command -v podman &>/dev/null; then
