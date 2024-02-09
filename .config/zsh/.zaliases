@@ -726,11 +726,4 @@ alias bwck='bw login --check && bw unlock --check'
 if [[ -d /opt/sentinelone ]]; then
   alias sentinelctl='sudo sentinelctl'
   alias sctl='sudo sentinelctl'
-fi
-alias remmina_session_save="
-  rsync -av ${HOME}/.config/remmina/work_* ${HOME}/gitdepot/profileFiles/remmina &&
-  cd ${HOME}/gitdepot/profileFiles/remmina &&
-  git add remmina/work_* &&
-  git commit -m 'add/edit session' &&
-  git push ; cd $HOME ; dotfiles2git sync
-"
+fj
