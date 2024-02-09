@@ -95,13 +95,13 @@ pwssh() {
     \$crd = \$Credential
 
     # Any other PowerShell commands here
-    Remove-Item -Path \$MyInvocation.MyCommand.Path -Force
+    Remove-Item -Path \$MyInvocation.MyCommand.Path -Force -Verbose
   "
   unset passwordPlainText
 
   # Define the remote script path
   local localScriptPath="/tmp/pwsh_script.ps1"
-  local remoteScriptPath="~\\pwsh_script.ps1"
+  local remoteScriptPath="~/pwsh_script.ps1"
 
   # Create the script file locally
   echo "$scriptContent" > $localScriptPath
@@ -113,10 +113,9 @@ pwssh() {
   # Clean up the local script
   rm -v $localScriptPath
 
-
   # execute the script remotely, enter the shell and clean when exiting
   ssh -t $remoteServer \
-    "pwsh -NoExit -Command '. ${remoteScriptPath}
+    "pwsh -NoExit -Command '. ${remoteScriptPath} ;
     Remove-Item ${remoteScriptPath} -Force -Verbose'"
 
   # Clean up the remote script, just to be sure
