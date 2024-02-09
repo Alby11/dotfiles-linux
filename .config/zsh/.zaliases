@@ -727,3 +727,9 @@ if [[ -d /opt/sentinelone ]]; then
   alias sentinelctl='sudo sentinelctl'
   alias sctl='sudo sentinelctl'
 fi
+alias remmina_session_save="
+  rsync -av .config/remmina/work_* gitdepot/profileFiles/remmina &&
+  z profilefiles &&
+  ga remmina/work_* &&
+  gcmsg 'add/edit session' &&
+  gp ; cd /home/tallonea ; dotfiles2git sync"
