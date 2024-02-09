@@ -1,4 +1,72 @@
 # vim: filetype=zsh
 rdp() {
-  [ "$1" ] && remmina -c rdp://"$1" &
+  # Initialize variables
+  local username=""
+  local server=""
+  local domain=""
+  local keyboard_grab=1
+
+  # Preprocess arguments to support long options
+  local args=()
+  for arg in "$@"; do
+    case "$arg" in
+      --username=*) args+=("-u" "${arg#*=}") ;;
+      --server=*) args+=("-s" "${arg#*=}") ;;
+      --domain=*) args+=("-d" "${arg#*=}") ;;
+      --keyboard_grab=*) args+=("-k" "${arg#*=}") ;;
+      *) args+=("$arg") ;;
+    esac
+  done
+
+  # Parse options
+  while getopts "u:s:d:k:" opt "${args[@]}"; do
+    case "$opt" in
+      u) username=$OPTARG ;;
+      s) server=$OPTARG ;;
+      d) domain=$OPTARG ;;
+      k) keyboard_grab=$OPTARG ;;
+      *) return 1 ;;
+    esac
+  done
+
+  # If domain is specified, append it to server
+  if [[ -n $domain && -n $server ]]; then
+    server="$server.$domain"
+  fi
+
+  # Path to the remmina profile
+  local profile_path="$XDG_CONFIG_HOME/remmina/work_rdp_default.remmina"
+
+  # Ensure profile_path defaults to a known location if XDG_CONFIG_HOME is not set
+  if [[ -z $profile_path ]]; then
+    profile_path="$HOME/.config/remmina/work_rdp_default.remmina"
+  fi
+
+  # Update the profile with specified options
+  echo "Updating Remmina profile with specified options..."
+  remmina --update-profile "$profile_path" \
+          --set-option username="$username" \
+          --set-option domain="$domain" \
+          --set-option server="$server" \
+          --set-option keyboard_grab=$keyboard_grab
+
+  # Connect using the updated profile
+  echo "Connecting with updated options..."
+  remmina -c "$profile_path"
+
+  # Clear specified options in the profile
+  echo "Clearing specified options in the profile..."
+  remmina --update-profile "$profile_path" \
+          --set-option username="" \
+          --set-option domain="" \
+          --set-option server="" \
+          --set-option keyboard_grab=1
+
+  # Connect using the cleared profile
+  echo "Connecting with cleared profile..."
+  remmina -c "$profile_path"
 }
+
+# Usage examples:
+# rdp -u myUsername -s myServer -d myDomain
+# rdp --username=myUsername --server=myServer --domain=myDomain
