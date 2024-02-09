@@ -1,19 +1,52 @@
 # vim: filetype=zsh
 pwssh() {
-  # Prompt for user and server
-  local credentialUser=${1}
-  local remoteServer=${2}
+  local credentialUser=""
+  local remoteServer=""
+  local passwordPlainText=""
+  local OPTARG OPTIND opt
+
+  # Display help message
+  function display_help() {
+    echo "Usage: pwssh -u <user> -s <server>"
+    echo "Options:"
+    echo "  -u, --user     Specify the username for the remote server."
+    echo "  -s, --server   Specify the remote server address."
+    echo "  -H, --help     Display this help message and exit."
+  }
+
+  # Parse command-line options
+  while getopts "u:s:H-:" opt; do
+    case "${opt}" in
+      u) credentialUser=$OPTARG ;;
+      s) remoteServer=$OPTARG ;;
+      H) display_help; return 0 ;;
+      -)
+        case "${OPTARG}" in
+          user) credentialUser=${!OPTIND}; OPTIND=$(( $OPTIND + 1 )) ;;
+          server) remoteServer=${!OPTIND}; OPTIND=$(( $OPTIND + 1 )) ;;
+          help) display_help; return 0 ;;
+          *) echo "Invalid option: --${OPTARG}" >&2; display_help; return 1 ;;
+        esac ;;
+      \?) echo "Invalid option: -${OPTARG}" >&2; display_help; return 1 ;;
+      :) echo "Option -${OPTARG} requires an argument." >&2; display_help; return 1 ;;
+    esac
+  done
+
+  # Check for required parameters
+  if [[ -z "${credentialUser}" ]] || [[ -z "${remoteServer}" ]]; then
+    echo "Error: Missing required arguments." >&2
+    display_help
+    return 1
+  fi
 
   # Securely prompt for the password
-  # echo -n "Enter password: "
-  local passwordPlainText=""
-  echo -n "Enter password:"
+  echo -n "Enter password: "
   stty sane
   stty icrnl
   read -s passwordPlainText
+  echo
 
   # Define the script content
-    # \$credential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList ('${credentialUser}', (ConvertTo-SecureString '${password}' -AsPlainText -Force))
   local scriptContent="
     # Convert the plaintext password to a secure string
     \$securePassword = ConvertTo-SecureString \""${passwordPlainText}"\"-AsPlainText -Force # Create the credential object
@@ -68,22 +101,27 @@ pwssh() {
 
   # Define the remote script path
   local localScriptPath="/tmp/pwsh_script.ps1"
-  local remoteScriptPath="~"
+  local remoteScriptPath="~\\pwsh_script.ps1"
 
   # Create the script file locally
-  echo $scriptContent > $localScriptPath
+  echo "$scriptContent" > $localScriptPath
 
   # Transfer the script to the remote server
+  # scp $localScriptPath ${credentialUser}@${remoteServer}:${remoteScriptPath}/pwsh_script.ps1
   scp $localScriptPath ${credentialUser}@${remoteServer}:${remoteScriptPath}
 
   # Clean up the local script
   rm -v $localScriptPath
 
+
   # Instructions to execute the script remotely upon login
   echo "To run the PowerShell script, log in to the remote server and execute:"
-  echo "pwsh -File ${remoteScriptPath}\/pwsh_script.ps1"
+  echo "pwsh -File ${remoteScriptPath}"
   echo "The script will automatically delete itself after execution."
-  ssh -t $remoteServer "pwsh -NoExit -Command '. ${remoteScriptPath}/pwsh_script.ps1 ; Remove-Item ${remoteScriptPath}/pwsh_script.ps1 -Force -Verbose'"
-  ssh $remoteServer rm -v ${remoteScriptPath}/pwsh_script.ps1
-}
+  ssh -t $remoteServer \
+    "pwsh -NoExit -Command '. ${remoteScriptPath}
+    Remove-Item ${remoteScriptPath} -Force -Verbose'"
 
+  # Clean up the remote script
+  ssh $remoteServer rm -v ${remoteScriptPath}
+}
