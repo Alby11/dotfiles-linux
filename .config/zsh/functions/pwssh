@@ -114,14 +114,11 @@ pwssh() {
   rm -v $localScriptPath
 
 
-  # Instructions to execute the script remotely upon login
-  echo "To run the PowerShell script, log in to the remote server and execute:"
-  echo "pwsh -File ${remoteScriptPath}"
-  echo "The script will automatically delete itself after execution."
+  # execute the script remotely, enter the shell and clean when exiting
   ssh -t $remoteServer \
     "pwsh -NoExit -Command '. ${remoteScriptPath}
     Remove-Item ${remoteScriptPath} -Force -Verbose'"
 
-  # Clean up the remote script
+  # Clean up the remote script, just to be sure
   ssh $remoteServer rm -v ${remoteScriptPath}
 }
