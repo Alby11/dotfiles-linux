@@ -438,12 +438,12 @@ if [ "$(command -v fzf)" ] && [ "$(command -v rg)" ]; then
   export DISABLE_FZF_AUTO_COMPLETION="false"
   export DISABLE_FZF_KEY_BINDINGS="false"
   export RIPGREP_CONFIG_PATH="${HOME}/.config/ripgrep/ripgreprc"
-  alias -g F='| fzf'
-  alias -g rgg='rg --glob'
-  alias -g R='| rg'
-  alias -g Rg='| rg --glob'
+  alias -g F="| fzf"
+  alias -g rgg="rg --glob"
+  alias -g R="| rg"
+  alias -g Rg="| rg --glob"
   alias -g rf="rg . | fzf"
-  alias -g rfl="rg . | fzf | cut -d ":" -f 1"
+  alias -g rfl="rg . | fzf | cut -d ':' -f 1"
 else
   echo "fzf&rg missing..."
 fi
@@ -453,117 +453,116 @@ alias resetSound='/bin/systemctl --user restart pipewire.service'
 ### Python block
 # url encode/decode
 if command -v python &>/dev/null; then
-  alias -g urldecode='python3 -c "import sys, urllib.parse as ul; \
-    print(ul.unquote_plus(sys.argv[1]))"'
-  alias -g urlencode='python3 -c "import sys, urllib.parse as ul; \
-    print (ul.quote_plus(sys.argv[1]))"'
+  alias -g urldecode="python3 -c 'import sys, urllib.parse as ul; print(ul.unquote_plus(sys.argv[1]))'"
+  alias -g urlencode="python3 -c 'import sys, urllib.parse as ul; print (ul.quote_plus(sys.argv[1]))'"
 fi
 ### End of Python block
-# PIP block 
+# PIP block
 if command -v pip &>/dev/null; then
-  alias pipi='pip install '
-  alias pipiu='pip install --user '
-  alias pipu='pip uninstall '
-  alias pipuu='pip uninstall --user '
-  alias pipl='pip list'
-  alias piplu='pip list --user'
+  alias pipi="pip install"
+  alias pipiu="pip install --user"
+  alias pipu="pip uninstall"
+  alias pipuu="pip uninstall --user"
+  alias pipl="pip list"
+  alias piplu="pip list --user"
 fi
 if command -v pip-install &>/dev/null; then
-  alias pins='pip-install search'
-  alias pini='pip-install install'
-  alias pinu='pip-install uninstall'
-  alias pinl='pip-install list'
-  alias pinup='pip-install upgrade'
-  alias pinw='pip-install show'
+  alias pins="pip-install search"
+  alias pini="pip-install install"
+  alias pinu="pip-install uninstall"
+  alias pinl="pip-install list"
+  alias pinup="pip-install upgrade"
+  alias pinw="pip-install show"
 fi
 # end of PIP block
 ### git
-alias gbfzf='fzf-git-branch'
-alias gcofzf='fzf-git-checkout'
-alias gS='git submodule'
+alias gbfzf="fzf-git-branch"
+alias gcofzf="fzf-git-checkout"
+alias gS="git submodule"
 ### end of git block
 ### dot: git adaptation for dotfiles
-alias 'dc!'='<EUGPSCoordinates>commit <EUGPSCoordinates>--verbose <EUGPSCoordinates>--amend' 
-alias 'dca!'='<EUGPSCoordinates>commit <EUGPSCoordinates>--verbose <EUGPSCoordinates>--all <EUGPSCoordinates>--amend' 
-alias 'dcan!'='<EUGPSCoordinates>commit <EUGPSCoordinates>--verbose <EUGPSCoordinates>--all <EUGPSCoordinates>--no-edit <EUGPSCoordinates>--amend' 
-alias 'dcans!'='<EUGPSCoordinates>commit <EUGPSCoordinates>--verbose <EUGPSCoordinates>--all <EUGPSCoordinates>--signoff <EUGPSCoordinates>--no-edit <EUGPSCoordinates>--amend' 
-alias 'dpf!'='dot push --force'
-alias d='dot '
-alias da='dot add'
-alias daa='dot add --all'
-alias dam='dot am'
-alias dama='dot am --abort'
-alias damc='dot am --continue'
-alias dams='dot am --skip'
-alias damscp='dot am --show-current-patch'
-alias dap='dot apply'
-alias dapa='dot add --patch'
-alias dapt='dot apply --3way'
-alias dau='dot add --update'
-alias dav='dot add --verbose'
-alias db='dot branch'
-alias dbD='dot branch --delete --force'
-alias dba='dot branch --all'
-alias dbd='dot branch --delete'
-alias dbda='dot branch --no-color --merged | command grep -vE "^([+*]|\s*($(git_main_branch)|$(git_develop_branch))\s*$)" | command xargs dot branch --delete 2>/dev/null'
-alias dbfzf='fzf-dot-branch'
+alias dc!="dotfiles commit --verbose --amend" 
+alias dca!="dotfiles commit --verbose --all --amend" 
+alias dcan!="dotfiles commit --verbose --all --no-edit --amend" 
+alias dcans!="dotfiles commit --verbose --all --signoff --no-edit --amend"
+alias dpf!="dot push --force"
+alias d="dotfiles"
+alias da="dot add"
+alias daa="dot add --all"
+alias dam="dot am"
+alias dama="dot am --abort"
+alias damc="dot am --continue"
+alias dams="dot am --skip"
+alias damscp="dot am --show-current-patch"
+alias dap="dot apply"
+alias dapa="dot add --patch"
+alias dapt="dot apply --3way"
+alias dau="dot add --update"
+alias dav="dot add --verbose"
+alias db="dot branch"
+alias dbD="dot branch --delete --force"
+alias dba="dot branch --all"
+alias dbd="dot branch --delete"
+alias dbda="dot branch --no-color --merged | command grep -vE '^([+*]|\s*($(git_main_branch)|$(git_develop_branch))\s*$)' | command xargs dot branch --delete 2>/dev/null"
+alias dbfzf="fzf-dot-branch"
 alias dbg='LANG=C dot branch -vv | grep ": gone\]"'
 alias dbgD='LANG=C dot branch --no-color -vv | grep ": gone\]" | awk '\''{print $1}'\'' | xargs dot branch -D'
 alias dbgd='LANG=C dot branch --no-color -vv | grep ": gone\]" | awk '\''{print $1}'\'' | xargs dot branch -d'
-alias dbl='dot blame -b -w'
-alias dbnm='dot branch --no-merged'
-alias dbr='dot branch --remote'
-alias dbs='dot bisect'
-alias dbsb='dot bisect bad'
-alias dbsg='dot bisect good'
-alias dbsr='dot bisect reset'
-alias dbss='dot bisect start'
-alias dc='<EUGPSCoordinates>commit <EUGPSCoordinates>--verbose' 
-alias dca='<EUGPSCoordinates>commit <EUGPSCoordinates>--verbose <EUGPSCoordinates>--all' 
-alias dcam='<EUGPSCoordinates>commit <EUGPSCoordinates>--all <EUGPSCoordinates>--message' 
-alias dcas='<EUGPSCoordinates>commit <EUGPSCoordinates>--all <EUGPSCoordinates>--signoff' 
-alias dcasm='<EUGPSCoordinates>commit <EUGPSCoordinates>--all <EUGPSCoordinates>--signoff <EUGPSCoordinates>--message' 
-alias dcb='<EUGPSCoordinates>checkout -b' 
-alias dcd='<EUGPSCoordinates>checkout $(<EUGPS'
-alias dcf='dot config --list'
-alias dcl='dot clone --recurse-submodules'
-alias dclean='dot clean --interactive -d'
-alias dcm='dot checkout $(git_main_branch)'
-alias dcmsg='dot commit --message'
-alias dcn!='dot commit --verbose --no-edit --amend'
-alias dco='dot checkout'
-alias dcofzf='fzf-dot-checkout'
-alias dcor='dot checkout --recurse-submodules'
-alias dcount='dot shortlog --summary --numbered'
-alias dcp='dot cherry-pick'
-alias dcpa='dot cherry-pick --abort'
-alias dcpc='dot cherry-pick --continue'
-alias dcs='dot commit --gpg-sign'
-alias dcsm='dot commit --signoff --message'
-alias dcss='dot commit --gpg-sign --signoff'
-alias dcssm='dot commit --gpg-sign --signoff --message'
-alias ddf='dot -c color.ui=false diff'
-alias ddfca='dot -c color.ui=false diff --cached'
-alias ddct='dot describe --tags $(dot rev-list --tags --max-count=1)'
-alias ddfcw='dot -c color.ui=false diff --cached --word-diff'
-alias ddfs='dot -c color.ui=false diff --staged'
-alias ddft='dot -c color.ui=false diff-tree --no-commit-id --name-only -r'
-alias ddfup='dot -c color.ui=false diff @{upstream}'
-alias ddfw='dot -c color.ui=false diff --word-diff'
-alias dfe='<EUGPSCoordinates>fetch' 
-alias dfa='<EUGPSCoordinates>fetch <EUGPSCoordinates>--all <EUGPSCoordinates>--prune <EUGPSCoordinates>--jobs=10' 
-alias dfg='<EUGPSCoordinates>ls-files | grep' 
-alias dfo='<EUGPSCoordinates>fetch origin' 
-alias dg='<EUGPSCoordinates>gui citool' 
-alias dga='<EUGPSCoordinates>gui citool <EUGPSCoordinates>--amend' 
-alias dgpull='<EUGPSCoordinates>pull origin "$(<EUGPSCoordinates>_current_branch)"' 
-alias dgpush='<EUGPSCoordinates>push origin "$(<EUGPSCoordinates>_current_branch)"' 
-alias dgsup='<EUGPSCoordinates>branch <EUGPSCoordinates>--set-upstream-to=origin/$(<EUGPSCoordinates>_current_branch)' 
-alias dhh='<EUGPSCoordinates>help' 
+alias dbl="dot blame -b -w"
+alias dbnm="dot branch --no-merged"
+alias dbr="dot branch --remote"
+alias dbs="dot bisect"
+alias dbsb="dot bisect bad"
+alias dbsg="dot bisect good"
+alias dbsr="dot bisect reset"
+alias dbss="dot bisect start"
+alias dc="dotfiles commit --verbose" 
+alias dca="dotfiles commit --all" 
+alias dcam="dotfiles commit --message" 
+alias dcas="dotfiles commit --signoff" 
+alias dcasm="dotfiles commit --message" 
+alias dcb="dotfiles checkout -b" 
+alias dcd="dotfiles checkout $(git_develop_branch)"
+alias dcf="dot config --list"
+alias dcl="dot clone --recurse-submodules"
+alias dclean="dot clean --interactive -d"
+alias dcm="dot checkout $(git_main_branch)"
+alias dcmsg="dot commit --message"
+alias dcmsg!="dot commit --amend --message"
+alias dcn!="dot commit --verbose --no-edit --amend"
+alias dco="dot checkout"
+alias dcofzf="fzf-dot-checkout"
+alias dcor="dot checkout --recurse-submodules"
+alias dcount="dot shortlog --summary --numbered"
+alias dcp="dot cherry-pick"
+alias dcpa="dot cherry-pick --abort"
+alias dcpc="dot cherry-pick --continue"
+alias dcs="dot commit --gpg-sign"
+alias dcsm="dot commit --signoff --message"
+alias dcss="dot commit --gpg-sign --signoff"
+alias dcssm="dot commit --gpg-sign --signoff --message"
+alias ddf="dot -c color.ui=false diff"
+alias ddfca="dot -c color.ui=false diff --cached"
+alias ddct="dot describe --tags $(dot rev-list --tags --max-count=1)"
+alias ddfcw="dot -c color.ui=false diff --cached --word-diff"
+alias ddfs="dot -c color.ui=false diff --staged"
+alias ddft="dot -c color.ui=false diff-tree --no-commit-id --name-only -r"
+alias ddfup="dot -c color.ui=false diff @{upstream}"
+alias ddfw="dot -c color.ui=false diff --word-diff"
+alias dfe='dotfile fetch' 
+alias dfa='dotfile fetch --all --prune --jobs=10' 
+alias dfg='dotfile files | grep' 
+alias dfo='dotfile fetch origin' 
+alias dg='dotfiles gui citool' 
+alias dga='dotfiles gui citool --amend' 
+alias dgpull='dotfiles pull origin "$(git_current_branch)"' 
+alias dgpush='dotfiles push origin "$(git_current_branch)"' 
+alias dgsup='dotfiles branch --set-upstream-to=origin/$(git_current_branch)' 
+alias dhh='dotfiles help' 
 alias dhub='web_search github'
-alias dignore='<EUGPSCoordinates>update-index <EUGPSCoordinates>--assume-unchanged' 
-alias dignored='<EUGPSCoordinates>ls-files -v | grep "^[[:lower:]]"' 
-alias dit-svn-dcommit-push='<EUGPSCoordinates>svn dcommit && <EUGPSCoordinates>push github $(<EUGPSCoordinates>_main_branch):svntrunk' 
+alias dignore='dotfiles update-index <EUGPSCoordinates>--assume-unchanged' 
+alias dignored='dotfiles ls-files -v | grep "^[[:lower:]]"' 
+alias dot-svn-dcommit-push='dotfiles svn dcommit && dotfiles push github $(git_main_branch):svntrunk' 
 alias dgk='\gitk --all --branches &!'
 alias dke='\gitk --all $(dot log --walk-reflogs --pretty=%h) &!'
 alias dl='dot pull'
@@ -684,7 +683,7 @@ alias dswc='dot switch --create'
 alias dswd='dot switch $(git_develop_branch)'
 alias dswm='dot switch $(git_main_branch)'
 alias dS='dot submodule'
-alias dtl='dtl(){ dot tag --sort=-v:refname -n --list "${1}*" }; noglob dtl'
+alias dtl='dtl(){ dot tag --sort=-v:refname -n --list "${1}*" }: noglob dtl'
 alias dts='dot tag --sign'
 alias dtv='dot tag | sort -V'
 alias dunignore='dot update-index --no-assume-unchanged'
@@ -708,6 +707,7 @@ alias dwtrm='dot worktree remove'
 
 ### Git block
 # some git overrides
+alias gcmsg!='git commit --amend --message'
 alias gd='git -c color.ui=false diff'
 alias gd='git -c color.ui=false diff'
 alias gdca='git -c color.ui=false diff --cached'
