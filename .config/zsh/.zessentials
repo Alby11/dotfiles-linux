@@ -27,10 +27,12 @@ fi
 if [[ $has_dnf && ! $has_apt ]]; then
   packages=(
     "ca-certificates"
+    "cargo"
     "@Development Tools"
     "openssh-askpass"
     "openssl"
     "openssl-devel"
+    "python3-pip"
     "pkgconf-pkg-config"
     "polkit"
     "readlink"
@@ -49,12 +51,15 @@ elif [[ $has_apt && ! $has_dnf ]]; then
     sudo apt-get update
   fi
   packages=(
+    "apt-file"
     "build-essential"
     "ca-certificates"
+    "cargo"
     "coreutils"
     "libssl-dev"
     "openssl"
     "pkg-config"
+    "python3-pip"
     "policykit-1"
     "ssh-askpass"
   )
