@@ -1,5 +1,5 @@
 # vim: filetype=zsh
-  
+
 lf () {
   server_url="https://filetransfer.oliocarli.it"
   api_key="3jiKDkt09qiEE0nAMFmTFMPZiER6ugPEijeK3rIgQdz6"
