@@ -396,6 +396,7 @@ fi
 if command -v ansible &>/dev/null; then
     alias an='ansible'
     alias ana='ansible all'
+    alias anam='ansible all -m'
     alias ap='ansible-playbook'
     alias ag='ansible-galaxy'
 fi

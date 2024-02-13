@@ -4,7 +4,7 @@ lf () {
   server_url="https://filetransfer.oliocarli.it"
   api_key="3jiKDkt09qiEE0nAMFmTFMPZiER6ugPEijeK3rIgQdz6"
   attachment_file="$1"
-  attachment_path="realpath $attachment_file"
+  attachment_path="$(realpath ${attachment_file})"
 
   #1) upload a file first and get attachment_id
   attachment_id=$(
@@ -12,8 +12,8 @@ lf () {
     -X POST \
     --user "${api_key}:x" \
     -H "Accept: application/json" \
-    --data-binary "$attachment_path" \
-    ${server_url}/message/attachments/upload?filename=$attachment_file |\
+    --data-binary "${attachment_path}" \
+    ${server_url}/message/attachments/upload?filename=${attachment_file} |\
     jq -r .attachment.id
   )
 
