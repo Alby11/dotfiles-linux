@@ -240,20 +240,19 @@ if command -v tmux &>/dev/null; then
     alias trs='tmux rename-session -t '
 fi
 
-if CHECK_COMMANDS "zellij"; then
-  alias Z='zellij'
-fi
-
 if command -v nvim &>/dev/null; then
-    alias e='nvim '
-    alias nv='nvim '
-    alias vi='nvim '
-    alias vim='nvim '
-    alias E='| nvim '
-    if command -v nvr &>/dev/null; then
-        alias nvimr='nvim --listen /tmp/nvimsocket '
-        alias nvrs='nvr -s '
-    fi
+  if command -v lvim &>/dev/null; then
+    alias nvim='lvim '
+  fi
+  alias e='nvim '
+  alias nv='nvim '
+  alias vi='nvim '
+  alias vim='nvim '
+  alias E='| nvim '
+  if command -v nvr &>/dev/null; then
+      alias nvimr='nvim --listen /tmp/nvimsocket '
+      alias nvrs='nvr -s '
+  fi
 fi
 
 if command -v nvimpager &>/dev/null

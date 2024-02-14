@@ -86,10 +86,18 @@ export LS_COLORS="$(vivid generate catppuccin-mocha)"
 export PYTHONIOENCODING='UTF-8';
 
 # Export GOPATH
-export GOPATH=${HOME}/go
+[[ -d ${HOM}/go ]] && export GOPATH=${HOME}/go
 
 # Export JAVA_HOME from default alternative
-export JAVA_HOME="$(dirname $(dirname $(readlink $(readlink $(which javac)))))"
+if CHECK_COMMANDS javac; then
+  export JAVA_HOME="$(dirname $(dirname $(readlink $(readlink $(which javac)))))"
+fi
+
+# Shell setup for fnm NodeJS Manager
+if CHECK_COMMANDS fnm; then
+  fnm install --lts
+  eval "$(fnm env --use-on-cd)"
+fi
 
 # Omit duplicates and commands that begin with a space from history.
 export HISTCONTROL='ignoreboth';

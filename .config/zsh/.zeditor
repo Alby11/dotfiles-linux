@@ -91,6 +91,12 @@ if ! CHECK_COMMANDS nvim > /dev/null ; then
     cargo install stylua
   fi
 fi
+
+# LunarVIM
+if ! CHECK_COMMANDS lvim;
+  bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh)
+fi
+
 export EDITOR="${$(which nvim):-$EDITOR}"
 export VISUAL="${$(which nvim):-$VISUAL}"
 export PAGER="${$(which nvim):-$PAGER}"

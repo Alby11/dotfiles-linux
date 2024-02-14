@@ -43,8 +43,8 @@ if [[ $has_dnf && ! $has_apt ]]; then
     "libwnck*"
     "lsb_release"
     "luarocks"
-    "nodejs"
-    "nodejs-npm"
+    # "nodejs"
+    # "nodejs-npm"
     "perl"
     "python-unversioned-command"
     "python3-pip"
@@ -85,8 +85,8 @@ elif [[ $has_apt && ! $has_dnf ]]; then
     "libnotify-bin"
     "lsb-release"
     "luarocks"
-    "nodejs"
-    "npm"
+    # "nodejs"
+    # "npm"
     "perl"
     "python-is-python3"
     "python3-pip"
@@ -108,6 +108,7 @@ fi
 packages=(
   "bat"
   "eza"
+  "fnm"
   "fd-find"
   "gitui"
   "grc-rs"
@@ -128,7 +129,8 @@ packages=(
   "solhint"
 )
 local -a missing_npm_packages
-for package in $npm_packages; do
+# for package in $npm_packages; do
+for package in $packages; do
   if ! npm list -g "$package" >/dev/null 2>&1; then
     missing_npm_packages+=("$package")
   fi
@@ -136,18 +138,23 @@ done
 if ((${#missing_npm_packages[@]} > 0)); then
   sudo npm install -g ${missing_npm_packages[@]}
 fi
+
 # PIP
 packages=(
   "autoenv"
   "black"
   "flake8"
-  "neovim"
   "pip-install"
+  "pynvim"
   "thefuck"
   "virtualenv"
   "virtualenvwrapper"
 )
 sudo python -m pip install "${packages[@]}"
 
+#GIT raw
+if ! CHECK_COMMANDS getnf; then
+  curl -fsSL https://raw.githubusercontent.com/ronniedroid/getnf/master/install.sh | zsh
+fi
  
 unset has_apt has_dnf has_pacman packages package_groups check_nopasswd
