@@ -95,7 +95,9 @@ fi
 
 # Shell setup for fnm NodeJS Manager
 if CHECK_COMMANDS fnm; then
-  fnm install --lts
+  if ! CHECK_COMMANDS node; then
+    fnm install --lts
+  fi
   eval "$(fnm env --use-on-cd)"
 fi
 

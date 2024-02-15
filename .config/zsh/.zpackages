@@ -97,55 +97,76 @@ elif [[ $has_apt && ! $has_dnf ]]; then
   # unset the DEBIAN_FRONTEND variable to avoid potential unintended consequences in future operations
   unset DEBIAN_FRONTEND
 fi
+
 # CARGO
+install_cargo_packages() {
+  packages=(
+    "bat"
+    "eza"
+    "fnm"
+    "fd-find"
+    "gitui"
+    "grc-rs"
+    "lolcrab"
+    "ripgrep"
+    "vivid"
+    "zoxide"
+  )
+  cargo install "${packages[@]}"
+}
 if ! CHECK_COMMANDS rustup: then
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path
 fi
-packages=(
-  "bat"
-  "eza"
-  "fnm"
-  "fd-find"
-  "gitui"
-  "grc-rs"
-  "lolcrab"
-  "ripgrep"
-  "vivid"
-  "zoxide"
-)
-cargo install "${packages[@]}"
- 
+install_cargo_packages
+unset -f install_cargo_packages
+
 # NPM
-packages=(
-  "@fsouza/prettierd"
-  "eslint"
-  "fixjson"
-  "neovim"
-  "solhint"
-)
-local -a missing_npm_packages
-# for package in $npm_packages; do
-for package in $packages; do
-  if ! npm list -g "$package" >/dev/null 2>&1; then
-    missing_npm_packages+=("$package")
+install_npm_packages() {
+  packages=(
+    "@fsouza/prettierd"
+    "eslint"
+    "fixjson"
+    "neovim"
+    "solhint"
+  )
+  local -a missing_npm_packages
+  # for package in $npm_packages; do
+  for package in $packages; do
+    if ! npm list -g "$package" >/dev/null 2>&1; then
+      missing_npm_packages+=("$package")
+    fi
+  done
+  if ((${#missing_npm_packages[@]} > 0)); then
+    sudo npm install -g ${missing_npm_packages[@]}
   fi
-done
-if ((${#missing_npm_packages[@]} > 0)); then
-  sudo npm install -g ${missing_npm_packages[@]}
+}
+if ! CHECK_COMMANDS npm; then
+  if CHECK_COMMANDS fnm; then
+    fnm install --lts
+  fi
 fi
+install_npm_packages
+unset -f install_npm_packages
 
 # PIP
-packages=(
-  "autoenv"
-  "black"
-  "flake8"
-  "pip-install"
-  "pynvim"
-  "thefuck"
-  "virtualenv"
-  "virtualenvwrapper"
-)
-sudo python -m pip install "${packages[@]}"
+install_pip_packages() {
+  packages=(
+    "autoenv"
+    "black"
+    "flake8"
+    "pip-install"
+    "pynvim"
+    "thefuck"
+    "virtualenv"
+    "virtualenvwrapper"
+  )
+  sudo python -m pip install "${packages[@]}"
+}
+if ! CHECK_COMMANDS pip; then
+  package_manager_install python3-pip
+fi
+install_pip_packages
+unset -f install_pip_packages
 
 #GIT raw
 if ! CHECK_COMMANDS getnf; then
