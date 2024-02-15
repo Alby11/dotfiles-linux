@@ -10,7 +10,60 @@ ECHOCAT '.zeditor - Zsh file loaded to export editor, visual, pager ...'
 # Editors
 #
 
-export EDITOR="$(which vim > /dev/null 2>&1)"
+# define a function to build neovim from source if neovim is missing
+# in case it is installed by package manager, build for current user only
+build_and_install_neovim() {
+  # Check if a local Neovim installation exists
+  if [[ -x "$HOME/.local/bin/nvim" ]]; then
+    echo "Local Neovim installation found. Skipping build and install."
+    return 0
+  fi
+
+  # Detects the Linux distribution and installs necessary build dependencies
+  local DISTRO
+  if [[ -f /etc/fedora-release ]]; then
+    DISTRO="fedora"
+    echo "Installing build dependencies for Fedora..."
+    sudo dnf install -y ninja-build gettext libtool libtool-ltdl-devel \
+      autoconf automake cmake gcc gcc-c++ make pkgconfig unzip patch \
+      curl
+  elif [[ -f /etc/os-release ]]; then
+    . /etc/os-release
+    if [[ $NAME == "Ubuntu" ]]; then
+      DISTRO="ubuntu"
+      echo "Installing build dependencies for Ubuntu..."
+      sudo apt update && sudo apt install -y ninja-build gettext libtool libtool-bin \
+        autoconf automake cmake g++ pkg-config unzip curl doxygen
+    elif [[ $ID == "arch" || $ID_LIKE == "arch" ]]; then
+      DISTRO="arch"
+      echo "Installing build dependencies for Arch Linux..."
+      sudo pacman -Sy --needed base-devel cmake unzip ninja tree-sitter curl doxygen
+    fi
+  else
+    echo "Unsupported distribution. Exiting..."
+    return 1
+  fi
+
+  # Clone, build, and install Neovim from source for the current user
+  echo "Cloning Neovim repository..."
+  git clone https://github.com/neovim/neovim.git || { echo "Failed to clone Neovim repository"; return 1; }
+  cd neovim || return 1
+  echo "Building Neovim from source..."
+  make CMAKE_BUILD_TYPE=RelWithDebInfo || { echo "Failed to build Neovim"; return 1; }
+  echo "Installing Neovim for the current user..."
+  make CMAKE_INSTALL_PREFIX="$HOME/.local" install
+  cd ..
+  echo "Removing cloned Neovim repository..."
+  rm -rf neovim
+
+  # Ensure $HOME/.local/bin is in PATH
+  if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
+    echo "Adding $HOME/.local/bin to your PATH for this session."
+    export PATH="$HOME/.local/bin:$PATH"
+  fi
+}
+
+export EDITOR="$(which nano > /dev/null 2>&1)"
 export VISUAL="$EDITOR"
 export PAGER="$(which less)"
 export MANPAGER="$PAGER"
@@ -69,35 +122,29 @@ unset INSTALL_DIR BASE_CMD SUFFIXES PATTERN
 export LESSOPEN="$(which batpipe) %s"
 # export LESSOPEN
 unset LESSCLOSE
-# The following will enable colors when using batpipe with less:
-export LESS="$LESS -R"
-export BATPIPE="color"
 # export LESS
-# Neovim nightly with bob
-if ! CHECK_COMMANDS nvim > /dev/null ; then
-  if ! CHECK_COMMANDS bob ; then
-    cargo install \
-      --git https://github.com/MordechaiHadad/bob.git \
-      --no-default-features \
-      --features native-tls
-    export PATH=$PATH:$HOME/.cargo/bin
-  fi
-  mkdir -p $HOME/.local/share/bash-completion/completions
-  bob complete bash > $HOME/.local/share/bash-completion/completions/bob
-  bob complete zsh > $ZDOTDIR/completions/_bob
-  export PATH=$PATH:$HOME/.local/share/bob/nvim-bin
-  bob use nightly
-  if ! CHECK_COMMANDS stylua;then
-    cargo install stylua
-  fi
-fi
+export LESS="$LESS -R"
+# The following will enable colors when using batpipe with less:
+export BATPIPE="color"
+
+# Neovim build from source
+build_and_install_neovim
+unset -f build_and_install_neovim
 
 # LunarVIM
-if ! CHECK_COMMANDS lvim;
+if ! CHECK_COMMANDS lvim; then
+  bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/uninstall.sh)
   bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh)
 fi
 
-export EDITOR="${$(which nvim):-$EDITOR}"
-export VISUAL="${$(which nvim):-$VISUAL}"
-export PAGER="${$(which nvim):-$PAGER}"
-export MANPAGER="$(which nvim) -c 'Man!' -o -"
+if CHECK_COMMANDS lvim; then
+  export EDITOR="${$(which lvim):-$EDITOR}"
+  export VISUAL="${$(which lvim):-$VISUAL}"
+  export PAGER="${$(which lvim):-$PAGER}"
+  export MANPAGER="$(which lvim) -c 'Man!' -o -"
+else
+  export EDITOR="${$(which nvim):-$EDITOR}"
+  export VISUAL="${$(which nvim):-$VISUAL}"
+  export PAGER="${$(which nvim):-$PAGER}"
+  export MANPAGER="$(which nvim) -c 'Man!' -o -"
+fi
