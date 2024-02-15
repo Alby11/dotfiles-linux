@@ -17,6 +17,18 @@ if [ -z "$SSH_CONNECTION" ]; then
   fi
 fi
 
+# determine distro for later user
+if [[ -f /etc/fedora-release ]]; then
+  DISTRO="fedora"
+elif [[ -f /etc/os-release ]]; then
+  . /etc/os-release
+  if [[ $NAME == "Ubuntu" ]]; then
+    DISTRO="ubuntu"
+  elif [[ $ID == "arch" || $ID_LIKE == "arch" ]]; then
+    DISTRO="arch"
+  fi
+fi
+
 # Uncomment to use the profiling module
 zmodload zsh/zprof
 
