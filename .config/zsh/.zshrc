@@ -94,8 +94,8 @@ if CHECK_COMMANDS javac; then
 fi
 
 # Shell setup for fnm NodeJS Manager
-if CHECK_COMMANDS fnm; then
-  if ! CHECK_COMMANDS node; then
+if CHECK_COMMANDS "fnm"; then
+  if ! CHECK_COMMANDS "node"; then
     fnm install --lts
   fi
   eval "$(fnm env --use-on-cd)"
