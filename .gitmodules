@@ -73,9 +73,12 @@
 [submodule "gitdepot/dracula_tty"]
 	path = gitdepot/dracula_tty
 	url = https://github.com/dracula/tty.git
-[submodule ".config/nvim"]
-	path = .config/nvim
-	url = git@github.com:Alby11/dotfiles-neovim
+[submodule ".config/lvim"]
+	path = .config/lvim
+	url = git@github.com:Alby11/LunarVim
+; [submodule ".config/nvim"]
+; 	path = .config/nvim
+; 	url = git@github.com:Alby11/dotfiles-neovim
 [submodule "gitdepot/dracula-alacritty"]
 	path = gitdepot/dracula-alacritty
 	url = https://github.com/dracula/alacritty.git
