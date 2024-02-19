@@ -52,6 +52,7 @@ if [[ $has_dnf && ! $has_apt ]]; then
     "xclip"
     "xorg-x11-server-Xwayland"
     "xsel"
+    "zoxide"
   )
   local package_groups=""
   sudo dnf install -y "${packages[@]}" 
@@ -67,10 +68,12 @@ elif [[ $has_apt && ! $has_dnf ]]; then
   local packages=(
     "apt-file"
     "apt-utils"
+    "bat"
     "btop"
     "ccze"
     "clang-format"
     "curl"
+    "exa"
     "fzf"
     "gir*-wnck-*"
     "gnome-tweaks"
@@ -92,6 +95,7 @@ elif [[ $has_apt && ! $has_dnf ]]; then
     "xclip"
     "xsel"
     "xwayland"
+    "zoxide"
   )
   sudo apt-get install -y "${packages[@]}" 
   # unset the DEBIAN_FRONTEND variable to avoid potential unintended consequences in future operations
@@ -101,16 +105,11 @@ fi
 # CARGO
 install_cargo_packages() {
   packages=(
-    "bat"
-    "eza"
     "fnm"
-    "fd-find"
     "gitui"
     "grc-rs"
     "lolcrab"
-    "ripgrep"
     "vivid"
-    "zoxide"
   )
   cargo install "${packages[@]}"
 }
