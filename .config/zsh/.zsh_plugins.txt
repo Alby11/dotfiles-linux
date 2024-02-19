@@ -32,7 +32,7 @@ xPMo/zsh-ls-colors
 https://github.com/peterhurford/up.zsh
 rummik/zsh-tailf
 mattmc3/zman
-agkozak/zsh-z
+# agkozak/zsh-z
 
 ### Local Plugins
 #
@@ -76,6 +76,7 @@ agkozak/zsh-z
 
 # annotations are also allowed:
 # romkatv/zsh-bench                           kind:path
+marlonrichert/zsh-autocomplete
 jeffreytse/zsh-vi-mode
 # olets/zsh-abbr
 MichaelAquilina/zsh-you-should-use          kind:defer
@@ -148,7 +149,7 @@ ohmyzsh/ohmyzsh                             path:plugins/globalias
 ohmyzsh/ohmyzsh                             path:plugins/gnu-utils
 ohmyzsh/ohmyzsh                             path:plugins/golang kind:fpath
 ohmyzsh/ohmyzsh                             path:plugins/gpg-agent
-ohmyzsh/ohmyzsh                             path:plugins/history
+# ohmyzsh/ohmyzsh                             path:plugins/history
 ohmyzsh/ohmyzsh                             path:plugins/history-substring-search
 ohmyzsh/ohmyzsh                             path:plugins/keychain
 ohmyzsh/ohmyzsh                             path:plugins/kubectl kind:fpath
@@ -265,9 +266,9 @@ zsh-users/zsh-completions                   path:src kind:fpath
 psprint/zsh-sweep
 
 # These popular core plugins should be loaded at the end
-unixorn/fzf-zsh-plugin                      branch:main kind:defer
-Aloxaf/fzf-tab                              kind:defer
-johannchangpro/zsh-interactive-cd           kind:defer
+# unixorn/fzf-zsh-plugin                      branch:main kind:defer
+# Aloxaf/fzf-tab                              kind:defer
+# johannchangpro/zsh-interactive-cd           kind:defer
 # lincheney/fzf-tab-completion     #kind:defer
 zsh-users/zsh-autosuggestions
 zsh-users/zsh-history-substring-search

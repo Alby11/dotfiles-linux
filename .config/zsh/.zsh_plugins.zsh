@@ -8,8 +8,8 @@ fpath+=( /home/tallonea/.cache/antidote/rummik/zsh-tailf )
 source /home/tallonea/.cache/antidote/rummik/zsh-tailf/tailf.plugin.zsh
 fpath+=( /home/tallonea/.cache/antidote/mattmc3/zman )
 source /home/tallonea/.cache/antidote/mattmc3/zman/zman.plugin.zsh
-fpath+=( /home/tallonea/.cache/antidote/agkozak/zsh-z )
-source /home/tallonea/.cache/antidote/agkozak/zsh-z/zsh-z.plugin.zsh
+fpath+=( /home/tallonea/.cache/antidote/marlonrichert/zsh-autocomplete )
+source /home/tallonea/.cache/antidote/marlonrichert/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 fpath+=( /home/tallonea/.cache/antidote/jeffreytse/zsh-vi-mode )
 source /home/tallonea/.cache/antidote/jeffreytse/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 if ! (( $+functions[zsh-defer] )); then
@@ -110,8 +110,6 @@ source /home/tallonea/.cache/antidote/ohmyzsh/ohmyzsh/plugins/gnu-utils/gnu-util
 fpath+=( /home/tallonea/.cache/antidote/ohmyzsh/ohmyzsh/plugins/golang )
 fpath+=( /home/tallonea/.cache/antidote/ohmyzsh/ohmyzsh/plugins/gpg-agent )
 source /home/tallonea/.cache/antidote/ohmyzsh/ohmyzsh/plugins/gpg-agent/gpg-agent.plugin.zsh
-fpath+=( /home/tallonea/.cache/antidote/ohmyzsh/ohmyzsh/plugins/history )
-source /home/tallonea/.cache/antidote/ohmyzsh/ohmyzsh/plugins/history/history.plugin.zsh
 fpath+=( /home/tallonea/.cache/antidote/ohmyzsh/ohmyzsh/plugins/history-substring-search )
 source /home/tallonea/.cache/antidote/ohmyzsh/ohmyzsh/plugins/history-substring-search/history-substring-search.plugin.zsh
 fpath+=( /home/tallonea/.cache/antidote/ohmyzsh/ohmyzsh/plugins/keychain )
@@ -202,12 +200,6 @@ fpath+=( /home/tallonea/.cache/antidote/viasite-ansible/zsh-ansible-server/src )
 fpath+=( /home/tallonea/.cache/antidote/zsh-users/zsh-completions/src )
 fpath+=( /home/tallonea/.cache/antidote/psprint/zsh-sweep )
 source /home/tallonea/.cache/antidote/psprint/zsh-sweep/zsh-sweep.plugin.zsh
-fpath+=( /home/tallonea/.cache/antidote/unixorn/fzf-zsh-plugin )
-zsh-defer source /home/tallonea/.cache/antidote/unixorn/fzf-zsh-plugin/fzf-zsh-plugin.plugin.zsh
-fpath+=( /home/tallonea/.cache/antidote/Aloxaf/fzf-tab )
-zsh-defer source /home/tallonea/.cache/antidote/Aloxaf/fzf-tab/fzf-tab.plugin.zsh
-fpath+=( /home/tallonea/.cache/antidote/johannchangpro/zsh-interactive-cd )
-zsh-defer source /home/tallonea/.cache/antidote/johannchangpro/zsh-interactive-cd/zsh-interactive-cd.plugin.zsh
 fpath+=( /home/tallonea/.cache/antidote/zsh-users/zsh-autosuggestions )
 source /home/tallonea/.cache/antidote/zsh-users/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 fpath+=( /home/tallonea/.cache/antidote/zsh-users/zsh-history-substring-search )
