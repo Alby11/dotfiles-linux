@@ -145,8 +145,8 @@ install_and_setup_bat() {
       "$@" --help 2>&1 | bathelp
   }
   # For zsh, override -h and --help entirely
-  alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
-  alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
+  # alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
+  # alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
   bat cache --build > /dev/null 2>&1
   # Ensure extended globbing is enabled
   setopt extended_glob
