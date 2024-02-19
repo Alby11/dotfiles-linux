@@ -29,9 +29,9 @@ romkatv/zsh-defer
 #
 ###
 xPMo/zsh-ls-colors
-https://github.com/peterhurford/up.zsh
-rummik/zsh-tailf
-mattmc3/zman
+# https://github.com/peterhurford/up.zsh # up n dirs, e.g. up, up 2, up 3 ...
+# rummik/zsh-tailf #tail -f with prefixed newlines instead of trailing
+mattmc3/zman #Use fzf to quickly browse Zsh manuals
 # agkozak/zsh-z
 
 ### Local Plugins
@@ -75,11 +75,11 @@ mattmc3/zman
 #
 
 # annotations are also allowed:
-# romkatv/zsh-bench                           kind:path
-marlonrichert/zsh-autocomplete
+# romkatv/zsh-bench                          kind:path
+marlonrichert/zsh-autocomplete               # Find as you type, then press Tab to insert the top completion or ↓to select another completion.
 jeffreytse/zsh-vi-mode
-# olets/zsh-abbr
-MichaelAquilina/zsh-you-should-use          kind:defer
+# olets/zsh-abbr                             # zsh manager for auto-expanding abbreviations
+MichaelAquilina/zsh-you-should-use           #kind:defer
 
 ### Frameworks
 #
@@ -108,14 +108,14 @@ MichaelAquilina/zsh-you-should-use          kind:defer
 ####
 ohmyzsh/ohmyzsh                             path:lib
 ohmyzsh/ohmyzsh                             path:plugins/ag kind:fpath
-ohmyzsh/ohmyzsh                             path:plugins/aliases
+# ohmyzsh/ohmyzsh                             path:plugins/aliases
 ohmyzsh/ohmyzsh                             path:plugins/ansible
 ohmyzsh/ohmyzsh                             path:plugins/autoenv
 ohmyzsh/ohmyzsh                             path:plugins/battery
-ohmyzsh/ohmyzsh                             path:plugins/brew kind:fpath
+# ohmyzsh/ohmyzsh                             path:plugins/brew kind:fpath
 ohmyzsh/ohmyzsh                             path:plugins/colemak kind:fpath
 ohmyzsh/ohmyzsh                             path:plugins/colored-man-pages
-ohmyzsh/ohmyzsh                             path:plugins/colorize
+# ohmyzsh/ohmyzsh                             path:plugins/colorize
 ohmyzsh/ohmyzsh                             path:plugins/command-not-found
 ohmyzsh/ohmyzsh                             path:plugins/compleat kind:fpath
 ohmyzsh/ohmyzsh                             path:plugins/copybuffer
@@ -147,25 +147,25 @@ ohmyzsh/ohmyzsh                             path:plugins/github
 ohmyzsh/ohmyzsh                             path:plugins/gitignore
 ohmyzsh/ohmyzsh                             path:plugins/globalias
 ohmyzsh/ohmyzsh                             path:plugins/gnu-utils
-ohmyzsh/ohmyzsh                             path:plugins/golang kind:fpath
+# ohmyzsh/ohmyzsh                             path:plugins/golang kind:fpath
 ohmyzsh/ohmyzsh                             path:plugins/gpg-agent
 # ohmyzsh/ohmyzsh                             path:plugins/history
 ohmyzsh/ohmyzsh                             path:plugins/history-substring-search
 ohmyzsh/ohmyzsh                             path:plugins/keychain
-ohmyzsh/ohmyzsh                             path:plugins/kubectl kind:fpath
-ohmyzsh/ohmyzsh                             path:plugins/kubectx
+# ohmyzsh/ohmyzsh                             path:plugins/kubectl kind:fpath
+# ohmyzsh/ohmyzsh                             path:plugins/kubectx
 ohmyzsh/ohmyzsh                             path:plugins/last-working-dir
 ohmyzsh/ohmyzsh                             path:plugins/magic-enter
 ohmyzsh/ohmyzsh                             path:plugins/man
-ohmyzsh/ohmyzsh                             path:plugins/minikube kind:fpath
+# ohmyzsh/ohmyzsh                             path:plugins/minikube kind:fpath
 ohmyzsh/ohmyzsh                             path:plugins/nmap
 ohmyzsh/ohmyzsh                             path:plugins/node
 ohmyzsh/ohmyzsh                             path:plugins/npm kind:fpath
 ohmyzsh/ohmyzsh                             path:plugins/nvm kind:fpath
 ohmyzsh/ohmyzsh                             path:plugins/pep8 kind:fpath
 ohmyzsh/ohmyzsh                             path:plugins/per-directory-history
-ohmyzsh/ohmyzsh                             path:plugins/pip kind:fpath
-ohmyzsh/ohmyzsh                             path:plugins/podman kind:fpath
+# ohmyzsh/ohmyzsh                             path:plugins/pip kind:fpath
+# ohmyzsh/ohmyzsh                             path:plugins/podman kind:fpath
 ohmyzsh/ohmyzsh                             path:plugins/pyenv
 ohmyzsh/ohmyzsh                             path:plugins/pylint kind:fpath
 ohmyzsh/ohmyzsh                             path:plugins/python
@@ -204,11 +204,11 @@ ohmyzsh/ohmyzsh                             path:plugins/zoxide
 # If you want a really thin framework, this is great.
 #
 ###ke zsh-utils
-# belak/zsh-utils                             path:completion
-# belak/zsh-utils                             path:editor
-# belak/zsh-utils                             path:history
-# belak/zsh-utils                             path:prompt
-# belak/zsh-utils                             path:utility
+# belak/zsh-utils                            path:completion
+# belak/zsh-utils                            path:editor
+# belak/zsh-utils                            path:history
+# belak/zsh-utils                            path:prompt
+# belak/zsh-utils                            path:utility
 
 # History
 # wulfgarpro/history-sync
@@ -227,7 +227,7 @@ ohmyzsh/ohmyzsh                             path:plugins/zoxide
 ###
 # Syntax highlighting
 # zsh-users/zsh-syntax-highlightin           #kind:defer
-zdharma-continuum/fast-syntax-highlighting #kind:defer
+zdharma-continuum/fast-syntax-highlighting  kind:defer
 
 ### Completions
 #
@@ -277,4 +277,3 @@ zsh-users/zsh-history-substring-search
 # MichaelAquilina/zsh-auto-notify
 $ZDOTDIR/.zaliases
 $ZDOTDIR/.zfunctions
-# mattmc3/zfunctions                        kind:defer
