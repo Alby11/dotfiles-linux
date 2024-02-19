@@ -62,8 +62,11 @@ export ENABLE_CORRECTION="true"
 # Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
 export COMPLETION_WAITING_DOTS="true"
 
-# Set the name and location of the history file
+# Set history
 export HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"
+export HISTSIZE=1000000000
+export SAVEHIST=$HISTSIZE
+setopt EXTENDED_HISTORY
 
 # Uncomment the following line if you want to change the command execution time
 # or set a custom format using the strftime function format specifications,
