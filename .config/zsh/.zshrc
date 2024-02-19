@@ -15,6 +15,7 @@ if [ "$TERM" = "screen" ]; then
 elif [ "$TERM" = "xterm" ]; then
     export TERM="xterm-256color"
 fi
+export TERM="xterm-256color"
 
 # Pyenv
 SOURCE_RCFILE $ZDOTDIR/.zpyenv
