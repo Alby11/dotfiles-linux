@@ -67,65 +67,130 @@ export EDITOR="$(which nano > /dev/null 2>&1)"
 export VISUAL="$EDITOR"
 export PAGER="$(which less)"
 export MANPAGER="$PAGER"
+
 ### Setting up less
 # Highlight section titles in manual pages.
 export LESS_TERMCAP_md="${yellow}"
+unset LESSCLOSE
+export LESS="$LESS -R"
+
+
 if CHECK_COMMANDS lesspipe.sh; then
   lesspipe.sh | source /dev/stdin
 else
   ECHOCAT 'LESSOPEN: lesspipe.sh in not installed or in PATH' -i
 fi
-# BAT
-if ! CHECK_COMMANDS bat; then
-  cargo install bat
-fi
-bat cache --build > /dev/null 2>&1
-# Ensure extended globbing is enabled
-setopt extended_glob
-# Define the directory and the base command
-local INSTALL_DIR="${HOME}/.local"
-local BASE_CMD="bat"
-# Define the suffixes
-local SUFFIXES=(diff grep man watch)
-# Flag to indicate if any file is missing
-local missing_file=false
-# Check each file individually
-for suffix in $SUFFIXES; do
-    if [[ ! -f "${INSTALL_DIR}/bin/${BASE_CMD}${suffix}" ]]; then
-        missing_file=true
-        break
+
+install_and_setup_bat() {
+  ### BAT
+  if ! CHECK_COMMANDS bat; then
+    package_manager_install bat
+  fi
+  # Check if running on Ubuntu
+  if [[ "$(uname -a)" == *Ubuntu* ]]; then
+    # Check if batcat is installed (Ubuntu's bat package name)
+    if command -v batcat > /dev/null; then
+      alias bat='batcat'
+      # Only alias cat to rcat if rcat is not already an existing command
+      if ! command -v rcat > /dev/null; then
+        alias rcat='cat'
+      fi
+      alias cat='rcat'
     fi
-done
-# If any file is missing, execute the installation steps
-if $missing_file; then
-  # Clone the repository
-  local CUR_DIR=$(pwd)
-  cd /tmp
-  git clone https://github.com/eth-p/bat-extras.git
-  cd bat-extras
+  else
+    # Check if bat is installed on non-Ubuntu systems
+    if ! command -v bat > /dev/null; then
+      echo "bat/batcat is not installed. Skipping integrations."
+      return
+    fi
+  fi
 
-  # Build and install bat-extras
-  ./build.sh --minify=all --install --prefix="$INSTALL_DIR"
+  # Integration with fzf for preview
+  if command -v fzf > /dev/null; then
+    export FZF_DEFAULT_OPTS="--preview 'bat --color=always --style=numbers --line-range=:500 {}'"
+  fi
 
-  # Cleanup: Go back to the previous directory and remove the cloned repo
-  cd ..
-  rm -rf bat-extras
-  cd "$CUR_DIR"
-  unset CUR_DIR
-  # Notify the user
-  ECHOCAT "bat-extras installed successfully in $INSTALL_DIR"
-fi
-# Clean up environment variables
-unset INSTALL_DIR BASE_CMD SUFFIXES PATTERN
-# END OF BAT BLOCK
-# export LESSOPEN="|$(which batpipe) %s"
-export LESSOPEN="$(which batpipe) %s"
-# export LESSOPEN
-unset LESSCLOSE
-# export LESS
-export LESS="$LESS -R"
-# The following will enable colors when using batpipe with less:
-export BATPIPE="color"
+  # Integration with find or fd for previewing files
+  alias findbat='find . -type f -exec bat {} +'
+  alias fdbat='fd . -X bat'
+
+  # Integration with ripgrep using batgrep
+  alias batgrep='function _batgrep(){ rg --color=always "$1" | bat --paging=never -l diff; }; _batgrep'
+
+  # Integration with tail -f for continuous monitoring
+  alias tailbat='tail -f | bat --paging=never -l log'
+
+  # Integration with git for showing files with syntax highlighting
+  alias gitbat='git show | bat -l'
+
+  # Git diff with bat
+  batdiff() {
+      git diff --name-only --relative --diff-filter=d | xargs bat --diff
+  }
+
+  # Integration with xclip for copying contents without line numbers or Git markers
+  alias batclip='bat --plain | xclip'
+
+  # Set bat as MANPAGER for colorized man pages
+  export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+  # Check for MANROFFOPT for better formatting
+  export MANROFFOPT="-c"
+
+  # Format and print code with bat using prettybat (pseudo-code as prettybat needs to be implemented)
+  alias prettybat='function _prettybat(){ <your-code-formatter> "$@" | bat; }; _prettybat'
+
+  # Alias for highlighting --help messages
+  alias bathelp='bat --plain --language=help'
+  help() {
+      "$@" --help 2>&1 | bathelp
+  }
+  # For zsh, override -h and --help entirely
+  alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
+  alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
+  bat cache --build > /dev/null 2>&1
+  # Ensure extended globbing is enabled
+  setopt extended_glob
+  # Define the directory and the base command
+  local INSTALL_DIR="${HOME}/.local"
+  local BASE_CMD="bat"
+  # Define the suffixes
+  local SUFFIXES=(diff grep man watch)
+  # Flag to indicate if any file is missing
+  local missing_file=false
+  # Check each file individually
+  for suffix in $SUFFIXES; do
+      if [[ ! -f "${INSTALL_DIR}/bin/${BASE_CMD}${suffix}" ]]; then
+          missing_file=true
+          break
+      fi
+  done
+  # If any file is missing, execute the installation steps
+  if $missing_file; then
+    # Clone the repository
+    local CUR_DIR=$(pwd)
+    cd /tmp
+    git clone https://github.com/eth-p/bat-extras.git
+    cd bat-extras
+
+    # Build and install bat-extras
+    ./build.sh --minify=all --install --prefix="$INSTALL_DIR"
+
+    # Cleanup: Go back to the previous directory and remove the cloned repo
+    cd ..
+    rm -rf bat-extras
+    cd "$CUR_DIR"
+    unset CUR_DIR
+    # Notify the user
+    ECHOCAT "bat-extras installed successfully in $INSTALL_DIR"
+  fi
+
+  export LESSOPEN="$(which batpipe) %s"
+  # The following will enable colors when using batpipe with less:
+  export BATPIPE="color"
+
+}
+install_and_setup_bat
+### END OF BAT BLOCK
 
 # Neovim build from source
 build_and_install_neovim
