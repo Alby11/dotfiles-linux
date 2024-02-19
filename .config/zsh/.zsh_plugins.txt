@@ -81,6 +81,9 @@ jeffreytse/zsh-vi-mode
 # olets/zsh-abbr                             # zsh manager for auto-expanding abbreviations
 MichaelAquilina/zsh-you-should-use           #kind:defer
 
+Aloxaf/fzf-tab 
+zsh-users/zsh-autosuggestions
+unixorn/fzf-zsh-plugin                      branch:main
 ### Frameworks
 #
 # Frameworks are a collection of Zsh features, settings, and plugins meant to ease
@@ -115,7 +118,7 @@ ohmyzsh/ohmyzsh                             path:plugins/battery
 # ohmyzsh/ohmyzsh                             path:plugins/brew kind:fpath
 ohmyzsh/ohmyzsh                             path:plugins/colemak kind:fpath
 ohmyzsh/ohmyzsh                             path:plugins/colored-man-pages
-# ohmyzsh/ohmyzsh                             path:plugins/colorize
+ohmyzsh/ohmyzsh                             path:plugins/colorize
 ohmyzsh/ohmyzsh                             path:plugins/command-not-found
 ohmyzsh/ohmyzsh                             path:plugins/compleat kind:fpath
 ohmyzsh/ohmyzsh                             path:plugins/copybuffer
@@ -134,7 +137,7 @@ ohmyzsh/ohmyzsh                             path:plugins/extract
 ohmyzsh/ohmyzsh                             path:plugins/fasd
 ohmyzsh/ohmyzsh                             path:plugins/fd kind:fpath
 ohmyzsh/ohmyzsh                             path:plugins/firewalld
-ohmyzsh/ohmyzsh                             path:plugins/fzf
+# ohmyzsh/ohmyzsh                             path:plugins/fzf
 ohmyzsh/ohmyzsh                             path:plugins/gh kind:fpath
 ohmyzsh/ohmyzsh                             path:plugins/git-auto-fetch
 ohmyzsh/ohmyzsh                             path:plugins/git-commit
@@ -149,7 +152,7 @@ ohmyzsh/ohmyzsh                             path:plugins/globalias
 ohmyzsh/ohmyzsh                             path:plugins/gnu-utils
 # ohmyzsh/ohmyzsh                             path:plugins/golang kind:fpath
 ohmyzsh/ohmyzsh                             path:plugins/gpg-agent
-# ohmyzsh/ohmyzsh                             path:plugins/history
+ohmyzsh/ohmyzsh                             path:plugins/history
 ohmyzsh/ohmyzsh                             path:plugins/history-substring-search
 ohmyzsh/ohmyzsh                             path:plugins/keychain
 # ohmyzsh/ohmyzsh                             path:plugins/kubectl kind:fpath
@@ -266,11 +269,8 @@ zsh-users/zsh-completions                   path:src kind:fpath
 psprint/zsh-sweep
 
 # These popular core plugins should be loaded at the end
-# unixorn/fzf-zsh-plugin                      branch:main kind:defer
-# Aloxaf/fzf-tab                              kind:defer
 # johannchangpro/zsh-interactive-cd           kind:defer
 # lincheney/fzf-tab-completion     #kind:defer
-zsh-users/zsh-autosuggestions
 zsh-users/zsh-history-substring-search
 
 # Others
