@@ -9,6 +9,13 @@ login: after .zprofile and before .zlogin
 non-login: after .zshenv
 """
 
+# export TERM color variable
+if [ "$TERM" = "screen" ]; then
+    export TERM="screen-256color"
+elif [ "$TERM" = "xterm" ]; then
+    export TERM="xterm-256color"
+fi
+
 # Pyenv
 SOURCE_RCFILE $ZDOTDIR/.zpyenv
 
@@ -72,9 +79,6 @@ setopt EXTENDED_HISTORY
 # or set a custom format using the strftime function format specifications,
 # see 'man strftime' for details.
 export HIST_STAMPS="yyyy-mm-dd"
-
-# export TERM color variable for Neovim inside Tmux
-export TERM="xterm-256color"
 
 # export COLORTERM to make most detect 24 bit truecolor
 export COLORTERM=truecolor
