@@ -43,7 +43,7 @@ EOF
     # Parse command-line options
     while (( $# > 0 )); do
         case "$1" in
-            --Help|-H)
+            --help|-h)
                 usage
                 return 0
                 ;;
