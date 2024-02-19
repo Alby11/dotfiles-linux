@@ -33,6 +33,9 @@ if [ $SHLVL -lt 3 ]; then
   (SOURCE_RCFILE $ZDOTDIR/.zpackages > /dev/null 2>&1 &)
 fi
 
+### GITHUB repos exports
+[ -d $HOME/gitdepot ] && gitdepot=$HOME/gitdepot
+
 # Editors
 SOURCE_RCFILE $ZDOTDIR/.zeditor
 
@@ -120,9 +123,6 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 
 # set ZSH as VSCode default shell for the integrated terminal
 [[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
-
-### GITHUB repos exports
-[ -d $HOME/gitdepot ] && gitdepot=$HOME/gitdepot
 
 # TTY theme
 SOURCE_RCFILE $ZDOTDIR/catppuccin_tty/src/mocha.sh
