@@ -139,3 +139,6 @@
 [submodule "gitdepot/bitwarden_duplicate_cleaner"]
 	path = gitdepot/bitwarden_duplicate_cleaner
 	url = https://gist.github.com/0bf7cd39947764896735997056ca74d7.git
+[submodule "/home/tallonea/gitdepot/fzf-tab-completion"]
+	path = /home/tallonea/gitdepot/fzf-tab-completion
+	url = git@github.com:lincheney/fzf-tab-completion.git

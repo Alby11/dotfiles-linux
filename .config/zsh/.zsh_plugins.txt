@@ -270,7 +270,6 @@ psprint/zsh-sweep
 
 # These popular core plugins should be loaded at the end
 # johannchangpro/zsh-interactive-cd           kind:defer
-# lincheney/fzf-tab-completion     #kind:defer
 zsh-users/zsh-history-substring-search
 
 # Others
