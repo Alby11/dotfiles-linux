@@ -30,29 +30,29 @@ setopt extended_glob
 
 ### Packages
 if [ $SHLVL -lt 3 ]; then
-  (SOURCE_RCFILE $ZDOTDIR/.zpackages > /dev/null 2>&1 &)
+  (SOURCE_RCFILE ${ZDOTDIR}.zpackages > /dev/null 2>&1 &)
 fi
 
 ### GITHUB repos exports
-[ -d $HOME/gitdepot ] && gitdepot=$HOME/gitdepot
+[[ -f ${ZDOTDIR}.zgitdepot ]] && SOURCE_RCFILE ${ZDOTDIR}.zgitdepot
 
 # Editors
-SOURCE_RCFILE $ZDOTDIR/.zeditor
+[[ -f ${ZDOTDIR}.zeditor ]] && SOURCE_RCFILE ${ZDOTDIR}.zeditor
 
 # Source GIT configuration
-SOURCE_RCFILE $XDG_CONFIG_HOME/git/.git.conf
+[[ -f ${XDG_CONFIG_HOME}/git/.git.conf ]] && SOURCE_RCFILE ${XDG_CONFIG_HOME}/git/.git.conf
 
 # Source zstyles you might use with antidote.
-SOURCE_RCFILE ${ZDOTDIR:-$HOME}/.zstyles
+[[ -f ${ZDOTDIR}.zstyles ]] && SOURCE_RCFILE ${ZDOTDIR}/.zstyles
 
 # Xresources
-SOURCE_RCFILE $ZDOTDIR/.zxresources.zsh
+[[ -f ${ZDOTDIR}.zxresources.zsh ]] && SOURCE_RCFILE ${ZDOTDIR}.zxresources.zsh
 
 # garabik/grc
 [[ -s "/etc/grc.zsh" ]] && source /etc/grc.zsh
 
 # credentials
-SOURCE_RCFILE $ZDOTDIR/.zcred #> /dev/null 2>&1 &
+[[ -f ${ZDOTDIR}.zcred ]] && SOURCE_RCFILE ${ZDOTDIR}.zcred #> /dev/null 2>&1 &
 
 # Create an amazing Zsh config using antidote plugins.
 # Set the path to the Oh My Zsh installation directory

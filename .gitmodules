@@ -142,3 +142,12 @@
 [submodule "/home/tallonea/gitdepot/fzf-tab-completion"]
 	path = /home/tallonea/gitdepot/fzf-tab-completion
 	url = git@github.com:lincheney/fzf-tab-completion.git
+[submodule "/home/tallonea/gitdepot/quickemu"]
+	path = /home/tallonea/gitdepot/quickemu
+	url = git@github.com:wimpysworld/quickemu.git
+[submodule "/home/tallonea/gitdepot/fzf"]
+	path = /home/tallonea/gitdepot/fzf
+	url = git@github.com:junegunn/fzf.git
+[submodule "/home/tallonea/gitdepot/junegunn_fzf"]
+	path = /home/tallonea/gitdepot/junegunn_fzf
+	url = git@github.com:junegunn/fzf.git
