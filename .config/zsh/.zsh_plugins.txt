@@ -4,114 +4,6 @@
 # .zsh_plugins.txt - antidote plugins file
 #
 
-### Overview
-#
-# The `.zsh_plugins.txt` file is used by antidote to configure Zsh bundles. Bundles are
-# just a fancy way of referring to Zsh utilities, frameworks, prompts, or plugins.
-# `.zsh_plugins.txt` is used by antidote to generate a static `.zsh_plugins.zsh` file,
-# which can then be sourced in your `.zshrc`. You can use this file as a starting point
-# for your own config. Strip out instructional comments (ie: lines beginning with a '#')
-# and any plugins you don't need, then add what you like and make it yours!
-#
-# NOTE: Order matters in this file! Some bundles need to be last, and others are
-# prerequisites. Read the documentation for the plugins you use to ensure proper
-# configuration.
-#
-###
-
-### Priority Plugins
-
-### Regular Plugins
-#
-# Plugins are the simplest kind of bundles. You can point to a full git URL, or if you
-# assume GitHub.com, then you can use the user/repo shorthand.
-#
-###
-xPMo/zsh-ls-colors
-eth-p/bat-extras                             path:src kind:path
-rummik/zsh-tailf #tail -f with prefixed newlines instead of trailing
-# junegunn/fzf                                 kind:clone
-# junegunn/fzf                                 path:shell kind:fpath
-# junegunn/fzf                                 path:shell kind:zsh
-lincheney/fzf-tab-completion                 path:zsh kind:zsh
-Aloxaf/fzf-tab 
-
-marlonrichert/zsh-autocomplete               # Find as you type, then press Tab to insert the top completion or ↓to select another completion.
-jeffreytse/zsh-vi-mode
-MichaelAquilina/zsh-you-should-use           #kind:defer
-
-zsh-users/zsh-autosuggestions                kind:zsh kind:defer
-
-mattmc3/zman #Use fzf to quickly browse Zsh manuals
-neovim/neovim                                kind:clone
-### Local Plugins
-#
-# Plugins don't have to come from GitHub. You can also use local files or directories to
-# host your own custom plugins.
-#
-###
-# $ZDOTDIR/.aliases
-
-### Local Plugins with Variables
-#
-# If you want to use variables in this file, you will need to use the envsubst utility.
-# It may come installed on your system, or be available in your OS package manager. Or,
-# you can use the Python one-liner wrapper function included in this sample project.
-# To replace environment variables, you need to change your `antidote bundle` call to
-# this.
-#
-#   zsh_plugins=${ZDOTDIR:-~}/.zsh_plugins.zsh
-#   envsubst <${zsh_plugins:r}.txt | antidote bundle >|$zsh_plugins
-#
-###
-# reference your own plugins
-# $ZSH_CUSTOM/plugins/nodejs
-# $ZSH_CUSTOM/plugins/python
-# $ZSH_CUSTOM/plugins/ruby
-
-### Prompts
-#
-# You can make certain themes available to the built-in Zsh prompt command using the
-# `kind:fpath` annotation. A theme is not active for the prompt until this command is
-# run:
-#
-#   autoload -Uz promptinit && promptinit
-#   prompt ${prompt_name:-pure}
-#
-# There are two ways to load prompts.
-# - Add multiple prompt plugins to your `$fpath` with `kind:fpath` and then later in
-#   your .zshrc run the Zsh built-in `prompt` to select the theme.
-# - Or, just load one prompt like a regular plugin.
-#
-
-catppuccin/tty                               path:src/mocha.sh
-catppuccin/zsh-syntax-highlighting           path:themes/catppuccin_mocha-zsh-syntax-highlighting.zsh 
-
-### Frameworks
-#
-# Frameworks are a collection of Zsh features, settings, and plugins meant to ease
-# Zsh configuration. Unfortunately, all that power can come with serious drawbacks.
-# Frameworks can often set more settings or aliases than you need, cluttering your Zsh
-# config and slowing things down. Use with caution!
-#
-# Frameworks are handled in antidote using the `path:location/of/plugin` annotation.
-#
-###
-
-### Framework: Oh-My-Zsh
-#
-# Oh-My-Zsh is a very popular Zsh framework. You might choose to use plugins from OMZ
-# in your own config. Depending on which plugins you use, you may also need to include
-# OMZ's entire "lib" directory. If you do this, be careful - "lib" configures a lot of
-# very broad settings. If you are familiar with what you are doing, you may choose to
-# only include parts of "lib".
-#
-#   # use all of lib
-#   ohmyzsh/ohmyzsh path:lib
-#   # -OR-, only use only the specific files we care about
-#   ohmyzsh/ohmyzsh path:lib/clipboard.zsh
-#
-####
 ohmyzsh/ohmyzsh                             path:lib
 ohmyzsh/ohmyzsh                             path:plugins/ag kind:fpath
 ohmyzsh/ohmyzsh                             path:plugins/alias-finder
@@ -212,57 +104,22 @@ ohmyzsh/ohmyzsh                             path:plugins/zoxide
 ohmyzsh/ohmyzsh                             path:plugins/zsh-interactive-cd
 ohmyzsh/ohmyzsh                             path:plugins/zsh-navigation-tools
 
-### Framework: zsh-utils
-#
-# zsh-utils is a micro-framework that is also well suited to pair with antidote. It
-# provides much of the same core functionality from other bigger frameworks without the
-# bloat or performance hit. Using zsh-utils, you may find you don't need much else.
-# If you want a really thin framework, this is great.
-#
-###ke zsh-utils
-# belak/zsh-utils                            path:completion
-# belak/zsh-utils                            path:editor
-# belak/zsh-utils                            path:history
-# belak/zsh-utils                            path:prompt
-# belak/zsh-utils                            path:utility
+MichaelAquilina/zsh-you-should-use          #kind:defer
+unixorn/fzf-zsh-plugin                      branch:main
+lincheney/fzf-tab-completion                path:zsh kind:zsh
+mattmc3/zman #Use fzf to quickly browse Zsh manuals
+xPMo/zsh-ls-colors
+eth-p/bat-extras                            path:src kind:path
+rummik/zsh-tailf #tail -f with prefixed newlines instead of trailing
+neovim/neovim                               kind:clone
+wofr06/lesspipe                             kind:path
+wofr06/lesspipe                             kind:fpath
+marlonrichert/zsh-autocomplete              # Find as you type, then press Tab to insert the top completion or ↓to select another completion.
+zdharma-continuum/fast-syntax-highlighting
+catppuccin/tty                               path:src/mocha.sh
 
-# History
-# wulfgarpro/history-sync
-# larkery/zsh-histdb
+psprint/zsh-sweep
 
-### Deferred Plugins
-#
-# Antidote allows you to defer loading plugins. This is similar to concepts like "turbo
-# mode" in other plugin managers. Antidote handles deferring plugins by leveraging
-# romkatv/zsh-defer, which "defers execution of a zsh command until zsh has nothing else
-# to do and is waiting for user input". In general, you should not defer plugins unless
-# you know for sure they properly support deferred loading, and there are no adverse
-# side-effects (see: https://github.com/romkatv/zsh-defer#Caveats). However, for
-# certain plugins, this can greatly increase your zsh startup speed.
-#
-###
-# Syntax highlighting
-# zsh-users/zsh-syntax-highlightin           #kind:defer
-zdharma-continuum/fast-syntax-highlighting  kind:defer
-johannchangpro/zsh-interactive-cd           kind:defer
-zsh-users/zsh-history-substring-search      kind:defer
-olets/zsh-abbr                              kind:defer # zsh manager for auto-expanding abbreviations
-
-### Completions
-#
-# You may want to add some additional completions to Zsh. Completions look in your fpath
-# for completion functions, which are functions named with a leading underscore
-# (eg: _git). You need to add all supplemental completions to your fpath prior to
-# running `compinit` to use completions functionality properly. You will want to find
-# a completion plugin that runs `compinit` for you, or you can run it yourself in
-# your .zshrc after antidote loads like this:
-#
-#   autoload -Uz compinit && compinit
-#
-###
-
-# zsh-users/zsh-completions is a popular plugin for adding supplemental completions.
-# We combine the `path:` and `kind:fpath` annotations here:
 srijanshetty/zsh-pip-completion             path:src kind:fpath
 3v1n0/zsh-bash-completions-fallback         path:src kind:fpath
 MenkeTechnologies/zsh-cargo-completion      path:src kind:fpath
@@ -271,23 +128,19 @@ lukechilds/zsh-better-npm-completion        path:src kind:fpath
 sunlei/zsh-ssh                              path:src kind:fpath
 vasyharan/zsh-brew-services                 path:src kind:fpath
 viasite-ansible/zsh-ansible-server          path:src kind:fpath
-zsh-users/zsh-completions                   path:src kind:fpath
 
-# Compinit plugins should be near the end of .zsh_plugins.txt so that $fpath has been
-# fully populated. Use zsh-utils for its completion plugin.
+zsh-users/zsh-autosuggestions               kind:zsh kind:defer
+johannchangpro/zsh-interactive-cd           kind:defer
+zsh-users/zsh-history-substring-search      kind:defer
+olets/zsh-abbr                              kind:defer # zsh manager for auto-expanding abbreviations
+jeffreytse/zsh-vi-mode
 
-### Final Plugins
-#
-# Remember plugin order matters! Put plugins that need run last at the bottom of your
-# .zsh_plugins.txt file.
-#
-###
-psprint/zsh-sweep
-
-# These popular core plugins should be loaded at the end
-unixorn/fzf-zsh-plugin                      branch:main
-
-# Others
-# MichaelAquilina/zsh-auto-notify
 $ZDOTDIR/.zaliases
 $ZDOTDIR/.zfunctions
+
+# add even more completions
+zsh-users/zsh-completions
+
+# now, configure and run compinit to initialize completions
+belak/zsh-utils path:completion
+sorin-ionescu/prezto path:modules/completion

@@ -1,20 +1,40 @@
 # vim: filetype=zsh
 
-# Create an amazing Zsh config using antidote plugins.
-# Set the path to the Oh My Zsh installation directory
+
+# Set the name of the static .zsh plugins file antidote will generate.
+zsh_plugins=${ZDOTDIR:-~}/.zsh_plugins.zsh
+
+# Install antidote if missing
 if ! [[ -d ${ZDOTDIR:-~}/.antidote ]]; then
   git clone --depth=1 https://github.com/mattmc3/antidote.git ${ZDOTDIR:-~}/.antidote
 fi
-SOURCE_RCFILE ${ZDOTDIR:-$HOME}/.antidote/antidote.zsh
+
+# Ensure you have a .zsh_plugins.txt file where you can add plugins.
+[[ -f ${zsh_plugins:r}.txt ]] || touch ${zsh_plugins:r}.txt
+
+# Lazy-load antidote.
+fpath+=(${ZDOTDIR:-~}/.antidote)
+autoload -Uz $fpath[-1]/antidote
+
+# Generate static file in a subshell when .zsh_plugins.txt is updated.
+if [[ ! $zsh_plugins -nt ${zsh_plugins:r}.txt ]]; then
+  (antidote bundle <${zsh_plugins:r}.txt >|$zsh_plugins)
+fi
+
+# set oh-my-zsh install and cache dir
+# export ZSH=
+# [[ -d $ZSH_CACHE_DIR ]] || mkdir -p $ZSH_CACHE_DIR
+# export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/oh-my-zsh"
+
+# Source your static plugins file.
+source $zsh_plugins
+
 # Antidote settings
 zstyle ':antidote:bundle' use-friendly-names 'yes'
-zstyle ':antidote:bundle' file ${ZDOTDIR:-$HOME}/.zsh_plugins.txt
 # Set omz variables prior to loading omz plugins
 # see issue https://github.com/ohmyzsh/ohmyzsh/issues/11762
-[[ -d $ZSH_CACHE_DIR ]] || mkdir -p $ZSH_CACHE_DIR
-export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/oh-my-zsh"
 # keychain
-zstyle :omz:plugins:keychain agents gpg,ssh
-export ANTIDOTE_HOME=$(antidote home)
-antidote load ${ZDOTDIR:-$HOME}/.zsh_plugins.txt
-SOURCE_RCFILE ${ZDOTDIR:-$HOME}/.zsh_plugins.conf
+# zstyle :omz:plugins:keychain agents gpg,ssh
+
+# fast-syntax-highlighting theme
+fast-theme XDG:catppuccin-mocha
