@@ -10,11 +10,6 @@ non-login: after .zshenv
 """
 
 # export TERM color variable
-if [ "$TERM" = "screen" ]; then
-    export TERM="screen-256color"
-elif [ "$TERM" = "xterm" ]; then
-    export TERM="xterm-256color"
-fi
 export TERM="xterm-256color"
 
 # Pyenv
@@ -33,8 +28,28 @@ if [ $SHLVL -lt 3 ]; then
   (SOURCE_RCFILE ${ZDOTDIR}.zpackages > /dev/null 2>&1 &)
 fi
 
+# Create an amazing Zsh config using antidote plugins.
+# Set the path to the Oh My Zsh installation directory
+if ! [[ -d ${ZDOTDIR:-~}/.antidote ]]; then
+  git clone --depth=1 https://github.com/mattmc3/antidote.git ${ZDOTDIR:-~}/.antidote
+fi
+SOURCE_RCFILE ${ZDOTDIR:-$HOME}/.antidote/antidote.zsh
+# Antidote settings
+zstyle ':antidote:bundle' use-friendly-names 'yes'
+zstyle ':antidote:bundle' file ${ZDOTDIR:-$HOME}/.zsh_plugins.txt
+# Set omz variables prior to loading omz plugins
+# see issue https://github.com/ohmyzsh/ohmyzsh/issues/11762
+[[ -d $ZSH_CACHE_DIR ]] || mkdir -p $ZSH_CACHE_DIR
+export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/oh-my-zsh"
+# keychain
+zstyle :omz:plugins:keychain agents gpg,ssh
+export ANTIDOTE_HOME=$(antidote home)
+antidote load ${ZDOTDIR:-$HOME}/.zsh_plugins.txt
+SOURCE_RCFILE ${ZDOTDIR:-$HOME}/.zsh_plugins.conf
+
 ### GITHUB repos exports
-[[ -f ${ZDOTDIR}.zgitdepot ]] && SOURCE_RCFILE ${ZDOTDIR}.zgitdepot
+mkdir -p ${HOME}/gitdepot
+[[ -d ${HOME}/gitdepot ]] && export gitdepot="${HOME}/gitdepot"
 
 # Editors
 [[ -f ${ZDOTDIR}.zeditor ]] && SOURCE_RCFILE ${ZDOTDIR}.zeditor
@@ -49,20 +64,11 @@ fi
 [[ -f ${ZDOTDIR}.zxresources.zsh ]] && SOURCE_RCFILE ${ZDOTDIR}.zxresources.zsh
 
 # garabik/grc
-[[ -s "/etc/grc.zsh" ]] && source /etc/grc.zsh
+# [[ -s "/etc/grc.zsh" ]] && source /etc/grc.zsh
 
 # credentials
 [[ -f ${ZDOTDIR}.zcred ]] && SOURCE_RCFILE ${ZDOTDIR}.zcred #> /dev/null 2>&1 &
 
-# Create an amazing Zsh config using antidote plugins.
-# Set the path to the Oh My Zsh installation directory
-if ! [[ -d ${ZDOTDIR:-~}/.antidote ]]; then
-  git clone --depth=1 https://github.com/mattmc3/antidote.git ${ZDOTDIR:-~}/.antidote
-fi
-SOURCE_RCFILE ${ZDOTDIR:-$HOME}/.antidote/antidote.zsh
-SOURCE_RCFILE ${ZDOTDIR:-$HOME}/.zsh_plugins.conf
-antidote load ${ZDOTDIR:-$HOME}/.zsh_plugins.txt
-SOURCE_RCFILE ${ZDOTDIR:-$HOME}/.zsh_plugins.post
 
 # Uncomment the following line to enable command auto-correction.
 export ENABLE_CORRECTION="true"
@@ -123,14 +129,6 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 
 # set ZSH as VSCode default shell for the integrated terminal
 [[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
-
-# TTY theme
-SOURCE_RCFILE $ZDOTDIR/catppuccin_tty/src/mocha.sh
-# SOURCE_RCFILE $gitdepot/dracula_tty/dracula-tty.sh
-
-# ZSH syntax highlighting
-SOURCE_RCFILE $ZDOTDIR/catppuccin_zsh-syntax-highlighting/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh
-# SOURCE_RCFILE $ZDOTDIR/dracula_zsh-syntax-highlighting/zsh-syntax-highlighting.sh
 
 ### Initialize Starship
 if ! CHECK_COMMANDS starship; then

@@ -19,13 +19,13 @@ fi
 
 # determine distro for later user
 if [[ -f /etc/fedora-release ]]; then
-  DISTRO="fedora"
+  export DISTRO="fedora"
 elif [[ -f /etc/os-release ]]; then
   . /etc/os-release
   if [[ $NAME == "Ubuntu" ]]; then
-    DISTRO="ubuntu"
+    export DISTRO="ubuntu"
   elif [[ $ID == "arch" || $ID_LIKE == "arch" ]]; then
-    DISTRO="arch"
+    export DISTRO="arch"
   fi
 fi
 

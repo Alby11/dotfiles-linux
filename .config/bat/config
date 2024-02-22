@@ -1,5 +1,5 @@
 --theme="Catppuccin-mocha"
 --style="plain"
---pager=""
+--pager="less"
 --color="always"
 
