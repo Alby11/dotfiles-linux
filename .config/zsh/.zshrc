@@ -25,37 +25,17 @@ setopt extended_glob
 
 ### Packages
 if [ $SHLVL -lt 3 ]; then
-  (SOURCE_RCFILE ${ZDOTDIR}.zpackages > /dev/null 2>&1 &)
+  (SOURCE_RCFILE ${ZDOTDIR}/.zpackages > /dev/null 2>&1 &)
 fi
 
-# Create an amazing Zsh config using antidote plugins.
-# Set the path to the Oh My Zsh installation directory
-if ! [[ -d ${ZDOTDIR:-~}/.antidote ]]; then
-  git clone --depth=1 https://github.com/mattmc3/antidote.git ${ZDOTDIR:-~}/.antidote
-fi
-SOURCE_RCFILE ${ZDOTDIR:-$HOME}/.antidote/antidote.zsh
-# Antidote settings
-zstyle ':antidote:bundle' use-friendly-names 'yes'
-zstyle ':antidote:bundle' file ${ZDOTDIR:-$HOME}/.zsh_plugins.txt
-# Set omz variables prior to loading omz plugins
-# see issue https://github.com/ohmyzsh/ohmyzsh/issues/11762
-[[ -d $ZSH_CACHE_DIR ]] || mkdir -p $ZSH_CACHE_DIR
-export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/oh-my-zsh"
-# keychain
-zstyle :omz:plugins:keychain agents gpg,ssh
-export ANTIDOTE_HOME=$(antidote home)
-antidote load ${ZDOTDIR:-$HOME}/.zsh_plugins.txt
-SOURCE_RCFILE ${ZDOTDIR:-$HOME}/.zsh_plugins.conf
-
-### GITHUB repos exports
-mkdir -p ${HOME}/gitdepot
-[[ -d ${HOME}/gitdepot ]] && export gitdepot="${HOME}/gitdepot"
-
-# Editors
-[[ -f ${ZDOTDIR}.zeditor ]] && SOURCE_RCFILE ${ZDOTDIR}.zeditor
+# Antidote ZSH plugin manager
+SOURCE_RCFILE ${ZDOTDIR}/.zantidote
 
 # Source GIT configuration
 [[ -f ${XDG_CONFIG_HOME}/git/.git.conf ]] && SOURCE_RCFILE ${XDG_CONFIG_HOME}/git/.git.conf
+
+# Editors
+[[ -f ${ZDOTDIR}.zeditor ]] && SOURCE_RCFILE ${ZDOTDIR}.zeditor
 
 # Source zstyles you might use with antidote.
 [[ -f ${ZDOTDIR}.zstyles ]] && SOURCE_RCFILE ${ZDOTDIR}/.zstyles
