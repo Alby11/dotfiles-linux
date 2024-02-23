@@ -17,6 +17,8 @@ autoload -Uz $fpath[-1]/antidote
 
 # Antidote settings
 zstyle ':antidote:bundle' use-friendly-names 'yes'
+emulate -L zsh
+setopt extendedglob
 
 # Generate static file in a subshell when .zsh_plugins.txt is updated.
 if [[ ! $zsh_plugins -nt ${zsh_plugins:r}.txt ]]; then
@@ -25,6 +27,9 @@ fi
 
 # Source your static plugins file.
 source $zsh_plugins
+
+# Set oh-my-zsh path according to antidote installation
+ZSH=$(antidote path ohmyzsh/ohmyzsh)
 
 #################################################################################
 ### Plugins settings
@@ -67,12 +72,11 @@ zstyle ':omz:plugins:alias-finder' exact yes # disabled by default
 zstyle ':omz:plugins:alias-finder' cheaper yes # disabled by default
 
 # fast-syntax-highlighting
-fast-theme XDG:catppuccin-mocha
 local fast_theme="$(antidote path zdharma-continuum/fast-syntax-highlighting)"
 fast_theme="$fast_theme/fast-syntax-highlighting.plugin.zsh"
 [[ -f "$fast_theme" ]] && \
   source "$fast_theme" && \
-  fast-theme xdg:catppuccin-mocha > /dev/null 2>&1
+  fast-theme --quiet XDG:catppuccin-mocha
 
 chroma_single_word() {
   (( next_word = 2 | 8192 ))

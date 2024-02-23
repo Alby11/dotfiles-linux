@@ -13,7 +13,7 @@ non-login: after .zshenv
 export TERM="xterm-256color"
 
 # Zsh options.
-setopt extended_glob
+setopt extendedglob
 export HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"
 export HISTSIZE=1000000000
 export SAVEHIST=$HISTSIZE

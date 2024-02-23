@@ -31,7 +31,7 @@ EOF
     # Start with excluding everything for correct processing
     local exclude_array=('.config/zsh/.directory_history/' '.config/zsh/.zsh_history')
     # local include_array=('.config/' '.config/zsh/***' '.config/git/***' '.config/bat/***' '.config/nvim/***' '.config/fsh/***')
-    local include_array=('.config/' '.config/zsh/***' '.config/git/***' '.config/bat/***' '.config/lvim/***')
+    local include_array=('${HOME}/.zshenv' '.config/' '.config/zsh/***' '.config/git/***' '.config/bat/***' '.config/lvim/***' '.config/fsh/***')
     # Finally, add a catch-all exclude pattern to exclude everything else not explicitly included
     local exclude_wildcard=" --exclude='*'"
     local verbose=0
