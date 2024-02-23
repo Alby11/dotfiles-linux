@@ -126,7 +126,6 @@ export ZVM_VI_ESCAPE_BINDKEY=kj
 # Change to Zsh's default readkey engine
 export ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_NEX # Better, beta
 
-
 # zsh-users/zsh-autosuggestions
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=245'
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(
@@ -134,7 +133,6 @@ ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(
   "pcomplete"
   "copy-earlier-word"
 )
-
 
 # zsh-users/zsh-history-substring-search
 bindkey '^[[A' history-substring-search-up

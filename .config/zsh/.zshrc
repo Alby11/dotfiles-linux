@@ -12,66 +12,21 @@ non-login: after .zshenv
 # export TERM color variable
 export TERM="xterm-256color"
 
-# Pyenv
-SOURCE_RCFILE $ZDOTDIR/.zpyenv
-
 # Zsh options.
 setopt extended_glob
+export HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"
+export HISTSIZE=1000000000
+export SAVEHIST=$HISTSIZE
+export HIST_STAMPS="yyyy-mm-dd"
+setopt EXTENDED_HISTORY
+export ENABLE_CORRECTION="true"
+export COMPLETION_WAITING_DOTS="true"
+export COLORTERM=truecolor
 
-### Set up ZSH Autocomplete
-# Credits:
-# https://github.com/Phantas0s/.dotfiles/blob/master/zsh/completion.zsh
-# SOURCE_RCFILE $ZDOTDIR/.zcompletion.zsh
-
-### Packages
-if [ $SHLVL -lt 3 ]; then
-  (SOURCE_RCFILE ${ZDOTDIR}/.zpackages > /dev/null 2>&1 &)
-fi
 
 # Antidote ZSH plugin manager
 SOURCE_RCFILE ${ZDOTDIR}/.zantidote
 
-# Source GIT configuration
-# [[ -f ${XDG_CONFIG_HOME}/git/.git.conf ]] && SOURCE_RCFILE ${XDG_CONFIG_HOME}/git/.git.conf
-
-# Editors
-# [[ -f ${ZDOTDIR}.zeditor ]] && SOURCE_RCFILE ${ZDOTDIR}.zeditor
-
-# Source zstyles you might use with antidote.
-[[ -f ${ZDOTDIR}.zstyles ]] && SOURCE_RCFILE ${ZDOTDIR}/.zstyles
-
-# Xresources
-[[ -f ${ZDOTDIR}.zxresources.zsh ]] && SOURCE_RCFILE ${ZDOTDIR}.zxresources.zsh
-
-# garabik/grc
-# [[ -s "/etc/grc.zsh" ]] && source /etc/grc.zsh
-
-# credentials
-[[ -f ${ZDOTDIR}.zcred ]] && SOURCE_RCFILE ${ZDOTDIR}.zcred #> /dev/null 2>&1 &
-
-
-# Uncomment the following line to enable command auto-correction.
-export ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# You can also set it to another string to have that shown instead of the default red dots.
-# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
-# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
-export COMPLETION_WAITING_DOTS="true"
-
-# Set history
-export HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"
-export HISTSIZE=1000000000
-export SAVEHIST=$HISTSIZE
-setopt EXTENDED_HISTORY
-
-# Uncomment the following line if you want to change the command execution time
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-export HIST_STAMPS="yyyy-mm-dd"
-
-# export COLORTERM to make most detect 24 bit truecolor
-export COLORTERM=truecolor
 
 # set Ls_COLORS if vivid is installed
 if ! CHECK_COMMANDS "vivid"; then
@@ -121,48 +76,3 @@ else
 fi
 eval "$(starship init ${THE_SHELL})"
 
-### SSH AGENT BLOCK
-# LOAD SSH AFTER EACH REBOOT (RE-USES SAME SSH-AGENT INSTANCE)
-
-# Check for keychain and install if missing
-if ! CHECK_COMMANDS keychain; then
-    echo "keychain not found. Attempting to install..."
-    # Adjust the installation command below according to your system's package manager
-    package_manager_install keychain || { echo "Failed to install keychain. Exiting."; exit 1; }
-fi
-
-export SSH_ENV="${HOME}/.ssh/agent-environment"
-
-start_agent() {
-    echo "Initialising new SSH agent..."
-    /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
-    echo succeeded
-    chmod 600 "${SSH_ENV}"
-    . "${SSH_ENV}" > /dev/null
-
-    # Use keychain for SSH key management
-    /usr/bin/keychain --quiet --eval --agents ssh $(find ${HOME}/.ssh -type f -name 'id_*' ! -name '*.pub' -printf '%f\n')
-    if [[ $? -eq 0 ]]; then
-        echo "SSH keys added successfully."
-    else
-        echo "Failed to add SSH keys."
-    fi
-}
-
-# Source SSH settings, if applicable
-if [[ -f "${SSH_ENV}" ]]; then
-    . "${SSH_ENV}" > /dev/null
-    # Check if the SSH agent is running. If not, start a new agent.
-    if ! ps -p ${SSH_AGENT_PID} > /dev/null 2>&1; then
-        start_agent;
-    fi
-else
-    start_agent;
-fi
-
-# Clean up the function from the environment
-unset -f start_agent
-### END OF SSH BLOCK
-
-# Pyenv
-SOURCE_RCFILE $ZDOTDIR/.zpyenv

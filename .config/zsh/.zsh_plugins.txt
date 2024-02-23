@@ -1,5 +1,7 @@
 # vim: filetype=zsh
 
+${ZDOTDIR}/.zpackages
+
 #
 # .zsh_plugins.txt - antidote plugins file
 #
@@ -146,8 +148,13 @@ psprint/zsh-sweep                           kind:defer kind:zsh
 
 ${ZDOTDIR}/.zeditor
 ${XDG_CONFIG_HOME}/git/.git.conf
+${ZDOTDIR}/.zcred #> /dev/null 2>&1 &
+${ZDOTDIR}/.zstyles
 ${ZDOTDIR}/.zaliases
 ${ZDOTDIR}/.zfunctions
+${ZDOTDIR}/.zpyenv
+${ZDOTDIR}/.zssh
+${ZDOTDIR}/.zxresources
 
 # now, configure and run compinit to initialize completions
 # belak/zsh-utils path:completion
