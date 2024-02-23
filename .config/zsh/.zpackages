@@ -1,11 +1,12 @@
 # vim: filetype=zsh
 
+if [ -f ${HOME}/.bootstrapped ] || [ $SHLVL -gt 2 ]; then
+  return 1
+fi
+
 # Function to check for NOPASSWD privileges
-local check_nopasswd() {
-
-    # Use sudo in non-interactive mode to check for NOPASSWD
+check_nopasswd() {
     local sudo_output=$(SUDO_ASKPASS=/bin/false sudo -ln 2>/dev/null)
-
     if [[ $sudo_output == *"(ALL) NOPASSWD: ALL"* ]] || [[ $sudo_output == *"NOPASSWD:"* ]]; then
         return 0
     else
@@ -20,161 +21,125 @@ if ! check_nopasswd; then
 fi
 
 #PACKAGE MANAGER
-# Check available package managers once and store the result
 [[ $(command -v dnf) ]] && has_dnf=1
 [[ $(command -v apt) ]] && has_apt=1
 [[ $(command -v pacman) ]] && has_pacman=1
 
-if [[ $has_dnf && ! $has_apt ]]; then
-  local packages=(
+# Define common packages (those with the same name on both Fedora and Ubuntu)
+common_packages=(
     "bat"
     "btop"
+    "curl"
+    "fzf"
+    "gnome-tweaks"
+    "gnupg2"
+    "htop"
+    "keychain"
+    "python3-pip"
+    "ripgrep"
+    "shellcheck"
+    "shfmt"
+    "wl-clipboard"
+    "xclip"
+    "zoxide"
+)
+
+# Define Fedora-specific packages and Ubuntu-specific packages
+fedora_packages=(
     "ccze"
     "chafa"
     "clang"
-    "curl"
-    "eza"
     "fd-find"
-    "fzf"
-    "gnome-tweaks"
-    "gnupg2"
-    "grc"
-    # "golang"
-    "htop"
-    "keychain"
     "libcurl-devel"
     "libnotify"
-    "libwnck*"
+    "libwnck3"
     "lsb_release"
     "luarocks"
-    "perl"
     "perl-Image-ExifTool"
-    "python-unversioned-command"
-    "python3-pip"
-    "ripgrep"
-    "shellcheck"
-    "shfmt"
-    "wl-clipboard"
-    "xclip"
     "xorg-x11-server-Xwayland"
     "xsel"
-    "zoxide"
-  )
-  local package_groups=""
-  sudo dnf install -y "${packages[@]}" 
-  sudo dnf groupinstall -y "${package_groups[@]}"
-elif [[ $has_apt && ! $has_dnf ]]; then
-  # This tells debconf to use the noninteractive frontend, which doesn't ask any questions
-  export DEBIAN_FRONTEND=noninteractive
-  # Update package lists only if they are outdated
-  # Example: Check if '/var/lib/apt/periodic/update-success-stamp' is older than a day
-  if find /var/lib/apt/periodic/update-success-stamp -mtime +1; then
-    sudo apt-get update
-  fi
-  local packages=(
-    "apt-file"
-    "apt-utils"
-    "bat"
-    "btop"
-    "ccze"
+)
+
+ubuntu_packages=(
     "clang-format"
-    "curl"
     "exa"
-    "fd-find"
-    "fzf"
-    "gir*-wnck-*"
-    "gnome-tweaks"
-    "gnupg2"
-    # "golang-go"
-    "gpg"
-    "grc"
-    "htop"
-    "keychain"
+    "gir1.2-wnck-3.0"
     "libimage-exiftool-perl"
     "libnotify-bin"
     "lsb-release"
-    "luarocks"
-    "perl"
-    "python-is-python3"
-    "python3-pip"
+    "xsel"
+    "xwayland"
+)
+
+arch_packages=(
+    "bat"
+    "btop"
+    "curl"
+    "exa"
+    "fzf"
+    "gnome-tweaks"
+    "gnupg"
+    "htop"
+    "keychain"
+    "perl-image-exiftool"
+    "python-pip"
     "ripgrep"
     "shellcheck"
     "shfmt"
-    "wl-clipboard"
+    "wl-clipboard-x11"
     "xclip"
     "xsel"
-    "xwayland"
     "zoxide"
-  )
-  sudo apt-get install -y "${packages[@]}" 
-  # unset the DEBIAN_FRONTEND variable to avoid potential unintended consequences in future operations
-  unset DEBIAN_FRONTEND
+)
+
+# Install packages based on the available package manager
+if [[ $has_dnf ]]; then
+    sudo dnf install -y "${common_packages[@]}" "${fedora_packages[@]}"
+elif [[ $has_apt ]]; then
+    export DEBIAN_FRONTEND=noninteractive
+    if ! find /var/lib/apt/periodic/update-success-stamp -mtime -1 &>/dev/null; then
+        sudo apt-get update
+    fi
+    sudo apt-get install -y "${common_packages[@]}" "${ubuntu_packages[@]}"
+    unset DEBIAN_FRONTEND
+elif [[ $has_pacman ]]; then
+    sudo pacman -Syu --noconfirm "${arch_packages[@]}"
 fi
-# CARGO
-install_cargo_packages() {
-  packages=(
-    "fnm"
-    "gitui"
-    "grc-rs"
-    "lolcrab"
-    "vivid"
-  )
-  cargo install "${packages[@]}"
-}
-if ! CHECK_COMMANDS rustup; then
+
+# Cargo
+if ! command -v rustup &>/dev/null; then
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path
 fi
-install_cargo_packages
-unset -f install_cargo_packages
+cargo install fnm gitui grc-rs lolcrab vivid
 
 # NPM
-install_npm_packages() {
-  packages=(
+if ! command -v npm &>/dev/null; then
+  if command -v fnm &>/dev/null; then
+    fnm install --lts
+  fi
+else
+  npm_packages=(
     "@fsouza/prettierd"
     "eslint"
     "fixjson"
     "neovim"
     "solhint"
   )
-  local -a missing_npm_packages
-  # for package in $npm_packages; do
-  for package in $packages; do
+  for package in "${npm_packages[@]}"; do
     if ! npm list -g "$package" >/dev/null 2>&1; then
-      missing_npm_packages+=("$package")
+      npm install -g "$package"
     fi
   done
-  if ((${#missing_npm_packages[@]} > 0)); then
-    sudo npm install -g ${missing_npm_packages[@]}
-  fi
-}
-if ! CHECK_COMMANDS npm; then
-  if CHECK_COMMANDS fnm; then
-    fnm install --lts
-  fi
 fi
-install_npm_packages
-unset -f install_npm_packages
 
 # PIP
-install_pip_packages() {
-  packages=(
-    "autoenv"
-    "black"
-    "flake8"
-    "pip-install"
-    "pynvim"
-    "thefuck"
-    "virtualenv"
-    "virtualenvwrapper"
-  )
-  python -m pip install "${packages[@]}"
-}
-install_pip_packages
-unset -f install_pip_packages
+python -m pip install --user autoenv black flake8 pynvim thefuck virtualenv virtualenvwrapper
 
-#GIT raw
-if ! CHECK_COMMANDS getnf; then
-  curl -fsSL https://raw.githubusercontent.com/ronniedroid/getnf/master/install.sh | zsh
-fi
- 
-unset has_apt has_dnf has_pacman packages package_groups check_nopasswd
+# Git raw (if needed)
+# Add any commands to install raw Git repositories or other software not available via package managers
+
+# Mark the system as bootstrapped
+date > "${HOME}/.bootstrapped"
+
+# Clean up
+unset has_apt has_dnf
