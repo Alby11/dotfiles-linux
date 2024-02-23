@@ -144,8 +144,8 @@ djui/alias-tips                             kind:defer
 MichaelAquilina/zsh-you-should-use          kind:defer
 psprint/zsh-sweep                           kind:defer kind:zsh
 
-${XDG_CONFIG_HOME}/git/.git.conf
 ${ZDOTDIR}/.zeditor
+${XDG_CONFIG_HOME}/git/.git.conf
 ${ZDOTDIR}/.zaliases
 ${ZDOTDIR}/.zfunctions
 
