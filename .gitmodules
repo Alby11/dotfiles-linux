@@ -40,9 +40,6 @@
 [submodule "gitdepot/interception-vimproved"]
 	path = gitdepot/interception-vimproved
 	url = https://github.com/maricn/interception-vimproved.git
-[submodule ".themes/dracula-gtk"]
-	path = .themes/dracula-gtk
-	url = https://github.com/dracula/gtk.git
 [submodule "gitdepot/profileFiles"]
 	path = gitdepot/profileFiles
 	url = git@github.com:Alby11/profileFiles.git
@@ -79,9 +76,6 @@
 [submodule "gitdepot/try"]
 	path = gitdepot/try
 	url = https://github.com/binpash/try.git
-[submodule ".fzf"]
-	path = .fzf
-	url = https://github.com/junegunn/fzf.git
 [submodule "gitdepot/xxh-plugin-prerun-dotfiles"]
 	path = gitdepot/xxh-plugin-prerun-dotfiles
 	url = https://github.com/Alby11/xxh-plugin-prerun-dotfiles.git
