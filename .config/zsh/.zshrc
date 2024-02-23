@@ -32,10 +32,10 @@ fi
 SOURCE_RCFILE ${ZDOTDIR}/.zantidote
 
 # Source GIT configuration
-[[ -f ${XDG_CONFIG_HOME}/git/.git.conf ]] && SOURCE_RCFILE ${XDG_CONFIG_HOME}/git/.git.conf
+# [[ -f ${XDG_CONFIG_HOME}/git/.git.conf ]] && SOURCE_RCFILE ${XDG_CONFIG_HOME}/git/.git.conf
 
 # Editors
-[[ -f ${ZDOTDIR}.zeditor ]] && SOURCE_RCFILE ${ZDOTDIR}.zeditor
+# [[ -f ${ZDOTDIR}.zeditor ]] && SOURCE_RCFILE ${ZDOTDIR}.zeditor
 
 # Source zstyles you might use with antidote.
 [[ -f ${ZDOTDIR}.zstyles ]] && SOURCE_RCFILE ${ZDOTDIR}/.zstyles
@@ -83,7 +83,7 @@ export LS_COLORS="$(vivid generate catppuccin-mocha)"
 export PYTHONIOENCODING='UTF-8';
 
 # Export GOPATH
-[[ -d ${HOM}/go ]] && export GOPATH=${HOME}/go
+[[ -d ${HOME}/go ]] && export GOPATH=${HOME}/go
 
 # Export JAVA_HOME from default alternative
 if CHECK_COMMANDS javac; then
