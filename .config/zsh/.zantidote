@@ -25,6 +25,16 @@ if [[ ! $zsh_plugins -nt ${zsh_plugins:r}.txt ]]; then
   (antidote bundle <${zsh_plugins:r}.txt >|$zsh_plugins)
 fi
 
+# jeffreytse/zsh-vi-mode
+function zvm_config() {
+  ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
+  # Only changing the escape key to `jk` in insert mode, we still
+  # keep using the default keybindings `^[` in other modes
+  export ZVM_VI_ESCAPE_BINDKEY=kj
+  # Change to Zsh's default readkey engine
+  export ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_NEX # Better, beta
+}
+
 # Source your static plugins file.
 source $zsh_plugins
 
@@ -164,9 +174,9 @@ export zs_set_path=1
 # jeffreytse/zsh-vi-mode
 # Only changing the escape key to `jk` in insert mode, we still
 # keep using the default keybindings `^[` in other modes
-export ZVM_VI_ESCAPE_BINDKEY=kj
+# export ZVM_VI_ESCAPE_BINDKEY=kj
 # Change to Zsh's default readkey engine
-export ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_NEX # Better, beta
+# export ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_NEX # Better, beta
 
 # zsh-users/zsh-autosuggestions
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=245'
@@ -177,12 +187,14 @@ ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(
 )
 
 # zsh-users/zsh-history-substring-search
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
+# bindkey '^[[A' history-substring-search-up
+# bindkey '^[[B' history-substring-search-down
 bindkey -M emacs '^P' history-substring-search-up
 bindkey -M emacs '^N' history-substring-search-down
-# bindkey -M vicmd 'k' history-substring-search-up
-# bindkey -M vicmd 'j' history-substring-search-down
+bindkey -M viins '^P' history-substring-search-up
+bindkey -M viins '^N' history-substring-search-down
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
 
 # tom-doerr/zsh_codex
 # Step 1: Capture the original function definition
