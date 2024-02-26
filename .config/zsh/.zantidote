@@ -36,18 +36,38 @@ ZSH=$(antidote path ohmyzsh/ohmyzsh)
 #################################################################################
 
 ### ohmysh/ohmyzsh
+# dotenv
+ZSH_DOTENV_PROMPT=false
 # globalias
+# zsh-abbr
 # space expands all aliases, including global
-bindkey          "^ " globalias
-bindkey -M emacs "^ " globalias
-bindkey -M viins "^ " globalias
+export ABBR_DEFAULT_BINDINGS=0
+# enter will expand and accept
+bindkey            "^M" abbr-expand-and-accept
+bindkey -M emacs   "^M" abbr-expand-and-accept
+bindkey -M viins   "^M" abbr-expand-and-accept
 # control-space to make a normal space
-bindkey          " " magic-space
-bindkey -M emacs " " magic-space
-bindkey -M viins " " magic-space
-# normal space during searches
-bindkey -M isearch -r " "
-bindkey -M isearch "^ " magic-space
+# bindkey            " " magic-space
+# bindkey -M emacs   " " magic-space
+# bindkey -M viins   " " magic-space
+# bindkey            "^@" magic-space
+# bindkey -M emacs   "^@" magic-space
+# bindkey -M viins   "^@" magic-space
+# ctrl-space will expand and intput a space
+bindkey            "^ " abbr-expand
+bindkey -M emacs   "^ " abbr-expand
+bindkey -M viins   "^ " abbr-expand
+bindkey -M isearch "^ " abbr-expand
+bindkey            "^@" abbr-expand
+bindkey -M emacs   "^@" abbr-expand
+bindkey -M viins   "^@" abbr-expand
+bindkey -M isearch "^@" abbr-expand
+# bindkey          "^ " globalias
+# bindkey -M emacs "^ " globalias
+# bindkey -M viins "^ " globalias
+# bindkey          "^@" globalias
+# bindkey -M emacs "^@" globalias
+# bindkey -M viins "^@" globalias
 # magic enter
 export MAGIC_ENTER_GIT_COMMAND='git status -u .'
 # MAGIC_ENTER_OTHER_COMMAND='ls -lh .'
