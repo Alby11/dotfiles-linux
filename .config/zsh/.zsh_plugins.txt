@@ -121,7 +121,8 @@ jeffreytse/zsh-vi-mode
 
 # FZF related plugins
 unixorn/fzf-zsh-plugin                      branch:main
-lincheney/fzf-tab-completion                path:zsh kind:zsh
+Aloxaf/fzf-tab
+# lincheney/fzf-tab-completion                path:zsh kind:zsh
 mattmc3/zman #Use fzf to quickly browse Zsh manuals
 
 xPMo/zsh-ls-colors
