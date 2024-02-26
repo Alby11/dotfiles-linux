@@ -1,8 +1,0 @@
-# vim: filetype=zsh
-
-if CHECK_COMMANDS bw && CHECK_ONLINE; then
-  export BW_CLIENTID="user.a4e9024d-c7ea-4088-84eb-ae4600a2faa6"
-  export BW_CLIENTSECRET="5ZZFAwuXOQqe92P4W2J0zuGPlo08CR"
-  export BW_PASSWORD="/16P1r137R31s23."
-  export BW_SESSION=$(bw unlock --passwordenv BW_PASSWORD | awk -F '"' '/export BW_SESSION/{print $2}')
-fi

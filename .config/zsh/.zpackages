@@ -92,6 +92,37 @@ arch_packages=(
     "zoxide"
 )
 
+# Define cargo packages (those with the same name on both Fedora and Ubuntu)
+cargo_packages=(
+  "fnm"
+  "gitui"
+  "grc-rs"
+  "lolcrab"
+  "vivid"
+  "rbw"
+)
+
+# Define npm packages (those with the same name on both Fedora and Ubuntu)
+npm_packages=(
+  "@fsouza/prettierd"
+  "eslint"
+  "fixjson"
+  "neovim"
+  "solhint"
+)
+
+# Define pip packages (those with the same name on both Fedora and Ubuntu)
+pip_packagets=(
+  "autoenv"
+  "black"
+  "flake8"
+  "openai"
+  "pynvim"
+  "thefuck"
+  "virtualenv"
+  "virtualenvwrapper"
+)
+
 # Install packages based on the available package manager
 if [[ $has_dnf ]]; then
     sudo dnf install -y "${common_packages[@]}" "${fedora_packages[@]}"
@@ -110,7 +141,7 @@ fi
 if ! command -v rustup &>/dev/null; then
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path
 fi
-cargo install fnm gitui grc-rs lolcrab vivid
+cargo install fnm gitui grc-rs lolcrab vivid #rbw
 
 # NPM
 if ! command -v npm &>/dev/null; then
@@ -137,11 +168,11 @@ python -m pip install --user \
   autoenv \
   black \
   flake8 \
-  openai \
   pynvim \
   thefuck \
   virtualenv \
   virtualenvwrapper
+  # openai \
 
 # Git raw (if needed)
 # Add any commands to install raw Git repositories or other software not available via package managers
