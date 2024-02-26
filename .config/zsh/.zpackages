@@ -4,20 +4,35 @@ if [ -f ${HOME}/.bootstrapped ] || [ $SHLVL -gt 2 ]; then
   return 1
 fi
 
+# Function to filter exclusions
+filter_exclusions() {
+  local packages=("${(@)1}") # Original package array
+  local exclusions=("${(@)2}") # Exclusions array
+  local filtered=()
+
+  for pkg in "${packages[@]}"; do
+    if [[ ! "${exclusions[(ie)$pkg]}" -le "${#exclusions}" ]]; then
+      filtered+=("$pkg")
+    fi
+  done
+
+  echo "${filtered[@]}"
+}
+
 # Function to check for NOPASSWD privileges
 check_nopasswd() {
-    local sudo_output=$(SUDO_ASKPASS=/bin/false sudo -ln 2>/dev/null)
-    if [[ $sudo_output == *"(ALL) NOPASSWD: ALL"* ]] || [[ $sudo_output == *"NOPASSWD:"* ]]; then
-        return 0
-    else
-        return 1
-    fi
+  local sudo_output=$(SUDO_ASKPASS=/bin/false sudo -ln 2>/dev/null)
+  if [[ $sudo_output == *"(ALL) NOPASSWD: ALL"* ]] || [[ $sudo_output == *"NOPASSWD:"* ]]; then
+      return 0
+  else
+      return 1
+  fi
 }
 
 # If the user does not have NOPASSWD privileges, set SUDO_ASKPASS
 if ! check_nopasswd; then
-    export SUDO_ASKPASS=$(which ssh-askpass)
-    sudo -v
+  export SUDO_ASKPASS=$(which ssh-askpass)
+  sudo -v
 fi
 
 #PACKAGE MANAGER
@@ -44,6 +59,12 @@ common_packages=(
     "zoxide"
 )
 
+common_exclusions=(
+  "gnome-tweaks"
+  "wl-clipboard"
+  "xclip"
+)
+
 # Define Fedora-specific packages and Ubuntu-specific packages
 fedora_packages=(
     "ccze"
@@ -60,6 +81,11 @@ fedora_packages=(
     "xsel"
 )
 
+fedora_exclusions=(
+  "xorg-x11-server-Xwayland"
+  "xsel"
+)
+
 ubuntu_packages=(
     "clang-format"
     "exa"
@@ -69,6 +95,11 @@ ubuntu_packages=(
     "lsb-release"
     "xsel"
     "xwayland"
+)
+
+ubuntu_exclusions=(
+  "xsel"
+  "xwayland"
 )
 
 arch_packages=(
@@ -92,6 +123,13 @@ arch_packages=(
     "zoxide"
 )
 
+arch_exclusions=(
+  "gnome-tweaks"
+  "wl-clipboard-x11"
+  "xclip"
+  "xsel"
+)
+
 # Define cargo packages (those with the same name on both Fedora and Ubuntu)
 cargo_packages=(
   "fnm"
@@ -102,6 +140,12 @@ cargo_packages=(
   "vivid"
 )
 
+cargo_exclusions=(
+  "gitui"
+  "lolcrab"
+  "rbw"
+)
+
 # Define npm packages (those with the same name on both Fedora and Ubuntu)
 npm_packages=(
   "@fsouza/prettierd"
@@ -110,6 +154,8 @@ npm_packages=(
   "neovim"
   "solhint"
 )
+
+npm_exclusions=()
 
 # Define pip packages (those with the same name on both Fedora and Ubuntu)
 pip_packages=(
@@ -122,6 +168,28 @@ pip_packages=(
   "virtualenv"
   "virtualenvwrapper"
 )
+
+pip_exclusions=(
+  "openai"
+)
+
+echo $common_packages
+echo $cargo_packages
+echo $pip_packages
+# Check for SSH connection and filter packages if necessary
+if [[ -n "$SSH_CONNECTION" ]]; then
+  common_packages=($(filter_exclusions $common_packages $common_exclusions))
+  fedora_packages=($(filter_exclusions $fedora_packages $fedora_exclusions))
+  ubuntu_packages=($(filter_exclusions $ubuntu_packages $ubuntu_exclusions))
+  arch_packages=($(filter_exclusions $arch_packages $arch_exclusions))
+  cargo_packages=($(filter_exclusions $cargo_packages $cargo_exclusions))
+  npm_packages=($(filter_exclusions $npm_packages $npm_exclusions))
+  pip_packages=($(filter_exclusions $pip_packages $pip_exclusions))
+  echo $common_packages
+  echo $cargo_packages
+  echo $pip_packages
+  return 0
+fi
 
 # Install packages based on the available package manager
 if [[ $has_dnf ]]; then
@@ -141,7 +209,9 @@ fi
 if ! command -v rustup &>/dev/null; then
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path
 fi
-cargo install ${cargo_packages[@]}
+for package in "${cargo_packages[@]}"; do
+  cargo install "$package"
+done
 
 # NPM
 if ! command -v npm &>/dev/null; then
@@ -156,7 +226,9 @@ for package in "${npm_packages[@]}"; do
 done
 
 # PIP
-python -m pip install --user ${pip_packages[@]}
+for package in "${pip_packages[@]}"; do
+  python -m pip install --user "$package"
+done
 
 # Git raw (if needed)
 # Add any commands to install raw Git repositories or other software not available via package managers

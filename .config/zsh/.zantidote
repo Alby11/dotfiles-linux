@@ -40,29 +40,31 @@ export ZSH_CUSTOM=$ZSH
 # dotenv
 ZSH_DOTENV_PROMPT=false
 # globalias
-# zsh-abbr
-# space expands all aliases, including global
-export ABBR_DEFAULT_BINDINGS=0
-# enter will expand and accept
-bindkey            "^M" abbr-expand-and-accept
-bindkey -M emacs   "^M" abbr-expand-and-accept
-bindkey -M viins   "^M" abbr-expand-and-accept
 # control-space to make a normal space
-# bindkey            " " magic-space
-# bindkey -M emacs   " " magic-space
-# bindkey -M viins   " " magic-space
-# bindkey            "^@" magic-space
-# bindkey -M emacs   "^@" magic-space
-# bindkey -M viins   "^@" magic-space
-# ctrl-space will expand and intput a space
-bindkey            "^ " abbr-expand
-bindkey -M emacs   "^ " abbr-expand
-bindkey -M viins   "^ " abbr-expand
-bindkey -M isearch "^ " abbr-expand
-bindkey            "^@" abbr-expand
-bindkey -M emacs   "^@" abbr-expand
-bindkey -M viins   "^@" abbr-expand
-bindkey -M isearch "^@" abbr-expand
+bindkey            " " magic-space
+bindkey -M emacs   " " magic-space
+bindkey -M viins   " " magic-space
+bindkey            "^@" magic-space
+bindkey -M emacs   "^@" magic-space
+bindkey -M viins   "^@" magic-space
+if antidote path 'olets/zsh-abbr' > /dev/null; then
+  # zsh-abbr
+  # space expands all aliases, including global
+  export ABBR_DEFAULT_BINDINGS=0
+  # enter will expand and accept
+  bindkey            "^M" abbr-expand-and-accept
+  bindkey -M emacs   "^M" abbr-expand-and-accept
+  bindkey -M viins   "^M" abbr-expand-and-accept
+  # ctrl-space will expand and intput a space
+  bindkey            "^ " abbr-expand
+  bindkey -M emacs   "^ " abbr-expand
+  bindkey -M viins   "^ " abbr-expand
+  bindkey -M isearch "^ " abbr-expand
+  bindkey            "^@" abbr-expand
+  bindkey -M emacs   "^@" abbr-expand
+  bindkey -M viins   "^@" abbr-expand
+  bindkey -M isearch "^@" abbr-expand
+fi
 # bindkey          "^ " globalias
 # bindkey -M emacs "^ " globalias
 # bindkey -M viins "^ " globalias
