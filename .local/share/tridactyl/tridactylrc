@@ -57,7 +57,9 @@
 " 
 " " make d take you to the left (I find it much less confusing)
 " bind d composite tabprev; tabclose #
-" bind D tabclose
+" bind d composite tabprev; tabclose #
+ bind D tabclose
+ bind D tabclose
 " 
 " " make t open the selection with tabopen
 " bind --mode=visual t composite js document.getSelection().toString() | fillcmdline tabopen
