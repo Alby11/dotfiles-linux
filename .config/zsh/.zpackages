@@ -98,8 +98,8 @@ cargo_packages=(
   "gitui"
   "grc-rs"
   "lolcrab"
-  "vivid"
   "rbw"
+  "vivid"
 )
 
 # Define npm packages (those with the same name on both Fedora and Ubuntu)
@@ -112,7 +112,7 @@ npm_packages=(
 )
 
 # Define pip packages (those with the same name on both Fedora and Ubuntu)
-pip_packagets=(
+pip_packages=(
   "autoenv"
   "black"
   "flake8"
@@ -141,38 +141,22 @@ fi
 if ! command -v rustup &>/dev/null; then
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path
 fi
-cargo install fnm gitui grc-rs lolcrab vivid #rbw
+cargo install ${cargo_packages[@]}
 
 # NPM
 if ! command -v npm &>/dev/null; then
   if command -v fnm &>/dev/null; then
     fnm install --lts
   fi
-else
-  npm_packages=(
-    "@fsouza/prettierd"
-    "eslint"
-    "fixjson"
-    "neovim"
-    "solhint"
-  )
-  for package in "${npm_packages[@]}"; do
-    if ! npm list -g "$package" >/dev/null 2>&1; then
-      npm install -g "$package"
-    fi
-  done
 fi
+for package in "${npm_packages[@]}"; do
+  if ! npm list -g "$package" >/dev/null 2>&1; then
+    npm install -g "$package"
+  fi
+done
 
 # PIP
-python -m pip install --user \
-  autoenv \
-  black \
-  flake8 \
-  pynvim \
-  thefuck \
-  virtualenv \
-  virtualenvwrapper
-  # openai \
+python -m pip install --user ${pip_packages[@]}
 
 # Git raw (if needed)
 # Add any commands to install raw Git repositories or other software not available via package managers
