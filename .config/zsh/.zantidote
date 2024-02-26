@@ -29,7 +29,8 @@ fi
 source $zsh_plugins
 
 # Set oh-my-zsh path according to antidote installation
-ZSH=$(antidote path ohmyzsh/ohmyzsh)
+export ZSH=$(antidote path ohmyzsh/ohmyzsh)
+export ZSH_CUSTOM=$ZSH
 
 #################################################################################
 ### Plugins settings
@@ -180,3 +181,17 @@ bindkey -M emacs '^P' history-substring-search-up
 bindkey -M emacs '^N' history-substring-search-down
 # bindkey -M vicmd 'k' history-substring-search-up
 # bindkey -M vicmd 'j' history-substring-search-down
+
+# tom-doerr/zsh_codex
+# Step 1: Capture the original function definition
+original_function=$(typeset -f create_completion)
+# Step 2: Modify the function definition
+modified_function=$(echo "$original_function" \
+  | sed 's@completion=$(echo -n "$text" | $ZSH_CUSTOM/plugins/zsh_codex/create_completion.py $CURSOR)@completion=$(echo -n "$text" | $(antidote path tom-doerr/zsh_codex)/create_completion.py $CURSOR)@g')
+# Step 3: Redefine the function with the modified definition
+eval "$modified_function"
+zle -N create_completion
+# Bind the create_completion function to a key.
+bindkey '^Xo' create_completion
+bindkey -M emacs '^Xo' create_completion
+bindkey -M viins '^Xo' create_completion

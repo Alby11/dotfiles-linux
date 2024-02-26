@@ -133,7 +133,15 @@ else
 fi
 
 # PIP
-python -m pip install --user autoenv black flake8 pynvim thefuck virtualenv virtualenvwrapper
+python -m pip install --user \
+  autoenv \
+  black \
+  flake8 \
+  openai \
+  pynvim \
+  thefuck \
+  virtualenv \
+  virtualenvwrapper
 
 # Git raw (if needed)
 # Add any commands to install raw Git repositories or other software not available via package managers

@@ -122,12 +122,11 @@ jeffreytse/zsh-vi-mode
 # FZF related plugins
 unixorn/fzf-zsh-plugin                      branch:main
 Aloxaf/fzf-tab
-# lincheney/fzf-tab-completion                path:zsh kind:zsh
-mattmc3/zman #Use fzf to quickly browse Zsh manuals
+mattmc3/zman                                #Use fzf to quickly browse Zsh manuals
 
 xPMo/zsh-ls-colors
 eth-p/bat-extras                            path:src kind:path
-rummik/zsh-tailf #tail -f with prefixed newlines instead of trailing
+rummik/zsh-tailf                            #tail -f with prefixed newlines instead of trailing
 neovim/neovim                               kind:clone
 wofr06/lesspipe                             kind:path
 wofr06/lesspipe                             kind:fpath
@@ -148,8 +147,11 @@ zsh-users/zsh-completions
 zsh-users/zsh-history-substring-search     
 zsh-users/zsh-autosuggestions               
 zdharma-continuum/fast-syntax-highlighting
+tom-doerr/zsh_codex                         
+
 olets/zsh-abbr                              path:completions kind:fpath
 olets/zsh-abbr                              # kind:defer # zsh manager for auto-expanding abbreviations
+
 # djui/alias-tips                             kind:defer
 MichaelAquilina/zsh-you-should-use          kind:defer
 psprint/zsh-sweep                           kind:defer
