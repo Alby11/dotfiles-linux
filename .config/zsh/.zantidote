@@ -33,6 +33,20 @@ function zvm_config() {
   export ZVM_VI_ESCAPE_BINDKEY=kj
   # Change to Zsh's default readkey engine
   export ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_NEX # Better, beta
+  ZVM_INSERT_MODE_CURSOR=$ZVM_CURSOR_BEAM
+  ZVM_NORMAL_MODE_CURSOR=$ZVM_CURSOR_BLOCK
+  ZVM_OPPEND_MODE_CURSOR=$ZVM_CURSOR_UNDERLINE
+  # Retrieve default cursor styles
+  local ncur=$(zvm_cursor_style $ZVM_NORMAL_MODE_CURSOR)
+  local icur=$(zvm_cursor_style $ZVM_INSERT_MODE_CURSOR)
+  # Append your custom color for your cursor
+  ZVM_INSERT_MODE_CURSOR=$icur'\e\e]12;red\a'
+  ZVM_NORMAL_MODE_CURSOR=$ncur'\e\e]12;#008800\a'
+  ZVM_VI_HIGHLIGHT_FOREGROUND=green             # Color name
+  ZVM_VI_HIGHLIGHT_FOREGROUND=#008800           # Hex value
+  ZVM_VI_HIGHLIGHT_BACKGROUND=red               # Color name
+  ZVM_VI_HIGHLIGHT_BACKGROUND=#ff0000           # Hex value
+  ZVM_VI_HIGHLIGHT_EXTRASTYLE=bold,underline    # bold and underline
 }
 
 # Source your static plugins file.
@@ -146,6 +160,48 @@ if command -v abbr &>/dev/null; then
 fi
 
 # unixorn/fzf-zsh-plugin
+# Preview file content using bat (https://github.com/sharkdp/bat)
+export FZF_CTRL_T_OPTS="
+  --preview 'bat -n --color=always {}'
+  --bind 'ctrl-/:change-preview-window(down|hidden|)'"
+# CTRL-/ to toggle small preview window to see the full command
+# CTRL-Y to copy the command into clipboard using pbcopy
+export FZF_CTRL_R_OPTS="
+  --preview 'echo {}' --preview-window up:3:hidden:wrap
+  --bind 'ctrl-/:toggle-preview'
+  --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
+  --color header:italic
+  --header 'Press CTRL-Y to copy command into clipboard'"
+# Print tree structure in the preview window
+export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
+# Use ~~ as the trigger sequence instead of the default **
+export FZF_COMPLETION_TRIGGER='~~'
+# Options to fzf command
+export FZF_COMPLETION_OPTS='--border --info=inline'
+# Use fd (https://github.com/sharkdp/fd) for listing path candidates.
+# - The first argument to the function ($1) is the base path to start traversal
+# - See the source code (completion.{bash,zsh}) for the details.
+_fzf_compgen_path() {
+  fd --hidden --follow --exclude ".git" . "$1"
+}
+# Use fd to generate the list for directory completion
+_fzf_compgen_dir() {
+  fd --type d --hidden --follow --exclude ".git" . "$1"
+}
+# Advanced customization of fzf options via _fzf_comprun function
+# - The first argument to the function is the name of the command.
+# - You should make sure to pass the rest of the arguments to fzf.
+_fzf_comprun() {
+  local command=$1
+  shift
+
+  case "$command" in
+    cd)           fzf --preview 'tree -C {} | head -200'   "$@" ;;
+    export|unset) fzf --preview "eval 'echo \$'{}"         "$@" ;;
+    ssh)          fzf --preview 'dig {}'                   "$@" ;;
+    *)            fzf --preview 'bat -n --color=always {}' "$@" ;;
+  esac
+}
 export LESSOPEN='| lessfilter-fzf %s'
 
 # aloxaf/fzf-tab

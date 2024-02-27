@@ -5,15 +5,16 @@ if [ -f ${HOME}/.bootstrapped ] || [ $SHLVL -gt 2 ]; then
 fi
 
 # Function to filter exclusions
-filter_exclusions() {
-  local packages=("${(@)1}") # Original package array
-  local exclusions=("${(@)2}") # Exclusions array
+filter_exclusions_with_delimiter() {
+  local combined_input=("${(s:|:)1}")  # Split input into array based on delimiter '|'
+  local packages=("${(@s:,:)combined_input[1]}")  # Split first part on ',' to get packages
+  local exclusions=("${(@s:,:)combined_input[2]}")  # Split second part on ',' to get exclusions
   local filtered=()
 
   for pkg in "${packages[@]}"; do
-    if [[ ! "${exclusions[(ie)$pkg]}" -le "${#exclusions}" ]]; then
-      filtered+=("$pkg")
-    fi
+      if [[ ! " ${exclusions[*]} " =~ " ${pkg} " ]]; then
+          filtered+=("$pkg")
+      fi
   done
 
   echo "${filtered[@]}"
@@ -71,6 +72,7 @@ fedora_packages=(
     "chafa"
     "clang"
     "fd-find"
+    "golang"
     "libcurl-devel"
     "libnotify"
     "libwnck3"
@@ -82,6 +84,7 @@ fedora_packages=(
 )
 
 fedora_exclusions=(
+  "golang"
   "xorg-x11-server-Xwayland"
   "xsel"
 )
@@ -90,6 +93,7 @@ ubuntu_packages=(
     "clang-format"
     "exa"
     "gir1.2-wnck-3.0"
+    "golang-go"
     "libimage-exiftool-perl"
     "libnotify-bin"
     "lsb-release"
@@ -98,6 +102,8 @@ ubuntu_packages=(
 )
 
 ubuntu_exclusions=(
+  "golang"
+  "golang-go"
   "xsel"
   "xwayland"
 )
@@ -110,6 +116,7 @@ arch_packages=(
     "fzf"
     "gnome-tweaks"
     "gnupg"
+    "go"
     "htop"
     "keychain"
     "perl-image-exiftool"
@@ -125,6 +132,7 @@ arch_packages=(
 
 arch_exclusions=(
   "gnome-tweaks"
+  "go"
   "wl-clipboard-x11"
   "xclip"
   "xsel"
@@ -155,7 +163,8 @@ npm_packages=(
   "solhint"
 )
 
-npm_exclusions=()
+npm_exclusions=(
+)
 
 # Define pip packages (those with the same name on both Fedora and Ubuntu)
 pip_packages=(
@@ -170,27 +179,48 @@ pip_packages=(
 )
 
 pip_exclusions=(
-  "openai"
 )
 
-echo $common_packages
-echo $cargo_packages
-echo $pip_packages
 # Check for SSH connection and filter packages if necessary
 if [[ -n "$SSH_CONNECTION" ]]; then
-  common_packages=($(filter_exclusions $common_packages $common_exclusions))
-  fedora_packages=($(filter_exclusions $fedora_packages $fedora_exclusions))
-  ubuntu_packages=($(filter_exclusions $ubuntu_packages $ubuntu_exclusions))
-  arch_packages=($(filter_exclusions $arch_packages $arch_exclusions))
-  cargo_packages=($(filter_exclusions $cargo_packages $cargo_exclusions))
-  npm_packages=($(filter_exclusions $npm_packages $npm_exclusions))
-  pip_packages=($(filter_exclusions $pip_packages $pip_exclusions))
-  echo $common_packages
-  echo $cargo_packages
-  echo $pip_packages
-  return 0
-fi
+  # Dynamically create an array of kinds
+  kinds=()
+  for varname in ${(k)parameters}; do  # Iterate over all defined variable names
+    if [[ $varname =~ '_packages$' ]]; then  # Check if the variable name ends with '_packages'
+      kind=${varname%_packages}  # Extract the kind from the variable name
+      exclusions_var_name="${kind}_exclusions"
+      # Correctly check if the exclusions array exists
+      if [[ -z ${(P)exclusions_var_name} ]]; then  # Check if exclusions array does not exist or is empty
+        eval "${kind}_exclusions=()"  # Create an empty exclusions array
+      fi
+      kinds+=($kind)  # Add the kind to the kinds array
+    fi
+  done
 
+  # Deduplicate kinds array
+  kinds=(${(u)kinds})
+
+  for kind in $kinds; do
+
+    packages_var_name="${kind}_packages"
+    exclusions_var_name="${kind}_exclusions"
+
+    # Directly retrieve arrays using indirect parameter expansion
+    packages_array=("${(@P)packages_var_name}")
+    exclusions_array=("${(@P)exclusions_var_name}")
+
+    # Convert arrays to comma-separated strings
+    packages_str="${(j:,:)packages_array}"
+    exclusions_str="${(j:,:)exclusions_array}"
+
+    # Combine into input for the function
+    combined_input="${packages_str}|${exclusions_str}"
+    filtered_packages=($(filter_exclusions_with_delimiter "$combined_input"))
+
+    # Update the original packages array
+    eval "${kind}_packages=(${filtered_packages[@]})"
+  done
+fi
 # Install packages based on the available package manager
 if [[ $has_dnf ]]; then
     sudo dnf install -y "${common_packages[@]}" "${fedora_packages[@]}"
@@ -237,4 +267,4 @@ done
 date > "${HOME}/.bootstrapped"
 
 # Clean up
-unset has_apt has_dnf
+unset check_nopasswd filter_exclusions_with_delimiter has_apt has_dnf has_pacman 
