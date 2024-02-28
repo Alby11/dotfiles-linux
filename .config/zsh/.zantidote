@@ -38,12 +38,18 @@ function zvm_config() {
   ZVM_OPPEND_MODE_CURSOR=$ZVM_CURSOR_UNDERLINE
   # Retrieve default cursor styles
   local ncur=$(zvm_cursor_style $ZVM_NORMAL_MODE_CURSOR)
+  local vcur=$(zvm_cursor_style $ZVM_VISUAL_MODE_CURSOR)
+  local vlcur=$(zvm_cursor_style $ZVM_VISUAL_LINE_MODE_CURSOR)
   local icur=$(zvm_cursor_style $ZVM_INSERT_MODE_CURSOR)
+  local ocur=$(zvm_cursor_style $ZVM_OPPEND_MODE_CURSOR)
   # Append your custom color for your cursor
-  ZVM_INSERT_MODE_CURSOR=$icur'\e\e]12;#f38ba8\a'
   ZVM_NORMAL_MODE_CURSOR=$ncur'\e\e]12;#a6e3a1\a'
-  ZVM_VI_HIGHLIGHT_FOREGROUND=#a6e3a1           # Hex value
-  ZVM_VI_HIGHLIGHT_BACKGROUND=#f38ba8           # Hex value
+  ZVM_VISUAL_MODE_CURSOR=$vcur'\e\e]12;#f5c3e7\a'
+  ZVM_VISUAL_LINE_MODE_CURSOR=$vlcur'\e\e]12;#f5c2e7\a'
+  ZVM_INSERT_MODE_CURSOR=$icur'\e\e]12;#f38ba8\a'
+  ZVM_OPPEND_MODE_CURSOR=$ocur'\e\e]12;#cba6f7\a'
+  ZVM_VI_HIGHLIGHT_FOREGROUND=#1e1e2e           #  Hex value
+  ZVM_VI_HIGHLIGHT_BACKGROUND=#f5c3e7           # Hex value
   ZVM_VI_HIGHLIGHT_EXTRASTYLE=bold,underline    # bold and underline
 }
 
