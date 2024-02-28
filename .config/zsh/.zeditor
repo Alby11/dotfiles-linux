@@ -30,7 +30,7 @@ build_and_install_neovim() {
     sudo dnf install -y ninja-build gettext libtool libtool-ltdl-devel \
       autoconf automake cmake gcc gcc-c++ make pkgconfig unzip patch \
       curl
-  elif [ $DISTRO = "ubuntu"]; then
+  elif [ $DISTRO = "ubuntu" ]; then
     echo "Installing build dependencies for Ubuntu..."
     sudo apt update && sudo apt install -y ninja-build gettext libtool libtool-bin \
       autoconf automake cmake g++ pkg-config unzip curl doxygen

@@ -15,7 +15,6 @@ ohmyzsh/ohmyzsh
 ohmyzsh/ohmyzsh                             path:plugins/alias-finder
 ohmyzsh/ohmyzsh                             path:plugins/aliases
 ohmyzsh/ohmyzsh                             path:plugins/ansible
-ohmyzsh/ohmyzsh                             path:plugins/autoenv
 ohmyzsh/ohmyzsh                             path:plugins/autopep8 kind:fpath
 ohmyzsh/ohmyzsh                             path:plugins/aws
 ohmyzsh/ohmyzsh                             path:plugins/azure
@@ -36,16 +35,15 @@ ohmyzsh/ohmyzsh                             path:plugins/dnote kind:fpath
 ohmyzsh/ohmyzsh                             path:plugins/docker
 ohmyzsh/ohmyzsh                             path:plugins/docker-compose
 ohmyzsh/ohmyzsh                             path:plugins/docker-machine
-ohmyzsh/ohmyzsh                             path:plugins/dotenv
-ohmyzsh/ohmyzsh                             path:plugins/emoji
-ohmyzsh/ohmyzsh                             path:plugins/emotty
 ohmyzsh/ohmyzsh                             path:plugins/extract
 ohmyzsh/ohmyzsh                             path:plugins/fancy-ctrl-z
 ohmyzsh/ohmyzsh                             path:plugins/fasd
+ohmyzsh/ohmyzsh                             path:plugins/fastfile
 ohmyzsh/ohmyzsh                             path:plugins/fd kind:fpath
 ohmyzsh/ohmyzsh                             path:plugins/firewalld
 ohmyzsh/ohmyzsh                             path:plugins/fnm
 ohmyzsh/ohmyzsh                             path:plugins/fzf
+ohmyzsh/ohmyzsh                             path:plugins/genpass
 ohmyzsh/ohmyzsh                             path:plugins/gh
 ohmyzsh/ohmyzsh                             path:plugins/git
 ohmyzsh/ohmyzsh                             path:plugins/git-auto-fetch
@@ -87,16 +85,15 @@ ohmyzsh/ohmyzsh                             path:plugins/ripgrep kind:fpath
 ohmyzsh/ohmyzsh                             path:plugins/rsync
 ohmyzsh/ohmyzsh                             path:plugins/rust
 ohmyzsh/ohmyzsh                             path:plugins/safe-paste
-ohmyzsh/ohmyzsh                             path:plugins/screen
 ohmyzsh/ohmyzsh                             path:plugins/shrink-path
 ohmyzsh/ohmyzsh                             path:plugins/sprunge
 ohmyzsh/ohmyzsh                             path:plugins/ssh
 ohmyzsh/ohmyzsh                             path:plugins/ssh-agent
 ohmyzsh/ohmyzsh                             path:plugins/starship
-# ohmyzsh/ohmyzsh                             path:plugins/sudo
+ohmyzsh/ohmyzsh                             path:plugins/sudo
 ohmyzsh/ohmyzsh                             path:plugins/systemadmin
 ohmyzsh/ohmyzsh                             path:plugins/systemd
-ohmyzsh/ohmyzsh                             path:plugins/thefuck
+# ohmyzsh/ohmyzsh                             path:plugins/thefuck
 ohmyzsh/ohmyzsh                             path:plugins/timer
 ohmyzsh/ohmyzsh                             path:plugins/tmux
 ohmyzsh/ohmyzsh                             path:plugins/tmuxinator
