@@ -131,23 +131,6 @@ install_and_setup_bat() {
 
 }
 
-# define a function to build lesspipe from source if missing
-install_and_setup_lesspipe() {
-  # Check if a local Neovim installation exists
-  if [[ ! -x "$HOME/.local/bin/lesspipe" ]]; then
-    # ln -sv $HOME/gitdepot/lesspipe/lesspipe.sh $HOME/.local/bin/lesspipe
-    # ln -sv $HOME/gitdepot/lesspipe/lesspipe.sh $HOME/.local/bin/lesspipe.sh
-  fi
-
-  # Ensure $HOME/.local/bin is in PATH
-  if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
-    # echo "Adding $HOME/.local/bin to your PATH for this session."
-    # export PATH="$HOME/.local/bin:$PATH"
-  fi
-
-  # export LESSOPEN="|lesspipe.sh %s"
-}
-
 export EDITOR="$(which nano > /dev/null 2>&1)"
 export VISUAL="$EDITOR"
 export PAGER="$(which less)"
@@ -159,7 +142,6 @@ export LESS_TERMCAP_md="${yellow}"
 unset LESSCLOSE
 export LESS=" -R"
 
-install_and_setup_lesspipe
 install_and_setup_bat
 
 # Neovim build from source
