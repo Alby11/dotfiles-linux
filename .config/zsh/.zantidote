@@ -289,3 +289,6 @@ bindkey -M viins '^Xo' create_completion
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#a6e3a1,bg=#1e1e2e,bold"
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 ZSH_AUTOSUGGEST_MANUAL_REBIND=1
+
+### wofr06/lesspipe
+LESSOPEN="|$( antidote path wofr06/lesspipe ) %s"; export LESSOPEN  # (sh like shells)
