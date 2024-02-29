@@ -71,7 +71,6 @@ install_and_setup_bat() {
       if ! command -v rcat > /dev/null; then
         alias rcat='cat'
       fi
-      alias cat='rcat'
     fi
   fi
 
@@ -101,19 +100,15 @@ install_and_setup_bat() {
   }
   alias BGS='| bat -l rs' # mnemonic Bat Git Show
 
-  # combine bat with git diff to view lines around code changes with proper syntax highlighting:
-  batdiff() {
-      git diff --name-only --relative --diff-filter=d | xargs bat --diff
-  }
-
   # Integration with xclip for copying contents without line numbers or Git markers
   alias batclip='bat --plain | xclip'
   alias batwlcopy='bat --plain | wl-copy'
 
   # Alias for highlighting --help messages
   alias bathelp='bat --plain --language=help'
+
   help() {
-      "$@" --help 2>&1 | bathelp
+      "$@" --help 2>&1 | bat --plain --language=help
   }
 
   bat cache --build > /dev/null 2>&1
@@ -127,7 +122,9 @@ install_and_setup_bat() {
   # Set bat as MANPAGER for colorized man pages
   export MANPAGER="sh -c 'col -bx | bat -l man -p'"
   # Check for MANROFFOPT for better formatting
-  export MANROFFOPT="-c"
+
+  BATPIPE="color";
+  export BATPIPE;  export MANROFFOPT="-c"
 
 }
 
@@ -140,7 +137,8 @@ export MANPAGER="$PAGER"
 # Highlight section titles in manual pages.
 export LESS_TERMCAP_md="${yellow}"
 unset LESSCLOSE
-export LESS=" -R"
+LESS="$LESS -R";
+export LESS;
 
 install_and_setup_bat
 

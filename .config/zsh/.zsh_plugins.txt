@@ -124,6 +124,7 @@ mattmc3/zman                                #Use fzf to quickly browse Zsh manua
 
 xPMo/zsh-ls-colors
 eth-p/bat-extras                            path:src kind:path
+eth-p/bat-extras                            path:src kind:fpath
 rummik/zsh-tailf                            #tail -f with prefixed newlines instead of trailing
 neovim/neovim                               kind:clone
 wofr06/lesspipe                             kind:path
