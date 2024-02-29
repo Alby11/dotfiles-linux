@@ -167,6 +167,9 @@ install_and_setup_bat
 
 # LunarVIM
 if ! CHECK_COMMANDS lvim; then
+  rm -rfv $HOME/.local/share/*vim \
+    $HOME/.config/*nvim \
+    $HOME/.cache/*nvim
   bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/uninstall.sh)
   bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh)
 fi
