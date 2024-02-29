@@ -49,7 +49,7 @@ function zvm_config() {
   ZVM_INSERT_MODE_CURSOR=$icur'\e\e]12;#f38ba8\a'
   ZVM_OPPEND_MODE_CURSOR=$ocur'\e\e]12;#cba6f7\a'
   ZVM_VI_HIGHLIGHT_FOREGROUND=#1e1e2e           #  Hex value
-  ZVM_VI_HIGHLIGHT_BACKGROUND=#f5c3e7           # Hex value
+  ZVM_VI_HIGHLIGHT_BACKGROUND=#f9e2af           # Hex value
   ZVM_VI_HIGHLIGHT_EXTRASTYLE=bold,underline    # bold and underline
 }
 
@@ -253,8 +253,8 @@ ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(
 
 # zsh-users/zsh-history-substring-search
 HISTORY_SUBSTRING_SEARCH_FUZZY=1
-HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="fg=#11111b,bg=#f5c2e7,bold,underline"
-HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND="fg=#11111b,bg=#f38ba8,bold,underline"
+HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="fg=#1e1e2e,bg=#a6e3a1,bold,underline"
+HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND="fg=#1e1e2e,bg=#f38ba8,bold,underline"
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 # if the above doesn't work
@@ -285,6 +285,6 @@ bindkey -M viins '^Xo' create_completion
 
 # zsh-users/zsh-autosuggestions
 # ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#11111b,bg=#f5c2e7,bold,underline"
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#11111b,bg=#f5c2e7,bold"
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#a6e3a1,bg=#1e1e2e,bold"
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 ZSH_AUTOSUGGEST_MANUAL_REBIND=1
