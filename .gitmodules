@@ -109,3 +109,6 @@
 [submodule "/home/tallonea/gitdepot/neovim_neovim"]
 	path = /home/tallonea/gitdepot/neovim_neovim
 	url = git@github.com:neovim/neovim.git
+[submodule "/home/tallonea/gitdepot/PowerSehellEditorServices"]
+	path = /home/tallonea/gitdepot/PowerSehellEditorServices
+	url = git@github.com:PowerShell/PowerShellEditorServices.git
