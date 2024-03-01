@@ -23,6 +23,8 @@ export ENABLE_CORRECTION="true"
 export COMPLETION_WAITING_DOTS="true"
 export COLORTERM=truecolor
 
+# source colors scripts
+SOURCE_RCFILE ${ZDOTDIR}/.zcolors_catppuccin
 
 # Antidote ZSH plugin manager
 SOURCE_RCFILE ${ZDOTDIR}/.zantidote
