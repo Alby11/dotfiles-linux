@@ -162,12 +162,14 @@ npm_packages=(
   "eslint"
   "fixjson"
   "neovim"
+  "pyright"
   "solhint"
 )
 
 npm_exclusions=(
   "@fsouza/prettierd"
   "eslint"
+  "pyright"
   "solhint"
 )
 
