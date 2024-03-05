@@ -109,7 +109,6 @@ else
   export MAGIC_ENTER_OTHER_COMMAND='ls -lAh --color=always'
 fi
 # per-directory-history
-HISTORY_BASE="$ZDOTDIR/.directory_history"
 HISTORY_START_WITH_GLOBAL=false
 PER_DIRECTORY_HISTORY_TOGGLE='^G'
 PER_DIRECTORY_HISTORY_PRINT_MODE_CHANGE=true

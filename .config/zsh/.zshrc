@@ -11,33 +11,27 @@ non-login: after .zshenv
 
 # export TERM color variable
 export TERM="xterm-256color"
+# export COLORTERM
+export COLORTERM="truecolor"
+# colored GCC warnings and errors
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # Zsh options.
 setopt extendedglob
+export HISTORY_BASE="${ZDOTDIR:-$HOME}/.directory_history"
 export HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"
 export HISTSIZE=1000000000
 export SAVEHIST=$HISTSIZE
 export HIST_STAMPS="yyyy-mm-dd"
 setopt EXTENDED_HISTORY
+# Omit duplicates and commands that begin with a space from history.
+export HISTCONTROL='ignoreboth';
+
 export ENABLE_CORRECTION="true"
 export COMPLETION_WAITING_DOTS="true"
-export COLORTERM=truecolor
 
 # source colors scripts
 SOURCE_RCFILE ${ZDOTDIR}/.zcolors_catppuccin
-
-# Antidote ZSH plugin manager
-SOURCE_RCFILE ${ZDOTDIR}/.zantidote
-
-
-# set Ls_COLORS if vivid is installed
-if ! CHECK_COMMANDS "vivid"; then
-  cargo install vivid
-fi
-export LS_COLORS="$(vivid generate catppuccin-mocha)"
-
-# Make Python use UTF-8 encoding for output to stdin, stdout, and stderr.
-export PYTHONIOENCODING='UTF-8';
 
 # Export GOPATH
 [[ -d ${HOME}/go ]] && export GOPATH=${HOME}/go
@@ -55,14 +49,17 @@ if CHECK_COMMANDS "fnm"; then
   eval "$(fnm env --use-on-cd)"
 fi
 
-# Omit duplicates and commands that begin with a space from history.
-export HISTCONTROL='ignoreboth';
+# Antidote ZSH plugin manager
+SOURCE_RCFILE ${ZDOTDIR}/.zantidote
+
+# set Ls_COLORS if vivid is installed
+if ! CHECK_COMMANDS "vivid"; then
+  cargo install vivid
+fi
+export LS_COLORS="$(vivid generate catppuccin-mocha)"
 
 # Prefer US English and use UTF-8.
 export LANG='en_US.UTF-8';
-
-# colored GCC warnings and errors
-export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # set ZSH as VSCode default shell for the integrated terminal
 [[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"

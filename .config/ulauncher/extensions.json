@@ -6,13 +6,6 @@
         "last_commit": "fd0745d43e79e945c1f531c4654131a8c0fe72d7",
         "last_commit_time": "2021-03-14T09:46:56"
     },
-    "com.github.jyvern.ulauncher-ssh": {
-        "id": "com.github.jyvern.ulauncher-ssh",
-        "url": "https://github.com/jyvern/ulauncher-ssh",
-        "updated_at": "2023-09-16T16:12:10.112316",
-        "last_commit": "47168e6ea45878787536ae5670612509f5dddced",
-        "last_commit_time": "2021-08-29T16:30:14"
-    },
     "com.github.tuanpham-dev.ulauncher-better-calculator": {
         "id": "com.github.tuanpham-dev.ulauncher-better-calculator",
         "url": "https://github.com/tuanpham-dev/ulauncher-better-calculator",
@@ -40,13 +33,6 @@
         "updated_at": "2023-09-16T16:16:49.180431",
         "last_commit": "e8137dae6448041fc53ae418263501b068857073",
         "last_commit_time": "2023-05-16T12:35:35"
-    },
-    "com.github.hoaper.ulauncher-zh0per": {
-        "id": "com.github.hoaper.ulauncher-zh0per",
-        "url": "https://github.com/Hoaper/ulauncher-zh0per",
-        "updated_at": "2023-09-16T16:17:01.768960",
-        "last_commit": "8f6d8d88d7d4f75732f5f32bde554287d3635586",
-        "last_commit_time": "2023-01-29T12:35:09"
     },
     "com.github.kbialek.ulauncher-bitwarden": {
         "id": "com.github.kbialek.ulauncher-bitwarden",
@@ -82,13 +68,6 @@
         "updated_at": "2023-10-05T08:49:50.692721",
         "last_commit": "fe967c947748616df602c9d022fec6d68a6b2cf2",
         "last_commit_time": "2022-05-01T12:20:38"
-    },
-    "com.github.pegoku.ulauncher-searx": {
-        "id": "com.github.pegoku.ulauncher-searx",
-        "url": "https://github.com/Pegoku/ulauncher-searx",
-        "updated_at": "2023-10-05T08:50:01.700296",
-        "last_commit": "9047d246736a7a4cdf6c843cb26c987ccce36aae",
-        "last_commit_time": "2023-03-18T15:53:26"
     },
     "com.github.seofernando25.ulauncher-gpt": {
         "id": "com.github.seofernando25.ulauncher-gpt",
@@ -153,20 +132,6 @@
         "last_commit": "ff8b0875ed5d78dcc1db5f638b201a460cc6d7f7",
         "last_commit_time": "2020-10-06T08:36:54"
     },
-    "com.github.jetbug123.ulauncher-ssh": {
-        "id": "com.github.jetbug123.ulauncher-ssh",
-        "url": "https://github.com/jetbug123/ulauncher-ssh",
-        "updated_at": "2023-10-05T09:33:37.811562",
-        "last_commit": "dae2cc875b90ae5d625cf177127626e1c8b9719f",
-        "last_commit_time": "2020-05-09T21:20:33"
-    },
-    "com.github.brpaz.ulauncher-file-search": {
-        "id": "com.github.brpaz.ulauncher-file-search",
-        "url": "https://github.com/brpaz/ulauncher-file-search",
-        "updated_at": "2023-10-11T11:10:29.817848",
-        "last_commit": "0ea61c2049b27f1ddfa81d1844876f21dd9d6e7b",
-        "last_commit_time": "2020-07-03T13:30:16"
-    },
     "com.github.iboyperson.ulauncher-system": {
         "id": "com.github.iboyperson.ulauncher-system",
         "url": "https://github.com/iboyperson/ulauncher-system",
@@ -195,18 +160,32 @@
         "last_commit": "491bb5a5ccef082c5f6623db5f5676a8ab481144",
         "last_commit_time": "2022-04-03T10:50:15"
     },
-    "com.github.dcervenkov.ulauncher-z-search": {
-        "id": "com.github.dcervenkov.ulauncher-z-search",
-        "url": "https://github.com/dcervenkov/ulauncher-z-search",
-        "updated_at": "2023-10-11T11:23:40.544049",
-        "last_commit": "9fe278bebb039c5150857f9b0cb34bcb28f35248",
-        "last_commit_time": "2020-12-15T14:35:19"
-    },
     "com.github.luispabon.ulauncher-virtualbox": {
         "id": "com.github.luispabon.ulauncher-virtualbox",
         "url": "https://github.com/luispabon/ulauncher-virtualbox",
         "updated_at": "2023-10-23T17:21:06.908343",
         "last_commit": "d8f495df3c7f41ee8493b207d17f06fc0372c84e",
         "last_commit_time": "2020-09-23T01:29:15"
+    },
+    "com.github.ddkasa.ulauncher-toggl-extension": {
+        "id": "com.github.ddkasa.ulauncher-toggl-extension",
+        "url": "https://github.com/ddkasa/ulauncher-toggl-extension",
+        "updated_at": "2024-03-05T08:38:14.765138",
+        "last_commit": "8b2bc8954ae438a45c175ee0e3eb4bdfb9c6cab7",
+        "last_commit_time": "2024-02-24T21:26:39"
+    },
+    "com.github.lighttigerxiv.ulauncher-terminal-runner-extension": {
+        "id": "com.github.lighttigerxiv.ulauncher-terminal-runner-extension",
+        "url": "https://github.com/lighttigerXIV/ulauncher-terminal-runner-extension/",
+        "updated_at": "2024-03-05T08:59:35.399033",
+        "last_commit": "d6bc2157e5c0ef2f812e3051ddde334c7b485c2e",
+        "last_commit_time": "2023-05-02T22:50:12"
+    },
+    "com.github.n4n0gh.ulauncher_clockify": {
+        "id": "com.github.n4n0gh.ulauncher_clockify",
+        "url": "https://github.com/n4n0GH/ulauncher_clockify",
+        "updated_at": "2024-03-05T10:02:18.419833",
+        "last_commit": "150e4d154436730ca79aac6e0ae4a04d3ff8b091",
+        "last_commit_time": "2023-02-08T21:00:47"
     }
 }

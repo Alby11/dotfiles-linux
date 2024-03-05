@@ -1,5 +1,8 @@
 # vim: filetype=zsh
 
+# Make Python use UTF-8 encoding for output to stdin, stdout, and stderr.
+export PYTHONIOENCODING='UTF-8';
+
 export PYENV_ROOT="${HOME}/.pyenv"
 if [[ ! -f ${PYENV_ROOT}/bin/pyenv ]]; then
   rm -rf $PYENV_ROOT
