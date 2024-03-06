@@ -36,11 +36,6 @@ zmodload zsh/zprof
 export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 export ZDOTDIR="${ZDOTDIR:-$XDG_CONFIG_HOME/zsh}"
 
-### Packages
-if [ $SHLVL -lt 2 ]; then
-  [[ -f ${ZDOTDIR}/.zessentials ]] && source ${ZDOTDIR}/.zessentials #> /dev/null 2>&1 
-fi
-
 [[ -f ${ZDOTDIR}/.ztools ]] && source ${ZDOTDIR}/.ztools
 
 if [ -z "$SSH_CONNECTION" ]; then

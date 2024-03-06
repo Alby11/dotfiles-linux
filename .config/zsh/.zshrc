@@ -25,7 +25,7 @@ export SAVEHIST=$HISTSIZE
 export HIST_STAMPS="yyyy-mm-dd"
 setopt EXTENDED_HISTORY
 # Omit duplicates and commands that begin with a space from history.
-export HISTCONTROL='ignoreboth';
+export HISTCONTROL='ignoreboth'
 
 export ENABLE_CORRECTION="true"
 export COMPLETION_WAITING_DOTS="true"
@@ -38,15 +38,15 @@ SOURCE_RCFILE ${ZDOTDIR}/.zcolors_catppuccin
 
 # Export JAVA_HOME from default alternative
 if CHECK_COMMANDS javac; then
-  export JAVA_HOME="$(dirname $(dirname $(readlink $(readlink $(which javac)))))"
+	export JAVA_HOME="$(dirname $(dirname $(readlink $(readlink $(which javac)))))"
 fi
 
 # Shell setup for fnm NodeJS Manager
 if CHECK_COMMANDS "fnm"; then
-  if ! CHECK_COMMANDS "node"; then
-    fnm install --lts
-  fi
-  eval "$(fnm env --use-on-cd)"
+	if ! CHECK_COMMANDS "node"; then
+		fnm install --lts
+	fi
+	eval "$(fnm env --use-on-cd)"
 fi
 
 # Antidote ZSH plugin manager
@@ -54,24 +54,26 @@ SOURCE_RCFILE ${ZDOTDIR}/.zantidote
 
 # set Ls_COLORS if vivid is installed
 if ! CHECK_COMMANDS "vivid"; then
-  cargo install vivid
+	cargo install vivid
 fi
 export LS_COLORS="$(vivid generate catppuccin-mocha)"
 
 # Prefer US English and use UTF-8.
-export LANG='en_US.UTF-8';
+export LANG='en_US.UTF-8'
 
 # set ZSH as VSCode default shell for the integrated terminal
 [[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
 
+# source SSH settings, including agent config, if not in an ssh session
+[[ -n $SSH_CONNECTION ]] || SOURCE_RCFILE ${ZDOTDIR}/.zssh
+
 ### Initialize Starship
 if ! CHECK_COMMANDS starship; then
-  curl -sSv 'https://starship.rs/install.sh' | sh
+	curl -sSv 'https://starship.rs/install.sh' | sh
 fi
 if [[ $(whoami) == 'root' ]]; then
-  export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/root_starship.toml"
+	export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/root_starship.toml"
 else
-  export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/user_starship.toml"
+	export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/user_starship.toml"
 fi
 eval "$(starship init ${THE_SHELL})"
-

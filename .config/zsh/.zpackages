@@ -1,8 +1,7 @@
 # vim: filetype=zsh
 
-if [ -f ${HOME}/.bootstrapped ] || [ $SHLVL -gt 2 ]; then
-  return 1
-fi
+[[ -f ${HOME}/.bootstrapped ]] && return 1
+[[ $SHLVL -gt 2 ]] && return 1
 
 # Function to filter exclusions
 filter_exclusions_with_delimiter() {
