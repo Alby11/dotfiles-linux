@@ -7,7 +7,7 @@ rm ${zsh_plugins:r}.zsh
 
 # Install antidote if missing
 if ! [[ -d ${ZDOTDIR:-~}/.antidote ]]; then
-  git clone --depth=1 https://github.com/mattmc3/antidote.git ${ZDOTDIR:-~}/.antidote
+    git clone --depth=1 https://github.com/mattmc3/antidote.git ${ZDOTDIR:-~}/.antidote
 fi
 
 # Ensure you have a .zsh_plugins.txt file where you can add plugins.
@@ -114,10 +114,6 @@ fi
 HISTORY_START_WITH_GLOBAL=false
 PER_DIRECTORY_HISTORY_TOGGLE='^G'
 PER_DIRECTORY_HISTORY_PRINT_MODE_CHANGE=true
-# autoenv
-if [ ! -f /usr/local/lib/node_modules/@hyperupcall/autoenv/activate.sh ]; then
-  # sudo npm install -g '@hyperupcall/autoenv'
-fi
 # alias-finder
 zstyle ':omz:plugins:alias-finder' autoload yes # disabled by default
 zstyle ':omz:plugins:alias-finder' longer yes # disabled by default
@@ -142,8 +138,12 @@ chroma_single_word() {
   local __first_call="$1" __wrd="$2" __start_pos="$3" __end_pos="$4"
   local __style
 
-  (( __first_call )) && { __style=${fast_theme_name}alias }
-  [[ -n "$__style" ]] && (( __start=__start_pos-${#prebuffer}, __end=__end_pos-${#prebuffer}, __start >= 0 )) && reply+=("$__start $__end ${fast_highlight_styles[$__style]}")
+  (( __first_call )) && \
+      { __style=${fast_theme_name}alias }
+
+  [[ -n "$__style" ]] && \
+      (( __start=__start_pos-${#prebuffer}, __end=__end_pos-${#prebuffer}, __start >= 0 )) && \
+      reply+=("$__start $__end ${fast_highlight_styles[$__style]}")
 
   (( this_word = next_word ))
   _start_pos=$_end_pos
@@ -160,6 +160,7 @@ register_single_word_chroma() {
   fast_highlight+=( "chroma-$word" chroma_single_word )
   return 0
 }
+
 if command -v abbr &>/dev/null; then
   if [[ -n $fast_highlight ]]; then
     for abbr in ${(f)"$(abbr list-abbreviations)"}; do
@@ -286,10 +287,10 @@ bindkey -M emacs '^Xo' create_completion
 bindkey -M viins '^Xo' create_completion
 
 ### zsh-users/zsh-autosuggestions ###
-# ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#11111b,bg=#f5c2e7,bold,underline"
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#a6e3a1,bg=#1e1e2e,italic"
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 
 ### wofr06/lesspipe
-LESSOPEN="|$( antidote path wofr06/lesspipe ) %s"; export LESSOPEN  # (sh like shells)
+LESSOPEN="|$( antidote path wofr06/lesspipe ) %s"
+export LESSOPEN
