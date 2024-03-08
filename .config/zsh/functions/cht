@@ -1,0 +1,23 @@
+# vim: filetype=zsh
+
+cht() {
+	if [[ -z "$1" ]]; then
+		echo "Usage: query_help <command>"
+		return 1
+	fi
+
+	local command="$1"
+
+	# Querying cht.sh
+	echo "Querying cht.sh for $command..."
+	curl -s "https://cht.sh/$command?T" || echo "Failed to query cht.sh"
+
+	# Adding a separator
+	printf "\n---\n"
+
+	# Querying tldr
+	echo "Querying tldr for $command..."
+	if ! tldr "$command"; then
+		echo "TLDR page for $command not found or tldr is not installed."
+	fi
+}
