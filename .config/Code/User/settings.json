@@ -13,10 +13,10 @@
         }
     ],
     "yaml.schemas": {
-        "file:///home/tallonea/.vscode/extensions/atlassian.atlascode-3.0.10/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml",
         "./schemas/ArchyFlow.schema.json": "*Flow.yaml",
         "./schemas/ArchyCommon.schema.json": "common*.yaml",
         "./schemas/ArchyBotNlu.schema.json": "*BotNlu.yaml",
+        "file:///home/tallonea/.vscode/extensions/atlassian.atlascode-3.0.10/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
     },
     "workbench.colorTheme": "Catppuccin Mocha",
     "redhat.telemetry.enabled": true,
@@ -151,7 +151,7 @@
         "vim.shell"
     ],
     "terminal.external.windowsExec": "windowsterminal.exe",
-    "terminal.external.linuxExec": "kitty",
+    "terminal.external.linuxExec": "alacritty",
     "vim.neovimPath": "/usr/bin/nvim",
     "[html]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -170,5 +170,6 @@
     "terminal.explorerKind": "external",
     "terminal.sourceControlRepositoriesKind": "external",
     "terminal.integrated.shell.linux": "/bin/zsh",
-    "chat.editor.fontSize": 12
+    "chat.editor.fontSize": 12,
+    "terminal.integrated.defaultProfile.linux": "tmux"
 }

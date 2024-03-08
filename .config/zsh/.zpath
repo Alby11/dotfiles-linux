@@ -24,11 +24,11 @@ path=(
   $HOME/{.cargo,local}/{,s}bin(N)
   $HOME/{,.}go/{,s}bin(N)
   $HOME/.local/share/bob/nvim-{,s}bin(N)
-  ${gitdepot}/quickemu
+  $HOME/gitdepot/quickemu/(N)
+  $HOME/gitdepot/genesys_archy/(N)
   /opt/{homebrew,local}/{,s}bin(N)
   /usr/libexec/openssh/(N)
   /usr/local/{,s}bin(N)
-  /opt/dwarfs/{,s}bin(N)
   $path
 )
 fpath=(
