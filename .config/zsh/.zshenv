@@ -5,28 +5,28 @@
 
 # NOTE: .zshenv needs to live at ~/.zshenv, not in $ZDOTDIR!
 
-if [ -z "$SSH_CONNECTION" ]; then
-  if command -v lolcat > /dev/null 2>&1; then
-    echo """
-    .zshenv - Zsh envfile, loaded always, as first. SHLVL ( $SHLVL ) 
-    """ | lolcat
-  else
-    echo """
-    .zshenv - Zsh envfile, loaded always, as first. SHLVL ( $SHLVL )
-    """
-  fi
-fi
+# if [ -z "$SSH_CONNECTION" ]; then
+# if command -v lolcat >/dev/null 2>&1; then
+# echo """
+# .zshenv - Zsh envfile, loaded always, as first. SHLVL ( $SHLVL )
+# """ | lolcat
+# else
+# echo """
+# .zshenv - Zsh envfile, loaded always, as first. SHLVL ( $SHLVL )
+# """
+# fi
+# fi
 
 # determine distro for later user
 if [[ -f /etc/fedora-release ]]; then
-  export DISTRO="fedora"
+	export DISTRO="fedora"
 elif [[ -f /etc/os-release ]]; then
-  . /etc/os-release
-  if [[ $NAME == "Ubuntu" ]]; then
-    export DISTRO="ubuntu"
-  elif [[ $ID == "arch" || $ID_LIKE == "arch" ]]; then
-    export DISTRO="arch"
-  fi
+	. /etc/os-release
+	if [[ $NAME == "Ubuntu" ]]; then
+		export DISTRO="ubuntu"
+	elif [[ $ID == "arch" || $ID_LIKE == "arch" ]]; then
+		export DISTRO="arch"
+	fi
 fi
 
 # Uncomment to use the profiling module
@@ -39,13 +39,11 @@ export ZDOTDIR="${ZDOTDIR:-$XDG_CONFIG_HOME/zsh}"
 [[ -f ${ZDOTDIR}/.ztools ]] && source ${ZDOTDIR}/.ztools
 
 if [ -z "$SSH_CONNECTION" ]; then
-  echo "\n"
-  if [[ IS_LOGIN_SHELL ]]; then
-    ECHOCAT "This is a login shell"
-  else
-    ECHOCAT "This is not a login shell"
-  fi
-  echo "\n"
+	if [[ IS_LOGIN_SHELL ]]; then
+		ECHOCAT "This is a login shell"
+	else
+		ECHOCAT "This is not a login shell"
+	fi
 fi
 
 export THE_SHELL="$(echo $SHELL | grep -o '[^\/]*$')"

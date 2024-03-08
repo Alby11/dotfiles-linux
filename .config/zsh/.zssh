@@ -3,43 +3,55 @@
 ### SSH AGENT BLOCK
 # LOAD SSH AFTER EACH REBOOT (RE-USES SAME SSH-AGENT INSTANCE)
 
-# Check for keychain and install if missing
-if ! CHECK_COMMANDS keychain; then
-    echo "keychain not found. Attempting to install..."
-    # Adjust the installation command below according to your system's package manager
-    package_manager_install keychain || { echo "Failed to install keychain. Exiting."; exit 1; }
+# Set SSH_ASKPASS
+if CHECK_COMMANDS ssh-askpass; then
+	export SUDO_ASKPASS
+	SUDO_ASKPASS=$(which ssh-askpass)
+fi
+
+# if into an SSH session, dont'configure the agent
+[[ -n $SSH_CONNECTION ]] && return 1
+
+# Function to install keychain if not present
+install_keychain() {
+	if type apt >/dev/null 2>&1; then
+		sudo apt update -qq && sudo apt install keychain -y >/dev/null
+	elif type dnf >/dev/null 2>&1; then
+		sudo dnf install keychain -y >/dev/null
+	elif type pacman >/dev/null 2>&1; then
+		sudo pacman -Sy keychain --noconfirm >/dev/null
+	else
+		return 1 # Fail silently if package manager is not recognized
+	fi
+}
+
+# Check for keychain and install if missing, all silently
+if ! type keychain >/dev/null 2>&1; then
+	install_keychain >/dev/null 2>&1 || return 1
 fi
 
 export SSH_ENV="${HOME}/.ssh/agent-environment"
 
+# Function to start the SSH agent and add keys quietly
 start_agent() {
-    echo "Initialising new SSH agent..."
-    /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
-    echo succeeded
-    chmod 600 "${SSH_ENV}"
-    . "${SSH_ENV}" > /dev/null
+	/usr/bin/ssh-agent | sed 's/^echo/#echo/' >"${SSH_ENV}" 2>/dev/null
+	chmod 600 "${SSH_ENV}" 2>/dev/null
+	source "${SSH_ENV}" >/dev/null 2>&1
 
-    # Use keychain for SSH key management
-    /usr/bin/keychain --quiet --eval --agents ssh $(find ${HOME}/.ssh -type f -name 'id_*' ! -name '*.pub' -printf '%f\n')
-    if [[ $? -eq 0 ]]; then
-        echo "SSH keys added successfully."
-    else
-        echo "Failed to add SSH keys."
-    fi
+	keychain_files=$(find "${HOME}/.ssh" -type f -name 'id_*' ! -name '*.pub' -print 2>/dev/null | xargs)
+	/usr/bin/keychain --quiet --eval --agents ssh "$keychain_files" >/dev/null 2>&1
 }
 
-# Source SSH settings, if applicable
+# Load or start the SSH agent, all quietly
 if [[ -f "${SSH_ENV}" ]]; then
-    . "${SSH_ENV}" > /dev/null
-    # Check if the SSH agent is running. If not, start a new agent.
-    if ! ps -p ${SSH_AGENT_PID} > /dev/null 2>&1; then
-        start_agent;
-    fi
+	source "${SSH_ENV}" >/dev/null 2>&1
+	# Check if the SSH agent is running; if not, start a new agent, all silently.
+	if ! ps -p "${SSH_AGENT_PID}" >/dev/null 2>&1; then
+		start_agent
+	fi
 else
-    start_agent;
+	start_agent
 fi
 
-# Clean up the function from the environment
-unset -f start_agent
-### END OF SSH BLOCK
-
+# Cleanup
+unset -f start_agent install_keychain

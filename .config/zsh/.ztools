@@ -5,73 +5,73 @@
 #
 
 for cmd in "dnf" "apt"; do
-  if  command -v $cmd >/dev/null; then
-    case "$cmd" in
-      "dnf")
-        package_manager_install() {
-          sudo dnf install -y "$@"
-        }
-        package_manager_remove() {
-          sudo dnf remove -y "$@"
-        }
-        package_manager_autoremove() {
-          sudo dnf autoremove -y "$@"
-        }
-        export PACKAGE_MANAGER="dnf"
-        ;;
-      "apt")
-        package_manager_install() {
-          sudo apt-get install -y "$@"
-        }
-        package_manager_remove() {
-          sudo apt remove -y "$@"
-        }
-        package_manager_autoremove() {
-          sudo apt autoremove -y "$@"
-        }
-        export PACKAGE_MANAGER="apt"
-        ;;
-    esac
-    alias pmi='package_manager_install'
-    alias pmr='package_manager_remove'
-    alias pmar='package_manager_autoremove'
-    break
-  fi
+	if command -v $cmd >/dev/null; then
+		case "$cmd" in
+		"dnf")
+			package_manager_install() {
+				sudo dnf install -y "$@"
+			}
+			package_manager_remove() {
+				sudo dnf remove -y "$@"
+			}
+			package_manager_autoremove() {
+				sudo dnf autoremove -y "$@"
+			}
+			export PACKAGE_MANAGER="dnf"
+			;;
+		"apt")
+			package_manager_install() {
+				sudo apt-get install -y "$@"
+			}
+			package_manager_remove() {
+				sudo apt remove -y "$@"
+			}
+			package_manager_autoremove() {
+				sudo apt autoremove -y "$@"
+			}
+			export PACKAGE_MANAGER="apt"
+			;;
+		esac
+		alias pmi='package_manager_install'
+		alias pmr='package_manager_remove'
+		alias pmar='package_manager_autoremove'
+		break
+	fi
 done
 
 # Function to check for NOPASSWD privileges
 CHECK_NOPASSWD() {
-    local SUDO_ASKPASS=$(which ssh-askpass)
-    # Run sudo in non-interactive mode to avoid prompting for a password
-    local sudo_output=$(SUDO_ASKPASS=/bin/false sudo -ln 2>/dev/null)
+	local SUDO_ASKPASS=$(which ssh-askpass)
+	# Run sudo in non-interactive mode to avoid prompting for a password
+	local sudo_output=$(SUDO_ASKPASS=/bin/false sudo -ln 2>/dev/null)
 
-    if [[ $sudo_output == *"(ALL) NOPASSWD: ALL"* ]]; then
-        # The user has NOPASSWD for all commands
-        return 0
-    elif [[ $sudo_output == *"NOPASSWD:"* ]]; then
-        # The user has NOPASSWD for specific commands
-        return 0
-    else
-        # The user does not have NOPASSWD privileges
-        return 1
-    fi
+	if [[ $sudo_output == *"(ALL) NOPASSWD: ALL"* ]]; then
+		# The user has NOPASSWD for all commands
+		return 0
+	elif [[ $sudo_output == *"NOPASSWD:"* ]]; then
+		# The user has NOPASSWD for specific commands
+		return 0
+	else
+		# The user does not have NOPASSWD privileges
+		return 1
+	fi
 }
 
 # Function to check if the user has NOPASSWD privileges for a specific command
 WHOAMI_HAS_NOPASSWD() {
-    # Check if sudo allows the user to run the command without a password
-    sudo -nl | grep -q 'NOPASSWD: ALL' && return 0 || return 1
+	# Check if sudo allows the user to run the command without a password
+	sudo -nl | grep -q 'NOPASSWD: ALL' && return 0 || return 1
 }
 
-# CARGO 
+# CARGO
 if [[ ! -f $HOME/.cargo/bin/rustup ]]; then
-  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path
-  package_manager_install {,pkgconf-}pkg-config
-  package_manager_install openssl
+	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path
+	package_manager_install {,pkgconf-}pkg-config
+	package_manager_install openssl
 fi
 # lolcrab cargo crate
 if [[ ! -f $HOME/.cargo/bin/lolcrab ]]; then
-  $HOME/.cargo/bin/cargo install lolcrab
+	$HOME/.cargo/bin/cargo install lolcrab
 fi
 local lolcrab_default_options="--custom \
   f5e0dc f2cdcd f5c2e7 cba6f7 f38ba8 eba0ac fab387 f9e2af a6e3a1 94e2d5 89dceb 74c7ec 89b4fa b4befe"
@@ -80,55 +80,56 @@ alias lolcat_fail="${HOME}/.cargo/bin/lolcrab --gradient inferno --animate"
 alias lolcrab="${HOME}/.cargo/bin/lolcrab $lolcrab_default_options"
 
 IS_LOGIN_SHELL() {
-    # Check using shell option (most direct method)
-    if [[ -o login ]]; then
-        return 0
-    fi
+	# Check using shell option (most direct method)
+	if [[ -o login ]]; then
+		return 0
+	fi
 
-    # Check by inspecting $0 (second method)
-    if [[ $0 == -* ]]; then
-        return 0
-    fi
+	# Check by inspecting $0 (second method)
+	if [[ $0 == -* ]]; then
+		return 0
+	fi
 
-    # Check using `ps` command (if available and as a fallback)
-    if command -v ps > /dev/null 2>&1; then
-        shell_process=$(ps -o comm= -p $$)
-        if [[ $shell_process == -* ]]; then
-            return 0
-        fi
-    fi
+	# Check using `ps` command (if available and as a fallback)
+	if command -v ps >/dev/null 2>&1; then
+		shell_process=$(ps -o comm= -p $$)
+		if [[ $shell_process == -* ]]; then
+			return 0
+		fi
+	fi
 
-    # If none of the above checks confirm a login shell
-    return 1
+	# If none of the above checks confirm a login shell
+	return 1
 }
 
 # use lolcat as a special printf command
 ECHOCAT() {
-  if [ -z "$SSH_CONNECTION" ]; then
-    if [ "$2" = 'ERROR' ]; then
-      printf "%s\n" "$1" | lolcat_fail
-    else
-      printf "%s\n" "$1" | lolcat
-    fi
-  fi
+	return 0
+	if [ -z "$SSH_CONNECTION" ]; then
+		if [ "$2" = 'ERROR' ]; then
+			printf "%s\n" "$1" | lolcat_fail
+		else
+			printf "%s\n" "$1" | lolcat
+		fi
+	fi
 }
 
 ECHOCAT ".ztools - tools for better profiling..."
 
 # Function to print an error message and exit/return with an error/return code
 FAIL() {
-  if [[ -z "$2" ]]; then
-    ECHOCAT "$1" ERROR # Print the first argument as a message using ECHOCAT
-  elif [[ "$2" == "x" ]]; then
-    ECHOCAT "$1" >&2 ERROR # Print the first argument as an error message using ECHOCAT
-    exit "${3-1}"  # Exit with the third argument as the error code, or 1 if no third argument is provided
-  elif [[ "$2" == "r" ]]; then
-    ECHOCAT "$1" >&2 ERROR # Print the first argument as an error message using ECHOCAT
-    return "${3-1}"  # Return with the third argument as the error code, or 1 if no third argument is provided
-  else
-    echo "Error: Invalid second argument to FAIL function. Expected 'r', 'x', or empty, got '$2'."
-    return 1
-  fi
+	if [[ -z "$2" ]]; then
+		ECHOCAT "$1" ERROR # Print the first argument as a message using ECHOCAT
+	elif [[ "$2" == "x" ]]; then
+		ECHOCAT "$1" ERROR >&2 # Print the first argument as an error message using ECHOCAT
+		exit "${3-1}"          # Exit with the third argument as the error code, or 1 if no third argument is provided
+	elif [[ "$2" == "r" ]]; then
+		ECHOCAT "$1" ERROR >&2 # Print the first argument as an error message using ECHOCAT
+		return "${3-1}"        # Return with the third argument as the error code, or 1 if no third argument is provided
+	else
+		echo "Error: Invalid second argument to FAIL function. Expected 'r', 'x', or empty, got '$2'."
+		return 1
+	fi
 }
 
 # This function checks if the given commands are available on the system.
@@ -148,38 +149,38 @@ FAIL() {
 # The function will return a success status if all commands are available,
 # or a failure status if any command is not found.
 CHECK_COMMANDS() {
-  local cmds=("$@")  # Store the arguments in an array
-  for cmd in "${cmds[@]}"; do  # Iterate over each command
-    if ! command -v "$cmd" > /dev/null; then  # Check if the command is available
-      FAIL "Error: Required command '$cmd' not found. Please install it and try again."
-      return 1 # Return a failure status
-    fi
-  done
-  return 0  # Return a success status
+	local cmds=("$@")                        # Store the arguments in an array
+	for cmd in "${cmds[@]}"; do              # Iterate over each command
+		if ! command -v "$cmd" >/dev/null; then # Check if the command is available
+			FAIL "Error: Required command '$cmd' not found. Please install it and try again."
+			return 1 # Return a failure status
+		fi
+	done
+	return 0 # Return a success status
 }
 
 ### SOURCING/EXPORTING UTILITIES
 SOURCE_RCFILE() {
-  if [ -f "$1" ]; then
-      source "$1"
-      ECHOCAT "$1 successfully sourced ... "
-  else
-      FAIL "$1 not sourced ... "
-  fi
+	if [ -f "$1" ]; then
+		source "$1"
+		ECHOCAT "$1 successfully sourced ... "
+	else
+		FAIL "$1 not sourced ... "
+	fi
 }
 
 EXPORT_DIR() {
-  if [ -d $1 ]; then
-    export PATH=$1:$PATH
-    ECHOCAT "$1 successfully exported ... "
-  else
-    FAIL "$1 not exported ... "
-  fi
+	if [ -d $1 ]; then
+		export PATH=$1:$PATH
+		ECHOCAT "$1 successfully exported ... "
+	else
+		FAIL "$1 not exported ... "
+	fi
 }
 
 CHECK_ONLINE() {
-if $(wget -q --spider http://www.google.com); then
-  return 0
-fi
-return 1
+	if $(wget -q --spider http://www.google.com); then
+		return 0
+	fi
+	return 1
 }

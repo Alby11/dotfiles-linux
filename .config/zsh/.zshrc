@@ -9,13 +9,6 @@ login: after .zprofile and before .zlogin
 non-login: after .zshenv
 """
 
-# export TERM color variable
-export TERM="xterm-256color"
-# export COLORTERM
-export COLORTERM="truecolor"
-# colored GCC warnings and errors
-export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
-
 # Zsh options.
 setopt extendedglob
 export HISTORY_BASE="${ZDOTDIR:-$HOME}/.directory_history"
@@ -31,15 +24,29 @@ export ENABLE_CORRECTION="true"
 export COMPLETION_WAITING_DOTS="true"
 
 # source colors scripts
-SOURCE_RCFILE ${ZDOTDIR}/.zcolors_catppuccin
+SOURCE_RCFILE "${ZDOTDIR}/.zcolors_catppuccin"
+
+# export TERM color variable
+export TERM="xterm-256color"
+# export COLORTERM
+export COLORTERM="truecolor"
+# colored GCC warnings and errors
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+# set up GPG agent
+GPG_TTY=$(tty)
+export GPG_TTY
 
 # Export GOPATH
 [[ -d ${HOME}/go ]] && export GOPATH=${HOME}/go
 
 # Export JAVA_HOME from default alternative
-if CHECK_COMMANDS javac; then
-	export JAVA_HOME="$(dirname $(dirname $(readlink $(readlink $(which javac)))))"
+if ! javac_path=$(readlink -f "$(which javac)"); then
+	echo "Failed to locate javac"
+	exit 1
 fi
+JAVA_HOME=$(dirname "$(dirname "$javac_path")")
+export JAVA_HOME
 
 # Shell setup for fnm NodeJS Manager
 if CHECK_COMMANDS "fnm"; then
@@ -50,22 +57,29 @@ if CHECK_COMMANDS "fnm"; then
 fi
 
 # Antidote ZSH plugin manager
-SOURCE_RCFILE ${ZDOTDIR}/.zantidote
+SOURCE_RCFILE "${ZDOTDIR}"/.zantidote
 
 # set Ls_COLORS if vivid is installed
 if ! CHECK_COMMANDS "vivid"; then
 	cargo install vivid
 fi
-export LS_COLORS="$(vivid generate catppuccin-mocha)"
+export LS_COLORS
+LS_COLORS="$(vivid generate catppuccin-mocha)"
 
 # Prefer US English and use UTF-8.
 export LANG='en_US.UTF-8'
 
 # set ZSH as VSCode default shell for the integrated terminal
-[[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
+# shellcheck disable=SC1090
+if [[ "$TERM_PROGRAM" == "vscode" ]]; then
+	vscode_shell_integration_path=$(code --locate-shell-integration-path zsh)
+	if [[ -f "$vscode_shell_integration_path" ]]; then
+		source "$vscode_shell_integration_path"
+	fi
+fi
 
-# source SSH settings, including agent config, if not in an ssh session
-[[ -n $SSH_CONNECTION ]] || SOURCE_RCFILE ${ZDOTDIR}/.zssh
+# source SSH settings, including agent config
+SOURCE_RCFILE "${ZDOTDIR}/.zssh"
 
 ### Initialize Starship
 if ! CHECK_COMMANDS starship; then
@@ -76,4 +90,4 @@ if [[ $(whoami) == 'root' ]]; then
 else
 	export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/user_starship.toml"
 fi
-eval "$(starship init ${THE_SHELL})"
+eval "$(starship init "${THE_SHELL}")"

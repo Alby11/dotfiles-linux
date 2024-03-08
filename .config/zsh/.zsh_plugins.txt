@@ -55,7 +55,7 @@ ohmyzsh/ohmyzsh path:plugins/gitignore
 # ohmyzsh/ohmyzsh                             path:plugins/globalias
 ohmyzsh/ohmyzsh path:plugins/gnu-utils
 ohmyzsh/ohmyzsh path:plugins/golang
-ohmyzsh/ohmyzsh path:plugins/gpg-agent
+# ohmyzsh/ohmyzsh path:plugins/gpg-agent
 ohmyzsh/ohmyzsh path:plugins/grc
 ohmyzsh/ohmyzsh path:plugins/history
 ohmyzsh/ohmyzsh path:plugins/history-substring-search
@@ -157,7 +157,6 @@ psprint/zsh-sweep kind:defer
 ${ZDOTDIR}/.zeditor
 ${XDG_CONFIG_HOME}/git/.git.conf
 ${ZDOTDIR}/.zcred #> /dev/null 2>&1 &
-${ZDOTDIR}/.zstyles
 ${ZDOTDIR}/.zaliases
 ${ZDOTDIR}/.zfunctions
 ${ZDOTDIR}/.zxresources
