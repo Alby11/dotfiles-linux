@@ -78,7 +78,7 @@ bindkey -M viins   " " magic-space
 bindkey            "^@" magic-space
 bindkey -M emacs   "^@" magic-space
 bindkey -M viins   "^@" magic-space
-if antidote path 'olets/zsh-abbr' > /dev/null; then
+if [ -f $(antidote path 'olets/zsh-abbr' > /dev/null) ]; then
   # zsh-abbr
   # space expands all aliases, including global
   export ABBR_DEFAULT_BINDINGS=0
@@ -103,7 +103,7 @@ fi
 # bindkey -M emacs "^@" globalias
 # bindkey -M viins "^@" globalias
 # magic enter
-export MAGIC_ENTER_GIT_COMMAND='git status -u .'
+# export MAGIC_ENTER_GIT_COMMAND='git status -u .'
 # MAGIC_ENTER_OTHER_COMMAND='ls -lh .'
 if command -v eza &>/dev/null; then
   export MAGIC_ENTER_OTHER_COMMAND="eza -aglm --icons --group-directories-first"
@@ -217,22 +217,22 @@ _fzf_comprun() {
 export LESSOPEN='| lessfilter-fzf %s'
 
 ### aloxaf/fzf-tab ###
-autoload -Uz enable-fzf-tab
+# autoload -Uz enable-fzf-tab
 # disable sort when completing `git checkout`
-zstyle ':completion:*:git-checkout:*' sort false
+# zstyle ':completion:*:git-checkout:*' sort false
 # set descriptions format to enable group support
 # NOTE: don't use escape sequences here, fzf-tab will ignore them
-zstyle ':completion:*:descriptions' format '[%d]'
+# zstyle ':completion:*:descriptions' format '[%d]'
 # set list-colors to enable filename colorizing
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 # force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
-zstyle ':completion:*' menu no
+# zstyle ':completion:*' menu no
 # preview directory's content with eza when completing cd
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
+# zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
 # switch group using `<` and `>`
-zstyle ':fzf-tab:*' switch-group '<' '>'
+# zstyle ':fzf-tab:*' switch-group '<' '>'
 # to make full use of it's "popup" feature
-zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+# zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 
 ### MichaelAquilina/zsh-you-should-use ###
 export YSU_MESSAGE_POSITION="after"
@@ -245,14 +245,6 @@ export zs_set_path=1
 # export ZVM_VI_ESCAPE_BINDKEY=kj
 # Change to Zsh's default readkey engine
 # export ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_NEX # Better, beta
-
-### zsh-users/zsh-autosuggestions ###
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=245'
-ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(
-  "expand-or-complete"
-  "pcomplete"
-  "copy-earlier-word"
-)
 
 ### zsh-users/zsh-history-substring-search ###
 HISTORY_SUBSTRING_SEARCH_FUZZY=1
@@ -269,8 +261,8 @@ bindkey -M emacs '^N' history-substring-search-down
 # bindkey -M viins '^N' history-substring-search-down
 bindkey -M viins '^[[A' history-substring-search-up
 bindkey -M viins '^[[B' history-substring-search-down
-bindkey -M vicmd 'k' history-substring-search-up
-bindkey -M vicmd 'j' history-substring-search-down
+bindkey -M vicmd 'K' history-substring-search-up
+bindkey -M vicmd 'J' history-substring-search-down
 
 ### tom-doerr/zsh_codex ###
 # Step 1: Capture the original function definition
@@ -281,15 +273,31 @@ modified_function=$(echo "$original_function" \
 # Step 3: Redefine the function with the modified definition
 eval "$modified_function"
 zle -N create_completion
-# Bind the create_completion function to a key.
+# Step 4: Bind the create_completion function to a key.
 bindkey '^Xo' create_completion
 bindkey -M emacs '^Xo' create_completion
 bindkey -M viins '^Xo' create_completion
 
 ### zsh-users/zsh-autosuggestions ###
+ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(
+  "expand-or-complete"
+  "pcomplete"
+  "copy-earlier-word"
+)
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#a6e3a1,bg=#1e1e2e,italic"
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-ZSH_AUTOSUGGEST_MANUAL_REBIND=1
+# If necessary, you can let Autocomplete pass arguments to  compinit as follows
+zstyle '*:compinit' arguments -D -i -u -C -w
+# Make Tab go straight to the menu and cycle there
+bindkey '\t' menu-select "$terminfo[kcbt]" menu-select
+bindkey -M viins '\t' menu-select "$terminfo[kcbt]" menu-select
+bindkey -M menuselect '\t' menu-complete "$terminfo[kcbt]" reverse-menu-complete
+# Add or don't add a space after certain completions
+zstyle ':autocomplete:*' add-space \
+    executables aliases functions builtins reserved-words commands
+# Start each new line in history search mode
+ zstyle ':autocomplete:*' default-context history-incremental-search-backward
+# ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 
 ### wofr06/lesspipe
 LESSOPEN="|$( antidote path wofr06/lesspipe ) %s"

@@ -117,35 +117,41 @@ ohmyzsh/ohmyzsh path:lib/git.zsh
 ohmyzsh/ohmyzsh path:lib/history.zsh
 ohmyzsh/ohmyzsh path:lib/key-bindings.zsh
 
-# FZF related plugins
-unixorn/fzf-zsh-plugin branch:main
-Aloxaf/fzf-tab
-mattmc3/zman #Use fzf to quickly browse Zsh manuals
-
-xPMo/zsh-ls-colors
-eth-p/bat-extras path:src kind:path
-eth-p/bat-extras path:src kind:fpath
-rummik/zsh-tailf #tail -f with prefixed newlines instead of trailing
-neovim/neovim kind:clone
-wofr06/lesspipe kind:path
-wofr06/lesspipe kind:fpath
-marlonrichert/zsh-autocomplete # Find as you type, then press Tab to insert the top completion or ↓to select another completion.
-catppuccin/tty path:src/mocha.sh
-
+# now, configure and run compinit to initialize completions
+belak/zsh-utils path:completion
+sorin-ionescu/prezto path:modules/completion
 # srijanshetty/zsh-pip-completion             path:src kind:fpath
 # 3v1n0/zsh-bash-completions-fallback         path:src kind:fpath
 MenkeTechnologies/zsh-cargo-completion path:src kind:fpath
 greymd/docker-zsh-completion path:src kind:fpath
 # lukechilds/zsh-better-npm-completion        path:src kind:fpath
-sunlei/zsh-ssh path:src kind:fpath
 # vasyharan/zsh-brew-services                 path:src kind:fpath
 
+eth-p/bat-extras path:src kind:path
+eth-p/bat-extras path:src kind:fpath
+wofr06/lesspipe kind:path
+wofr06/lesspipe kind:fpath
+
+neovim/neovim kind:clone
+
+xPMo/zsh-ls-colors
+catppuccin/tty path:src/mocha.sh
+
+# FZF related plugins
+# unixorn/fzf-zsh-plugin branch:main
+# Aloxaf/fzf-tab
+# mattmc3/zman #Use fzf to quickly browse Zsh manuals
+#
+
+sunlei/zsh-ssh path:src kind:fpath
+rummik/zsh-tailf #tail -f with prefixed newlines instead of trailing
+tom-doerr/zsh_codex
 johannchangpro/zsh-interactive-cd
 zsh-users/zsh-completions
 zsh-users/zsh-history-substring-search
 zsh-users/zsh-autosuggestions
+marlonrichert/zsh-autocomplete # Find as you type, then press Tab to insert the top completion or ↓to select another completion.
 zdharma-continuum/fast-syntax-highlighting
-tom-doerr/zsh_codex
 
 olets/zsh-abbr path:completions kind:fpath
 olets/zsh-abbr # kind:defer # zsh manager for auto-expanding abbreviations
@@ -160,7 +166,3 @@ ${ZDOTDIR}/.zcred #> /dev/null 2>&1 &
 ${ZDOTDIR}/.zaliases
 ${ZDOTDIR}/.zfunctions
 ${ZDOTDIR}/.zxresources
-
-# now, configure and run compinit to initialize completions
-belak/zsh-utils path:completion
-sorin-ionescu/prezto path:modules/completion
