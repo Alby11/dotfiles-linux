@@ -1,0 +1,1 @@
+/home/tallonea/.config/zsh/.zshenv
