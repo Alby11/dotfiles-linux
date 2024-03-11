@@ -29,15 +29,15 @@ fi
 
 # jeffreytse/zsh-vi-mode
 function zvm_config() {
-  ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
+  export ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
   # Only changing the escape key to `jk` in insert mode, we still
   # keep using the default keybindings `^[` in other modes
   export ZVM_VI_ESCAPE_BINDKEY=kj
   # Change to Zsh's default readkey engine
   export ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_NEX # Better, beta
-  ZVM_INSERT_MODE_CURSOR=$ZVM_CURSOR_BEAM
-  ZVM_NORMAL_MODE_CURSOR=$ZVM_CURSOR_BLOCK
-  ZVM_OPPEND_MODE_CURSOR=$ZVM_CURSOR_UNDERLINE
+  export ZVM_INSERT_MODE_CURSOR=$ZVM_CURSOR_BEAM
+  export ZVM_NORMAL_MODE_CURSOR=$ZVM_CURSOR_BLOCK
+  export ZVM_OPPEND_MODE_CURSOR=$ZVM_CURSOR_UNDERLINE
   # Retrieve default cursor styles
   local ncur=$(zvm_cursor_style $ZVM_NORMAL_MODE_CURSOR)
   local vcur=$(zvm_cursor_style $ZVM_VISUAL_MODE_CURSOR)
@@ -45,14 +45,14 @@ function zvm_config() {
   local icur=$(zvm_cursor_style $ZVM_INSERT_MODE_CURSOR)
   local ocur=$(zvm_cursor_style $ZVM_OPPEND_MODE_CURSOR)
   # Append your custom color for your cursor
-  ZVM_NORMAL_MODE_CURSOR=$ncur'\e\e]12;#a6e3a1\a'
-  ZVM_VISUAL_MODE_CURSOR=$vcur'\e\e]12;#f5c3e7\a'
-  ZVM_VISUAL_LINE_MODE_CURSOR=$vlcur'\e\e]12;#f5c2e7\a'
-  ZVM_INSERT_MODE_CURSOR=$icur'\e\e]12;#f38ba8\a'
-  ZVM_OPPEND_MODE_CURSOR=$ocur'\e\e]12;#cba6f7\a'
-  ZVM_VI_HIGHLIGHT_FOREGROUND=#1e1e2e           #  Hex value
-  ZVM_VI_HIGHLIGHT_BACKGROUND=#f9e2af           # Hex value
-  ZVM_VI_HIGHLIGHT_EXTRASTYLE=bold,underline    # bold and underline
+  export ZVM_NORMAL_MODE_CURSOR=$ncur'\e\e]12;#a6e3a1\a'
+  export ZVM_VISUAL_MODE_CURSOR=$vcur'\e\e]12;#f5c3e7\a'
+  export ZVM_VISUAL_LINE_MODE_CURSOR=$vlcur'\e\e]12;#f5c2e7\a'
+  export ZVM_INSERT_MODE_CURSOR=$icur'\e\e]12;#f38ba8\a'
+  export ZVM_OPPEND_MODE_CURSOR=$ocur'\e\e]12;#cba6f7\a'
+  export ZVM_VI_HIGHLIGHT_FOREGROUND=#1e1e2e           #  Hex value
+  export ZVM_VI_HIGHLIGHT_BACKGROUND=#f9e2af           # Hex value
+  export ZVM_VI_HIGHLIGHT_EXTRASTYLE=bold,underline    # bold and underline
 }
 
 # Source your static plugins file.
@@ -69,7 +69,7 @@ export ZSH_CUSTOM=$ZSH
 
 ### ohmysh/ohmyzsh ###
 # dotenv
-ZSH_DOTENV_PROMPT=false
+export ZSH_DOTENV_PROMPT=false
 # globalias
 # control-space to make a normal space
 bindkey            " " magic-space
@@ -111,9 +111,9 @@ else
   export MAGIC_ENTER_OTHER_COMMAND='ls -lAh --color=always'
 fi
 # per-directory-history
-HISTORY_START_WITH_GLOBAL=false
-PER_DIRECTORY_HISTORY_TOGGLE='^G'
-PER_DIRECTORY_HISTORY_PRINT_MODE_CHANGE=true
+export HISTORY_START_WITH_GLOBAL=false
+export PER_DIRECTORY_HISTORY_TOGGLE='^G'
+export PER_DIRECTORY_HISTORY_PRINT_MODE_CHANGE=true
 # alias-finder
 zstyle ':omz:plugins:alias-finder' autoload yes # disabled by default
 zstyle ':omz:plugins:alias-finder' longer yes # disabled by default
@@ -247,9 +247,9 @@ export zs_set_path=1
 # export ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_NEX # Better, beta
 
 ### zsh-users/zsh-history-substring-search ###
-HISTORY_SUBSTRING_SEARCH_FUZZY=1
-HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="fg=#1e1e2e,bg=#a6e3a1,bold,underline"
-HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND="fg=#1e1e2e,bg=#f38ba8,bold,underline"
+export HISTORY_SUBSTRING_SEARCH_FUZZY=1
+export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="fg=#1e1e2e,bg=#a6e3a1,bold,underline"
+export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND="fg=#1e1e2e,bg=#f38ba8,bold,underline"
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 # if the above doesn't work
@@ -266,9 +266,9 @@ bindkey -M vicmd 'J' history-substring-search-down
 
 ### tom-doerr/zsh_codex ###
 # Step 1: Capture the original function definition
-original_function=$(typeset -f create_completion)
+local original_function=$(typeset -f create_completion)
 # Step 2: Modify the function definition
-modified_function=$(echo "$original_function" \
+local modified_function=$(echo "$original_function" \
   | sed 's@completion=$(echo -n "$text" | $ZSH_CUSTOM/plugins/zsh_codex/create_completion.py $CURSOR)@completion=$(echo -n "$text" | $(antidote path tom-doerr/zsh_codex)/create_completion.py $CURSOR)@g')
 # Step 3: Redefine the function with the modified definition
 eval "$modified_function"
@@ -284,21 +284,21 @@ ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(
   "pcomplete"
   "copy-earlier-word"
 )
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#a6e3a1,bg=#1e1e2e,italic"
-ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#a6e3a1,bg=#1e1e2e,italic"
+export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 # If necessary, you can let Autocomplete pass arguments to  compinit as follows
 zstyle '*:compinit' arguments -D -i -u -C -w
 # Make Tab go straight to the menu and cycle there
 bindkey '\t' menu-select "$terminfo[kcbt]" menu-select
+bindkey -M emacs '\t' menu-select "$terminfo[kcbt]" menu-select
+bindkey -M vicmd '\t' menu-select "$terminfo[kcbt]" menu-select
 bindkey -M viins '\t' menu-select "$terminfo[kcbt]" menu-select
 bindkey -M menuselect '\t' menu-complete "$terminfo[kcbt]" reverse-menu-complete
 # Add or don't add a space after certain completions
 zstyle ':autocomplete:*' add-space \
     executables aliases functions builtins reserved-words commands
-# Start each new line in history search mode
- zstyle ':autocomplete:*' default-context history-incremental-search-backward
 # ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 
 ### wofr06/lesspipe
-LESSOPEN="|$( antidote path wofr06/lesspipe ) %s"
 export LESSOPEN
+LESSOPEN="|$( antidote path 'wofr06/lesspipe' ) %s"

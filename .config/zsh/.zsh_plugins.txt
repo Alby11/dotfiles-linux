@@ -1,7 +1,7 @@
 # vim: filetype=zsh
 
-${ZDOTDIR}/.zpackages
-${ZDOTDIR}/.zpyenv
+"${ZDOTDIR}/.zpackages"
+"${ZDOTDIR}/.zpyenv"
 
 #
 # .zsh_plugins.txt - antidote plugins file
@@ -160,9 +160,9 @@ olets/zsh-abbr # kind:defer # zsh manager for auto-expanding abbreviations
 MichaelAquilina/zsh-you-should-use kind:defer
 psprint/zsh-sweep kind:defer
 
-${ZDOTDIR}/.zeditor
-${XDG_CONFIG_HOME}/git/.git.conf
-${ZDOTDIR}/.zcred #> /dev/null 2>&1 &
-${ZDOTDIR}/.zaliases
-${ZDOTDIR}/.zfunctions
-${ZDOTDIR}/.zxresources
+"${ZDOTDIR}/.zeditor"
+"${XDG_CONFIG_HOME}/git/.git.conf"
+"${ZDOTDIR}/.zcred" #> /dev/null 2>&1 &
+"${ZDOTDIR}/.zaliases"
+"${ZDOTDIR}/.zfunctions"
+"${ZDOTDIR}/.zxresources"
