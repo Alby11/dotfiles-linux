@@ -216,36 +216,6 @@ _fzf_comprun() {
 }
 export LESSOPEN='| lessfilter-fzf %s'
 
-### aloxaf/fzf-tab ###
-# autoload -Uz enable-fzf-tab
-# disable sort when completing `git checkout`
-# zstyle ':completion:*:git-checkout:*' sort false
-# set descriptions format to enable group support
-# NOTE: don't use escape sequences here, fzf-tab will ignore them
-# zstyle ':completion:*:descriptions' format '[%d]'
-# set list-colors to enable filename colorizing
-# zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-# force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
-# zstyle ':completion:*' menu no
-# preview directory's content with eza when completing cd
-# zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
-# switch group using `<` and `>`
-# zstyle ':fzf-tab:*' switch-group '<' '>'
-# to make full use of it's "popup" feature
-# zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
-
-### MichaelAquilina/zsh-you-should-use ###
-export YSU_MESSAGE_POSITION="after"
-export YSU_MODE=ALL
-export zs_set_path=1
-
-### jeffreytse/zsh-vi-mode ###
-# Only changing the escape key to `jk` in insert mode, we still
-# keep using the default keybindings `^[` in other modes
-# export ZVM_VI_ESCAPE_BINDKEY=kj
-# Change to Zsh's default readkey engine
-# export ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_NEX # Better, beta
-
 ### zsh-users/zsh-history-substring-search ###
 export HISTORY_SUBSTRING_SEARCH_FUZZY=1
 export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="fg=#1e1e2e,bg=#a6e3a1,bold,underline"
@@ -278,6 +248,33 @@ bindkey '^Xo' create_completion
 bindkey -M emacs '^Xo' create_completion
 bindkey -M viins '^Xo' create_completion
 
+### aloxaf/fzf-tab ###
+# autoload -Uz enable-fzf-tab
+# disable sort when completing `git checkout`
+zstyle ':completion:*:git-checkout:*' sort false
+# set descriptions format to enable group support
+# NOTE: don't use escape sequences here, fzf-tab will ignore them
+zstyle ':completion:*:descriptions' format '[%d]'
+# set list-colors to enable filename colorizing
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
+zstyle ':completion:*' menu no
+# preview directory's content with eza when completing cd
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
+# switch group using `<` and `>`
+zstyle ':fzf-tab:*' switch-group '<' '>'
+# tmux
+zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+# apply to all command
+zstyle ':fzf-tab:*' popup-min-size 50 8
+# only apply to 'diff'
+# zstyle ':fzf-tab:complete:diff:*' popup-min-size 80 12
+
+### MichaelAquilina/zsh-you-should-use ###
+export YSU_MESSAGE_POSITION="after"
+export YSU_MODE=ALL
+export zs_set_path=1
+
 ### zsh-users/zsh-autosuggestions ###
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(
   "expand-or-complete"
@@ -289,15 +286,15 @@ export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 # If necessary, you can let Autocomplete pass arguments to  compinit as follows
 zstyle '*:compinit' arguments -D -i -u -C -w
 # Make Tab go straight to the menu and cycle there
-bindkey '\t' menu-select "$terminfo[kcbt]" menu-select
-bindkey -M emacs '\t' menu-select "$terminfo[kcbt]" menu-select
-bindkey -M vicmd '\t' menu-select "$terminfo[kcbt]" menu-select
-bindkey -M viins '\t' menu-select "$terminfo[kcbt]" menu-select
-bindkey -M menuselect '\t' menu-complete "$terminfo[kcbt]" reverse-menu-complete
+# bindkey '\t' menu-select "$terminfo[kcbt]" menu-select
+# bindkey -M emacs '\t' menu-select "$terminfo[kcbt]" menu-select
+# bindkey -M vicmd '\t' menu-select "$terminfo[kcbt]" menu-select
+# bindkey -M viins '\t' menu-select "$terminfo[kcbt]" menu-select
+# bindkey -M menuselect '\t' menu-complete "$terminfo[kcbt]" reverse-menu-complete
 # Add or don't add a space after certain completions
 zstyle ':autocomplete:*' add-space \
     executables aliases functions builtins reserved-words commands
-# ZSH_AUTOSUGGEST_MANUAL_REBIND=1
+
 
 ### wofr06/lesspipe
 export LESSOPEN

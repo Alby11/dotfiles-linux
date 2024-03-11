@@ -127,10 +127,12 @@ greymd/docker-zsh-completion path:src kind:fpath
 # lukechilds/zsh-better-npm-completion        path:src kind:fpath
 # vasyharan/zsh-brew-services                 path:src kind:fpath
 
+sunlei/zsh-ssh path:src kind:fpath
 eth-p/bat-extras path:src kind:path
 eth-p/bat-extras path:src kind:fpath
 wofr06/lesspipe kind:path
 wofr06/lesspipe kind:fpath
+olets/zsh-abbr path:completions kind:fpath
 
 neovim/neovim kind:clone
 
@@ -139,11 +141,10 @@ catppuccin/tty path:src/mocha.sh
 
 # FZF related plugins
 # unixorn/fzf-zsh-plugin branch:main
-# Aloxaf/fzf-tab
+Aloxaf/fzf-tab
 # mattmc3/zman #Use fzf to quickly browse Zsh manuals
 #
 
-sunlei/zsh-ssh path:src kind:fpath
 rummik/zsh-tailf #tail -f with prefixed newlines instead of trailing
 tom-doerr/zsh_codex
 johannchangpro/zsh-interactive-cd
@@ -153,7 +154,6 @@ zsh-users/zsh-autosuggestions
 marlonrichert/zsh-autocomplete # Find as you type, then press Tab to insert the top completion or ↓to select another completion.
 zdharma-continuum/fast-syntax-highlighting
 
-olets/zsh-abbr path:completions kind:fpath
 olets/zsh-abbr # kind:defer # zsh manager for auto-expanding abbreviations
 
 # djui/alias-tips                             kind:defer
