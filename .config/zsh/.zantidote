@@ -298,4 +298,4 @@ zstyle ':autocomplete:*' add-space \
 
 ### wofr06/lesspipe
 export LESSOPEN
-LESSOPEN="|$( antidote path 'wofr06/lesspipe' ) %s"
+LESSOPEN="|$(antidote path 'wofr06/lesspipe')/lesspipe.sh %s"
