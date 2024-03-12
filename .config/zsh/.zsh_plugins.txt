@@ -42,7 +42,7 @@ ohmyzsh/ohmyzsh path:plugins/fastfile
 ohmyzsh/ohmyzsh path:plugins/fd kind:fpath
 ohmyzsh/ohmyzsh path:plugins/firewalld
 ohmyzsh/ohmyzsh path:plugins/fnm
-ohmyzsh/ohmyzsh path:plugins/fzf
+# ohmyzsh/ohmyzsh path:plugins/fzf
 ohmyzsh/ohmyzsh path:plugins/genpass
 ohmyzsh/ohmyzsh path:plugins/gh
 ohmyzsh/ohmyzsh path:plugins/git
@@ -117,9 +117,6 @@ ohmyzsh/ohmyzsh path:lib/git.zsh
 ohmyzsh/ohmyzsh path:lib/history.zsh
 ohmyzsh/ohmyzsh path:lib/key-bindings.zsh
 
-# now, configure and run compinit to initialize completions
-belak/zsh-utils path:completion
-sorin-ionescu/prezto path:modules/completion
 # srijanshetty/zsh-pip-completion             path:src kind:fpath
 # 3v1n0/zsh-bash-completions-fallback         path:src kind:fpath
 MenkeTechnologies/zsh-cargo-completion path:src kind:fpath
@@ -141,7 +138,9 @@ catppuccin/tty path:src/mocha.sh
 
 # FZF related plugins
 # unixorn/fzf-zsh-plugin branch:main
+unixorn/fzf-zsh-plugin
 Aloxaf/fzf-tab
+lincheney/fzf-tab-completion path:zsh/fzf-zsh-completion.sh
 # mattmc3/zman #Use fzf to quickly browse Zsh manuals
 #
 
@@ -166,3 +165,7 @@ psprint/zsh-sweep kind:defer
 "${ZDOTDIR}/.zaliases"
 "${ZDOTDIR}/.zfunctions"
 "${ZDOTDIR}/.zxresources"
+
+# now, configure and run compinit to initialize completions
+belak/zsh-utils path:completion
+sorin-ionescu/prezto path:modules/completion

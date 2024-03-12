@@ -171,6 +171,40 @@ if command -v abbr &>/dev/null; then
   fi
 fi
 
+### zsh-users/zsh-history-substring-search ###
+export HISTORY_SUBSTRING_SEARCH_FUZZY=1
+export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="fg=#1e1e2e,bg=#a6e3a1,bold,underline"
+export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND="fg=#1e1e2e,bg=#f38ba8,bold,underline"
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+# if the above doesn't work
+# bindkey "$terminfo[kcuu1]" history-substring-search-up
+# bindkey "$terminfo[kcud1]" history-substring-search-down
+bindkey -M emacs '^P' history-substring-search-up
+bindkey -M emacs '^N' history-substring-search-down
+# bindkey -M viins '^P' history-substring-search-up
+# bindkey -M viins '^N' history-substring-search-down
+bindkey -M viins '^[[A' history-substring-search-up
+bindkey -M viins '^[[B' history-substring-search-down
+bindkey -M vicmd 'K' history-substring-search-up
+bindkey -M vicmd 'J' history-substring-search-down
+
+### tom-doerr/zsh_codex ###
+# Step 1: Capture the original function definition
+local original_function=$(typeset -f create_completion)
+# Step 2: Modify the function definition
+local modified_function=$(echo "$original_function" \
+  | sed 's@completion=$(echo -n "$text" | $ZSH_CUSTOM/plugins/zsh_codex/create_completion.py $CURSOR)@completion=$(echo -n "$text" | $(antidote path tom-doerr/zsh_codex)/create_completion.py $CURSOR)@g')
+# Step 3: Redefine the function with the modified definition
+eval "$modified_function"
+zle -N create_completion
+# Step 4: Bind the create_completion function to a key.
+bindkey '^Xo' create_completion
+bindkey -M emacs '^Xo' create_completion
+bindkey -M viins '^Xo' create_completion
+
+### FZF BLOCK ###
+
 ### unixorn/fzf-zsh-plugin ###
 # Preview file content using bat (https://github.com/sharkdp/bat)
 export FZF_CTRL_T_OPTS="
@@ -216,40 +250,32 @@ _fzf_comprun() {
 }
 export LESSOPEN='| lessfilter-fzf %s'
 
-### zsh-users/zsh-history-substring-search ###
-export HISTORY_SUBSTRING_SEARCH_FUZZY=1
-export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="fg=#1e1e2e,bg=#a6e3a1,bold,underline"
-export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND="fg=#1e1e2e,bg=#f38ba8,bold,underline"
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
-# if the above doesn't work
-# bindkey "$terminfo[kcuu1]" history-substring-search-up
-# bindkey "$terminfo[kcud1]" history-substring-search-down
-bindkey -M emacs '^P' history-substring-search-up
-bindkey -M emacs '^N' history-substring-search-down
-# bindkey -M viins '^P' history-substring-search-up
-# bindkey -M viins '^N' history-substring-search-down
-bindkey -M viins '^[[A' history-substring-search-up
-bindkey -M viins '^[[B' history-substring-search-down
-bindkey -M vicmd 'K' history-substring-search-up
-bindkey -M vicmd 'J' history-substring-search-down
-
-### tom-doerr/zsh_codex ###
-# Step 1: Capture the original function definition
-local original_function=$(typeset -f create_completion)
-# Step 2: Modify the function definition
-local modified_function=$(echo "$original_function" \
-  | sed 's@completion=$(echo -n "$text" | $ZSH_CUSTOM/plugins/zsh_codex/create_completion.py $CURSOR)@completion=$(echo -n "$text" | $(antidote path tom-doerr/zsh_codex)/create_completion.py $CURSOR)@g')
-# Step 3: Redefine the function with the modified definition
-eval "$modified_function"
-zle -N create_completion
-# Step 4: Bind the create_completion function to a key.
-bindkey '^Xo' create_completion
-bindkey -M emacs '^Xo' create_completion
-bindkey -M viins '^Xo' create_completion
+if [ "$(command -v fzf)" ] && [ "$(command -v rg)" ]; then 
+  export FZF_BASE=$(which fzf)
+  export FZF_PREVIEW_ADVANCED=true
+  export FZF_BASE="$(which fzf)"
+  export DISABLE_FZF_AUTO_COMPLETION="false"
+  export DISABLE_FZF_KEY_BINDINGS="false"
+  export FZF_DEFAULT_OPTS=" \
+   --ansi \
+   --border=rounded \
+   --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
+   --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
+   --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
+  if [ "$(command -v bat)" ]; then
+    export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --preview=$(which bat)"
+  else
+    export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --preview=$(which less)"
+    echo "bat missing..."
+  fi
+  export FZF_DEFAULT_COMMAND="rg --pretty --ignore-case --files --no-ignore-vcs --hidden"
+  export RIPGREP_CONFIG_PATH="${HOME}/.config/ripgrep/ripgreprc"
+else
+  echo "fzf|rg missing..."
+fi
 
 ### aloxaf/fzf-tab ###
-# autoload -Uz enable-fzf-tab
+autoload -Uz enable-fzf-tab
 # disable sort when completing `git checkout`
 zstyle ':completion:*:git-checkout:*' sort false
 # set descriptions format to enable group support
@@ -266,20 +292,54 @@ zstyle ':fzf-tab:*' switch-group '<' '>'
 # tmux
 zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 # apply to all command
-zstyle ':fzf-tab:*' popup-min-size 50 8
+zstyle ':fzf-tab:*' popup-min-size 100 30
 # only apply to 'diff'
-# zstyle ':fzf-tab:complete:diff:*' popup-min-size 80 12
+zstyle ':fzf-tab:complete:diff:*' popup-min-size 80 12
 
+### lincheney/fzf-tab-completion
+bindkey '^I' fzf_completion
+bindkey -M emacs '^I' fzf_completion
+bindkey -M viins '^I' fzf_completion
+# only for git
+# zstyle ':completion:*:*:git:*' fzf-search-display true
+# or for everything
+zstyle ':completion:*' fzf-search-display true
+# press ctrl-r to repeat completion *without* accepting i.e. reload the completion
+# press right to accept the completion and retrigger it
+# press alt-enter to accept the completion and run it
+keys=(
+    ctrl-r:'repeat-fzf-completion'
+    right:accept:'repeat-fzf-completion'
+    alt-enter:accept:'zle accept-line'
+)
+zstyle ':completion:*' fzf-completion-keybindings "${keys[@]}"
+# also accept and retrigger completion when pressing / when completing cd
+zstyle ':completion::*:cd:*' fzf-completion-keybindings "${keys[@]}" /:accept:'repeat-fzf-completion'
 ### MichaelAquilina/zsh-you-should-use ###
 export YSU_MESSAGE_POSITION="after"
 export YSU_MODE=ALL
 export zs_set_path=1
+# basic file preview for ls (you can replace with something more sophisticated than head)
+zstyle ':completion::*:ls::*' fzf-completion-opts --preview='eval head {1}'
+# preview when completing env vars (note: only works for exported variables)
+# eval twice, first to unescape the string, second to expand the $variable
+zstyle ':completion::*:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' fzf-completion-opts --preview='eval eval echo {1}'
+# preview a `git status` when completing git add
+zstyle ':completion::*:git::git,add,*' fzf-completion-opts --preview='git -c color.status=always status --short'
+# if other subcommand to git is given, show a git diff or git log
+zstyle ':completion::*:git::*,[a-z]*' fzf-completion-opts --preview='
+eval set -- {+1}
+for arg in "$@"; do
+    { git diff --color=always -- "$arg" | git log --color=always "$arg" } 2>/dev/null
+done'
+
+### END OF FZF BLOCK ###
 
 ### zsh-users/zsh-autosuggestions ###
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(
-  "expand-or-complete"
-  "pcomplete"
-  "copy-earlier-word"
+  # "expand-or-complete"
+  # "pcomplete"
+  # "copy-earlier-word"
 )
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#a6e3a1,bg=#1e1e2e,italic"
 export ZSH_AUTOSUGGEST_STRATEGY=(history completion)

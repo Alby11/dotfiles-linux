@@ -7,37 +7,31 @@ ECHOCAT '.zaliases.zsh - Set whatever shell aliases you want.'
 
 alias -g _="sudo"
 
-if command -v grep &>/dev/null
-then
-  alias grep='grep --color=auto '
-  alias -g G=' | grep -i '
+if command -v grep &>/dev/null; then
+	alias grep='grep --color=auto '
+	alias -g G=' | grep -i '
 fi
 # bat-extras
-if command -v bat &>/dev/null
-then
-  alias -g B=' | bat'
-  alias -g BF=' | bat --style=full'
-  alias -g batf='bat --style=full'
-  alias bathelp='bat --plain --language=help'
-  # alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
-  # alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
+if command -v bat &>/dev/null; then
+	alias -g B=' | bat'
+	alias -g BF=' | bat --style=full'
+	alias -g batf='bat --style=full'
+	alias bathelp='bat --plain --language=help'
+	# alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
+	# alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
 fi
-if command -v batgrep &>/dev/null
-then
-  alias -g BG=' | batgrep --ignore-case --color '
-  alias bgrep='batgrep --ignore-case --color '
+if command -v batgrep &>/dev/null; then
+	alias -g BG=' | batgrep --ignore-case --color '
+	alias bgrep='batgrep --ignore-case --color '
 fi
-if command -v batman &>/dev/null
-then
-  alias bman='batman'
+if command -v batman &>/dev/null; then
+	alias bman='batman'
 fi
-if command -v batdiff &>/dev/null
-then
-  alias -g bdiff=' | batdiff '
+if command -v batdiff &>/dev/null; then
+	alias -g bdiff=' | batdiff '
 fi
-if command -v batwatch &>/dev/null
-then
-  alias bwatch='batwatch '
+if command -v batwatch &>/dev/null; then
+	alias bwatch='batwatch '
 fi
 
 alias SzAC='autoload -Uz compinit && compinit'
@@ -51,8 +45,8 @@ alias chmod='sudo chmod '
 alias chown='sudo chown '
 alias dfh='sudo /bin/df -h'
 alias freeh='sudo free -mh'
-alias h="history -10" # last 10 history commands
-alias hh="history -20" # last 10 history commands
+alias h="history -10"   # last 10 history commands
+alias hh="history -20"  # last 10 history commands
 alias hhh="history -30" # last 10 history commands
 alias ssar="ss -ar"
 alias ssht="ssh -t"
@@ -85,212 +79,210 @@ alias mountc='sudo mount | \
 alias mountj='sudo mount | \
   column --table --table-columns=mountpoint,on,mount,type,typename,options --json'
 if command -v grc &>/dev/null; then
-  alias dig="grc dig"
-  alias ip="grc ip"
-  alias ncat="grc ncat"
-  alias netstat="sudo grc netstat"
-  alias nmap="grc nmap"
-  alias ping="grc ping"
-  alias sping="grc ping -c 5"
-  alias traceroute="grc traceroute"
-  alias ps='sudo grc ps'
-  alias ss="sudo grc ss"
-  if command -v systemctl &>/dev/null; then
-    # Basic systemctl commands
-    alias systemctl="sudo systemctl"
-    alias ctl="sudo systemctl" 
-    # Daemons reload
-    alias ctldr="sudo systemctl daemon-reload"
-    # Credits to: https://gist.github.com/Feniksovich
-    alias ctlsp="sudo systemctl stop "
-    alias ctlst="sudo systemctl start "
-    alias ctlrt="sudo systemctl restart "
-    alias ctlrl="sudo systemctl reload "
-    alias ctls="sudo systemctl status "
-    # Enable/Disable commands for units
-    alias ctle='sudo systemctl enable '
-    alias ctld='sudo systemctl disable '
-    # Masking Units to disabling them
-    alias ctlmask='sudo systemctl mask '
-    alias ctlunmask='sudo systemctl unmask '
-    # List failed units and reset sudo systemd system status
-    alias ctlfailed='sudo systemctl --failed --all '
-    alias ctlrf='sudo systemctl reset-failed '
-    # List units
-    alias ctllu='sudo systemctl list-units '
-    alias ctllus='sudo systemctl list-units --type=service'
-  fi 
+	alias dig="grc dig"
+	alias ip="grc ip"
+	alias ncat="grc ncat"
+	alias netstat="sudo grc netstat"
+	alias nmap="grc nmap"
+	alias ping="grc ping"
+	alias sping="grc ping -c 5"
+	alias traceroute="grc traceroute"
+	alias ps='sudo grc ps'
+	alias ss="sudo grc ss"
+	if command -v systemctl &>/dev/null; then
+		# Basic systemctl commands
+		alias systemctl="sudo systemctl"
+		alias ctl="sudo systemctl"
+		# Daemons reload
+		alias ctldr="sudo systemctl daemon-reload"
+		# Credits to: https://gist.github.com/Feniksovich
+		alias ctlsp="sudo systemctl stop "
+		alias ctlst="sudo systemctl start "
+		alias ctlrt="sudo systemctl restart "
+		alias ctlrl="sudo systemctl reload "
+		alias ctls="sudo systemctl status "
+		# Enable/Disable commands for units
+		alias ctle='sudo systemctl enable '
+		alias ctld='sudo systemctl disable '
+		# Masking Units to disabling them
+		alias ctlmask='sudo systemctl mask '
+		alias ctlunmask='sudo systemctl unmask '
+		# List failed units and reset sudo systemd system status
+		alias ctlfailed='sudo systemctl --failed --all '
+		alias ctlrf='sudo systemctl reset-failed '
+		# List units
+		alias ctllu='sudo systemctl list-units '
+		alias ctllus='sudo systemctl list-units --type=service'
+	fi
 else
-  alias netstat="sudo netstat"
-  alias sping="ping -c 5"
-  alias ps='sudo ps'
-  alias ss="sudo ss"
-  if command -v systemctl &>/dev/null; then
-    # Basic systemctl commands
-    alias systemctl="sudo systemctl"
-    alias ctl="sudo systemctl" 
-    alias sctl="sudo /bin/systemctl"
-    # Daemons reload
-    alias ctldr="sudo systemctl daemon-reload"
-    # Credits to: https://gist.github.com/Feniksovich
-    alias ctlsp="sudo systemctl stop "
-    alias ctlst="sudo systemctl start "
-    alias ctlrt="sudo systemctl restart "
-    alias ctlrl="sudo systemctl reload "
-    alias ctls="sudo systemctl status "
-    # Enable/Disable commands for units
-    alias ctle='sudo systemctl enable '
-    alias ctld='sudo systemctl disable '
-    # Masking Units to disabling them
-    alias ctlmask='sudo systemctl mask '
-    alias ctlunmask='sudo systemctl unmask '
-    # List failed units and reset sudo systemd system status
-    alias ctlfailed='sudo systemctl --failed --all '
-    alias ctlrf='sudo systemctl reset-failed '
-    # List units
-    alias ctllu='sudo systemctl list-units '
-    alias ctllus='sudo systemctl list-units --type=service'
-  fi
+	alias netstat="sudo netstat"
+	alias sping="ping -c 5"
+	alias ps='sudo ps'
+	alias ss="sudo ss"
+	if command -v systemctl &>/dev/null; then
+		# Basic systemctl commands
+		alias systemctl="sudo systemctl"
+		alias ctl="sudo systemctl"
+		alias sctl="sudo /bin/systemctl"
+		# Daemons reload
+		alias ctldr="sudo systemctl daemon-reload"
+		# Credits to: https://gist.github.com/Feniksovich
+		alias ctlsp="sudo systemctl stop "
+		alias ctlst="sudo systemctl start "
+		alias ctlrt="sudo systemctl restart "
+		alias ctlrl="sudo systemctl reload "
+		alias ctls="sudo systemctl status "
+		# Enable/Disable commands for units
+		alias ctle='sudo systemctl enable '
+		alias ctld='sudo systemctl disable '
+		# Masking Units to disabling them
+		alias ctlmask='sudo systemctl mask '
+		alias ctlunmask='sudo systemctl unmask '
+		# List failed units and reset sudo systemd system status
+		alias ctlfailed='sudo systemctl --failed --all '
+		alias ctlrf='sudo systemctl reset-failed '
+		# List units
+		alias ctllu='sudo systemctl list-units '
+		alias ctllus='sudo systemctl list-units --type=service'
+	fi
 fi
 if command -v ccze &>/dev/null; then
-  alias -g CC=' | ccze -A'
+	alias -g CC=' | ccze -A'
 fi
 alias neta='netstat -pouenta '
 alias psa='ps aux'
 alias ssa='ss -pouenta '
 
 if command -v notify-send &>/dev/null; then
-  # Credits to: https://gist.github.com/Feniksovich
-  # Add an "alert" alias for long running commands.  Use like so:
-  #   sleep 10; alert
-  alias -g alert='notify-send --urgency=low -i \
+	# Credits to: https://gist.github.com/Feniksovich
+	# Add an "alert" alias for long running commands.  Use like so:
+	#   sleep 10; alert
+	alias -g alert='notify-send --urgency=low -i \
     "$([ $? = 0 ] && echo terminal || \
   echo error)" "$(history|tail -n1 | \
     sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"' \
-    ;
+		;
 fi
 
 if command -v iptables &>/dev/null; then
-    alias iptables='sudo iptables'
-    alias it='sudo iptables '
-    # Lookup iptables chain
-    alias itL="iptables --line-numbers -nvL "
+	alias iptables='sudo iptables'
+	alias it='sudo iptables '
+	# Lookup iptables chain
+	alias itL="iptables --line-numbers -nvL "
 fi
 
 if command -v firewall-cmd &>/dev/null; then
-  alias fwcmd='sudo firewall-cmd'
-  alias fwcmdp='sudo firewall-cmd --permanent'
+	alias fwcmd='sudo firewall-cmd'
+	alias fwcmdp='sudo firewall-cmd --permanent'
 fi
 if command -v journalctl &>/dev/null; then
-    alias j="journalctl"
-    alias jf="journalctl --follow"
-    alias ju="journalctl --catalog --pager-end --unit"
-    alias juf="journalctl --follow --catalog --unit"
-    alias jfk="journalctl --follow --dmesg"
+	alias j="journalctl"
+	alias jf="journalctl --follow"
+	alias ju="journalctl --catalog --pager-end --unit"
+	alias juf="journalctl --follow --catalog --unit"
+	alias jfk="journalctl --follow --dmesg"
 fi
 
 if command -v apt &>/dev/null; then
-    alias apt='sudo apt'
-    alias aptap='sudo apt autopurge'
-    alias aptar='sudo apt autoremove'
-    alias aptc='sudo apt chek'
-    alias aptdup='sudo apt dist-upgrade'
-    alias aptfl='sudo apt-file -i list'
-    alias apti='sudo apt install'
-    alias aptI='sudo apt install -y'
-    alias aptl='sudo apt list'
-    alias aptli='sudo apt list --installed'
-    alias aptlu='sudo apt list --upgradable'
-    alias aptp='sudo apt-file -i search'
-    alias aptr='sudo apt remove'
-    alias apts='sudo apt search'
-    alias aptu='sudo apt update'
-    alias aptup='sudo apt upgrade'
-    alias aptw='sudo apt show'
+	alias apt='sudo apt'
+	alias aptap='sudo apt autopurge'
+	alias aptar='sudo apt autoremove'
+	alias aptc='sudo apt chek'
+	alias aptdup='sudo apt dist-upgrade'
+	alias aptfl='sudo apt-file -i list'
+	alias apti='sudo apt install'
+	alias aptI='sudo apt install -y'
+	alias aptl='sudo apt list'
+	alias aptli='sudo apt list --installed'
+	alias aptlu='sudo apt list --upgradable'
+	alias aptp='sudo apt-file -i search'
+	alias aptr='sudo apt remove'
+	alias apts='sudo apt search'
+	alias aptu='sudo apt update'
+	alias aptup='sudo apt upgrade'
+	alias aptw='sudo apt show'
 fi
 
 if command -v dnf &>/dev/null; then
-    alias dnf='sudo dnf'
-    alias dnfar='sudo dnf autoremove'
-    alias dnfcu='sudo dnf check-update'
-    alias dnfds='sudo dnf distro-sync -y'
-    alias dnff='sudo dnf info'
-    alias dnfi='sudo dnf install'
-    alias dnfI='sudo dnf install -y'
-    alias dnfk='sudo dnf copr'
-    alias dnfl='sudo dnf list'
-    alias dnflar='sudo dnf list autoremove'
-    alias dnfli='sudo dnf list --installed'
-    alias dnfp='sudo dnf provides'
-    alias dnfq='sudo dnf repoquery'
-    alias dnfr='sudo dnf remove'
-    alias dnfs='sudo dnf search'
-    alias dnfup='sudo dnf upgrade'
-    alias dnfuua='sudo dnf check-update ; sudo dnf upgrade ; sudo dnf autoremove'
+	alias dnf='sudo dnf'
+	alias dnfar='sudo dnf autoremove'
+	alias dnfcu='sudo dnf check-update'
+	alias dnfds='sudo dnf distro-sync -y'
+	alias dnff='sudo dnf info'
+	alias dnfi='sudo dnf install'
+	alias dnfI='sudo dnf install -y'
+	alias dnfk='sudo dnf copr'
+	alias dnfl='sudo dnf list'
+	alias dnflar='sudo dnf list autoremove'
+	alias dnfli='sudo dnf list --installed'
+	alias dnfp='sudo dnf provides'
+	alias dnfq='sudo dnf repoquery'
+	alias dnfr='sudo dnf remove'
+	alias dnfs='sudo dnf search'
+	alias dnfup='sudo dnf upgrade'
+	alias dnfuua='sudo dnf check-update ; sudo dnf upgrade ; sudo dnf autoremove'
 fi
 
-
 if command -v tmux &>/dev/null; then
-    alias T='tmux '
-    alias tS='tmux kill-server'
-    alias ta='tmux attach -t '
-    alias tk='tmux kill-session -t '
-    alias tls='tmux ls '
-    alias tn='tmux new -s '
-    alias trs='tmux rename-session -t '
+	alias T='tmux '
+	alias tS='tmux kill-server'
+	alias ta='tmux attach -t '
+	alias tk='tmux kill-session -t '
+	alias tls='tmux ls '
+	alias tn='tmux new -s '
+	alias trs='tmux rename-session -t '
 fi
 
 if command -v nvim &>/dev/null; then
-  if command -v lvim &>/dev/null; then
-    alias nvim='lvim '
-  fi
-  alias e='nvim '
-  alias nv='nvim '
-  alias vi='nvim '
-  alias vim='nvim '
-  alias E='| nvim '
-  if command -v nvr &>/dev/null; then
-      alias nvimr='nvim --listen /tmp/nvimsocket '
-      alias nvrs='nvr -s '
-  fi
+	if command -v lvim &>/dev/null; then
+		alias nvim='lvim '
+	fi
+	alias e='nvim '
+	alias nv='nvim '
+	alias vi='nvim '
+	alias vim='nvim '
+	alias E='| nvim '
+	if command -v nvr &>/dev/null; then
+		alias nvimr='nvim --listen /tmp/nvimsocket '
+		alias nvrs='nvr -s '
+	fi
 fi
 
-if command -v nvimpager &>/dev/null
-then
-  alias np='nvimpager'
-  alias npc='nvimpager -c'
-  alias npp='nvimpager -p'
-  alias -g NP='| nvimpager -c -'
+if command -v nvimpager &>/dev/null; then
+	alias np='nvimpager'
+	alias npc='nvimpager -c'
+	alias npp='nvimpager -p'
+	alias -g NP='| nvimpager -c -'
 fi
 
 if command -v xclip &>/dev/null; then
-    alias -g Xp='xclip -o '
-    alias -g Xy=' | xclip -i '
+	alias -g Xp='xclip -o '
+	alias -g Xy=' | xclip -i '
 fi
 if command -v clipboard &>/dev/null; then
-    alias -g Cp="clipboard "
-    alias -g Cy=' | clipboard '
+	alias -g Cp="clipboard "
+	alias -g Cy=' | clipboard '
 fi
 if command -v wl-copy &>/dev/null; then
-    alias -g Wp="wl-paste "
-    alias -g Wy=' | wl-copy '
+	alias -g Wp="wl-paste "
+	alias -g Wy=' | wl-copy '
 fi
 
 if command -v ranger &>/dev/null; then
-    alias rw='ranger '
+	alias rw='ranger '
 fi
 
 if command -v fd &>/dev/null; then
-    alias fdh='fd --hidden'
+	alias fdh='fd --hidden'
 elif command -v fdfind &>/dev/null; then
-    alias fd='fdfind '
-    alias fdh='fdfind --hidden'
+	alias fd='fdfind '
+	alias fdh='fdfind --hidden'
 fi
 
 if command -v eza &>/dev/null; then
-  alias ola='/bin/ls -lahi --color=auto '
-  alias ols='/bin/ls --color=auto '
-  alias ls="eza \
+	alias ola='/bin/ls -lahi --color=auto '
+	alias ols='/bin/ls --color=auto '
+	alias ls="eza \
     --color-scale-mode=fixed \
     --color-scale=all \
     --color=auto \
@@ -299,154 +291,135 @@ if command -v eza &>/dev/null; then
     --group-directories-first \
     --icons \
     --mounts"
-  alias ll="ls \
+	alias ll="ls \
     --group \
     --long \
     --modified \
     --time-style iso"
-  alias lln="ll \
+	alias lln="ll \
     --sort=newest"
-  alias la="ll \
+	alias la="ll \
     --all"
-  alias lan="la \
+	alias lan="la \
     --sort=newest"
 else
-  alias la="/bin/ls -lAhi --color=auto"
+	alias la="/bin/ls -lAhi --color=auto"
 fi
 
 if command -v git &>/dev/null; then
-    alias g='git '
-    alias dot='dotfiles '
+	alias g='git '
+	alias dot='dotfiles '
 fi
 
 if command -v gitui &>/dev/null; then
-  alias gitui="gitui -t mocha.ron"
+	alias gitui="gitui -t mocha.ron"
 fi
 
 if command -v kubectl &>/dev/null; then
-    alias k='kubectl '
+	alias k='kubectl '
 fi
 
 if command -v minikube &>/dev/null; then
-    alias mk='minikube '
+	alias mk='minikube '
 fi
 
 if command -v docker &>/dev/null; then
-    alias dkb='docker build'
-    alias dkbt='docker build --tag'
-    alias dkc='docker container'
-    alias dkci='docker container inspect'
-    alias dkcls='docker container ls'
-    alias dkcp='docker container update'
-    alias dkcs='docker container stats'
-    alias dkct='docker container top'
-    alias dk='docker'
-    alias dke='docker exec'
-    alias dkeit='docker exec --interactive --tty'
-    alias dkh='docker search'
-    alias dki='docker image'
-    alias dkii='docker image inspect'
-    alias dkin='docker login'
-    alias dkis='docker images'
-    alias dkk='docker-compose'
-    alias dkkc='docker-compose scale'
-    alias dkkc='docker-compose restart'
+	alias dkb='docker build'
+	alias dkbt='docker build --tag'
+	alias dkc='docker container'
+	alias dkci='docker container inspect'
+	alias dkcls='docker container ls'
+	alias dkcp='docker container update'
+	alias dkcs='docker container stats'
+	alias dkct='docker container top'
+	alias dk='docker'
+	alias dke='docker exec'
+	alias dkeit='docker exec --interactive --tty'
+	alias dkh='docker search'
+	alias dki='docker image'
+	alias dkii='docker image inspect'
+	alias dkin='docker login'
+	alias dkis='docker images'
+	alias dkk='docker-compose'
+	alias dkkc='docker-compose scale'
+	alias dkkc='docker-compose restart'
 
-    alias dkku='docker-compose up -d'
-    alias dkkuf='docker-compose up'
+	alias dkku='docker-compose up -d'
+	alias dkkuf='docker-compose up'
 
-    alias dkkt='docker-compose top'
-    alias dkl='docker logs'
-    alias dkld='docker logs --details'
-    alias dkldf='docker logs --details --follow'
-    alias dklf='docker logs --follow'
-    alias dkn='docker network'
-    alias dkni='docker network inspect'
-    alias dknls='docker network ls'
-    alias dkout='docker logout'
-    alias dkps='docker ps'
-    alias dkr='docker run'
-    alias dkrit='docker run --interactive --tty'
-    alias dks='docker service'
-    alias dksi='docker service inspect'
-    alias dksl='docker service logs'
-    alias dksls='docker service ls'
-    alias dksp='docker service update'
-    alias dksps='docker service ps'
-    alias dkss='docker service scale'
-    alias dkt='docker stack'
-    alias dktc='docker stack config'
-    alias dktls='docker stack ls'
-    alias dktps='docker stack ps'
-    alias dkts='docker stack services'
-    alias dkx='docker context'
-    alias dkxu='docker context use'
+	alias dkkt='docker-compose top'
+	alias dkl='docker logs'
+	alias dkld='docker logs --details'
+	alias dkldf='docker logs --details --follow'
+	alias dklf='docker logs --follow'
+	alias dkn='docker network'
+	alias dkni='docker network inspect'
+	alias dknls='docker network ls'
+	alias dkout='docker logout'
+	alias dkps='docker ps'
+	alias dkr='docker run'
+	alias dkrit='docker run --interactive --tty'
+	alias dks='docker service'
+	alias dksi='docker service inspect'
+	alias dksl='docker service logs'
+	alias dksls='docker service ls'
+	alias dksp='docker service update'
+	alias dksps='docker service ps'
+	alias dkss='docker service scale'
+	alias dkt='docker stack'
+	alias dktc='docker stack config'
+	alias dktls='docker stack ls'
+	alias dktps='docker stack ps'
+	alias dkts='docker stack services'
+	alias dkx='docker context'
+	alias dkxu='docker context use'
 
-    alias dkv='docker volume'
-    alias dkvi='docker volume inspect'
-    alias dkvls='docker volume ls'
-    alias dkxls='docker context ls'
-    alias dkxp='docker context update'
-    alias dkxs='docker context show'
-    alias dkxu='docker context use'
-    alias dky='docker inspect'
+	alias dkv='docker volume'
+	alias dkvi='docker volume inspect'
+	alias dkvls='docker volume ls'
+	alias dkxls='docker context ls'
+	alias dkxp='docker context update'
+	alias dkxs='docker context show'
+	alias dkxu='docker context use'
+	alias dky='docker inspect'
 fi
 
 if command -v ansible &>/dev/null; then
-    alias an='ansible'
-    alias ana='ansible all'
-    alias anam='ansible all -m'
-    alias ap='ansible-playbook'
-    alias ag='ansible-galaxy'
+	alias an='ansible'
+	alias ana='ansible all'
+	alias anam='ansible all -m'
+	alias ap='ansible-playbook'
+	alias ag='ansible-galaxy'
 fi
 
 if command -v podman &>/dev/null; then
-    alias pd='podman '
+	alias pd='podman '
 fi
 
 alias xway='env -u WAYLAND_DISPLAY '
 
 if command -v curl &>/dev/null; then
-    # Creditst to Jeremy "Jay" LaCroix
-    # <https://www.learnlinux.tv/10-linux-terminal-tips-and-tricks-to-enhance-your-workflow/
-    alias speedtest='curl -s \
+	# Creditst to Jeremy "Jay" LaCroix
+	# <https://www.learnlinux.tv/10-linux-terminal-tips-and-tricks-to-enhance-your-workflow/
+	alias speedtest='curl -s \
       https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py \
       | python - \
       ;'
-    # alias myip='curl http://ipecho.net/plain; echo '
-    alias myip='curl icanhazip.com'
-    # alias wimp='curl https://wttr.in/imperia'
-    alias wimp='wth imperia'
+	# alias myip='curl http://ipecho.net/plain; echo '
+	alias myip='curl icanhazip.com'
+	# alias wimp='curl https://wttr.in/imperia'
+	alias wimp='wth imperia'
 fi
 
-if [ "$(command -v fzf)" ] && [ "$(command -v rg)" ]; then 
-  export FZF_BASE=$(which fzf)
-  export FZF_PREVIEW_ADVANCED=true
-  export FZF_BASE="$(which fzf)"
-  export DISABLE_FZF_AUTO_COMPLETION="false"
-  export DISABLE_FZF_KEY_BINDINGS="false"
-  export FZF_DEFAULT_OPTS=" \
-   --ansi \
-   --border=rounded \
-   --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
-   --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
-   --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
-  if [ "$(command -v bat)" ]; then
-    export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --preview=$(which bat)"
-  else
-    export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --preview=$(which less)"
-    echo "bat missing..."
-  fi
-  # export FZF_DEFAULT_COMMAND="rg --pretty --ignore-case --files --no-ignore-vcs --hidden"
-  export RIPGREP_CONFIG_PATH="${HOME}/.config/ripgrep/ripgreprc"
-  alias -g F="| fzf"
-  alias -g rgg="rg --glob"
-  alias -g R="| rg"
-  alias -g Rg="| rg --glob"
-  alias -g rf="rg . | fzf"
-  alias -g rfl="rg . | fzf | cut -d ':' -f 1"
+if [ "$(command -v fzf)" ] && [ "$(command -v rg)" ]; then
+	alias -g F="| fzf"
+	alias -g rgg="rg --glob"
+	alias -g R="| rg"
+	alias -g Rg="| rg --glob"
+	alias -g rf="rg . | fzf"
+	alias -g rfl="rg . | fzf | cut -d ':' -f 1"
 else
-  echo "fzf&rg missing..."
+	echo "fzf|rg missing..."
 fi
 
 alias resetSound='/bin/systemctl --user restart pipewire.service'
@@ -454,26 +427,26 @@ alias resetSound='/bin/systemctl --user restart pipewire.service'
 ### Python block
 # url encode/decode
 if command -v python &>/dev/null; then
-  alias -g urldecode="python3 -c 'import sys, urllib.parse as ul; print(ul.unquote_plus(sys.argv[1]))'"
-  alias -g urlencode="python3 -c 'import sys, urllib.parse as ul; print (ul.quote_plus(sys.argv[1]))'"
+	alias -g urldecode="python3 -c 'import sys, urllib.parse as ul; print(ul.unquote_plus(sys.argv[1]))'"
+	alias -g urlencode="python3 -c 'import sys, urllib.parse as ul; print (ul.quote_plus(sys.argv[1]))'"
 fi
 ### End of Python block
 # PIP block
 if command -v pip &>/dev/null; then
-  alias pipi="pip install"
-  alias pipiu="pip install --user"
-  alias pipu="pip uninstall"
-  alias pipuu="pip uninstall --user"
-  alias pipl="pip list"
-  alias piplu="pip list --user"
+	alias pipi="pip install"
+	alias pipiu="pip install --user"
+	alias pipu="pip uninstall"
+	alias pipuu="pip uninstall --user"
+	alias pipl="pip list"
+	alias piplu="pip list --user"
 fi
 if command -v pip-install &>/dev/null; then
-  alias pins="pip-install search"
-  alias pini="pip-install install"
-  alias pinu="pip-install uninstall"
-  alias pinl="pip-install list"
-  alias pinup="pip-install upgrade"
-  alias pinw="pip-install show"
+	alias pins="pip-install search"
+	alias pini="pip-install install"
+	alias pinu="pip-install uninstall"
+	alias pinl="pip-install list"
+	alias pinup="pip-install upgrade"
+	alias pinw="pip-install show"
 fi
 # end of PIP block
 ### git
@@ -482,9 +455,9 @@ alias gcofzf="fzf-git-checkout"
 alias gS="git submodule"
 ### end of git block
 ### dot: git adaptation for dotfiles
-alias dc!="dotfiles commit --verbose --amend" 
-alias dca!="dotfiles commit --verbose --all --amend" 
-alias dcan!="dotfiles commit --verbose --all --no-edit --amend" 
+alias dc!="dotfiles commit --verbose --amend"
+alias dca!="dotfiles commit --verbose --all --amend"
+alias dcan!="dotfiles commit --verbose --all --no-edit --amend"
 alias dcans!="dotfiles commit --verbose --all --signoff --no-edit --amend"
 alias dpf!="dot push --force"
 alias d="dotfiles"
@@ -517,12 +490,12 @@ alias dbsb="dot bisect bad"
 alias dbsg="dot bisect good"
 alias dbsr="dot bisect reset"
 alias dbss="dot bisect start"
-alias dc="dotfiles commit --verbose" 
-alias dca="dotfiles commit --all" 
-alias dcam="dotfiles commit --message" 
-alias dcas="dotfiles commit --signoff" 
-alias dcasm="dotfiles commit --message" 
-alias dcb="dotfiles checkout -b" 
+alias dc="dotfiles commit --verbose"
+alias dca="dotfiles commit --all"
+alias dcam="dotfiles commit --message"
+alias dcas="dotfiles commit --signoff"
+alias dcasm="dotfiles commit --message"
+alias dcb="dotfiles checkout -b"
 alias dcd="dotfiles checkout $(git_develop_branch)"
 alias dcf="dot config --list"
 alias dcl="dot clone --recurse-submodules"
@@ -550,20 +523,20 @@ alias ddfs="dot -c color.ui=false diff --staged"
 alias ddft="dot -c color.ui=false diff-tree --no-commit-id --name-only -r"
 alias ddfup="dot -c color.ui=false diff @{upstream}"
 alias ddfw="dot -c color.ui=false diff --word-diff"
-alias dfe='dotfile fetch' 
-alias dfa='dotfile fetch --all --prune --jobs=10' 
-alias dfg='dotfile files | grep' 
-alias dfo='dotfile fetch origin' 
-alias dg='dotfiles gui citool' 
-alias dga='dotfiles gui citool --amend' 
-alias dgpull='dotfiles pull origin "$(git_current_branch)"' 
-alias dgpush='dotfiles push origin "$(git_current_branch)"' 
-alias dgsup='dotfiles branch --set-upstream-to=origin/$(git_current_branch)' 
-alias dhh='dotfiles help' 
+alias dfe='dotfile fetch'
+alias dfa='dotfile fetch --all --prune --jobs=10'
+alias dfg='dotfile files | grep'
+alias dfo='dotfile fetch origin'
+alias dg='dotfiles gui citool'
+alias dga='dotfiles gui citool --amend'
+alias dgpull='dotfiles pull origin "$(git_current_branch)"'
+alias dgpush='dotfiles push origin "$(git_current_branch)"'
+alias dgsup='dotfiles branch --set-upstream-to=origin/$(git_current_branch)'
+alias dhh='dotfiles help'
 alias dhub='web_search github'
-alias dignore='dotfiles update-index <EUGPSCoordinates>--assume-unchanged' 
-alias dignored='dotfiles ls-files -v | grep "^[[:lower:]]"' 
-alias dot-svn-dcommit-push='dotfiles svn dcommit && dotfiles push github $(git_main_branch):svntrunk' 
+alias dignore='dotfiles update-index <EUGPSCoordinates>--assume-unchanged'
+alias dignored='dotfiles ls-files -v | grep "^[[:lower:]]"'
+alias dot-svn-dcommit-push='dotfiles svn dcommit && dotfiles push github $(git_main_branch):svntrunk'
 alias dgk='\gitk --all --branches &!'
 alias dke='\gitk --all $(dot log --walk-reflogs --pretty=%h) &!'
 alias dl='dot pull'
@@ -691,10 +664,10 @@ alias logoutuser='function _lu(){ pkill -KILL -u $1; }; _lu'
 alias bwck='bw login --check && bw unlock --check'
 
 if [[ -d /opt/sentinelone ]]; then
-  alias sentinelctl='sudo sentinelctl'
-  alias sctl='sudo sentinelctl'
+	alias sentinelctl='sudo sentinelctl'
+	alias sctl='sudo sentinelctl'
 fi
 
 if command -v cargo &>/dev/null; then
-  alias cargoinstalled='cargo install --list'
+	alias cargoinstalled='cargo install --list'
 fi
