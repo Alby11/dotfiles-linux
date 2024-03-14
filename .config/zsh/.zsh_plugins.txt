@@ -169,3 +169,5 @@ psprint/zsh-sweep kind:defer
 "${ZDOTDIR}/.zaliases"
 "${ZDOTDIR}/.zfunctions"
 "${ZDOTDIR}/.zxresources"
+
+romkatv/powerlevel10k
