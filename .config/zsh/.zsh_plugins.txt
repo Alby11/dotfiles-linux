@@ -170,4 +170,5 @@ psprint/zsh-sweep kind:defer
 "${ZDOTDIR}/.zfunctions"
 "${ZDOTDIR}/.zxresources"
 
+### THEME
 romkatv/powerlevel10k
