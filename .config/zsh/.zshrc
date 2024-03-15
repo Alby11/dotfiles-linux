@@ -88,16 +88,5 @@ fi
 # source SSH settings, including agent config
 SOURCE_RCFILE "${ZDOTDIR}/.zssh"
 
-### Initialize Starship
-if ! CHECK_COMMANDS starship; then
-	# curl -sSv 'https://starship.rs/install.sh' | sh
-fi
-if [[ $(whoami) == 'root' ]]; then
-	# export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/root_starship.toml"
-else
-	# export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/user_starship.toml"
-fi
-# eval "$(starship init "${THE_SHELL}")"
-
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
