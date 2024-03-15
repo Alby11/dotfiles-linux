@@ -142,20 +142,20 @@ catppuccin/tty path:src/mocha.sh
 
 # FZF related plugins
 # unixorn/fzf-zsh-plugin branch:main
-unixorn/fzf-zsh-plugin
-Aloxaf/fzf-tab
-lincheney/fzf-tab-completion path:zsh/fzf-zsh-completion.sh
+# unixorn/fzf-zsh-plugin
+# Aloxaf/fzf-tab
+# lincheney/fzf-tab-completion path:zsh/fzf-zsh-completion.sh
 # mattmc3/zman #Use fzf to quickly browse Zsh manuals
 #
 
-rummik/zsh-tailf #tail -f with prefixed newlines instead of trailing
-tom-doerr/zsh_codex
-johannchangpro/zsh-interactive-cd
-zsh-users/zsh-completions
+# rummik/zsh-tailf #tail -f with prefixed newlines instead of trailing
+# tom-doerr/zsh_codex
+# johannchangpro/zsh-interactive-cd
 zsh-users/zsh-history-substring-search
+zdharma-continuum/fast-syntax-highlighting
+zsh-users/zsh-completions
 zsh-users/zsh-autosuggestions
 marlonrichert/zsh-autocomplete # Find as you type, then press Tab to insert the top completion or ↓to select another completion.
-zdharma-continuum/fast-syntax-highlighting
 
 olets/zsh-abbr # kind:defer # zsh manager for auto-expanding abbreviations
 

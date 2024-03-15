@@ -3,7 +3,6 @@
 
 # Set the name of the static .zsh plugins file antidote will generate.
 zsh_plugins=${ZDOTDIR:-~}/.zsh_plugins.zsh
-rm ${zsh_plugins:r}.zsh
 
 # Install antidote if missing
 if ! [[ -d ${ZDOTDIR:-~}/.antidote ]]; then
@@ -55,8 +54,8 @@ function zvm_config() {
   export ZVM_VI_HIGHLIGHT_EXTRASTYLE=bold,underline    # bold and underline
 }
 
-# Source your static plugins file.
-source $zsh_plugins
+# Source your static plugins file and get rid of it
+source $zsh_plugins && rm ${zsh_plugins:r}.zsh
 
 # Set oh-my-zsh path according to antidote installation
 export ZSH=$(antidote path ohmyzsh/ohmyzsh)
@@ -70,15 +69,7 @@ export ZSH_CUSTOM=$ZSH
 ### ohmysh/ohmyzsh ###
 # dotenv
 export ZSH_DOTENV_PROMPT=false
-# globalias
-# control-space to make a normal space
-bindkey            " " magic-space
-bindkey -M emacs   " " magic-space
-bindkey -M viins   " " magic-space
-bindkey            "^@" magic-space
-bindkey -M emacs   "^@" magic-space
-bindkey -M viins   "^@" magic-space
-if [ -f $(antidote path 'olets/zsh-abbr' > /dev/null) ]; then
+if antidote path "olets/zsh-abbr" > /dev/null 2&>1; then
   # zsh-abbr
   # space expands all aliases, including global
   export ABBR_DEFAULT_BINDINGS=0
@@ -95,161 +86,134 @@ if [ -f $(antidote path 'olets/zsh-abbr' > /dev/null) ]; then
   bindkey -M emacs   "^@" abbr-expand
   bindkey -M viins   "^@" abbr-expand
   bindkey -M isearch "^@" abbr-expand
+elif [ -d "$(antidote path ohmyzsh/ohmyzsh)/plugins/globalias" ]; then
+    # globalias
+    # control-space to make a normal space
+    bindkey            " " magic-space
+    bindkey -M emacs   " " magic-space
+    bindkey -M viins   " " magic-space
+    bindkey            "^@" magic-space
+    bindkey -M emacs   "^@" magic-space
+    bindkey -M viins   "^@" magic-space
+    bindkey          "^ " globalias
+    bindkey -M emacs "^ " globalias
+    bindkey -M viins "^ " globalias
+    bindkey          "^@" globalias
+    bindkey -M emacs "^@" globalias
+    bindkey -M viins "^@" globalias
 fi
-# bindkey          "^ " globalias
-# bindkey -M emacs "^ " globalias
-# bindkey -M viins "^ " globalias
-# bindkey          "^@" globalias
-# bindkey -M emacs "^@" globalias
-# bindkey -M viins "^@" globalias
 # magic enter
 # export MAGIC_ENTER_GIT_COMMAND='git status -u .'
-# MAGIC_ENTER_OTHER_COMMAND='ls -lh .'
-if command -v eza &>/dev/null; then
-  export MAGIC_ENTER_OTHER_COMMAND="eza -aglm --icons --group-directories-first"
-else
-  export MAGIC_ENTER_OTHER_COMMAND='ls -lAh --color=always'
-fi
+# if command -v eza &>/dev/null; then
+#   export MAGIC_ENTER_OTHER_COMMAND="eza -aglm --icons --group-directories-first"
+# else
+#   export MAGIC_ENTER_OTHER_COMMAND='ls -lAh --color=always'
+# fi
 # per-directory-history
 export HISTORY_START_WITH_GLOBAL=false
 export PER_DIRECTORY_HISTORY_TOGGLE='^G'
 export PER_DIRECTORY_HISTORY_PRINT_MODE_CHANGE=true
 # alias-finder
+if [ -d "$(antidote path ohmyzsh/ohmyzsh)/plugins/alias-finder" ]; then
 zstyle ':omz:plugins:alias-finder' autoload yes # disabled by default
 zstyle ':omz:plugins:alias-finder' longer yes # disabled by default
 zstyle ':omz:plugins:alias-finder' exact yes # disabled by default
 zstyle ':omz:plugins:alias-finder' cheaper yes # disabled by default
+fi
 # sudo
 # Esc=Esc
+if [ -d "$(antidote path ohmyzsh/ohmyzsh)/plugins/sudo" ]; then
 bindkey -M emacs '^[^[' sudo-command-line
 bindkey -M vicmd '^[^[' sudo-command-line
 bindkey -M viins '^[^[' sudo-command-line
-
-### fast-syntax-highlighting ###
-local fast_theme="$(antidote path zdharma-continuum/fast-syntax-highlighting)"
-fast_theme="$fast_theme/fast-syntax-highlighting.plugin.zsh"
-[[ -f "$fast_theme" ]] && \
-  source "$fast_theme" && \
-  fast-theme --quiet XDG:catppuccin-mocha
-
-chroma_single_word() {
-  (( next_word = 2 | 8192 ))
-
-  local __first_call="$1" __wrd="$2" __start_pos="$3" __end_pos="$4"
-  local __style
-
-  (( __first_call )) && \
-      { __style=${fast_theme_name}alias }
-
-  [[ -n "$__style" ]] && \
-      (( __start=__start_pos-${#prebuffer}, __end=__end_pos-${#prebuffer}, __start >= 0 )) && \
-      reply+=("$__start $__end ${fast_highlight_styles[$__style]}")
-
-  (( this_word = next_word ))
-  _start_pos=$_end_pos
-
-  return 0
-}
-
-register_single_word_chroma() {
-  local word=$1
-  if [[ -x $(command -v $word) ]] || [[ -n $fast_highlight["chroma-$word"] ]]; then
-    return 1
-  fi
-
-  fast_highlight+=( "chroma-$word" chroma_single_word )
-  return 0
-}
-
-if command -v abbr &>/dev/null; then
-  if [[ -n $fast_highlight ]]; then
-    for abbr in ${(f)"$(abbr list-abbreviations)"}; do
-      if [[ $abbr != *' '* ]]; then
-        register_single_word_chroma ${(q)abbr}
-      fi
-    done
-  fi
 fi
 
 ### zsh-users/zsh-history-substring-search ###
-export HISTORY_SUBSTRING_SEARCH_FUZZY=1
-export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="fg=#1e1e2e,bg=#a6e3a1,bold,underline"
-export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND="fg=#1e1e2e,bg=#f38ba8,bold,underline"
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
-# if the above doesn't work
-# bindkey "$terminfo[kcuu1]" history-substring-search-up
-# bindkey "$terminfo[kcud1]" history-substring-search-down
-bindkey -M emacs '^P' history-substring-search-up
-bindkey -M emacs '^N' history-substring-search-down
-# bindkey -M viins '^P' history-substring-search-up
-# bindkey -M viins '^N' history-substring-search-down
-bindkey -M viins '^[[A' history-substring-search-up
-bindkey -M viins '^[[B' history-substring-search-down
-bindkey -M vicmd 'K' history-substring-search-up
-bindkey -M vicmd 'J' history-substring-search-down
+if antidote path "zsh-users/zsh-history-substring-search" > /dev/null 2&>1; then
+    export HISTORY_SUBSTRING_SEARCH_FUZZY=1
+    export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="fg=#1e1e2e,bg=#a6e3a1,bold,underline"
+    export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND="fg=#1e1e2e,bg=#f38ba8,bold,underline"
+    bindkey '^[[A' history-substring-search-up
+    bindkey '^[[B' history-substring-search-down
+    # if the above doesn't work
+    # bindkey "$terminfo[kcuu1]" history-substring-search-up
+    # bindkey "$terminfo[kcud1]" history-substring-search-down
+    bindkey -M emacs '^P' history-substring-search-up
+    bindkey -M emacs '^N' history-substring-search-down
+    # bindkey -M viins '^P' history-substring-search-up
+    # bindkey -M viins '^N' history-substring-search-down
+    bindkey -M viins '^[[A' history-substring-search-up
+    bindkey -M viins '^[[B' history-substring-search-down
+    bindkey -M vicmd 'K' history-substring-search-up
+    bindkey -M vicmd 'J' history-substring-search-down
+fi
 
 ### tom-doerr/zsh_codex ###
-# Step 1: Capture the original function definition
-local original_function=$(typeset -f create_completion)
-# Step 2: Modify the function definition
-local modified_function=$(echo "$original_function" \
-  | sed 's@completion=$(echo -n "$text" | $ZSH_CUSTOM/plugins/zsh_codex/create_completion.py $CURSOR)@completion=$(echo -n "$text" | $(antidote path tom-doerr/zsh_codex)/create_completion.py $CURSOR)@g')
-# Step 3: Redefine the function with the modified definition
-eval "$modified_function"
-zle -N create_completion
-# Step 4: Bind the create_completion function to a key.
-bindkey '^Xo' create_completion
-bindkey -M emacs '^Xo' create_completion
-bindkey -M viins '^Xo' create_completion
+if antidote path "tom-doerr/zsh_codex" > /dev/null 2&>1; then
+    # Step 1: Capture the original function definition
+    local original_function=$(typeset -f create_completion)
+    # Step 2: Modify the function definition
+    local modified_function=$(echo "$original_function" \
+      | sed 's@completion=$(echo -n "$text" | $ZSH_CUSTOM/plugins/zsh_codex/create_completion.py $CURSOR)@completion=$(echo -n "$text" | $(antidote path tom-doerr/zsh_codex)/create_completion.py $CURSOR)@g')
+    # Step 3: Redefine the function with the modified definition
+    eval "$modified_function"
+    zle -N create_completion
+    # Step 4: Bind the create_completion function to a key.
+    bindkey '^Xo' create_completion
+    bindkey -M emacs '^Xo' create_completion
+    bindkey -M viins '^Xo' create_completion
+fi
 
 ### FZF BLOCK ###
 
 ### unixorn/fzf-zsh-plugin ###
-# Preview file content using bat (https://github.com/sharkdp/bat)
-export FZF_CTRL_T_OPTS="
-  --preview 'bat -n --color=always {}'
-  --bind 'ctrl-/:change-preview-window(down|hidden|)'"
-# CTRL-/ to toggle small preview window to see the full command
-# CTRL-Y to copy the command into clipboard using pbcopy
-export FZF_CTRL_R_OPTS="
-  --preview 'echo {}' --preview-window up:3:hidden:wrap
-  --bind 'ctrl-/:toggle-preview'
-  --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
-  --color header:italic
-  --header 'Press CTRL-Y to copy command into clipboard'"
-# Print tree structure in the preview window
-export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
-# Use ~~ as the trigger sequence instead of the default **
-export FZF_COMPLETION_TRIGGER='~~'
-# Options to fzf command
-export FZF_COMPLETION_OPTS='--border --info=inline'
-# Use fd (https://github.com/sharkdp/fd) for listing path candidates.
-# - The first argument to the function ($1) is the base path to start traversal
-# - See the source code (completion.{bash,zsh}) for the details.
-_fzf_compgen_path() {
-  fd --hidden --follow --exclude ".git" . "$1"
-}
-# Use fd to generate the list for directory completion
-_fzf_compgen_dir() {
-  fd --type d --hidden --follow --exclude ".git" . "$1"
-}
-# Advanced customization of fzf options via _fzf_comprun function
-# - The first argument to the function is the name of the command.
-# - You should make sure to pass the rest of the arguments to fzf.
-_fzf_comprun() {
-  local command=$1
-  shift
+if antidote path "unixorn/fzf-zsh-plugin" > /dev/null 2&>1; then
+    # Preview file content using bat (https://github.com/sharkdp/bat)
+    export FZF_CTRL_T_OPTS="
+      --preview 'bat -n --color=always {}'
+      --bind 'ctrl-/:change-preview-window(down|hidden|)'"
+    # CTRL-/ to toggle small preview window to see the full command
+    # CTRL-Y to copy the command into clipboard using pbcopy
+    export FZF_CTRL_R_OPTS="
+      --preview 'echo {}' --preview-window up:3:hidden:wrap
+      --bind 'ctrl-/:toggle-preview'
+      --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
+      --color header:italic
+      --header 'Press CTRL-Y to copy command into clipboard'"
+    # Print tree structure in the preview window
+    export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
+    # Use ~~ as the trigger sequence instead of the default **
+    export FZF_COMPLETION_TRIGGER='~~'
+    # Options to fzf command
+    export FZF_COMPLETION_OPTS='--border --info=inline'
+    # Use fd (https://github.com/sharkdp/fd) for listing path candidates.
+    # - The first argument to the function ($1) is the base path to start traversal
+    # - See the source code (completion.{bash,zsh}) for the details.
+    _fzf_compgen_path() {
+      fd --hidden --follow --exclude ".git" . "$1"
+    }
+    # Use fd to generate the list for directory completion
+    _fzf_compgen_dir() {
+      fd --type d --hidden --follow --exclude ".git" . "$1"
+    }
+    # Advanced customization of fzf options via _fzf_comprun function
+    # - The first argument to the function is the name of the command.
+    # - You should make sure to pass the rest of the arguments to fzf.
+    _fzf_comprun() {
+      local command=$1
+      shift
 
-  case "$command" in
-    cd)           fzf --preview 'tree -C {} | head -200'   "$@" ;;
-    export|unset) fzf --preview "eval 'echo \$'{}"         "$@" ;;
-    ssh)          fzf --preview 'dig {}'                   "$@" ;;
-    *)            fzf --preview 'bat -n --color=always {}' "$@" ;;
-  esac
-}
-export LESSOPEN='| lessfilter-fzf %s'
+      case "$command" in
+        cd)           fzf --preview 'tree -C {} | head -200'   "$@" ;;
+        export|unset) fzf --preview "eval 'echo \$'{}"         "$@" ;;
+        ssh)          fzf --preview 'dig {}'                   "$@" ;;
+        *)            fzf --preview 'bat -n --color=always {}' "$@" ;;
+      esac
+    }
+    export LESSOPEN='| lessfilter-fzf %s'
+fi
 
+# if [ "$(command -v fzf > /dev/null 2&>1)" ] && [ "$(command -v rg > /dev/null 2&>1)" ]; then 
 if [ "$(command -v fzf)" ] && [ "$(command -v rg)" ]; then 
   export FZF_BASE=$(which fzf)
   export FZF_PREVIEW_ADVANCED=true
@@ -275,87 +239,138 @@ else
 fi
 
 ### aloxaf/fzf-tab ###
-autoload -Uz enable-fzf-tab
-# disable sort when completing `git checkout`
-zstyle ':completion:*:git-checkout:*' sort false
-# set descriptions format to enable group support
-# NOTE: don't use escape sequences here, fzf-tab will ignore them
-zstyle ':completion:*:descriptions' format '[%d]'
-# set list-colors to enable filename colorizing
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-# force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
-zstyle ':completion:*' menu no
-# preview directory's content with eza when completing cd
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
-# switch group using `<` and `>`
-zstyle ':fzf-tab:*' switch-group '<' '>'
-# tmux
-zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
-# apply to all command
-zstyle ':fzf-tab:*' popup-min-size 100 30
-# only apply to 'diff'
-zstyle ':fzf-tab:complete:diff:*' popup-min-size 80 12
+if antidote path "aloxaf/fzf-tab" > /dev/null 2>&1; then
+    autoload -Uz enable-fzf-tab
+    # disable sort when completing `git checkout`
+    zstyle ':completion:*:git-checkout:*' sort false
+    # set descriptions format to enable group support
+    # NOTE: don't use escape sequences here, fzf-tab will ignore them
+    zstyle ':completion:*:descriptions' format '[%d]'
+    # set list-colors to enable filename colorizing
+    zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+    # force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
+    zstyle ':completion:*' menu no
+    # preview directory's content with eza when completing cd
+    zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
+    # switch group using `<` and `>`
+    zstyle ':fzf-tab:*' switch-group '<' '>'
+    # tmux
+    zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+    # apply to all command
+    zstyle ':fzf-tab:*' popup-min-size 100 30
+    # only apply to 'diff'
+    zstyle ':fzf-tab:complete:diff:*' popup-min-size 80 12
+fi
 
 ### lincheney/fzf-tab-completion
-bindkey '^I' fzf_completion
-bindkey -M emacs '^I' fzf_completion
-bindkey -M viins '^I' fzf_completion
-# only for git
-# zstyle ':completion:*:*:git:*' fzf-search-display true
-# or for everything
-zstyle ':completion:*' fzf-search-display true
-# press ctrl-r to repeat completion *without* accepting i.e. reload the completion
-# press right to accept the completion and retrigger it
-# press alt-enter to accept the completion and run it
-keys=(
-    ctrl-r:'repeat-fzf-completion'
-    right:accept:'repeat-fzf-completion'
-    alt-enter:accept:'zle accept-line'
-)
-zstyle ':completion:*' fzf-completion-keybindings "${keys[@]}"
-# also accept and retrigger completion when pressing / when completing cd
-zstyle ':completion::*:cd:*' fzf-completion-keybindings "${keys[@]}" /:accept:'repeat-fzf-completion'
-### MichaelAquilina/zsh-you-should-use ###
-export YSU_MESSAGE_POSITION="after"
-export YSU_MODE=ALL
-export zs_set_path=1
-# basic file preview for ls (you can replace with something more sophisticated than head)
-zstyle ':completion::*:ls::*' fzf-completion-opts --preview='eval head {1}'
-# preview when completing env vars (note: only works for exported variables)
-# eval twice, first to unescape the string, second to expand the $variable
-zstyle ':completion::*:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' fzf-completion-opts --preview='eval eval echo {1}'
-# preview a `git status` when completing git add
-zstyle ':completion::*:git::git,add,*' fzf-completion-opts --preview='git -c color.status=always status --short'
-# if other subcommand to git is given, show a git diff or git log
-zstyle ':completion::*:git::*,[a-z]*' fzf-completion-opts --preview='
-eval set -- {+1}
-for arg in "$@"; do
-    { git diff --color=always -- "$arg" | git log --color=always "$arg" } 2>/dev/null
-done'
-
+if antidote path "lincheney/fzf-tab-completion" > /dev/null 2>&1; then
+    bindkey '^I' fzf_completion
+    bindkey -M emacs '^I' fzf_completion
+    bindkey -M viins '^I' fzf_completion
+    # only for git
+    # zstyle ':completion:*:*:git:*' fzf-search-display true
+    # or for everything
+    zstyle ':completion:*' fzf-search-display true
+    # press ctrl-r to repeat completion *without* accepting i.e. reload the completion
+    # press right to accept the completion and retrigger it
+    # press alt-enter to accept the completion and run it
+    keys=(
+        ctrl-r:'repeat-fzf-completion'
+        right:accept:'repeat-fzf-completion'
+        alt-enter:accept:'zle accept-line'
+    )
+    zstyle ':completion:*' fzf-completion-keybindings "${keys[@]}"
+    # also accept and retrigger completion when pressing / when completing cd
+    zstyle ':completion::*:cd:*' fzf-completion-keybindings "${keys[@]}" /:accept:'repeat-fzf-completion'
+fi
 ### END OF FZF BLOCK ###
 
-### zsh-users/zsh-autosuggestions ###
-ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(
-  # "expand-or-complete"
-  # "pcomplete"
-  # "copy-earlier-word"
-)
-export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#a6e3a1,bg=#1e1e2e,italic"
-export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-# If necessary, you can let Autocomplete pass arguments to  compinit as follows
-zstyle '*:compinit' arguments -D -i -u -C -w
-# Make Tab go straight to the menu and cycle there
-# bindkey '\t' menu-select "$terminfo[kcbt]" menu-select
-# bindkey -M emacs '\t' menu-select "$terminfo[kcbt]" menu-select
-# bindkey -M vicmd '\t' menu-select "$terminfo[kcbt]" menu-select
-# bindkey -M viins '\t' menu-select "$terminfo[kcbt]" menu-select
-# bindkey -M menuselect '\t' menu-complete "$terminfo[kcbt]" reverse-menu-complete
-# Add or don't add a space after certain completions
-zstyle ':autocomplete:*' add-space \
-    executables aliases functions builtins reserved-words commands
+### fast-syntax-highlighting ###
+if antidote path "zdharma-continuum/fast-syntax-highlighting" > /dev/null 2&>1; then
+    local fast_theme="$(antidote path zdharma-continuum/fast-syntax-highlighting)"
+    fast_theme="$fast_theme/fast-syntax-highlighting.plugin.zsh"
+    [[ -f "$fast_theme" ]] && \
+      source "$fast_theme" && \
+      fast-theme --quiet XDG:catppuccin-mocha
 
+    chroma_single_word() {
+      (( next_word = 2 | 8192 ))
+
+      local __first_call="$1" __wrd="$2" __start_pos="$3" __end_pos="$4"
+      local __style
+
+      (( __first_call )) && \
+          { __style=${fast_theme_name}alias }
+
+      [[ -n "$__style" ]] && \
+          (( __start=__start_pos-${#prebuffer}, __end=__end_pos-${#prebuffer}, __start >= 0 )) && \
+          reply+=("$__start $__end ${fast_highlight_styles[$__style]}")
+
+      (( this_word = next_word ))
+      _start_pos=$_end_pos
+
+      return 0
+    }
+
+    register_single_word_chroma() {
+      local word=$1
+      if [[ -x $(command -v $word) ]] || [[ -n $fast_highlight["chroma-$word"] ]]; then
+        return 1
+      fi
+
+      fast_highlight+=( "chroma-$word" chroma_single_word )
+      return 0
+    }
+
+    if command -v abbr &>/dev/null; then
+      if [[ -n $fast_highlight ]]; then
+        for abbr in ${(f)"$(abbr list-abbreviations)"}; do
+          if [[ $abbr != *' '* ]]; then
+            register_single_word_chroma ${(q)abbr}
+          fi
+        done
+      fi
+    fi
+fi
+
+### zsh-users/zsh-autosuggestions ###
+if antidote path "zsh-users/zsh-autosuggestions" > /dev/null 2>&1; then
+    export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#a6e3a1,bg=#1e1e2e,italic"
+    export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+fi
+
+### marlonrichert/zsh-autocomplete
+if antidote path "marlonrichert/zsh-autocomplete" > /dev/null 2>&1; then
+    # zstyle '*:compinit' arguments -D -i -u -C -w
+    bindkey '\t' menu-select "$terminfo[kcbt]" menu-select
+    bindkey -M viins '\t' menu-select "$terminfo[kcbt]" menu-select
+    bindkey -M menuselect '\t' menu-complete "$terminfo[kcbt]" reverse-menu-complete
+    zstyle ':autocomplete:*' add-space \
+        executables aliases functions builtins reserved-words commands
+fi
+
+### MichaelAquilina/zsh-you-should-use ###
+if antidote path "MichaelAquilina/zsh-you-should-use" > /dev/null 2>&1; then
+    export YSU_MESSAGE_POSITION="after"
+    export YSU_MODE=ALL
+    export zs_set_path=1
+    # basic file preview for ls (you can replace with something more sophisticated than head)
+    zstyle ':completion::*:ls::*' fzf-completion-opts --preview='eval head {1}'
+    # preview when completing env vars (note: only works for exported variables)
+    # eval twice, first to unescape the string, second to expand the $variable
+    zstyle ':completion::*:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' fzf-completion-opts --preview='eval eval echo {1}'
+    # preview a `git status` when completing git add
+    zstyle ':completion::*:git::git,add,*' fzf-completion-opts --preview='git -c color.status=always status --short'
+    # if other subcommand to git is given, show a git diff or git log
+    zstyle ':completion::*:git::*,[a-z]*' fzf-completion-opts --preview='
+    eval set -- {+1}
+    for arg in "$@"; do
+        { git diff --color=always -- "$arg" | git log --color=always "$arg" } 2>/dev/null
+    done'
+fi
 
 ### wofr06/lesspipe
-export LESSOPEN
-LESSOPEN="|$(antidote path 'wofr06/lesspipe')/lesspipe.sh %s"
+if antidote path "wofr06/lesspipe" > /dev/null 2>&1; then
+    export LESSOPEN
+    LESSOPEN="|$(antidote path 'wofr06/lesspipe')/lesspipe.sh %s"
+fi
