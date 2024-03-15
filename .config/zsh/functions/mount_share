@@ -23,9 +23,11 @@ function mount_share() {
 	}
 
 	function test_krb5_ticket {
-		if ! klist | grep "${1}@" >/dev/null; then
-			echo "Krb5 ticket not found for: ${1}"
-			kinit "${1}"
+		local domain
+		domain=$(echo "$2" | awk '{print toupper($0)}')
+		if ! klist | grep "${1}@${domain}" >/dev/null; then
+			echo "Krb5 ticket not found for: ${1}@$domain"
+			kinit "${1}@$domain"
 		fi
 	}
 
@@ -58,11 +60,11 @@ function mount_share() {
 	case $security in
 	krb5)
 		echo "Use Kerberos version 5 authentication"
-		test_krb5_ticket "$username"
+		test_krb5_ticket "$username" "$domain"
 		;;
 	krb5i)
 		echo "Use Kerberos authentication and forcibly enable packet signing"
-		test_krb5_ticket "$username"
+		test_krb5_ticket "$username" "$domain"
 		;;
 	ntlm)
 		echo "Use NTLM password hashing"
