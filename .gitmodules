@@ -112,6 +112,3 @@
 [submodule "/home/tallonea/gitdepot/PowerSehellEditorServices"]
 	path = /home/tallonea/gitdepot/PowerSehellEditorServices
 	url = git@github.com:PowerShell/PowerShellEditorServices.git
-[submodule "/home/tallonea/.SpaceVim"]
-	path = /home/tallonea/.SpaceVim
-	url = https://spacevim.org/git/repos/SpaceVim
