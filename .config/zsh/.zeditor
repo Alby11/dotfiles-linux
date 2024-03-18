@@ -35,16 +35,16 @@ build_and_install_neovim() {
   fi
 
   # Detects the Linux distribution and installs necessary build dependencies
-  if [ $DISTRO = "fedora" ]; then
+  if [ "$DISTRO" = "fedora" ]; then
     echo "Installing build dependencies for Fedora..."
     sudo dnf install -y ninja-build gettext libtool libtool-ltdl-devel \
       autoconf automake cmake gcc gcc-c++ make pkgconfig unzip patch \
       curl
-  elif [ $DISTRO = "ubuntu" ]; then
+  elif [ "$DISTRO" = "ubuntu" ]; then
     echo "Installing build dependencies for Ubuntu..."
     sudo apt update && sudo apt install -y ninja-build gettext libtool libtool-bin \
       autoconf automake cmake g++ pkg-config unzip curl doxygen
-  elif [ $DISTRO = "arch" ]; then
+  elif [ "$DISTRO" = "arch" ]; then
     echo "Installing build dependencies for Arch Linux..."
     sudo pacman -Sy --needed base-devel cmake unzip ninja tree-sitter curl doxygen
   else
@@ -59,7 +59,7 @@ build_and_install_neovim() {
   make CMAKE_BUILD_TYPE=RelWithDebInfo || { echo "Failed to build Neovim"; return 1; }
   echo "Installing Neovim for the current user..."
   make CMAKE_INSTALL_PREFIX="$HOME/.local" install
-  cd $HOME || cd ..
+  cd "$HOME" || cd ..
 
   # Ensure $HOME/.local/bin is in PATH
   if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
@@ -147,7 +147,7 @@ install_and_setup_bat() {
   fi
 
   # Check if running on Ubuntu
-  if [ $DISTRO = "ubuntu" ]; then
+  if [ "$DISTRO" = "ubuntu" ]; then
     # Check if batcat is installed (Ubuntu's bat package name)
     if command -v batcat > /dev/null; then
       alias bat='batcat'
