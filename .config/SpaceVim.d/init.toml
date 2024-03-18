@@ -1,0 +1,42 @@
+[options]
+automatic_update = true
+[[layers]]
+name = "denite"
+[[layers]]
+name = 'git'
+[[layers]]
+name = 'VersionControl'
+[[layers]]
+name = "shell"
+default_position = "top"
+default_height = 30
+enable = false
+[[layers]]
+name = "format"
+format_method = "neoformat"
+format_on_save = true
+[[layers]]
+name = "fzf"
+[[layers]]
+name = "shell"
+default_position = "top"
+default_height = 30
+[[layers]]
+name = "sudo"
+[[layers]]
+name = "telescope"
+[[layers]]
+name = "tmux"
+tmux_navigator_modifier = "alt"
+[[layers]]
+name = "lang#lua"
+[[layers]]
+name = "lang#markdown"
+[[layers]]
+name = "lang#sh"
+bash_file_head = [
+  '#!/usr/bin/env bash',
+  '#!/usr/bin/env zsh',
+  '#!/usr/bin/env sh',
+  '',
+]
