@@ -239,8 +239,6 @@ if command -v nvim &>/dev/null; then
 	fi
 	alias e='nvim '
 	alias nv='nvim '
-	alias vi='nvim '
-	alias vim='nvim '
 	alias E='| nvim '
 	if command -v nvr &>/dev/null; then
 		alias nvimr='nvim --listen /tmp/nvimsocket '
