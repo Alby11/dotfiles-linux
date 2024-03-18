@@ -10,6 +10,16 @@ ECHOCAT '.zeditor - Zsh file loaded to export editor, visual, pager ...'
 # Editors
 #
 
+export EDITOR
+export VISUAL
+export PAGER
+export MANPAGER
+export LESS
+export LESS_TERMCAP_md
+export LESSOPEN
+export LESSCLOSE
+export PATH
+
 # define a function to build neovim from source if neovim is missing
 # in case it is installed by package manager, build for current user only
 build_and_install_neovim() {
@@ -43,25 +53,99 @@ build_and_install_neovim() {
   fi
 
   # Clone, build, and install Neovim from source for the current user
-  cd "$(antidote path neovim/neovim)"
+  cd "$(antidote path neovim/neovim)" || return 1
   echo "Building Neovim from source..."
+  local INST_DIR="$HOME/.local"
   make CMAKE_BUILD_TYPE=RelWithDebInfo || { echo "Failed to build Neovim"; return 1; }
   echo "Installing Neovim for the current user..."
   make CMAKE_INSTALL_PREFIX="$HOME/.local" install
-  cd $HOME
+  cd $HOME || cd ..
 
   # Ensure $HOME/.local/bin is in PATH
   if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
     echo "Adding $HOME/.local/bin to your PATH for this session."
-    export PATH="$HOME/.local/bin:$PATH"
+    PATH="$HOME/.local/bin:$PATH"
   fi
 }
 
+build_and_install_vim() {
+  # Check if a local Neovim installation exists
+  if [ -x "$HOME/.local/bin/vim" ]; then
+    echo "Local Vim installation found. Skipping build and install."
+    return 0
+  fi
+
+  if [ ! -d "$(antidote path vim/vim)" ]; then
+    echo "Vim sources not present, check dotfiles. Exiting..."
+    return 1
+  fi
+
+# Install necessary build dependencies based on distribution
+  if [[ "$DISTRO" == "fedora" ]]; then
+    echo "Installing build dependencies for Fedora..."
+    sudo dnf install -y ncurses-devel ruby ruby-devel lua lua-devel luajit \
+        luajit-devel ctags git python python-devel \
+        python3 python3-devel tcl-devel \
+        perl perl-devel perl-ExtUtils-ParseXS \
+        perl-ExtUtils-XSpp perl-ExtUtils-CBuilder \
+        perl-ExtUtils-Embed \
+        ;
+    elif [[ "$DISTRO" == "ubuntu" ]]; then
+    echo "Installing build dependencies for Ubuntu..."
+    sudo apt update && sudo apt install libncurses5-dev libgtk2.0-dev libatk1.0-dev \
+        libcairo2-dev libx11-dev libxpm-dev libxt-dev python2-dev \
+        python3-dev ruby-dev lua5.2 liblua5.2-dev libperl-dev git \
+        ;
+    elif [[ "$DISTRO" == "arch" ]]; then
+    echo "Installing build dependencies for Arch Linux..."
+    sudo pacman -Sy --needed base-devel cmake unzip ninja tree-sitter curl doxygen ncurses
+  else
+    echo "Unsupported distribution: $DISTRO. Exiting..."
+    return 1
+  fi
+
+  # Clone, build, and install Neovim from source for the current user
+  cd "$(antidote path vim/vim)" || return 1
+  echo "Building Vim from source..."
+  local INST_DIR="$HOME/.local"
+              # --with-python-config-dir="$(python3-config --configdir)" \
+              # --enable-perlinterp \
+              # --enable-rubyinterp \
+  ./configure --with-features=huge \
+              --prefix="$INST_DIR" \
+              --enable-multibyte \
+              --enable-luainterp \
+              --enable-pythoninterp \
+              --enable-python3interp \
+              --enable-gui=gtk2 \
+              --enable-cscope \
+              --with-x \
+              ;
+  echo "Installing Vim for the current user..."
+  make && make install || {
+    echo "Failed to build and install Vim. Exiting..."
+    return 1
+  }
+  cd "$HOME" || return 1
+
+  # Ensure $HOME/.local/bin is in PATH
+  if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
+    echo "Adding $HOME/.local/bin to your PATH for this session."
+    PATH="$HOME/.local/bin:$PATH"
+  fi
+}
+
+
 # define a function to install bat and its extras
 install_and_setup_bat() {
+
+  export BATPIPE
+  export MANROFFOPT
+
   if ! CHECK_COMMANDS bat && ! CHECK_COMMANDS batcat; then
     package_manager_install bat
   fi
+
   # Check if running on Ubuntu
   if [ $DISTRO = "ubuntu" ]; then
     # Check if batcat is installed (Ubuntu's bat package name)
@@ -76,8 +160,8 @@ install_and_setup_bat() {
 
   # Integration with fzf for preview
   if command -v fzf > /dev/null; then
-    # export FZF_DEFAULT_OPTS="--preview 'bat --color=always --style=numbers --line-range=:500 {}'"
-    alias fzfbat='fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"'
+    export FZF_DEFAULT_OPTS="--preview 'bat --color=always --style=numbers --line-range=:500 {}'"
+    alias fzfbat="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
   fi
 
   # Integration with find or fd for previewing files
@@ -90,12 +174,12 @@ install_and_setup_bat() {
   fi
 
   # Integration with tail -f for continuous monitoring
-  tailbat() {
+  function tailbat() {
     tail -f  | xargs bat --paging=never -l log
   }
 
   # Integration with git for showing files with syntax highlighting
-  gitbat() {
+  function gitbat() {
     git show | xargs bat -l -rs
   }
   alias BGS='| bat -l rs' # mnemonic Bat Git Show
@@ -107,61 +191,72 @@ install_and_setup_bat() {
   # Alias for highlighting --help messages
   alias bathelp='bat --plain --language=help'
 
-  help() {
+  function help() {
       "$@" --help 2>&1 | bat --plain --language=help
   }
 
   bat cache --build > /dev/null 2>&1
 
   if command -v batpipe &> /dev/null; then
-    export LESSOPEN="$(which batpipe) %s"
+    LESSOPEN="$(which batpipe) %s"
     # The following will enable colors when using batpipe with less:
-    export BATPIPE="color"
+    BATPIPE="color"
   fi
 
   # Set bat as MANPAGER for colorized man pages
-  export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+  MANPAGER="sh -c 'col -bx | bat -l man -p'"
   # Check for MANROFFOPT for better formatting
 
   BATPIPE="color";
-  export BATPIPE;  export MANROFFOPT="-c"
+  MANROFFOPT="-c"
 
 }
 
-export EDITOR="$(which nano > /dev/null 2>&1)"
-export VISUAL="$EDITOR"
-export PAGER="$(which less)"
-export MANPAGER="$PAGER"
+EDITOR="$(which nano > /dev/null 2>&1)"
+VISUAL="$EDITOR"
+PAGER="$(which less)"
+MANPAGER="$PAGER"
 
 ### Setting up less
 # Highlight section titles in manual pages.
-export LESS_TERMCAP_md="${yellow}"
+LESS_TERMCAP_md="${yellow}"
 unset LESSCLOSE
-LESS="$LESS -R";
-export LESS;
+LESS="$LESS -R"
 
-install_and_setup_bat
+# install_and_setup_bat
 
 # Neovim build from source
 [[ ! -f $HOME/.local/bin/nvim ]] && build_and_install_neovim
+# Call the function to build and install Vim
+[[ ! -f $HOME/.local/bin/vim ]] && build_and_install_vim
 
 # LunarVIM
 if ! CHECK_COMMANDS lvim; then
-  rm -rfv $HOME/.local/share/*vim \
-    $HOME/.config/*nvim \
-    $HOME/.cache/*nvim
+  rm -rfv "$HOME/.local/share/*lunar*" \
+    "$HOME/.config/*nvim" \
+    "$HOME/.cache/*nvim" \
+    ;
   bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/uninstall.sh)
   bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh)
 fi
 
+# SpaceVim
+# bash <(curl -sLf https://spacevim.org/install.sh)
+[[ ! -d ${HOME}/.SpaceVim ]] && \
+    curl -sLf https://spacevim.org/install.sh | bash -s -- --uninstall && \
+    git clone git@gitlab.com:SpaceVim/SpaceVim.git "${HOME}/.SpaceVim" && \
+    rm -rf "${XDG_CONFIG_HOME}/vim" \
+    ln -s "${HOME}/.SpaceVim" "${XDG_CONFIG_HOME}/vim" \
+    ;
+
 if CHECK_COMMANDS lvim; then
-  export EDITOR="${$(which lvim):-$EDITOR}"
-  export VISUAL="${$(which lvim):-$VISUAL}"
-  export PAGER="${$(which lvim):-$PAGER}"
-  export MANPAGER="$(which lvim) -c 'Man!' -o -"
+  EDITOR="${$(which lvim):-$EDITOR}"
+  VISUAL="${$(which lvim):-$VISUAL}"
+  PAGER="${$(which lvim):-$PAGER}"
+  MANPAGER="$(which lvim) -c 'Man!' -o -"
 else
-  export EDITOR="${$(which nvim):-$EDITOR}"
-  export VISUAL="${$(which nvim):-$VISUAL}"
-  export PAGER="${$(which nvim):-$PAGER}"
-  export MANPAGER="$(which nvim) -c 'Man!' -o -"
+  EDITOR="${$(which nvim):-$EDITOR}"
+  VISUAL="${$(which nvim):-$VISUAL}"
+  PAGER="${$(which nvim):-$PAGER}"
+  MANPAGER="$(which nvim) -c 'Man!' -o -"
 fi

@@ -136,6 +136,7 @@ wofr06/lesspipe kind:fpath
 olets/zsh-abbr path:completions kind:fpath
 
 neovim/neovim kind:clone
+vim/vim kind:clone
 
 xPMo/zsh-ls-colors
 catppuccin/tty path:src/mocha.sh
