@@ -233,26 +233,6 @@ if command -v tmux &>/dev/null; then
 	alias trs='tmux rename-session -t '
 fi
 
-if command -v nvim &>/dev/null; then
-	if command -v lvim &>/dev/null; then
-		alias nvim='lvim '
-	fi
-	alias e='nvim '
-	alias nv='nvim '
-	alias E='| nvim '
-	if command -v nvr &>/dev/null; then
-		alias nvimr='nvim --listen /tmp/nvimsocket '
-		alias nvrs='nvr -s '
-	fi
-fi
-
-if command -v nvimpager &>/dev/null; then
-	alias np='nvimpager'
-	alias npc='nvimpager -c'
-	alias npp='nvimpager -p'
-	alias -g NP='| nvimpager -c -'
-fi
-
 if command -v xclip &>/dev/null; then
 	alias -g Xp='xclip -o '
 	alias -g Xy=' | xclip -i '
@@ -654,7 +634,7 @@ alias gds='git -c color.ui=false diff --staged'
 alias gdt='git -c color.ui=false diff-tree --no-commit-id --name-only -r'
 alias gdup='git -c color.ui=false diff @{upstream}'
 alias gdw='git -c color.ui=false diff --word--c color.ui=false diff'
-alias gmtlvim='git mergetool --no-prompt --tool=nvim'
+alias gmtlvim='git mergetool --no-prompt --tool=$EDITOR'
 ### end of Git block
 
 alias killuser='function _ku(){ pkill -u $1; }; _ku'
