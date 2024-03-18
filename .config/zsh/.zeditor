@@ -242,7 +242,7 @@ fi
 
 # SpaceVim
 export SPACEVIMDIR
-SPACEVIMDIR=.config/SpaceVim.d
+SPACEVIMDIR=${HOME}/.config/SpaceVim.d
 # bash <(curl -sLf https://spacevim.org/install.sh)
 # [[ ! -d ${HOME}/.SpaceVim ]] && \
 #     curl -sLf https://spacevim.org/install.sh | bash -s -- --uninstall && \

@@ -1,5 +1,7 @@
 [options]
 automatic_update = true
+colorscheme = 'catppuccin-mocha'
+escape_key_binding = 'kj'
 [[layers]]
 name = "denite"
 [[layers]]
@@ -40,3 +42,25 @@ bash_file_head = [
   '#!/usr/bin/env sh',
   '',
 ]
+[[layers]]
+name = "lang#toml"
+[[custom_plugins]]
+    repo = 'lilydjwg/colorizer'
+    # `on_cmd` option means this plugin will be loaded
+    # only when the specific commands are called.
+    # for example, when `:ColorHighlight` or `:ColorToggle`
+    # commands are called.
+    on_cmd = ['ColorHighlight', 'ColorToggle']
+    # `on_func` option means this plugin will be loaded
+    # only when the specific functions are called.
+    # for example, when `colorizer#ColorToggle()` function is called.
+    on_func = 'colorizer#ColorToggle'
+    # `merged` option is used for merging plugins directory.
+    # When `merged` is `true`, all files in this custom plugin
+    # will be merged into `~/.cache/vimfiles/.cache/init.vim/`
+    # for neovim or `~/.cache/vimfiles/.cache/vimrc/` for vim.
+    merged = false
+    # For more options see `:h dein-options`.
+[[custom_plugins]]
+    repo = 'catppuccin/nvim'
+    merged = false

@@ -164,7 +164,12 @@ npm_packages=(
   "fixjson"
   "neovim"
   "pyright"
+  "remark"
+  "remark-cli"
+  "remark-stringify"
+  "remark-frontmatter"
   "solhint"
+  "wcwidth"
 )
 
 npm_exclusions=(

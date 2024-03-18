@@ -2,7 +2,7 @@
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 # if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  # source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 # fi
 
 # vim: filetype=zsh
@@ -49,18 +49,18 @@ export GPG_TTY
 
 # Export JAVA_HOME from default alternative
 if ! javac_path=$(readlink -f "$(which javac)"); then
-	echo "Failed to locate javac"
-	exit 1
+  echo "Failed to locate javac"
+  exit 1
 fi
 JAVA_HOME=$(dirname "$(dirname "$javac_path")")
 export JAVA_HOME
 
 # Shell setup for fnm NodeJS Manager
 if CHECK_COMMANDS "fnm"; then
-	if ! CHECK_COMMANDS "node"; then
-		fnm install --lts
-	fi
-	eval "$(fnm env --use-on-cd)"
+  if ! CHECK_COMMANDS "node"; then
+    fnm install --lts
+  fi
+  eval "$(fnm env --use-on-cd)"
 fi
 
 # Antidote ZSH plugin manager
@@ -68,7 +68,7 @@ SOURCE_RCFILE "${ZDOTDIR}"/.zantidote
 
 # set Ls_COLORS if vivid is installed
 if ! CHECK_COMMANDS "vivid"; then
-	cargo install vivid
+  cargo install vivid
 fi
 export LS_COLORS
 LS_COLORS="$(vivid generate catppuccin-mocha)"
@@ -79,10 +79,10 @@ export LANG='en_US.UTF-8'
 # set ZSH as VSCode default shell for the integrated terminal
 # shellcheck disable=SC1090
 if [[ "$TERM_PROGRAM" == "vscode" ]]; then
-	vscode_shell_integration_path=$(code --locate-shell-integration-path zsh)
-	if [[ -f "$vscode_shell_integration_path" ]]; then
-		source "$vscode_shell_integration_path"
-	fi
+  vscode_shell_integration_path=$(code --locate-shell-integration-path zsh)
+  if [[ -f "$vscode_shell_integration_path" ]]; then
+    source "$vscode_shell_integration_path"
+  fi
 fi
 
 # source SSH settings, including agent config
