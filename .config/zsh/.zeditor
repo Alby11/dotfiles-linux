@@ -151,9 +151,14 @@ install_and_setup_bat() {
     # Check if batcat is installed (Ubuntu's bat package name)
     if command -v batcat > /dev/null; then
       alias bat='batcat'
+      bat () { 
+        batcat "$@"
+      }
       # Only alias cat to rcat if rcat is not already an existing command
       if ! command -v rcat > /dev/null; then
-        alias rcat='cat'
+        rcat () { 
+          cat "$@"
+        }
       fi
     fi
   fi
@@ -161,16 +166,25 @@ install_and_setup_bat() {
   # Integration with fzf for preview
   if command -v fzf > /dev/null; then
     export FZF_DEFAULT_OPTS="--preview 'bat --color=always --style=numbers --line-range=:500 {}'"
-    alias fzfbat="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
+    fzfbat() { 
+      fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"
+    }
   fi
 
   # Integration with find or fd for previewing files
   alias findbat='find | xargs -exec bat {} +'
   if command -v fd-find > /dev/null; then
     alias fd='fd-find'
-  fi
-  if command -v fd > /dev/null; then
-    alias fdbat='fd | xargs -X bat'
+    fd() {
+      fd-find "$@"
+    }
+    fdbat() {
+      fd-find "$@" | xargs -X bat
+    }
+  elif command -v fd > /dev/null; then
+    fdbat() {
+      fd "$@" | xargs -X bat
+    }
   fi
 
   # Integration with tail -f for continuous monitoring
@@ -256,14 +270,26 @@ if CHECK_COMMANDS lvim; then
   VISUAL="${$(which lvim):-$VISUAL}"
   PAGER="${$(which lvim):-$PAGER}"
   MANPAGER="$(which lvim) -c 'Man!' -o -"
-else
+elif CHECK_COMMANDS nvim; then
   EDITOR="${$(which nvim):-$EDITOR}"
   VISUAL="${$(which nvim):-$VISUAL}"
   PAGER="${$(which nvim):-$PAGER}"
   MANPAGER="$(which nvim) -c 'Man!' -o -"
+elif CHECK_COMMANDS vim; then
+  EDITOR="${$(which vim):-$EDITOR}"
+  VISUAL="${$(which vim):-$VISUAL}"
+  PAGER="${$(which vim):-$PAGER}"
+  MANPAGER="$(which vim) -c 'Man!' -o -"
+else
+  EDITOR="${$(which vi):-$EDITOR}"
+  VISUAL="${$(which vi):-$VISUAL}"
+  PAGER="${$(which less):-$PAGER}"
+  MANPAGER="${$(which less):-$MANPAGER}"
 fi
 
-[[ -z $EDITOR ]] && \
-    alias e='$EDITOR' && \
-    alias E='| $EDITOR' \
-    ;
+[[ -n $EDITOR ]] && {
+  edit() {
+      ${EDITOR:-vim} "$@"
+  }
+  alias e='edit'
+}

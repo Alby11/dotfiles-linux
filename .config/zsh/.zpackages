@@ -184,11 +184,14 @@ pip_packages=(
   "autoenv"
   "black"
   "flake8"
+  "isort"
   "openai"
   "pynvim"
+  "pylint"
   "thefuck"
   "virtualenv"
   "virtualenvwrapper"
+  "yapf"
 )
 
 pip_exclusions=(
