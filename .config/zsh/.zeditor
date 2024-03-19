@@ -242,7 +242,7 @@ LESS="$LESS -R"
 # Neovim build from source
 [[ ! -f $HOME/.local/bin/nvim ]] && build_and_install_neovim
 # Call the function to build and install Vim
-# [[ ! -f $HOME/.local/bin/vim ]] && build_and_install_vim
+[[ ! -f $HOME/.local/bin/vim ]] && build_and_install_vim
 
 # LunarVIM
 if ! CHECK_COMMANDS lvim; then
@@ -257,36 +257,29 @@ fi
 # SpaceVim
 export SPACEVIMDIR
 SPACEVIMDIR=${HOME}/.config/SpaceVim.d
-# bash <(curl -sLf https://spacevim.org/install.sh)
-# [[ ! -d ${HOME}/.SpaceVim ]] && \
-#     curl -sLf https://spacevim.org/install.sh | bash -s -- --uninstall && \
-#     git clone git@gitlab.com:SpaceVim/SpaceVim.git "${HOME}/.SpaceVim" && \
-#     rm -rf "${XDG_CONFIG_HOME}/vim" \
-#     ln -s "${HOME}/.SpaceVim" "${XDG_CONFIG_HOME}/vim" \
-#     ;
+[[ ! -d ${XDG_CONFIG_HOME}/SpaceVim ]] && [[ ! -d ${HOME}/SpaceVim ]] && \
+    curl -sLf https://spacevim.org/install.sh | zsh \
+    ;
 
 if CHECK_COMMANDS lvim; then
   EDITOR="${$(which lvim):-$EDITOR}"
-  VISUAL="${$(which lvim):-$VISUAL}"
-  PAGER="${$(which lvim):-$PAGER}"
-  MANPAGER="$(which lvim) -c 'Man!' -o -"
+  PAGER="$EDITOR"
+  MANPAGER="$EDITOR -c 'Man!' -o -"
 elif CHECK_COMMANDS nvim; then
   EDITOR="${$(which nvim):-$EDITOR}"
-  VISUAL="${$(which nvim):-$VISUAL}"
-  PAGER="${$(which nvim):-$PAGER}"
-  MANPAGER="$(which nvim) -c 'Man!' -o -"
+  PAGER="$EDITOR"
+  MANPAGER="$EDITOR -c 'Man!' -o -"
 elif CHECK_COMMANDS vim; then
   EDITOR="${$(which vim):-$EDITOR}"
-  VISUAL="${$(which vim):-$VISUAL}"
-  PAGER="${$(which vim):-$PAGER}"
-  MANPAGER="$(which vim) -c 'Man!' -o -"
+  PAGER="$EDITOR"
+  MANPAGER="$EDITOR c 'Man!' -o -"
 else
   EDITOR="${$(which vi):-$EDITOR}"
-  VISUAL="${$(which vi):-$VISUAL}"
   PAGER="${$(which less):-$PAGER}"
-  MANPAGER="${$(which less):-$MANPAGER}"
+  MANPAGER="$PAGER"
 fi
-
+VISUAL="$EDITOR"
+ 
 [[ -n $EDITOR ]] && {
   edit() {
       ${EDITOR:-vim} "$@"

@@ -7,9 +7,6 @@
 # .zsh_plugins.txt - antidote plugins file
 #
 
-# Enhanced vi mode
-jeffreytse/zsh-vi-mode
-
 ohmyzsh/ohmyzsh
 # ohmyzsh/ohmyzsh                             path:lib
 ohmyzsh/ohmyzsh path:plugins/alias-finder
@@ -135,9 +132,11 @@ wofr06/lesspipe kind:path
 wofr06/lesspipe kind:fpath
 olets/zsh-abbr path:completions kind:fpath
 
+# Editors cloning, build in specific scripts
 neovim/neovim kind:clone
 vim/vim kind:clone
 
+# Colors
 xPMo/zsh-ls-colors
 catppuccin/tty path:src/mocha.sh
 
@@ -170,6 +169,12 @@ psprint/zsh-sweep kind:defer
 "${ZDOTDIR}/.zaliases"
 "${ZDOTDIR}/.zfunctions"
 "${ZDOTDIR}/.zxresources"
+
+#WakaTime for Terminal
+sobolevn/wakatime-zsh-plugin
+
+# Enhanced vi mode
+jeffreytse/zsh-vi-mode
 
 ### THEME
 romkatv/powerlevel10k
