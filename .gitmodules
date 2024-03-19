@@ -79,9 +79,6 @@
 [submodule "gitdepot/xxh-plugin-prerun-dotfiles"]
 	path = gitdepot/xxh-plugin-prerun-dotfiles
 	url = https://github.com/Alby11/xxh-plugin-prerun-dotfiles.git
-[submodule "gitdepot/kitty-scrollback.nvim"]
-	path = gitdepot/kitty-scrollback.nvim
-	url = git@github.com:mikesmithgh/kitty-scrollback.nvim.git
 [submodule "/home/tallonea/.config/bat/syntaxes/sublime-purescript-syntax"]
 	path = /home/tallonea/.config/bat/syntaxes/sublime-purescript-syntax
 	url = https://github.com/tellnobody1/sublime-purescript-syntax
