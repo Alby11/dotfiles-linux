@@ -171,5 +171,6 @@
     "terminal.sourceControlRepositoriesKind": "external",
     "terminal.integrated.shell.linux": "/bin/zsh",
     "chat.editor.fontSize": 12,
-    "terminal.integrated.defaultProfile.linux": "tmux"
+    "terminal.integrated.defaultProfile.linux": "tmux",
+    "wakatime.apiKey": "waka_c4099ea0-7272-4be6-acd5-5447a606806a"
 }
