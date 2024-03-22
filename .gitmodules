@@ -112,3 +112,6 @@
 [submodule ".config/vim"]
 	path = .config/vim
 	url = https://spacevim.org/git/repos/SpaceVim
+[submodule ".config/SpaceVim.d"]
+	path = .config/SpaceVim.d
+	url = git@github.com:Alby11/SpaceVim.d.git
