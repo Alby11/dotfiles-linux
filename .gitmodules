@@ -109,3 +109,6 @@
 [submodule "/home/tallonea/.config/nvim"]
 	path = .config/nvim
 	url = https://github.com/Alby11/Launch.nvim.git
+[submodule ".config/vim"]
+	path = .config/vim
+	url = https://spacevim.org/git/repos/SpaceVim
