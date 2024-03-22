@@ -4,18 +4,12 @@
 [submodule "gitdepot/catppuccin_tty"]
 	path = gitdepot/catppuccin_tty
 	url = https://github.com/catppuccin/tty.git
-[submodule ".config/zsh/zsh-history"]
-	path = .config/zsh/zsh-history
-	url = git@github.com:Alby11/zsh-history.git
 [submodule "gitdepot/catppuccin_zsh-syntax-highlighting"]
 	path = gitdepot/catppuccin_zsh-syntax-highlighting
 	url = https://github.com/catppuccin/zsh-syntax-highlighting.git
 [submodule ".config/zsh/.antidote"]
 	path = .config/zsh/.antidote
 	url = https://github.com/mattmc3/antidote.git
-[submodule "gitdepot/lesspipe"]
-	path = gitdepot/lesspipe
-	url = https://github.com/wofr06/lesspipe.git
 [submodule "gitdepot/catppuccin-gedit"]
 	path = gitdepot/catppuccin-gedit
 	url = git@github.com:catppuccin/gedit.git
@@ -25,9 +19,6 @@
 [submodule "gitdepot/bash-snippets"]
 	path = gitdepot/bash-snippets
 	url = https://github.com/alexanderepstein/bash-snippets
-[submodule ".config/zsh/dracula_zsh-syntax-highlighting"]
-	path = .config/zsh/dracula_zsh-syntax-highlighting
-	url = https://github.com/dracula/zsh-syntax-highlighting.git
 [submodule "/home/alby11/gitdepot/dracula-ranger"]
 	path = gitdepot/dracula-ranger
 	url = https://github.com/dracula/ranger
@@ -49,9 +40,6 @@
 [submodule ".config/lvim"]
 	path = .config/lvim
 	url = git@github.com:Alby11/LunarVim
-[submodule "gitdepot/dotfiles-stash"]
-	path = gitdepot/dotfiles-stash
-	url = git@github.com:Alby11/dotfiles-stash.git
 [submodule ".ansible"]
 	path = .ansible
 	url = git@bitbucket.org:fratellicarli/ansible.git
@@ -73,9 +61,6 @@
 [submodule "gitdepot/try"]
 	path = gitdepot/try
 	url = https://github.com/binpash/try.git
-[submodule "gitdepot/xxh-plugin-prerun-dotfiles"]
-	path = gitdepot/xxh-plugin-prerun-dotfiles
-	url = https://github.com/Alby11/xxh-plugin-prerun-dotfiles.git
 [submodule "/home/tallonea/.config/bat/syntaxes/sublime-purescript-syntax"]
 	path = .config/bat/syntaxes/sublime-purescript-syntax
 	url = https://github.com/tellnobody1/sublime-purescript-syntax
@@ -88,21 +73,9 @@
 [submodule "gitdepot/bitwarden_duplicate_cleaner"]
 	path = gitdepot/bitwarden_duplicate_cleaner
 	url = https://gist.github.com/0bf7cd39947764896735997056ca74d7.git
-[submodule "/home/tallonea/gitdepot/fzf-tab-completion"]
-	path = gitdepot/fzf-tab-completion
-	url = git@github.com:lincheney/fzf-tab-completion.git
 [submodule "/home/tallonea/gitdepot/quickemu"]
 	path = gitdepot/quickemu
 	url = git@github.com:wimpysworld/quickemu.git
-[submodule "/home/tallonea/gitdepot/fzf"]
-	path = gitdepot/fzf
-	url = git@github.com:junegunn/fzf.git
-[submodule "/home/tallonea/gitdepot/junegunn_fzf"]
-	path = gitdepot/junegunn_fzf
-	url = git@github.com:junegunn/fzf.git
-[submodule "/home/tallonea/gitdepot/neovim_neovim"]
-	path = gitdepot/neovim_neovim
-	url = git@github.com:neovim/neovim.git
 [submodule "/home/tallonea/gitdepot/PowerSehellEditorServices"]
 	path = gitdepot/PowerSehellEditorServices
 	url = git@github.com:PowerShell/PowerShellEditorServices.git

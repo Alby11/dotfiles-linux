@@ -254,13 +254,6 @@ if ! CHECK_COMMANDS lvim; then
   bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh)
 fi
 
-# SpaceVim
-export SPACEVIMDIR
-SPACEVIMDIR=${HOME}/.config/SpaceVim.d
-[[ ! -d ${XDG_CONFIG_HOME}/SpaceVim ]] && [[ ! -d ${HOME}/SpaceVim ]] && \
-    curl -sLf https://spacevim.org/install.sh | zsh \
-    ;
-
 if CHECK_COMMANDS lvim; then
   EDITOR="${$(which lvim):-$EDITOR}"
   PAGER="$EDITOR"
