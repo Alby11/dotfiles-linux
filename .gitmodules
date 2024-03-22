@@ -29,10 +29,10 @@
 	path = .config/zsh/dracula_zsh-syntax-highlighting
 	url = https://github.com/dracula/zsh-syntax-highlighting.git
 [submodule "/home/alby11/gitdepot/dracula-ranger"]
-	path = /home/alby11/gitdepot/dracula-ranger
+	path = gitdepot/dracula-ranger
 	url = https://github.com/dracula/ranger
 [submodule "/home/alby11/gitdepot/dracula-starship"]
-	path = /home/alby11/gitdepot/dracula-starship
+	path = gitdepot/dracula-starship
 	url = https://github.com/dracula/starship
 [submodule "gitdepot/interception-tools"]
 	path = gitdepot/interception-tools
@@ -49,9 +49,6 @@
 [submodule ".config/lvim"]
 	path = .config/lvim
 	url = git@github.com:Alby11/LunarVim
-; [submodule ".config/nvim"]
-; 	path = .config/nvim
-; 	url = git@github.com:Alby11/dotfiles-neovim
 [submodule "gitdepot/dotfiles-stash"]
 	path = gitdepot/dotfiles-stash
 	url = git@github.com:Alby11/dotfiles-stash.git
@@ -80,7 +77,7 @@
 	path = gitdepot/xxh-plugin-prerun-dotfiles
 	url = https://github.com/Alby11/xxh-plugin-prerun-dotfiles.git
 [submodule "/home/tallonea/.config/bat/syntaxes/sublime-purescript-syntax"]
-	path = /home/tallonea/.config/bat/syntaxes/sublime-purescript-syntax
+	path = .config/bat/syntaxes/sublime-purescript-syntax
 	url = https://github.com/tellnobody1/sublime-purescript-syntax
 [submodule ".config/bat/syntaxes/sublime-purescript-syntax"]
 	path = .config/bat/syntaxes/sublime-purescript-syntax
@@ -92,20 +89,23 @@
 	path = gitdepot/bitwarden_duplicate_cleaner
 	url = https://gist.github.com/0bf7cd39947764896735997056ca74d7.git
 [submodule "/home/tallonea/gitdepot/fzf-tab-completion"]
-	path = /home/tallonea/gitdepot/fzf-tab-completion
+	path = gitdepot/fzf-tab-completion
 	url = git@github.com:lincheney/fzf-tab-completion.git
 [submodule "/home/tallonea/gitdepot/quickemu"]
-	path = /home/tallonea/gitdepot/quickemu
+	path = gitdepot/quickemu
 	url = git@github.com:wimpysworld/quickemu.git
 [submodule "/home/tallonea/gitdepot/fzf"]
-	path = /home/tallonea/gitdepot/fzf
+	path = gitdepot/fzf
 	url = git@github.com:junegunn/fzf.git
 [submodule "/home/tallonea/gitdepot/junegunn_fzf"]
-	path = /home/tallonea/gitdepot/junegunn_fzf
+	path = gitdepot/junegunn_fzf
 	url = git@github.com:junegunn/fzf.git
 [submodule "/home/tallonea/gitdepot/neovim_neovim"]
-	path = /home/tallonea/gitdepot/neovim_neovim
+	path = gitdepot/neovim_neovim
 	url = git@github.com:neovim/neovim.git
 [submodule "/home/tallonea/gitdepot/PowerSehellEditorServices"]
-	path = /home/tallonea/gitdepot/PowerSehellEditorServices
+	path = gitdepot/PowerSehellEditorServices
 	url = git@github.com:PowerShell/PowerShellEditorServices.git
+[submodule "/home/tallonea/.config/nvim"]
+	path = .config/nvim
+	url = https://github.com/Alby11/Launch.nvim.git
