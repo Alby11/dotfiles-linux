@@ -44,31 +44,32 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 GPG_TTY=$(tty)
 export GPG_TTY
 
-# Export GOPATH
-[[ -d ${HOME}/go ]] && export GOPATH=${HOME}/go
-
-# Export JAVA_HOME from default alternative
-if ! javac_path=$(readlink -f "$(which javac)"); then
-  echo "Failed to locate javac"
-  exit 1
-fi
-JAVA_HOME=$(dirname "$(dirname "$javac_path")")
-export JAVA_HOME
-
 # Shell setup for fnm NodeJS Manager
-if CHECK_COMMANDS "fnm"; then
-  if ! CHECK_COMMANDS "node"; then
-    fnm install --lts
-  fi
-  eval "$(fnm env --use-on-cd)"
+if ! CHECK_COMMANDS "fnm"; then
+	cargo install fnm
+fi
+eval "$(fnm env --use-on-cd)"
+if ! CHECK_COMMANDS "node"; then
+	fnm install --lts
 fi
 
 # Antidote ZSH plugin manager
 SOURCE_RCFILE "${ZDOTDIR}"/.zantidote
 
+# Export GOPATH
+[[ -d ${HOME}/go ]] && export GOPATH=${HOME}/go
+
+# Export JAVA_HOME from default alternative
+if ! javac_path=$(readlink -f "$(which javac)"); then
+	echo "Failed to locate javac"
+	exit 1
+fi
+JAVA_HOME=$(dirname "$(dirname "$javac_path")")
+export JAVA_HOME
+
 # set Ls_COLORS if vivid is installed
 if ! CHECK_COMMANDS "vivid"; then
-  cargo install vivid
+	cargo install vivid
 fi
 export LS_COLORS
 LS_COLORS="$(vivid generate catppuccin-mocha)"
@@ -79,10 +80,10 @@ export LANG='en_US.UTF-8'
 # set ZSH as VSCode default shell for the integrated terminal
 # shellcheck disable=SC1090
 if [[ "$TERM_PROGRAM" == "vscode" ]]; then
-  vscode_shell_integration_path=$(code --locate-shell-integration-path zsh)
-  if [[ -f "$vscode_shell_integration_path" ]]; then
-    source "$vscode_shell_integration_path"
-  fi
+	vscode_shell_integration_path=$(code --locate-shell-integration-path zsh)
+	if [[ -f "$vscode_shell_integration_path" ]]; then
+		source "$vscode_shell_integration_path"
+	fi
 fi
 
 # source SSH settings, including agent config
