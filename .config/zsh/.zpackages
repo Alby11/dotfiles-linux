@@ -57,7 +57,6 @@ common_packages=(
     "shellcheck"
     "shfmt"
     "tldr"
-    "vim"
     "wl-clipboard"
     "xclip"
     "zoxide"
