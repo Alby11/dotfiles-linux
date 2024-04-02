@@ -88,3 +88,9 @@
 [submodule ".config/SpaceVim.d"]
 	path = .config/SpaceVim.d
 	url = git@github.com:Alby11/SpaceVim.d.git
+[submodule "/home/tallonea/gitdepot/qqX"]
+	path = /home/tallonea/gitdepot/qqX
+	url = https://github.com/TuxVinyards/qqX.git
+[submodule "/home/tallonea/gitdepot/quickgui"]
+	path = /home/tallonea/gitdepot/quickgui
+	url = https://github.com/quickgui/quickgui.git
