@@ -49,7 +49,7 @@ ohmyzsh/ohmyzsh path:plugins/git-escape-magic
 ohmyzsh/ohmyzsh path:plugins/git-extras
 ohmyzsh/ohmyzsh path:plugins/gitfast
 ohmyzsh/ohmyzsh path:plugins/gitignore
-# ohmyzsh/ohmyzsh                             path:plugins/globalias
+ohmyzsh/ohmyzsh path:plugins/globalias
 ohmyzsh/ohmyzsh path:plugins/gnu-utils
 ohmyzsh/ohmyzsh path:plugins/golang
 # ohmyzsh/ohmyzsh path:plugins/gpg-agent
@@ -130,7 +130,7 @@ eth-p/bat-extras path:src kind:path
 eth-p/bat-extras path:src kind:fpath
 wofr06/lesspipe kind:path
 wofr06/lesspipe kind:fpath
-olets/zsh-abbr path:completions kind:fpath
+# olets/zsh-abbr path:completions kind:fpath
 
 # Editors cloning, build in specific scripts
 neovim/neovim kind:clone
@@ -157,7 +157,7 @@ zsh-users/zsh-completions
 zsh-users/zsh-autosuggestions
 marlonrichert/zsh-autocomplete # Find as you type, then press Tab to insert the top completion or ↓to select another completion.
 
-olets/zsh-abbr # kind:defer # zsh manager for auto-expanding abbreviations
+# olets/zsh-abbr # kind:defer # zsh manager for auto-expanding abbreviations
 
 # djui/alias-tips                             kind:defer
 MichaelAquilina/zsh-you-should-use kind:defer
@@ -174,7 +174,7 @@ psprint/zsh-sweep kind:defer
 sobolevn/wakatime-zsh-plugin
 
 # Enhanced vi mode
-jeffreytse/zsh-vi-mode
+# jeffreytse/zsh-vi-mode
 
 ### THEME
 romkatv/powerlevel10k
