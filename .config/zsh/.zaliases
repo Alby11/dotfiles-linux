@@ -269,17 +269,78 @@ if command -v eza &>/dev/null; then
     --group-directories-first \
     --icons \
     --mounts"
-	alias ll="ls \
+	alias ll="eza \
+    --color-scale-mode=fixed \
+    --color-scale=all \
+    --color=auto \
+    --git \
+    --git-repos \
+    --group-directories-first \
+    --icons \
+    --mounts \
     --group \
     --long \
     --modified \
     --time-style iso"
-	alias lln="ll \
-    --sort=newest"
-	alias la="ll \
+	alias lln="eza \
+    --color-scale-mode=fixed \
+    --color-scale=all \
+    --color=auto \
+    --git \
+    --git-repos \
+    --group-directories-first \
+    --icons \
+    --mounts \
+    --group \
+    --long \
+    --modified \
+    --time-style iso \
+    --sort=newest "
+	alias la="eza \
+    --color-scale-mode=fixed \
+    --color-scale=all \
+    --color=auto \
+    --git \
+    --git-repos \
+    --group-directories-first \
+    --icons \
+    --mounts \
+    --group \
+    --long \
+    --modified \
+    --time-style iso \
     --all"
-	alias lan="la \
+	alias lan="eza \
+    --color-scale-mode=fixed \
+    --color-scale=all \
+    --color=auto \
+    --git \
+    --git-repos \
+    --group-directories-first \
+    --icons \
+    --mounts \
+    --group \
+    --long \
+    --modified \
+    --time-style iso \
+    --all \
     --sort=newest"
+	alias las="eza \
+    --color-scale-mode=fixed \
+    --color-scale=all \
+    --color=auto \
+    --git \
+    --git-repos \
+    --group-directories-first \
+    --icons \
+    --mounts \
+    --group \
+    --long \
+    --modified \
+    --time-style iso \
+    --all \
+    --total-size \
+    --sort=size"
 else
 	alias la="/bin/ls -lAhi --color=auto"
 fi
