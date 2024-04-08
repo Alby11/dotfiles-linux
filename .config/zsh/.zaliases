@@ -710,3 +710,7 @@ fi
 if command -v cargo &>/dev/null; then
 	alias cargoinstalled='cargo install --list'
 fi
+
+if command -v emacs &>/dev/null; then
+  alias emacs='emacs -nw'
+fi

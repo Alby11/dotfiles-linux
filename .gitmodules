@@ -94,6 +94,9 @@
 [submodule "/home/tallonea/gitdepot/quickgui"]
 	path = /home/tallonea/gitdepot/quickgui
 	url = https://github.com/quickgui/quickgui.git
+[submodule "/home/tallonea/.config/doom"]
+	path = /home/tallonea/.config/doom
+	url = git@github.com:Alby11/doomemacs.git
 [submodule "/home/tallonea/.config/emacs"]
 	path = /home/tallonea/.config/emacs
 	url = git@github.com:doomemacs/doomemacs.git
