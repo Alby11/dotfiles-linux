@@ -872,8 +872,15 @@ live_config_reload = true
 ipc_socket = true
 
 [shell]
-program = "/usr/bin/zsh"
-args = ["-l"]
+# program = "/usr/bin/zsh -c tmux"
+# args = ["-l"]
+program = "/usr/bin/tmux"
+args = [
+  "new-session",
+  "-A",
+  "-s",
+  "general"
+]
 
 [bell]
 animation = "EaseOutCirc"
