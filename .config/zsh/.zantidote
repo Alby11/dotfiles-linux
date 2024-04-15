@@ -372,16 +372,10 @@ if antidote path "wofr06/lesspipe" > /dev/null 2>&1; then
 fi
 
 # per-directory-history
-export HISTORY_START_WITH_GLOBAL=false
-export PER_DIRECTORY_HISTORY_TOGGLE='^G'
-export PER_DIRECTORY_HISTORY_PRINT_MODE_CHANGE=true
-export HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"
-export HISTFILE="${ZDOTDIR}/.zsh_history"
-export HISTSIZE=1000000000
-export SAVEHIST=$HISTSIZE
-export HIST_STAMPS="yyyy-mm-dd"
-setopt EXTENDED_HISTORY
-# Omit duplicates and commands that begin with a space from history.
-export HISTCONTROL='ignoreboth'
-export HISTORY_BASE="${ZDOTDIR:-$HOME}/.directory_history"
-export HISTORY_BASE="${ZDOTDIR}/.directory_history"
+if [ -d "$(antidote path ohmyzsh/ohmyzsh)/plugins/per-directory-history" ]; then
+  export HISTORY_START_WITH_GLOBAL=false
+  export PER_DIRECTORY_HISTORY_TOGGLE='^G'
+  export PER_DIRECTORY_HISTORY_PRINT_MODE_CHANGE=true
+  export HISTORY_BASE="${ZDOTDIR:-$HOME}/.directory_history"
+  export HISTORY_BASE="${ZDOTDIR}/.directory_history"
+fi
