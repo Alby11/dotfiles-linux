@@ -18,15 +18,6 @@ non-login: after .zshenv
 
 # Zsh options.
 setopt extendedglob
-export HISTORY_BASE="${ZDOTDIR:-$HOME}/.directory_history"
-export HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"
-export HISTSIZE=1000000000
-export SAVEHIST=$HISTSIZE
-export HIST_STAMPS="yyyy-mm-dd"
-setopt EXTENDED_HISTORY
-# Omit duplicates and commands that begin with a space from history.
-export HISTCONTROL='ignoreboth'
-
 export ENABLE_CORRECTION="true"
 export COMPLETION_WAITING_DOTS="true"
 
