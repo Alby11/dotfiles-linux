@@ -876,10 +876,7 @@ ipc_socket = true
 # args = ["-l"]
 program = "/usr/bin/tmux"
 args = [
-  "new-session",
-  "-A",
-  "-s",
-  "general"
+  "new-session"
 ]
 
 [bell]
