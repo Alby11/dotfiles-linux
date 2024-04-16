@@ -100,3 +100,6 @@
 [submodule "/home/tallonea/.config/emacs"]
 	path = /home/tallonea/.config/emacs
 	url = git@github.com:doomemacs/doomemacs.git
+[submodule ".config/ansible"]
+	path = .config/ansible
+	url = git@github.com:Alby11/ansible.git
