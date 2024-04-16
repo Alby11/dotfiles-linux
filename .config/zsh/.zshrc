@@ -18,16 +18,17 @@ non-login: after .zshenv
 
 # Zsh options.
 setopt extendedglob
-setopt EXTENDED_HISTORY
 export ENABLE_CORRECTION="true"
 export COMPLETION_WAITING_DOTS="true"
-export HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"
 export HISTFILE="${ZDOTDIR}/.zsh_history"
-export HISTSIZE=1000000000
-export SAVEHIST=$HISTSIZE
-export HIST_STAMPS="yyyy-mm-dd-hh-mm"
-# Omit duplicates and commands that begin with a space from history.
-export HISTCONTROL='ignoreboth'
+export HISTSIZE=100000
+export HISTFILESIZE=$HISTSIZE
+export HIST_STAMPS="%d/%m/%y %T"
+setopt EXTENDED_HISTORY
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_FIND_NO_DUPS
+setopt inc_append_history
+setopt share_history
 
 # source colors scripts
 SOURCE_RCFILE "${ZDOTDIR}/.zcolors_catppuccin"
@@ -89,7 +90,7 @@ fi
 SOURCE_RCFILE "${ZDOTDIR}/.zssh"
 
 # set up Ansible config root
-export ANSIBLE_HOME=${HOME}/config/ansible
+export ANSIBLE_HOME=${XDG_CONFIG_HOME}/ansible
 
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh

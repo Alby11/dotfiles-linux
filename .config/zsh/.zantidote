@@ -126,7 +126,7 @@ fi
 
 ### zsh-users/zsh-history-substring-search ###
 if antidote path "zsh-users/zsh-history-substring-search" > /dev/null 2&>1; then
-    export HISTORY_SUBSTRING_SEARCH_FUZZY=1
+    export HISTORY_SUBSTRING_SEARCH_FUZZY=0
     export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="fg=#1e1e2e,bg=#a6e3a1,bold,underline"
     export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND="fg=#1e1e2e,bg=#f38ba8,bold,underline"
     bindkey '^[[A' history-substring-search-up
@@ -138,8 +138,6 @@ if antidote path "zsh-users/zsh-history-substring-search" > /dev/null 2&>1; then
     bindkey -M emacs '^N' history-substring-search-down
     # bindkey -M viins '^P' history-substring-search-up
     # bindkey -M viins '^N' history-substring-search-down
-    bindkey -M viins '^[[A' history-substring-search-up
-    bindkey -M viins '^[[B' history-substring-search-down
     bindkey -M vicmd 'K' history-substring-search-up
     bindkey -M vicmd 'J' history-substring-search-down
 fi
@@ -342,7 +340,7 @@ if antidote path "marlonrichert/zsh-autocomplete" > /dev/null 2>&1; then
     bindkey -M viins '\t' menu-select "$terminfo[kcbt]" menu-select
     bindkey -M menuselect '\t' menu-complete "$terminfo[kcbt]" reverse-menu-complete
     zstyle ':autocomplete:*' add-space \
-        executables aliases functions builtins reserved-words commands
+        history executables aliases functions builtins reserved-words commands
 fi
 
 ### MichaelAquilina/zsh-you-should-use ###
@@ -376,6 +374,5 @@ if [ -d "$(antidote path ohmyzsh/ohmyzsh)/plugins/per-directory-history" ]; then
   export HISTORY_START_WITH_GLOBAL=false
   export PER_DIRECTORY_HISTORY_TOGGLE='^G'
   export PER_DIRECTORY_HISTORY_PRINT_MODE_CHANGE=true
-  export HISTORY_BASE="${ZDOTDIR:-$HOME}/.directory_history"
   export HISTORY_BASE="${ZDOTDIR}/.directory_history"
 fi
