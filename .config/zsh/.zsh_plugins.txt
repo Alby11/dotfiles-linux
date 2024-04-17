@@ -56,7 +56,7 @@ ohmyzsh/ohmyzsh path:plugins/golang
 ohmyzsh/ohmyzsh path:plugins/grc
 ohmyzsh/ohmyzsh path:plugins/history
 ohmyzsh/ohmyzsh path:plugins/history-substring-search
-ohmyzsh/ohmyzsh path:plugins/keychain
+# ohmyzsh/ohmyzsh path:plugins/keychain
 ohmyzsh/ohmyzsh path:plugins/kubectl kind:fpath
 ohmyzsh/ohmyzsh path:plugins/kubectx
 ohmyzsh/ohmyzsh path:plugins/last-working-dir

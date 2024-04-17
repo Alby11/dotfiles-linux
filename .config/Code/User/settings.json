@@ -1,5 +1,5 @@
 {
-    "workbench.iconTheme": "vscode-icons",
+    "workbench.iconTheme": "catppuccin-mocha",
     "atlascode.jira.enabled": true,
     "atlascode.bitbucket.enabled": true,
     "atlascode.jira.jqlList": [
@@ -71,7 +71,9 @@
     "workbench.colorCustomizations": {
         "statusBar.background": "#005f5f",
         "statusBar.noFolderBackground": "#005f5f",
-        "statusBar.debuggingBackground": "#005f5f"
+        "statusBar.debuggingBackground": "#005f5f",
+        "statusBar.foreground": "#ffffff",
+        "statusBar.debuggingForeground": "#ffffff"
     },
     "workbench.startupEditor": "none",
     "vim.autoSwitchInputMethod.obtainIMCmd": "",
@@ -99,7 +101,7 @@
     ],
     "go.toolsManagement.autoUpdate": true,
     "vim.visualstar": true,
-    "catppuccin.accentColor": "lavender",
+    "catppuccin.accentColor": "pink",
     "mssql.resultsFontFamily": "",
     "vim.easymotionMarkerFontWeight": "200",
     "vsicons.dontShowNewVersionMessage": true,
@@ -152,7 +154,7 @@
     ],
     "terminal.external.windowsExec": "windowsterminal.exe",
     "terminal.external.linuxExec": "alacritty",
-    "vim.neovimPath": "/usr/bin/nvim",
+    "vim.neovimPath": "~/.local/bin/nvim",
     "[html]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
@@ -172,5 +174,12 @@
     "terminal.integrated.shell.linux": "/bin/zsh",
     "chat.editor.fontSize": 12,
     "terminal.integrated.defaultProfile.linux": "tmux",
-    "wakatime.apiKey": "waka_c4099ea0-7272-4be6-acd5-5447a606806a"
+    "wakatime.apiKey": "waka_c4099ea0-7272-4be6-acd5-5447a606806a",
+    "vim.enableNeovim": true,
+    "vim.insertModeKeyBindings": [
+        {
+            "before": ["k", "j"],
+            "after": ["<Esc>"]
+        }
+    ]
 }
