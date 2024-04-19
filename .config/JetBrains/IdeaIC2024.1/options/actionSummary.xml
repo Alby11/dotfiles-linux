@@ -1,5 +1,8 @@
 <application>
   <component name="ActionsLocalSummary">
+    <e n="Back">
+      <i c="1" l="1713517860132" />
+    </e>
     <e n="EditorBackSpace">
       <i c="34" l="1713515514880" />
     </e>
@@ -12,6 +15,9 @@
     <e n="EditorLeft">
       <i c="3" l="1713514627853" />
     </e>
+    <e n="EditorPaste">
+      <i c="1" l="1713517818933" />
+    </e>
     <e n="EditorRight">
       <i c="11" l="1713514708559" />
     </e>
@@ -22,7 +28,7 @@
       <i c="1" l="1713515456410" />
     </e>
     <e n="Run">
-      <i c="3" l="1713515468675" />
+      <i c="11" l="1713517563226" />
     </e>
     <e n="RunClass">
       <i c="1" l="1713514522167" />
@@ -31,7 +37,16 @@
       <i c="2" l="1713515523342" />
     </e>
     <e n="SettingsEntryPoint">
-      <i c="1" l="1713515253721" />
+      <i c="3" l="1713517907174" />
+    </e>
+    <e n="SettingsSyncStatusAction">
+      <i c="1" l="1713517705499" />
+    </e>
+    <e n="ShowSettings">
+      <i c="1" l="1713517909630" />
+    </e>
+    <e n="Stop">
+      <i c="1" l="1713515527139" />
     </e>
     <e n="WelcomeScreen.OpenProject">
       <i c="1" l="1713514404555" />
@@ -39,8 +54,14 @@
     <e n="WelcomeScreen.Plugins">
       <i c="1" l="1713515255764" />
     </e>
+    <e n="com.intellij.application.options.schemes.AbstractSchemesPanel$ShowSchemesActionsListAction">
+      <i c="1" l="1713517866375" />
+    </e>
     <e n="com.intellij.ide.projectView.actions.MarkSourceRootAction">
       <i c="1" l="1713514511321" />
+    </e>
+    <e n="com.intellij.ide.ui.OpenEditorSchemeConfigurableAction">
+      <i c="1" l="1713517868548" />
     </e>
     <e n="com.intellij.openapi.actionSystem.AnActionWrapper">
       <i c="5" l="1713515514878" />

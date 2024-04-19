@@ -151,8 +151,8 @@
     "settingsSync.ignoredSettings": [
         "vim.shell"
     ],
-    "terminal.external.windowsExec": "windowsterminal.exe",
-    "terminal.external.linuxExec": "alacritty",
+    "terminal.external.windowsExec": "",
+    "terminal.external.linuxExec": "",
     "vim.neovimPath": "~/.local/bin/nvim",
     "[html]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -168,11 +168,10 @@
         "asvetliakov.vscode-neovim": 1
     },
     "vscode-neovim.neovimExecutablePaths.linux": "lvim",
-    "terminal.explorerKind": "external",
     "terminal.sourceControlRepositoriesKind": "external",
     "terminal.integrated.shell.linux": "/bin/zsh",
     "chat.editor.fontSize": 12,
-    "terminal.integrated.defaultProfile.linux": "tmux",
+    "terminal.integrated.defaultProfile.linux": "bash",
     "wakatime.apiKey": "waka_c4099ea0-7272-4be6-acd5-5447a606806a",
     "vim.enableNeovim": true,
     "vim.insertModeKeyBindings": [
@@ -180,5 +179,17 @@
             "before": ["k", "j"],
             "after": ["<Esc>"]
         }
-    ]
+    ],
+    "terminal.integrated.cursorStyleInactive": "line",
+    "terminal.integrated.enableVisualBell": true,
+    "terminal.integrated.hideOnStartup": "whenEmpty",
+    "terminal.integrated.localEchoExcludePrograms": [
+        "vim",
+        "vi",
+        "nano",
+        "tmux",
+        "nvim"
+    ],
+    "terminal.integrated.persistentSessionScrollback": 1000,
+    "terminal.integrated.smoothScrolling": true
 }

@@ -8,7 +8,8 @@
   </component>
   <component name="VimJumpsSettings">
     <project id="$USER_HOME$/Downloads/activemq">
-      <jump line="19" column="56" filename="$USER_HOME$/Downloads/activemq/src/main/java/com/alby/App.java" />
+      <jump line="19" column="46" filename="$USER_HOME$/Downloads/activemq/src/main/java/com/alby/App.java" />
+      <jump line="18" column="39" filename="$USER_HOME$/Downloads/activemq/src/main/java/com/alby/App.java" />
     </project>
   </component>
   <component name="VimMarksSettings">
@@ -19,6 +20,9 @@
         <mark key="]" line="19" column="47" />
         <mark key="." line="19" column="46" />
         <mark key="^" line="19" column="47" />
+      </file>
+      <file name="/" timestamp="1713517983190">
+        <mark key="&quot;" line="0" column="0" />
       </file>
     </localmarks>
   </component>
