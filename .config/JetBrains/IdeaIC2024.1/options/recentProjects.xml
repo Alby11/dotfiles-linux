@@ -1,0 +1,26 @@
+<application>
+  <component name="RecentProjectsManager">
+    <option name="additionalInfo">
+      <map>
+        <entry key="$USER_HOME$/Downloads/activemq">
+          <value>
+            <RecentProjectMetaInfo frameTitle="activemq – App.java" opened="true" projectWorkspaceId="2fJLq3lZfBc6mlHPPmpEZ0A4ASY">
+              <option name="activationTimestamp" value="1713515511226" />
+              <option name="binFolder" value="$APPLICATION_HOME_DIR$/bin" />
+              <option name="build" value="IC-241.14494.240" />
+              <option name="buildTimestamp" value="1711602720000" />
+              <option name="colorInfo">
+                <RecentProjectColorInfo associatedIndex="8" />
+              </option>
+              <frame x="1340" y="40" width="1400" height="1000" extendedState="6" />
+              <option name="productionCode" value="IC" />
+              <option name="projectOpenTimestamp" value="1713514421975" />
+            </RecentProjectMetaInfo>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="lastOpenedProject" value="$USER_HOME$/Downloads/activemq" />
+    <option name="lastProjectLocation" value="$USER_HOME$/Downloads" />
+  </component>
+</application>

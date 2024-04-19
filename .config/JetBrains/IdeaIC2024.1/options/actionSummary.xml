@@ -1,0 +1,58 @@
+<application>
+  <component name="ActionsLocalSummary">
+    <e n="EditorBackSpace">
+      <i c="34" l="1713515514880" />
+    </e>
+    <e n="EditorDown">
+      <i c="2" l="1713515249807" />
+    </e>
+    <e n="EditorEscape">
+      <i c="4" l="1713515519899" />
+    </e>
+    <e n="EditorLeft">
+      <i c="3" l="1713514627853" />
+    </e>
+    <e n="EditorRight">
+      <i c="11" l="1713514708559" />
+    </e>
+    <e n="Maven.RunBuild">
+      <i c="2" l="1713514497543" />
+    </e>
+    <e n="PasteMultiple">
+      <i c="1" l="1713515456410" />
+    </e>
+    <e n="Run">
+      <i c="3" l="1713515468675" />
+    </e>
+    <e n="RunClass">
+      <i c="1" l="1713514522167" />
+    </e>
+    <e n="SaveAll">
+      <i c="2" l="1713515523342" />
+    </e>
+    <e n="SettingsEntryPoint">
+      <i c="1" l="1713515253721" />
+    </e>
+    <e n="WelcomeScreen.OpenProject">
+      <i c="1" l="1713514404555" />
+    </e>
+    <e n="WelcomeScreen.Plugins">
+      <i c="1" l="1713515255764" />
+    </e>
+    <e n="com.intellij.ide.projectView.actions.MarkSourceRootAction">
+      <i c="1" l="1713514511321" />
+    </e>
+    <e n="com.intellij.openapi.actionSystem.AnActionWrapper">
+      <i c="5" l="1713515514878" />
+    </e>
+    <e n="com.intellij.openapi.fileEditor.impl.tabActions.CloseTab">
+      <i c="1" l="1713514675588" />
+    </e>
+    <e n="com.intellij.openapi.wm.impl.SquareAnActionButton">
+      <i c="2" l="1713514456875" />
+    </e>
+    <e n="com.maddyhome.idea.vim.ui.ex.ExShortcutKeyAction">
+      <i c="2" l="1713515523335" />
+    </e>
+  </component>
+</application>

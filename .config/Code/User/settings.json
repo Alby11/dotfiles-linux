@@ -104,7 +104,6 @@
     "catppuccin.accentColor": "pink",
     "mssql.resultsFontFamily": "",
     "vim.easymotionMarkerFontWeight": "200",
-    "vsicons.dontShowNewVersionMessage": true,
     "trunk.trunkGrayOutNonBlockingIssues": false,
     "yaml.customTags": [
         "!And",
