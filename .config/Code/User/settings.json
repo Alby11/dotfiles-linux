@@ -69,9 +69,9 @@
     "vim.useSystemClipboard": true,
     "vim.leader": " ",
     "workbench.colorCustomizations": {
-        "statusBar.background": "#005f5f",
-        "statusBar.noFolderBackground": "#005f5f",
-        "statusBar.debuggingBackground": "#005f5f",
+        "statusBar.background": "#007acc",
+        "statusBar.noFolderBackground": "#007acc",
+        "statusBar.debuggingBackground": "#007acc",
         "statusBar.foreground": "#ffffff",
         "statusBar.debuggingForeground": "#ffffff"
     },
@@ -149,7 +149,11 @@
     "editor.accessibilityPageSize": 11,
     "workbench.editor.enablePreview": false,
     "settingsSync.ignoredSettings": [
-        "vim.shell"
+        "vim.shell",
+        "-python.createEnvironment.contentButton",
+        "-python.pipenvPath",
+        "-python.poetryPath",
+        "-python.testing.pytestPath"
     ],
     "terminal.external.windowsExec": "",
     "terminal.external.linuxExec": "",
@@ -191,5 +195,13 @@
         "nvim"
     ],
     "terminal.integrated.persistentSessionScrollback": 1000,
-    "terminal.integrated.smoothScrolling": true
+    "terminal.integrated.smoothScrolling": true,
+    "python.createEnvironment.contentButton": "show",
+    "python.languageServer": "Pylance",
+    "python.testing.pytestEnabled": true,
+    "[python]": {
+        "diffEditor.ignoreTrimWhitespace": false,
+        "editor.formatOnType": true,
+        "editor.wordBasedSuggestions": "off"
+    }
 }
