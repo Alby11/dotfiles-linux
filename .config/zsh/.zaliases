@@ -374,11 +374,14 @@ if command -v docker &>/dev/null; then
 	alias dk='docker'
 	alias dke='docker exec'
 	alias dkeit='docker exec --interactive --tty'
-	alias dkh='docker search'
+  alias dkh='docker history'
+  alias dkhh='docker history --human'
+  alias dkhnt='docker history --no-trunc'
 	alias dki='docker image'
 	alias dkii='docker image inspect'
 	alias dkin='docker login'
 	alias dkis='docker images'
+	alias dkI='docker inspect'
 	alias dkk='docker-compose'
 	alias dkkc='docker-compose scale'
 	alias dkkc='docker-compose restart'
@@ -405,6 +408,7 @@ if command -v docker &>/dev/null; then
 	alias dksp='docker service update'
 	alias dksps='docker service ps'
 	alias dkss='docker service scale'
+	alias dkS='docker search'
 	alias dkt='docker stack'
 	alias dktc='docker stack config'
 	alias dktls='docker stack ls'
@@ -420,7 +424,6 @@ if command -v docker &>/dev/null; then
 	alias dkxp='docker context update'
 	alias dkxs='docker context show'
 	alias dkxu='docker context use'
-	alias dky='docker inspect'
 fi
 
 if command -v ansible &>/dev/null; then
