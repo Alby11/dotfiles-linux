@@ -1,57 +1,45 @@
 # vim: filetype=zsh
 
-### SSH AGENT BLOCK
-# LOAD SSH AFTER EACH REBOOT (RE-USES SAME SSH-AGENT INSTANCE)
+### SSH Agent Block
+# Load SSH keys using keychain after each reboot, reusing the same ssh-agent instance
 
-# Set SSH_ASKPASS
-if CHECK_COMMANDS ssh-askpass; then
-	export SUDO_ASKPASS
-	SUDO_ASKPASS=$(which ssh-askpass)
+# Set SSH_ASKPASS if ssh-askpass is available
+if type ssh-askpass >/dev/null 2>&1; then
+    export SUDO_ASKPASS=$(which ssh-askpass)
 fi
 
-# if into an SSH session, dont'configure the agent
+# If in an SSH session, don't configure the agent
 [[ -n $SSH_CONNECTION ]] && return 1
 
 # Function to install keychain if not present
 install_keychain() {
-	if type apt >/dev/null 2>&1; then
-		sudo apt update -qq && sudo apt install keychain -y >/dev/null
-	elif type dnf >/dev/null 2>&1; then
-		sudo dnf install keychain -y >/dev/null
-	elif type pacman >/dev/null 2>&1; then
-		sudo pacman -Sy keychain --noconfirm >/dev/null
-	else
-		return 1 # Fail silently if package manager is not recognized
-	fi
+    local pkg_manager_install_cmd
+    if type apt >/dev/null 2>&1; then
+        pkg_manager_install_cmd="sudo apt update -qq && sudo apt install keychain -y"
+    elif type dnf >/dev/null 2>&1; then
+        pkg_manager_install_cmd="sudo dnf install keychain -y"
+    elif type pacman >/dev/null 2>&1; then
+        pkg_manager_install_cmd="sudo pacman -Sy keychain --noconfirm"
+    else
+        echo "Package manager not supported."
+        return 1
+    fi
+    eval $pkg_manager_install_cmd >/dev/null 2>&1 || return 1
 }
 
-# Check for keychain and install if missing, all silently
+# Check for keychain and install if missing
 if ! type keychain >/dev/null 2>&1; then
-	install_keychain >/dev/null 2>&1 || return 1
+    install_keychain || return 1
 fi
 
-export SSH_ENV="${HOME}/.ssh/agent-environment"
-
-# Function to start the SSH agent and add keys quietly
-start_agent() {
-	/usr/bin/ssh-agent | sed 's/^echo/#echo/' >"${SSH_ENV}" 2>/dev/null
-	chmod 600 "${SSH_ENV}" 2>/dev/null
-	source "${SSH_ENV}" >/dev/null 2>&1
-
-	keychain_files=$(find "${HOME}/.ssh" -type f -name 'id_*' ! -name '*.pub' -print 2>/dev/null | xargs)
-	/usr/bin/keychain --quiet --eval --agents ssh "$keychain_files" >/dev/null 2>&1
+# Function to start the keychain and load SSH keys
+start_keychain() {
+    local keychain_files=$(find "${HOME}/.ssh" -type f -name 'id_*' ! -name '*.pub' -print)
+    keychain --quiet --ignore-missing --eval --agents ssh $keychain_files
 }
 
-# Load or start the SSH agent, all quietly
-if [[ -f "${SSH_ENV}" ]]; then
-	source "${SSH_ENV}" >/dev/null 2>&1
-	# Check if the SSH agent is running; if not, start a new agent, all silently.
-	if ! ps -p "${SSH_AGENT_PID}" >/dev/null 2>&1; then
-		start_agent
-	fi
-else
-	start_agent
-fi
+# Start or use the existing keychain
+start_keychain
 
 # Cleanup
-unset -f start_agent install_keychain
+unset -f start_keychain install_keychain
