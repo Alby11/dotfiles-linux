@@ -16,6 +16,11 @@ login: after .zprofile and before .zlogin
 non-login: after .zshenv
 """
 
+# Load variables from .env
+set -o allexport
+source ${ZDOTDIR}/.env
+set +o allexport
+
 # Zsh options.
 setopt extendedglob
 export ENABLE_CORRECTION="true"
