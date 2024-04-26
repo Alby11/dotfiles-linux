@@ -18,7 +18,7 @@ non-login: after .zshenv
 
 # Load variables from .env
 set -o allexport
-source ${ZDOTDIR}/.env
+source ${ZDOTDIR}/.env >/dev/null 2>&1 
 set +o allexport
 
 # Zsh options.
