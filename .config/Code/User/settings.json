@@ -180,8 +180,13 @@
     "vim.enableNeovim": true,
     "vim.insertModeKeyBindings": [
         {
-            "before": ["k", "j"],
-            "after": ["<Esc>"]
+            "before": [
+                "k",
+                "j"
+            ],
+            "after": [
+                "<Esc>"
+            ]
         }
     ],
     "terminal.integrated.cursorStyleInactive": "line",
@@ -203,5 +208,11 @@
         "diffEditor.ignoreTrimWhitespace": false,
         "editor.formatOnType": true,
         "editor.wordBasedSuggestions": "off"
-    }
+    },
+    "[markdown]": {
+        "editor.defaultFormatter": "yzhang.markdown-all-in-one"
+    },
+    "editor.tabSize": 2,
+    "editor.formatOnSave": true,
+    "notebook.formatOnSave.enabled": true
 }
