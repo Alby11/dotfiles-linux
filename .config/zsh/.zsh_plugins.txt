@@ -16,7 +16,7 @@ ohmyzsh/ohmyzsh path:plugins/autopep8 kind:fpath
 ohmyzsh/ohmyzsh path:plugins/aws
 ohmyzsh/ohmyzsh path:plugins/azure
 ohmyzsh/ohmyzsh path:plugins/battery
-# ohmyzsh/ohmyzsh                             path:plugins/brew
+# ohmyzsh/ohmyzsh path:plugins/brew
 ohmyzsh/ohmyzsh path:plugins/colemak kind:zsh
 ohmyzsh/ohmyzsh path:plugins/colored-man-pages
 ohmyzsh/ohmyzsh path:plugins/colorize
@@ -60,7 +60,7 @@ ohmyzsh/ohmyzsh path:plugins/history-substring-search
 ohmyzsh/ohmyzsh path:plugins/kubectl kind:fpath
 ohmyzsh/ohmyzsh path:plugins/kubectx
 ohmyzsh/ohmyzsh path:plugins/last-working-dir
-# ohmyzsh/ohmyzsh                             path:plugins/magic-enter
+# ohmyzsh/ohmyzsh path:plugins/magic-enter
 ohmyzsh/ohmyzsh path:plugins/man
 ohmyzsh/ohmyzsh path:plugins/minikube
 ohmyzsh/ohmyzsh path:plugins/mvn
@@ -85,12 +85,12 @@ ohmyzsh/ohmyzsh path:plugins/safe-paste
 ohmyzsh/ohmyzsh path:plugins/shrink-path
 ohmyzsh/ohmyzsh path:plugins/sprunge
 # ohmyzsh/ohmyzsh path:plugins/ssh
-# ohmyzsh/ohmyzsh                             path:plugins/ssh-agent
+# ohmyzsh/ohmyzsh path:plugins/ssh-agent
 ohmyzsh/ohmyzsh path:plugins/starship
 ohmyzsh/ohmyzsh path:plugins/sudo
 ohmyzsh/ohmyzsh path:plugins/systemadmin
 ohmyzsh/ohmyzsh path:plugins/systemd
-# ohmyzsh/ohmyzsh                             path:plugins/thefuck
+# ohmyzsh/ohmyzsh path:plugins/thefuck
 ohmyzsh/ohmyzsh path:plugins/timer
 ohmyzsh/ohmyzsh path:plugins/tmux
 ohmyzsh/ohmyzsh path:plugins/tmuxinator
@@ -99,7 +99,7 @@ ohmyzsh/ohmyzsh path:plugins/transfer
 ohmyzsh/ohmyzsh path:plugins/ubuntu
 ohmyzsh/ohmyzsh path:plugins/universalarchive
 ohmyzsh/ohmyzsh path:plugins/urltools
-# ohmyzsh/ohmyzsh                             path:plugins/vi-mode
+# ohmyzsh/ohmyzsh path:plugins/vi-mode
 ohmyzsh/ohmyzsh path:plugins/virtualenvwrapper
 ohmyzsh/ohmyzsh path:plugins/vscode
 ohmyzsh/ohmyzsh path:plugins/web-search
@@ -118,14 +118,14 @@ ohmyzsh/ohmyzsh path:lib/key-bindings.zsh
 belak/zsh-utils path:completion
 sorin-ionescu/prezto path:modules/completion
 
-srijanshetty/zsh-pip-completion             path:src kind:fpath
-3v1n0/zsh-bash-completions-fallback         path:src kind:fpath
+srijanshetty/zsh-pip-completion path:src kind:fpath
+3v1n0/zsh-bash-completions-fallback path:src kind:fpath
 MenkeTechnologies/zsh-cargo-completion path:src kind:fpath
 greymd/docker-zsh-completion path:src kind:fpath
-lukechilds/zsh-better-npm-completion        path:src kind:fpath
-# vasyharan/zsh-brew-services                 path:src kind:fpath
+lukechilds/zsh-better-npm-completion path:src kind:fpath
+# vasyharan/zsh-brew-services path:src kind:fpath
 
-sunlei/zsh-ssh path:src kind:fpath
+# sunlei/zsh-ssh path:src kind:fpath
 eth-p/bat-extras path:src kind:path
 eth-p/bat-extras path:src kind:fpath
 wofr06/lesspipe kind:path
@@ -150,7 +150,7 @@ catppuccin/tty path:src/mocha.sh
 
 # rummik/zsh-tailf #tail -f with prefixed newlines instead of trailing
 # tom-doerr/zsh_codex
-# johannchangpro/zsh-interactive-cd
+johannchangpro/zsh-interactive-cd
 zsh-users/zsh-history-substring-search
 zdharma-continuum/fast-syntax-highlighting
 zsh-users/zsh-completions
