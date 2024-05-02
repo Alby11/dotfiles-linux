@@ -1,6 +1,6 @@
 # vim: filetype=ripgreprc
 # Show 1 line of context around each match (the line with the match, plus one line before and after).
---context=1
+# --context=1
 
 # Only print the paths with matched files, not the matched lines.
 # --files
@@ -9,7 +9,7 @@
 --follow
 
 # Include hidden files and directories in the search.
---hidden
+# --hidden
 
 # Perform case-insensitive searching. If a pattern includes an uppercase letter, it is case-sensitive.
 --ignore-case
@@ -30,4 +30,4 @@
 --vimgrep
 
 # Print the path with the matched lines.
-# --with-filename
+--with-filename
