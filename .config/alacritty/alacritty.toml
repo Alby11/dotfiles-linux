@@ -901,10 +901,10 @@ thickness = 0.15
 [font]
 size = 9.0
 builtin_box_drawing = true
-normal = { family = "MesloLGS NF", style = "Regular" }
-italic = { family = "MesloLGS NF", style = "Regular Italic" }
-bold = { family = "MesloLGS NF", style = "Bold" }
-bold_italic = { family = "MesloLGS NF", style = "Bold Italic" }
+normal = { family = "Fira Code", style = "Retina" }
+italic = { family = "Fira Code", style = "Light" }
+bold = { family = "Fira Code", style = "Bold" }
+bold_italic = { family = "Fira Code", style = "SemiBold" }
 
 [mouse]
 hide_when_typing = true
