@@ -75,6 +75,7 @@ fedora_packages=(
     "chafa"
     "clang"
     "fd-find"
+    "fira-code-fonts"
     "golang"
     "libcurl-devel"
     "libnotify"
@@ -86,14 +87,16 @@ fedora_packages=(
 )
 
 fedora_exclusions=(
-  "golang"
-  "xorg-x11-server-Xwayland"
-  "xsel"
+    "fira-code-fonts"
+    "golang"
+    "xorg-x11-server-Xwayland"
+    "xsel"
 )
 
 ubuntu_packages=(
     "clang-format"
     "exa"
+    "fonts-firacode"
     "gir1.2-wnck-3.0"
     "golang-go"
     "libimage-exiftool-perl"
@@ -104,10 +107,11 @@ ubuntu_packages=(
 )
 
 ubuntu_exclusions=(
-  "golang"
-  "golang-go"
-  "xsel"
-  "xwayland"
+    "fonts-firacode"
+    "golang"
+    "golang-go"
+    "xsel"
+    "xwayland"
 )
 
 arch_packages=(
@@ -126,6 +130,7 @@ arch_packages=(
     "ripgrep"
     "shellcheck"
     "shfmt"
+    "ttf-fira-code"
     "wl-clipboard-x11"
     "xclip"
     "xsel"
@@ -133,72 +138,73 @@ arch_packages=(
 )
 
 arch_exclusions=(
-  "gnome-tweaks"
-  "go"
-  "wl-clipboard-x11"
-  "xclip"
-  "xsel"
+    "ttf-fira-code"
+    "gnome-tweaks"
+    "go"
+    "wl-clipboard-x11"
+    "xclip"
+    "xsel"
 )
 
 # Define cargo packages (those with the same name on both Fedora and Ubuntu)
 cargo_packages=(
-  "fnm"
-  "gitui"
-  "grc-rs"
-  "lolcrab"
-  "rbw"
-  "vivid"
+    "fnm"
+    "gitui"
+    "grc-rs"
+    "lolcrab"
+    "rbw"
+    "vivid"
 )
 
 cargo_exclusions=(
-  "gitui"
-  "lolcrab"
-  "rbw"
+    "gitui"
+    "lolcrab"
+    "rbw"
 )
 
 # Define npm packages (those with the same name on both Fedora and Ubuntu)
 npm_packages=(
-  "@fsouza/prettierd"
-  "eslint"
-  "fixjson"
-  "neovim"
-  "pyright"
-  "remark"
-  "remark-cli"
-  "remark-stringify"
-  "remark-frontmatter"
-  "solhint"
-  "wcwidth"
+    "@fsouza/prettierd"
+    "eslint"
+    "fixjson"
+    "neovim"
+    "pyright"
+    "remark"
+    "remark-cli"
+    "remark-stringify"
+    "remark-frontmatter"
+    "solhint"
+    "wcwidth"
 )
 
 npm_exclusions=(
-  "@fsouza/prettierd"
-  "eslint"
-  "pyright"
-  "solhint"
+    "@fsouza/prettierd"
+    "eslint"
+    "pyright"
+    "solhint"
 )
 
 # Define pip packages (those with the same name on both Fedora and Ubuntu)
 pip_packages=(
-  "autoenv"
-  "black"
-  "flake8"
-  "isort"
-  "openai"
-  "pynvim"
-  "pylint"
-  "thefuck"
-  "virtualenv"
-  "virtualenvwrapper"
-  "yapf"
+    "autoenv"
+    "black"
+    "flake8"
+    "isort"
+    "openai"
+    "pynvim"
+    "pylint"
+    "thefuck"
+    "virtualenv"
+    "virtualenvwrapper"
+    "yapf"
 )
 
 pip_exclusions=(
-  "autoenv"
-  "black"
-  "flake8"
-  "openai"
-  "thefuck"
+    "autoenv"
+    "black"
+    "flake8"
+    "openai"
+    "thefuck"
 )
 
 # Check for SSH connection and filter packages if necessary
