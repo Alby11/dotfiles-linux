@@ -25,9 +25,9 @@
     "security.workspace.trust.untrustedFiles": "open",
     "GitLive.Issue tracker integration": "Disabled",
     "editor.fontSize": 12,
-    "debug.console.fontFamily": "",
+    "debug.console.fontFamily": "Fira Code Retina, consolas, monospace",
     "debug.console.fontSize": 0,
-    "editor.fontFamily": "FiraCode Nerd Font, consolas, monospace",
+    "editor.fontFamily": "",
     "[jsonc]": {
         "editor.defaultFormatter": "vscode.json-language-features"
     },
@@ -214,5 +214,15 @@
     },
     "editor.tabSize": 2,
     "editor.formatOnSave": true,
-    "notebook.formatOnSave.enabled": true
+    "notebook.formatOnSave.enabled": true,
+    "editor.codeLensFontFamily": "Fira Code Retina, consolas, monospace",
+    "editor.inlineSuggest.fontFamily": "Fira Code Retina, consolas, monospace",
+    "chat.editor.fontFamily": "Fira Code Retina, consolas, monospace",
+    "errorLens.fontSize": "12",
+    "errorLens.fontStyleItalic": true,
+    "errorLens.enabledDiagnosticLevels": [
+        "warning",
+        "info",
+        "error"
+    ]
 }
