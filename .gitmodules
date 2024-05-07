@@ -103,3 +103,6 @@
 [submodule ".config/ansible"]
 	path = .config/ansible
 	url = git@github.com:Alby11/ansible.git
+[submodule "/home/tallonea/gitdepot/flameshot"]
+	path = /home/tallonea/gitdepot/flameshot
+	url = git@github.com:flameshot-org/flameshot.git
