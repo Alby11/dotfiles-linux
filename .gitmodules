@@ -73,9 +73,6 @@
 [submodule "gitdepot/bitwarden_duplicate_cleaner"]
 	path = gitdepot/bitwarden_duplicate_cleaner
 	url = https://gist.github.com/0bf7cd39947764896735997056ca74d7.git
-[submodule "/home/tallonea/gitdepot/quickemu"]
-	path = gitdepot/quickemu
-	url = git@github.com:wimpysworld/quickemu.git
 [submodule "/home/tallonea/gitdepot/PowerSehellEditorServices"]
 	path = gitdepot/PowerSehellEditorServices
 	url = git@github.com:PowerShell/PowerShellEditorServices.git
@@ -106,3 +103,6 @@
 [submodule "/home/tallonea/gitdepot/flameshot"]
 	path = /home/tallonea/gitdepot/flameshot
 	url = git@github.com:flameshot-org/flameshot.git
+[submodule "gitdepot/remmina"]
+	path = gitdepot/remmina
+	url = git@github.com:FreeRDP/Remmina.git
