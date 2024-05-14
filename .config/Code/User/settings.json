@@ -16,7 +16,7 @@
         "./schemas/ArchyFlow.schema.json": "*Flow.yaml",
         "./schemas/ArchyCommon.schema.json": "common*.yaml",
         "./schemas/ArchyBotNlu.schema.json": "*BotNlu.yaml",
-        "file:///home/tallonea/.vscode-server/extensions/atlassian.atlascode-3.0.10/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
+        "file:///home/tallonea/.vscode/extensions/atlassian.atlascode-3.0.10/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
     },
     "workbench.colorTheme": "Catppuccin Mocha",
     "redhat.telemetry.enabled": true,
