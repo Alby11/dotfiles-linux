@@ -144,7 +144,9 @@
     "vs-kubernetes": {
         "vscode-kubernetes.kubectl-path.linux": "/home/alby11/.local/state/vs-kubernetes/tools/kubectl/kubectl",
         "vscode-kubernetes.minikube-path.linux": "/home/alby11/.local/state/vs-kubernetes/tools/minikube/linux-amd64/minikube",
-        "vscode-kubernetes.helm-path.linux": "/home/alby11/.local/state/vs-kubernetes/tools/helm/linux-amd64/helm"
+        "vscode-kubernetes.helm-path.linux": "/home/alby11/.local/state/vs-kubernetes/tools/helm/linux-amd64/helm",
+        "vscode-kubernetes.minikube-path-linux": "/home/tallonea/.local/state/vs-kubernetes/tools/minikube/linux-amd64/minikube",
+        "vscode-kubernetes.helm-path-linux": "/home/tallonea/.local/state/vs-kubernetes/tools/helm/linux-amd64/helm"
     },
     "editor.accessibilityPageSize": 11,
     "workbench.editor.enablePreview": false,

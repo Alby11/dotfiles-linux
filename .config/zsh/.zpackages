@@ -53,6 +53,7 @@ common_packages=(
     "luarocks"
     "keychain"
     "python3-pip"
+    "python3-markdown"
     "ripgrep"
     "shellcheck"
     "shfmt"
@@ -65,6 +66,7 @@ common_packages=(
 common_exclusions=(
   "direnv"
   "gnome-tweaks"
+  "python3-markdown"
   "wl-clipboard"
   "xclip"
 )
@@ -190,6 +192,7 @@ pip_packages=(
     "black"
     "flake8"
     "isort"
+    "jwcrypto"
     "openai"
     "pynvim"
     "pylint"
