@@ -158,7 +158,7 @@
         "-python.testing.pytestPath"
     ],
     "terminal.external.windowsExec": "",
-    "terminal.external.linuxExec": "",
+    "terminal.external.linuxExec": "alacritty",
     "vim.neovimPath": "~/.local/bin/nvim",
     "[html]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -177,7 +177,7 @@
     "terminal.sourceControlRepositoriesKind": "external",
     "terminal.integrated.shell.linux": "/bin/zsh",
     "chat.editor.fontSize": 12,
-    "terminal.integrated.defaultProfile.linux": "bash",
+    "terminal.integrated.defaultProfile.linux": "tmux",
     "wakatime.apiKey": "waka_c4099ea0-7272-4be6-acd5-5447a606806a",
     "vim.enableNeovim": true,
     "vim.insertModeKeyBindings": [
@@ -226,5 +226,6 @@
         "warning",
         "info",
         "error"
-    ]
+    ],
+    "bashIde.globPattern": "**/*@(.sh|.inc|.bash|.zsh|.command)"
 }
