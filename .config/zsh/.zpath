@@ -37,6 +37,7 @@ fpath=(
 )
 # Initialize the Zsh completion system
 # This enables advanced command-line completion features
+autoload bashcompinit && bashcompinit
 autoload -Uz compinit && zmodload zsh/complist ; compinit
 _comp_options+=(globdots) # With hidden files
 autoload -Uz promptinit && promptinit
