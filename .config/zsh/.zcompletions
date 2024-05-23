@@ -1,0 +1,4 @@
+# vim: filetype=zsh
+
+# awscli autocomplete
+complete -C "$(which aws_completer)" aws

@@ -1,3 +1,0 @@
-#compdef aws
-
-complete -C '/usr/bin/aws_completer' aws 

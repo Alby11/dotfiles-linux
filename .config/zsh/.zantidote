@@ -1,5 +1,11 @@
 # vim: filetype=zsh
 
+#configurations prior antidote loading
+zstyle :omz:plugins:keychain options --quiet
+zstyle :omz:plugins:keychain agents gpg,ssh
+zstyle :omz:plugins:keychain identities id_ed25519 id_rsa
+# zstyle :omz:plugins:ssh-agent agent-forwarding yes
+# zstyle :omz:plugins:ssh-agent helper ssh-askpass
 
 # Set the name of the static .zsh plugins file antidote will generate.
 zsh_plugins=${ZDOTDIR:-~}/.zsh_plugins.zsh
