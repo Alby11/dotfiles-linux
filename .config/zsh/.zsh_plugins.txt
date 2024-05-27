@@ -106,7 +106,7 @@ ohmyzsh/ohmyzsh path:plugins/web-search
 ohmyzsh/ohmyzsh path:plugins/yum
 ohmyzsh/ohmyzsh path:plugins/zbell
 ohmyzsh/ohmyzsh path:plugins/zoxide
-ohmyzsh/ohmyzsh path:plugins/zsh-interactive-cd
+# ohmyzsh/ohmyzsh path:plugins/zsh-interactive-cd
 ohmyzsh/ohmyzsh path:plugins/zsh-navigation-tools
 ohmyzsh/ohmyzsh path:lib/completion.zsh
 ohmyzsh/ohmyzsh path:lib/functions.zsh
@@ -115,22 +115,19 @@ ohmyzsh/ohmyzsh path:lib/history.zsh
 ohmyzsh/ohmyzsh path:lib/key-bindings.zsh
 
 # now, configure and run compinit to initialize completions
-# belak/zsh-utils path:completion
-# sorin-ionescu/prezto path:modules/completion
+belak/zsh-utils path:completion
+sorin-ionescu/prezto path:modules/completion
 
 srijanshetty/zsh-pip-completion path:src kind:fpath
 3v1n0/zsh-bash-completions-fallback path:src kind:fpath
 MenkeTechnologies/zsh-cargo-completion path:src kind:fpath
 greymd/docker-zsh-completion path:src kind:fpath
 lukechilds/zsh-better-npm-completion path:src kind:fpath
-# vasyharan/zsh-brew-services path:src kind:fpath
 
-sunlei/zsh-ssh
 eth-p/bat-extras path:src kind:path
 eth-p/bat-extras path:src kind:fpath
 wofr06/lesspipe kind:path
 wofr06/lesspipe kind:fpath
-# olets/zsh-abbr path:completions kind:fpath
 
 # Editors cloning, build in specific scripts
 neovim/neovim kind:clone
@@ -140,25 +137,12 @@ vim/vim kind:clone
 xPMo/zsh-ls-colors
 catppuccin/tty path:src/mocha.sh
 
-# FZF related plugins
-# unixorn/fzf-zsh-plugin branch:main
-# unixorn/fzf-zsh-plugin
-# Aloxaf/fzf-tab
-# lincheney/fzf-tab-completion path:zsh/fzf-zsh-completion.sh
-# mattmc3/zman #Use fzf to quickly browse Zsh manuals
-
-# rummik/zsh-tailf #tail -f with prefixed newlines instead of trailing
-# tom-doerr/zsh_codex
-johannchangpro/zsh-interactive-cd
 zsh-users/zsh-history-substring-search
-zdharma-continuum/fast-syntax-highlighting
 zsh-users/zsh-completions
-# zsh-users/zsh-autosuggestions
-marlonrichert/zsh-autocomplete # Find as you type, then press Tab to insert the top completion or ↓to select another completion.
+zsh-users/zsh-autosuggestions
 
 # olets/zsh-abbr # kind:defer # zsh manager for auto-expanding abbreviations
 
-# djui/alias-tips                             kind:defer
 MichaelAquilina/zsh-you-should-use kind:defer
 psprint/zsh-sweep kind:defer
 
@@ -177,3 +161,7 @@ sobolevn/wakatime-zsh-plugin
 
 ### THEME
 romkatv/powerlevel10k
+
+### plugins that must be called lastly
+zdharma-continuum/fast-syntax-highlighting
+marlonrichert/zsh-autocomplete # Find as you type, then press Tab to insert the top completion or ↓to select another completion.
