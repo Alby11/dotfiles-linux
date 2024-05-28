@@ -97,7 +97,6 @@ fi
 # set up Ansible config root
 export ANSIBLE_HOME=${XDG_CONFIG_HOME}/ansible
 
-# source SSH settings, including agent config
 # SOURCE_RCFILE "${ZDOTDIR}/.zcompletions"
 
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.

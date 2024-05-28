@@ -49,10 +49,10 @@ ohmyzsh/ohmyzsh path:plugins/git-escape-magic
 ohmyzsh/ohmyzsh path:plugins/git-extras
 ohmyzsh/ohmyzsh path:plugins/gitfast
 ohmyzsh/ohmyzsh path:plugins/gitignore
-ohmyzsh/ohmyzsh path:plugins/globalias
+# ohmyzsh/ohmyzsh path:plugins/globalias
 ohmyzsh/ohmyzsh path:plugins/gnu-utils
 ohmyzsh/ohmyzsh path:plugins/golang
-ohmyzsh/ohmyzsh path:plugins/gpg-agent
+# ohmyzsh/ohmyzsh path:plugins/gpg-agent
 ohmyzsh/ohmyzsh path:plugins/grc
 ohmyzsh/ohmyzsh path:plugins/history
 ohmyzsh/ohmyzsh path:plugins/history-substring-search
