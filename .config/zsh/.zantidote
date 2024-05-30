@@ -166,52 +166,6 @@ fi
 
 ### FZF BLOCK ###
 
-### unixorn/fzf-zsh-plugin ###
-if antidote path "unixorn/fzf-zsh-plugin" > /dev/null 2&>1; then
-    # Preview file content using bat (https://github.com/sharkdp/bat)
-    export FZF_CTRL_T_OPTS="
-      --preview 'bat -n --color=always {}'
-      --bind 'ctrl-/:change-preview-window(down|hidden|)'"
-    # CTRL-/ to toggle small preview window to see the full command
-    # CTRL-Y to copy the command into clipboard using pbcopy
-    export FZF_CTRL_R_OPTS="
-      --preview 'echo {}' --preview-window up:3:hidden:wrap
-      --bind 'ctrl-/:toggle-preview'
-      --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
-      --color header:italic
-      --header 'Press CTRL-Y to copy command into clipboard'"
-    # Print tree structure in the preview window
-    export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
-    # Use ~~ as the trigger sequence instead of the default **
-    export FZF_COMPLETION_TRIGGER='~~'
-    # Options to fzf command
-    export FZF_COMPLETION_OPTS='--border --info=inline'
-    # Use fd (https://github.com/sharkdp/fd) for listing path candidates.
-    # - The first argument to the function ($1) is the base path to start traversal
-    # - See the source code (completion.{bash,zsh}) for the details.
-    _fzf_compgen_path() {
-      fd --hidden --follow --exclude ".git" . "$1"
-    }
-    # Use fd to generate the list for directory completion
-    _fzf_compgen_dir() {
-      fd --type d --hidden --follow --exclude ".git" . "$1"
-    }
-    # Advanced customization of fzf options via _fzf_comprun function
-    # - The first argument to the function is the name of the command.
-    # - You should make sure to pass the rest of the arguments to fzf.
-    _fzf_comprun() {
-      local command=$1
-      shift
-
-      case "$command" in
-        cd)           fzf --preview 'tree -C {} | head -200'   "$@" ;;
-        export|unset) fzf --preview "eval 'echo \$'{}"         "$@" ;;
-        ssh)          fzf --preview 'dig {}'                   "$@" ;;
-        *)            fzf --preview 'bat -n --color=always {}' "$@" ;;
-      esac
-    }
-    export LESSOPEN='| lessfilter-fzf %s'
-fi
 
 # if [ "$(command -v fzf > /dev/null 2&>1)" ] && [ "$(command -v rg > /dev/null 2&>1)" ]; then 
 if [ "$(command -v fzf)" ] && [ "$(command -v rg)" ]; then 
@@ -254,7 +208,7 @@ if antidote path "aloxaf/fzf-tab" > /dev/null 2>&1; then
     zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
     # switch group using `<` and `>`
     zstyle ':fzf-tab:*' switch-group '<' '>'
-    # tmux
+    # tmuxtlc-service@lfimpianti.engu
     zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
     # apply to all command
     zstyle ':fzf-tab:*' popup-min-size 100 30
@@ -262,27 +216,6 @@ if antidote path "aloxaf/fzf-tab" > /dev/null 2>&1; then
     zstyle ':fzf-tab:complete:diff:*' popup-min-size 80 12
 fi
 
-### lincheney/fzf-tab-completion
-if antidote path "lincheney/fzf-tab-completion" > /dev/null 2>&1; then
-    bindkey '^I' fzf_completion
-    bindkey -M emacs '^I' fzf_completion
-    bindkey -M viins '^I' fzf_completion
-    # only for git
-    # zstyle ':completion:*:*:git:*' fzf-search-display true
-    # or for everything
-    zstyle ':completion:*' fzf-search-display true
-    # press ctrl-r to repeat completion *without* accepting i.e. reload the completion
-    # press right to accept the completion and retrigger it
-    # press alt-enter to accept the completion and run it
-    keys=(
-        ctrl-r:'repeat-fzf-completion'
-        right:accept:'repeat-fzf-completion'
-        alt-enter:accept:'zle accept-line'
-    )
-    zstyle ':completion:*' fzf-completion-keybindings "${keys[@]}"
-    # also accept and retrigger completion when pressing / when completing cd
-    zstyle ':completion::*:cd:*' fzf-completion-keybindings "${keys[@]}" /:accept:'repeat-fzf-completion'
-fi
 ### END OF FZF BLOCK ###
 
 # per-directory-history
