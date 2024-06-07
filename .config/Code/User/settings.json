@@ -149,7 +149,6 @@
         "vscode-kubernetes.helm-path-linux": "/home/tallonea/.local/state/vs-kubernetes/tools/helm/linux-amd64/helm"
     },
     "editor.accessibilityPageSize": 11,
-    "workbench.editor.enablePreview": false,
     "settingsSync.ignoredSettings": [
         "vim.shell",
         "-python.createEnvironment.contentButton",
@@ -230,5 +229,8 @@
     "bashIde.globPattern": "**/*@(.sh|.inc|.bash|.zsh|.command)",
     "[dockerfile]": {
         "editor.defaultFormatter": "ms-azuretools.vscode-docker"
+    },
+    "amazonQ.suppressPrompts": {
+        "codeWhispererConnectionExpired": true
     }
 }
