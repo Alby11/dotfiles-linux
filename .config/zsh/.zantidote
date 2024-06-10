@@ -78,35 +78,35 @@ export ZSH_DOTENV_PROMPT=false
 if antidote path "olets/zsh-abbr" > /dev/null 2&>1; then
   # zsh-abbr
   # space expands all aliases, including global
-  export ABBR_DEFAULT_BINDINGS=0
+    export ABBR_DEFAULT_BINDINGS=0
   # enter will expand and accept
-  bindkey            "^M" abbr-expand-and-accept
-  bindkey -M emacs   "^M" abbr-expand-and-accept
-  bindkey -M viins   "^M" abbr-expand-and-accept
+    bindkey            "^M" abbr-expand-and-accept
+    bindkey -M emacs   "^M" abbr-expand-and-accept
+    bindkey -M viins   "^M" abbr-expand-and-accept
   # ctrl-space will expand and intput a space
-  bindkey            "^ " abbr-expand
-  bindkey -M emacs   "^ " abbr-expand
-  bindkey -M viins   "^ " abbr-expand
-  bindkey -M isearch "^ " abbr-expand
-  bindkey            "^@" abbr-expand
-  bindkey -M emacs   "^@" abbr-expand
-  bindkey -M viins   "^@" abbr-expand
-  bindkey -M isearch "^@" abbr-expand
+    bindkey            "^ " abbr-expand
+    bindkey -M emacs   "^ " abbr-expand
+    bindkey -M viins   "^ " abbr-expand
+    bindkey -M isearch "^ " abbr-expand
+    bindkey            "^@" abbr-expand
+    bindkey -M emacs   "^@" abbr-expand
+    bindkey -M viins   "^@" abbr-expand
+    bindkey -M isearch "^@" abbr-expand
 elif [ -d "$(antidote path ohmyzsh/ohmyzsh)/plugins/globalias" ]; then
     # globalias
     # control-space to make a normal space
-    bindkey            " " magic-space
-    bindkey -M emacs   " " magic-space
-    bindkey -M viins   " " magic-space
-    bindkey            "^@" magic-space
-    bindkey -M emacs   "^@" magic-space
-    bindkey -M viins   "^@" magic-space
-    bindkey          "^ " globalias
-    bindkey -M emacs "^ " globalias
-    bindkey -M viins "^ " globalias
-    bindkey          "^@" globalias
-    bindkey -M emacs "^@" globalias
-    bindkey -M viins "^@" globalias
+    # bindkey            " " magic-space
+    # bindkey -M emacs   " " magic-space
+    # bindkey -M viins   " " magic-space
+    # bindkey            "^@" magic-space
+    # bindkey -M emacs   "^@" magic-space
+    # bindkey -M viins   "^@" magic-space
+    # bindkey          "^ " globalias
+    # bindkey -M emacs "^ " globalias
+    # bindkey -M viins "^ " globalias
+    # bindkey          "^@" globalias
+    # bindkey -M emacs "^@" globalias
+    # bindkey -M viins "^@" globalias
 fi
 # magic enter
 # export MAGIC_ENTER_GIT_COMMAND='git status -u .'
@@ -117,17 +117,25 @@ fi
 # fi
 # alias-finder
 if [ -d "$(antidote path ohmyzsh/ohmyzsh)/plugins/alias-finder" ]; then
-zstyle ':omz:plugins:alias-finder' autoload yes # disabled by default
-zstyle ':omz:plugins:alias-finder' longer yes # disabled by default
-zstyle ':omz:plugins:alias-finder' exact yes # disabled by default
-zstyle ':omz:plugins:alias-finder' cheaper yes # disabled by default
+    zstyle ':omz:plugins:alias-finder' autoload yes # disabled by default
+    zstyle ':omz:plugins:alias-finder' longer yes # disabled by default
+    zstyle ':omz:plugins:alias-finder' exact yes # disabled by default
+    zstyle ':omz:plugins:alias-finder' cheaper yes # disabled by default
 fi
 # sudo
 # Esc=Esc
 if [ -d "$(antidote path ohmyzsh/ohmyzsh)/plugins/sudo" ]; then
-bindkey -M emacs '^[^[' sudo-command-line
-bindkey -M vicmd '^[^[' sudo-command-line
-bindkey -M viins '^[^[' sudo-command-line
+    bindkey -M emacs '^[^[' sudo-command-line
+    bindkey -M vicmd '^[^[' sudo-command-line
+    bindkey -M viins '^[^[' sudo-command-line
+fi
+# eza
+if [ -d "$(antidote path ohmyzsh/ohmyzsh)/plugins/eza" ]; then
+    zstyle ':omz:plugins:eza' 'dirs-first' yes
+    zstyle ':omz:plugins:eza' 'git-status' yes
+    zstyle ':omz:plugins:eza' 'header' yes
+    zstyle ':omz:plugins:eza' 'icons' yes
+    zstyle ':omz:plugins:eza' 'size-prefix' binary
 fi
 
 ### zsh-users/zsh-history-substring-search ###
