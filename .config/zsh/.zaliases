@@ -78,77 +78,42 @@ alias mountc='sudo mount | \
   column --table --table-columns=mountpoint,on,mount,type,typename,options'
 alias mountj='sudo mount | \
   column --table --table-columns=mountpoint,on,mount,type,typename,options --json'
-# if ! command -v grc &>/dev/null; then
-# 	alias dig="grc dig"
-# 	alias ip="grc ip"
-# 	alias ncat="grc ncat"
-# 	alias netstat="sudo grc netstat"
-# 	alias nmap="grc nmap"
-# 	alias ping="grc ping"
-# 	alias sping="grc ping -c 5"
-# 	alias traceroute="grc traceroute"
-# 	alias ps='sudo grc ps'
-# 	alias ss="sudo grc ss"
-# 	if command -v systemctl &>/dev/null; then
-# 		# Basic systemctl commands
-# 		alias systemctl="sudo systemctl"
-# 		alias ctl="sudo systemctl"
-# 		# Daemons reload
-# 		alias ctldr="sudo systemctl daemon-reload"
-# 		# Credits to: https://gist.github.com/Feniksovich
-# 		alias ctlsp="sudo systemctl stop "
-# 		alias ctlst="sudo systemctl start "
-# 		alias ctlrt="sudo systemctl restart "
-# 		alias ctlrl="sudo systemctl reload "
-# 		alias ctls="sudo systemctl status "
-# 		# Enable/Disable commands for units
-# 		alias ctle='sudo systemctl enable '
-# 		alias ctld='sudo systemctl disable '
-# 		# Masking Units to disabling them
-# 		alias ctlmask='sudo systemctl mask '
-# 		alias ctlunmask='sudo systemctl unmask '
-# 		# List failed units and reset sudo systemd system status
-# 		alias ctlfailed='sudo systemctl --failed --all '
-# 		alias ctlrf='sudo systemctl reset-failed '
-# 		# List units
-# 		alias ctllu='sudo systemctl list-units '
-# 		alias ctllus='sudo systemctl list-units --type=service'
-# 	fi
-# else
-# 	alias netstat="sudo netstat"
-# 	alias sping="ping -c 5"
-# 	alias ps='sudo ps'
-# 	alias ss="sudo ss"
-# 	if command -v systemctl &>/dev/null; then
-# 		# Basic systemctl commands
-# 		alias systemctl="sudo systemctl"
-# 		alias ctl="sudo systemctl"
-# 		alias sctl="sudo /bin/systemctl"
-# 		# Daemons reload
-# 		alias ctldr="sudo systemctl daemon-reload"
-# 		# Credits to: https://gist.github.com/Feniksovich
-# 		alias ctlsp="sudo systemctl stop "
-# 		alias ctlst="sudo systemctl start "
-# 		alias ctlrt="sudo systemctl restart "
-# 		alias ctlrl="sudo systemctl reload "
-# 		alias ctls="sudo systemctl status "
-# 		# Enable/Disable commands for units
-# 		alias ctle='sudo systemctl enable '
-# 		alias ctld='sudo systemctl disable '
-# 		# Masking Units to disabling them
-# 		alias ctlmask='sudo systemctl mask '
-# 		alias ctlunmask='sudo systemctl unmask '
-# 		# List failed units and reset sudo systemd system status
-# 		alias ctlfailed='sudo systemctl --failed --all '
-# 		alias ctlrf='sudo systemctl reset-failed '
-# 		# List units
-# 		alias ctllu='sudo systemctl list-units '
-# 		alias ctllus='sudo systemctl list-units --type=service'
-# 	fi
-# fi
+alias netstat="sudo netstat"
+alias sping="ping -c 5"
+alias ps='sudo ps'
+alias ss="sudo ss"
+
+if command -v systemctl &>/dev/null; then
+	# Basic systemctl commands
+	alias systemctl="sudo systemctl"
+	alias ctl="sudo systemctl"
+	alias sctl="sudo /bin/systemctl"
+	# Daemons reload
+	alias ctldr="sudo systemctl daemon-reload"
+	# Credits to: https://gist.github.com/Feniksovich
+	alias ctlsp="sudo systemctl stop "
+	alias ctlst="sudo systemctl start "
+	alias ctlrt="sudo systemctl restart "
+	alias ctlrl="sudo systemctl reload "
+	alias ctls="sudo systemctl status "
+	# Enable/Disable commands for units
+	alias ctle='sudo systemctl enable '
+	alias ctld='sudo systemctl disable '
+	# Masking Units to disabling them
+	alias ctlmask='sudo systemctl mask '
+	alias ctlunmask='sudo systemctl unmask '
+	# List failed units and reset sudo systemd system status
+	alias ctlfailed='sudo systemctl --failed --all '
+	alias ctlrf='sudo systemctl reset-failed '
+	# List units
+	alias ctllu='sudo systemctl list-units '
+	alias ctllus='sudo systemctl list-units --type=service'
+fi
+
 if command -v ccze &>/dev/null; then
 	alias -g CC=' | ccze -A'
 fi
+
 alias neta='netstat -pouenta '
 alias psa='ps aux'
 alias ssa='ss -pouenta '
