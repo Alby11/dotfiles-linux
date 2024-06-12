@@ -85,9 +85,7 @@ alias ss="sudo ss"
 
 if command -v systemctl &>/dev/null; then
 	# Basic systemctl commands
-	alias systemctl="sudo systemctl"
 	alias ctl="sudo systemctl"
-	alias sctl="sudo /bin/systemctl"
 	# Daemons reload
 	alias ctldr="sudo systemctl daemon-reload"
 	# Credits to: https://gist.github.com/Feniksovich
@@ -108,6 +106,29 @@ if command -v systemctl &>/dev/null; then
 	# List units
 	alias ctllu='sudo systemctl list-units '
 	alias ctllus='sudo systemctl list-units --type=service'
+	# --USER
+	# Basic systemctl commands
+	alias ctlu="systemctl --user"
+	# Daemons reload
+	alias ctludr="systemctl --user daemon-reload"
+	# Credits to: https://gist.github.com/Feniksovich
+	alias ctlusp="systemctl --user stop "
+	alias ctlust="systemctl --user start "
+	alias ctlurt="systemctl --user restart "
+	alias ctlurl="systemctl --user reload "
+	alias ctlus="systemctl --user status "
+	# Enable/Disable commands for units
+	alias ctlue='systemctl --user enable '
+	alias ctlud='systemctl --user disable '
+	# Masking Units to disabling them
+	alias ctlumask='systemctl --user mask '
+	alias ctluunmask='systemctl --user unmask '
+	# List failed units and reset sudo systemd system status
+	alias ctlufailed='systemctl --user --failed --all '
+	alias ctlurf='systemctl --user reset-failed '
+	# List units
+	alias ctlulu='systemctl --user list-units '
+	alias ctlulus='systemctl --user list-units --type=service'
 fi
 
 if command -v ccze &>/dev/null; then
