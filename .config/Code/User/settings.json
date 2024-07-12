@@ -232,5 +232,10 @@
     },
     "amazonQ.suppressPrompts": {
         "codeWhispererConnectionExpired": true
+    },
+    "[powershell]": {
+        "debug.saveBeforeStart": "nonUntitledEditorsInActiveGroup",
+        "editor.semanticHighlighting.enabled": false,
+        "editor.wordSeparators": "`~!@#$%^&*()=+[{]}\\|;:'\",.<>/?"
     }
 }
