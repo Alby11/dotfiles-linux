@@ -1,5 +1,4 @@
 {
-    "workbench.iconTheme": "catppuccin-mocha",
     "atlascode.jira.enabled": true,
     "atlascode.bitbucket.enabled": true,
     "atlascode.jira.jqlList": [
@@ -18,7 +17,6 @@
         "./schemas/ArchyBotNlu.schema.json": "*BotNlu.yaml",
         "file:///home/tallonea/.vscode/extensions/atlassian.atlascode-3.0.10/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
     },
-    "workbench.colorTheme": "Catppuccin Mocha",
     "redhat.telemetry.enabled": true,
     "vscode-neovim.neovimExecutablePaths.win32": "",
     "vscode-neovim.revealCursorScrollLine": true,
@@ -165,7 +163,6 @@
     "explorer.confirmDelete": false,
     "GitLive.Special branches": "main|master|trunk|dev|develop|qa|test|release[-/].*",
     "git.confirmSync": false,
-    "workbench.productIconTheme": "material-product-icons",
     "git.autofetch": true,
     "git.enableSmartCommit": true,
     "vscode-neovim.neovimExecutablePaths.darwin": "",
@@ -237,5 +234,10 @@
         "debug.saveBeforeStart": "nonUntitledEditorsInActiveGroup",
         "editor.semanticHighlighting.enabled": false,
         "editor.wordSeparators": "`~!@#$%^&*()=+[{]}\\|;:'\",.<>/?"
-    }
+    },
+    "workbench.colorTheme": "Catppuccin Mocha",
+    "workbench.iconTheme": "catppuccin-mocha",
+    "typescript.suggest.paths": false,
+    "javascript.suggest.paths": false,
+    "workbench.productIconTheme": "bootstrap-product-icons"
 }
