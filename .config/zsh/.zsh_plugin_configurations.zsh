@@ -1,18 +1,22 @@
-# .zsh_plugin_configurations.zsh
+# vim: filetype=zsh
 
-# ohmyzsh/ohmyzsh configurations
+### Plugins settings
+#################################################################################
+
+### ohmysh/ohmyzsh ###
 # dotenv
 export ZSH_DOTENV_PROMPT=false
 
 # alias-finder
 if [ -d "$(antidote path ohmyzsh/ohmyzsh)/plugins/alias-finder" ]; then
-    zstyle ':omz:plugins:alias-finder' autoload yes
-    zstyle ':omz:plugins:alias-finder' longer yes
-    zstyle ':omz:plugins:alias-finder' exact yes
-    zstyle ':omz:plugins:alias-finder' cheaper yes
+    zstyle ':omz:plugins:alias-finder' autoload yes # disabled by default
+    zstyle ':omz:plugins:alias-finder' longer yes # disabled by default
+    zstyle ':omz:plugins:alias-finder' exact yes # disabled by default
+    zstyle ':omz:plugins:alias-finder' cheaper yes # disabled by default
 fi
 
 # sudo
+# Esc=Esc
 if [ -d "$(antidote path ohmyzsh/ohmyzsh)/plugins/sudo" ]; then
     bindkey -M emacs '^[^[' sudo-command-line
     bindkey -M vicmd '^[^[' sudo-command-line
@@ -28,26 +32,35 @@ if [ -d "$(antidote path ohmyzsh/ohmyzsh)/plugins/eza" ]; then
     zstyle ':omz:plugins:eza' 'size-prefix' binary
 fi
 
-# zsh-history-substring-search
+### zsh-users/zsh-history-substring-search ###
 if antidote path "zsh-users/zsh-history-substring-search" > /dev/null 2&>1; then
     export HISTORY_SUBSTRING_SEARCH_FUZZY=0
     export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="fg=#1e1e2e,bg=#a6e3a1,bold,underline"
     export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND="fg=#1e1e2e,bg=#f38ba8,bold,underline"
     bindkey '^[[A' history-substring-search-up
     bindkey '^[[B' history-substring-search-down
+    # if the above doesn't work
+    # bindkey "$terminfo[kcuu1]" history-substring-search-up
+    # bindkey "$terminfo[kcud1]" history-substring-search-down
     bindkey -M emacs '^P' history-substring-search-up
     bindkey -M emacs '^N' history-substring-search-down
+    # bindkey -M viins '^P' history-substring-search-up
+    # bindkey -M viins '^N' history-substring-search-down
     bindkey -M vicmd 'K' history-substring-search-up
     bindkey -M vicmd 'J' history-substring-search-down
 fi
 
-# tom-doerr/zsh_codex
+### tom-doerr/zsh_codex ###
 if antidote path "tom-doerr/zsh_codex" > /dev/null 2&>1; then
+    # Step 1: Capture the original function definition
     local original_function=$(typeset -f create_completion)
+    # Step 2: Modify the function definition
     local modified_function=$(echo "$original_function" \
       | sed 's@completion=$(echo -n "$text" | $ZSH_CUSTOM/plugins/zsh_codex/create_completion.py $CURSOR)@completion=$(echo -n "$text" | $(antidote path tom-doerr/zsh_codex)/create_completion.py $CURSOR)@g')
+    # Step 3: Redefine the function with the modified definition
     eval "$modified_function"
     zle -N create_completion
+    # Step 4: Bind the create_completion function to a key.
     bindkey '^Xo' create_completion
     bindkey -M emacs '^Xo' create_completion
     bindkey -M viins '^Xo' create_completion
@@ -61,14 +74,15 @@ if [ -d "$(antidote path ohmyzsh/ohmyzsh)/plugins/per-directory-history" ]; then
   export HISTORY_BASE="${ZDOTDIR}/.directory_history"
 fi
 
-# zsh-autosuggestions
+### zsh-users/zsh-autosuggestions ###
 if antidote path "zsh-users/zsh-autosuggestions" > /dev/null 2>&1; then
     export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#a6e3a1,bg=#1e1e2e,italic"
     export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 fi
 
-# marlonrichert/zsh-autocomplete
+### marlonrichert/zsh-autocomplete
 if antidote path "marlonrichert/zsh-autocomplete" > /dev/null 2>&1; then
+    # zstyle '*:compinit' arguments -D -i -u -C -w
     bindkey '\t' menu-select "$terminfo[kcbt]" menu-select
     bindkey -M viins '\t' menu-select "$terminfo[kcbt]" menu-select
     bindkey -M menuselect '\t' menu-complete "$terminfo[kcbt]" reverse-menu-complete
@@ -76,27 +90,33 @@ if antidote path "marlonrichert/zsh-autocomplete" > /dev/null 2>&1; then
         history executables aliases functions builtins reserved-words commands
 fi
 
-# MichaelAquilina/zsh-you-should-use
+### MichaelAquilina/zsh-you-should-use ###
 if antidote path "MichaelAquilina/zsh-you-should-use" > /dev/null 2>&1; then
     export YSU_MESSAGE_POSITION="after"
     export YSU_MODE=ALL
     export zs_set_path=1
+    # basic file preview for ls (you can replace with something more sophisticated than head)
     zstyle ':completion::*:ls::*' fzf-completion-opts --preview='eval head {1}'
+    # preview when completing env vars (note: only works for exported variables)
+    # eval twice, first to unescape the string, second to expand the $variable
     zstyle ':completion::*:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' fzf-completion-opts --preview='eval eval echo {1}'
+    # preview a `git status` when completing git add
     zstyle ':completion::*:git::git,add,*' fzf-completion-opts --preview='git -c color.status=always status --short'
-    zstyle ':completion::*:git::*,[a-z]*' fzf-completion-opts --preview='eval set -- {+1}
+    # if other subcommand to git is given, show a git diff or git log
+    zstyle ':completion::*:git::*,[a-z]*' fzf-completion-opts --preview='
+    eval set -- {+1}
     for arg in "$@"; do
         { git diff --color=always -- "$arg" | git log --color=always "$arg" } 2>/dev/null
     done'
 fi
 
-# wofr06/lesspipe
+### wofr06/lesspipe ###
 if antidote path "wofr06/lesspipe" > /dev/null 2>&1; then
     export LESSOPEN
     LESSOPEN="|$(antidote path 'wofr06/lesspipe')/lesspipe.sh %s"
 fi
 
-# fast-syntax-highlighting
+### fast-syntax-highlighting ###
 if antidote path "zdharma-continuum/fast-syntax-highlighting" > /dev/null 2&>1; then
     local fast_theme="$(antidote path zdharma-continuum/fast-syntax-highlighting)"
     fast_theme="$fast_theme/fast-syntax-highlighting.plugin.zsh"
@@ -142,4 +162,9 @@ if antidote path "zdharma-continuum/fast-syntax-highlighting" > /dev/null 2&>1; 
         done
       fi
     fi
+fi
+
+### jeffreytse/zsh-vi-mode ###
+if antidote path "jeffreytse/zsh-vi-mode" > /dev/null 2>&1; then
+    zvm_config
 fi

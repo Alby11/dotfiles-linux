@@ -1,6 +1,6 @@
 # vim: filetype=zsh
 
-#configurations prior antidote loading
+# configurations prior antidote loading
 # zstyle :omz:plugins:keychain options --quiet
 # zstyle :omz:plugins:keychain agents gpg,ssh
 # zstyle :omz:plugins:keychain identities id_ed25519 id_rsa
@@ -39,5 +39,11 @@ source $zsh_plugins && rm ${zsh_plugins:r}.zsh
 export ZSH=$(antidote path ohmyzsh/ohmyzsh)
 export ZSH_CUSTOM=$ZSH
 
-# Source plugin configurations
-source $ZDOTDIR/.zsh_plugin_configurations.zsh
+# Define or ignore unhandled ZLE widgets before loading zsh-syntax-highlighting
+zle -N menu-search || true
+zle -N recent-paths || true
+
+# Set editor and pager
+export EDITOR='vim'
+export VISUAL='vim'
+export PAGER='less'
