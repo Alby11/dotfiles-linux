@@ -3,6 +3,9 @@
 "${ZDOTDIR}/.zpackages"
 "${ZDOTDIR}/.zpyenv"
 
+# Deferred execution of zsh commands
+romkatv/zsh-defer
+
 #
 # .zsh_plugins.txt - antidote plugins file
 #
@@ -117,7 +120,7 @@ ohmyzsh/ohmyzsh path:lib/key-bindings.zsh
 
 # now, configure and run compinit to initialize completions
 belak/zsh-utils path:completion
-sorin-ionescu/prezto path:modules/completion
+# sorin-ionescu/prezto path:modules/completion
 
 srijanshetty/zsh-pip-completion path:src kind:fpath
 3v1n0/zsh-bash-completions-fallback path:src kind:fpath
@@ -144,8 +147,8 @@ zsh-users/zsh-autosuggestions
 
 # olets/zsh-abbr # kind:defer # zsh manager for auto-expanding abbreviations
 
-MichaelAquilina/zsh-you-should-use kind:defer
-psprint/zsh-sweep kind:defer
+MichaelAquilina/zsh-you-should-use #kind:defer
+psprint/zsh-sweep                  #kind:defer
 
 "${ZDOTDIR}/.zeditor"
 "${XDG_CONFIG_HOME}/git/.git.conf"
@@ -160,9 +163,9 @@ sobolevn/wakatime-zsh-plugin
 # Enhanced vi mode
 # jeffreytse/zsh-vi-mode
 
-### THEME
-romkatv/powerlevel10k
-
 ### plugins that must be called lastly
 zdharma-continuum/fast-syntax-highlighting
 marlonrichert/zsh-autocomplete # Find as you type, then press Tab to insert the top completion or ↓to select another completion.
+
+### THEME
+romkatv/powerlevel10k
