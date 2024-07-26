@@ -1,48 +1,50 @@
 # vim: filetype=zsh
 
 function unmount_share() {
-    if [[ $1 == "-h" || -z $1 ]]; then
-        echo "Usage: unmount_share <server> <share>\n"
-        echo "Unmounts a previously mounted network share."
-        echo "Too see the list of current mounts, launch
+	if [[ $1 == "-h" || -z $1 ]]; then
+		echo "Usage: unmount_share <server> <share>\n"
+		echo "Unmounts a previously mounted network share."
+		echo "Too see the list of current mounts, launch
         this function without arguments\n"
-        # Optionally list currently mounted shares
-        if [[ -z $1 ]]; then
-          echo "Currently mounted shares:"
-          find "${HOME}/mnt" -mindepth 1 -maxdepth 1 -type d ! -name '.*' -exec basename {} \;
-        fi
-        return
-    fi
+		# Optionally list currently mounted shares
+		if [[ -z $1 ]]; then
+			echo "Currently mounted shares:"
+			find "${HOME}/mnt" -mindepth 1 -maxdepth 1 -type d ! -name '.*' -exec basename {} \;
+		fi
+		return
+	fi
 
-    local server="$1"
-    local share="$2"
+	local server="$1"
+	local share="$2"
 
-    local mount_point_ro="${HOME}/mnt/.${server}_${share}"
-    local mount_point_rw="${HOME}/mnt/${server}_${share}"
+	local mount_point_ro="${HOME}/mnt/.${server}_${share}"
+	local mount_point_rw="${HOME}/mnt/${server}_${share}"
 
-    echo "Unmounting: ${mount_point_rw}"
-    # Check if the mount points exist
-    if [[ ! -d $mount_point_rw ]]; then
-        echo "Error: Mount point for $mount_point_rw does not exist."
-    fi
-    if ! $(sudo fusermount -u "${mount_point_rw}"); then
-        echo "Error: unmount failed for $mount_point_rw."
-        return 1
-    fi
-    # Remove directories if they are empty
-    rmdir "${mount_point_rw}"
+	echo "Unmounting: ${mount_point_rw}"
+	# Check if the mount points exist
+	if [[ ! -d $mount_point_rw ]]; then
+		echo "Error: Mount point for $mount_point_rw does not exist."
+	fi
+	if ! $(sudo fusermount -u "${mount_point_rw}"); then
+		echo "Error: unmount failed for $mount_point_rw."
+		return 1
+	fi
+	# Remove directories if they are empty
+	rmdir "${mount_point_rw}"
 
-    # Check if the mount points exist
-    if [[ ! -d $mount_point_ro ]]; then
-        echo "Error: Mount point for $mount_point_ro does not exist."
-    fi
-    if ! $(sudo umount "${mount_point_ro}"); then
-        echo "Error: unmount failed for $mount_point_ro."
-        return 1
-    fi
-    # Remove directories if they are empty
-    rmdir "${mount_point_ro}"
-    return 0
+	# Check if the mount points exist
+	if [[ ! -d $mount_point_ro ]]; then
+		echo "Error: Mount point for $mount_point_ro does not exist."
+	fi
+
+	# Remove directories if they are empty
+	rmdir "${mount_point_ro}"
+	return 0
+
+	if ! $(sudo umount "${mount_point_ro}"); then
+		echo "Error: unmount failed for $mount_point_ro."
+		return 1
+	fi
 }
 
 # Call the function with a parameter, for example: unmount_share myserver_share
