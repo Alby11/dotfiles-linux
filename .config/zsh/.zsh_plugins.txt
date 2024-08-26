@@ -141,10 +141,6 @@ eth-p/bat-extras path:src kind:fpath
 wofr06/lesspipe kind:path
 wofr06/lesspipe kind:fpath
 
-# Editors cloning, build in specific scripts
-neovim/neovim kind:clone
-vim/vim kind:clone
-
 # Colors
 xPMo/zsh-ls-colors
 catppuccin/tty path:src/mocha.sh
@@ -176,6 +172,9 @@ sobolevn/wakatime-zsh-plugin
 ### Plugins that must be called last
 zdharma-continuum/fast-syntax-highlighting
 marlonrichert/zsh-autocomplete # Find as you type, then press Tab to insert the top completion or ↓to select another completion.
+
+# FZF
+Aloxaf/fzf-tab
 
 ### THEME
 romkatv/powerlevel10k

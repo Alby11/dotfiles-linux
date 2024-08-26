@@ -239,5 +239,6 @@
     "workbench.iconTheme": "catppuccin-mocha",
     "typescript.suggest.paths": false,
     "javascript.suggest.paths": false,
-    "workbench.productIconTheme": "bootstrap-product-icons"
+    "workbench.productIconTheme": "bootstrap-product-icons",
+    "application.shellEnvironmentResolutionTimeout": 30
 }

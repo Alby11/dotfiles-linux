@@ -76,15 +76,6 @@
 [submodule "/home/tallonea/gitdepot/PowerSehellEditorServices"]
 	path = gitdepot/PowerSehellEditorServices
 	url = git@github.com:PowerShell/PowerShellEditorServices.git
-[submodule "/home/tallonea/.config/nvim"]
-	path = .config/nvim
-	url = https://github.com/Alby11/Launch.nvim.git
-[submodule ".config/vim"]
-	path = .config/vim
-	url = https://spacevim.org/git/repos/SpaceVim
-[submodule ".config/SpaceVim.d"]
-	path = .config/SpaceVim.d
-	url = git@github.com:Alby11/SpaceVim.d.git
 [submodule "/home/tallonea/gitdepot/qqX"]
 	path = /home/tallonea/gitdepot/qqX
 	url = https://github.com/TuxVinyards/qqX.git
