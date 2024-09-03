@@ -50,22 +50,6 @@ if antidote path "zsh-users/zsh-history-substring-search" > /dev/null 2&>1; then
     bindkey -M vicmd 'J' history-substring-search-down
 fi
 
-### tom-doerr/zsh_codex ###
-if antidote path "tom-doerr/zsh_codex" > /dev/null 2&>1; then
-    # Step 1: Capture the original function definition
-    local original_function=$(typeset -f create_completion)
-    # Step 2: Modify the function definition
-    local modified_function=$(echo "$original_function" \
-      | sed 's@completion=$(echo -n "$text" | $ZSH_CUSTOM/plugins/zsh_codex/create_completion.py $CURSOR)@completion=$(echo -n "$text" | $(antidote path tom-doerr/zsh_codex)/create_completion.py $CURSOR)@g')
-    # Step 3: Redefine the function with the modified definition
-    eval "$modified_function"
-    zle -N create_completion
-    # Step 4: Bind the create_completion function to a key.
-    bindkey '^Xo' create_completion
-    bindkey -M emacs '^Xo' create_completion
-    bindkey -M viins '^Xo' create_completion
-fi
-
 # per-directory-history
 if [ -d "$(antidote path ohmyzsh/ohmyzsh)/plugins/per-directory-history" ]; then
   export HISTORY_START_WITH_GLOBAL=false

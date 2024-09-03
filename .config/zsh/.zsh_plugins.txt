@@ -125,15 +125,15 @@ ohmyzsh/ohmyzsh path:lib/history.zsh
 ohmyzsh/ohmyzsh path:lib/key-bindings.zsh
 
 # Now, configure and run compinit to initialize completions
-belak/zsh-utils path:completion
+# belak/zsh-utils path:completion
 # sorin-ionescu/prezto path:modules/completion
 
 # Additional completions
-srijanshetty/zsh-pip-completion path:src kind:fpath
-3v1n0/zsh-bash-completions-fallback path:src kind:fpath
-MenkeTechnologies/zsh-cargo-completion path:src kind:fpath
-greymd/docker-zsh-completion path:src kind:fpath
-lukechilds/zsh-better-npm-completion path:src kind:fpath
+# srijanshetty/zsh-pip-completion path:src kind:fpath
+# 3v1n0/zsh-bash-completions-fallback path:src kind:fpath
+# MenkeTechnologies/zsh-cargo-completion path:src kind:fpath
+# greymd/docker-zsh-completion path:src kind:fpath
+# lukechilds/zsh-better-npm-completion path:src kind:fpath
 
 # Utility plugins
 eth-p/bat-extras path:src kind:path
@@ -152,7 +152,7 @@ zsh-users/zsh-autosuggestions
 
 # olets/zsh-abbr # kind:defer # zsh manager for auto-expanding abbreviations
 
-MichaelAquilina/zsh-you-should-use kind:defer
+# MichaelAquilina/zsh-you-should-use kind:defer
 psprint/zsh-sweep kind:defer
 
 # Load personal configurations
@@ -174,7 +174,7 @@ zdharma-continuum/fast-syntax-highlighting
 marlonrichert/zsh-autocomplete # Find as you type, then press Tab to insert the top completion or ↓to select another completion.
 
 # FZF
-Aloxaf/fzf-tab
+# Aloxaf/fzf-tab
 
 ### THEME
 romkatv/powerlevel10k
