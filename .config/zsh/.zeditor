@@ -110,11 +110,6 @@ install_and_setup_bat() {
 
 }
 
-EDITOR="$(which nano > /dev/null 2>&1)"
-VISUAL="$EDITOR"
-PAGER="$(which less)"
-MANPAGER="$PAGER"
-
 ### Setting up less
 # Highlight section titles in manual pages.
 LESS_TERMCAP_md="${yellow}"
@@ -135,6 +130,10 @@ elif CHECK_COMMANDS vim; then
   EDITOR="${$(which vim):-$EDITOR}"
   PAGER="$EDITOR"
   MANPAGER="$EDITOR c 'Man!' -o -"
+elif CHECK_COMMANDS lman; then
+  EDITOR="${$(which lman):-$EDITOR}"
+  PAGER="$EDITOR"
+  MANPAGER="$EDITOR -c 'Man!' -o -"
 else
   EDITOR="${$(which vi):-$EDITOR}"
   PAGER="${$(which less):-$PAGER}"

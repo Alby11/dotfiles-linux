@@ -170,6 +170,7 @@ npm_packages=(
     "eslint"
     "fixjson"
     "neovim"
+    "newman"
     "pyright"
     "remark"
     "remark-cli"
@@ -182,6 +183,7 @@ npm_packages=(
 npm_exclusions=(
     "@fsouza/prettierd"
     "eslint"
+    "newman"
     "pyright"
     "solhint"
 )
