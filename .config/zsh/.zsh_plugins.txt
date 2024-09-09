@@ -1,7 +1,7 @@
 # vim: filetype=zsh
 
 # Load packages and environment settings first
-"${ZDOTDIR}/.zpackages"
+# "${ZDOTDIR}/.zpackages"
 "${ZDOTDIR}/.zpyenv"
 
 # Deferred execution of zsh commands
