@@ -1,0 +1,48 @@
+# vim: filetype=zsh
+
+# Function to check port connectivity with fallback mechanisms
+function portping() {
+    # Help message if arguments are incomplete or incorrect
+    if [[ $# -lt 2 || $# -gt 3 || $1 == "-h" ]]; then
+        echo "Usage: check_port <host> <port> [loops]"
+        echo "Example: check_port google.com 80 5"
+        echo "The default number of loops is 3 if not provided."
+        return 1
+    fi
+
+    local host="$1"
+    local port="$2"
+    local loops="${3:-3}"  # Default to 3 loops if not provided
+
+    # Check if nc (netcat) is available
+    if command -v nc >/dev/null 2>&1; then
+        echo "Using nc (netcat) to check $host:$port for $loops times"
+        for ((i=1; i<=loops; i++)); do
+            echo "Attempt $i:"
+            nc -zv "$host" "$port"
+            sleep 1
+        done
+    # Check if telnet is available if nc isn't
+    elif command -v telnet >/dev/null 2>&1; then
+        echo "Using telnet to check $host:$port for $loops times"
+        for ((i=1; i<=loops; i++)); do
+            echo "Attempt $i:"
+            (echo > /dev/tcp/$host/$port) 2>/dev/null && echo "Port $port is open on $host" || echo "Port $port is closed on $host"
+            sleep 1
+        done
+    # Fallback to /dev/tcp if neither nc nor telnet are available
+    elif [[ -e /dev/tcp/$host/$port ]]; then
+        echo "Using /dev/tcp to check $host:$port for $loops times"
+        for ((i=1; i<=loops; i++)); do
+            echo "Attempt $i:"
+            (echo > /dev/tcp/$host/$port) 2>/dev/null && echo "Port $port is open on $host" || echo "Port $port is closed on $host"
+            sleep 1
+        done
+    else
+        echo "Error: Neither nc, telnet, nor /dev/tcp are available."
+        return 1
+    fi
+}
+
+# Test the function
+# check_port example.com 80 5
