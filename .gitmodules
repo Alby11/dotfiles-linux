@@ -1,30 +1,12 @@
 [submodule ".config/zsh/ohmyzsh"]
 	path = .config/zsh/ohmyzsh
 	url = https://github.com/ohmyzsh/ohmyzsh.git
-[submodule "gitdepot/catppuccin_tty"]
-	path = gitdepot/catppuccin_tty
-	url = https://github.com/catppuccin/tty.git
-[submodule "gitdepot/catppuccin_zsh-syntax-highlighting"]
-	path = gitdepot/catppuccin_zsh-syntax-highlighting
-	url = https://github.com/catppuccin/zsh-syntax-highlighting.git
 [submodule ".config/zsh/.antidote"]
 	path = .config/zsh/.antidote
 	url = https://github.com/mattmc3/antidote.git
-[submodule "gitdepot/catppuccin-gedit"]
-	path = gitdepot/catppuccin-gedit
-	url = git@github.com:catppuccin/gedit.git
 [submodule "gitdepot/marker"]
 	path = gitdepot/marker
 	url = https://github.com/pindexis/marker
-[submodule "gitdepot/bash-snippets"]
-	path = gitdepot/bash-snippets
-	url = https://github.com/alexanderepstein/bash-snippets
-[submodule "/home/alby11/gitdepot/dracula-ranger"]
-	path = gitdepot/dracula-ranger
-	url = https://github.com/dracula/ranger
-[submodule "/home/alby11/gitdepot/dracula-starship"]
-	path = gitdepot/dracula-starship
-	url = https://github.com/dracula/starship
 [submodule "gitdepot/interception-tools"]
 	path = gitdepot/interception-tools
 	url = https://gitlab.com/interception/linux/tools.git
@@ -37,27 +19,12 @@
 [submodule ".tmux/plugins/tpm"]
 	path = .tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm.git
-[submodule ".config/lvim"]
-	path = .config/lvim
-	url = git@github.com:Alby11/LunarVim
 [submodule ".ansible"]
 	path = .ansible
 	url = git@bitbucket.org:fratellicarli/ansible.git
 [submodule "gitdepot/keep-presence"]
 	path = gitdepot/keep-presence
 	url = https://github.com/carrot69/keep-presence.git
-[submodule "gitdepot/catppuccin-alacritty"]
-	path = gitdepot/catppuccin-alacritty
-	url = https://github.com/catppuccin/alacritty
-[submodule "/home/tallonea/.config/qutebrowser/catppuccin"]
-	path = .config/qutebrowser/catppuccin
-	url = https://github.com/catppuccin/qutebrowser
-[submodule "gitdepot/catppuccin-grub"]
-	path = gitdepot/catppuccin-grub
-	url = https://github.com/catppuccin/grub.git
-[submodule "gitdepot/catppuccin-cursors"]
-	path = gitdepot/catppuccin-cursors
-	url = https://github.com/catppuccin/cursors
 [submodule "gitdepot/try"]
 	path = gitdepot/try
 	url = https://github.com/binpash/try.git
@@ -70,30 +37,9 @@
 [submodule "gitdepot/multi-monitors-add-on"]
 	path = gitdepot/multi-monitors-add-on
 	url = git@github.com:lazanet/multi-monitors-add-on.git
-[submodule "gitdepot/bitwarden_duplicate_cleaner"]
-	path = gitdepot/bitwarden_duplicate_cleaner
-	url = https://gist.github.com/0bf7cd39947764896735997056ca74d7.git
 [submodule "/home/tallonea/gitdepot/PowerSehellEditorServices"]
 	path = gitdepot/PowerSehellEditorServices
 	url = git@github.com:PowerShell/PowerShellEditorServices.git
-[submodule "/home/tallonea/gitdepot/qqX"]
-	path = /home/tallonea/gitdepot/qqX
-	url = https://github.com/TuxVinyards/qqX.git
-[submodule "/home/tallonea/gitdepot/quickgui"]
-	path = /home/tallonea/gitdepot/quickgui
-	url = https://github.com/quickgui/quickgui.git
-[submodule "/home/tallonea/.config/doom"]
-	path = /home/tallonea/.config/doom
-	url = git@github.com:Alby11/doomemacs.git
-[submodule "/home/tallonea/.config/emacs"]
-	path = /home/tallonea/.config/emacs
-	url = git@github.com:doomemacs/doomemacs.git
 [submodule ".config/ansible"]
 	path = .config/ansible
 	url = git@github.com:Alby11/ansible.git
-[submodule "/home/tallonea/gitdepot/flameshot"]
-	path = /home/tallonea/gitdepot/flameshot
-	url = git@github.com:flameshot-org/flameshot.git
-[submodule "gitdepot/remmina"]
-	path = gitdepot/remmina
-	url = git@github.com:FreeRDP/Remmina.git
