@@ -26,6 +26,7 @@ path=(
   $HOME/.local/share/bob/nvim-{,s}bin(N)
   $HOME/gitdepot/quickemu/(N)
   $HOME/gitdepot/genesys_archy/(N)
+  /opt/{,s}bin(N)
   /opt/{homebrew,local}/{,s}bin(N)
   /usr/libexec/openssh/(N)
   /usr/local/{,s}bin(N)

@@ -6,7 +6,7 @@ screenshot_path=/home/tallonea/Pictures/Screenshots
 screenshot_name=remmina_%p_%h_%Y%m%d-%H%M%S
 deny_screenshot_clipboard=false
 save_view_mode=false
-confirm_close=false
+confirm_close=true
 use_primary_password=false
 unlock_timeout=300
 unlock_password=
@@ -96,6 +96,7 @@ recent_VNC=console-18.fllicarli.im,gaz-pastoriz,surfgo-al-01,emporio-to-03,empor
 lock_view_passwords=false
 recent_SSH=swarm-m-23.fllicarli.im:22
 shortcutkey_clipboard=98
+rdp_auth_filter=
 
 [ssh_colors]
 background=rgb(213,204,186)
@@ -214,3 +215,10 @@ disable-smooth-scrolling=0
 gateway_usage=0
 websockets=0
 freerdp_log_level=INFO
+
+[remmina_info]
+periodic_news_permitted=false
+periodic_news_last_checksum=
+periodic_usage_stats_permitted=false
+info_uid_prefix=TU7Q3ENRTX8W09
+disable_tip=true
