@@ -79,6 +79,7 @@ alias mountc='sudo mount | \
 alias mountj='sudo mount | \
   column --table --table-columns=mountpoint,on,mount,type,typename,options --json'
 alias netstat="sudo netstat"
+alias ping=\ping
 alias sping="ping -c 5"
 alias ps='sudo ps'
 alias ss="sudo ss"
