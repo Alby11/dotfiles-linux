@@ -1,5 +1,5 @@
 # vim: filetype=zsh
 
 function flameshot_launch {
-	$H$HOME/gitdepot/flameshot/build/src/flameshot >/dev/null 2>&1 &
+  flameshot >/dev/null 2>&1 &
 }
