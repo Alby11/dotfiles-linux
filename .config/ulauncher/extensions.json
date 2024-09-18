@@ -48,13 +48,6 @@
         "last_commit": "036a0b3b24fb325f7aa648872c916d04966e7101",
         "last_commit_time": "2021-02-03T13:17:59"
     },
-    "com.github.kleber-swf.ulauncher-turn-off-screen": {
-        "id": "com.github.kleber-swf.ulauncher-turn-off-screen",
-        "url": "https://github.com/kleber-swf/ulauncher-turn-off-screen",
-        "updated_at": "2023-10-05T08:44:54.023017",
-        "last_commit": "a461b89706008fcb5605b6e800fec29308b70a04",
-        "last_commit_time": "2020-11-18T20:05:35"
-    },
     "com.github.melianmiko.ulauncher-nmcli": {
         "id": "com.github.melianmiko.ulauncher-nmcli",
         "url": "https://github.com/melianmiko/ulauncher-nmcli",
@@ -82,13 +75,6 @@
         "updated_at": "2023-10-05T08:52:19.534020",
         "last_commit": "ac1deaffb31562a7918b37b6331cce27adc4660e",
         "last_commit_time": "2022-08-29T14:25:22"
-    },
-    "com.github.eckhoff42.ulauncher-kill-process-on-click": {
-        "id": "com.github.eckhoff42.ulauncher-kill-process-on-click",
-        "url": "https://github.com/Eckhoff42/Ulauncher-Kill-process-on-click",
-        "updated_at": "2023-10-05T08:53:04.797248",
-        "last_commit": "1cc49319d1a8811a2db63b6111effbb5ba087494",
-        "last_commit_time": "2022-05-05T09:03:54"
     },
     "com.github.rapha149.ulauncher-deepl": {
         "id": "com.github.rapha149.ulauncher-deepl",
@@ -160,25 +146,11 @@
         "last_commit": "d8f495df3c7f41ee8493b207d17f06fc0372c84e",
         "last_commit_time": "2020-09-23T01:29:15"
     },
-    "com.github.ddkasa.ulauncher-toggl-extension": {
-        "id": "com.github.ddkasa.ulauncher-toggl-extension",
-        "url": "https://github.com/ddkasa/ulauncher-toggl-extension",
-        "updated_at": "2024-03-05T08:38:14.765138",
-        "last_commit": "8b2bc8954ae438a45c175ee0e3eb4bdfb9c6cab7",
-        "last_commit_time": "2024-02-24T21:26:39"
-    },
     "com.github.lighttigerxiv.ulauncher-terminal-runner-extension": {
         "id": "com.github.lighttigerxiv.ulauncher-terminal-runner-extension",
         "url": "https://github.com/lighttigerXIV/ulauncher-terminal-runner-extension/",
         "updated_at": "2024-03-05T08:59:35.399033",
         "last_commit": "d6bc2157e5c0ef2f812e3051ddde334c7b485c2e",
         "last_commit_time": "2023-05-02T22:50:12"
-    },
-    "com.github.n4n0gh.ulauncher_clockify": {
-        "id": "com.github.n4n0gh.ulauncher_clockify",
-        "url": "https://github.com/n4n0GH/ulauncher_clockify",
-        "updated_at": "2024-03-05T10:02:18.419833",
-        "last_commit": "150e4d154436730ca79aac6e0ae4a04d3ff8b091",
-        "last_commit_time": "2023-02-08T21:00:47"
     }
 }
