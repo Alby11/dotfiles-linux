@@ -62,13 +62,6 @@
         "last_commit": "2d51ff40fcbd501e64034f3c7be1cd35abc47d6b",
         "last_commit_time": "2023-04-14T22:57:18"
     },
-    "com.github.sevir.ulauncher-dotdesktop-opener": {
-        "id": "com.github.sevir.ulauncher-dotdesktop-opener",
-        "url": "https://github.com/sevir/ulauncher-dotdesktop-opener",
-        "updated_at": "2023-10-05T08:51:04.678347",
-        "last_commit": "3b5f5fce4835aac17998e178f3eaf860541dbbc9",
-        "last_commit_time": "2022-07-14T09:35:01"
-    },
     "com.github.eckhoff42.ulauncher-favorite-directories": {
         "id": "com.github.eckhoff42.ulauncher-favorite-directories",
         "url": "https://github.com/Eckhoff42/Ulauncher-favorite-directories",
