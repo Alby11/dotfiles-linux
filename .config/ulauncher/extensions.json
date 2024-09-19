@@ -187,5 +187,12 @@
         "updated_at": "2024-09-19T14:01:30.089608",
         "last_commit": "f81d32c583c7e3542bdba655e991a56e6d9a2c28",
         "last_commit_time": "2021-04-09T18:12:40"
+    },
+    "com.github.brpaz.ulauncher-encoder": {
+        "id": "com.github.brpaz.ulauncher-encoder",
+        "url": "https://github.com/brpaz/ulauncher-encoder",
+        "updated_at": "2024-09-19T15:03:24.400439",
+        "last_commit": "8b9f499df983c179f44830111b8a100436389005",
+        "last_commit_time": "2022-06-13T14:30:16"
     }
 }
