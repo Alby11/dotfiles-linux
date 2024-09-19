@@ -173,6 +173,8 @@ sobolevn/wakatime-zsh-plugin
 zdharma-continuum/fast-syntax-highlighting
 marlonrichert/zsh-autocomplete # Find as you type, then press Tab to insert the top completion or ↓to select another completion.
 
+tom-doerr/zsh_codex
+
 # FZF
 # Aloxaf/fzf-tab
 

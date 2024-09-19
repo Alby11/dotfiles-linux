@@ -6,13 +6,6 @@
         "last_commit": "fd0745d43e79e945c1f531c4654131a8c0fe72d7",
         "last_commit_time": "2021-03-14T09:46:56"
     },
-    "com.github.tuanpham-dev.ulauncher-better-calculator": {
-        "id": "com.github.tuanpham-dev.ulauncher-better-calculator",
-        "url": "https://github.com/tuanpham-dev/ulauncher-better-calculator",
-        "updated_at": "2023-09-16T16:14:02.092800",
-        "last_commit": "48f0592a2a8ac9ec2589a06b562141e1a2d9b25f",
-        "last_commit_time": "2023-04-24T13:55:30"
-    },
     "com.github.brpaz.ulauncher-jira": {
         "id": "com.github.brpaz.ulauncher-jira",
         "url": "https://github.com/brpaz/ulauncher-jira",
@@ -145,5 +138,54 @@
         "updated_at": "2024-09-19T10:24:00.746521",
         "last_commit": "fdd7f05aa259d9bbe7bab218e9c66068edd1c46e",
         "last_commit_time": "2022-06-14T10:49:26"
+    },
+    "com.github.gnikolaos.ulauncher-window-manager": {
+        "id": "com.github.gnikolaos.ulauncher-window-manager",
+        "url": "https://github.com/gnikolaos/ulauncher-window-manager/",
+        "updated_at": "2024-09-19T12:57:03.383506",
+        "last_commit": "51b7c5ccbdcbb91cebb0f427d56a26abe993d26c",
+        "last_commit_time": "2024-09-09T16:53:48"
+    },
+    "com.github.tchar.ulauncher-albert-calculate-anything": {
+        "id": "com.github.tchar.ulauncher-albert-calculate-anything",
+        "url": "https://github.com/tchar/ulauncher-albert-calculate-anything",
+        "updated_at": "2024-09-19T13:16:22.637220",
+        "last_commit": "037965a44e6f6f496e7ad71ec1651b9edfcde32d",
+        "last_commit_time": "2024-05-29T21:57:26"
+    },
+    "com.github.ralcaidev.ulauncher-extension-list": {
+        "id": "com.github.ralcaidev.ulauncher-extension-list",
+        "url": "https://github.com/ralcaidev/ulauncher-extension-list",
+        "updated_at": "2024-09-19T13:56:33.175587",
+        "last_commit": "27d65fae4abc036e37a09792c8244287017dbc73",
+        "last_commit_time": "2022-11-10T16:06:26"
+    },
+    "com.github.jyvern.ulauncher-ssh": {
+        "id": "com.github.jyvern.ulauncher-ssh",
+        "url": "https://github.com/jyvern/ulauncher-ssh",
+        "updated_at": "2024-09-19T13:56:58.858639",
+        "last_commit": "47168e6ea45878787536ae5670612509f5dddced",
+        "last_commit_time": "2021-08-29T16:30:14"
+    },
+    "com.github.dhelmr.ulauncher-tldr": {
+        "id": "com.github.dhelmr.ulauncher-tldr",
+        "url": "https://github.com/dhelmr/ulauncher-tldr",
+        "updated_at": "2024-09-19T13:59:30.663103",
+        "last_commit": "2e5904451bf89dfa155280dfb6fa3d45ed4cab4c",
+        "last_commit_time": "2023-07-29T11:06:30"
+    },
+    "com.github.zensoup.ulauncher-unicode": {
+        "id": "com.github.zensoup.ulauncher-unicode",
+        "url": "https://github.com/zensoup/ulauncher-unicode",
+        "updated_at": "2024-09-19T14:00:23.195349",
+        "last_commit": "0ad36c00a888e687b4bfbf76f266f1000040b337",
+        "last_commit_time": "2019-07-11T06:53:31"
+    },
+    "com.github.manahter.ulauncher-translate": {
+        "id": "com.github.manahter.ulauncher-translate",
+        "url": "https://github.com/manahter/ulauncher-translate",
+        "updated_at": "2024-09-19T14:01:30.089608",
+        "last_commit": "f81d32c583c7e3542bdba655e991a56e6d9a2c28",
+        "last_commit_time": "2021-04-09T18:12:40"
     }
 }

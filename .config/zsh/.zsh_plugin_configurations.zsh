@@ -152,3 +152,8 @@ fi
 if antidote path "jeffreytse/zsh-vi-mode" > /dev/null 2>&1; then
     zvm_config
 fi
+
+### tom-doerr/zsh_codex ###
+if antidote path "tom-doerr/zsh_codex > /dev/null 2>&1; then
+    bindkey '^X' create_completion
+fi
