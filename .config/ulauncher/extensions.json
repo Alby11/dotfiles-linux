@@ -83,13 +83,6 @@
         "last_commit": "de08e6b3ce1c58e4f2b23321702ba40fa2110f73",
         "last_commit_time": "2022-11-11T12:05:05"
     },
-    "com.github.brpaz.ulauncher-docker": {
-        "id": "com.github.brpaz.ulauncher-docker",
-        "url": "https://github.com/brpaz/ulauncher-docker",
-        "updated_at": "2023-10-11T11:18:14.823452",
-        "last_commit": "fdd7f05aa259d9bbe7bab218e9c66068edd1c46e",
-        "last_commit_time": "2022-06-14T10:49:26"
-    },
     "com.github.friday.ulauncher-clipboard": {
         "id": "com.github.friday.ulauncher-clipboard",
         "url": "https://github.com/friday/ulauncher-clipboard",
@@ -125,13 +118,6 @@
         "last_commit": "6ba448b240af19568a3750dc5b7e550cdb1e954d",
         "last_commit_time": "2022-06-15T14:19:48"
     },
-    "com.github.brpaz.ulauncher-devdocs": {
-        "id": "com.github.brpaz.ulauncher-devdocs",
-        "url": "https://github.com/brpaz/ulauncher-devdocs",
-        "updated_at": "2023-10-11T11:17:17.126258",
-        "last_commit": "491bb5a5ccef082c5f6623db5f5676a8ab481144",
-        "last_commit_time": "2022-04-03T10:50:15"
-    },
     "com.github.luispabon.ulauncher-virtualbox": {
         "id": "com.github.luispabon.ulauncher-virtualbox",
         "url": "https://github.com/luispabon/ulauncher-virtualbox",
@@ -145,5 +131,19 @@
         "updated_at": "2024-03-05T08:59:35.399033",
         "last_commit": "d6bc2157e5c0ef2f812e3051ddde334c7b485c2e",
         "last_commit_time": "2023-05-02T22:50:12"
+    },
+    "com.github.brpaz.ulauncher-devdocs": {
+        "id": "com.github.brpaz.ulauncher-devdocs",
+        "url": "https://github.com/brpaz/ulauncher-devdocs",
+        "updated_at": "2024-09-19T10:19:18.118094",
+        "last_commit": "491bb5a5ccef082c5f6623db5f5676a8ab481144",
+        "last_commit_time": "2022-04-03T10:50:15"
+    },
+    "com.github.brpaz.ulauncher-docker": {
+        "id": "com.github.brpaz.ulauncher-docker",
+        "url": "https://github.com/brpaz/ulauncher-docker",
+        "updated_at": "2024-09-19T10:24:00.746521",
+        "last_commit": "fdd7f05aa259d9bbe7bab218e9c66068edd1c46e",
+        "last_commit_time": "2022-06-14T10:49:26"
     }
 }
