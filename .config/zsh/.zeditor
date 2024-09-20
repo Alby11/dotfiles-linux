@@ -10,16 +10,6 @@ ECHOCAT '.zeditor - Zsh file loaded to export editor, visual, pager ...'
 # Editors
 #
 
-export EDITOR
-export VISUAL
-export PAGER
-export MANPAGER
-export LESS
-export LESS_TERMCAP_md
-export LESSOPEN
-export LESSCLOSE
-export PATH
-
 # define a function to install bat and its extras
 install_and_setup_bat() {
 
@@ -130,10 +120,6 @@ elif CHECK_COMMANDS vim; then
   EDITOR="${$(which vim):-$EDITOR}"
   PAGER="$EDITOR"
   MANPAGER="$EDITOR c 'Man!' -o -"
-elif CHECK_COMMANDS lman; then
-  EDITOR="${$(which lman):-$EDITOR}"
-  PAGER="$EDITOR"
-  MANPAGER="$EDITOR -c 'Man!' -o -"
 else
   EDITOR="${$(which vi):-$EDITOR}"
   PAGER="${$(which less):-$PAGER}"
@@ -143,7 +129,18 @@ VISUAL="$EDITOR"
  
 [[ -n $EDITOR ]] && {
   edit() {
-      ${EDITOR:-vim} "$@"
+      ${EDITOR:-vi} "$@"
   }
   alias e='edit'
 }
+
+export EDITOR
+export VISUAL
+export PAGER
+export MANPAGER
+export LESS
+export LESS_TERMCAP_md
+export LESSOPEN
+export LESSCLOSE
+export PATH
+

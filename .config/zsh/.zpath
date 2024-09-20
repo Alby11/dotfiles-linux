@@ -27,6 +27,7 @@ path=(
   $HOME/gitdepot/quickemu/(N)
   $HOME/gitdepot/genesys_archy/(N)
   /opt/{,s}bin(N)
+  /opt/flameshot/bin/(N)
   /opt/{homebrew,local}/{,s}bin(N)
   /usr/libexec/openssh/(N)
   /usr/local/{,s}bin(N)
