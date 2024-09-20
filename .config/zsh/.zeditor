@@ -144,3 +144,5 @@ export LESSOPEN
 export LESSCLOSE
 export PATH
 
+# enable zsh to interpret # as comments during interactive sessions
+setopt interactivecomments
