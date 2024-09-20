@@ -148,7 +148,6 @@ catppuccin/tty path:src/mocha.sh
 # History and completions
 zsh-users/zsh-history-substring-search
 zsh-users/zsh-completions
-zsh-users/zsh-autosuggestions
 
 # olets/zsh-abbr # kind:defer # zsh manager for auto-expanding abbreviations
 
@@ -163,23 +162,27 @@ psprint/zsh-sweep kind:defer
 "${ZDOTDIR}/.zfunctions"
 "${ZDOTDIR}/.zxresources"
 
-# WakaTime for Terminal
-sobolevn/wakatime-zsh-plugin
-
-# Enhanced vi mode
-# jeffreytse/zsh-vi-mode
 
 ### Plugins that must be called last
+# prompt 
+zsh-users/zsh-syntax-highlighting
 zdharma-continuum/fast-syntax-highlighting
-marlonrichert/zsh-autocomplete # Find as you type, then press Tab to insert the top completion or ↓to select another completion.
-
-tom-doerr/zsh_codex
+# marlonrichert/zsh-autocomplete # Find as you type, then press Tab to insert the top completion or ↓to select another completion.
+zsh-users/zsh-autosuggestions
 
 # FZF
 # Aloxaf/fzf-tab
+Aloxaf/fzf-tab
+
+# GPT
+tom-doerr/zsh_codex
+
 
 ### THEME
 romkatv/powerlevel10k
+
+# WakaTime for Terminal
+sobolevn/wakatime-zsh-plugin
 
 # Load plugin configurations after all plugins are loaded
 "${ZDOTDIR}/.zsh_plugin_configurations.zsh" kind:defer

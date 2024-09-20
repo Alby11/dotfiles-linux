@@ -58,48 +58,6 @@ if [ -d "$(antidote path ohmyzsh/ohmyzsh)/plugins/per-directory-history" ]; then
   export HISTORY_BASE="${ZDOTDIR}/.directory_history"
 fi
 
-### zsh-users/zsh-autosuggestions ###
-if antidote path "zsh-users/zsh-autosuggestions" > /dev/null 2>&1; then
-    export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#a6e3a1,bg=#1e1e2e,italic"
-    export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-fi
-
-### marlonrichert/zsh-autocomplete
-if antidote path "marlonrichert/zsh-autocomplete" > /dev/null 2>&1; then
-    # zstyle '*:compinit' arguments -D -i -u -C -w
-    bindkey '\t' menu-select "$terminfo[kcbt]" menu-select
-    bindkey -M viins '\t' menu-select "$terminfo[kcbt]" menu-select
-    bindkey -M menuselect '\t' menu-complete "$terminfo[kcbt]" reverse-menu-complete
-    zstyle ':autocomplete:*' add-space \
-        history executables aliases functions builtins reserved-words commands
-fi
-
-### MichaelAquilina/zsh-you-should-use ###
-if antidote path "MichaelAquilina/zsh-you-should-use" > /dev/null 2>&1; then
-    export YSU_MESSAGE_POSITION="after"
-    export YSU_MODE=ALL
-    export zs_set_path=1
-    # basic file preview for ls (you can replace with something more sophisticated than head)
-    zstyle ':completion::*:ls::*' fzf-completion-opts --preview='eval head {1}'
-    # preview when completing env vars (note: only works for exported variables)
-    # eval twice, first to unescape the string, second to expand the $variable
-    zstyle ':completion::*:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' fzf-completion-opts --preview='eval eval echo {1}'
-    # preview a `git status` when completing git add
-    zstyle ':completion::*:git::git,add,*' fzf-completion-opts --preview='git -c color.status=always status --short'
-    # if other subcommand to git is given, show a git diff or git log
-    zstyle ':completion::*:git::*,[a-z]*' fzf-completion-opts --preview='
-    eval set -- {+1}
-    for arg in "$@"; do
-        { git diff --color=always -- "$arg" | git log --color=always "$arg" } 2>/dev/null
-    done'
-fi
-
-### wofr06/lesspipe ###
-if antidote path "wofr06/lesspipe" > /dev/null 2>&1; then
-    export LESSOPEN
-    LESSOPEN="|$(antidote path 'wofr06/lesspipe')/lesspipe.sh %s"
-fi
-
 ### fast-syntax-highlighting ###
 if antidote path "zdharma-continuum/fast-syntax-highlighting" > /dev/null 2&>1; then
     local fast_theme="$(antidote path zdharma-continuum/fast-syntax-highlighting)"
@@ -148,12 +106,62 @@ if antidote path "zdharma-continuum/fast-syntax-highlighting" > /dev/null 2&>1; 
     fi
 fi
 
-### jeffreytse/zsh-vi-mode ###
-if antidote path "jeffreytse/zsh-vi-mode" > /dev/null 2>&1; then
-    zvm_config
+### MichaelAquilina/zsh-you-should-use ###
+if antidote path "MichaelAquilina/zsh-you-should-use" > /dev/null 2>&1; then
+    export YSU_MESSAGE_POSITION="after"
+    export YSU_MODE=ALL
+    export zs_set_path=1
+    # basic file preview for ls (you can replace with something more sophisticated than head)
+    zstyle ':completion::*:ls::*' fzf-completion-opts --preview='eval head {1}'
+    # preview when completing env vars (note: only works for exported variables)
+    # eval twice, first to unescape the string, second to expand the $variable
+    zstyle ':completion::*:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' fzf-completion-opts --preview='eval eval echo {1}'
+    # preview a `git status` when completing git add
+    zstyle ':completion::*:git::git,add,*' fzf-completion-opts --preview='git -c color.status=always status --short'
+    # if other subcommand to git is given, show a git diff or git log
+    zstyle ':completion::*:git::*,[a-z]*' fzf-completion-opts --preview='
+    eval set -- {+1}
+    for arg in "$@"; do
+        { git diff --color=always -- "$arg" | git log --color=always "$arg" } 2>/dev/null
+    done'
+fi
+
+### marlonrichert/zsh-autocomplete
+if antidote path "marlonrichert/zsh-autocomplete" > /dev/null 2>&1; then
+    zstyle '*:compinit' arguments -D -i -u -C -w
+    bindkey '\t' menu-select "$terminfo[kcbt]" menu-select
+    bindkey -M viins '\t' menu-select "$terminfo[kcbt]" menu-select
+    bindkey -M menuselect '\t' menu-complete "$terminfo[kcbt]" reverse-menu-complete
+    zstyle ':autocomplete:*' add-space \
+        history executables aliases functions builtins reserved-words commands
+fi
+
+### zsh-users/zsh-autosuggestions ###
+if antidote path "zsh-users/zsh-autosuggestions" > /dev/null 2>&1; then
+    export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#a6e3a1,bg=#1e1e2e,italic"
+    export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+fi
+
+### Aloxaf/fzf-tab
+
+if antidote path "Aloxaf/fzf-tab" > /dev/null 2>&1; then
+ # zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
+ # zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
+   export FZF_DEFAULT_OPTS=" \
+  --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
+  --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
+  --color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
+  --color=selected-bg:#45475a \
+  --multi"
+fi
+
+### wofr06/lesspipe ###
+if antidote path "wofr06/lesspipe" > /dev/null 2>&1; then
+    export LESSOPEN
+    LESSOPEN="|$(antidote path 'wofr06/lesspipe')/lesspipe.sh %s"
 fi
 
 ### tom-doerr/zsh_codex ###
 if antidote path "tom-doerr/zsh_codex > /dev/null 2>&1; then
-    bindkey '^X' create_completion
+    bindkey '^Q' create_completion
 fi
