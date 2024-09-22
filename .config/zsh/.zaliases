@@ -80,17 +80,6 @@ alias mountj='sudo mount | \
   column --table --table-columns=mountpoint,on,mount,type,typename,options --json'
 alias netstat="sudo netstat"
 
-unalias ping # restore original ping (ohmyzsh override)
-alias shortping="ping -c 5"
-alias pingfast='ping -c 3 -i 0.2'
-alias pingtime='ping -D'
-alias pingquick='ping -i 0.2'
-alias pingflood='ping -f'
-alias pinglarge='ping -s 1472'
-alias pingshort='ping -c 2 -W 1'
-alias ps='sudo ps'
-alias ss="sudo ss"
-
 if command -v systemctl &>/dev/null; then
 	# Basic systemctl commands
 	alias ctl="sudo systemctl"
@@ -142,10 +131,6 @@ fi
 if command -v ccze &>/dev/null; then
 	alias -g CC=' | ccze -A'
 fi
-
-alias neta='netstat -pouenta '
-alias psa='ps aux'
-alias ssa='ss -pouenta '
 
 if command -v notify-send &>/dev/null; then
 	# Credits to: https://gist.github.com/Feniksovich
@@ -357,11 +342,9 @@ fi
 
 if [ "$(command -v fzf)" ] && [ "$(command -v rg)" ]; then
 	alias -g F="| fzf"
-	alias -g rgg="rg --glob"
 	alias -g R="| rg"
-	alias -g Rg="| rg --glob"
-	alias -g rf="rg . | fzf"
-	alias -g rfl="rg . | fzf | cut -d ':' -f 1"
+	alias -g rg-fzf="rg . | fzf"
+	alias -g rg-fzf-l="rg . | fzf | cut -d ':' -f 1"
 else
 	echo "fzf|rg missing..."
 fi
@@ -619,3 +602,265 @@ fi
 if command -v emacs &>/dev/null; then
 	alias emacs='emacs -nw'
 fi
+
+# Alias Script for Linux Power Users - Created by ChatGPT (Your AI Assistant)
+# --------------------------------------------------------------
+# A collection of useful aliases for system administration, networking, and monitoring.
+# These aliases are designed for efficiency and troubleshooting.
+# --------------------------------------------------------------
+
+### NETSTAT ALIASES ###
+
+# Alias for checking open listening ports
+# Useful for finding services running on a machine.
+alias netlist='netstat -tuln'
+# Example: netlist
+
+# Alias for showing all active TCP/UDP connections
+# Useful for diagnosing network connections.
+alias netall='netstat -atun'
+# Example: netall
+
+# Alias for detailed network interface statistics
+# Useful to monitor packet transmission and errors.
+alias netstatiface='netstat -i'
+# Example: netstatiface
+
+# Alias for showing network routing table
+# Useful for understanding routing behavior of the system.
+alias netroute='netstat -rn'
+# Example: netroute
+
+### SS (Socket Stat) ALIASES ###
+
+# Alias for displaying all TCP connections (ss is faster than netstat)
+# Useful for quickly analyzing active connections.
+alias ss_tcp='ss -t -a'
+# Example: ss_tcp
+
+# Alias for displaying all UDP connections
+# Useful for troubleshooting UDP-based services.
+alias ss_udp='ss -u -a'
+# Example: ss_udp
+
+# Alias for showing all connections with detailed info (including process)
+# Useful for troubleshooting network services and finding which process is using a port.
+alias ss_detail='ss -tunap'
+# Example: ss_detail
+
+# Alias for showing listening sockets
+# Useful for checking services that are accepting connections.
+alias ss_listen='ss -ltn'
+# Example: ss_listen
+
+### PS (Process Status) ALIASES ###
+
+# Alias for displaying the top 10 CPU-consuming processes
+# Useful for finding processes consuming too much CPU.
+alias pscpu='ps aux --sort=-%cpu | head -n 11'
+# Example: pscpu
+
+# Alias for displaying the top 10 memory-consuming processes
+# Useful for finding processes consuming too much memory.
+alias psmem='ps aux --sort=-%mem | head -n 11'
+# Example: psmem
+
+# Alias for displaying all processes in a tree format
+# Useful for visualizing parent-child relationships between processes.
+alias pstree='ps -ejH'
+# Example: pstree
+
+# Alias for displaying processes of a specific user
+# Useful for monitoring what processes a particular user is running.
+alias psuser='ps -u $USER'
+# Example: psuser
+
+### NMAP ALIASES ###
+
+# Alias for performing a quick scan of open ports on a specific host
+# Useful for fast discovery of open ports.
+alias nmapquick='nmap -T4 -F'
+# Example: nmapquick 192.168.1.1
+
+# Alias for scanning all TCP ports on a host
+# Useful for a complete scan of services on a host.
+alias nmaptcp='nmap -p-'
+# Example: nmaptcp 192.168.1.1
+
+# Alias for a ping scan to discover active hosts on a network
+# Useful for finding live systems on a network.
+alias nmapping='nmap -sn'
+# Example: nmapping 192.168.1.0/24
+
+# Alias for scanning open ports with service version detection
+# Useful for finding versions of services running on open ports.
+alias nmapver='nmap -sV'
+# Example: nmapver 192.168.1.1
+
+# Alias for scanning and discovering network vulnerabilities (using default scripts)
+# Useful for quickly checking for known vulnerabilities.
+alias nmapvuln='nmap --script=vuln'
+# Example: nmapvuln 192.168.1.1
+
+### SAR (System Activity Report) ALIASES ###
+
+# Alias for displaying CPU usage stats
+# Useful for monitoring CPU performance over time.
+alias sarcpu='sar -u 1 5'
+# Example: sarcpu
+
+# Alias for displaying memory usage stats
+# Useful for monitoring memory performance and swap usage.
+alias sarmem='sar -r 1 5'
+# Example: sarmem
+
+# Alias for displaying network I/O stats
+# Useful for monitoring incoming and outgoing network traffic.
+alias sarnet='sar -n DEV 1 5'
+# Example: sarnet
+
+# Alias for displaying disk I/O stats
+# Useful for monitoring disk read/write operations.
+alias sardisk='sar -d 1 5'
+# Example: sardisk
+
+# Alias for a summary of load average (over 1, 5, 15 mins)
+# Useful for detecting overall system load.
+alias sarload='sar -q 1 5'
+# Example: sarload
+
+
+# 1. SSH ALIASES
+
+# Alias for quick SSH login to a remote host
+alias sshlogin='ssh -o ConnectTimeout=5 -o ServerAliveInterval=30'
+# Example: sshlogin user@hostname
+# Explanation: This alias sets a 5-second connection timeout and keeps the session alive with pings every 30 seconds.
+
+# Alias for SSH tunneling
+alias sshtunnel='ssh -fNL'
+# Example: sshtunnel 9999:localhost:22 user@hostname
+# Explanation: Creates an SSH tunnel, forwarding port 9999 on your local machine to port 22 on the remote machine.
+
+
+# 6. NETWORK MONITORING ALIASES
+
+# Alias for checking open ports with netstat
+alias netopen='netstat -tuln'
+# Example: netopen
+# Explanation: Displays open ports and the services that are listening on them.
+
+# Alias for listing active connections
+alias netcon='ss -tunap'
+# Example: netcon
+# Explanation: Shows all active TCP/UDP connections along with associated processes.
+
+# 6.1. PING ALIASES
+
+unalias ping &> /dev/null # restore original ping (ohmyzsh override)
+
+# Alias for performing a ping test
+alias pingtest='ping -c 5'
+# Example: pingtest google.com
+# Explanation: Pings a host 5 times and returns the results.
+
+# Alias for a simple ping with a defined count (default is 5 packets)
+# This is useful to avoid continuous pinging and to stop after 5 packets.
+alias ping5='ping -c 5'
+# Example: ping5 google.com
+
+# Alias for a continuous ping with detailed timestamp on each packet
+# This is useful for seeing exactly when packets are sent and received, helping to identify time delays.
+alias pingtime='ping -D -O'
+# Example: pingtime google.com
+
+# Alias for pinging with a short interval between packets (default 0.2 seconds)
+# Useful for testing rapid response times or packet drops under stress.
+alias pingspeed='ping -i 0.2'
+# Example: pingspeed google.com
+
+# Alias for checking ping without DNS resolution (for faster results and no DNS dependency)
+# Useful for troubleshooting routing issues where DNS might be a problem.
+alias pingnodns='ping -n'
+# Example: pingnodns 8.8.8.8
+
+# Alias for flooding a target with packets (for high-speed stress testing)
+# Caution: Use carefully and only with permission, as this can cause network strain.
+alias pingflood='ping -f'
+# Example: pingflood google.com
+
+# Alias for a long-term ping with an interval of 60 seconds between each packet
+# This is useful for checking stability over a longer period without generating too much traffic.
+alias pinglong='ping -i 60'
+# Example: pinglong google.com
+
+# Alias for pinging with a specific packet size (default 100 bytes)
+# Useful to test the effect of different packet sizes on network performance.
+alias pingbig='ping -s 100'
+# Example: pingbig google.com
+
+# Alias for checking the maximum transmission unit (MTU) to detect fragmentation issues
+# Useful for diagnosing network MTU problems.
+alias pingmtu='ping -M do -s 1472'
+# Example: pingmtu google.com
+
+# Alias for detailed output including packet loss, latency, and statistics at the end
+# This helps summarize results and see if packets were dropped.
+alias pingstats='ping -A'
+# Example: pingstats google.com
+
+# Alias for IPv6 pinging
+# Useful when working in environments where IPv6 is preferred or used.
+alias ping6='ping -6'
+# Example: ping6 ipv6.google.com
+
+# 7. NMAP ALIASES
+
+# Alias for a quick scan of a host
+alias quicknmap='nmap -T4 -F'
+# Example: quicknmap 192.168.1.1
+# Explanation: Performs a fast scan of the target host's open ports.
+
+# Alias for scanning all ports on a host
+alias fullnmap='nmap -p-'
+# Example: fullnmap 192.168.1.1
+# Explanation: Scans all 65535 ports on a host.
+
+# 8. PROCESS MONITORING ALIASES
+
+# Alias for checking CPU usage
+alias topcpu='ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%cpu | head -n 10'
+# Example: topcpu
+# Explanation: Shows the top 10 processes by CPU usage.
+
+# Alias for checking memory usage
+alias topmem='ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%mem | head -n 10'
+# Example: topmem
+# Explanation: Shows the top 10 processes by memory usage.
+
+# Alias for listing all processes in a tree format
+alias ptree='ps auxf'
+# Example: ptree
+# Explanation: Lists all processes in a tree format to show parent-child relationships.
+
+# 9. SYSTEM MONITORING (SAR)
+
+# Alias for viewing CPU performance statistics
+alias sarcpu='sar -u 1 5'
+# Example: sarcpu
+# Explanation: Displays CPU usage statistics every second for 5 seconds.
+
+# Alias for memory performance statistics
+alias sarmem='sar -r 1 5'
+# Example: sarmem
+# Explanation: Displays memory usage statistics every second for 5 seconds.
+
+# Alias for real-time network traffic statistics
+alias sarnet='sar -n DEV 1 5'
+# Example: sarnet
+# Explanation: Displays network traffic statistics for each interface.
+
+# Alias for disk I/O statistics
+alias sardisk='sar -d 1 5'
+# Example: sardisk
+# Explanation: Displays disk read/write operations.
