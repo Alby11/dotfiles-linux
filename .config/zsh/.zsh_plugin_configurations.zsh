@@ -58,6 +58,11 @@ if [ -d "$(antidote path ohmyzsh/ohmyzsh)/plugins/per-directory-history" ]; then
   export HISTORY_BASE="${ZDOTDIR}/.directory_history"
 fi
 
+### zsh-syntax-highlighting ###
+if antidote path "zsh-users/zsh-syntax-highlighting" > /dev/null 2&>1; then
+  $ZDOTDIR/zsh-syntax-highlighting/catppuccin_mocha-zsh-syntax-highlighting.zsh
+fi
+
 ### fast-syntax-highlighting ###
 if antidote path "zdharma-continuum/fast-syntax-highlighting" > /dev/null 2&>1; then
     local fast_theme="$(antidote path zdharma-continuum/fast-syntax-highlighting)"
