@@ -37,16 +37,9 @@
     "com.github.ygun.ulauncher-nm": {
         "id": "com.github.ygun.ulauncher-nm",
         "url": "https://github.com/ygun/ulauncher-nm",
-        "updated_at": "2023-10-05T08:44:31.543982",
+        "updated_at": "2024-09-24T16:29:46.647271",
         "last_commit": "036a0b3b24fb325f7aa648872c916d04966e7101",
         "last_commit_time": "2021-02-03T13:17:59"
-    },
-    "com.github.melianmiko.ulauncher-nmcli": {
-        "id": "com.github.melianmiko.ulauncher-nmcli",
-        "url": "https://github.com/melianmiko/ulauncher-nmcli",
-        "updated_at": "2023-10-05T08:49:50.692721",
-        "last_commit": "fe967c947748616df602c9d022fec6d68a6b2cf2",
-        "last_commit_time": "2022-05-01T12:20:38"
     },
     "com.github.seofernando25.ulauncher-gpt": {
         "id": "com.github.seofernando25.ulauncher-gpt",
@@ -135,7 +128,7 @@
     "com.github.brpaz.ulauncher-docker": {
         "id": "com.github.brpaz.ulauncher-docker",
         "url": "https://github.com/brpaz/ulauncher-docker",
-        "updated_at": "2024-09-19T10:24:00.746521",
+        "updated_at": "2024-09-24T16:30:16.248257",
         "last_commit": "fdd7f05aa259d9bbe7bab218e9c66068edd1c46e",
         "last_commit_time": "2022-06-14T10:49:26"
     },
@@ -194,5 +187,33 @@
         "updated_at": "2024-09-19T15:03:24.400439",
         "last_commit": "8b9f499df983c179f44830111b8a100436389005",
         "last_commit_time": "2022-06-13T14:30:16"
+    },
+    "com.github.ikorjefocur.ulauncher-commandrunner": {
+        "id": "com.github.ikorjefocur.ulauncher-commandrunner",
+        "url": "https://github.com/IkorJefocur/ulauncher-commandrunner",
+        "updated_at": "2024-09-24T16:23:35.388097",
+        "last_commit": "c306301468cbaba23625bf0ef0639b7ad6602783",
+        "last_commit_time": "2022-03-01T19:34:35"
+    },
+    "com.github.plibither8.ulauncher-vscode-recent": {
+        "id": "com.github.plibither8.ulauncher-vscode-recent",
+        "url": "https://github.com/plibither8/ulauncher-vscode-recent",
+        "updated_at": "2024-09-24T16:27:42.793870",
+        "last_commit": "60a5106821478f965e4e24dbe1833f6af0d437f1",
+        "last_commit_time": "2023-12-01T07:25:12"
+    },
+    "com.github.brpaz.ulauncher-faker": {
+        "id": "com.github.brpaz.ulauncher-faker",
+        "url": "https://github.com/brpaz/ulauncher-faker",
+        "updated_at": "2024-09-24T16:28:51.366475",
+        "last_commit": "58832c94acc671a9f603ea7fbf5d4405110bb902",
+        "last_commit_time": "2021-12-12T15:46:10"
+    },
+    "com.github.ahaasler.ulauncher-tmux": {
+        "id": "com.github.ahaasler.ulauncher-tmux",
+        "url": "https://github.com/ahaasler/ulauncher-tmux",
+        "updated_at": "2024-09-24T16:31:03.225875",
+        "last_commit": "dd631a2e5a1d8bf2ab21095b43afe068443f02b9",
+        "last_commit_time": "2021-06-05T16:42:59"
     }
 }
