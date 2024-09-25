@@ -111,13 +111,6 @@
         "last_commit": "d8f495df3c7f41ee8493b207d17f06fc0372c84e",
         "last_commit_time": "2020-09-23T01:29:15"
     },
-    "com.github.lighttigerxiv.ulauncher-terminal-runner-extension": {
-        "id": "com.github.lighttigerxiv.ulauncher-terminal-runner-extension",
-        "url": "https://github.com/lighttigerXIV/ulauncher-terminal-runner-extension/",
-        "updated_at": "2024-03-05T08:59:35.399033",
-        "last_commit": "d6bc2157e5c0ef2f812e3051ddde334c7b485c2e",
-        "last_commit_time": "2023-05-02T22:50:12"
-    },
     "com.github.brpaz.ulauncher-devdocs": {
         "id": "com.github.brpaz.ulauncher-devdocs",
         "url": "https://github.com/brpaz/ulauncher-devdocs",
@@ -188,13 +181,6 @@
         "last_commit": "8b9f499df983c179f44830111b8a100436389005",
         "last_commit_time": "2022-06-13T14:30:16"
     },
-    "com.github.ikorjefocur.ulauncher-commandrunner": {
-        "id": "com.github.ikorjefocur.ulauncher-commandrunner",
-        "url": "https://github.com/IkorJefocur/ulauncher-commandrunner",
-        "updated_at": "2024-09-24T16:23:35.388097",
-        "last_commit": "c306301468cbaba23625bf0ef0639b7ad6602783",
-        "last_commit_time": "2022-03-01T19:34:35"
-    },
     "com.github.plibither8.ulauncher-vscode-recent": {
         "id": "com.github.plibither8.ulauncher-vscode-recent",
         "url": "https://github.com/plibither8/ulauncher-vscode-recent",
@@ -215,5 +201,19 @@
         "updated_at": "2024-09-24T16:31:03.225875",
         "last_commit": "dd631a2e5a1d8bf2ab21095b43afe068443f02b9",
         "last_commit_time": "2021-06-05T16:42:59"
+    },
+    "com.github.ulauncher.ulauncher-emoji": {
+        "id": "com.github.ulauncher.ulauncher-emoji",
+        "url": "https://github.com/Ulauncher/ulauncher-emoji",
+        "updated_at": "2024-09-25T08:58:43.299421",
+        "last_commit": "827cfe5e1d2f89f742f811f981759787b0654fa9",
+        "last_commit_time": "2023-11-04T18:37:13"
+    },
+    "com.github.andr3slelouch.ulauncher-gnome-extensions-prefs": {
+        "id": "com.github.andr3slelouch.ulauncher-gnome-extensions-prefs",
+        "url": "https://github.com/andr3slelouch/ulauncher-gnome-extensions-prefs",
+        "updated_at": "2024-09-25T09:11:59.139145",
+        "last_commit": "fa41689dfbb2477c61ebbb64b5237dc7f44fa481",
+        "last_commit_time": "2020-11-02T01:18:57"
     }
 }
