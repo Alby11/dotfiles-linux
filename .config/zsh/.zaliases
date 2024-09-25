@@ -864,3 +864,5 @@ alias sarnet='sar -n DEV 1 5'
 alias sardisk='sar -d 1 5'
 # Example: sardisk
 # Explanation: Displays disk read/write operations.
+
+alias powershell='pwsh'

@@ -173,7 +173,7 @@
     "terminal.sourceControlRepositoriesKind": "external",
     "terminal.integrated.shell.linux": "/bin/zsh",
     "chat.editor.fontSize": 12,
-    "terminal.integrated.defaultProfile.linux": "tmux",
+    "terminal.integrated.defaultProfile.linux": "pwsh",
     "wakatime.apiKey": "waka_c4099ea0-7272-4be6-acd5-5447a606806a",
     "vim.enableNeovim": true,
     "vim.insertModeKeyBindings": [
@@ -240,5 +240,27 @@
     "typescript.suggest.paths": false,
     "javascript.suggest.paths": false,
     "workbench.productIconTheme": "bootstrap-product-icons",
-    "application.shellEnvironmentResolutionTimeout": 30
+    "application.shellEnvironmentResolutionTimeout": 30,
+    "powershell.developer.editorServicesLogLevel": "Diagnostic",
+    "terminal.integrated.profiles.linux": {
+        "bash": {
+            "path": "bash",
+            "icon": "terminal-bash"
+        },
+        "zsh": {
+            "path": "zsh"
+        },
+        "fish": {
+            "path": "fish"
+        },
+        "tmux": {
+            "path": "tmux",
+            "icon": "terminal-tmux"
+        },
+        "pwsh": {
+            "path": "pwsh",
+            "icon": "terminal-powershell"
+        }
+    },
+    "powershell.pester.debugOutputVerbosity": "Normal"
 }
