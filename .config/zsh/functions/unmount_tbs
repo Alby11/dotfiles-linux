@@ -1,0 +1,51 @@
+# vim: filetype=zsh
+
+function unmount_tbs() {
+    # Help message if wrong parameters or '-h' are passed
+    if [[ $1 == "-h" || -z $1 ]]; then
+        echo "Usage: unmount_tbs <mount_point>"
+        echo "This function helps troubleshoot unmount issues."
+        echo "It checks for open files, active processes, and locks that might prevent unmounting."
+        return 1
+    fi
+
+    local MOUNT_POINT="$1"
+
+    # Convert relative paths to absolute paths
+    if [[ "$MOUNT_POINT" != /* ]]; then
+        MOUNT_POINT="${PWD}/${MOUNT_POINT}"
+    fi
+
+    # Double escape for special characters
+    MOUNT_POINT=$(echo "$MOUNT_POINT" | sed 's/\\\$/\$/g')
+
+    # Check if the mount point exists (using `[[` to handle special characters correctly)
+    if [[ ! -d "$MOUNT_POINT" ]]; then
+        echo "Error: Mount point '${MOUNT_POINT}' does not exist."
+        return 1
+    fi
+
+    echo "Starting unmount troubleshooting for: ${MOUNT_POINT}"
+
+    # 1. List open files
+    echo -e "\nStep 1: Checking open files at ${MOUNT_POINT}..."
+    lsof +D "$MOUNT_POINT" || echo "No open files found."
+
+    # 2. Show processes using the mount point
+    echo -e "\nStep 2: Listing processes using ${MOUNT_POINT}..."
+    fuser -vm "$MOUNT_POINT" || echo "No processes using the mount point."
+
+    # 3. Check for locks on the mount point
+    echo -e "\nStep 3: Checking for locks on ${MOUNT_POINT}..."
+    lsof | grep "$MOUNT_POINT" || echo "No locks found."
+
+    # 4. Display detailed mount information
+    echo -e "\nStep 4: Displaying mount information for ${MOUNT_POINT}..."
+    mount | grep "$MOUNT_POINT" || echo "Mount point details not found in 'mount'."
+
+    echo -e "\nUnmount troubleshooting complete."
+}
+
+# Example usage:
+# unmount_tbs mnt/w-campione-23_c\$
+
