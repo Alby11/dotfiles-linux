@@ -109,7 +109,7 @@ LESS="$LESS -R"
 # Bob Neovim Version Manager Setup
 # Function to install Bob if not already installed
 install_bob() {
-  if [ ! command -v bob &> /dev/null]; then
+  if [ ! command -v bob > /dev/null ]; then
     echo "Installing Bob..."
     cargo install --git https://github.com/MordechaiHadad/bob.git
   else
