@@ -89,6 +89,9 @@ if [[ "$TERM_PROGRAM" == "vscode" ]]; then
 	if [[ -f "$vscode_shell_integration_path" ]]; then
 		source "$vscode_shell_integration_path"
 	fi
+else
+	# To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
+	[[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
 fi
 
 # source SSH settings, including agent config
@@ -98,9 +101,6 @@ fi
 export ANSIBLE_HOME=${XDG_CONFIG_HOME}/ansible
 
 # SOURCE_RCFILE "${ZDOTDIR}/.zcompletions"
-
-# To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
-[[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
 
 # Load completions
 autoload -Uz compinit && compinit

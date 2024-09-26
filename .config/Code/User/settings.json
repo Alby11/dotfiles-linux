@@ -171,9 +171,9 @@
     },
     "vscode-neovim.neovimExecutablePaths.linux": "lvim",
     "terminal.sourceControlRepositoriesKind": "external",
-    "terminal.integrated.shell.linux": "/bin/zsh",
+    "terminal.integrated.shell.linux": "zsh",
     "chat.editor.fontSize": 12,
-    "terminal.integrated.defaultProfile.linux": "pwsh",
+    "terminal.integrated.defaultProfile.linux": "zsh",
     "wakatime.apiKey": "waka_c4099ea0-7272-4be6-acd5-5447a606806a",
     "vim.enableNeovim": true,
     "vim.insertModeKeyBindings": [
@@ -241,17 +241,22 @@
     "javascript.suggest.paths": false,
     "workbench.productIconTheme": "bootstrap-product-icons",
     "application.shellEnvironmentResolutionTimeout": 30,
-    "powershell.developer.editorServicesLogLevel": "Diagnostic",
     "terminal.integrated.profiles.linux": {
         "bash": {
             "path": "bash",
             "icon": "terminal-bash"
         },
+        "sh": {
+            "path": "sh",
+            "icon": "terminal-linux"
+        },
         "zsh": {
-            "path": "zsh"
+            "path": "zsh",
+            "icon": "terminal-linux"
         },
         "fish": {
-            "path": "fish"
+            "path": "fish",
+            "icon": "terminal-linux"
         },
         "tmux": {
             "path": "tmux",
@@ -262,5 +267,18 @@
             "icon": "terminal-powershell"
         }
     },
-    "powershell.pester.debugOutputVerbosity": "Normal"
+    "powershell.pester.debugOutputVerbosity": "Normal",
+    "terminal.integrated.suggest.enabled": true,
+    "terminal.explorerKind": "both",
+    "terminal.integrated.automationProfile.linux": {},
+    "terminal.integrated.enableImages": true,
+    "terminal.integrated.experimental.windowsUseConptyDll": true,
+    "terminal.integrated.gpuAcceleration": "on",
+    "powershell.developer.setExecutionPolicy": false,
+    "powershell.pester.useLegacyCodeLens": false,
+    "powershell.powerShellAdditionalExePaths": {
+        "powershell": "/usr/bin/pwsh"
+    },
+    "notebook.defaultFormatter": "yzhang.markdown-all-in-one",
+    "bashIde.shfmt.languageDialect": "bash"
 }

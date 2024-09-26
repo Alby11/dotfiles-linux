@@ -106,8 +106,37 @@ LESS_TERMCAP_md="${yellow}"
 unset LESSCLOSE
 LESS="$LESS -R"
 
-# install_and_setup_bat
+# Bob Neovim Version Manager Setup
+# Function to install Bob if not already installed
+install_bob() {
+  if [ ! command -v bob &> /dev/null]; then
+    echo "Installing Bob..."
+    cargo install --git https://github.com/MordechaiHadad/bob.git
+  else
+    echo "Bob is already installed."
+  fi
+}
 
+# Function to install the latest Neovim nightly using Bob
+install_latest_nightly() {
+  echo "Installing latest Neovim nightly..."
+  bob use nightly
+}
+
+# Check if rustup is installed, required for building Bob and Neovim
+if ! command -v rustup &> /dev/null; then
+  echo "rustup is required for Bob and Neovim builds. Install rustup..."
+  # curl https://sh.rustup.rs -sSf | sh
+fi
+
+# Run the installation of Bob and Neovim nightly
+install_bob
+install_latest_nightly
+
+# Add Bob's Neovim installation to PATH
+export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
+
+# install_and_setup_bat
 if CHECK_COMMANDS lvim; then
   EDITOR="${$(which lvim):-$EDITOR}"
   PAGER="$EDITOR"
