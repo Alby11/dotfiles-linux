@@ -119,8 +119,8 @@ install_bob() {
 
 # Function to install the latest Neovim nightly using Bob
 install_latest_nightly() {
-  echo "Installing latest Neovim nightly..."
-  bob use nightly
+  echo "Installing latest version..."
+  bob use stable &> /dev/null
 }
 
 # Check if rustup is installed, required for building Bob and Neovim
@@ -130,8 +130,8 @@ if ! command -v rustup &> /dev/null; then
 fi
 
 # Run the installation of Bob and Neovim nightly
-install_bob
-install_latest_nightly
+# install_bob
+# install_latest_nightly
 
 # Add Bob's Neovim installation to PATH
 export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
@@ -142,7 +142,9 @@ if CHECK_COMMANDS lvim; then
   PAGER="$EDITOR"
   MANPAGER="$EDITOR -c 'Man!' -o -"
 elif CHECK_COMMANDS nvim; then
-  EDITOR="${$(which nvim):-$EDITOR}" PAGER="$EDITOR" MANPAGER="$EDITOR -c 'Man!' -o -"
+  EDITOR="${$(which nvim):-$EDITOR}"
+  PAGER="$EDITOR"
+  MANPAGER="$EDITOR -c 'Man!' -o -"
 elif CHECK_COMMANDS vim; then
   EDITOR="${$(which vim):-$EDITOR}"
   PAGER="$EDITOR"
@@ -152,6 +154,9 @@ else
   PAGER="${$(which less):-$PAGER}"
   MANPAGER="$PAGER"
 fi
+  EDITOR="${$(which nvim):-$EDITOR}"
+  PAGER="$EDITOR"
+  MANPAGER="$EDITOR -c 'Man!' -o -"
 VISUAL="$EDITOR"
 
 [[ -n $EDITOR ]] && {

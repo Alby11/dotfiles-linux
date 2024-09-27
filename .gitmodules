@@ -43,3 +43,6 @@
 [submodule ".config/ansible"]
 	path = .config/ansible
 	url = git@github.com:Alby11/ansible.git
+[submodule ".config/nvim"]
+	path = .config/nvim
+	url = git@github.com:Alby11/AstroNvim.git
