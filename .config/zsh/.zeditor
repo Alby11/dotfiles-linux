@@ -25,12 +25,12 @@ install_and_setup_bat() {
     # Check if batcat is installed (Ubuntu's bat package name)
     if command -v batcat > /dev/null; then
       alias bat='batcat'
-      bat () { 
+      bat () {
         batcat "$@"
       }
       # Only alias cat to rcat if rcat is not already an existing command
       if ! command -v rcat > /dev/null; then
-        rcat () { 
+        rcat () {
           cat "$@"
         }
       fi
@@ -40,7 +40,7 @@ install_and_setup_bat() {
   # Integration with fzf for preview
   if command -v fzf > /dev/null; then
     export FZF_DEFAULT_OPTS="--preview 'bat --color=always --style=numbers --line-range=:500 {}'"
-    fzfbat() { 
+    fzfbat() {
       fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"
     }
   fi
@@ -142,9 +142,7 @@ if CHECK_COMMANDS lvim; then
   PAGER="$EDITOR"
   MANPAGER="$EDITOR -c 'Man!' -o -"
 elif CHECK_COMMANDS nvim; then
-  EDITOR="${$(which nvim):-$EDITOR}"
-  PAGER="$EDITOR"
-  MANPAGER="$EDITOR -c 'Man!' -o -"
+  EDITOR="${$(which nvim):-$EDITOR}" PAGER="$EDITOR" MANPAGER="$EDITOR -c 'Man!' -o -"
 elif CHECK_COMMANDS vim; then
   EDITOR="${$(which vim):-$EDITOR}"
   PAGER="$EDITOR"
@@ -155,7 +153,7 @@ else
   MANPAGER="$PAGER"
 fi
 VISUAL="$EDITOR"
- 
+
 [[ -n $EDITOR ]] && {
   edit() {
       ${EDITOR:-vi} "$@"
