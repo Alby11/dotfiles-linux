@@ -80,6 +80,8 @@ alias mountj='sudo mount | \
   column --table --table-columns=mountpoint,on,mount,type,typename,options --json'
 alias netstat="sudo netstat"
 
+unalias ping # restore original ping (ohmyzsh override)
+
 if command -v systemctl &>/dev/null; then
 	# Basic systemctl commands
 	alias ctl="sudo systemctl"
@@ -755,10 +757,6 @@ alias netcon='ss -tunap'
 # Example: netcon
 # Explanation: Shows all active TCP/UDP connections along with associated processes.
 
-# 6.1. PING ALIASES
-
-unalias ping &> /dev/null # restore original ping (ohmyzsh override)
-
 # Alias for performing a ping test
 alias pingtest='ping -c 5'
 # Example: pingtest google.com
@@ -864,5 +862,3 @@ alias sarnet='sar -n DEV 1 5'
 alias sardisk='sar -d 1 5'
 # Example: sardisk
 # Explanation: Displays disk read/write operations.
-
-alias powershell='pwsh'

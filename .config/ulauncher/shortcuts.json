@@ -14,29 +14,9 @@
         "name": "Bing Search",
         "keyword": "b",
         "cmd": "https://www.bing.com/search?q=%s",
-        "icon": "~/.config/ulauncher/bing.ico",
+        "icon": null,
         "is_default_search": false,
         "run_without_argument": false,
         "added": 1694873200.7944722
-    },
-    "4d45308e-2810-4e28-8b21-02da7c22fba2": {
-        "id": "4d45308e-2810-4e28-8b21-02da7c22fba2",
-        "name": "DuckDuckGo",
-        "keyword": "duk",
-        "cmd": "https://duckduckgo.com/?t=ffab&q=%s",
-        "icon": "~/.config/ulauncher/ddg.ico",
-        "is_default_search": true,
-        "run_without_argument": false,
-        "added": 1726735875.1651807
-    },
-    "09f06bbf-9bc8-498e-8f2b-8749b9f633c6": {
-        "id": "09f06bbf-9bc8-498e-8f2b-8749b9f633c6",
-        "name": "DockerHub",
-        "keyword": "dkh",
-        "cmd": "https://hub.docker.com/search?q=%s",
-        "icon": "~/.config/ulauncher/dockerhub.ico",
-        "is_default_search": false,
-        "run_without_argument": false,
-        "added": 1726735930.7392335
     }
 }

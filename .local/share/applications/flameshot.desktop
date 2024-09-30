@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Application
 TryExec=/opt/flameshot/bin/flameshot
-Exec=flameshot.sh
+Exec=/opt/flameshot/bin/flameshot
 Icon=/opt/flameshot/share/icons/hicolor/128x128/apps/flameshot.png
 Terminal=false
 Categories=Graphics;Photography;Utility;
@@ -14,8 +14,4 @@ Actions=New;
 [Desktop Action New]
 Name=Launch GUI
 Exec=flameshot gui
-
-[Desktop Action New]
-Name=Launch config
-Exec=flameshot config
 

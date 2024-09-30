@@ -65,12 +65,12 @@ SOURCE_RCFILE "${ZDOTDIR}"/.zantidote
 [[ -d ${HOME}/go ]] && export GOPATH=${HOME}/go
 
 # Export JAVA_HOME from default alternative
-# if ! javac_path=$(readlink -f "$(which javac)"); then
-# 	echo "Failed to locate javac"
-# 	exit 1
-# fi
-# JAVA_HOME=$(dirname "$(dirname "$javac_path")")
-# export JAVA_HOME
+if ! javac_path=$(readlink -f "$(which javac)"); then
+	echo "Failed to locate javac"
+	exit 1
+fi
+JAVA_HOME=$(dirname "$(dirname "$javac_path")")
+export JAVA_HOME
 
 # set Ls_COLORS if vivid is installed
 if ! CHECK_COMMANDS "vivid"; then
@@ -84,15 +84,12 @@ export LANG='en_US.UTF-8'
 
 # set ZSH as VSCode default shell for the integrated terminal
 # shellcheck disable=SC1090
-# if [[ "$TERM_PROGRAM" == "vscode" ]]; then
-	# vscode_shell_integration_path=$(code --locate-shell-integration-path zsh)
-	# if [[ -f "$vscode_shell_integration_path" ]]; then
-	# 	source "$vscode_shell_integration_path"
-	# fi
-# else
-	# To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
-	[[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
-# fi
+if [[ "$TERM_PROGRAM" == "vscode" ]]; then
+	vscode_shell_integration_path=$(code --locate-shell-integration-path zsh)
+	if [[ -f "$vscode_shell_integration_path" ]]; then
+		source "$vscode_shell_integration_path"
+	fi
+fi
 
 # source SSH settings, including agent config
 # SOURCE_RCFILE "${ZDOTDIR}/.zssh"
@@ -100,10 +97,10 @@ export LANG='en_US.UTF-8'
 # set up Ansible config root
 export ANSIBLE_HOME=${XDG_CONFIG_HOME}/ansible
 
-# set up GitHub Copilot cli
-eval "$(gh copilot alias -- zsh)"
-
 # SOURCE_RCFILE "${ZDOTDIR}/.zcompletions"
+
+# To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
+[[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
 
 # Load completions
 autoload -Uz compinit && compinit

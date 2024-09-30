@@ -25,12 +25,12 @@ install_and_setup_bat() {
     # Check if batcat is installed (Ubuntu's bat package name)
     if command -v batcat > /dev/null; then
       alias bat='batcat'
-      bat () {
+      bat () { 
         batcat "$@"
       }
       # Only alias cat to rcat if rcat is not already an existing command
       if ! command -v rcat > /dev/null; then
-        rcat () {
+        rcat () { 
           cat "$@"
         }
       fi
@@ -40,7 +40,7 @@ install_and_setup_bat() {
   # Integration with fzf for preview
   if command -v fzf > /dev/null; then
     export FZF_DEFAULT_OPTS="--preview 'bat --color=always --style=numbers --line-range=:500 {}'"
-    fzfbat() {
+    fzfbat() { 
       fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"
     }
   fi
@@ -119,8 +119,8 @@ install_bob() {
 
 # Function to install the latest Neovim nightly using Bob
 install_latest_nightly() {
-  echo "Installing latest version..."
-  bob use stable &> /dev/null
+  echo "Installing latest Neovim nightly..."
+  bob use nightly
 }
 
 # Check if rustup is installed, required for building Bob and Neovim
@@ -130,8 +130,8 @@ if ! command -v rustup &> /dev/null; then
 fi
 
 # Run the installation of Bob and Neovim nightly
-# install_bob
-# install_latest_nightly
+install_bob
+install_latest_nightly
 
 # Add Bob's Neovim installation to PATH
 export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
@@ -154,11 +154,8 @@ else
   PAGER="${$(which less):-$PAGER}"
   MANPAGER="$PAGER"
 fi
-  EDITOR="${$(which nvim):-$EDITOR}"
-  PAGER="$EDITOR"
-  MANPAGER="$EDITOR -c 'Man!' -o -"
 VISUAL="$EDITOR"
-
+ 
 [[ -n $EDITOR ]] && {
   edit() {
       ${EDITOR:-vi} "$@"
