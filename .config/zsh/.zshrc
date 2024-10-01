@@ -67,7 +67,6 @@ SOURCE_RCFILE "${ZDOTDIR}"/.zantidote
 # Export JAVA_HOME from default alternative
 if ! javac_path=$(readlink -f "$(which javac)"); then
 	echo "Failed to locate javac"
-	exit 1
 fi
 JAVA_HOME=$(dirname "$(dirname "$javac_path")")
 export JAVA_HOME

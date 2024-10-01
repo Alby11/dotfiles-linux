@@ -1,6 +1,6 @@
 #!/bin/env zsh
 #
-# .zshenv
+# NOTE: .zshenv
 #
 
 # NOTE: .zshenv needs to live at ~/.zshenv, not in $ZDOTDIR!
@@ -16,6 +16,23 @@
 # """
 # fi
 # fi
+
+export ZSH_DEBUG=1
+if [ "$ZSH_DEBUG" -eq 1 ]; then
+	echo "\n------------------------------------" >> $ZDOTDIR/.zsh_debug.log
+	echo "$SHELL dotfiles setup starts here...\n" >> $ZDOTDIR/.zsh_debug.log
+fi
+
+ZSH_DEBUG_LOG() {
+	if [ "$ZSH_DEBUG" -eq 1 ]; then
+		# Log the current file name and the message
+		echo "$1 $@" >> $ZDOTDIR/.zsh_debug.log
+		# Add a timestamp
+		date +"%Y-%m-%d %H:%M:%S" >> $ZDOTDIR/.zsh_debug.log
+		# Log that the file has been sourced
+		echo "$1 has been sourced" >> $ZDOTDIR/.zsh_debug.log
+	fi
+}
 
 # determine distro for later user
 if [[ -f /etc/fedora-release ]]; then
@@ -57,3 +74,6 @@ export THE_SHELL="$(echo $SHELL | grep -o '[^\/]*$')"
 # both here (if we're not a login shell) and from the .zprofile file (which
 # is only sourced if we are a login shell).
 source $ZDOTDIR/.zpath
+
+
+[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG "${(%):-%N}"
