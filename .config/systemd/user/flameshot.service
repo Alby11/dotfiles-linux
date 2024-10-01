@@ -1,0 +1,11 @@
+[Unit]
+Description=Launch Flameshot on GNOME Startup
+After=gnome-session.target
+
+[Service]
+Type=simple
+ExecStart=/opt/flameshot/bin/flameshot
+ExecStop=/usr/bin/pkill flameshot
+
+[Install]
+WanAfter=gnome-session.target
