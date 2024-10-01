@@ -42,8 +42,3 @@ export ZSH_CUSTOM=$ZSH
 # Define or ignore unhandled ZLE widgets before loading zsh-syntax-highlighting
 zle -N menu-search || true
 zle -N recent-paths || true
-
-# Set editor and pager
-export EDITOR='vim'
-export VISUAL='vim'
-export PAGER='less'
