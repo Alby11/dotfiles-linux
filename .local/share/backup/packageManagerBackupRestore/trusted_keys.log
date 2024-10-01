@@ -1,0 +1,20 @@
+gpg-pubkey-5323552a-6112bcdc --> Fedora (37) <fedora-37-primary@fedoraproject.org> public key
+gpg-pubkey-453d6413-5c7aa779 --> agriffis_neovim-nightly (None) <agriffis#neovim-nightly@copr.fedorahosted.org> public key
+gpg-pubkey-d98c110c-5fb6be16 --> fszymanski_interception-tools (None) <fszymanski#interception-tools@copr.fedorahosted.org> public key
+gpg-pubkey-ab2c327b-616217aa --> tokariew_glow (None) <tokariew#glow@copr.fedorahosted.org> public key
+gpg-pubkey-be1229cf-5631588c --> Microsoft (Release signing) <gpgsecurity@microsoft.com> public key
+gpg-pubkey-94843c65-5dadbc64 --> RPM Fusion nonfree repository for Fedora (2020) <rpmfusion-buildsys@lists.rpmfusion.org> public key
+gpg-pubkey-d651ff2e-5dadbbc1 --> RPM Fusion free repository for Fedora (2020) <rpmfusion-buildsys@lists.rpmfusion.org> public key
+gpg-pubkey-014f79c2-5bdaeead --> skidnik_termite (None) <skidnik#termite@copr.fedorahosted.org> public key
+gpg-pubkey-90f437f2-5dd896bd --> atim_starship (None) <atim#starship@copr.fedorahosted.org> public key
+gpg-pubkey-0c1289c0-58c6ad7d --> TeamViewer GmbH (TeamViewer Linux 2017) <support@teamviewer.com> public key
+gpg-pubkey-1883fff9-5de91cda --> atim_lazygit (None) <atim#lazygit@copr.fedorahosted.org> public key
+gpg-pubkey-cd7da1f6-5f6ff50a --> proletarius101_firefox-nightly (None) <proletarius101#firefox-nightly@copr.fedorahosted.org> public key
+gpg-pubkey-eb10b464-6202d9c6 --> Fedora (38) <fedora-38-primary@fedoraproject.org> public key
+gpg-pubkey-64487e24-6106de44 --> https://packagecloud.io/filips/FirefoxPWA (https://packagecloud.io/docs#gpg_signing) <support@packagecloud.io> public key
+gpg-pubkey-e419396d-5b2dcced --> Fortinet\FortiClient (Fortinet FortiClient RPM Package Signing) <support@fortinet.com> public key
+gpg-pubkey-5f915c16-5e8fadb8 --> jstaf_onedriver (None) <jstaf#onedriver@copr.fedorahosted.org> public key
+gpg-pubkey-c9d8b80b-54c2e310 --> osquery (osquery) <osquery@fb.com> public key
+gpg-pubkey-e1aaf77e-641335c2 --> awood_bat-extras (None) <awood#bat-extras@copr.fedorahosted.org> public key
+gpg-pubkey-307f80b9-62dbf226 --> erikreider_SwayNotificationCenter (None) <erikreider#SwayNotificationCenter@copr.fedorahosted.org> public key
+gpg-pubkey-69e1fead-5f497bb6 --> atim_bottom (None) <atim#bottom@copr.fedorahosted.org> public key

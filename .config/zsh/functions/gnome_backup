@@ -1,0 +1,52 @@
+# vim: filetype=zsh
+
+# Function to perform a full backup of GNOME settings
+function gnome_backup() {
+    # Help function
+    function help() {
+        echo "Usage: gnome_backup <backup_directory>"
+        echo "Creates a full backup of GNOME settings, extensions, keybindings, themes, and configuration files."
+        echo "Options:"
+        echo "  -h    Show this help message."
+    }
+
+    # Check for help flag or missing argument
+    if [[ "$1" == "-h" || -z "$1" ]]; then
+        help
+        return 1
+    fi
+
+    # Assign backup directory from the argument
+    local backup_dir="$1"
+
+    # Validate the backup directory
+    if [[ ! -d "$backup_dir" ]]; then
+        echo "Error: Backup directory does not exist or is invalid."
+        help
+        return 1
+    fi
+
+    # Backup dconf settings
+    echo "Backing up dconf settings..."
+    dconf dump / > "${backup_dir}/gnome-settings-backup.dconf"
+    
+    # Backup GNOME extensions
+    echo "Backing up GNOME extensions..."
+    tar -czvf "${backup_dir}/gnome-extensions-backup.tar.gz" ~/.local/share/gnome-shell/extensions/ > /dev/null 2>&1
+
+    # Backup keybindings
+    echo "Backing up GNOME keybindings..."
+    dconf dump /org/gnome/settings-daemon/plugins/media-keys/ > "${backup_dir}/gnome-keybindings-backup.dconf"
+
+    # Backup themes and icons
+    echo "Backing up GNOME themes and icons..."
+    tar -czvf "${backup_dir}/gnome-themes-backup.tar.gz" ~/.themes ~/.icons > /dev/null 2>&1
+
+    # Backup GNOME config files
+    echo "Backing up GNOME configuration files..."
+    cp -r ~/.config/gnome* "${backup_dir}/" 2>/dev/null
+
+    echo "Backup complete. All files are saved in ${backup_dir}"
+}
+
+# Usage: gnome_backup /path/to/backup_directory
