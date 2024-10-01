@@ -25,7 +25,8 @@ set +o allexport
 setopt extendedglob
 export ENABLE_CORRECTION="true"
 export COMPLETION_WAITING_DOTS="true"
-export HISTFILE="${ZDOTDIR}/.zsh_history"
+export HISTFILE="$HOME/.local/share/zsh_history/.zsh_history"
+mkdir -p "$(dirname $HISTFILE)"
 export HISTSIZE=100000
 export HISTFILESIZE=$HISTSIZE
 export HIST_STAMPS="%d/%m/%y %T"
@@ -83,7 +84,7 @@ export LANG='en_US.UTF-8'
 
 # set ZSH as VSCode default shell for the integrated terminal
 # shellcheck disable=SC1090
-if [[ "$TERM_PROGRAM" == "vscode" ]]; then
+if [[ "$TERM_PROGRAM" = "vscode" ]]; then
 	vscode_shell_integration_path=$(code --locate-shell-integration-path zsh)
 	if [[ -f "$vscode_shell_integration_path" ]]; then
 		source "$vscode_shell_integration_path"

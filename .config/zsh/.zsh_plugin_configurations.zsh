@@ -55,7 +55,8 @@ if [ -d "$(antidote path ohmyzsh/ohmyzsh)/plugins/per-directory-history" ]; then
   export HISTORY_START_WITH_GLOBAL=false
   export PER_DIRECTORY_HISTORY_TOGGLE='^G'
   export PER_DIRECTORY_HISTORY_PRINT_MODE_CHANGE=true
-  export HISTORY_BASE="${ZDOTDIR}/.directory_history"
+  export HISTORY_BASE="$HOME/.local/share/zsh_history/.directory_history"
+  mkdir -p "$(dirname $HISTORY_BASE)"
 fi
 
 ### zsh-syntax-highlighting ###
