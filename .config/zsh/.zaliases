@@ -80,8 +80,6 @@ alias mountj='sudo mount | \
   column --table --table-columns=mountpoint,on,mount,type,typename,options --json'
 alias netstat="sudo netstat"
 
-unalias ping # restore original ping (ohmyzsh override)
-
 if command -v systemctl &>/dev/null; then
 	# Basic systemctl commands
 	alias ctl="sudo systemctl"
@@ -747,6 +745,8 @@ alias sshtunnel='ssh -fNL'
 
 # 6. NETWORK MONITORING ALIASES
 
+unalias ping &>/dev/null # restore original ping (ohmyzsh override)
+
 # Alias for checking open ports with netstat
 alias netopen='netstat -tuln'
 # Example: netopen
@@ -862,3 +862,5 @@ alias sarnet='sar -n DEV 1 5'
 alias sardisk='sar -d 1 5'
 # Example: sardisk
 # Explanation: Displays disk read/write operations.
+
+[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG "${(%):-%N}"

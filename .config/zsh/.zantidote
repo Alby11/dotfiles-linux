@@ -42,3 +42,5 @@ export ZSH_CUSTOM=$ZSH
 # Define or ignore unhandled ZLE widgets before loading zsh-syntax-highlighting
 zle -N menu-search || true
 zle -N recent-paths || true
+
+[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG "${(%):-%N}"

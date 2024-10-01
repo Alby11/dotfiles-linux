@@ -170,3 +170,5 @@ fi
 if antidote path "tom-doerr/zsh_codex > /dev/null 2>&1; then
     bindkey '^Q' create_completion
 fi
+
+[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG "${(%):-%N}"

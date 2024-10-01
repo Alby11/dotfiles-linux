@@ -46,3 +46,5 @@ fi
 
 # Merge .Xresources to X server resource database to apply changes immediately.
 xrdb -merge $HOME/.Xresources > /dev/null
+
+[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG "${(%):-%N}"

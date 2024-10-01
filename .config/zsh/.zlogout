@@ -8,3 +8,5 @@ ECHOCAT .zlogout: executed by zsh(1) when login shell exits.
 if [ "$SHLVL" = 1 ]; then
     [ -x /usr/bin/clear ] && /usr/bin/clear -q
 fi
+
+[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG "${(%):-%N}"

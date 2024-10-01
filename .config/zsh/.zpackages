@@ -299,3 +299,5 @@ date > "${HOME}/.bootstrapped"
 
 # Clean up
 unset check_nopasswd filter_exclusions_with_delimiter has_apt has_dnf has_pacman 
+
+[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG "${(%):-%N}"

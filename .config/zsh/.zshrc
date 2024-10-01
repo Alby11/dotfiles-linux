@@ -104,3 +104,5 @@ export ANSIBLE_HOME=${XDG_CONFIG_HOME}/ansible
 # Load completions
 autoload -Uz compinit && compinit
 
+
+[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG "${(%):-%N}"

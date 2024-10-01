@@ -47,3 +47,5 @@ for func in $ZDOTDIR/functions/*(.N); do
   autoload -Uz $func
 done
 compinit -u
+
+[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG "${(%):-%N}"

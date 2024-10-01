@@ -43,3 +43,5 @@ start_keychain
 
 # Cleanup
 unset -f start_keychain install_keychain
+
+[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG "${(%):-%N}"

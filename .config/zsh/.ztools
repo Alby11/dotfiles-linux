@@ -184,3 +184,5 @@ CHECK_ONLINE() {
 	fi
 	return 1
 }
+
+[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG "${(%):-%N}"

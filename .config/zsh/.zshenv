@@ -25,8 +25,6 @@ fi
 
 ZSH_DEBUG_LOG() {
 	if [ "$ZSH_DEBUG" -eq 1 ]; then
-		# Log the current file name and the message
-		echo "$1 $@" >> $ZDOTDIR/.zsh_debug.log
 		# Add a timestamp
 		date +"%Y-%m-%d %H:%M:%S" >> $ZDOTDIR/.zsh_debug.log
 		# Log that the file has been sourced
