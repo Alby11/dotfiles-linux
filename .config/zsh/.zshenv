@@ -54,7 +54,7 @@ export ZDOTDIR="${ZDOTDIR:-$XDG_CONFIG_HOME/zsh}"
 [[ -f ${ZDOTDIR}/.ztools ]] && source ${ZDOTDIR}/.ztools
 
 if [ -z "$SSH_CONNECTION" ]; then
-	if [[ IS_LOGIN_SHELL ]]; then
+	if [[ $IS_LOGIN_SHELL ]]; then
 		ECHOCAT "This is a login shell"
 	else
 		ECHOCAT "This is not a login shell"
