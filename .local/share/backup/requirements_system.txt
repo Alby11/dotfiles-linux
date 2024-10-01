@@ -123,7 +123,7 @@ trzsz-libs==1.1.0
 trzsz-svr==1.1.0
 ujson==5.8.0
 ulauncher==5.15.4
-urllib3==1.26.17
+urllib3==1.26.19
 userpath==1.9.1
 virtualenv==20.21.1
 wcwidth==0.2.5
