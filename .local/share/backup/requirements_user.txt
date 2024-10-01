@@ -17,7 +17,7 @@ charset-normalizer==3.2.0
 click==8.1.7
 commonmark==0.9.1
 cookiecutter==2.3.1
-cryptography==41.0.4
+cryptography==43.0.1
 debugpy==1.8.0
 deepl==1.15.0
 defusedxml==0.7.1
