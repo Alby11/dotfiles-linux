@@ -1,2 +1,0 @@
-tallonea ALL=(root) NOPASSWD: /usr/sbin/mount.cifs
-tallonea ALL=(ALL) NOPASSWD:ALL
