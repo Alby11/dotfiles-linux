@@ -157,7 +157,6 @@ psprint/zsh-sweep kind:defer
 # Load personal configurations
 "${ZDOTDIR}/.zeditor"
 "${XDG_CONFIG_HOME}/git/.git.conf"
-"${ZDOTDIR}/.zcred" # > /dev/null 2>&1 &
 "${ZDOTDIR}/.zaliases"
 "${ZDOTDIR}/.zfunctions"
 "${ZDOTDIR}/.zxresources"

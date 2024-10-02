@@ -17,9 +17,9 @@
 # fi
 # fi
 
-export ZSH_DEBUG=1
+export ZSH_DEBUG=0
 if [ "$ZSH_DEBUG" -eq 1 ]; then
-	echo "\n------------------------------------" >> $ZDOTDIR/.zsh_debug.log
+	echo "\n\n------------------------------------" >> $ZDOTDIR/.zsh_debug.log
 	echo "$SHELL dotfiles setup starts here...\n" >> $ZDOTDIR/.zsh_debug.log
 fi
 
