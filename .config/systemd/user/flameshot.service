@@ -8,4 +8,4 @@ ExecStart=/opt/flameshot/bin/flameshot
 ExecStop=/usr/bin/pkill flameshot
 
 [Install]
-After=gnome-session.target
+WantedBy=gnome-session.target
