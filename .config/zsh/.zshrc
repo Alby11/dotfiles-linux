@@ -37,7 +37,7 @@ setopt inc_append_history
 setopt share_history
 
 # secret vars and credentials
-[[ -f "${ZDOTDIR}/.zcred" ]] && SOURCE_RCFILE "${ZDOTDIR}/.zcred" # > /dev/null 2>&1 &
+[[ -f "${ZDOTDIR}/.zsecrets" ]] && SOURCE_RCFILE "${ZDOTDIR}/.zsecrets" # > /dev/null 2>&1 &
 
 # source colors scripts
 SOURCE_RCFILE "${ZDOTDIR}/.zcolors_catppuccin"

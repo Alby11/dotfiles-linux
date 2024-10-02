@@ -5,6 +5,7 @@ After=gnome-session.target
 [Service]
 Type=simple
 ExecStart=/opt/flameshot/bin/flameshot
+; ExecStart=/home/tallonea/.local/bin/flameshot.sh launcher
 ExecStop=/usr/bin/pkill flameshot
 
 [Install]

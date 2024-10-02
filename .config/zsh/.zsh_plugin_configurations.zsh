@@ -168,8 +168,8 @@ if antidote path "wofr06/lesspipe" > /dev/null 2>&1; then
 fi
 
 ### tom-doerr/zsh_codex ###
-if antidote path "tom-doerr/zsh_codex > /dev/null 2>&1; then
-    bindkey '^Q' create_completion
+if antidote path "tom-doerr/zsh_codex" >/dev/null 2>&1; then
+    bindkey '^X' create_completion
 fi
 
 [[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG "${(%):-%N}"

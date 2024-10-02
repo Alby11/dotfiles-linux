@@ -67,9 +67,9 @@
     "vim.useSystemClipboard": true,
     "vim.leader": " ",
     "workbench.colorCustomizations": {
-        "statusBar.background": "#007acc",
-        "statusBar.noFolderBackground": "#007acc",
-        "statusBar.debuggingBackground": "#007acc",
+        "statusBar.background": "#005f5f",
+        "statusBar.noFolderBackground": "#005f5f",
+        "statusBar.debuggingBackground": "#005f5f",
         "statusBar.foreground": "#ffffff",
         "statusBar.debuggingForeground": "#ffffff"
     },
@@ -280,5 +280,22 @@
         "powershell": "/usr/bin/pwsh"
     },
     "notebook.defaultFormatter": "yzhang.markdown-all-in-one",
-    "bashIde.shfmt.languageDialect": "bash"
+    "bashIde.shfmt.languageDialect": "bash",
+    "ansible.lightspeed.enabled": true,
+    "ansible.lightspeed.suggestions.enabled": true,
+    "mssql.enableSqlAuthenticationProvider": false,
+    "mssql.enableQueryHistoryCapture": false,
+    "mssql.objectExplorer.groupBySchema": true,
+    "mssql.connections": [
+        {
+            "server": "sqldata2022.fllicarli.im",
+            "database": "",
+            "authenticationType": "Integrated",
+            "profileName": "SQLDATA2022",
+            "encrypt": "Optional",
+            "trustServerCertificate": true,
+            "password": ""
+        },
+    ],
+    "mssql.enableExperimentalFeatures": true
 }
