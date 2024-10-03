@@ -38,7 +38,6 @@ setopt share_history
 
 # Fetch secrets
 [[ -x ${ZDOTDIR}/.fetch_secrets.sh ]] && eval $(${ZDOTDIR}/.fetch_secrets.sh)
-[[ -x ${ZDOTDIR}/.fetch_secrets.sh ]] && eval ${ZDOTDIR}/.fetch_secrets.sh
 #export BW_SESSION=$(bw-read-session) export BW_SESSION=$(bw-read-session)
 
 # source colors scripts
@@ -81,8 +80,7 @@ export JAVA_HOME
 if ! CHECK_COMMANDS "vivid"; then
 	cargo install vivid
 fi
-export LS_COLORS="$(vivid generate catppuccin-mocha)"
-export EZA_COLORS=$LS_COLORS
+export {EZA,LS}_COLORS="$(vivid generate catppuccin-mocha)"
 
 # Prefer US English and use UTF-8.
 export LANG='en_US.UTF-8'
