@@ -38,6 +38,8 @@ setopt share_history
 
 # Fetch secrets
 [[ -x ${ZDOTDIR}/.fetch_secrets.sh ]] && eval $(${ZDOTDIR}/.fetch_secrets.sh)
+[[ -x ${ZDOTDIR}/.fetch_secrets.sh ]] && eval ${ZDOTDIR}/.fetch_secrets.sh
+#export BW_SESSION=$(bw-read-session) export BW_SESSION=$(bw-read-session)
 
 # source colors scripts
 SOURCE_RCFILE "${ZDOTDIR}/.zcolors_catppuccin"
