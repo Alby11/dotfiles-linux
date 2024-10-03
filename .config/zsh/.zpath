@@ -33,10 +33,6 @@ path=(
   /usr/local/{,s}bin(N)
   $path
 )
-fpath=(
-  $ZDOTDIR/(completion,functions)(N)
-  $fpath
-)
 # Initialize the Zsh completion system
 # This enables advanced command-line completion features
 autoload bashcompinit && bashcompinit
@@ -47,5 +43,24 @@ for func in $ZDOTDIR/functions/*(.N); do
   autoload -Uz $func
 done
 compinit -u
+
+fpath=(
+  $ZDOTDIR/{completion,functions}(N)
+  $fpath
+)
+eval "$(bw completion --shell zsh); compdef _bw bw;"
+eval "$(bob complete zsh); compdef _bob bob;"
+# Load all completion files and register them with compdef
+# if [ -d "$ZDOTDIR/completion" ]; then
+#   for file in "$ZDOTDIR/completion"/*; do
+#     if [ -r "$file" ]; then
+#       source "$file"
+#       # Extract the function name from the filename (remove leading _)
+#       func_name=$(basename "$file")
+#       cmd_name="${func_name#_}"  # Remove leading underscore for the command
+#       compdef "$func_name" "$cmd_name"
+#     fi
+#   done
+# fi
 
 [[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG "${(%):-%N}"
