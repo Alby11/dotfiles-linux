@@ -81,8 +81,8 @@ export JAVA_HOME
 if ! CHECK_COMMANDS "vivid"; then
 	cargo install vivid
 fi
-export LS_COLORS
-LS_COLORS="$(vivid generate catppuccin-mocha)"
+export LS_COLORS="$(vivid generate catppuccin-mocha)"
+export EZA_COLORS=$LS_COLORS
 
 # Prefer US English and use UTF-8.
 export LANG='en_US.UTF-8'
