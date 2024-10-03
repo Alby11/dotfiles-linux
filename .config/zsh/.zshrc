@@ -37,7 +37,16 @@ setopt inc_append_history
 setopt share_history
 
 # Fetch secrets
-[[ -x ${ZDOTDIR}/.fetch_secrets.sh ]] && eval $(${ZDOTDIR}/.fetch_secrets.sh)
+# Check if the script exists and is executable
+if [[ -x ${ZDOTDIR}/.fetch_secrets.sh ]]; then
+  # Run the script and evaluate each line in the current shell
+  while IFS= read -r line; do
+  	if echo "$line" | grep -q 'BW_SESSION='; then
+  		line=$(echo "$line" | sed 's/BW_SESSION=//')
+  	fi
+    eval "$line"
+  done < <(${ZDOTDIR}/.fetch_secrets.sh)
+fi
 
 # source colors scripts
 SOURCE_RCFILE "${ZDOTDIR}/.zcolors_catppuccin"
