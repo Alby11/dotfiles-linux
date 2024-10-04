@@ -116,7 +116,4 @@ export ANSIBLE_HOME=${XDG_CONFIG_HOME}/ansible
 # Open Weather Map for TMUX Clima
 export OPEN_WEATHER_API_KEY="60d2f49e0004ccad2ad538f264be9564"
 
-# Load completions
-autoload -Uz compinit && compinit
-
 [[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG "${(%):-%N}"

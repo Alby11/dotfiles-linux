@@ -1,5 +1,5 @@
 # vim: filetype=zsh
 
-dotfiles() {
-    git --git-dir="$HOME"/.dotfiles_git/ --work-tree="$HOME" "$@"
-}
+# dotfiles() {
+#     $(which git) --git-dir=${HOME}/.dotfiles_git/ --work-tree="$HOME" "$@"
+# }
