@@ -85,10 +85,10 @@ JAVA_HOME=$(dirname "$(dirname "$javac_path")")
 export JAVA_HOME
 
 # set Ls_COLORS if vivid is installed
-if ! CHECK_COMMANDS "vivid"; then
-	cargo install vivid
-fi
-export {EZA,LS}_COLORS="$(vivid generate catppuccin-mocha)"
+# if ! CHECK_COMMANDS "vivid"; then
+# 	cargo install vivid
+# fi
+# export {EZA,LS}_COLORS="$(vivid generate catppuccin-mocha)"
 
 # Prefer US English and use UTF-8.
 export LANG='en_US.UTF-8'
