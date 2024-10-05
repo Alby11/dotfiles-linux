@@ -172,4 +172,12 @@ if antidote path "tom-doerr/zsh_codex" >/dev/null 2>&1; then
     bindkey '^X' create_completion
 fi
 
+# Use Ctrl-u,Ctrl-l to get the output of the last command
+zmodload -i zsh/parameter
+insert-last-command-output() {
+LBUFFER+="$(eval $history[$((HISTCMD-1))])"
+}
+zle -N insert-last-command-output
+bindkey "^U^L" insert-last-command-output
+
 [[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG "${(%):-%N}"
