@@ -1,0 +1,14 @@
+# vim: filetype=zsh
+
+git_url() {
+    local ssh_url=$(git remote -v | grep '^origin' | grep '(fetch)' | awk '{print $2}' | head -n 1)
+    if [[ -z "$ssh_url" ]]; then
+        echo "No remote URL found."
+        return 1
+    fi
+
+    # Corrected replacement logic
+    ssh_url="${ssh_url/://}"
+    local https_url="${ssh_url/git@/https://}"
+    echo $https_url
+}

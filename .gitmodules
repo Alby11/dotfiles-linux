@@ -1,9 +1,6 @@
 [submodule ".config/nvim"]
 	path = .config/nvim
 	url = git@github.com:Alby11/AstroNvim.git
-[submodule ".config/zsh/antidote"]
-	path = .config/zsh/antidote
-	url = https://github.com/mattmc3/antidote.git
 [submodule ".config/zsh/catppuccin_tty"]
 	path = .config/zsh/catppuccin_tty
 	url = https://github.com/catppuccin/tty.git
@@ -55,12 +52,6 @@
 [submodule "gitdepot/remmina"]
 	path = gitdepot/remmina
 	url = git@github.com:FreeRDP/Remmina.git
-[submodule "/home/tallonea/.config/zsh/zsh-syntax-highlighting"]
-	path = /home/tallonea/.config/zsh/zsh-syntax-highlighting
+[submodule ".config/zsh/zsh-syntax-highlighting"]
+	path = .config/zsh/zsh-syntax-highlighting
 	url = git@github.com:catppuccin/zsh-syntax-highlighting.git
-[submodule "/home/tallonea/.config/zsh/zsh-fsh"]
-	path = /home/tallonea/.config/zsh/zsh-fsh
-	url = git@github.com:catppuccin/zsh-fsh.git
-[submodule "/home/tallonea/.config/fsh"]
-	path = /home/tallonea/.config/fsh
-	url = git@github.com:catppuccin/zsh-fsh.git
