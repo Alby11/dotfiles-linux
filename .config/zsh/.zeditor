@@ -113,14 +113,14 @@ install_bob() {
     echo "Installing Bob..."
     cargo install --git https://github.com/MordechaiHadad/bob.git
   else
-    echo "Bob is already installed."
+    # echo "Bob is already installed."
   fi
 }
 
 # Function to install the latest Neovim nightly using Bob
 install_latest_neovim() {
-  echo "Installing latest Neovim..."
-  bob use stable
+  # echo "Installing latest Neovim..."
+  bob use stable > /dev/null 2>&1 &
 }
 
 # Check if rustup is installed, required for building Bob and Neovim
