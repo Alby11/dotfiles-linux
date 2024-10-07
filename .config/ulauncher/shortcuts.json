@@ -18,5 +18,15 @@
         "is_default_search": false,
         "run_without_argument": false,
         "added": 1694873200.7944722
+    },
+    "6570fa79-6ce9-4e55-b4bc-b22970c4b95a": {
+        "id": "6570fa79-6ce9-4e55-b4bc-b22970c4b95a",
+        "name": "Phind",
+        "keyword": "phi",
+        "cmd": "https://phind.com/search?q=%s",
+        "icon": null,
+        "is_default_search": false,
+        "run_without_argument": false,
+        "added": 1728302546.2147934
     }
 }
