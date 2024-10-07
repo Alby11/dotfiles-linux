@@ -37,10 +37,11 @@ fi
 alias SzAC='autoload -Uz compinit && compinit'
 alias C="clear"
 alias EE='exit'
-alias Sb="source ~/.bashrc"
-alias Sba="source ~/.bash_aliases"
-alias Sz="source $ZDOTDIR/.zshrc"
-alias Sza="source $ZDOTDIR/.zaliases"
+alias Sbashrc="source ~/.bashrc"
+alias Sbasha="source ~/.bash_aliases"
+alias Szsha="source $ZDOTDIR/.zaliases"
+alias Szshenv="source $ZDOTDIR/.zshenv"
+alias Szshrc="source $ZDOTDIR/.zshrc"
 alias chmod='sudo chmod '
 alias chown='sudo chown '
 alias dfh='sudo /bin/df -h'
@@ -48,7 +49,8 @@ alias freeh='sudo free -mh'
 alias h="history -10"   # last 10 history commands
 alias hh="history -20"  # last 10 history commands
 alias hhh="history -30" # last 10 history commands
-alias ssar="ss -ar"
+alias rmf="rm -rf"
+alias rmfv="rm -rfv"
 alias ssht="ssh -t"
 # -X enable X11 forwarding
 alias sshX="ssh -X"
@@ -633,6 +635,9 @@ alias netroute='netstat -rn'
 
 ### SS (Socket Stat) ALIASES ###
 
+# Alias for showing all TCP/UDP/RAW/UNIX connections with process info
+alias ssa="ss -atuwxl"
+
 # Alias for displaying all TCP connections (ss is faster than netstat)
 # Useful for quickly analyzing active connections.
 alias ss_tcp='ss -t -a'
@@ -654,6 +659,8 @@ alias ss_listen='ss -ltn'
 # Example: ss_listen
 
 ### PS (Process Status) ALIASES ###
+
+alias psa='ps aux'
 
 # Alias for displaying the top 10 CPU-consuming processes
 # Useful for finding processes consuming too much CPU.
@@ -862,5 +869,14 @@ alias sarnet='sar -n DEV 1 5'
 alias sardisk='sar -d 1 5'
 # Example: sardisk
 # Explanation: Displays disk read/write operations.
+
+# last. [rip]grepping the above
+
+alias psag="psa | grep"
+alias psar="psa | rg"
+alias ssag="ssa | grep"
+alias ssar="ssa | rg"
+
+### END OF ALIASES ###
 
 [[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG "${(%):-%N}"
