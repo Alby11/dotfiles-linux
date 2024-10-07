@@ -165,7 +165,7 @@ psprint/zsh-sweep kind:defer
 
 ### Plugins that must be called last
 # prompt 
-zsh-users/zsh-syntax-highlighting
+# zsh-users/zsh-syntax-highlighting
 zdharma-continuum/fast-syntax-highlighting
 # marlonrichert/zsh-autocomplete # Find as you type, then press Tab to insert the top completion or ↓to select another completion.
 zsh-users/zsh-autosuggestions
@@ -185,4 +185,4 @@ romkatv/powerlevel10k
 sobolevn/wakatime-zsh-plugin
 
 # Load plugin configurations after all plugins are loaded
-"${ZDOTDIR}/.zsh_plugin_configurations.zsh" kind:defer
+"${ZDOTDIR}/.zsh_plugin_configurations.zsh" # kind:defer

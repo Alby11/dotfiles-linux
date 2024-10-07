@@ -33,7 +33,7 @@ if [ -d "$(antidote path ohmyzsh/ohmyzsh)/plugins/eza" ]; then
 fi
 
 ### zsh-users/zsh-history-substring-search ###
-if antidote path "zsh-users/zsh-history-substring-search" > /dev/null 2&>1; then
+if antidote path "zsh-users/zsh-history-substring-search" > /dev/null 2>&1; then
     export HISTORY_SUBSTRING_SEARCH_FUZZY=0
     export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="fg=#1e1e2e,bg=#a6e3a1,bold,underline"
     export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND="fg=#1e1e2e,bg=#f38ba8,bold,underline"
@@ -60,14 +60,20 @@ if [ -d "$(antidote path ohmyzsh/ohmyzsh)/plugins/per-directory-history" ]; then
 fi
 
 ### zsh-syntax-highlighting ###
-if antidote path "zsh-users/zsh-syntax-highlighting" > /dev/null 2&>1; then
+if antidote path "zsh-users/zsh-syntax-highlighting" > /dev/null 2>&1; then
   $ZDOTDIR/zsh-syntax-highlighting/catppuccin_mocha-zsh-syntax-highlighting.zsh
 fi
 
 ### fast-syntax-highlighting ###
-if antidote path "zdharma-continuum/fast-syntax-highlighting" > /dev/null 2&>1; then
+if antidote path "zdharma-continuum/fast-syntax-highlighting" > /dev/null 2>&1; then
+
     local fast_theme="$(antidote path zdharma-continuum/fast-syntax-highlighting)"
     fast_theme="$fast_theme/fast-syntax-highlighting.plugin.zsh"
+    
+    [[ ! -d $XDG_CONFIG_HOME/fsh ]] && \
+        git clone git@github.com:catppuccin/zsh-fsh $XDG_CONFIG_HOME/fsh && \
+        ln -sv $XDG_CONFIG_HOME/fsh/{themes/*,}
+
     [[ -f "$fast_theme" ]] && \
       source "$fast_theme" && \
       fast-theme --quiet XDG:catppuccin-mocha
