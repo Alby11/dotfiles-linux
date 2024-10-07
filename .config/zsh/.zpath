@@ -55,8 +55,8 @@ eval "$(bw completion --shell zsh); compdef _bw bw;"
 eval "$(bob complete zsh); compdef _bob bob;"
 
 zstyle ':completion:*:*:git:*' script $ZDOTDIR/completion/git-completion.bash
-alias dotfiles='"$(which git)" --git-dir="${HOME}"/.dotfiles_git/ --work-tree="$HOME"'
-alias dot='$(which git) --git-dir=${HOME}/.dotfiles_git/ --work-tree="$HOME"'
+# alias dotfiles='"$(which git)" --git-dir="${HOME}"/.dotfiles_git/ --work-tree="$HOME"'
+# alias dot='$(which git) --git-dir=${HOME}/.dotfiles_git/ --work-tree="$HOME"'
 # Enable autocomplete for the `dotfiles` function in Zsh
 _dotfiles_autocomplete() {
     local git_dir="$HOME/.dotfiles_git"
