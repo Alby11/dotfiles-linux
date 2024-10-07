@@ -55,3 +55,12 @@
 [submodule "gitdepot/remmina"]
 	path = gitdepot/remmina
 	url = git@github.com:FreeRDP/Remmina.git
+[submodule "/home/tallonea/.config/zsh/zsh-syntax-highlighting"]
+	path = /home/tallonea/.config/zsh/zsh-syntax-highlighting
+	url = git@github.com:catppuccin/zsh-syntax-highlighting.git
+[submodule "/home/tallonea/.config/zsh/zsh-fsh"]
+	path = /home/tallonea/.config/zsh/zsh-fsh
+	url = git@github.com:catppuccin/zsh-fsh.git
+[submodule "/home/tallonea/.config/fsh"]
+	path = /home/tallonea/.config/fsh
+	url = git@github.com:catppuccin/zsh-fsh.git
