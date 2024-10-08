@@ -91,8 +91,24 @@ install_and_setup_bat() {
     BATPIPE="color"
   fi
 
+  # Install sublime syntaxes for bat
+  [[ ! -d ${XDG_CONFIG_HOME}/bat/syntaxes/sublime-syntax ]] && \
+    git clone --depth 1 git@github.com:sublimehq/Packages.git ${XDG_CONFIG_HOME}/bat/syntaxes/Packages && \
+    rm -rfv ${XDG_CONFIG_HOME}/bat/syntaxes/Packages/{.git,.github,.gitignore,LICENSE,README.md} && \
+    find "${XDG_CONFIG_HOME}/bat/syntaxes/Packages" -maxdepth 2 -type f -regex '.+\w+[.]sublime-syntax' \
+    | while read -r file; do
+      mv -v "$file" "$(dirname $(readlink -f "$file"))/.."
+    done && \
+    find "${XDG_CONFIG_HOME}/bat/syntaxes/Packages" -mindepth 1 -maxdepth 2 -type d -exec \
+      rm -rfv {} \; ; \
+    for file in "DocStrip" "HTML" "JSX" "LaTeX" "PHP" "TSX" "TypeScript" "XSL"; do
+      rm -rfv "${XDG_CONFIG_HOME}/bat/syntaxes/Packages/${file}.sublime-syntax"
+    done ; \
+    mv -v ${XDG_CONFIG_HOME}/bat/syntaxes/{"Packages","sublime-syntax"} && \
+    bat cache --build
+
   # Set bat as MANPAGER for colorized man pages
-  MANPAGER="sh -c 'col -bx | bat -l man -p'"
+  MANPAGER="zsh -c 'col -bx | bat -l man -p'"
   # Check for MANROFFOPT for better formatting
 
   BATPIPE="color";
@@ -137,7 +153,8 @@ install_latest_neovim
 # Add Bob's Neovim installation to PATH
 # export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
 
-# install_and_setup_bat
+install_and_setup_bat
+
 if CHECK_COMMANDS lvim; then
   EDITOR="${$(which lvim):-$EDITOR}"
   PAGER="$EDITOR"
