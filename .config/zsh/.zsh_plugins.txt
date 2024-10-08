@@ -140,7 +140,7 @@ eth-p/bat-extras path:src kind:path
 eth-p/bat-extras path:src kind:fpath
 wofr06/lesspipe kind:path
 wofr06/lesspipe kind:fpath
-z-shell/zsh-eza
+# z-shell/zsh-eza
 
 # Colors
 xPMo/zsh-ls-colors

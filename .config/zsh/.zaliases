@@ -605,6 +605,33 @@ if command -v emacs &>/dev/null; then
 	alias emacs='emacs -nw'
 fi
 
+# credits to z-shell/zsh-eza
+if command -v eza > /dev/null 2>&1; then
+
+  typeset -ag eza_params
+
+  eza_params=(
+    '--git' '--icons' '--group' '--group-directories-first'
+    '--time-style=long-iso' '--color-scale=all'
+  )
+
+  [[ ! -z $_EZA_PARAMS ]] && eza_params=($_EZA_PARAMS)
+
+  alias ls='eza $eza_params'
+  alias l='eza --git-ignore $eza_params'
+  alias ll='eza --all --header --long $eza_params'
+  alias llm='eza --all --header --long --sort=modified $eza_params'
+  alias la='eza -lbhHigUmuSa'
+  alias lx='eza -lbhHigUmuSa@'
+  alias lt='eza --tree $eza_params'
+  alias tree='eza --tree $eza_params'
+  alias lsg='eza --git-repos $eza_params'
+  alias llg='eza --all --header --long --git-repos $eza_params'
+  alias llmg='eza --all --header --long --git-repos --sort=modified $eza_params'
+  alias lag='eza -lbhHigUmuSa --git-repos'
+  alias lxg='eza -lbhHigUmuSa@ --git-repos'
+fi
+
 # Alias Script for Linux Power Users - Created by ChatGPT (Your AI Assistant)
 # --------------------------------------------------------------
 # A collection of useful aliases for system administration, networking, and monitoring.
