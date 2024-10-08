@@ -70,12 +70,12 @@ if antidote path "zdharma-continuum/fast-syntax-highlighting" > /dev/null 2>&1; 
     local fast_theme="$(antidote path zdharma-continuum/fast-syntax-highlighting)"
     fast_theme="$fast_theme/fast-syntax-highlighting.plugin.zsh"
     
-    [[ ! -d $XDG_CONFIG_HOME/fsh ]] && \
-        git clone git@github.com:catppuccin/zsh-fsh $XDG_CONFIG_HOME/fsh && \
-        ln -sv $XDG_CONFIG_HOME/fsh/{themes/*,}
+    [[ ! -d ${XDG_CONFIG_HOME}/fsh ]] && \
+        git clone git@github.com:catppuccin/zsh-fsh ${XDG_CONFIG_HOME}/fsh && \
+        ln -sv ${XDG_CONFIG_HOME}/fsh/{themes/*,}
 
-    [[ -f "$fast_theme" ]] && \
-      source "$fast_theme" && \
+    [[ -f "${fast_theme}" ]] && \
+      source "${fast_theme}" && \
       fast-theme --quiet XDG:catppuccin-mocha
 
     chroma_single_word() {
@@ -92,7 +92,7 @@ if antidote path "zdharma-continuum/fast-syntax-highlighting" > /dev/null 2>&1; 
           reply+=("$__start $__end ${fast_highlight_styles[$__style]}")
 
       (( this_word = next_word ))
-      _start_pos=$_end_pos
+      _start_pos=${_end_pos}
 
       return 0
     }
