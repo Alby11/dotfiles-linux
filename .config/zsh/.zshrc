@@ -113,7 +113,4 @@ export ANSIBLE_HOME=${XDG_CONFIG_HOME}/ansible
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 [[ -f ${ZDOTDIR}/.p10k.zsh ]] && source ${ZDOTDIR}/.p10k.zsh
 
-# Open Weather Map for TMUX Clima
-export OPEN_WEATHER_API_KEY="60d2f49e0004ccad2ad538f264be9564"
-
 [[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG "${(%):-%N}"
