@@ -1,7 +1,9 @@
 # vim: filetype=zsh
 
-### Plugins settings
+### NOTE: Antidote Plugins settings
 #################################################################################
+
+[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_STARTFILE "${(%):-%N}"
 
 ### ohmysh/ohmyzsh ###
 # dotenv
@@ -52,16 +54,19 @@ fi
 
 # per-directory-history
 if [ -d "$(antidote path ohmyzsh/ohmyzsh)/plugins/per-directory-history" ]; then
-  export HISTORY_START_WITH_GLOBAL=false
-  export PER_DIRECTORY_HISTORY_TOGGLE='^G'
-  export PER_DIRECTORY_HISTORY_PRINT_MODE_CHANGE=true
-  export HISTORY_BASE="$HOME/.local/share/zsh_history/.directory_history"
-  mkdir -p "$(dirname $HISTORY_BASE)"
+    export HISTORY_START_WITH_GLOBAL=false
+    export PER_DIRECTORY_HISTORY_TOGGLE='^G'
+    export PER_DIRECTORY_HISTORY_PRINT_MODE_CHANGE=true
+    export HISTORY_BASE="$HOME/.local/share/zsh_history/.directory_history"
+    mkdir -p "$(dirname $HISTORY_BASE)"
 fi
 
 ### zsh-syntax-highlighting ###
 if antidote path "zsh-users/zsh-syntax-highlighting" > /dev/null 2>&1; then
-  $ZDOTDIR/zsh-syntax-highlighting/catppuccin_mocha-zsh-syntax-highlighting.zsh
+    # Define or ignore unhandled ZLE widgets before loading zsh-syntax-highlighting
+    zle -N menu-search || true
+    zle -N recent-paths || true
+    $ZDOTDIR/zsh-syntax-highlighting/catppuccin_mocha-zsh-syntax-highlighting.zsh
 fi
 
 ### fast-syntax-highlighting ###
@@ -159,12 +164,12 @@ fi
 if antidote path "Aloxaf/fzf-tab" > /dev/null 2>&1; then
  # zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
  # zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
-   export FZF_DEFAULT_OPTS=" \
-  --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
-  --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
-  --color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
-  --color=selected-bg:#45475a \
-  --multi"
+    export FZF_DEFAULT_OPTS=" \
+    --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
+    --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
+    --color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
+    --color=selected-bg:#45475a \
+    --multi"
 fi
 
 ### wofr06/lesspipe ###
@@ -181,9 +186,9 @@ fi
 # Use Ctrl-u,Ctrl-l to get the output of the last command
 zmodload -i zsh/parameter
 insert-last-command-output() {
-LBUFFER+="$(eval $history[$((HISTCMD-1))])"
+    LBUFFER+="$(eval $history[$((HISTCMD-1))])"
 }
 zle -N insert-last-command-output
 bindkey "^U^L" insert-last-command-output
 
-[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG "${(%):-%N}"
+[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"

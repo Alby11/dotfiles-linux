@@ -3,6 +3,8 @@
 # Example usage: Print with a specific color
 # echo -e "%F{$catppuccin_latte_rosewater}This text is colored with Rosewater from the Latte palette.%f"
 
+[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_STARTFILE "${(%):-%N}"
+
 # Catppuccin Latte Palette
 export catppuccin_latte_rosewater="#f5e0dc"
 export catppuccin_latte_flamingo="#f2cdcd"
@@ -115,6 +117,4 @@ export catppuccin_mocha_base="#1e1e2e"
 export catppuccin_mocha_mantle="#181825"
 export catppuccin_mocha_crust="#11111b"
 
-ZSH_DEBUG_LOG "${(%):-%N}"
-
-[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG "${(%):-%N}"
+[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"

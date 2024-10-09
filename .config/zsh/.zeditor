@@ -1,14 +1,10 @@
 # vim: filetype=zsh
 
 #
-# .zeditor - Zsh file loaded to export editor, visual, pager ...
+# NOTE: .zeditor - Zsh file loaded to export editor, visual, pager ...
 #
 
-ECHOCAT '.zeditor - Zsh file loaded to export editor, visual, pager ...'
-
-#
-# Editors
-#
+[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_STARTFILE "${(%):-%N}"
 
 # define a function to install bat and its extras
 install_and_setup_bat() {
@@ -16,7 +12,7 @@ install_and_setup_bat() {
   export BATPIPE
   export MANROFFOPT
 
-  if ! CHECK_COMMANDS bat && ! CHECK_COMMANDS batcat; then
+  if ! command -v bat > /dev/null 2>&1 && ! command -v batcat > /devnull 2>&1; then
     package_manager_install bat
   fi
 
@@ -86,9 +82,9 @@ install_and_setup_bat() {
   bat cache --build > /dev/null 2>&1
 
   if command -v batpipe > /dev/null 2>&1; then
-    LESSOPEN="$(which batpipe) %s"
+    export LESSOPEN="$(which batpipe) %s"
     # The following will enable colors when using batpipe with less:
-    BATPIPE="color"
+    export BATPIPE="color"
   fi
 
   # Install sublime syntaxes for bat
@@ -107,19 +103,19 @@ install_and_setup_bat() {
   fi
 
   # Set bat as MANPAGER for colorized man pages
-  MANPAGER="zsh -c 'col -bx | bat -l man -p'"
+  export MANPAGER="zsh -c 'col -bx | bat -l man -p'"
   # Check for MANROFFOPT for better formatting
 
-  BATPIPE="color";
-  MANROFFOPT="-c"
+  export BATPIPE="color";
+  export MANROFFOPT="-c"
 
 }
 
 ### Setting up less
 # Highlight section titles in manual pages.
-LESS_TERMCAP_md="${yellow}"
+export LESS_TERMCAP_md="${yellow}"
 unset LESSCLOSE
-LESS="$LESS -R"
+export LESS="$LESS +F"
 
 # Bob Neovim Version Manager Setup
 # Function to install Bob if not already installed
@@ -154,23 +150,32 @@ install_latest_neovim
 
 install_and_setup_bat
 
-if CHECK_COMMANDS lvim; then
-  EDITOR="${$(which lvim):-$EDITOR}"
-  PAGER="$EDITOR"
-  MANPAGER="$EDITOR -c 'Man!' -o -"
-elif CHECK_COMMANDS nvim; then
-  EDITOR="${$(which nvim):-$EDITOR}"
-  PAGER="$EDITOR"
-  MANPAGER="$EDITOR -c 'Man!' -o -"
-elif CHECK_COMMANDS vim; then
-  EDITOR="${$(which vim):-$EDITOR}"
-  PAGER="$EDITOR"
-  MANPAGER="$EDITOR c 'Man!' -o -"
-else
-  EDITOR="${$(which vi):-$EDITOR}"
-  PAGER="${$(which less):-$PAGER}"
-  MANPAGER="$PAGER"
-fi
+# Set the default editor, considering if it is available
+case "$(command -v nvim || command -v vim || command -v vi || command -v nano)" in
+  *nvim)
+    export EDITOR="nvim"
+    export PAGER="$EDITOR"
+    export MANPAGER="$EDITOR -c 'Man!' -o -"
+    ;;
+  *vim)
+    export EDITOR="vim"
+    export PAGER="$EDITOR"
+    export MANPAGER="$EDITOR -c 'Man!' -o -"
+    ;;
+  *vi)
+    export EDITOR="vi"
+    export PAGER="less"
+    export MANPAGER="$PAGER"
+    ;;
+  *nano)
+    export EDITOR="nano"
+    export PAGER="less"
+    export MANPAGER="$PAGER"
+    ;;
+  *)
+    echo "No suitable editor found. Please install nvim, vim, vi, or nano."
+    ;;
+esac
 VISUAL="$EDITOR"
  
 [[ -n $EDITOR ]] && {
@@ -180,15 +185,7 @@ VISUAL="$EDITOR"
   alias e='edit'
 }
 
-export EDITOR
-export VISUAL
-export PAGER
-export MANPAGER
-export LESS
-export LESS_TERMCAP_md
-export LESSOPEN
-export LESSCLOSE
-export PATH
-
 # enable zsh to interpret # as comments during interactive sessions
 setopt interactivecomments
+
+[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"

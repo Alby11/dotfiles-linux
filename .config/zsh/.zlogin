@@ -1,10 +1,8 @@
 # vim: filetype=zsh
 #
-# .zlogin
+# NOTE: .zlogin
 #
 
-ECHOCAT """
-.zlogin - Zsh file loaded lastly on login shell, after .zshrc.
-"""
+[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_STARTFILE "${(%):-%N}"
 
-[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG "${(%):-%N}"
+[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"

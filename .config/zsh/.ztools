@@ -1,8 +1,10 @@
 # vim: filetype=zsh
 
 #
-# .ztools.zsh - tools for better profiling...
+# NOTE: .ztools.zsh - tools for better profiling...
 #
+
+[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_STARTFILE "${(%):-%N}"
 
 for cmd in "dnf" "apt"; do
 	if command -v $cmd >/dev/null; then
@@ -69,15 +71,6 @@ if [[ ! -f $HOME/.cargo/bin/rustup ]]; then
 	package_manager_install {,pkgconf-}pkg-config
 	package_manager_install openssl
 fi
-# lolcrab cargo crate
-if [[ ! -f $HOME/.cargo/bin/lolcrab ]]; then
-	$HOME/.cargo/bin/cargo install lolcrab
-fi
-local lolcrab_default_options="--custom \
-  f5e0dc f2cdcd f5c2e7 cba6f7 f38ba8 eba0ac fab387 f9e2af a6e3a1 94e2d5 89dceb 74c7ec 89b4fa b4befe"
-alias lolcat="${HOME}/.cargo/bin/lolcrab $lolcrab_default_options"
-alias lolcat_fail="${HOME}/.cargo/bin/lolcrab --gradient inferno --animate"
-alias lolcrab="${HOME}/.cargo/bin/lolcrab $lolcrab_default_options"
 
 IS_LOGIN_SHELL() {
 	# Check using shell option (most direct method)
@@ -102,36 +95,6 @@ IS_LOGIN_SHELL() {
 	return 1
 }
 
-# use lolcat as a special printf command
-ECHOCAT() {
-	return 0
-	if [ -z "$SSH_CONNECTION" ]; then
-		if [ "$2" = 'ERROR' ]; then
-			printf "%s\n" "$1" | lolcat_fail
-		else
-			printf "%s\n" "$1" | lolcat
-		fi
-	fi
-}
-
-ECHOCAT ".ztools - tools for better profiling..."
-
-# Function to print an error message and exit/return with an error/return code
-FAIL() {
-	if [[ -z "$2" ]]; then
-		ECHOCAT "$1" ERROR # Print the first argument as a message using ECHOCAT
-	elif [[ "$2" == "x" ]]; then
-		ECHOCAT "$1" ERROR >&2 # Print the first argument as an error message using ECHOCAT
-		exit "${3-1}"          # Exit with the third argument as the error code, or 1 if no third argument is provided
-	elif [[ "$2" == "r" ]]; then
-		ECHOCAT "$1" ERROR >&2 # Print the first argument as an error message using ECHOCAT
-		return "${3-1}"        # Return with the third argument as the error code, or 1 if no third argument is provided
-	else
-		echo "Error: Invalid second argument to FAIL function. Expected 'r', 'x', or empty, got '$2'."
-		return 1
-	fi
-}
-
 # This function checks if the given commands are available on the system.
 # It takes an array of command names as an argument.
 # Each command name should be a separate argument.
@@ -148,35 +111,6 @@ FAIL() {
 #   fi
 # The function will return a success status if all commands are available,
 # or a failure status if any command is not found.
-CHECK_COMMANDS() {
-	local cmds=("$@")                        # Store the arguments in an array
-	for cmd in "${cmds[@]}"; do              # Iterate over each command
-		if ! command -v "$cmd" >/dev/null; then # Check if the command is available
-			FAIL "Error: Required command '$cmd' not found. Please install it and try again."
-			return 1 # Return a failure status
-		fi
-	done
-	return 0 # Return a success status
-}
-
-### SOURCING/EXPORTING UTILITIES
-SOURCE_RCFILE() {
-	if [ -f "$1" ]; then
-		source "$1"
-		ECHOCAT "$1 successfully sourced ... "
-	else
-		FAIL "$1 not sourced ... "
-	fi
-}
-
-EXPORT_DIR() {
-	if [ -d $1 ]; then
-		export PATH=$1:$PATH
-		ECHOCAT "$1 successfully exported ... "
-	else
-		FAIL "$1 not exported ... "
-	fi
-}
 
 CHECK_ONLINE() {
 	if $(wget -q --spider http://www.google.com); then
@@ -185,4 +119,4 @@ CHECK_ONLINE() {
 	return 1
 }
 
-[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG "${(%):-%N}"
+[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"

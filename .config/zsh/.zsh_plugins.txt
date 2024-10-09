@@ -1,15 +1,11 @@
 # vim: filetype=zsh
 
-# Load packages and environment settings first
-# "${ZDOTDIR}/.zpackages"
-"${ZDOTDIR}/.zpyenv"
+#
+# NOTE: .zsh_plugins.txt - antidote plugins file
+#
 
 # Deferred execution of zsh commands
 romkatv/zsh-defer
-
-#
-# .zsh_plugins.txt - antidote plugins file
-#
 
 # Core libraries
 ohmyzsh/ohmyzsh
@@ -64,7 +60,7 @@ ohmyzsh/ohmyzsh path:plugins/golang
 ohmyzsh/ohmyzsh path:plugins/grc
 ohmyzsh/ohmyzsh path:plugins/history
 ohmyzsh/ohmyzsh path:plugins/history-substring-search
-ohmyzsh/ohmyzsh path:plugins/keychain
+# ohmyzsh/ohmyzsh path:plugins/keychain
 ohmyzsh/ohmyzsh path:plugins/kubectl
 ohmyzsh/ohmyzsh path:plugins/kubectx
 ohmyzsh/ohmyzsh path:plugins/last-working-dir
@@ -124,10 +120,6 @@ ohmyzsh/ohmyzsh path:lib/git.zsh
 ohmyzsh/ohmyzsh path:lib/history.zsh
 ohmyzsh/ohmyzsh path:lib/key-bindings.zsh
 
-# Now, configure and run compinit to initialize completions
-# belak/zsh-utils path:completion
-# sorin-ionescu/prezto path:modules/completion
-
 # Additional completions
 # srijanshetty/zsh-pip-completion path:src kind:fpath
 # 3v1n0/zsh-bash-completions-fallback path:src kind:fpath
@@ -155,13 +147,6 @@ zsh-users/zsh-completions
 # MichaelAquilina/zsh-you-should-use kind:defer
 psprint/zsh-sweep kind:defer
 
-# Load personal configurations
-"${ZDOTDIR}/.zeditor"
-"${XDG_CONFIG_HOME}/git/.git.conf"
-"${ZDOTDIR}/.zaliases"
-"${ZDOTDIR}/.zfunctions"
-"${ZDOTDIR}/.zxresources"
-
 
 ### Plugins that must be called last
 # prompt 
@@ -171,12 +156,10 @@ zdharma-continuum/fast-syntax-highlighting
 zsh-users/zsh-autosuggestions
 
 # FZF
-# Aloxaf/fzf-tab
 Aloxaf/fzf-tab
 
 # GPT
 tom-doerr/zsh_codex
-
 
 ### THEME
 romkatv/powerlevel10k
@@ -185,4 +168,4 @@ romkatv/powerlevel10k
 sobolevn/wakatime-zsh-plugin
 
 # Load plugin configurations after all plugins are loaded
-"${ZDOTDIR}/.zsh_plugin_configurations.zsh" # kind:defer
+# "${ZDOTDIR}/.zsh_plugin_configurations.zsh" # kind:defer

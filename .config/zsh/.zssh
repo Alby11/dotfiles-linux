@@ -3,6 +3,8 @@
 ### SSH Agent Block
 # Load SSH keys using keychain after each reboot, reusing the same ssh-agent instance
 
+[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_STARTFILE "${(%):-%N}"
+
 # Set SSH_ASKPASS if ssh-askpass is available
 if type ssh-askpass >/dev/null 2>&1; then
     export SUDO_ASKPASS=$(which ssh-askpass)
@@ -44,4 +46,4 @@ start_keychain
 # Cleanup
 unset -f start_keychain install_keychain
 
-[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG "${(%):-%N}"
+[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"

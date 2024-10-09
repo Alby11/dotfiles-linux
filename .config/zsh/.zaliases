@@ -1,9 +1,9 @@
 # vim: filetype=zsh
 #
-# .zaliases.zsh - Set whatever shell aliases you want.
+# NOTE: .zaliases.zsh - Set whatever shell aliases you want.
 #
 
-ECHOCAT '.zaliases.zsh - Set whatever shell aliases you want.'
+[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_STARTFILE "${(%):-%N}"
 
 alias -g _="sudo"
 
@@ -906,4 +906,4 @@ alias ssar="ssa | rg"
 
 ### END OF ALIASES ###
 
-[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG "${(%):-%N}"
+[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"

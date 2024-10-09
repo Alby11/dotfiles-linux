@@ -1,21 +1,20 @@
 # vim: filetype=zsh
 #
-# .zpath - Zsh PATH setup file
+# NOTE: .zpath - Zsh PATH setup file
 #
 
-# Define some colors
-# RED='\033[0;31m'
-# GREEN='\033[0;32m'
-# NC='\033[0m' # No Color
+[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_STARTFILE "${(%):-%N}"
 
-
-# Use them in printf
-#
-# printf "${GREEN}.zpath - Zsh PATH setup file${NC}\n"
-ECHOCAT ".zpath - Zsh PATH setup file"
-
-# Ensure path arrays do not contain duplicates.
-typeset -gU path fpath
+# Initialize the Zsh completion system
+# This enables advanced command-line completion features
+autoload -Uz +X compinit && compinit
+autoload -Uz +X bashcompinit && bashcompinit 
+autoload -Uz promptinit && promptinit
+zmodload -i zsh/complist
+_comp_options+=(globdots) # With hidden files
+for func in $ZDOTDIR/functions/*(.N); do
+  autoload -Uz $func
+done
 
 # Set the list of directories that zsh searches for commands.
 path=(
@@ -39,17 +38,6 @@ fpath=(
   $fpath
 )
 
-# Initialize the Zsh completion system
-# This enables advanced command-line completion features
-autoload -Uz +X compinit && compinit
-autoload -Uz +X bashcompinit && bashcompinit 
-autoload -Uz promptinit && promptinit
-zmodload -i zsh/complist
-_comp_options+=(globdots) # With hidden files
-for func in $ZDOTDIR/functions/*(.N); do
-  autoload -Uz $func
-done
-
 
 eval "$(bw completion --shell zsh); compdef _bw bw;"
 eval "$(bob complete zsh); compdef _bob bob;"
@@ -67,17 +55,7 @@ _dotfiles_autocomplete() {
 # Use Git's autocomplete for the dotfiles function
 compdef _git dotfiles
 
-# Load all completion files and register them with compdef
-# if [ -d "$ZDOTDIR/completion" ]; then
-#   for file in "$ZDOTDIR/completion"/*; do
-#     if [ -r "$file" ]; then
-#       source "$file"
-#       # Extract the function name from the filename (remove leading _)
-#       func_name=$(basename "$file")
-#       cmd_name="${func_name#_}"  # Remove leading underscore for the command
-#       compdef "$func_name" "$cmd_name"
-#     fi
-#   done
-# fi
-#
-[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG "${(%):-%N}"
+# Ensure path arrays do not contain duplicates.
+typeset -gU path fpath
+
+[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"

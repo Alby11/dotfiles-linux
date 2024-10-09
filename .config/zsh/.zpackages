@@ -1,5 +1,7 @@
 # vim: filetype=zsh
 
+[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_STARTFILE "${(%):-%N}"
+
 [[ -f ${HOME}/.bootstrapped ]] && return 1
 [[ $SHLVL -gt 2 ]] && return 1
 
@@ -300,4 +302,4 @@ date > "${HOME}/.bootstrapped"
 # Clean up
 unset check_nopasswd filter_exclusions_with_delimiter has_apt has_dnf has_pacman 
 
-[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG "${(%):-%N}"
+[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"

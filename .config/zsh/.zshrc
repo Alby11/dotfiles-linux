@@ -1,78 +1,50 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-# source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-# fi
-
 # vim: filetype=zsh
 #
 # NOTE: .zshrc
 #
 
-ECHOCAT """
-.zshrc - Zsh file loaded on login/non-login shell sessions.
-login: after .zprofile and before .zlogin
-non-login: after .zshenv
-"""
+[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_STARTFILE "${(%):-%N}"
 
-# Load variables from .env
-set -o allexport
-source ${ZDOTDIR}/.env >/dev/null 2>&1
-set +o allexport
-
-# Zsh options.
-setopt extendedglob
-export ENABLE_CORRECTION="true"
-export COMPLETION_WAITING_DOTS="true"
-export HISTFILE="$HOME/.local/share/zsh_history/.zsh_history"
-mkdir -p "$(dirname $HISTFILE)"
-export HISTSIZE=100000
-export HISTFILESIZE=$HISTSIZE
-export HIST_STAMPS="%d/%m/%y %T"
-setopt EXTENDED_HISTORY
-setopt HIST_IGNORE_ALL_DUPS
-setopt HIST_FIND_NO_DUPS
-setopt inc_append_history
-setopt share_history
-
-# Fetch secrets
-# Check if the script exists and is executable
-if [[ -x ${ZDOTDIR}/.fetch_secrets.sh ]]; then
-  # Run the script and evaluate each line in the current shell
-  while IFS= read -r line; do
-  	if echo "$line" | grep -q 'BW_SESSION='; then
-  		line=$(echo "$line" | sed 's/BW_SESSION=//')
-  	fi
-    eval "$line"
-  done < <(${ZDOTDIR}/.fetch_secrets.sh)
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+	source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
+# # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
+[[ -f ${ZDOTDIR}/.p10k.zsh ]] && source ${ZDOTDIR}/.p10k.zsh
+# Set options for better shell experience
+export COMPLETION_WAITING_DOTS="true"
+export ENABLE_CORRECTION="true"
+export HISTFILE="$HOME/.local/share/zsh_history/.zsh_history"
+export HISTFILESIZE=$HISTSIZE
+export HISTSIZE=100000 # Number of commands to remember in history
+export HIST_STAMPS="%d/%m/%y %T"
+export SAVEHIST=100000 # Number of history entries to save
+mkdir -p "$(dirname $HISTFILE)"
 
-# source colors scripts
-SOURCE_RCFILE "${ZDOTDIR}/.zcolors_catppuccin"
-
-# export TERM color variable
-export TERM="xterm-256color"
-# export COLORTERM
-export COLORTERM="truecolor"
-# colored GCC warnings and errors
-export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
-
-# set up GPG agent
-GPG_TTY=$(tty)
-export GPG_TTY
+setopt EXTENDED_HISTORY
+setopt auto_cd                    # Change to directory without 'cd'
+setopt autocd                      # Automatically change to a directory when you type its name
+setopt correct                    # Correct minor typos in directory names
+setopt extendedglob
+setopt extendedglob               # Enable extended pattern matching
+setopt hist_find_no_dups
+setopt hist_ignore_all_dups
+setopt histignorealldups          # Remove duplicate entries from history
+setopt inc_append_history
+setopt nonomatch                  # Avoid errors when no file matches a pattern
+setopt share_history
+setopt sharehistory               # Share command history across multiple sessions
 
 # Shell setup for fnm NodeJS Manager
-if ! CHECK_COMMANDS "fnm"; then
+if ! command -v fnm > /dev/null 2>&1; then
 	cargo install fnm
 fi
 eval "$(fnm env --use-on-cd)"
-if ! CHECK_COMMANDS "node"; then
+if ! command -v node > /dev/null 2>&1; then
 	fnm install --lts
 fi
-
-# Antidote ZSH plugin manager
-SOURCE_RCFILE "${ZDOTDIR}"/.zantidote
 
 # Export GOPATH
 [[ -d ${HOME}/go ]] && export GOPATH=${HOME}/go
@@ -81,14 +53,7 @@ SOURCE_RCFILE "${ZDOTDIR}"/.zantidote
 if ! javac_path=$(readlink -f "$(which javac)"); then
 	echo "Failed to locate javac"
 fi
-JAVA_HOME=$(dirname "$(dirname "$javac_path")")
-export JAVA_HOME
-
-# set Ls_COLORS if vivid is installed
-# if ! CHECK_COMMANDS "vivid"; then
-# 	cargo install vivid
-# fi
-# export {EZA,LS}_COLORS="$(vivid generate catppuccin-mocha)"
+export JAVA_HOME=$(dirname "$(dirname "$javac_path")")
 
 # Prefer US English and use UTF-8.
 export LANG='en_US.UTF-8'
@@ -102,15 +67,17 @@ if [[ "$TERM_PROGRAM" = "vscode" ]]; then
 	fi
 fi
 
-# source SSH settings, including agent config
-# SOURCE_RCFILE "${ZDOTDIR}/.zssh"
+# Antidote setup for managing plugins
+# if command -v antidote &> /dev/null; then
+  source "$ZDOTDIR/.zantidote"
+	# Custom functions
+	source "$ZDOTDIR/.zsh_plugin_configurations.zsh"
+# else
+# 	echo "Antidote is not installed. Please install it to manage plugins."
+# fi
 
-# set up Ansible config root
-export ANSIBLE_HOME=${XDG_CONFIG_HOME}/ansible
+# Load custom configurations
+source "$ZDOTDIR/.zaliases"
+source "$ZDOTDIR/.zcolors_catppuccin"
 
-# SOURCE_RCFILE "${ZDOTDIR}/.zcompletions"
-
-# To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
-[[ -f ${ZDOTDIR}/.p10k.zsh ]] && source ${ZDOTDIR}/.p10k.zsh
-
-[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG "${(%):-%N}"
+[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"

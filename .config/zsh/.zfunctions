@@ -1,10 +1,10 @@
 # vim: filetype=zsh
 
 #
-# .zfunctions.zsh - Set whatever shell functions you want.
+# NOTE: .zfunctions.zsh - Set whatever shell functions you want.
 #
 
-ECHOCAT '.zfunctions.zsh - Set whatever shell functions you want.'
+[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_STARTFILE "${(%):-%N}"
 
 if command -v systemctl &>/dev/null; then
     # Basic systemctl commands
@@ -327,3 +327,5 @@ pip_update() {
 pip_update_user() {
   pip --disable-pip-version-check list --user --outdated --format=json | python -c "import json, sys; print('\n'.join([x['name'] for x in json.load(sys.stdin)]))" | xargs -n1 pip install --user -U
 }
+
+[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"
