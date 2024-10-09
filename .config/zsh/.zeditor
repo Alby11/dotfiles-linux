@@ -179,7 +179,7 @@ export VISUAL="$EDITOR"
   }
   alias e='edit'
 }
-echo fine
+
 # enable zsh to interpret # as comments during interactive sessions
 setopt interactivecomments
 
