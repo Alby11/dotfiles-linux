@@ -151,40 +151,35 @@ install_latest_neovim
 install_and_setup_bat
 
 # Set the default editor, considering if it is available
-case "$(command -v nvim || command -v vim || command -v vi || command -v nano)" in
-  *nvim)
-    export EDITOR="nvim"
-    export PAGER="$EDITOR"
-    export MANPAGER="$EDITOR -c 'Man!' -o -"
-    ;;
-  *vim)
-    export EDITOR="vim"
-    export PAGER="$EDITOR"
-    export MANPAGER="$EDITOR -c 'Man!' -o -"
-    ;;
-  *vi)
-    export EDITOR="vi"
-    export PAGER="less"
-    export MANPAGER="$PAGER"
-    ;;
-  *nano)
-    export EDITOR="nano"
-    export PAGER="less"
-    export MANPAGER="$PAGER"
-    ;;
-  *)
-    echo "No suitable editor found. Please install nvim, vim, vi, or nano."
-    ;;
-esac
-VISUAL="$EDITOR"
+# Set the default editor, considering if it is available
+if command -v nvim &> /dev/null; then
+  export EDITOR="nvim"
+  export PAGER="$EDITOR"
+  export MANPAGER='nvim +Man!'
+elif command -v vim &> /dev/null; then
+  export EDITOR="vim"
+  export PAGER="$EDITOR"
+  export MANPAGER="$EDITOR -c 'Man!' -o -"
+elif command -v vi &> /dev/null; then
+  export EDITOR="vi"
+  export PAGER="less"
+  export MANPAGER="$PAGER"
+elif command -v nano &> /dev/null; then
+  export EDITOR="nano"
+  export PAGER="less"
+  export MANPAGER="$PAGER"
+else
+  echo "No suitable editor found. Please install nvim, vim, vi, or nano."
+fi
+export VISUAL="$EDITOR"
  
 [[ -n $EDITOR ]] && {
   edit() {
-      ${EDITOR:-vi} "$@"
+      $EDITOR "$@"
   }
   alias e='edit'
 }
-
+echo fine
 # enable zsh to interpret # as comments during interactive sessions
 setopt interactivecomments
 

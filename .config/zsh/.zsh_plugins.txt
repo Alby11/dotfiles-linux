@@ -34,7 +34,6 @@ ohmyzsh/ohmyzsh path:plugins/dnf
 ohmyzsh/ohmyzsh path:plugins/dnote kind:fpath
 ohmyzsh/ohmyzsh path:plugins/docker
 ohmyzsh/ohmyzsh path:plugins/docker-compose
-# ohmyzsh/ohmyzsh path:plugins/docker-machine
 ohmyzsh/ohmyzsh path:plugins/extract
 ohmyzsh/ohmyzsh path:plugins/eza
 ohmyzsh/ohmyzsh path:plugins/fancy-ctrl-z
@@ -51,6 +50,11 @@ ohmyzsh/ohmyzsh path:plugins/git-auto-fetch
 ohmyzsh/ohmyzsh path:plugins/git-commit
 ohmyzsh/ohmyzsh path:plugins/git-escape-magic
 ohmyzsh/ohmyzsh path:plugins/git-extras
+ohmyzsh/ohmyzsh path:plugins/git-flow
+ohmyzsh/ohmyzsh path:plugins/git-flow-avh
+ohmyzsh/ohmyzsh path:plugins/git-hubflow
+ohmyzsh/ohmyzsh path:plugins/git-lfs
+ohmyzsh/ohmyzsh path:plugins/git-prompt
 ohmyzsh/ohmyzsh path:plugins/gitfast
 ohmyzsh/ohmyzsh path:plugins/gitignore
 # ohmyzsh/ohmyzsh path:plugins/globalias
@@ -82,7 +86,6 @@ ohmyzsh/ohmyzsh path:plugins/pylint
 ohmyzsh/ohmyzsh path:plugins/python
 ohmyzsh/ohmyzsh path:plugins/qrcode
 ohmyzsh/ohmyzsh path:plugins/rbw
-ohmyzsh/ohmyzsh path:plugins/ripgrep kind:fpath
 ohmyzsh/ohmyzsh path:plugins/rsync
 ohmyzsh/ohmyzsh path:plugins/rust
 ohmyzsh/ohmyzsh path:plugins/safe-paste
@@ -136,7 +139,6 @@ wofr06/lesspipe kind:fpath
 
 # Colors
 xPMo/zsh-ls-colors
-catppuccin/tty path:src/mocha.sh
 
 # History and completions
 zsh-users/zsh-history-substring-search
@@ -145,8 +147,6 @@ zsh-users/zsh-completions
 # olets/zsh-abbr # kind:defer # zsh manager for auto-expanding abbreviations
 
 # MichaelAquilina/zsh-you-should-use kind:defer
-psprint/zsh-sweep kind:defer
-
 
 ### Plugins that must be called last
 # prompt 

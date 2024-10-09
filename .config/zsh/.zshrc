@@ -68,16 +68,14 @@ if [[ "$TERM_PROGRAM" = "vscode" ]]; then
 fi
 
 # Antidote setup for managing plugins
-# if command -v antidote &> /dev/null; then
-  source "$ZDOTDIR/.zantidote"
-	# Custom functions
-	source "$ZDOTDIR/.zsh_plugin_configurations.zsh"
-# else
-# 	echo "Antidote is not installed. Please install it to manage plugins."
-# fi
+source "$ZDOTDIR/.zantidote"
+source "$ZDOTDIR/.zsh_plugin_configurations.zsh"
 
 # Load custom configurations
 source "$ZDOTDIR/.zaliases"
 source "$ZDOTDIR/.zcolors_catppuccin"
+
+# Load editor configurations
+source "$ZDOTDIR/.zeditor"
 
 [[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"

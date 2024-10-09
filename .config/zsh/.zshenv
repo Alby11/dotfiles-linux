@@ -4,7 +4,7 @@
 # 
 
 # Profile debug system
-export ZSH_DEBUG=0
+export ZSH_DEBUG=1
 if [ "$ZSH_DEBUG" -eq 1 ]; then
 	echo "\n\n++++++++++++++++++++++++++++++++++++" >> ${ZDOTDIR}/.zsh_debug.log
 	echo "$SHELL dotfiles setup starts here...\n" >> ${ZDOTDIR}/.zsh_debug.log
