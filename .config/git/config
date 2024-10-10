@@ -27,6 +27,7 @@
 
 [diff]
 	tool = nvim  # Set nvim as the diff tool for viewing differences.
+	colorMoved = default  # Enable coloring moved lines in diffs.
 
 [difftool "nvim"]
 	cmd = "$HOME/.local/share/bob/nvim-bin/nvim -d \"$LOCAL\" \"$REMOTE\""  # Command to use Neovim for visual diffs between local and remote versions.
@@ -51,6 +52,10 @@
   true-color = always
   hyperlinks = true
   line-numbers = true
+
+[merge]
+  ; tool = nvimdiff
+  conflictstyle = diff3
 
 [commit]
   gpgsign = false
