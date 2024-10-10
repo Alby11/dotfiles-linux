@@ -47,6 +47,7 @@ common_packages=(
     "bat"
     "btop"
     "curl"
+    "delta"
     "direnv"
     "fzf"
     "gnome-tweaks"
@@ -66,6 +67,7 @@ common_packages=(
 )
 
 common_exclusions=(
+  "delta"
   "direnv"
   "gnome-tweaks"
   "python3-markdown"
