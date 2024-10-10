@@ -1,3 +1,9 @@
+[include]
+  path = ~/.config/git/themes/catppuccin.gitconfig
+
+[includeIf "gitdir:~/dev/work/"]
+  path = ~/.config/git/config-work
+
 [user]
 	name = alby11  # Your name used for commits.
 	email = alby11@duck.com  # Your email used for commits.
@@ -6,7 +12,9 @@
 	autocrlf = input  # Convert CRLF line endings to LF when committing (useful for cross-platform projects).
 	fsmonitor = false  # Disable filesystem monitoring for performance improvement.
 	editor = "$HOME/.local/share/bob/nvim-bin/nvim"  # Set Neovim as the default text editor for Git.
-	pager = less -F -X  # Set 'less' as the pager for Git commands; '-F' will quit if output fits on screen, '-X' prevents clearing screen after quitting.
+  pager = delta
+  excludesfile = ~/.config/git/ignore
+	; pager = less -F -X  # Set 'less' as the pager for Git commands; '-F' will quit if output fits on screen, '-X' prevents clearing screen after quitting.
 
 [color]
 	ui = auto  # Enable color in Git output to improve readability.
@@ -27,3 +35,25 @@
 [difftool "less"]
 	cmd = less +F "$LOCAL" "$REMOTE"  # Use 'less' to view file differences; '+F' opens 'less' in follow mode, showing both local and remote files.
 	detectRenames = true  # Enable rename detection when using 'less' as the diff tool.
+
+[interactive]
+  diffFilter = delta --color-only
+
+[credential]
+  helper = libsecret
+
+[protocol "file"]
+  allow = always
+
+[delta]
+  features = catppuccin-mocha
+  side-by-side = false
+  true-color = always
+  hyperlinks = true
+  line-numbers = true
+
+[commit]
+  gpgsign = false
+
+[gpg]
+  program = /sbin/gpg
