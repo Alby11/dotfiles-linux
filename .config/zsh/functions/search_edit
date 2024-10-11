@@ -2,7 +2,7 @@
 
 # Add this function to your .zshrc or .bashrc
 search_edit() {
-  # Determine whether rg or grep should be used
+  # Determine whether to use rg or grep for the search
   local search_cmd
   if command -v rg > /dev/null; then
     search_cmd=(rg --line-number --column --color=always)
@@ -13,7 +13,13 @@ search_edit() {
 
   # Use fzf to filter and select the search results
   local selected_entry
-  selected_entry=$("${search_cmd[@]}" "$@" | fzf --ansi --preview="bat --style=numbers --color=always {1}" --preview-window=right:60%)
+  selected_entry=$("${search_cmd[@]}" "$@" | fzf --ansi --preview='
+    # Extract the file path and line number from the selection
+    FILE=$(echo {} | cut -d ":" -f 1)
+    LINE=$(echo {} | cut -d ":" -f 2)
+    # Use bat to preview the file content up to 500 lines, highlighting the specified line
+    bat --style=numbers --color=always --line-range :500 --highlight-line "$LINE" "$FILE"
+  ' --preview-window=right:60%)
 
   # If an entry was selected, parse the result and open it in the editor
   if [ -n "$selected_entry" ]; then
