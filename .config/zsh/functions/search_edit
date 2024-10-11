@@ -17,8 +17,11 @@ search_edit() {
     # Extract the file path and line number from the selection
     FILE=$(echo {} | cut -d ":" -f 1)
     LINE=$(echo {} | cut -d ":" -f 2)
-    # Use bat to preview the file content up to 500 lines, highlighting the specified line
-    bat --style=numbers --color=always --line-range :500 --highlight-line "$LINE" "$FILE"
+    # Calculate the line range to center the relevant line in the preview
+    START=$((LINE > 10 ? LINE - 10 : 1))
+    END=$((LINE + 10))
+    # Use bat to preview the file content, highlighting and centering the specified line
+    bat --style=numbers --color=always --line-range "$START:$END" --highlight-line "$LINE" "$FILE"
   ' --preview-window=right:60%)
 
   # If an entry was selected, parse the result and open it in the editor
