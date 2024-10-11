@@ -12,3 +12,6 @@ if [[ -x ${HOME}/.config/zsh/.fetch_secrets.sh ]]; then
     eval "$line"
   done < <(${HOME}/.config/zsh/.fetch_secrets.sh)
 fi
+
+# Atuin
+. "$HOME/.atuin/bin/env"
