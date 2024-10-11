@@ -115,7 +115,7 @@ install_and_setup_bat() {
 # Highlight section titles in manual pages.
 export LESS_TERMCAP_md="${yellow}"
 unset LESSCLOSE
-export LESS="$LESS +F"
+export LESS="$LESS -i"
 
 # Bob Neovim Version Manager Setup
 # Function to install Bob if not already installed
@@ -172,6 +172,7 @@ else
   echo "No suitable editor found. Please install nvim, vim, vi, or nano."
 fi
 export VISUAL="$EDITOR"
+export PAGER="less"
  
 [[ -n $EDITOR ]] && {
   edit() {
