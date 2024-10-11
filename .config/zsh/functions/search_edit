@@ -1,0 +1,26 @@
+# vim: ft=zsh
+
+# Add this function to your .zshrc or .bashrc
+search_edit() {
+  # Determine whether rg or grep should be used
+  local search_cmd
+  if command -v rg > /dev/null; then
+    search_cmd=(rg --line-number --column --color=always)
+  else
+    echo "Ripgrep not found. Falling back to grep..."
+    search_cmd=(grep -rn --color=always)
+  fi
+
+  # Use fzf to filter and select the search results
+  local selected_entry
+  selected_entry=$("${search_cmd[@]}" "$@" | fzf --ansi --preview="bat --style=numbers --color=always {1}" --preview-window=right:60%)
+
+  # If an entry was selected, parse the result and open it in the editor
+  if [ -n "$selected_entry" ]; then
+    local file
+    local line_number
+    file=$(echo "$selected_entry" | cut -d ':' -f 1)
+    line_number=$(echo "$selected_entry" | cut -d ':' -f 2)
+    "$EDITOR" "$file" +"$line_number"
+  fi
+}
