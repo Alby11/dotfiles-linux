@@ -45,7 +45,7 @@ filter_mode = "directory"
 
 ## which style to use
 ## possible values: auto, full, compact
-style = "full"
+style = "compact"
 
 ## the maximum number of lines the interface should take up
 ## set it to 0 to always go full screen
@@ -91,10 +91,11 @@ inline_height = 40
 #   "^/very/secret/area"
 # ]
 
-enter_accept = true
+# You may prefer that Atuin always inserts the selected command for editing.
+enter_accept = false
 
 ## vim-mode
-keymap_mode = "vim-insert"
+keymap_mode = "vim-normal"
 
 ## dotfiles sync
 [dotfiles]

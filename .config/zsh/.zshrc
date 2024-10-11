@@ -16,25 +16,21 @@ fi
 # Set options for better shell experience
 export COMPLETION_WAITING_DOTS="true"
 export ENABLE_CORRECTION="true"
+export HIST_STAMPS="%d/%m/%y %T"
 export HISTFILE="$HOME/.local/share/zsh_history/.zsh_history"
+export SAVEHIST=100000 # Number of history entries to save
 export HISTSIZE=100000 # Number of commands to remember in history
 export HISTFILESIZE=$HISTSIZE
-export HIST_STAMPS="%d/%m/%y %T"
-export SAVEHIST=100000 # Number of history entries to save
 mkdir -p "$(dirname $HISTFILE)"
 
 setopt EXTENDED_HISTORY
 setopt auto_cd                    # Change to directory without 'cd'
 setopt autocd                      # Automatically change to a directory when you type its name
 setopt correct                    # Correct minor typos in directory names
-setopt extendedglob
 setopt extendedglob               # Enable extended pattern matching
-setopt hist_find_no_dups
-setopt hist_ignore_all_dups
 setopt histignorealldups          # Remove duplicate entries from history
 setopt inc_append_history
 setopt nonomatch                  # Avoid errors when no file matches a pattern
-setopt share_history
 setopt sharehistory               # Share command history across multiple sessions
 
 # Shell setup for fnm NodeJS Manager
