@@ -17,8 +17,8 @@ fi
 export COMPLETION_WAITING_DOTS="true"
 export ENABLE_CORRECTION="true"
 export HISTFILE="$HOME/.local/share/zsh_history/.zsh_history"
-export HISTFILESIZE=$HISTSIZE
 export HISTSIZE=100000 # Number of commands to remember in history
+export HISTFILESIZE=$HISTSIZE
 export HIST_STAMPS="%d/%m/%y %T"
 export SAVEHIST=100000 # Number of history entries to save
 mkdir -p "$(dirname $HISTFILE)"
