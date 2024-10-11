@@ -167,5 +167,7 @@ romkatv/powerlevel10k
 # WakaTime for Terminal
 sobolevn/wakatime-zsh-plugin
 
+# Atuin history manager
+atuinsh/atuin
 # Load plugin configurations after all plugins are loaded
 # "${ZDOTDIR}/.zsh_plugin_configurations.zsh" # kind:defer
