@@ -45,7 +45,7 @@ if antidote path "zsh-users/zsh-history-substring-search" > /dev/null 2>&1; then
     # bindkey "$terminfo[kcuu1]" history-substring-search-up
     # bindkey "$terminfo[kcud1]" history-substring-search-down
     bindkey -M emacs '^P' history-substring-search-up
-    bindkey -M emacs '^L' history-substring-search-down
+    bindkey -M emacs '^H' history-substring-search-down
     # bindkey -M viins '^P' history-substring-search-up
     # bindkey -M viins '^N' history-substring-search-down
     bindkey -M vicmd 'K' history-substring-search-up
