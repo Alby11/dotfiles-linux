@@ -55,3 +55,6 @@
 [submodule ".config/zsh/zsh-syntax-highlighting"]
 	path = .config/zsh/zsh-syntax-highlighting
 	url = git@github.com:catppuccin/zsh-syntax-highlighting.git
+[submodule "/home/tallonea/.config/remmina"]
+	path = /home/tallonea/.config/remmina
+	url = git@github.com:Alby11/remmina_config.git
