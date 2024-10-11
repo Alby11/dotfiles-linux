@@ -904,6 +904,17 @@ alias psar="psa | rg"
 alias ssag="ssa | grep"
 alias ssar="ssa | rg"
 
+# Lazydocker
+if command -v lazydocker > /dev/null 2>&1; then
+	alias lzd='lazydocker'
+fi
+
+# Navi
+if command -v navi > /dev/null 2>&1; then
+	alias naviq='navi --query'
+	alias navit='navi --tldr'
+	alias navic='navi --cheatsh'
+fi
 ### END OF ALIASES ###
 
 [[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"
