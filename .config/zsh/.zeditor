@@ -121,9 +121,8 @@ install_latest_neovim() {
 
 # Check if rustup is installed, required for building Bob and Neovim
 if ! command -v rustup > /dev/null 2>&1; then
-  echo "rustup is required for Bob and Neovim builds. Install rustup..."
-  package_manager_install rustup
-  # curl https://sh.rustup.rs -sSf | sh
+  echo "cargo is required for Bob and Neovim builds. Installing..."
+  package_manager_install cargo
 fi
 
 # Run the installation of Bob and Neovim nightly
