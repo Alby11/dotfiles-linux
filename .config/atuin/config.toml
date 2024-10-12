@@ -95,7 +95,7 @@ inline_height = 40
 enter_accept = false
 
 ## vim-mode
-keymap_mode = "vim-normal"
+keymap_mode = "vim-insert"
 
 ## dotfiles sync
 [dotfiles]
