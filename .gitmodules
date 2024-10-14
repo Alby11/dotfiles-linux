@@ -58,3 +58,6 @@
 [submodule "/home/tallonea/.config/remmina"]
 	path = /home/tallonea/.config/remmina
 	url = git@github.com:Alby11/remmina_config.git
+[submodule "/home/tallonea/.config/yazi"]
+	path = /home/tallonea/.config/yazi
+	url = git@github.com:Alby11/dotfiles-yazi
