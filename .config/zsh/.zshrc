@@ -7,6 +7,9 @@
 
 [[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_STARTFILE "${(%):-%N}"
 
+# set catppuccin flavours variables
+source "$ZDOTDIR/.zcolors_catppuccin"
+
 # Enable Powerlevel10k instant prompt
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
     source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
@@ -60,7 +63,6 @@ source "$ZDOTDIR/.zsh_plugin_configurations.zsh"
 
 # Load custom configurations
 source "$ZDOTDIR/.zaliases"
-source "$ZDOTDIR/.zcolors_catppuccin"
 source "$ZDOTDIR/.zeditor"
 
 # Python environment management (moved from .zshenv)

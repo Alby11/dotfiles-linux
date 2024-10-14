@@ -1,5 +1,6 @@
-# vim: filetype=zsh
+# vim: ft=zsh
 
+# NOTE: Catppuccin flavours variables
 # Example usage: Print with a specific color
 # echo -e "%F{$catppuccin_latte_rosewater}This text is colored with Rosewater from the Latte palette.%f"
 
