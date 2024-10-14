@@ -452,6 +452,7 @@ alias ddfs="dot -c color.ui=false diff --staged"
 alias ddft="dot -c color.ui=false diff-tree --no-commit-id --name-only -r"
 alias ddfup="dot -c color.ui=false diff @{upstream}"
 alias ddfw="dot -c color.ui=false diff --word-diff"
+alias df='dotfile difftool'
 alias dfe='dotfile fetch'
 alias dfa='dotfile fetch --all --prune --jobs=10'
 alias dfg='dotfile files | grep'
