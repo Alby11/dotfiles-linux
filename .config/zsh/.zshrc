@@ -51,7 +51,7 @@ if [[ "$TERM_PROGRAM" = "vscode" ]]; then
 fi
 
 # Atuin
-. "$HOME/.atuin/bin/env"
+source "$HOME/.atuin/bin/env"
 eval "$(atuin init zsh)"
 
 # Antidote setup for managing plugins
@@ -68,5 +68,4 @@ if [[ -f "${ZDOTDIR}/.zpyenv" ]]; then
     source "${ZDOTDIR}/.zpyenv"
 fi
 
-[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"
 [[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"
