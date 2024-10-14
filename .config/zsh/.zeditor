@@ -72,11 +72,14 @@ install_and_setup_bat() {
   alias batclip='bat --plain | xclip'
   alias batwlcopy='bat --plain | wl-copy'
 
-  # Alias for highlighting --help messages
-  alias bathelp='bat --plain --language=help'
-
-  function help() {
+  # Function for highlighting --help messages
+  function bathelp() {
       "$@" --help 2>&1 | bat --plain --language=help
+  }
+
+  # emulate cat, pain and simple
+  function bcat() {
+      bat --plain --color=never
   }
 
   bat cache --build > /dev/null 2>&1
