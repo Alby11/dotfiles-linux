@@ -1,18 +1,18 @@
-# vim: filetype=zsh
-#
-# NOTE: .zshrc
+
+# Revised .zshrc
+# vim: ft=zsh
+# 
+# NOTE: Revised .zshrc
 #
 
 [[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_STARTFILE "${(%):-%N}"
 
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
+# Enable Powerlevel10k instant prompt
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-	source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
-# # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 [[ -f ${ZDOTDIR}/.p10k.zsh ]] && source ${ZDOTDIR}/.p10k.zsh
+
 # Set options for better shell experience
 export COMPLETION_WAITING_DOTS="true"
 export ENABLE_CORRECTION="true"
@@ -35,32 +35,19 @@ setopt sharehistory               # Share command history across multiple sessio
 
 # Shell setup for fnm NodeJS Manager
 if ! command -v fnm > /dev/null 2>&1; then
-	cargo install fnm
+    cargo install fnm
 fi
 eval "$(fnm env --use-on-cd)"
 if ! command -v node > /dev/null 2>&1; then
-	fnm install --lts
+    fnm install --lts
 fi
-
-# Export GOPATH
-[[ -d ${HOME}/go ]] && export GOPATH=${HOME}/go
-
-# Export JAVA_HOME from default alternative
-if ! javac_path=$(readlink -f "$(which javac)"); then
-	echo "Failed to locate javac"
-fi
-export JAVA_HOME=$(dirname "$(dirname "$javac_path")")
-
-# Prefer US English and use UTF-8.
-export LANG='en_US.UTF-8'
 
 # set ZSH as VSCode default shell for the integrated terminal
-# shellcheck disable=SC1090
 if [[ "$TERM_PROGRAM" = "vscode" ]]; then
-	vscode_shell_integration_path=$(code --locate-shell-integration-path zsh)
-	if [[ -f "$vscode_shell_integration_path" ]]; then
-		source "$vscode_shell_integration_path"
-	fi
+    vscode_shell_integration_path=$(code --locate-shell-integration-path zsh)
+    if [[ -f "$vscode_shell_integration_path" ]]; then
+        source "$vscode_shell_integration_path"
+    fi
 fi
 
 # Atuin
@@ -74,8 +61,12 @@ source "$ZDOTDIR/.zsh_plugin_configurations.zsh"
 # Load custom configurations
 source "$ZDOTDIR/.zaliases"
 source "$ZDOTDIR/.zcolors_catppuccin"
-
-# Load editor configurations
 source "$ZDOTDIR/.zeditor"
 
+# Python environment management (moved from .zshenv)
+if [[ -f "${ZDOTDIR}/.zpyenv" ]]; then
+    source "${ZDOTDIR}/.zpyenv"
+fi
+
+[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"
 [[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"

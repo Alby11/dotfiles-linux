@@ -1,33 +1,34 @@
+# Revised .zshenv
 # vim: ft=zsh
 # 
-# NOTE: .zshenv
+# NOTE: Revised .zshenv
 # 
 
 # Profile debug system
 export ZSH_DEBUG=1
 if [ "$ZSH_DEBUG" -eq 1 ]; then
-	echo "\n\n++++++++++++++++++++++++++++++++++++" >> ${ZDOTDIR}/.zsh_debug.log
-	echo "$SHELL dotfiles setup starts here...\n" >> ${ZDOTDIR}/.zsh_debug.log
+    echo "\n\n++++++++++++++++++++++++++++++++++++" >> ${ZDOTDIR}/.zsh_debug.log
+    echo "$SHELL dotfiles setup starts here...\n" >> ${ZDOTDIR}/.zsh_debug.log
 fi
 
 ZSH_DEBUG_LOG_STARTFILE() {
-	if [ "$ZSH_DEBUG" -eq 1 ]; then
-	echo "\n\n------------------------------------" >> ${ZDOTDIR}/.zsh_debug.log
-		# Add a timestamp
-		date +"%Y-%m-%d %H:%M:%S" >> ${ZDOTDIR}/.zsh_debug.log
-		# Log that the file has been sourced
-		echo "$1 is being sourced" >> ${ZDOTDIR}/.zsh_debug.log
-	fi
+    if [ "$ZSH_DEBUG" -eq 1 ]; then
+    echo "\n\n------------------------------------" >> ${ZDOTDIR}/.zsh_debug.log
+        # Add a timestamp
+        date +"%Y-%m-%d %H:%M:%S" >> ${ZDOTDIR}/.zsh_debug.log
+        # Log that the file has been sourced
+        echo "$1 is being sourced" >> ${ZDOTDIR}/.zsh_debug.log
+    fi
 }
 
 ZSH_DEBUG_LOG_ENDFILE() {
-	if [ "$ZSH_DEBUG" -eq 1 ]; then
-		# Add a timestamp
-		date +"%Y-%m-%d %H:%M:%S" >> ${ZDOTDIR}/.zsh_debug.log
-		# Log that the file has been sourced
-		echo "$1 has been sourced" >> ${ZDOTDIR}/.zsh_debug.log
-	echo "\n\n------------------------------------" >> ${ZDOTDIR}/.zsh_debug.log
-	fi
+    if [ "$ZSH_DEBUG" -eq 1 ]; then
+        # Add a timestamp
+        date +"%Y-%m-%d %H:%M:%S" >> ${ZDOTDIR}/.zsh_debug.log
+        # Log that the file has been sourced
+        echo "$1 has been sourced" >> ${ZDOTDIR}/.zsh_debug.log
+    echo "\n\n------------------------------------" >> ${ZDOTDIR}/.zsh_debug.log
+    fi
 }
 
 [[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_STARTFILE "${(%):-%N}"
@@ -50,14 +51,14 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 
 # determine distro for later use
 if [[ -f /etc/fedora-release ]]; then
-	export DISTRO="fedora"
+    export DISTRO="fedora"
 elif [[ -f /etc/os-release ]]; then
-	. /etc/os-release
-	if [[ $NAME == "Ubuntu" ]]; then
-		export DISTRO="ubuntu"
-	elif [[ $ID == "arch" || $ID_LIKE == "arch" ]]; then
-		export DISTRO="arch"
-	fi
+    . /etc/os-release
+    if [[ $NAME == "Ubuntu" ]]; then
+        export DISTRO="ubuntu"
+    elif [[ $ID == "arch" || $ID_LIKE == "arch" ]]; then
+        export DISTRO="arch"
+    fi
 fi
 
 # Include custom tools
@@ -75,16 +76,11 @@ fi
 if [[ -x ${ZDOTDIR}/.fetch_secrets.sh ]]; then
   # Run the script and evaluate each line in the current shell
   while IFS= read -r line; do
-  	if echo "$line" | grep -q 'BW_SESSION='; then
-  		line=$(echo "$line" | sed 's/BW_SESSION=//')
-  	fi
-    eval "$line"
+      if echo "$line" | grep -q 'BW_SESSION='; then
+          line=$(echo "$line" | sed 's/BW_SESSION=//')
+      fi
+      eval "$line"
   done < <(${ZDOTDIR}/.fetch_secrets.sh)
-fi
-
-# Configure Python environment management
-if [[ -f "${ZDOTDIR}/.zpyenv" ]]; then
-  source "${ZDOTDIR}/.zpyenv"
 fi
 
 # Export GOPATH
@@ -92,7 +88,7 @@ fi
 
 # Export JAVA_HOME from default alternative
 if ! javac_path=$(readlink -f "$(which javac)"); then
-	echo "Failed to locate javac"
+    echo "Failed to locate javac"
 fi
 export JAVA_HOME=$(dirname "$(dirname "$javac_path")")
 
@@ -100,12 +96,12 @@ export JAVA_HOME=$(dirname "$(dirname "$javac_path")")
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude ".git"'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
-export FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS} \
-	--color=bg+:#313244,gutter:-1,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
-	--color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
-	--color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
-	--color=selected-bg:#45475a \
-	--multi" # catppuccin colors
+export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS  \
+    --color=bg+:#313244,gutter:-1,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
+    --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
+    --color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
+    --color=selected-bg:#45475a \
+    --multi" # catppuccin colors
 
 # For security, prevent core dumps
 ulimit -c 0
