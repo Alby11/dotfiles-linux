@@ -73,7 +73,7 @@ install_and_setup_bat() {
   alias batwlcopy='bat --plain | wl-copy'
 
   # Function for highlighting --help messages
-  function bathelp() {
+  function bhelp() {
       "$@" --help 2>&1 | bat --plain --language=help
   }
 
