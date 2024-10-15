@@ -1,0 +1,26 @@
+# vim: filetype=zsh
+
+# Your ss-fzf function
+ss-fzf() {
+   ss -ar "$@" | fzf
+}
+
+# Autocompletion for ss-fzf
+autoload -U +X compinit && compinit
+autoload -U +X bashcompinit && bashcompinit
+
+_ss-fzf() {
+  local cur prev opts
+  COMPREPLY=()
+  cur="${COMP_WORDS[COMP_CWORD]}"
+  prev="${COMP_WORDS[COMP_CWORD-1]}"
+  # opts=$(ss --help | grep -o -e "-[a-zA-Z]" | tr '\n' ' ')
+  opts=$(ss -poenta | grep -o -e "-[a-zA-Z]" | tr '\n' ' ')
+
+  if [[ ${cur} == -* ]] ; then
+    COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+    return 0
+  fi
+}
+
+complete -F _ss-fzf ss-fzf

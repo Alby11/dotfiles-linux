@@ -1,0 +1,86 @@
+# vim: filetype=zsh
+function get_path() {
+	# Check if an argument was provided
+	if [[ $# -eq 0 ]]; then
+		echo 'Please provide a filename as an argument.'
+		return 1
+	fi
+
+	for arg in "$@"; do
+		if [[ $arg == '-h' || $arg == '--help' ]]; then
+			echo 'Usage: get_path filename [--strip-filename|-d|--windows|-w|--help|-h]'
+			echo 'Prints the full path of the given file.'
+			echo 'If --strip-filename or -d is provided, prints the path of the directory containing the file.'
+			echo 'If --windows or -w is provided, prints the path of the the file with backslashes.'
+			return 0
+		fi
+	done
+
+	# Initialize variables
+	local filename=""
+	local filepath=""
+	local keep_arg=true
+	local new_args=()
+	local strip_args=('--strip-filename' '-d' '--windows' '-w')
+	local strip_filename=false
+	local windows_bslash=false
+
+	# Process arguments
+	for arg in "$@"; do
+
+		# Assume the argument should be kept until proven otherwise
+		keep_arg=true
+		for strip_arg in "${strip_args[@]}"; do
+			if [[ "$arg" == "$strip_arg" ]]; then
+				# This argument is in the list of arguments to strip, so don't keep it
+				keep_arg=false
+
+				# Set the corresponding variable
+				if [[ "$strip_arg" == "-d" ]] || [[ "$strip_arg" == "--strip-filename" ]]; then
+					strip_filename=true
+				elif [[ "$strip_arg" == "-w" ]] || [[ "$strip_arg" == "--windows" ]]; then
+					windows_bslash=true
+				fi
+
+				break
+			fi
+		done
+
+		if $keep_arg; then
+			# This argument was not in the list of arguments to strip, so add it to the new arguments
+			new_args+=("$arg")
+		fi
+	done
+
+	# Replace the original arguments with the new arguments
+	set -- "${new_args[@]}"
+
+	# Now "$@" contains only the arguments that were not stripped
+	# If there's exactly one argument left, it should be the filename
+	if [[ $# -eq 1 ]]; then
+		filename=$1
+		filepath=$(readlink -f "$filename")
+	else
+		echo "Error: Expected a single filename argument, but got $#"
+	fi
+
+	# Check if a filename was provided
+	if [[ -z $filepath ]]; then
+		echo 'Please provide a filename as an argument.'
+		return 1
+	fi
+
+	# Strip filename if requested
+	if $strip_filename; then
+		filepath=$(dirname "$filepath")
+	fi
+
+	# if second argument is '-w' convert slashes
+	if $windows_bslash; then
+		echo "$filepath" | sed 's/\//\\/g'
+		return 0
+	fi
+
+	# Print the path
+	echo "$filepath"
+}

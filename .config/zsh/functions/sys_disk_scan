@@ -1,0 +1,7 @@
+# vim: filetype=zsh
+
+sys_disk_scan() {
+	for host in /sys/class/scsi_host/host*; do
+		echo "- - -" | sudo tee "${host}/scan" > /dev/null
+	done
+}

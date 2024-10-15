@@ -1,0 +1,36 @@
+# vim: filetype=zsh
+pwsh_session() {
+  # Check if the correct number of arguments is passed
+  if [[ $# -ne 2 ]]; then
+    echo "Usage: pwssh_session <user> <remoteServer>"
+    return 1
+  fi
+
+  local credentialUser="$1"
+  local remoteServer="$2"
+
+  # Starts a PowerShell session and prompts for the user's password securely
+  # Note: The use of environment variables to pass parameters to PowerShell
+  credentialUser=$credentialUser \
+    remoteServer=$remoteServer \
+    pwsh -NoExit -Command '
+      # Using environment variables to retrieve user and server information
+      $credential = Get-Credential -UserName $env:credentialUser -Message "Enter your password"
+      
+      # Creating a new PowerShell session to the specified remote server using the provided credentials
+      $session = New-PSSession -Credential $credential -ComputerName $env:remoteServer
+      
+      Invoke-Command -Session $session -ScriptBlock {
+        param(
+        $credential
+        )
+        Set-Variable -Name "cred" -Value $credential
+        $PSDefaultParameterValues['\''Get-ADUser:Credential'\''] = $credential
+        $PSDefaultParameterValues['\''Get-ADGroup:Credential'\''] = $credential
+      } -ArgumentList $credential
+
+      # Enter the created session
+      # Note: Removed Invoke-Command as its unnecessary for entering a session
+      Enter-PSSession -Session $session
+    '
+}

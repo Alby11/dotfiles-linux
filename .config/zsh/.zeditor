@@ -1,0 +1,174 @@
+# vim: filetype=zsh
+
+#
+# NOTE: .zeditor - Zsh file loaded to export editor, visual, pager ...
+#
+
+[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_STARTFILE "${(%):-%N}"
+
+# define a function to install bat and its extras
+install_and_setup_bat() {
+
+  export BATPIPE
+  export MANROFFOPT
+
+  if ! command -v bat > /dev/null 2>&1 && ! command -v batcat > /devnull 2>&1; then
+    package_manager_install bat
+  fi
+
+  # Check if running on Ubuntu
+  if [ "$DISTRO" = "ubuntu" ]; then
+    # Check if batcat is installed (Ubuntu's bat package name)
+    if command -v batcat > /dev/null 2>&1; then
+      alias bat='batcat'
+      bat () { 
+        batcat "$@"
+      }
+      # Only alias cat to rcat if rcat is not already an existing command
+      if ! command -v rcat > /dev/null 2>&1; then
+        rcat () { 
+          cat "$@"
+        }
+      fi
+    fi
+  fi
+
+  # Integration with fzf for preview
+  if command -v fzf > /dev/null 2>&1; then
+    export FZF_DEFAULT_OPTS="--preview 'bat --color=always --style=numbers --line-range=:500 {}'"
+    fzfbat() { 
+      fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"
+    }
+  fi
+
+  # Integration with find or fd for previewing files
+  alias findbat='find | xargs -exec bat {} +'
+  if command -v fd-find > /dev/null 2>&1; then
+    alias fd='fd-find'
+    fd() {
+      fd-find "$@"
+    }
+    fdbat() {
+      fd-find "$@" | xargs -X bat
+    }
+  elif command -v fd > /dev/null 2>&1; then
+    fdbat() {
+      fd "$@" | xargs -X bat
+    }
+  fi
+
+  # Integration with tail -f for continuous monitoring
+  function tailbat() {
+    tail -f  | xargs bat --paging=never -l log
+  }
+
+  # Integration with git for showing files with syntax highlighting
+  function gitbat() {
+    git show | xargs bat -l -rs
+  }
+  alias BGS='| bat -l rs' # mnemonic Bat Git Show
+
+  # Integration with xclip for copying contents without line numbers or Git markers
+  alias batclip='bat --plain | xclip'
+  alias batwlcopy='bat --plain | wl-copy'
+
+  # Function for highlighting --help messages
+  function bhelp() {
+      "$@" --help 2>&1 | bat --plain --language=help
+  }
+
+  # emulate cat, pain and simple
+  function bcat() {
+      bat --plain --color=never
+  }
+
+  bat cache --build > /dev/null 2>&1
+
+  if command -v batpipe > /dev/null 2>&1; then
+    export LESSOPEN="$(which batpipe) %s"
+    # The following will enable colors when using batpipe with less:
+    export BATPIPE="color"
+  fi
+
+  # Set bat as MANPAGER for colorized man pages
+  export MANPAGER="zsh -c 'col -bx | bat -l man -p'"
+  # Check for MANROFFOPT for better formatting
+
+  export BATPIPE="color";
+  export MANROFFOPT="-c"
+
+}
+
+### Setting up less
+# Highlight section titles in manual pages.
+export LESS_TERMCAP_md="${yellow}"
+unset LESSCLOSE
+export LESS="$LESS -i"
+
+# Bob Neovim Version Manager Setup
+# Function to install Bob if not already installed
+install_bob() {
+  if [ ! command -v bob >/dev/null  2>&1 ]; then
+    echo "Installing Bob..."
+    cargo install --git https://github.com/MordechaiHadad/bob.git
+  else
+    # echo "Bob is already installed."
+  fi
+}
+
+# Function to install the latest Neovim nightly using Bob
+install_latest_neovim() {
+  # echo "Installing latest Neovim..."
+  bob use stable > /dev/null 2>&1 &
+}
+
+# Check if rustup is installed, required for building Bob and Neovim
+if ! command -v rustup > /dev/null 2>&1; then
+  echo "cargo is required for Bob and Neovim builds. Installing..."
+  package_manager_install cargo
+fi
+
+# Run the installation of Bob and Neovim nightly
+install_bob
+install_latest_neovim
+
+# Add Bob's Neovim installation to PATH
+# export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
+
+install_and_setup_bat
+
+# Set the default editor, considering if it is available
+# Set the default editor, considering if it is available
+if command -v nvim &> /dev/null; then
+  export EDITOR="nvim"
+  export PAGER="$EDITOR"
+  export MANPAGER='nvim +Man!'
+elif command -v vim &> /dev/null; then
+  export EDITOR="vim"
+  export PAGER="$EDITOR"
+  export MANPAGER="$EDITOR -c 'Man!' -o -"
+elif command -v vi &> /dev/null; then
+  export EDITOR="vi"
+  export PAGER="less"
+  export MANPAGER="$PAGER"
+elif command -v nano &> /dev/null; then
+  export EDITOR="nano"
+  export PAGER="less"
+  export MANPAGER="$PAGER"
+else
+  echo "No suitable editor found. Please install nvim, vim, vi, or nano."
+fi
+export VISUAL="$EDITOR"
+export PAGER="less"
+ 
+[[ -n $EDITOR ]] && {
+  edit() {
+      $EDITOR "$@"
+  }
+  alias e='edit'
+}
+
+# enable zsh to interpret # as comments during interactive sessions
+setopt interactivecomments
+
+[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"

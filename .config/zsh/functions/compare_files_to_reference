@@ -1,0 +1,32 @@
+# vim: filetype=zsh
+
+compare_files_to_reference() {
+	if [ $# -lt 2 ]; then
+		echo "Usage: compare_files_to_reference <reference_file> <directory>"
+		return 1
+	fi
+
+	local reference_file="$1"
+	local search_directory="$2"
+	# Extract the filename from the reference file path to use as the search pattern
+	local pattern=$(basename "$reference_file")
+
+	# Ensure fd treats the second argument as the search directory
+	local files_to_compare=($(fd -e "$pattern" . "$search_directory"))
+
+	if [ ! -f "$reference_file" ]; then
+		echo "Reference file $reference_file not found."
+		return 1
+	fi
+
+	# Loop through the found files and compare each to the reference file
+	for file in "${files_to_compare[@]}"; do
+		if [ "$file" = "$reference_file" ]; then
+			continue # Skip comparing the reference file to itself
+		fi
+
+		echo "Comparing $file to $reference_file:"
+		diff <(tail -n 10 "$reference_file") <(tail -n 10 "$file")
+		echo "----------------------------------------"
+	done
+}

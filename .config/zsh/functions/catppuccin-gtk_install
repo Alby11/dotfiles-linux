@@ -1,0 +1,41 @@
+# vim: filetype=zsh
+#
+setopt localoptions extendedglob warncreateglobal typesetsilent noshortloops
+
+catppuccin-gtk_install() {
+  local cur_dir="$(pwd)"
+  local catppuccin_theme="Catppuccin-Mocha-Standard-Pink-Dark"
+  sudo dnf install ostree libappstream-glib gtk-murrine-engine gnome-themes-extra sassc
+  rm -rf $HOME/.themes/Catppuccin*
+  git clone https://github.com/refi64/stylepak
+  cd stylepak
+  chmod +x stylepak
+  local stylepak="$(pwd)"
+  cd $cur_dir
+  git clone https://github.com/catppuccin/gtk
+  cd gtk
+  local catppuccin_gtk="$(pwd)"
+  cd $catppuccin_gtk
+  virtualenv -p python3 venv  # to be created only once and only if you need a virtual env
+  source venv/bin/activate  
+  pip install -r requirements.txt
+  # python install.py all -a all --tweaks black -d "$HOME/.themes"
+  python install.py mocha -a pink --tweaks black -d $HOME/.themes
+  python install.py --help
+  deactivate
+  cd $cur_dir
+  local THEME_DIR="$HOME/.themes/$catppuccin_theme"
+  mkdir -p ${HOME}/.config/gtk-4.0
+  rm -fv ${HOME}/.config/gtk-4.0/assets
+  rm -fv ${HOME}/.config/gtk-4.0/gtk.css
+  rm -fv ${HOME}/.config/gtk-4.0/gtk-dark.css
+  ln -sfv ${THEME_DIR}/gtk-4.0/assets ${HOME}/.config/gtk-4.0/assets
+  ln -sfv ${THEME_DIR}/gtk-4.0/gtk.css ${HOME}/.config/gtk-4.0/gtk.css
+  ln -sfv ${THEME_DIR}/gtk-4.0/gtk-dark.css ${HOME}/.config/gtk-4.0/gtk-dark.css
+  $stylepak/stylepak install-user $catppuccin_theme
+  $stylepak/stylepak clear-cache
+  rm -rf $stylepak
+  rm -rf $catppuccin_gtk
+  sudo flatpak -v override --filesystem="$HOME/.themes"
+  sudo flatpak -v override --env=GTK_THEME=$catppuccin_theme
+}

@@ -1,0 +1,22 @@
+# vim: filetype=zsh
+
+fzf-dotfiles-checkout() {
+    dotfiles rev-parse HEAD > /dev/null 2>&1 || return
+
+    local branch
+
+    branch=$(fzf-dot-branch)
+    if [[ "$branch" = "" ]]; then
+        echo "No branch selected."
+        return
+    fi
+
+    # If branch name starts with 'remotes/' then it is a remote branch. By
+    # using --track and a remote branch name, it is the same as:
+    # dotfiles checkout -b branchName --track origin/branchName
+    if [[ "$branch" = 'remotes/'* ]]; then
+        dotfiles checkout --track $branch
+    else
+        dotfiles checkout $branch;
+    fi
+}

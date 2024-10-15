@@ -1,0 +1,10 @@
+# vim: filetype=zsh
+remmina_session_save() {
+  rsync -av ${XDG_CONFIG_HOME}/remmina/work_* ${HOME}/gitdepot/remmina_config
+  local curdir=$(pwd)
+  cd ${HOME}/gitdepot/remmina_config
+  git add work_* 
+  git commit -m 'add/edit session'
+  git push
+  cd $curdir
+}

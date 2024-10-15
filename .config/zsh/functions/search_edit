@@ -1,0 +1,35 @@
+# vim: ft=zsh
+
+# Add this function to your .zshrc or .bashrc
+search_edit() {
+  # Determine whether to use rg or grep for the search
+  local search_cmd
+  if command -v rg > /dev/null; then
+    search_cmd=(rg --line-number --column --color=always)
+  else
+    echo "Ripgrep not found. Falling back to grep..."
+    search_cmd=(grep -rn --color=always)
+  fi
+
+  # Use fzf to filter and select the search results
+  local selected_entry
+  selected_entry=$("${search_cmd[@]}" "$@" | fzf --ansi --preview='
+    # Extract the file path and line number from the selection
+    FILE=$(echo {} | cut -d ":" -f 1)
+    LINE=$(echo {} | cut -d ":" -f 2)
+    # Calculate the line range to center the relevant line in the preview
+    START=$((LINE > 10 ? LINE - 10 : 1))
+    END=$((LINE + 10))
+    # Use bat to preview the file content, highlighting and centering the specified line
+    bat --style=numbers --color=always --line-range "$START:$END" --highlight-line "$LINE" "$FILE"
+  ' --preview-window=right:60%)
+
+  # If an entry was selected, parse the result and open it in the editor
+  if [ -n "$selected_entry" ]; then
+    local file
+    local line_number
+    file=$(echo "$selected_entry" | cut -d ':' -f 1)
+    line_number=$(echo "$selected_entry" | cut -d ':' -f 2)
+    "$EDITOR" "$file" +"$line_number"
+  fi
+}

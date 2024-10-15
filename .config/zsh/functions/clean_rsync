@@ -1,0 +1,5 @@
+# vim: filetype=zsh
+
+function rsync() {
+    (/usr/bin/env -i /usr/bin/bash -c "/usr/bin/rsync $@")
+}

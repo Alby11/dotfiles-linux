@@ -1,0 +1,72 @@
+# vim: filetype=zsh
+
+# Function to restore GNOME settings from a backup
+function gnome_restore() {
+    # Help function
+    function help() {
+        echo "Usage: gnome_restore <backup_directory>"
+        echo "Restores GNOME settings, extensions, keybindings, themes, and configuration files from the specified backup directory."
+        echo "Options:"
+        echo "  -h    Show this help message."
+    }
+
+    # Check for help flag or missing argument
+    if [[ "$1" == "-h" || -z "$1" ]]; then
+        help
+        return 1
+    fi
+
+    # Assign backup directory from the argument
+    local backup_dir="$1"
+
+    # Validate the backup directory
+    if [[ ! -d "$backup_dir" ]]; then
+        echo "Error: Backup directory does not exist or is invalid."
+        help
+        return 1
+    fi
+
+    # Restore dconf settings
+    if [[ -f "${backup_dir}/gnome-settings-backup.dconf" ]]; then
+        echo "Restoring dconf settings..."
+        dconf load / < "${backup_dir}/gnome-settings-backup.dconf"
+    else
+        echo "Warning: GNOME settings backup not found."
+    fi
+
+    # Restore GNOME extensions
+    if [[ -f "${backup_dir}/gnome-extensions-backup.tar.gz" ]]; then
+        echo "Restoring GNOME extensions..."
+        tar -xzf "${backup_dir}/gnome-extensions-backup.tar.gz" -C ~/.local/share/gnome-shell/extensions/
+    else
+        echo "Warning: GNOME extensions backup not found."
+    fi
+
+    # Restore keybindings
+    if [[ -f "${backup_dir}/gnome-keybindings-backup.dconf" ]]; then
+        echo "Restoring GNOME keybindings..."
+        dconf load /org/gnome/settings-daemon/plugins/media-keys/ < "${backup_dir}/gnome-keybindings-backup.dconf"
+    else
+        echo "Warning: GNOME keybindings backup not found."
+    fi
+
+    # Restore themes and icons
+    if [[ -f "${backup_dir}/gnome-themes-backup.tar.gz" ]]; then
+        echo "Restoring GNOME themes and icons..."
+        tar -xzf "${backup_dir}/gnome-themes-backup.tar.gz" -C ~/
+    else
+        echo "Warning: GNOME themes backup not found."
+    fi
+
+    # Restore GNOME configuration files
+    if [[ -d "${backup_dir}/.config" ]]; then
+        echo "Restoring GNOME configuration files..."
+        cp -r "${backup_dir}/.config/gnome*" ~/.config/ 2>/dev/null
+    else
+        echo "Warning: GNOME configuration files not found."
+    fi
+
+    echo "Restore complete. Please restart GNOME to apply the changes."
+}
+
+# Usage: gnome_restore /path/to/backup_directory

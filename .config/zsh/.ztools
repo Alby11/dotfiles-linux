@@ -1,0 +1,122 @@
+# vim: filetype=zsh
+
+#
+# NOTE: .ztools.zsh - tools for better profiling...
+#
+
+[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_STARTFILE "${(%):-%N}"
+
+for cmd in "dnf" "apt"; do
+	if command -v $cmd >/dev/null; then
+		case "$cmd" in
+		"dnf")
+			package_manager_install() {
+				sudo dnf install -y "$@"
+			}
+			package_manager_remove() {
+				sudo dnf remove -y "$@"
+			}
+			package_manager_autoremove() {
+				sudo dnf autoremove -y "$@"
+			}
+			export PACKAGE_MANAGER="dnf"
+			;;
+		"apt")
+			package_manager_install() {
+				sudo apt-get install -y "$@"
+			}
+			package_manager_remove() {
+				sudo apt remove -y "$@"
+			}
+			package_manager_autoremove() {
+				sudo apt autoremove -y "$@"
+			}
+			export PACKAGE_MANAGER="apt"
+			;;
+		esac
+		alias pmi='package_manager_install'
+		alias pmr='package_manager_remove'
+		alias pmar='package_manager_autoremove'
+		break
+	fi
+done
+
+# Function to check for NOPASSWD privileges
+CHECK_NOPASSWD() {
+	local SUDO_ASKPASS=$(which ssh-askpass)
+	# Run sudo in non-interactive mode to avoid prompting for a password
+	local sudo_output=$(SUDO_ASKPASS=/bin/false sudo -ln 2>/dev/null)
+
+	if [[ $sudo_output == *"(ALL) NOPASSWD: ALL"* ]]; then
+		# The user has NOPASSWD for all commands
+		return 0
+	elif [[ $sudo_output == *"NOPASSWD:"* ]]; then
+		# The user has NOPASSWD for specific commands
+		return 0
+	else
+		# The user does not have NOPASSWD privileges
+		return 1
+	fi
+}
+
+# Function to check if the user has NOPASSWD privileges for a specific command
+WHOAMI_HAS_NOPASSWD() {
+	# Check if sudo allows the user to run the command without a password
+	sudo -nl | grep -q 'NOPASSWD: ALL' && return 0 || return 1
+}
+
+# CARGO
+if [[ ! -f $HOME/.cargo/bin/rustup ]]; then
+	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path
+	package_manager_install {,pkgconf-}pkg-config
+	package_manager_install openssl
+fi
+
+IS_LOGIN_SHELL() {
+	# Check using shell option (most direct method)
+	if [[ -o login ]]; then
+		return 0
+	fi
+
+	# Check by inspecting $0 (second method)
+	if [[ $0 == -* ]]; then
+		return 0
+	fi
+
+	# Check using `ps` command (if available and as a fallback)
+	if command -v ps >/dev/null 2>&1; then
+		shell_process=$(ps -o comm= -p $$)
+		if [[ $shell_process == -* ]]; then
+			return 0
+		fi
+	fi
+
+	# If none of the above checks confirm a login shell
+	return 1
+}
+
+# This function checks if the given commands are available on the system.
+# It takes an array of command names as an argument.
+# Each command name should be a separate argument.
+# You can pass an array variable or directly pass an array as arguments.
+#
+# Usage:
+#   CHECK_COMMANDS "${array[@]}"  # Pass array variable
+#   CHECK_COMMANDS "cmd1" "cmd2" "cmd3"  # Directly pass an array
+#
+#   if CHECK_COMMANDS "fzf" "fd" "head" "bat"; then
+#     echo "All commands are available."
+#   else
+#     echo "Some commands are missing."
+#   fi
+# The function will return a success status if all commands are available,
+# or a failure status if any command is not found.
+
+CHECK_ONLINE() {
+	if $(wget -q --spider http://www.google.com); then
+		return 0
+	fi
+	return 1
+}
+
+[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"

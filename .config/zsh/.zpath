@@ -1,0 +1,61 @@
+# vim: filetype=zsh
+#
+# NOTE: .zpath - Zsh PATH setup file
+#
+
+[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_STARTFILE "${(%):-%N}"
+
+# Initialize the Zsh completion system
+# This enables advanced command-line completion features
+autoload -Uz +X compinit && compinit
+autoload -Uz +X bashcompinit && bashcompinit 
+autoload -Uz promptinit && promptinit
+zmodload -i zsh/complist
+_comp_options+=(globdots) # With hidden files
+for func in $ZDOTDIR/functions/*(.N); do
+  autoload -Uz $func
+done
+
+# Set the list of directories that zsh searches for commands.
+path=(
+  $HOME/{,s}bin(N)
+  $HOME/.local/{,s}bin(N)
+  $HOME/{.cargo,local}/{,s}bin(N)
+  $HOME/{,.}go/{,s}bin(N)
+  $HOME/.local/share/bob/nvim-{,s}bin(N)
+  $HOME/gitdepot/quickemu/(N)
+  $HOME/gitdepot/genesys_archy/(N)
+  /opt/{,s}bin(N)
+  /opt/flameshot/bin/(N)
+  /opt/{homebrew,local}/{,s}bin(N)
+  /usr/libexec/openssh/(N)
+  /usr/local/{,s}bin(N)
+  $path
+)
+
+fpath=(
+  $ZDOTDIR/{completion,functions}(N)
+  $fpath
+)
+
+
+eval "$(bw completion --shell zsh); compdef _bw bw;"
+eval "$(bob complete zsh); compdef _bob bob;"
+
+zstyle ':completion:*:*:git:*' script $ZDOTDIR/completion/git-completion.bash
+# alias dotfiles='"$(which git)" --git-dir="${HOME}"/.dotfiles_git/ --work-tree="$HOME"'
+# alias dot='$(which git) --git-dir=${HOME}/.dotfiles_git/ --work-tree="$HOME"'
+# Enable autocomplete for the `dotfiles` function in Zsh
+_dotfiles_autocomplete() {
+    local git_dir="$HOME/.dotfiles_git"
+    local work_tree="$HOME"
+    GIT_DIR="$git_dir" GIT_WORK_TREE="$work_tree" git "$@"
+}
+
+# Use Git's autocomplete for the dotfiles function
+compdef _git dotfiles
+
+# Ensure path arrays do not contain duplicates.
+typeset -gU path fpath
+
+[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"

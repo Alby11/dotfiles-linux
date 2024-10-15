@@ -1,0 +1,47 @@
+command_timeout() {
+    local command
+    local time_threshold=10
+    local max_retries=3
+    local use_sudo=false
+
+    print_help() {
+        printf "Usage: command_timeout [-t/--time time_threshold] [-r/--retries max_retries] [-s/--sudo use_sudo] [-H/--Help] command\nDefaults: time_threshold=10, max_retries=3, use_sudo=false\n"
+    }
+
+    if (( $# == 0 )); then
+        print_help
+        return 0
+    fi
+
+    while (( $# )); do
+        case $1 in
+            -t|--time) shift; time_threshold=$1 ;;
+            -r|--retries) shift; max_retries=$1 ;;
+            -s|--sudo) shift; use_sudo=$1 ;;
+            -H|--Help) print_help
+                        return 0 ;;
+            *) break ;;
+        esac
+        shift
+    done
+
+    command="$@"
+
+    local retries=0
+    while (( retries < max_retries )); do
+        if [[ "$use_sudo" == "true" ]]; then
+            command="sudo $command"
+        fi
+
+        if timeout -k 5 "$time_threshold" sh -c "$command" > /dev/null 2>&1; then
+            echo "Command '$command' executed successfully."
+            return 0
+        else
+            echo "Command '$command' timed out after $time_threshold seconds. Retrying..."
+            ((retries++))
+        fi
+    done
+
+    echo "Command '$command' failed after $max_retries attempts."
+    return 1
+}

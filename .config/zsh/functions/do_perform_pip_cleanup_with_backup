@@ -1,0 +1,11 @@
+# vim: filetype=zsh
+
+do_perform_pip_cleanup_with_backup() {
+# Backup current packages
+  pip freeze --user > requirements_user.txt
+  sudo pip freeze > requirements_system.txt
+
+# Uninstall all packages
+  pip freeze --user | xargs pip uninstall -y
+  sudo pip freeze | sudo xargs pip uninstall -y
+}

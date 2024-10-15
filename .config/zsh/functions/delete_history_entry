@@ -1,0 +1,25 @@
+# vim: filetype=zsh
+delete_history_entry() {
+    if [[ $1 == "help" ]]; then
+        echo "Usage: delete_history_entry [n|last]"
+        echo "Deletes the nth entry or the last entry from the history."
+        return 0
+    fi
+
+    if [[ $1 == "last" ]]; then
+        entry=$(history -1)
+    else
+        entry=$(history | grep "^ *$1 ")
+    fi
+
+    if [[ -z $entry ]]; then
+        echo "No such history entry."
+        return 1
+    fi
+
+    local old_savehist=$SAVEHIST
+    SAVEHIST=0
+    print -s "${${(z)entry}[2,-1]}"
+    fc -R
+    SAVEHIST=$old_savehist
+}

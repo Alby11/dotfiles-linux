@@ -1,0 +1,9 @@
+# vim: filetype=zsh
+
+sping() {
+  if command -v grc &>/dev/null
+    ping -c 3 -s 2 "$1"
+    return
+  fi
+  ping -c 3 -s 2 "$1"
+}

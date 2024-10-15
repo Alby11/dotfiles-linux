@@ -1,0 +1,55 @@
+# vim: filetype-zsh
+
+firewalld_set () {
+
+# Reset Firewalld to default settings
+  echo "Resetting Firewalld to default settings..."
+  sudo firewall-cmd --complete-reload
+
+# Set the "drop" zone as the default
+  echo "Setting the 'drop' zone as the default..."
+  sudo firewall-cmd --set-default-zone=drop
+
+# Set up basic safety rules for incoming and outgoing traffic
+  echo "Setting up basic safety rules..."
+
+# Allow outgoing HTTP and HTTPS traffic
+  sudo firewall-cmd --permanent --zone=drop --add-service=http
+  sudo firewall-cmd --permanent --zone=drop --add-service=https
+
+# Allow incoming DNS traffic (for DNS resolution)
+  sudo firewall-cmd --permanent --zone=drop --add-service=dns
+
+# Reload Firewalld to apply the rules
+  echo "Reloading Firewalld to apply basic safety rules..."
+  sudo firewall-cmd --reload
+
+# Re-create the custom zone for gsconnect
+  echo "Re-creating the custom 'gsconnect-local' zone..."
+  sudo firewall-cmd --permanent --delete-zone=gsconnect-local
+  sudo firewall-cmd --permanent --new-zone=gsconnect-local
+  sudo firewall-cmd --permanent --zone=gsconnect-local --add-interface=enp0s13f0u2u1
+  sudo firewall-cmd --permanent --zone=gsconnect-local --add-interface=wlp0s20f3
+
+# Allow the specified TCP and UDP port ranges for gsconnect
+  sudo firewall-cmd --permanent --zone=drop --add-port=1714-1764/tcp
+  sudo firewall-cmd --permanent --zone=drop --add-port=1714-1764/udp
+  sudo firewall-cmd --permanent --zone=gsconnect-local --add-service=kdeconnect
+
+# Allow traffic from specific source IP ranges (local networks)
+  sudo firewall-cmd --permanent --zone=gsconnect-local --add-source=192.168.1.0/24
+  sudo firewall-cmd --permanent --zone=gsconnect-local --add-source=192.168.112.0/24
+  sudo firewall-cmd --permanent --zone=gsconnect-local --add-source=10.30.0.0/16
+  sudo firewall-cmd --permanent --zone=gsconnect-local --add-source=172.16.0.0/16
+  # sudo firewall-cmd --permanent --zone=gsconnect-local --add-destination=192.168.1.0/24
+  # sudo firewall-cmd --permanent --zone=gsconnect-local --add-destination=192.168.112.0/24
+  # sudo firewall-cmd --permanent --zone=gsconnect-local --add-destination=10.30.0.0/16
+  # sudo firewall-cmd --permanent --zone=gsconnect-local --add-destination=172.16.0.0/16
+
+# Reload Firewalld to apply the gsconnect rules
+  echo "Reloading Firewalld to apply gsconnect rules..."
+  sudo firewall-cmd --reload
+
+  echo "Firewalld setup completed." 
+
+}

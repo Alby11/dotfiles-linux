@@ -1,0 +1,123 @@
+# vim: filetype=zsh
+pwssh() {
+  local credentialUser=""
+  local remoteServer=""
+  local passwordPlainText=""
+  local OPTARG OPTIND opt
+
+  # Display help message
+  function display_help() {
+    echo "Usage: pwssh -u <user> -s <server>"
+    echo "Options:"
+    echo "  -u, --user     Specify the username for the remote server."
+    echo "  -s, --server   Specify the remote server address."
+    echo "  -H, --help     Display this help message and exit."
+  }
+
+  # Parse command-line options
+  while getopts "u:s:H-:" opt; do
+    case "${opt}" in
+      u) credentialUser=$OPTARG ;;
+      s) remoteServer=$OPTARG ;;
+      H) display_help; return 0 ;;
+      -)
+        case "${OPTARG}" in
+          user) credentialUser=${!OPTIND}; OPTIND=$(( $OPTIND + 1 )) ;;
+          server) remoteServer=${!OPTIND}; OPTIND=$(( $OPTIND + 1 )) ;;
+          help) display_help; return 0 ;;
+          *) echo "Invalid option: --${OPTARG}" >&2; display_help; return 1 ;;
+        esac ;;
+      \?) echo "Invalid option: -${OPTARG}" >&2; display_help; return 1 ;;
+      :) echo "Option -${OPTARG} requires an argument." >&2; display_help; return 1 ;;
+    esac
+  done
+
+  # Check for required parameters
+  if [[ -z "${credentialUser}" ]] || [[ -z "${remoteServer}" ]]; then
+    echo "Error: Missing required arguments." >&2
+    display_help
+    return 1
+  fi
+
+  # Securely prompt for the password
+  echo -n "Enter password: "
+  stty sane
+  stty icrnl
+  read -s passwordPlainText
+  echo
+
+  # Define the script content
+  local scriptContent="
+    # Convert the plaintext password to a secure string
+    \$securePassword = ConvertTo-SecureString \""${passwordPlainText}"\"-AsPlainText -Force # Create the credential object
+    \$Credential = New-Object System.Management.Automation.PSCredential (\""${credentialUser}"\", \$securePassword)
+
+    function Set-DefaultCredentialForModule {
+        param(
+            [Parameter(Mandatory=\$true)]
+            [string]\$ModuleName,
+
+            [Parameter(Mandatory=\$true)]
+            [System.Management.Automation.PSCredential]\$Credential
+        )
+
+        # Attempt to import the module in case it's not already loaded
+        Import-Module \$ModuleName -ErrorAction SilentlyContinue
+
+        # Get all commands in the specified module
+        \$ModuleCmdlets = Get-Command -Module \$ModuleName
+
+        # Loop through each command and set the default Credential parameter
+        foreach (\$cmd in \$ModuleCmdlets) {
+            # Construct the parameter name string
+            \$paramName = \$cmd.Name + ':Credential'
+
+            # Check if the cmdlet has a Credential parameter
+            \$cmdParameters = Get-Command \$cmd.Name | Select-Object -ExpandProperty Parameters
+            if (\$cmdParameters.ContainsKey('Credential')) {
+                # Set the default Credential parameter for the cmdlet
+                \$PSDefaultParameterValues[\$paramName] = \$Credential
+            }
+        }
+    }
+
+    # Define an array of modules
+    \$ModuleList = @(
+      'ActiveDirectory'
+    )
+
+    # Loop through each module and set the default Credential parameter
+    foreach (\$Module in \$ModuleList) {
+      Set-DefaultCredentialForModule -ModuleName \$Module -Credential \$Credential
+    }
+
+    # Set a Credential shorthand for manual use
+    \$crd = \$Credential
+
+    # Any other PowerShell commands here
+    Remove-Item -Path \$MyInvocation.MyCommand.Path -Force -Verbose
+  "
+  unset passwordPlainText
+
+  # Define the remote script path
+  local localScriptPath="/tmp/pwsh_script.ps1"
+  local remoteScriptPath="~/pwsh_script.ps1"
+
+  # Create the script file locally
+  echo "$scriptContent" > $localScriptPath
+
+  # Transfer the script to the remote server
+  # scp $localScriptPath ${credentialUser}@${remoteServer}:${remoteScriptPath}/pwsh_script.ps1
+  scp $localScriptPath ${credentialUser}@${remoteServer}:${remoteScriptPath}
+
+  # Clean up the local script
+  rm -v $localScriptPath
+
+  # execute the script remotely, enter the shell and clean when exiting
+  ssh -t $remoteServer \
+    "pwsh -NoExit -Command '. ${remoteScriptPath} ;
+    Remove-Item ${remoteScriptPath} -Force -Verbose'"
+
+  # Clean up the remote script, just to be sure
+  ssh $remoteServer rm -v ${remoteScriptPath}
+}

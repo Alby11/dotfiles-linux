@@ -1,0 +1,72 @@
+# vim: filetype=zsh
+
+# Function: exec_cmds
+# Description: Execute multiple commands with the same arguments after confirmation
+# Usage: execute_commands
+#        First input multiple commands (press Enter without input to stop).
+#        Then, input arguments for the commands in one line.
+# Options:
+#    -h: Show help message
+
+function exec_cmds () {
+    # Show help message if -h is provided
+    if [[ $1 == "-h" ]]; then
+        echo "Usage: execute_commands"
+        echo "You will be prompted to input multiple commands."
+        echo "Press Enter on an empty line to stop entering commands."
+        echo "Then, input arguments to pass to all commands."
+        return 0
+    fi
+
+    local commands=()
+
+    # Loop to input commands
+    while true; do
+        read -r "input_command?Enter a command (or press Enter to finish): "
+        if [[ -z "$input_command" ]]; then
+            if [[ ${#commands[@]} -eq 0 ]]; then
+                echo "No commands entered. Please enter at least one command."
+            else
+                break
+            fi
+        else
+            commands+=("$input_command")
+        fi
+    done
+
+    # Ask for arguments
+    read -r "args?Enter the arguments to pass to the commands: "
+
+    # Display the list of commands and arguments to be executed
+    echo "The following commands will be executed with the arguments '$args':"
+    for cmd in "${commands[@]}"; do
+        echo " - $cmd $args"
+    done
+
+    # Final confirmation before executing the commands
+    while true; do
+        read -q "REPLY?Proceed with these commands? (y/n): "
+        echo ""
+        if [[ $REPLY == "y" ]]; then
+            break
+        elif [[ $REPLY == "n" ]]; then
+            echo "Aborted."
+            return 0
+        else
+            echo "Invalid option, please answer with 'y' or 'n'."
+        fi
+    done
+
+    # Execute each command with the provided arguments
+    for cmd in "${commands[@]}"; do
+        echo "Executing: $cmd $args"
+        eval "$cmd $args"
+        if [[ $? -ne 0 ]]; then
+            echo "Error: Command '$cmd' failed."
+            return 1
+        fi
+    done
+
+    echo "All commands executed successfully."
+    return 0
+}

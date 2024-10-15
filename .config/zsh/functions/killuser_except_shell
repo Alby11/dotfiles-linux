@@ -1,0 +1,27 @@
+# vim: filetype=zsh
+
+killuser_except_shell() {
+  if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+    echo "Usage: killuser_except_shell USERNAME"
+    echo "Kills all processes for the specified user except the current shell."
+    return
+  fi
+
+  for pid in $(ps -u $1 -o pid=)
+  do
+    if [ $pid -ne $$ ]; then
+      kill -9 $pid
+    fi
+  done
+}
+
+
+killuser_except_shell() {
+  for pid in $(ps -u $1 -o pid=)
+  do
+    if [ $pid -ne $$ ]; then
+      kill -9 $pid
+    fi
+  done
+}
+

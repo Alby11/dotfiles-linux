@@ -1,0 +1,57 @@
+# vim: filetype=zsh
+reset_ssh_profile() {
+    local USERNAME=""
+    local SERVER=""
+
+    show_help() {
+        cat << EOF
+Usage: reset_ssh_profile [-u|--username USERNAME] [-s|--server SERVER] [-h|--help]
+
+This function resets a user's profile to defaults and sets the default shell to Bash on a remote system.
+
+    -u, --username  USERNAME    Specify the remote username.
+    -s, --server    SERVER      Specify the remote server (hostname or IP address).
+    -h, --help                  Display this help and exit.
+EOF
+    }
+
+    local OPTIND opt
+    while getopts "u:s:h" opt; do
+        case "$opt" in
+            u) USERNAME=$OPTARG ;;
+            s) SERVER=$OPTARG ;;
+            h) show_help
+               return 0 ;;
+            '?') show_help >&2
+                 return 1 ;;
+        esac
+    done
+    shift "$((OPTIND-1))"
+
+    # Check if USERNAME and SERVER have been provided
+    if [[ -z "$USERNAME" ]] || [[ -z "$SERVER" ]]; then
+        echo "Error: Username and server must be specified." >&2
+        show_help >&2
+        return 1
+    fi
+
+    # SSH and execute commands to reset user profile and set shell to Bash
+    ssh "${USERNAME}@${SERVER}" <<'EOF'
+FILES_TO_REMOVE=".bashrc .bash_profile .bash_logout .profile"
+for file in $FILES_TO_REMOVE; do
+    if [ -f "$HOME/$file" ]; then
+        echo "Removing $file"
+        rm -fv "$HOME/$file"
+    fi
+done
+
+# Set the user's login shell to Bash (may require root permission)
+if which chsh >/dev/null 2>&1; then
+    sudo chsh -s /bin/bash "${USER}"
+else
+    echo "chsh command not found. Shell change skipped."
+fi
+
+echo "Profile reset and default shell set to Bash for ${USER}"
+EOF
+}

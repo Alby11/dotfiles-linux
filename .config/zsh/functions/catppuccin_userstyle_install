@@ -1,0 +1,10 @@
+# vim: filetype=zsh
+
+catppuccin_userstyle_install() {
+  if [[ -n $1 ]]; then
+    echo $(which firefox) 'https://github.com/catppuccin/userstyles/raw/main/styles/'$1'/catppuccin.user.css'
+    $(which firefox) 'https://github.com/catppuccin/userstyles/raw/main/styles/'$1'/catppuccin.user.css'
+  else
+    echo "Usage: catppuccin_userstyle_install [name]"
+  fi
+}

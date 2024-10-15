@@ -1,0 +1,73 @@
+# vim: filetype=zsh
+
+function unmount_tbs() {
+    # Helper function to display help
+    function show_help() {
+        echo "Usage: unmount_tbs [mount_point]"
+        echo "Unmounts the specified mount point, ensuring it is not in use."
+        echo "Options:"
+        echo "  -h    Display this help message."
+        echo "Example:"
+        echo "  unmount_tbs /home/user/mnt/server_share"
+    }
+
+    # Check for -h flag or empty arguments
+    if [[ $1 == "-h" || -z $1 ]]; then
+        show_help
+        return 1
+    fi
+
+    local mount_point="$1"
+
+    # Convert relative path to absolute path
+    if [[ "$mount_point" != /* ]]; then
+        mount_point=$(realpath "$mount_point")
+    fi
+
+    # Check if the mount point exists
+    if [[ ! -d "$mount_point" ]]; then
+        echo "Error: Mount point '$mount_point' does not exist."
+        return 1
+    fi
+
+    echo "Attempting to unmount: $mount_point"
+
+    # Step 1: Check if any processes are using the mount
+    echo "Checking processes using the mount point..."
+    sudo lsof +D "$mount_point"
+    if [[ $? -ne 0 ]]; then
+        echo "No processes are using the mount point."
+    else
+        echo "Warning: Some processes are using the mount point."
+    fi
+
+    # Step 2: Check if any open file descriptors are using the mount
+    echo "Checking open file descriptors using the mount point..."
+    sudo fuser -vm "$mount_point"
+    if [[ $? -ne 0 ]]; then
+        echo "No open file descriptors are using the mount point."
+    else
+        echo "Warning: Some file descriptors are using the mount point."
+    fi
+
+    # Step 3: Attempt to unmount
+    echo "Attempting to unmount the mount point..."
+    if ! sudo umount "$mount_point"; then
+        echo "Error: Unmount failed for $mount_point."
+        return 1
+    fi
+
+    # Step 4: Cleanup if the unmount was successful
+    echo "Unmount successful. Cleaning up..."
+    if rmdir "$mount_point"; then
+        echo "Mount point directory removed: $mount_point"
+    else
+        echo "Warning: Could not remove the mount point directory."
+    fi
+
+    return 0
+}
+
+# Example usage:
+# unmount_tbs /home/user/mnt/server_share
+

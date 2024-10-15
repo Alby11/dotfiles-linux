@@ -1,0 +1,17 @@
+#vim: filetype=zsh
+
+killpattern() {
+  if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+    echo "Usage: killpattern PATTERN"
+    echo "Kills processes whose names match PATTERN."
+    return
+  fi
+
+  pkill -f $1
+}
+
+
+killpattern() {
+  pkill -f $1
+}
+

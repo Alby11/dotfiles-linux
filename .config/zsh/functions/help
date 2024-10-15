@@ -1,0 +1,5 @@
+# vim: filetype=zsh
+
+help() {
+    "$@" --help 2>&1 | bathelp || "$@" -h 2>&1 | bathelp 
+}

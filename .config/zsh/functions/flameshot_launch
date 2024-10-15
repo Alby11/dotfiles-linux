@@ -1,0 +1,5 @@
+# vim: filetype=zsh
+
+function flameshot_launch {
+  flameshot >/dev/null 2>&1 &
+}

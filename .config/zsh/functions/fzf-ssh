@@ -1,0 +1,17 @@
+# vim: filetype=zsh
+
+# credits to: https://gist.github.com/dohq
+
+setopt no_flow_control
+fzf-ssh () {
+  local selected_host=$(grep "Host " $HOME/.ssh/ssh_config | grep -v '*' | cut -b 6- | fzf --query "$LBUFFER" --prompt="SSH Remote > ")
+
+  if [ -n "$selected_host" ]; then
+    BUFFER="ssh ${selected_host}"
+    zle accept-line
+  fi
+  zle reset-prompt
+}
+
+zle -N fzf-ssh
+bindkey '^s' fzf-ssh

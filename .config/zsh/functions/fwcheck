@@ -1,0 +1,6 @@
+# vim: filetype=zsh
+
+fwcheck() {
+  sudo fwupdmgr refresh --force
+  sudo fwupdmgr get-updates
+}

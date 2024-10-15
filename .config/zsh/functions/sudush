@@ -1,0 +1,17 @@
+# vim: filetype=zsh
+
+sudush() {
+    if [ -n "$ZSH_VERSION" ]; then
+        setopt +o nomatch
+        sudo du -hs "$1"/.[^.]* "$1"/*
+        setopt -o nomatch
+    elif [ -n "$BASH_VERSION" ]; then
+        if compgen -G "$1"/.[^.]* > /dev/null; then
+            sudo du -hs "$1"/.[^.]* "$1"/*
+        else
+            sudo du -hs "$1"/*
+        fi
+    else
+        echo "Unsupported shell"
+    fi
+}

@@ -1,0 +1,307 @@
+# vim: filetype=zsh
+
+[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_STARTFILE "${(%):-%N}"
+
+[[ -f ${HOME}/.bootstrapped ]] && return 1
+[[ $SHLVL -gt 2 ]] && return 1
+
+# Function to filter exclusions
+filter_exclusions_with_delimiter() {
+  local combined_input=("${(s:|:)1}")  # Split input into array based on delimiter '|'
+  local packages=("${(@s:,:)combined_input[1]}")  # Split first part on ',' to get packages
+  local exclusions=("${(@s:,:)combined_input[2]}")  # Split second part on ',' to get exclusions
+  local filtered=()
+
+  for pkg in "${packages[@]}"; do
+      if [[ ! " ${exclusions[*]} " =~ " ${pkg} " ]]; then
+          filtered+=("$pkg")
+      fi
+  done
+
+  echo "${filtered[@]}"
+}
+
+# Function to check for NOPASSWD privileges
+check_nopasswd() {
+  local sudo_output=$(SUDO_ASKPASS=/bin/false sudo -ln 2>/dev/null)
+  if [[ $sudo_output == *"(ALL) NOPASSWD: ALL"* ]] || [[ $sudo_output == *"NOPASSWD:"* ]]; then
+      return 0
+  else
+      return 1
+  fi
+}
+
+# If the user does not have NOPASSWD privileges, set SUDO_ASKPASS
+if ! check_nopasswd; then
+  export SUDO_ASKPASS=$(which ssh-askpass)
+  sudo -v
+fi
+
+#PACKAGE MANAGER
+[[ $(command -v dnf) ]] && has_dnf=1
+[[ $(command -v apt) ]] && has_apt=1
+[[ $(command -v pacman) ]] && has_pacman=1
+
+# Define common packages (those with the same name on both Fedora and Ubuntu)
+common_packages=(
+    "bat"
+    "btop"
+    "curl"
+    "delta"
+    "direnv"
+    "fzf"
+    "gnome-tweaks"
+    "gnupg2"
+    "htop"
+    "luarocks"
+    "keychain"
+    "python3-pip"
+    "python3-markdown"
+    "ripgrep"
+    "shellcheck"
+    "shfmt"
+    "tldr"
+    "wl-clipboard"
+    "xclip"
+    "zoxide"
+)
+
+common_exclusions=(
+  "delta"
+  "direnv"
+  "gnome-tweaks"
+  "python3-markdown"
+  "wl-clipboard"
+  "xclip"
+)
+
+# Define Fedora-specific packages and Ubuntu-specific packages
+fedora_packages=(
+    "ccze"
+    "chafa"
+    "clang"
+    "fd-find"
+    "fira-code-fonts"
+    "golang"
+    "libcurl-devel"
+    "libnotify"
+    "libwnck3"
+    "lsb_release"
+    "perl-Image-ExifTool"
+    "xorg-x11-server-Xwayland"
+    "xsel"
+)
+
+fedora_exclusions=(
+    "fira-code-fonts"
+    "golang"
+    "xorg-x11-server-Xwayland"
+    "xsel"
+)
+
+ubuntu_packages=(
+    "clang-format"
+    "exa"
+    "fonts-firacode"
+    "gir1.2-wnck-3.0"
+    "golang-go"
+    "libimage-exiftool-perl"
+    "libnotify-bin"
+    "lsb-release"
+    "xsel"
+    "xwayland"
+)
+
+ubuntu_exclusions=(
+    "fonts-firacode"
+    "golang"
+    "golang-go"
+    "xsel"
+    "xwayland"
+)
+
+arch_packages=(
+    "bat"
+    "btop"
+    "curl"
+    "exa"
+    "fzf"
+    "gnome-tweaks"
+    "gnupg"
+    "go"
+    "htop"
+    "keychain"
+    "perl-image-exiftool"
+    "python-pip"
+    "ripgrep"
+    "shellcheck"
+    "shfmt"
+    "ttf-fira-code"
+    "wl-clipboard-x11"
+    "xclip"
+    "xsel"
+    "zoxide"
+)
+
+arch_exclusions=(
+    "ttf-fira-code"
+    "gnome-tweaks"
+    "go"
+    "wl-clipboard-x11"
+    "xclip"
+    "xsel"
+)
+
+# Define cargo packages (those with the same name on both Fedora and Ubuntu)
+cargo_packages=(
+    "fnm"
+    "gitui"
+    "grc-rs"
+    "lolcrab"
+    "rbw"
+    "vivid"
+)
+
+cargo_exclusions=(
+    "gitui"
+    "lolcrab"
+    "rbw"
+)
+
+# Define npm packages (those with the same name on both Fedora and Ubuntu)
+npm_packages=(
+    "@fsouza/prettierd"
+    "eslint"
+    "fixjson"
+    "neovim"
+    "newman"
+    "pyright"
+    "remark"
+    "remark-cli"
+    "remark-stringify"
+    "remark-frontmatter"
+    "solhint"
+    "wcwidth"
+)
+
+npm_exclusions=(
+    "@fsouza/prettierd"
+    "eslint"
+    "newman"
+    "pyright"
+    "solhint"
+)
+
+# Define pip packages (those with the same name on both Fedora and Ubuntu)
+pip_packages=(
+    "autoenv"
+    "black"
+    "flake8"
+    "isort"
+    "jwcrypto"
+    "openai"
+    "pynvim"
+    "pylint"
+    "thefuck"
+    "virtualenv"
+    "virtualenvwrapper"
+    "yapf"
+)
+
+pip_exclusions=(
+    "autoenv"
+    "black"
+    "flake8"
+    "openai"
+    "thefuck"
+)
+
+# Check for SSH connection and filter packages if necessary
+if [[ -n "$SSH_CONNECTION" ]]; then
+  # Dynamically create an array of kinds
+  kinds=()
+  for varname in ${(k)parameters}; do  # Iterate over all defined variable names
+    if [[ $varname =~ '_packages$' ]]; then  # Check if the variable name ends with '_packages'
+      kind=${varname%_packages}  # Extract the kind from the variable name
+      exclusions_var_name="${kind}_exclusions"
+      # Correctly check if the exclusions array exists
+      if [[ -z ${(P)exclusions_var_name} ]]; then  # Check if exclusions array does not exist or is empty
+        eval "${kind}_exclusions=()"  # Create an empty exclusions array
+      fi
+      kinds+=($kind)  # Add the kind to the kinds array
+    fi
+  done
+
+  # Deduplicate kinds array
+  kinds=(${(u)kinds})
+
+  for kind in $kinds; do
+
+    packages_var_name="${kind}_packages"
+    exclusions_var_name="${kind}_exclusions"
+
+    # Directly retrieve arrays using indirect parameter expansion
+    packages_array=("${(@P)packages_var_name}")
+    exclusions_array=("${(@P)exclusions_var_name}")
+
+    # Convert arrays to comma-separated strings
+    packages_str="${(j:,:)packages_array}"
+    exclusions_str="${(j:,:)exclusions_array}"
+
+    # Combine into input for the function
+    combined_input="${packages_str}|${exclusions_str}"
+    filtered_packages=($(filter_exclusions_with_delimiter "$combined_input"))
+
+    # Update the original packages array
+    eval "${kind}_packages=(${filtered_packages[@]})"
+  done
+fi
+# Install packages based on the available package manager
+if [[ $has_dnf ]]; then
+    sudo dnf install -y "${common_packages[@]}" "${fedora_packages[@]}"
+elif [[ $has_apt ]]; then
+    export DEBIAN_FRONTEND=noninteractive
+    if ! find /var/lib/apt/periodic/update-success-stamp -mtime -1 &>/dev/null; then
+        sudo apt-get update
+    fi
+    sudo apt-get install -y "${common_packages[@]}" "${ubuntu_packages[@]}"
+    unset DEBIAN_FRONTEND
+elif [[ $has_pacman ]]; then
+    sudo pacman -Syu --noconfirm "${arch_packages[@]}"
+fi
+
+# Cargo
+if ! command -v rustup &>/dev/null; then
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path
+fi
+for package in "${cargo_packages[@]}"; do
+  cargo install "$package"
+done
+
+# NPM
+if ! command -v npm &>/dev/null; then
+  if command -v fnm &>/dev/null; then
+    fnm install --lts
+  fi
+fi
+for package in "${npm_packages[@]}"; do
+  if ! npm list -g "$package" >/dev/null 2>&1; then
+    npm install -g "$package"
+  fi
+done
+
+# PIP
+for package in "${pip_packages[@]}"; do
+  python -m pip install --user "$package"
+done
+
+# Git raw (if needed)
+# Add any commands to install raw Git repositories or other software not available via package managers
+
+# Mark the system as bootstrapped
+date > "${HOME}/.bootstrapped"
+
+# Clean up
+unset check_nopasswd filter_exclusions_with_delimiter has_apt has_dnf has_pacman 
+
+[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"

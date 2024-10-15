@@ -1,0 +1,12 @@
+# vim: filetype=zsh
+
+ping_until_fail() {
+    local host=$1
+    while /usr/bin/ping -c 1 $host &> /dev/null
+    do
+        echo "$host is up"
+        sleep 1
+    done
+    echo "$host is down"
+    exit 1
+}

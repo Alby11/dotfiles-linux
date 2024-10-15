@@ -1,0 +1,22 @@
+# vim: filetype=zsh
+
+fpath_reload() {
+    # Loop through each directory in fpath
+    for dir in $fpath; do
+        # Check if the directory exists
+        if [[ -d $dir ]]; then
+            # Loop through each file in the directory
+            for func in $dir/*(.N); do
+                # Extract the function name from the file path
+                local func_name=$(basename $func)
+                # Unload the current function definition, if any
+                unfunction $func_name &>/dev/null
+                # Autoload the function again
+                autoload -Uz $func_name
+            done
+        fi
+    done
+
+    echo "All functions in fpath have been reloaded."
+}
+

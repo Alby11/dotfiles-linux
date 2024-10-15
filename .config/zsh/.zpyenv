@@ -1,0 +1,43 @@
+# vim: filetype=zsh
+
+[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_STARTFILE "${(%):-%N}"
+
+# Make Python use UTF-8 encoding for output to stdin, stdout, and stderr.
+export PYTHONIOENCODING='UTF-8';
+
+export PYENV_ROOT="${HOME}/.pyenv"
+if [[ ! -f ${PYENV_ROOT}/bin/pyenv ]]; then
+  rm -rf $PYENV_ROOT
+fi
+[[ -d ${PYENV_ROOT}/bin ]] || curl https://pyenv.run | zsh
+mkdir -p $PYENV_ROOT
+touch ${PYENV_ROOT}/default-packages
+[[ -d ${PYENV_ROOT}/bin ]] && export PATH="${PYENV_ROOT}/bin:${PATH}"
+eval "$(pyenv init -)"
+local pyenv_plugins=(
+  "ashwinvis/pyenv-virtualenv-migrate"
+  "concordusapps/pyenv-implict"
+  "fizista/pyenv-choice"
+  "jawshooah/pyenv-default-packages"
+  "massongit/pyenv-pip-update"
+  "pyenv/pyenv-ccache"
+  "pyenv/pyenv-doctor"
+  "pyenv/pyenv-installer"
+  "pyenv/pyenv-pip-migrate"
+  "pyenv/pyenv-update"
+  "pyenv/pyenv-users"
+  "pyenv/pyenv-virtualenv"
+  "pyenv/pyenv-virtualenvwrapper"
+  "sprout42/pyenv-fix-version"
+  "zyrikby/pyenv-pip-upgrade"
+)
+for pyenv_plugin in $pyenv_plugins; do
+  local pyenv_plugin_url="https://github.com/${pyenv_plugin}.git"
+  local pyenv_plugin_dir=$(pyenv root)/plugins/$(echo $pyenv_plugin | sed -E 's/pyenv\///')
+  [[ -d $pyenv_plugin_dir ]] || git clone $pyenv_plugin_url $pyenv_plugin_dir
+done
+
+eval "$(pyenv virtualenv-init -)"
+export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
+
+[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"

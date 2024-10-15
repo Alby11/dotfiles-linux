@@ -1,0 +1,13 @@
+# vim: filetype=zsh
+
+if [[ -e $ZDOTDIR/functions.sh ]] && [[ -e $ZDOTDIR/functions ]]
+then
+  Szf ()
+  {
+    source $ZDOTDIR/functions.sh
+    for f in $ZDOTDIR/functions/*
+    do
+      source $f
+    done
+  }
+fi

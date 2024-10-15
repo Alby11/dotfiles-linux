@@ -1,0 +1,20 @@
+# vim: filetype=zsh
+
+function open_p7m() {
+    if [[ "$1" == "-h" || "$1" == "--help" || $# -ne 2 ]]; then
+        echo "Usage: open_p7m <p7m_file> <cert_file>"
+        echo "Opens a .p7m file using OpenSSL and writes the content to 'textdata'"
+        echo "<p7m_file>: The path to the .p7m file"
+        echo "<cert_file>: The path to the certificate file"
+        return
+    fi
+
+    # Assign the arguments to variables for better readability
+    local p7m_file=$1
+    local cert_file=$2
+
+    # Use OpenSSL to open the .p7m file
+    openssl smime -verify -in $p7m_file -inform der -noverify -signer $cert_file -out textdata
+
+    echo "The content of the .p7m file has been written to 'textdata'"
+}

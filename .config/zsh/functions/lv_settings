@@ -1,0 +1,7 @@
+# vim: filetype=zsh
+
+function lv_settings() {
+  lvim --headless +'lua require("lvim.utils").generate_settings()' +qa && sort -o /tmp/lv-settings.lua{,}
+  nvim /tmp/lv-settings.lua
+  rm -fv /tmp/lv-settings.lua
+}

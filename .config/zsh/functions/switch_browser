@@ -1,0 +1,35 @@
+# vim: filetype=zsh
+
+switch_browser() {
+    if [[ $1 == "-h" || -z $1 ]]; then
+        echo "Usage: switch_browser <firefox|edge|chrome>"
+        return
+    fi
+
+    if [[ $1 == "firefox" ]]; then
+        echo "Setting Firefox as the default browser..."
+        if xdg-settings set default-web-browser org.mozilla.firefox.desktop; then
+            echo "Firefox is now set as the default browser."
+        else
+            echo "Failed to set Firefox as the default browser."
+        fi
+    elif [[ $1 == "edge" ]]; then
+        echo "Setting Microsoft Edge as the default browser..."
+        if xdg-settings set default-web-browser microsoft-edge.desktop; then
+            echo "Microsoft Edge is now set as the default browser."
+        else
+            echo "Failed to set Microsoft Edge as the default browser."
+        fi
+    elif [[ $1 == "chrome" ]]; then
+        echo "Setting Google Chrome as the default browser..."
+        if xdg-settings set default-web-browser google-chrome.desktop; then
+            echo "Google Chrome is now set as the default browser."
+        else
+            echo "Failed to set Google Chrome as the default browser."
+        fi
+    else
+        echo "Unknown browser: $1"
+        echo "Usage: switch_browser <firefox|edge|chrome>"
+        return 1
+    fi
+}

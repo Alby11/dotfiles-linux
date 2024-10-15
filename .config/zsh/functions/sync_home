@@ -1,0 +1,127 @@
+# vim: filetype=zsh
+
+# local original_h_alias=$(alias -L -h 2>/dev/null)  # Save the original -h alias
+# unalias '-h' 2>/dev/null  # Safely remove the -h alias
+
+sync_home() {
+	# Enable extended globbing and other useful options for script robustness
+	setopt localoptions extendedglob warncreateglobal typesetsilent noshortloops
+
+	# Function to display usage information
+	usage() {
+		cat <<EOF
+Usage: sync_home [options]
+Options:
+  --help, -h: Display this help message
+  --ssh-server[=]SERVER, -s[=]SERVER: Specify an SSH server to synchronize with
+  --username[=]USERNAME, -u[=]USERNAME: Specify the user to sync with
+  --verbose, -v: Enable verbose output
+  --include PATTERN: Include files/directories matching PATTERN
+  --exclude PATTERN: Exclude files/directories matching PATTERN
+Example usage:
+  sync_home --ssh-server=example.com --username=john_doe --verbose --exclude=".cache" --include=".config/nvim"
+EOF
+	}
+
+	local user_home=$HOME
+	local remote_servers=()
+	local origins=("$HOME")
+	local destinations=()
+	local options='--times --recursive --archive --compress --verbose'
+	# Start with excluding everything for correct processing
+	local exclude_array=('.antidote' '.config/zsh/.directory_history/' '.config/zsh/.zsh_history')
+	# local include_array=('.config/' '.config/zsh/***' '.config/git/***' '.config/bat/***' '.config/nvim/***' '.config/fsh/***')
+	local include_array=('${HOME}/.zshenv' '.config/' '.config/zsh/***' '.config/git/***' '.config/bat/***' '.config/lvim/***' '.config/fsh/***')
+	# Finally, add a catch-all exclude pattern to exclude everything else not explicitly included
+	local exclude_wildcard=" --exclude='*'"
+	local verbose=0
+	local exclude_string=""
+	local include_string=""
+	local ssh_server
+	local username
+
+	# Parse command-line options
+	while (($# > 0)); do
+		case "$1" in
+		--help | -h)
+			usage
+			return 0
+			;;
+		--ssh-server=* | -s=*)
+			ssh_server="${1#*=}"
+			remote_servers+=("$ssh_server")
+			;;
+		--ssh-server | -s)
+			shift
+			ssh_server="$1"
+			remote_servers+=("$ssh_server")
+			;;
+		--username=* | -u=*)
+			username="${1#*=}"
+			;;
+		--username | -u)
+			shift
+			username="$1"
+			;;
+		--verbose | -v)
+			verbose=1
+			;;
+		--exclude)
+			shift
+			exclude_array+=("$1")
+			;;
+		--include)
+			shift
+			include_array+=("$1")
+			;;
+		*)
+			echo "Error: Invalid argument '$1'"
+			usage
+			return 1
+			;;
+		esac
+		shift
+	done
+
+	# Build exclude and include strings
+	for pattern in "${exclude_array[@]}"; do
+		exclude_string+=" --exclude=${pattern}"
+	done
+	for pattern in "${include_array[@]}"; do
+		include_string+=" --include=${pattern}"
+	done
+
+	# Validate SSH servers and username
+	if [[ -z "$ssh_server" || -z "$username" ]]; then
+		echo "Error: SSH server and username are required."
+		usage
+		return 1
+	fi
+
+	# Set user home directory based on username
+	if [[ -n "$username" ]]; then
+		user_home="/home/$username"
+	fi
+
+	# Prepare destinations
+	for server in "${remote_servers[@]}"; do
+		destinations+=("$server:$user_home")
+	done
+
+	# Execute rsync for each origin to destination
+	for origin in "${origins[@]}"; do
+		for destination in "${destinations[@]}"; do
+			local args="$options $exclude_string $include_string $exclude_wildcard $origin/ $destination/"
+			[[ $verbose -eq 1 ]] && echo "Running rsync with args: $args"
+			# Ensuring variables are local to prevent global scope warnings
+			local pattern server
+			/usr/bin/env -i /usr/bin/bash -c "/usr/bin/rsync $args"
+		done
+	done
+}
+
+# At the end of the script, restore the original -h alias, if it was previously defined
+# [[ -n "$original_h_alias" ]] && eval "$original_h_alias"
+
+# Example usage:
+# sync_home --ssh-server=example.com --username=john_doe --verbose --exclude=".cache" --include=".config/nvim"

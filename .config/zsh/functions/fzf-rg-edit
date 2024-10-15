@@ -1,0 +1,66 @@
+# vim: filetype=zsh
+
+# This script uses ripgrep (rg) and fzf to search for a term in your files and open the file in your default editor at the line where the term was found.
+
+# Exit if any command in a pipeline fails
+set -o pipefail
+
+# Print each command before executing it if DEBUG is set
+if [[ -n "$DEBUG" ]]; then
+  set -x
+fi
+
+# Function to print an error message and exit with an error code
+fail() {
+  printf '%s\n' "$1" >&2  # Print the first argument as an error message
+  exit "${2-1}"  # Exit with the second argument as the error code, or 1 if no second argument is provided
+}
+
+# Function to check if a command exists
+has() {
+  which "$@" > /dev/null 2>&1  # Redirect stdout and stderr to /dev/null
+}
+
+# Check if ripgrep is installed
+if ! has rg; then
+  fail "Can't find rg - install ripgrep and try again."
+fi
+
+# Check if fzf is installed
+if ! has fzf; then
+  fail "Can't find fzf - install fzf and try again."
+fi
+
+# Define the main function of the script
+fzf-rg-edit(){
+  # Check for help flag
+  if [[ $1 == "--help" ]]; then
+    echo "Usage: ./fzf-rg-edit.sh [search term]"
+    echo "Search for files containing [search term] and open the selected file in your default editor at the line where the term was found."
+    echo "The search is case-sensitive and includes hidden files."
+    return
+  fi
+
+  if [[ $# == 0 ]]; then
+    echo 'Error: search term was not provided.'
+    return
+  fi
+  
+  # Use ripgrep to search for the term in your files, then pipe the results to fzf for selection
+  match=$(
+    rg --color=never --line-number --hidden --case-sensitive "$1" |
+      fzf --no-multi --delimiter : \
+        --preview 'less -N -S -R -+F -+X -M {}' # or use 'head -100 {}'
+  )
+  
+  # Extract the filename and line number from the selected result
+  file=$(echo "$match" | cut -d':' -f1)
+  
+  # Open the file in your default editor at the line where the term was found
+  if [[ -n $file ]]; then
+    "$EDITOR" "$file" +"$(echo "$match" | cut -d':' -f2)"
+  fi
+}
+
+# Call the main function with all command-line arguments
+fzf-rg-edit "$@"

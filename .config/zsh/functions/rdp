@@ -1,0 +1,104 @@
+# vim: filetype=zsh
+rdp() {
+  # Help message
+  local help_message="Usage: rdp [OPTIONS]
+Options:
+  -u, --username USERNAME    Set the username for the RDP session.
+  -s, --server SERVER        Set the server for the RDP session.
+  -d, --domain DOMAIN        Set the domain for the RDP session.
+  -k, --keyboard_grab VALUE  Set keyboard grab (1 to enable, 0 to disable).
+  -h, --help                 Show this help message and exit.
+
+Examples:
+  rdp --username=myUsername --server=myServer --domain=myDomain --keyboard_grab=0|1
+  rdp --username myUsername --server myServer --domain myDomain --keyboard_grab 0|1
+  rdp -u myUsername -s myServer -d myDomain -k 0|1"
+
+  # Initialize variables
+  local username="$USER"
+  local server=""
+  local domain=""
+  local keyboard_grab=1
+
+  # Check for help option before processing other arguments
+  [[ $# -eq 0 ]] && \
+    echo "$help_message" \
+    return 0
+  for arg; do
+    if [[ "$arg" == "--help" || "$arg" == "-h" ]]; then
+      echo "$help_message"
+      return 0
+    fi
+  done
+
+  # Initialize an empty array to hold processed arguments
+  local args=()
+  local next_arg_is_value=false
+  local arg_key=""
+
+  # Process each argument for long options and help
+  for arg in "$@"; do
+    if $next_arg_is_value; then
+      args+=("$arg_key" "$arg")
+      next_arg_is_value=false
+      continue
+    fi
+
+    case "$arg" in
+      --username=*) args+=("-u" "${arg#*=}") ;;
+      --username) next_arg_is_value=true; arg_key="-u" ;;
+      --server=*) args+=("-s" "${arg#*=}") ;;
+      --server) next_arg_is_value=true; arg_key="-s" ;;
+      --domain=*) args+=("-d" "${arg#*=}") ;;
+      --domain) next_arg_is_value=true; arg_key="-d" ;;
+      --keyboard_grab=*) args+=("-k" "${arg#*=}") ;;
+      --keyboard_grab) next_arg_is_value=true; arg_key="-k" ;;
+      *) args+=("$arg") ;;
+    esac
+  done
+
+  # Parse options using getopts
+  local opt
+  while getopts "u:s:d:k:h" opt "${args[@]}"; do
+    case "$opt" in
+      u) username=$OPTARG ;;
+      s) server=$OPTARG ;;
+      d) domain=$OPTARG ;;
+      k) keyboard_grab=$OPTARG ;;
+      h) echo "$help_message"; return 0 ;;
+      *) echo "$help_message"; return 1 ;;
+    esac
+  done
+
+   # If domain is specified, append it to server
+   if [[ -n $domain && -n $server ]]; then
+     server="$server.$domain"
+   fi
+
+   # Path to the remmina profile
+   local profile_path="$XDG_CONFIG_HOME/remmina/work_rdp_default.remmina"
+   if [[ -z $profile_path ]]; then
+     profile_path="$HOME/.config/remmina/work_rdp_default.remmina"
+   fi
+
+   # Update and connect using the profile
+   echo "Updating Remmina profile with specified options..."
+   remmina --update-profile "$profile_path" \
+           --set-option username="$username" \
+           --set-option domain="$domain" \
+           --set-option server="$server" \
+           --set-option name="$server" \
+           --set-option keyboard_grab=$keyboard_grab
+
+   echo "Connecting with updated options..."
+   remmina -c "$profile_path"
+
+   # Clear specified options in the profile
+   echo "Clearing specified options in the profile..."
+   remmina --update-profile "$profile_path" \
+           --set-option username="" \
+           --set-option domain="" \
+           --set-option server="" \
+           --set-option name="DEFAULT" \
+           --set-option keyboard_grab=1
+}

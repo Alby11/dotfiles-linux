@@ -1,0 +1,69 @@
+# vim: filetype=zsh
+
+function unmount_share() {
+    if [[ $1 == "-h" || -z $1 ]]; then
+        echo "Usage: unmount_share <server> <share>\n"
+        echo "Unmounts a previously mounted network share."
+        echo "To see the list of current mounts, launch this function without arguments\n"
+        # Optionally list currently mounted shares
+        if [[ -z $1 ]]; then
+            echo "Currently mounted shares:"
+            find "${HOME}/mnt" -mindepth 1 -maxdepth 1 -type d ! -name '.*' -exec basename {} \;
+        fi
+        return
+    fi
+
+    local server="$1"
+    local share="$2"
+
+    local mount_point_rw="${HOME}/mnt/${server}_${share}"
+    local mount_point_ro="${HOME}/mnt/.${server}_${share}"
+
+    echo "Unmounting: ${mount_point_rw}"
+
+    # Check if the mount points exist
+    if [[ ! -d $mount_point_rw ]]; then
+        echo "Error: Mount point ${mount_point_rw} does not exist."
+        return 1
+    fi
+
+    # Try to unmount read-write mount point
+    if ! sudo fusermount -u "${mount_point_rw}"; then
+        echo "Error: unmount failed for ${mount_point_rw}."
+        return 1
+    fi
+
+    # Remove directory if it's empty
+    if ! rmdir "${mount_point_rw}"; then
+        echo "Error: Failed to remove directory ${mount_point_rw}. It might not be empty."
+        return 1
+    fi
+
+    echo "Successfully unmounted and removed: ${mount_point_rw}"
+
+    echo "Unmounting: ${mount_point_ro}"
+
+    # Check if the mount points exist
+    if [[ ! -d $mount_point_ro ]]; then
+        echo "Error: Mount point ${mount_point_ro} does not exist."
+        return 1
+    fi
+
+    # Try to unmount read-only mount point
+    if ! sudo umount "${mount_point_ro}"; then
+        echo "Error: unmount failed for ${mount_point_ro}."
+        return 1
+    fi
+
+    # Remove directory if it's empty
+    if ! rmdir "${mount_point_ro}"; then
+        echo "Error: Failed to remove directory ${mount_point_ro}. It might not be empty."
+        return 1
+    fi
+
+    echo "Successfully unmounted and removed: ${mount_point_ro}"
+    return 0
+}
+
+# Call the function with parameters, for example: unmount_share myserver myshare
+

@@ -1,0 +1,49 @@
+# vim: filetype=zsh
+
+### SSH Agent Block
+# Load SSH keys using keychain after each reboot, reusing the same ssh-agent instance
+
+[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_STARTFILE "${(%):-%N}"
+
+# Set SSH_ASKPASS if ssh-askpass is available
+if type ssh-askpass >/dev/null 2>&1; then
+    export SUDO_ASKPASS=$(which ssh-askpass)
+fi
+
+# If in an SSH session, don't configure the agent
+[[ -n $SSH_CONNECTION ]] && return 1
+
+# Function to install keychain if not present
+install_keychain() {
+    local pkg_manager_install_cmd
+    if type apt >/dev/null 2>&1; then
+        pkg_manager_install_cmd="sudo apt update -qq && sudo apt install keychain -y"
+    elif type dnf >/dev/null 2>&1; then
+        pkg_manager_install_cmd="sudo dnf install keychain -y"
+    elif type pacman >/dev/null 2>&1; then
+        pkg_manager_install_cmd="sudo pacman -Sy keychain --noconfirm"
+    else
+        echo "Package manager not supported."
+        return 1
+    fi
+    eval $pkg_manager_install_cmd >/dev/null 2>&1 || return 1
+}
+
+# Check for keychain and install if missing
+if ! type keychain >/dev/null 2>&1; then
+    install_keychain || return 1
+fi
+
+# Function to start the keychain and load SSH keys
+start_keychain() {
+    local keychain_files=$(find "${HOME}/.ssh" -type f -name 'id_*' ! -name '*.pub' -print)
+    keychain --quiet --ignore-missing --eval --agents ssh $keychain_files
+}
+
+# Start or use the existing keychain
+start_keychain
+
+# Cleanup
+unset -f start_keychain install_keychain
+
+[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"

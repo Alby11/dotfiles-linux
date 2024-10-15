@@ -1,0 +1,10 @@
+# vim: filetype=zsh
+
+gsconnect_nightly() {
+  TEMP_FILE=$(mktemp)
+  echo $TEMP_FILE
+  curl -L -o "$TEMP_FILE" \
+    "https://nightly.link/GSConnect/gnome-shell-extension-gsconnect/workflows/main/main/gsconnect@andyholmes.github.io.zip"
+  gnome-extensions install --force "$TEMP_FILE"
+  rm "$TEMP_FILE" 
+}

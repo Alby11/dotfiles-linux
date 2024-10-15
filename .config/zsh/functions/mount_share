@@ -1,0 +1,134 @@
+# vim: filetype=zsh
+
+function mount_share() {
+
+    function help() {
+        echo "Usage: mount_network_share -s [server] -r [share] -u [username] -d [domain] -p [protocol]"
+        echo "Mounts a network share at the specified server."
+        echo "Options:"
+        echo "  -s    Specifies the server to connect to."
+        echo "  -r    Specifies the remote share to mount."
+        echo "  -u    Specifies the username (default is current session's username)."
+        echo "  -d    Specifies the domain (optional)."
+        echo "  -p    Specifies the protocol (default is samba, can also be nfs)."
+        echo "  -k    Specifies the security protocol between: "
+        echo "\n\tkrb5: Use Kerberos version 5 authentication"
+        echo "\tkrb5i: Use Kerberos authentication and forcibly enable packet signing"
+        echo "\tntlm: Use NTLM password hashing"
+        echo "\tntlmi: Use NTLM password hashing and force packet signing"
+        echo "\tntlmv2: Use NTLMv2 password hashing"
+        echo "\tntlmv2i: Use NTLMv2 password hashing and force packet signing"
+        echo "\tntlmssp: Use NTLMv2 password hashing encapsulated in Raw NTLMSSP message"
+        echo "\tntlmsspi: Use NTLMv2 password hashing encapsulated in Raw NTLMSSP message, and force packet signing (default)\n\n"
+    }
+
+    function test_krb5_ticket {
+        local domain
+        domain=$(echo "$2" | awk '{print toupper($0)}')
+        if ! klist | grep "${1}@${domain}" >/dev/null; then
+            echo "Krb5 ticket not found for: ${1}@$domain"
+            kinit "${1}@$domain"
+        fi
+    }
+
+    local OPTIND opt server share username domain protocol security
+    while getopts "h:s:r:u:d:p:k:" opt; do
+        case $opt in
+        h) help ;;
+        s) server="${OPTARG}" ;;
+        r) share="${OPTARG}" ;;
+        u) username="${OPTARG}" ;;
+        d) domain="${OPTARG}" ;;
+        p) protocol="${OPTARG}" ;;
+        k) security="${OPTARG}" ;;
+        *) help ;;
+        esac
+    done
+
+    # Default values
+    username=${username:-$USER}
+    protocol=${protocol:-cifs}
+    security=${security:-ntlmsspi}
+
+    # Input validation
+    if [[ -z $server ]] || [[ -z $share ]]; then
+        echo "Error: Server and share names are required."
+        return 1
+    fi
+
+    # Validation of security parameter
+    case $security in
+    krb5)
+        echo "Use Kerberos version 5 authentication"
+        test_krb5_ticket "$username" "$domain"
+        ;;
+    krb5i)
+        echo "Use Kerberos authentication and forcibly enable packet signing"
+        test_krb5_ticket "$username" "$domain"
+        ;;
+    ntlm)
+        echo "Use NTLM password hashing"
+        ;;
+    ntlmi)
+        echo "Use NTLM password hashing and force packet signing"
+        ;;
+    ntlmv2)
+        echo "Use NTLMv2 password hashing"
+        ;;
+    ntlmv2i)
+        echo "Use NTLMv2 password hashing and force packet signing"
+        ;;
+    ntlmssp)
+        echo "Use NTLMv2 password hashing encapsulated in Raw NTLMSSP message"
+        ;;
+    ntlmsspi)
+        echo "Use NTLMv2 password hashing encapsulated in Raw NTLMSSP message, and force packet signing"
+        ;;
+    *)
+        echo "Unknown authentication method, rollback to default ntlmsspi"
+        security="ntlmsspi"
+        ;;
+    esac
+
+    # Check if server is reachable
+    if ! ping -c 1 "$server" &>/dev/null; then
+        echo "Error: Server $server is unreachable."
+        return 1
+    fi
+
+    # Clean the server and share names for use in the local directory names
+    local sanitized_server=$(echo "$server" | sed 's/[^a-zA-Z0-9._-]/_/g')
+    local sanitized_share=$(echo "$share" | sed 's/[^a-zA-Z0-9._-]/_/g')
+
+    # Construct the mount paths
+    local mount_path="${HOME}/mnt/.${sanitized_server}_${sanitized_share}"
+    local fusermount_path="${HOME}/mnt/${sanitized_server}_${sanitized_share}"
+
+    # Create the mount paths
+    mkdir -p "$mount_path"
+    mkdir -p "$fusermount_path"
+
+    # Mount the share, preserving the original server and share names for the CIFS mount command
+    echo sudo mount.cifs "//${server}/${share}" "$mount_path" -o sec="${security}",user="${username}",dom="${domain}"
+    if sudo mount.cifs "//${server}/${share}" "$mount_path" -o sec="${security}",user="${username}",dom="${domain}"; then
+        echo "Mounted $share to $mount_path with user $username successfully."
+    else
+        echo "Error: Failed to mount $share to $mount_path with user $username."
+        rmdir "$mount_path"
+        rmdir "$fusermount_path"
+        return 1
+    fi
+
+    # Use bindfs to enable write permissions
+    if sudo bindfs --map="root/$(whoami)" "${mount_path}" "${fusermount_path}"; then
+        echo "Write permissions enabled on ${fusermount_path}."
+    else
+        echo "Error: Failed to enable write permissions."
+        rmdir "$fusermount_path"
+        rmdir "$mount_path"
+        return 1
+    fi
+
+    return 0
+}
+
