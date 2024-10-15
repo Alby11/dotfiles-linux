@@ -5,16 +5,11 @@
 
 [[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_STARTFILE "${(%):-%N}"
 
-# Initialize the Zsh completion system
-# This enables advanced command-line completion features
-autoload -Uz +X compinit && compinit
-autoload -Uz +X bashcompinit && bashcompinit 
-autoload -Uz promptinit && promptinit
-zmodload -i zsh/complist
-_comp_options+=(globdots) # With hidden files
-for func in $ZDOTDIR/functions/*(.N); do
-  autoload -Uz $func
-done
+# set up pyenv
+source $ZDOTDIR/.zpyenv
+
+# Make sure $ZDOTDIR/completion directory exists
+mkdir -p $ZDOTDIR/completion
 
 # Set the list of directories that zsh searches for commands.
 path=(
@@ -38,22 +33,31 @@ fpath=(
   $fpath
 )
 
+# Initialize the Zsh completion system
+# This enables advanced command-line completion features
+autoload -Uz compinit && compinit
+# autoload -Uz compinit && bashcompinit 
+autoload -Uz promptinit && promptinit
+zmodload -i zsh/complist
+_comp_options+=(globdots) # With hidden files
 
-eval "$(bw completion --shell zsh); compdef _bw bw;"
-eval "$(bob complete zsh); compdef _bob bob;"
-
-zstyle ':completion:*:*:git:*' script $ZDOTDIR/completion/git-completion.bash
-# alias dotfiles='"$(which git)" --git-dir="${HOME}"/.dotfiles_git/ --work-tree="$HOME"'
-# alias dot='$(which git) --git-dir=${HOME}/.dotfiles_git/ --work-tree="$HOME"'
-# Enable autocomplete for the `dotfiles` function in Zsh
-_dotfiles_autocomplete() {
-    local git_dir="$HOME/.dotfiles_git"
-    local work_tree="$HOME"
-    GIT_DIR="$git_dir" GIT_WORK_TREE="$work_tree" git "$@"
+# Source Git autocompletion script for Zsh
+if [ ! -f $ZDOTDIR/completion/_git ]; then
+  curl -o $ZDOTDIR/completion/_git \
+    https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh
+fi
+# Function to manage dotfiles bare repo
+dotfiles() {
+    $(command -v git) --git-dir=${HOME}/.dotfiles_git/ --work-tree="$HOME" "$@"
 }
-
 # Use Git's autocomplete for the dotfiles function
 compdef _git dotfiles
+# Set proper zstyle for dotfiles completion to use Git's
+zstyle ':completion:*:*:dotfiles:*' script $ZDOTDIR/completion/_git
+
+# set up other completions
+eval "$(bw completion --shell zsh); compdef _bw bw;"
+eval "$(bob complete zsh); compdef _bob bob;"
 
 # Ensure path arrays do not contain duplicates.
 typeset -gU path fpath
