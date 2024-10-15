@@ -10,6 +10,7 @@
 [user]
 	name = alby11  # Your name used for commits.
 	email = alby11@duck.com  # Your email used for commits.
+  signingkey = 3C8E2F451C728897
 
 [safe]
   directory = ~/dev
@@ -60,7 +61,7 @@
   gpgsign = true
 
 [gpg]
-  program = /sbin/gpg
+  program = /usr/bin/gpg
 
 [color]
 	ui = auto  # Enable color in Git output to improve readability.
