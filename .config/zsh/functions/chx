@@ -1,5 +1,0 @@
-# vim: filetype=zsh
-
-chx() {
-  chmod +x "$1"
-}

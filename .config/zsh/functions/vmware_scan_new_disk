@@ -1,9 +1,0 @@
-# vim: filetype=zsh
-
-vmware_scan_new_disk() {
-  for host in /sys/class/scsi_host/*
-  do
-    echo "- - -" | sudo tee $host/scan
-    ls /dev/sd*
-  done
-}

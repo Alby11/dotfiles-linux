@@ -1,4 +1,0 @@
-# vim: filetype=zsh
-vnc() {
-  [ "$1" ] && remmina -c vnc://"$1" &
-}

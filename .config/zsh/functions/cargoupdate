@@ -1,8 +1,0 @@
-# vim: filetype=zsh
-
-cargoupdate() {
-    cargo install --list | grep '^ ' | cut -d':' -f1 | while read -r crate; do
-        echo "Updating $crate..."
-        cargo install --force "$crate"
-    done
-}

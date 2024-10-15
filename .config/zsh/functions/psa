@@ -1,5 +1,0 @@
-# vim: filetype=zsh
-
-psa() {
-  sudo ps -aux
-}
