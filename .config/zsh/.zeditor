@@ -35,7 +35,7 @@ install_and_setup_bat() {
 
   # Integration with fzf for preview
   if command -v fzf > /dev/null 2>&1; then
-    export FZF_DEFAULT_OPTS="--preview 'bat --color=always --style=numbers --line-range=:500 {}'"
+    export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
     fzfbat() { 
       fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"
     }
