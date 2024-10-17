@@ -1,0 +1,16 @@
+# vim: ft=zsh
+
+bwfind() {
+    bw list items --search "$1" | jq -r '.[] | "\(.name)\n\(.login.username)\n\(.login.password)\n"'
+}
+
+
+
+
+
+
+
+
+
+
+
