@@ -187,7 +187,8 @@ fi
 zmodload -i zsh/parameter
 
 insert-last-command-output() {
-    LBUFFER+=$(eval echo ${(q)history[$((HISTCMD-1))]})
+    local last_command="${history[$HISTCMD-1]}"
+    LBUFFER+=$(eval "${last_command}")
 }
 
 zle -N insert-last-command-output
