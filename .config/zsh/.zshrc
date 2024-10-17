@@ -45,6 +45,9 @@ if ! command -v node > /dev/null 2>&1; then
     fnm install --lts
 fi
 
+# set EDITOR
+source "$ZDOTDIR/.zeditor"
+
 # set ZSH as VSCode default shell for the integrated terminal
 if [[ "$TERM_PROGRAM" = "vscode" ]]; then
     vscode_shell_integration_path=$(code --locate-shell-integration-path zsh)
@@ -57,17 +60,19 @@ fi
 source "$HOME/.atuin/bin/env"
 eval "$(atuin init zsh)"
 
-# Antidote setup for managing plugins
-source "$ZDOTDIR/.zantidote"
-source "$ZDOTDIR/.zsh_plugin_configurations.zsh"
-
-# Load custom configurations
-source "$ZDOTDIR/.zaliases"
-source "$ZDOTDIR/.zeditor"
-
 # Python environment management (moved from .zshenv)
 if [[ -f "${ZDOTDIR}/.zpyenv" ]]; then
     source "${ZDOTDIR}/.zpyenv"
 fi
+
+# Antidote setup for managing plugins
+source "$ZDOTDIR/.zantidote"
+source "$ZDOTDIR/.zsh_plugin_configurations.zsh"
+
+# Github CLI Copilot support
+eval "$(gh copilot alias -- zsh)"
+
+# Load custom configurations
+source "$ZDOTDIR/.zaliases"
 
 [[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"
