@@ -297,5 +297,6 @@
             "password": ""
         },
     ],
-    "mssql.enableExperimentalFeatures": true
+    "mssql.enableExperimentalFeatures": true,
+    "aws.telemetry": false
 }
