@@ -1,6 +1,5 @@
 # vim: ft=gitconfig
 
-; [includeIf "gitdir:~/.dotfiles_git/"]
 [include]
   path = ~/.config/git/config
 
