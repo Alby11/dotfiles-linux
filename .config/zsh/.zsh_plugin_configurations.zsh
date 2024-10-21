@@ -183,15 +183,10 @@ if antidote path "tom-doerr/zsh_codex" >/dev/null 2>&1; then
     bindkey '^X' create_completion
 fi
 
-# Use Ctrl-u,Ctrl-l to get the output of the last command
-zmodload -i zsh/parameter
+# Create a new ZLE widget for the function
+# zle -N lco
+# Bind the widget to Ctrl-h,Ctrl-h
+# bindkey "^L^L" insert-last-command-output
 
-insert-last-command-output() {
-    local last_command="${history[$HISTCMD-1]}"
-    LBUFFER+=$(eval "${last_command}")
-}
-
-zle -N insert-last-command-output
-bindkey "^U^L" insert-last-command-output
-
+# Log debug information if ZSH_DEBUG is set
 [[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"
