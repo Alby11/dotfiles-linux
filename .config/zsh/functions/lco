@@ -1,0 +1,15 @@
+# vim: ft=zsh
+
+lco() {
+    # Get the last command from history
+    local last_command=$(fc -ln -1)
+    echo "Last command: $last_command"  # Debugging: Print the last command
+
+    # Capture the output of the last command
+    local command_output=$(eval "$last_command")
+    echo "Command output: $command_output"  # Debugging: Print the command output
+
+    # Append the output of the last command to the left buffer
+    LBUFFER+=$command_output
+}
+
