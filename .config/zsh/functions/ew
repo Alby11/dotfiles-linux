@@ -1,19 +1,31 @@
 # vim: filetype=zsh
 
-# Function to display usage instructions
-show_help() {
-  echo "Usage: $0 <filename>"
-  echo "Edit a file with the specified editor and then run 'zsweep' on it."
-  echo "If 'zsweep' is not available, it will display an error message."
-  echo
-  echo "What is 'zsweep'?"
-  echo "'zsweep' is a utility for performing automatic code formatting and cleanup tasks."
-}
-
 # Function to edit a file with the specified editor and then run 'zsweep' on it
 ew() {
   local file="$1"
   
+  # Function to display usage instructions
+  show_help() {
+    echo "Usage: ew <filename>"
+    echo "Edit a file with the specified editor and then run 'zsweep' on it."
+    echo "If 'zsweep' is not available, it will display an error message."
+    echo
+    echo "What is 'zsweep'?"
+    echo "'zsweep' is a utility for performing automatic code formatting and cleanup tasks."
+  }
+
+  # Check for the --help parameter
+  if [ "$file" = "--help" ]; then
+    show_help
+    return 0
+  fi
+
+  # Check if at least one argument is provided
+  if [ -z "$file" ]; then
+    echo "Error: Missing filename argument. Use 'ew --help' for usage instructions."
+    return 1
+  fi
+
   # Check if the file exists
   if [ -e "$file" ]; then
     # Use the 'EDITOR' environment variable if set, otherwise default to 'vim'
@@ -31,23 +43,4 @@ ew() {
   else
     echo "File '$file' does not exist."
   fi
-}
-
-# Check for the --help parameter
-if [ "$1" = "--help" ]; then
-  show_help
-  exit 0
-fi
-
-# Check if at least one argument is provided
-if [ $# -lt 1 ]; then
-  echo "Error: Missing filename argument. Use '$0 --help' for usage instructions."
-  exit 1
-fi
-
-# Usage example: $0 filename
-ew "$1"
-
-ew() {
-  ${EDITOR} $1 && zsweep $1
 }

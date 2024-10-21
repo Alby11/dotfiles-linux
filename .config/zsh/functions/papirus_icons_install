@@ -1,14 +1,22 @@
 # vim: filetype=zsh
 
-# wget -qO- https://git.io/papirus-icon-theme-install | DESTDIR="$HOME/.icons" sh
-sudo dnf install papirus-icon-theme
-git clone https://github.com/catppuccin/papirus-folders.git
-cd papirus-folders
-# cp -r src/* "$HOME/.icons/Papirus"
-sudo cp -r src/* /usr/share/icons/Papirus
-./papirus-folders -C cat-mocha-pink --theme Papirus-Dark
-cd ..
-rm -rf papirus-folders
-sudo dnf config-manager --nogpgcheck --add-repo https://download.opensuse.org/repositories/home:SmartFinn:hardcode-tray/Fedora_$(rpm -E %fedora)/home:SmartFinn:hardcode-tray.repo
-sudo dnf install hardcode-tray
-sudo -E hardcode-tray --conversion-tool RSVGConvert --size 22 --theme Papirus-Dark
+papirus_icons_install() {
+    ICONS_DIR="$HOME/.icons"
+    PAPIRUS_REPO="https://github.com/catppuccin/papirus-folders.git"
+    REPO_URL="https://download.opensuse.org/repositories/home:SmartFinn:hardcode-tray/Fedora_$(rpm -E %fedora)/home:SmartFinn:hardcode-tray.repo"
+
+    # Install Papirus icon theme
+    sudo dnf install -y papirus-icon-theme
+
+    # Clone and install Papirus folders
+    git clone "$PAPIRUS_REPO" && cd papirus-folders
+    sudo cp -r src/* /usr/share/icons/Papirus
+    ./papirus-folders -C cat-mocha-pink --theme Papirus-Dark
+    cd .. && rm -rf papirus-folders
+
+    # Add repository and install hardcode-tray
+    sudo dnf config-manager --nogpgcheck --add-repo "$REPO_URL" && sudo dnf install -y hardcode-tray
+
+    # Apply hardcode-tray with specified options
+    sudo -E hardcode-tray --conversion-tool RSVGConvert --size 22 --theme Papirus-Dark
+}

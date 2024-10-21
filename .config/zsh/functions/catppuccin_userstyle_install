@@ -2,8 +2,11 @@
 
 catppuccin_userstyle_install() {
   if [[ -n $1 ]]; then
-    echo $(which firefox) 'https://github.com/catppuccin/userstyles/raw/main/styles/'$1'/catppuccin.user.css'
-    $(which firefox) 'https://github.com/catppuccin/userstyles/raw/main/styles/'$1'/catppuccin.user.css'
+    firefox_path=$(which firefox)
+    url="https://github.com/catppuccin/userstyles/raw/main/styles/$1/catppuccin.user.css"
+    
+    echo "$firefox_path $url"
+    "$firefox_path" "$url"
   else
     echo "Usage: catppuccin_userstyle_install [name]"
   fi

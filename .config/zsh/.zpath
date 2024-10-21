@@ -5,11 +5,11 @@
 
 [[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_STARTFILE "${(%):-%N}"
 
-# set up pyenv
+# Set up pyenv
 source $ZDOTDIR/.zpyenv
 
-# Make sure $ZDOTDIR/completion directory exists
-mkdir -p $ZDOTDIR/completion
+# Ensure $ZDOTDIR/{completion,functions} directory exists
+mkdir -p $ZDOTDIR/{completion,functions}
 
 # Set the list of directories that zsh searches for commands.
 path=(
@@ -18,7 +18,6 @@ path=(
   $HOME/{.cargo,local}/{,s}bin(N)
   $HOME/{,.}go/{,s}bin(N)
   $HOME/.local/share/bob/nvim-{,s}bin(N)
-  $HOME/gitdepot/quickemu/(N)
   $HOME/gitdepot/genesys_archy/(N)
   /opt/{,s}bin(N)
   /opt/flameshot/bin/(N)
@@ -33,33 +32,40 @@ fpath=(
   $fpath
 )
 
+# Ensure path arrays do not contain duplicates.
+typeset -gU path fpath
+
 # Initialize the Zsh completion system
-# This enables advanced command-line completion features
-autoload -Uz compinit && compinit
-# autoload -Uz compinit && bashcompinit 
-autoload -Uz promptinit && promptinit
+autoload -Uz compinit promptinit
+compinit
+promptinit
+
 zmodload -i zsh/complist
-_comp_options+=(globdots) # With hidden files
+_comp_options+=(globdots) # Include hidden files in completion
+
+# Autoload all functions in $ZDOTDIR/functions
+autoload -Uz $ZDOTDIR/functions/*(.N)
+
+# Function to manage dotfiles bare repo
+dotfiles() {
+  $(command -v git) --git-dir=${HOME}/.dotfiles_git/ --work-tree="$HOME" "$@"
+}
 
 # Source Git autocompletion script for Zsh
-if [ ! -f $ZDOTDIR/completion/_git ]; then
+if [[ ! -f $ZDOTDIR/completion/_git ]]; then
   curl -o $ZDOTDIR/completion/_git \
     https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh
 fi
-# Function to manage dotfiles bare repo
-dotfiles() {
-    $(command -v git) --git-dir=${HOME}/.dotfiles_git/ --work-tree="$HOME" "$@"
-}
+
 # Use Git's autocomplete for the dotfiles function
 compdef _git dotfiles
 # Set proper zstyle for dotfiles completion to use Git's
 zstyle ':completion:*:*:dotfiles:*' script $ZDOTDIR/completion/_git
 
-# set up other completions
-eval "$(bw completion --shell zsh); compdef _bw bw;"
-eval "$(bob complete zsh); compdef _bob bob;"
-
-# Ensure path arrays do not contain duplicates.
-typeset -gU path fpath
+# Set up other completions
+eval "$(bw completion --shell zsh)"
+compdef _bw bw
+eval "$(bob complete zsh)"
+compdef _bob bob
 
 [[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"
