@@ -1,123 +1,167 @@
+# ~/.config/starship.toml
+
+# Get editor completions based on the config schema
 "$schema" = 'https://starship.rs/config-schema.json'
 
+command_timeout = 1000
+add_newline = true
+
 format = """
-[](surface0)\
-$os\
-$username\
-[](bg:peach fg:surface0)\
-$directory\
-[](fg:peach bg:yellow)\
-$git_branch\
-$git_status\
-[](fg:yellow bg:green)\
-$c\
-$elixir\
-$elm\
-$golang\
-$gradle\
-$haskell\
-$java\
-$julia\
-$nodejs\
-$nim\
-$python\
-$rust\
-$scala\
-[](fg:green bg:sapphire)\
-$docker_context\
-[](fg:sapphire bg:mauve)\
-$time\
-[ ](fg:mauve)\
+[╭─](rosewater)\
+    [【](flamingo)\
+      $username\
+      [ @ ](flamingo)\
+      $hostname \
+      $directory \      
+    [】](flamingo)
+[│](rosewater)\
+    $git_branch\
+    $git_status\
+    $package\
+    $python\
+    $nodejs\    
+    $custom
+[╰─](rosewater)\
+    $memory_usage\
+    $time\
+    $cmd_duration \    
+    $shell\
+    $character\
 """
 
-#add_newline = false	# Disable the blank line at the start of the prompt
+palette = "catppuccin_mocha"
 
-# Set the palette variable with the value of palette of your choice
-palette = 'catppuccin_macchiato'
+[shell]
+powershell_indicator = "_"
+bash_indicator = ""
+zsh_indicator = "z_"
+style = "rosewater"
+disabled= false
 
-[palettes.catppuccin_latte]
-rosewater = "#dc8a78"
-flamingo = "#dd7878"
-pink = "#ea76cb"
-mauve = "#8839ef"
-red = "#d20f39"
-maroon = "#e64553"
-peach = "#fe640b"
-yellow = "#df8e1d"
-green = "#40a02b"
-teal = "#179299"
-sky = "#04a5e5"
-sapphire = "#209fb5"
-blue = "#1e66f5"
-lavender = "#7287fd"
-text = "#4c4f69"
-subtext1 = "#5c5f77"
-subtext0 = "#6c6f85"
-overlay2 = "#7c7f93"
-overlay1 = "#8c8fa1"
-overlay0 = "#9ca0b0"
-surface2 = "#acb0be"
-surface1 = "#bcc0cc"
-surface0 = "#ccd0da"
-base = "#eff1f5"
-mantle = "#e6e9ef"
-crust = "#dce0e8"
+[battery]
+full_symbol = "🔋"
+charging_symbol = "🔌"
+discharging_symbol = "⚡"
 
-[palettes.catppuccin_frappe]
-rosewater = "#f2d5cf"
-flamingo = "#eebebe"
-pink = "#f4b8e4"
-mauve = "#ca9ee6"
-red = "#e78284"
-maroon = "#ea999c"
-peach = "#ef9f76"
-yellow = "#e5c890"
-green = "#a6d189"
-teal = "#81c8be"
-sky = "#99d1db"
-sapphire = "#85c1dc"
-blue = "#8caaee"
-lavender = "#babbf1"
-text = "#c6d0f5"
-subtext1 = "#b5bfe2"
-subtext0 = "#a5adce"
-overlay2 = "#949cbb"
-overlay1 = "#838ba7"
-overlay0 = "#737994"
-surface2 = "#626880"
-surface1 = "#51576d"
-surface0 = "#414559"
-base = "#303446"
-mantle = "#292c3c"
-crust = "#232634"
+[[battery.display]]
+threshold = 30
+style = "bold flamingo"
 
-[palettes.catppuccin_macchiato]
-rosewater = "#f4dbd6"
-flamingo = "#f0c6c6"
-pink = "#f5bde6"
-mauve = "#c6a0f6"
-red = "#ed8796"
-maroon = "#ee99a0"
-peach = "#f5a97f"
-yellow = "#eed49f"
-green = "#a6da95"
-teal = "#8bd5ca"
-sky = "#91d7e3"
-sapphire = "#7dc4e4"
-blue = "#8aadf4"
-lavender = "#b7bdf8"
-text = "#cad3f5"
-subtext1 = "#b8c0e0"
-subtext0 = "#a5adcb"
-overlay2 = "#939ab7"
-overlay1 = "#8087a2"
-overlay0 = "#6e738d"
-surface2 = "#5b6078"
-surface1 = "#494d64"
-surface0 = "#363a4f"
-base = "#24273a"
-mantle = "#1e2030"
-crust = "#181926"
+[character]
+error_symbol = "[✖](bold pink) "
+
+[cmd_duration]
+min_time = 10_000
+format = "took [$duration]($style)"
+
+[directory]
+truncation_length = 5
+format = "[$path]($style green) [$read_only](red) "
+truncation_symbol = "…/"
+read_only = " 🔒"
+read_only_style = "red"
+
+[git_branch]
+format = " [$symbol$branch]($style) "
+symbol = "🍣 "
+style = "bold red"
+
+[git_commit]
+commit_hash_length = 8
+style = "bold maroon"
+
+[git_status]
+conflicted = "⚔️ "
+ahead = "🏎️ 💨 ×${count}"
+behind = "🐢 ×${count}"
+diverged = "🔱 🏎️ 💨 ×${ahead_count} 🐢 ×${behind_count}"
+untracked = "🛤️  ×${count}"
+stashed = "📦 "
+modified = "📝 ×${count}"
+staged = "🗃️  ×${count}"
+renamed = "📛 ×${count}"
+deleted = "🗑️  ×${count}"
+style = "bright-white"
+format = "$all_status$ahead_behind"
+
+[username]
+style_user = "bold dimmed blue"
+show_always = true
+format = "[$user](sky)"
+
+[hostname]
+ssh_only = false
+format = "<[$hostname]($style)>"
+style = "pink"
+disabled = false
+
+[julia]
+format = "[$symbol$version]($style) "
+symbol = "ஃ "
+style = "bold green"
+
+[memory_usage]
+format = "$symbol[${ram}( | ${swap})]($style) "
+threshold = -1
+style = "lavender"
+disabled = false
+
+[package]
+disabled = true
+
+[rust]
+format = "[$symbol$version]($style) "
+style = "bold yellow"
+
+[time]
+time_format = "%T"
+format = "🕙 $time($style) "
+style = "green"
+disabled = false
+
+[nodejs]
+format = " via [🤖 $version](yellow) "
+
+[git_state]
+format = '\(:[$state( $progress_current/$progress_total)]($style)\)'
+
+[python]
+format = 'via [${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($text)'
+
+[custom.git_host]
+command = """
+URL=$(command git ls-remote --get-url 2> /dev/null)
+if [[ "$URL" =~ "github" ]]; then
+    ICON=" "
+elif [[ "$URL" =~ "gitlab" ]]; then
+    ICON=" "
+elif [[ "$URL" =~ "bitbucket" ]];then
+    ICON=" "
+elif [[ "$URL" =~ "kernel" ]];then
+    ICON=" "
+elif [[ "$URL" =~ "archlinux" ]];then
+    ICON=" "
+elif [[ "$URL" =~ "gnu" ]];then
+    ICON=" "
+elif [[ "$URL" =~ "git" ]];then
+    ICON=" "
+else
+    ICON=" "
+    URL="localhost"
+fi
+for PATTERN in "https" "http" "git" "://" "@"; do
+    [[ "$URL" == "$PATTERN"* ]] && URL="${URL##$PATTERN}"
+done
+for PATTERN in "/" ".git"; do
+    [[ "$URL" == *"$PATTERN" ]] && URL="${URL%%$PATTERN}"
+done
+printf "%s%s" "$ICON" "$URL"
+"""
+directories = [".git"]
+when = 'git rev-parse --is-inside-work-tree 2> /dev/null'
+shell = ["bash","--norc","--noprofile"]
+style = "subtext0"
+format = " at [$output]($overlay2)"
 
 [palettes.catppuccin_mocha]
 rosewater = "#f5e0dc"
@@ -146,152 +190,3 @@ surface0 = "#313244"
 base = "#1e1e2e"
 mantle = "#181825"
 crust = "#11111b"
-
-#SECTION 1
-# You can also replace your username with a neat symbol like   or disable this
-# and use the os module below
-[username]
-show_always = true
-style_user = "bg:surface0 fg:lavender"
-style_root = "bg:surface0 fg:text"
-format = '[ $user ]($style)'
-
-# An alternative to the username module which displays a symbol that
-# represents the current operating system
-[os]
-disabled = false
-style = "bg:surface0 fg:blue"
-
-# Add the symbol for your preferred OS from the Nerd Font Icons if not listed below
-[os.symbols]
-Windows = " "
-Ubuntu = " "
-Macos = ""
-Linux = ""
-SUSE = ""
-Raspbian = "󰐿"
-Mint = "󰣭"
-Manjaro = ""
-Gentoo = "󰣨"
-Fedora = "󰣛"
-Alpine = ""
-Amazon = ""
-Android = ""
-Arch = "󰣇"
-Artix = "󰣇"
-CentOS = ""
-Debian = "󰣚"
-Redhat = "󱄛"
-RedHatEnterprise = "󱄛"
-
-#SECTION 2
-[directory]
-style = "fg:mantle bg:peach"
-format = "[ $path ]($style)"
-# You can enter how many parent directories to be viewed for the current path
-truncation_length = 2
-truncation_symbol = "…/"
-
-# Here is how you can shorten some long paths by text replacement
-[directory.substitutions]
-"Documents" = "󰈙 "
-"Downloads" = " "
-"Music" = "󰝚 "
-"Pictures" = " "
-"Videos" = " "
-"Developer" = "󰲋 "
-# Keep in mind that the order matters. For example:
-# "Important Documents" = " 󰈙 "
-# will not be replaced, because "Documents" was already substituted before.
-# So either put "Important Documents" before "Documents" or use the substituted version:
-# "Important 󰈙 " = " 󰈙 "
-
-#SECTION 3
-[git_branch]
-symbol = ""
-style = "fg:base bg:yellow"
-format = '[ $symbol $branch ]($style)'
-
-[git_status]
-style = "fg:base bg:yellow"
-format = '[($all_status$ahead_behind )]($style)'
-
-
-#SECTION 4
-# Add more language symbols from the Nerd Font Icons and assign the style and format values
-[c]
-symbol = " "
-style = "fg:base bg:green"
-format = '[ $symbol( $version) ]($style)'
-
-[elixir]
-symbol = ""
-style = "fg:base bg:green"
-format = '[ $symbol( $version) ]($style)'
-
-[elm]
-symbol = " "
-style = "fg:base bg:green"
-format = '[ $symbol( $version) ]($style)'
-
-[golang]
-symbol = ""
-style = "fg:base bg:green"
-format = '[ $symbol( $version) ]($style)'
-
-[gradle]
-style = "fg:base bg:green"
-format = '[ $symbol( $version) ]($style)'
-
-[haskell]
-symbol = ""
-style = "fg:base bg:green"
-format = '[ $symbol( $version) ]($style)'
-
-[java]
-symbol = ""
-style = "fg:base bg:green"
-format = '[ $symbol( $version) ]($style)'
-
-[julia]
-symbol = " "
-style = "fg:base bg:green"
-format = '[ $symbol( $version) ]($style)'
-
-[nodejs]
-symbol = ""
-style = "fg:base bg:green"
-format = '[ $symbol( $version) ]($style)'
-
-[nim]
-symbol = "󰆥"
-style = "fg:base bg:green"
-format = '[ $symbol( $version) ]($style)'
-
-[python]
-symbol = ""
-style = "fg:base bg:green"
-format = '[ $symbol( $version) ]($style)'
-
-[rust]
-symbol = ""
-style = "fg:base bg:green"
-format = '[ $symbol( $version) ]($style)'
-
-[scala]
-symbol = ""
-style = "fg:base bg:green"
-format = '[ $symbol( $version) ]($style)'
-
-#SECTION 5
-[docker_context]
-symbol = " "
-style = "fg:base bg:sapphire"
-format = '[ $symbol( $context) ]($style)'
-
-#SECTION 6
-[time]
-disabled = false
-time_format = "%R"
-style = "fg:base bg:mauve"
-format = '[ 󰔟 $time ]($style)'
