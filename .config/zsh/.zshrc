@@ -38,6 +38,12 @@ setopt inc_append_history
 setopt nonomatch                  # Avoid errors when no file matches a pattern
 setopt sharehistory               # Share command history across multiple sessions
 
+
+# Load All ZSH Modules
+for module in $(zmodload -L | awk '{print $2}'); do
+    zmodload $module
+done
+
 # Shell setup for fnm NodeJS Manager
 if ! command -v fnm > /dev/null 2>&1; then
     cargo install fnm
