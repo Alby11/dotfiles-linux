@@ -181,7 +181,7 @@ Aloxaf/fzf-tab
 tom-doerr/zsh_codex
 
 ### THEME
-romkatv/powerlevel10k
+# romkatv/powerlevel10k
 
 # WakaTime for Terminal
 sobolevn/wakatime-zsh-plugin
