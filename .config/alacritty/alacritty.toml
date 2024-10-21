@@ -1,3 +1,63 @@
+
+[terminal.shell]
+# program = "/usr/bin/zsh -c tmux"
+# args = ["-l"]
+program = "/usr/bin/tmux"
+args = [
+  "new-session"
+]
+
+[bell]
+animation = "EaseOutCirc"
+color = "#f38ba8"
+duration = 500
+
+[colors]
+draw_bold_text_with_bright_colors = true
+
+[colors.search]
+matches = { foreground = "#181818", background = "#f5c2e7" }
+focused_match = { foreground = "#181818", background = "#fab387" }
+
+[cursor]
+blink_interval = 300
+style = { shape = "Beam", blinking = "Always" }
+vi_mode_style = "None"
+unfocused_hollow = true
+thickness = 0.15
+
+[font]
+size = 9.0
+builtin_box_drawing = true
+normal = { family = "Fira Code", style = "Retina" }
+italic = { family = "Fira Code", style = "Light" }
+bold = { family = "Fira Code", style = "Bold" }
+bold_italic = { family = "Fira Code", style = "SemiBold" }
+
+[mouse]
+hide_when_typing = true
+
+[selection]
+save_to_clipboard = true
+
+[window]
+blur = true
+decorations = "Full"
+decorations_theme_variant = "Dark"
+title = "Alacritty"
+dynamic_title = true
+opacity = 0.8
+startup_mode = "Windowed"
+padding = { x = 2, y = 2 }
+
+[scrolling]
+history = 100000
+multiplier = 3
+
+[general]
+
+live_config_reload = true
+ipc_socket = true
 # Alacritty - TOML configuration file format.
 
 # DESCRIPTION 
@@ -868,60 +928,4 @@ import = [
   "/home/tallonea/gitdepot/catppuccin-alacritty/catppuccin-mocha.toml",
 ]
 
-live_config_reload = true
-ipc_socket = true
-
-[shell]
-# program = "/usr/bin/zsh -c tmux"
-# args = ["-l"]
-program = "/usr/bin/tmux"
-args = [
-  "new-session"
-]
-
-[bell]
-animation = "EaseOutCirc"
-color = "#f38ba8"
-duration = 500
-
-[colors]
-draw_bold_text_with_bright_colors = true
-
-[colors.search]
-matches = { foreground = "#181818", background = "#f5c2e7" }
-focused_match = { foreground = "#181818", background = "#fab387" }
-
-[cursor]
-blink_interval = 300
-style = { shape = "Beam", blinking = "Always" }
-vi_mode_style = "None"
-unfocused_hollow = true
-thickness = 0.15
-
-[font]
-size = 9.0
-builtin_box_drawing = true
-normal = { family = "Fira Code", style = "Retina" }
-italic = { family = "Fira Code", style = "Light" }
-bold = { family = "Fira Code", style = "Bold" }
-bold_italic = { family = "Fira Code", style = "SemiBold" }
-
-[mouse]
-hide_when_typing = true
-
-[selection]
-save_to_clipboard = true
-
-[window]
-blur = true
-decorations = "Full"
-decorations_theme_variant = "Dark"
-title = "Alacritty"
-dynamic_title = true
-opacity = 0.8
-startup_mode = "Windowed"
-padding = { x = 2, y = 2 }
-
-[scrolling]
-history = 100000
-multiplier = 3
+[terminal]
