@@ -920,6 +920,6 @@ fi
 ### END OF ALIASES ###
 
 # Intune Portal cleanup
-alias Microsoft-Intune-Cleanup=rm -frv .local/share/{intune-portal} .local/state/{intune,microsoft-identity-broker} .config/intune .cache/intune-portal .cache/microsoft-edge .cache/Microsoft
+alias Microsoft-Intune-Cleanup="rm -rfv .local/share/{intune-portal} .local/state/{intune,microsoft-identity-broker} .config/intune .cache/intune-portal .cache/microsoft-edge .cache/Microsoft"
 
 [[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"
