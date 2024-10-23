@@ -77,7 +77,7 @@ if antidote path "zsh-users/zsh-syntax-highlighting" > /dev/null 2>&1; then
     # Define or ignore unhandled ZLE widgets before loading zsh-syntax-highlighting
     zle -N menu-search || true
     zle -N recent-paths || true
-    $ZDOTDIR/zsh-syntax-highlighting/catppuccin_mocha-zsh-syntax-highlighting.zsh
+    $ZDOTDIR/catppuccin_zsh-syntax-highlighting/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh
 fi
 
 ### fast-syntax-highlighting ###
