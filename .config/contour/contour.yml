@@ -129,7 +129,7 @@ profiles:
     # You can override the process to be started inside the terminal.# If nothing is specified, the users' default login shell will be used.
     # But you may as well log in to a remote host.
     shell: /bin/zsh
-    arguments: []
+    arguments: [--interactive, --login]
 
     # Builtin SSH-client configuration.
     # Use this to directly connect to an SSH server.
