@@ -1,63 +1,4 @@
 
-[terminal.shell]
-# program = "/usr/bin/zsh -c tmux"
-# args = ["-l"]
-program = "/usr/bin/tmux"
-args = [
-  "new-session"
-]
-
-[bell]
-animation = "EaseOutCirc"
-color = "#f38ba8"
-duration = 500
-
-[colors]
-draw_bold_text_with_bright_colors = true
-
-[colors.search]
-matches = { foreground = "#181818", background = "#f5c2e7" }
-focused_match = { foreground = "#181818", background = "#fab387" }
-
-[cursor]
-blink_interval = 300
-style = { shape = "Beam", blinking = "Always" }
-vi_mode_style = "None"
-unfocused_hollow = true
-thickness = 0.15
-
-[font]
-size = 9.0
-builtin_box_drawing = true
-normal = { family = "Fira Code", style = "Retina" }
-italic = { family = "Fira Code", style = "Light" }
-bold = { family = "Fira Code", style = "Bold" }
-bold_italic = { family = "Fira Code", style = "SemiBold" }
-
-[mouse]
-hide_when_typing = true
-
-[selection]
-save_to_clipboard = true
-
-[window]
-blur = true
-decorations = "Full"
-decorations_theme_variant = "Dark"
-title = "Alacritty"
-dynamic_title = true
-opacity = 0.8
-startup_mode = "Windowed"
-padding = { x = 2, y = 2 }
-
-[scrolling]
-history = 100000
-multiplier = 3
-
-[general]
-
-live_config_reload = true
-ipc_socket = true
 # Alacritty - TOML configuration file format.
 
 # DESCRIPTION 
@@ -68,6 +9,7 @@ ipc_socket = true
 # The format's specification can be found at https://toml.io/en/v1.0.0.
 
 # GENERAL
+[general]
 
 # import = ["<string>",]
 
@@ -81,7 +23,12 @@ ipc_socket = true
 # "~/.config/alacritty/base16-dark.toml",
 # "~/.config/alacritty/keybindings.toml",
 # ]
-
+import = [
+  # "/home/tallonea/gitdepot/catppuccin-alacritty/catppuccin-latte.toml"
+  # "/home/tallonea/gitdepot/catppuccin-alacritty/catppuccin-frappe.toml"
+  # "/home/tallonea/gitdepot/catppuccin-alacritty/catppuccin-macchiato.toml"
+  "/home/tallonea/gitdepot/catppuccin-alacritty/catppuccin-mocha.toml",
+]
 
 # live_config_reload = true | false
 # Live config reload (changes require restart)
@@ -96,6 +43,7 @@ ipc_socket = true
 
 
 # SHELL
+# args = "$HOME/.local/bin/tmux_chooser.zsh"
 # shell = "<string>" | { program = "<string>", args = ["<string>",] }
 # You can set shell.program to the path of your favorite shell, e.g. /bin/zsh. Entries in shell.args are passed as arguments to the shell.
 # Default:
@@ -126,6 +74,7 @@ ipc_socket = true
 
 # WINDOW
 # This section documents the [window] table of the configuration file.
+[window]
 
 # dimensions = { columns = <integer>, lines = <integer> }
 # Window dimensions (changes require restart).
@@ -148,6 +97,7 @@ ipc_socket = true
 
 # Window decorations.
 # decorations = "Full" | "None" | "Transparent" | "Buttonless"
+decorations = "Full"
 
 # Full
 # Borders and title bar.
@@ -167,6 +117,7 @@ ipc_socket = true
 # opacity = <float>
 # Background opacity as a floating point number from 0.0 to 1.0. The value 0.0 is completely transparent and 1.0 is opaque.
 # Default: 1.0
+opacity = 0.8
 
 # Request compositor to blur content behind transparent windows (works on macOS & KDE Wayland only).
 # Default: false
@@ -224,11 +175,14 @@ ipc_socket = true
 
 # SCROLLING
 # This section documents the [scrolling] table of the configuration file.
+[scrolling]
+
 # history = <integer>
 # Maximum number of lines in the scrollback buffer.
 # Specifying 0 will disable scrolling.
 # Limited to 100000.
 # Default: 10000
+history = 100000
 
 # multiplier = <integer>
 # Number of line scrolled for every input scroll increment.
@@ -237,7 +191,10 @@ ipc_socket = true
 
 # FONT
 # This section documents the [font] table of the configuration file.
+[font]
+
 # normal = { family = "<string>", style = "<string>" }
+normal = { family = "Fira Code", style = "Retina" }
 
 # Default:
 # Linux/BSD: { family = "monospace", style = "Regular" }
@@ -259,6 +216,7 @@ ipc_socket = true
 # size = <float>
 # Font size in points.
 # Default: 11.25
+size = 11
 
 # offset = { x = <integer>, y = <integer> }
 # Offset is the extra space around each character. The 'y' can be thought of as modifying the line spacing, and 'x' as modifying the letter spacing.
@@ -270,6 +228,7 @@ ipc_socket = true
 # builtin_box_drawing = true | false
 # When true, Alacritty will use a custom built-in font for box drawing characters (Unicode points U+2500 - U+259F) and powerline symbols (Unicode points U+E0B0 - U+E0B3).
 # Default: true
+builtin_box_drawing = false
 
 
 # COLORS
@@ -279,7 +238,8 @@ ipc_socket = true
 # colors primary
 # This section documents the [colors.primary] table of the configuration file.
 
-# [colors]
+[colors]
+
 #foreground = "#d8d8d8"
 #background = "#181818"
 #dim_foreground = "#828482"
@@ -330,6 +290,7 @@ ipc_socket = true
 # transparent_background_colors = true | false
 # Whether or not window.opacity applies to all cell backgrounds, or only to the default background. When set to true all cells will be transparent regardless of their background color.
 # Default: false
+transparent_background_colors = true
 
 # draw_bold_text_with_bright_colors = true | false
 # When true, bold text is drawn using the bright color variants.
@@ -380,6 +341,7 @@ ipc_socket = true
 
 # BELL
 # This section documents the [bell] table of the configuration file.
+[bell]
 
 # animation = "Ease" | "EaseOut" | "EaseOutSine" | "EaseOutQuad" | "EaseOutCubic" | "EaseOutQuart" | "EaseOutQuint" | "EaseOutExpo" | "EaseOutCirc" | "Linear"
 # Visual bell animation effect for flashing the screen when the visual bell is rung.
@@ -392,6 +354,7 @@ ipc_socket = true
 # color = "<string>"
 # Visual bell animation color.
 # Default: "#ffffff"
+color = "#a6e3a1"
 
 # command = "<string>" | { program = "<string>", args = ["<string>",] }
 # This program is executed whenever the bell is rung.
@@ -456,14 +419,23 @@ ipc_socket = true
 # Controls the ability to write to the system clipboard with the OSC 52 escape sequence. While this escape sequence is useful to copy contents from the remote server, allowing any application to read from the clipboard can be easily abused while not providing significant benefits over explicitly pasting text.
 # Default: "OnlyCopy"
 
-#[terminal]
-
+[terminal]
+[terminal.shell]
+# program = "/usr/bin/zsh"
+program = "/usr/bin/zsh"
+args = [
+  "--interactive",
+  "--login"
+]
 
 # MOUSE
 # This section documents the [mouse] table of the configuration file.
+[mouse]
+
 # hide_when_typing = true | false
 # When this is true, the cursor is temporarily hidden when typing.
 # Default: false
+hide_when_typing = true
 
 # bindings = [{ <mouse>, <mods>, <mode>, <action> | <chars> },]
 # See keyboard.bindings for full documentation on mods, mode, action, and chars.
@@ -921,11 +893,63 @@ ipc_socket = true
 # · Christian Duerr <contact@christianduerr.com>
 # · Kirill Chibisov <contact@kchibisov.com>
 
-import = [
-  # "/home/tallonea/gitdepot/catppuccin-alacritty/catppuccin-latte.toml"
-  # "/home/tallonea/gitdepot/catppuccin-alacritty/catppuccin-frappe.toml"
-  # "/home/tallonea/gitdepot/catppuccin-alacritty/catppuccin-macchiato.toml"
-  "/home/tallonea/gitdepot/catppuccin-alacritty/catppuccin-mocha.toml",
-]
-
-[terminal]
+# [general]
+# live_config_reload = true
+# ipc_socket = true
+#
+# [terminal]
+#
+# [terminal.shell]
+# # program = "/usr/bin/zsh -c tmux"
+# # args = ["-l"]
+# program = "/usr/bin/tmux"
+# args = [
+#   "new-session"
+# ]
+#
+# [bell]
+# animation = "EaseOutCirc"
+# color = "#f38ba8"
+# duration = 500
+#
+# [colors]
+# # draw_bold_text_with_bright_colors = true
+#
+# [colors.search]
+# # matches = { foreground = "#181818", background = "#f5c2e7" }
+# # focused_match = { foreground = "#181818", background = "#fab387" }
+#
+# [cursor]
+# # blink_interval = 300
+# # style = { shape = "Beam", blinking = "Always" }
+# # vi_mode_style = "None"
+# # unfocused_hollow = true
+# # thickness = 0.15
+#
+# [font]
+# size = 10.0
+# builtin_box_drawing = true
+# normal = { family = "Fira Code", style = "Retina" }
+# # italic = { family = "Fira Code", style = "Light" }
+# # bold = { family = "Fira Code", style = "Bold" }
+# # bold_italic = { family = "Fira Code", style = "SemiBold" }
+#
+# [mouse]
+# hide_when_typing = true
+#
+# [selection]
+# save_to_clipboard = true
+#
+# [window]
+# blur = true
+# # decorations = "Full"
+# # decorations_theme_variant = "Dark"
+# title = "Alacritty"
+# dynamic_title = true
+# opacity = 0.7
+# startup_mode = "Windowed"
+# padding = { x = 2, y = 2 }
+#
+# [scrolling]
+# history = 100000
+# multiplier = 3
