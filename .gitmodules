@@ -1,63 +1,63 @@
+[submodule ".config/ansible"]
+	path = .config/ansible
+	url = git@github.com:Alby11/ansible.git
 [submodule ".config/nvim"]
 	path = .config/nvim
 	url = git@github.com:Alby11/AstroNvim.git
+[submodule ".config/remmina"]
+	path = .config/remmina
+	url = git@github.com:Alby11/remmina_config.git
+[submodule ".config/yazi"]
+	path = .config/yazi
+	url = git@github.com:Alby11/dotfiles-yazi
 [submodule ".config/zsh/catppuccin_tty"]
 	path = .config/zsh/catppuccin_tty
 	url = https://github.com/catppuccin/tty.git
 [submodule ".config/zsh/catppuccin_zsh-syntax-highlighting"]
 	path = .config/zsh/catppuccin_zsh-syntax-highlighting
 	url = git@github.com:catppuccin/zsh-syntax-highlighting.git
-[submodule ".config/zsh/ohmyzsh"]
-	path = .config/zsh/ohmyzsh
-	url = https://github.com/ohmyzsh/ohmyzsh.git
-[submodule ".tmux/plugins/tpm"]
-	path = .tmux/plugins/tpm
-	url = https://github.com/tmux-plugins/tpm.git
-[submodule "gitdepot/interception-tools"]
-	path = gitdepot/interception-tools
-	url = https://gitlab.com/interception/linux/tools.git
-[submodule "gitdepot/interception-vimproved"]
-	path = gitdepot/interception-vimproved
-	url = https://github.com/maricn/interception-vimproved.git
-[submodule "gitdepot/marker"]
-	path = gitdepot/marker
-	url = https://github.com/pindexis/marker
-[submodule "gitdepot/profileFiles"]
-	path = gitdepot/profileFiles
-	url = git@github.com:Alby11/profileFiles.git
-[submodule "gitdepot/keep-presence"]
-	path = gitdepot/keep-presence
-	url = https://github.com/carrot69/keep-presence.git
-[submodule "gitdepot/try"]
-	path = gitdepot/try
-	url = https://github.com/binpash/try.git
-[submodule ".config/bat/syntaxes/sublime-purescript-syntax"]
-	path = .config/bat/syntaxes/sublime-purescript-syntax
-	url = git@github.com:tellnobody1/sublime-purescript-syntax.git
-[submodule "gitdepot/multi-monitors-add-on"]
-	path = gitdepot/multi-monitors-add-on
-	url = git@github.com:lazanet/multi-monitors-add-on.git
-[submodule "gitdepot/qqX"]
-	path = gitdepot/qqX
-	url = https://github.com/TuxVinyards/qqX.git
-[submodule "gitdepot/quickgui"]
-	path = gitdepot/quickgui
-	url = https://github.com/quickgui/quickgui.git
-[submodule ".config/ansible"]
-	path = .config/ansible
-	url = git@github.com:Alby11/ansible.git
-[submodule "gitdepot/flameshot"]
-	path = gitdepot/flameshot
-	url = git@github.com:flameshot-org/flameshot.git
-[submodule "gitdepot/remmina"]
-	path = gitdepot/remmina
-	url = git@github.com:FreeRDP/Remmina.git
-[submodule ".config/zsh/zsh-syntax-highlighting"]
-	path = .config/zsh/zsh-syntax-highlighting
-	url = git@github.com:catppuccin/zsh-syntax-highlighting.git
-[submodule "/home/tallonea/.config/remmina"]
-	path = /home/tallonea/.config/remmina
-	url = git@github.com:Alby11/remmina_config.git
-[submodule "/home/tallonea/.config/yazi"]
-	path = /home/tallonea/.config/yazi
-	url = git@github.com:Alby11/dotfiles-yazi
+; [submodule ".config/zsh/ohmyzsh"]
+; 	path = .config/zsh/ohmyzsh
+; 	url = https://github.com/ohmyzsh/ohmyzsh.git
+; [submodule ".tmux/plugins/tpm"]
+; 	path = .tmux/plugins/tpm
+; 	url = https://github.com/tmux-plugins/tpm.git
+; [submodule "gitdepot/interception-tools"]
+; 	path = gitdepot/interception-tools
+; 	url = https://gitlab.com/interception/linux/tools.git
+; [submodule "gitdepot/interception-vimproved"]
+; 	path = gitdepot/interception-vimproved
+; 	url = https://github.com/maricn/interception-vimproved.git
+; [submodule "gitdepot/marker"]
+; 	path = gitdepot/marker
+; 	url = https://github.com/pindexis/marker
+; [submodule "gitdepot/profileFiles"]
+; 	path = gitdepot/profileFiles
+; 	url = git@github.com:Alby11/profileFiles.git
+; [submodule "gitdepot/keep-presence"]
+; 	path = gitdepot/keep-presence
+; 	url = https://github.com/carrot69/keep-presence.git
+; [submodule "gitdepot/try"]
+; 	path = gitdepot/try
+; 	url = https://github.com/binpash/try.git
+; [submodule ".config/bat/syntaxes/sublime-purescript-syntax"]
+; 	path = .config/bat/syntaxes/sublime-purescript-syntax
+; 	url = git@github.com:tellnobody1/sublime-purescript-syntax.git
+; [submodule "gitdepot/multi-monitors-add-on"]
+; 	path = gitdepot/multi-monitors-add-on
+; 	url = git@github.com:lazanet/multi-monitors-add-on.git
+; [submodule "gitdepot/qqX"]
+; 	path = gitdepot/qqX
+; 	url = https://github.com/TuxVinyards/qqX.git
+; [submodule "gitdepot/quickgui"]
+; 	path = gitdepot/quickgui
+; 	url = https://github.com/quickgui/quickgui.git
+; [submodule "gitdepot/flameshot"]
+; 	path = gitdepot/flameshot
+; 	url = git@github.com:flameshot-org/flameshot.git
+; [submodule "gitdepot/remmina"]
+; 	path = gitdepot/remmina
+; 	url = git@github.com:FreeRDP/Remmina.git
+; [submodule ".config/zsh/zsh-syntax-highlighting"]
+; 	path = .config/zsh/zsh-syntax-highlighting
+; 	url = git@github.com:catppuccin/zsh-syntax-highlighting.git
