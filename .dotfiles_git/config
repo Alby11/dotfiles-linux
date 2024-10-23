@@ -14,45 +14,18 @@
 [branch "main"]
 	remote = origin
 	merge = refs/heads/main
-[submodule ".config/nvim"]
-	active = true
-	url = git@github.com:Alby11/AstroNvim.git
-[submodule ".config/zsh/catppuccin_tty"]
-	active = true
-	url = https://github.com/catppuccin/tty.git
-[submodule ".config/zsh/catppuccin_zsh-syntax-highlighting"]
-	active = true
-	url = git@github.com:catppuccin/zsh-syntax-highlighting.git
-[submodule ".config/zsh/ohmyzsh"]
-	active = true
-	url = https://github.com/ohmyzsh/ohmyzsh.git
-[submodule ".tmux/plugins/tpm"]
-	active = true
-	url = https://github.com/tmux-plugins/tpm.git
-[submodule "gitdepot/qqX"]
-	url = https://github.com/TuxVinyards/qqX.git
-	active = true
-[submodule "gitdepot/quickgui"]
-	url = https://github.com/quickgui/quickgui.git
-	active = true
-[submodule "gitdepot/flameshot"]
-	url = git@github.com:flameshot-org/flameshot.git
-	active = true
-[submodule "gitdepot/remmina"]
-	url = git@github.com:FreeRDP/Remmina.git
-	active = true
 [submodule ".config/ansible"]
 	active = true
 	url = git@github.com:Alby11/ansible.git
-[submodule ".config/bat/syntaxes/sublime-purescript-syntax"]
+[submodule ".config/nvim"]
 	active = true
-	url = git@github.com:tellnobody1/sublime-purescript-syntax.git
-[submodule ".config/zsh/zsh-syntax-highlighting"]
+	url = git@github.com:Alby11/AstroNvim.git
+[submodule ".config/remmina"]
+	active = true
+	url = git@github.com:Alby11/remmina_config.git
+[submodule ".config/yazi"]
+	active = true
+	url = git@github.com:Alby11/dotfiles-yazi
+[submodule ".config/zsh/catppuccin_zsh-syntax-highlighting"]
 	active = true
 	url = git@github.com:catppuccin/zsh-syntax-highlighting.git
-[submodule "/home/tallonea/.config/remmina"]
-	url = git@github.com:Alby11/remmina_config.git
-	active = true
-[submodule "/home/tallonea/.config/yazi"]
-	url = git@github.com:Alby11/dotfiles-yazi
-	active = true
