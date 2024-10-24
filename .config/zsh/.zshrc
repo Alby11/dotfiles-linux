@@ -83,6 +83,9 @@ eval "$(gh copilot alias -- zsh)"
 # Load custom configurations
 source "$ZDOTDIR/.zaliases"
 
+# zsh
+eval "$(navi widget zsh)"
+
 # Contour termina zsh shell integration
 source $XDG_CONFIG_HOME/contour/zcontour
 
