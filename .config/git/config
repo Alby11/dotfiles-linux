@@ -32,18 +32,20 @@
 
 [core]
 	autocrlf = input  # Convert CRLF line endings to LF when committing (useful for cross-platform projects).
-	; fsmonitor = false  # Disable filesystem monitoring for performance improvement.
+	fsmonitor = false  # Disable filesystem monitoring for performance improvement.
 	editor = nvim # Set Neovim as the default text editor for Git.
   pager = $XDG_CONFIG_HOME/git/nvim-git-wrapper.zsh
-  ; pager = delta
-  excludesfile = $HOME/.config/git/ignore
+  excludesfile = $XDG_CONFIG_HOME/ignore
 
 [merge]
     tool = nvim
+
 [mergetool "nvim"]
     cmd = $XDG_CONFIG_HOME/git/nvim-git-wrapper.sh mergetool "$LOCAL" "$REMOTE" "$BASE" "$MERGED"
+
 [diff]
     tool = nvim
+
 [difftool "nvim"]
     cmd = $XDG_CONFIG_HOME/git/nvim-git-wrapper.sh difftool "$LOCAL" "$REMOTE"
 
