@@ -101,5 +101,6 @@ Autostart tmux if:
 3) tmux doesn`t try to run within itself
 '
 if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
-  exec tmux
+  # exec tmux
+  exec $HOME/.local/bin/tmux_chooser.zsh || exec tmux
 fi
