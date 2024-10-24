@@ -33,27 +33,19 @@
 [core]
 	autocrlf = input  # Convert CRLF line endings to LF when committing (useful for cross-platform projects).
 	; fsmonitor = false  # Disable filesystem monitoring for performance improvement.
-	editor = "$HOME/.local/share/bob/nvim-bin/nvim"  # Set Neovim as the default text editor for Git.
-  pager = delta
+	editor = nvim # Set Neovim as the default text editor for Git.
+  pager = $XDG_CONFIG_HOME/git/nvim-git-wrapper.zsh
+  ; pager = delta
   excludesfile = $HOME/.config/git/ignore
 
-[interactive]
-  diffFilter = delta --color-only
-
-[delta]
-  features = catppuccin-mocha
-  side-by-side = false
-  true-color = always
-  hyperlinks = true
-  line-numbers = true
-
 [merge]
-  tool = nvim
-  ; tool = nvimdiff
-  conflictstyle = diff3
-
+    tool = nvim
+[mergetool "nvim"]
+    cmd = $XDG_CONFIG_HOME/git/nvim-git-wrapper.sh mergetool "$LOCAL" "$REMOTE" "$BASE" "$MERGED"
 [diff]
-  colorMoved = default
+    tool = nvim
+[difftool "nvim"]
+    cmd = $XDG_CONFIG_HOME/git/nvim-git-wrapper.sh difftool "$LOCAL" "$REMOTE"
 
 [pull]
   rebase = false
@@ -66,15 +58,3 @@
 
 [color]
 	ui = auto  # Enable color in Git output to improve readability.
-
-[diff]
-	tool = nvim  # Set nvim as the diff tool for viewing differences.
-	colorMoved = default  # Enable coloring moved lines in diffs.
-
-[difftool "nvim"]
-	cmd = "$HOME/.local/share/bob/nvim-bin/nvim -d \"$LOCAL\" \"$REMOTE\""  # Command to use Neovim for visual diffs between local and remote versions.
-	prompt = false  # Do not prompt before launching the difftool.
-
-; [difftool "less"]
-; 	cmd = less +F "$LOCAL" "$REMOTE"  # Use 'less' to view file differences; '+F' opens 'less' in follow mode, showing both local and remote files.
-; 	detectRenames = true  # Enable rename detection when using 'less' as the diff tool.
