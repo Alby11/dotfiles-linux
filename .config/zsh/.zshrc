@@ -86,6 +86,9 @@ source "$ZDOTDIR/.zaliases"
 # Contour termina zsh shell integration
 source $XDG_CONFIG_HOME/contour/zcontour
 
+# set GTK theme
+export GTK_THEME='Catppuccin-Mocha-Standard-Green-Dark:dark'
+
 [[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"
 
 : '
