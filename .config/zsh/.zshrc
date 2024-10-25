@@ -16,16 +16,25 @@ else
 fi
 
 # PROMPT
-# Enable Powerlevel10k instant prompt
-# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-#     source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-# fi
-# [[ -f ${ZDOTDIR}/.p10k.zsh ]] && source ${ZDOTDIR}/.p10k.zsh
-# Enable Starship prompt
-if [[ -f $XDG_CONFIG_HOME/starship/starship.toml ]] && command -v starship > /dev/null 2>&1; then
-    export STARSHIP_CONFIG=$XDG_CONFIG_HOME/starship/starship.toml
-    eval "$(starship init zsh)"
-fi
+prompt="starship"
+case $prompt in
+    p10k)
+        # Enable Powerlevel10k instant prompt
+        if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+            source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+        fi
+        [[ -f ${ZDOTDIR}/.p10k.zsh ]] && source ${ZDOTDIR}/.p10k.zsh
+        ;;
+    starship)
+        # Enable Starship prompt
+        if [[ -f $XDG_CONFIG_HOME/starship/starship.toml ]] && command -v starship > /dev/null 2>&1; then
+            export STARSHIP_CONFIG=$XDG_CONFIG_HOME/starship/starship.toml
+            eval "$(starship init zsh)"
+        fi
+        ;;
+    *)
+        ;;
+esac
 
 # Set options for better shell experience
 export COMPLETION_WAITING_DOTS="true"
@@ -39,14 +48,13 @@ mkdir -p "$(dirname $HISTFILE)"
 
 setopt EXTENDED_HISTORY
 setopt auto_cd                    # Change to directory without 'cd'
-setopt autocd                      # Automatically change to a directory when you type its name
+setopt autocd                     # Automatically change to a directory when you type its name
 setopt correct                    # Correct minor typos in directory names
 setopt extendedglob               # Enable extended pattern matching
 setopt histignorealldups          # Remove duplicate entries from history
 setopt inc_append_history
 setopt nonomatch                  # Avoid errors when no file matches a pattern
 setopt sharehistory               # Share command history across multiple sessions
-
 
 # Load All ZSH Modules
 for module in $(zmodload -L | awk '{print $2}'); do
@@ -63,7 +71,7 @@ if ! command -v node > /dev/null 2>&1; then
 fi
 
 # set EDITOR
-source "$ZDOTDIR/.zeditor"
+[[ -f $ZDOTDIR/.zeditor ]] && source "$ZDOTDIR/.zeditor"
 
 # set ZSH as VSCode default shell for the integrated terminal
 if [[ "$TERM_PROGRAM" = "vscode" ]]; then
@@ -74,13 +82,13 @@ if [[ "$TERM_PROGRAM" = "vscode" ]]; then
 fi
 
 # Atuin
-source "$HOME/.atuin/bin/env"
-eval "$(atuin init zsh)"
+[[ -f $HOME/.atuin/env ]] && source "$HOME/.atuin/bin/env"
+if command -v atuin > /dev/null 2>&1; then
+    eval "$(atuin init zsh)"
+fi
 
 # Python environment management (moved from .zshenv)
-if [[ -f "${ZDOTDIR}/.zpyenv" ]]; then
-    source "${ZDOTDIR}/.zpyenv"
-fi
+[[ -f "${ZDOTDIR}/.zpyenv" ]] && source "${ZDOTDIR}/.zpyenv"
 
 # Antidote setup for managing plugins
 source "$ZDOTDIR/.zantidote"

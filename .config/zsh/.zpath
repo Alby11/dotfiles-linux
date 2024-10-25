@@ -5,9 +5,6 @@
 
 [[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_STARTFILE "${(%):-%N}"
 
-# Set up pyenv
-source $ZDOTDIR/.zpyenv
-
 # Ensure $ZDOTDIR/{completion,functions} directory exists
 mkdir -p $ZDOTDIR/{completion,functions}
 

@@ -95,23 +95,6 @@ IS_LOGIN_SHELL() {
 	return 1
 }
 
-# This function checks if the given commands are available on the system.
-# It takes an array of command names as an argument.
-# Each command name should be a separate argument.
-# You can pass an array variable or directly pass an array as arguments.
-#
-# Usage:
-#   CHECK_COMMANDS "${array[@]}"  # Pass array variable
-#   CHECK_COMMANDS "cmd1" "cmd2" "cmd3"  # Directly pass an array
-#
-#   if CHECK_COMMANDS "fzf" "fd" "head" "bat"; then
-#     echo "All commands are available."
-#   else
-#     echo "Some commands are missing."
-#   fi
-# The function will return a success status if all commands are available,
-# or a failure status if any command is not found.
-
 CHECK_ONLINE() {
 	if $(wget -q --spider http://www.google.com); then
 		return 0
