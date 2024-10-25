@@ -1,5 +1,3 @@
-
-# Revised .zshrc
 # vim: ft=zsh
 # 
 # NOTE: Revised .zshrc
@@ -10,13 +8,24 @@
 # set catppuccin flavours variables
 source "$ZDOTDIR/.zcolors_catppuccin"
 
+# LS and Eza colors
+if command -v vivid > /dev/null 2>&1; then
+    export LS_COLORS="$(vivid generate catppuccin-mocha)"
+else
+    echo "vivid not found, using default LS_COLORS"
+fi
+
 # PROMPT
 # Enable Powerlevel10k instant prompt
 # if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
 #     source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 # fi
 # [[ -f ${ZDOTDIR}/.p10k.zsh ]] && source ${ZDOTDIR}/.p10k.zsh
-export STARSHIP_CONFIG=$XDG_CONFIG_HOME/starship/starship.toml; eval $(starship init zsh)
+# Enable Starship prompt
+if [[ -f $XDG_CONFIG_HOME/starship/starship.toml ]] && [ command -v starship > /dev/null 2>&1 ]; then
+    export STARSHIP_CONFIG=$XDG_CONFIG_HOME/starship/starship.toml
+    eval "$(starship init zsh)"
+fi
 
 # Set options for better shell experience
 export COMPLETION_WAITING_DOTS="true"
@@ -102,5 +111,5 @@ Autostart tmux if:
 '
 if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
   # exec tmux
-  exec $HOME/.local/bin/tmux_chooser.zsh || exec tmux
+ exec $HOME/.local/bin/tmux_chooser.zsh || exec tmux
 fi
