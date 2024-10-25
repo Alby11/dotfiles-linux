@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/sh
 # vim: set ft=sh
 
 # Function to check if internet is available

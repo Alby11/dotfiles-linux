@@ -1,5 +1,5 @@
-#!/bin/zsh
-# vim: set ft=zsh
+#!/bin/sh
+# vim: set ft=sh
 
 # Function to check if internet is available
 check_internet() {

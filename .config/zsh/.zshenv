@@ -5,7 +5,7 @@
 # 
 
 # Profile debug system
-export ZSH_DEBUG=1
+export ZSH_DEBUG=0
 if [ "$ZSH_DEBUG" -eq 1 ]; then
     echo "\n\n++++++++++++++++++++++++++++++++++++" >> ${ZDOTDIR}/.zsh_debug.log
     echo "$SHELL dotfiles setup starts here...\n" >> ${ZDOTDIR}/.zsh_debug.log
@@ -62,41 +62,39 @@ elif [[ -f /etc/os-release ]]; then
 fi
 
 # Include custom tools
-if [[ -f "${ZDOTDIR}/.ztools" ]]; then
-  source "${ZDOTDIR}/.ztools"
-fi
+[[ -f "${ZDOTDIR}/.ztools" ]] && source "${ZDOTDIR}/.ztools"
 
 # Include custom path management
-if [[ -f "${ZDOTDIR}/.zpath" ]]; then
-  source "${ZDOTDIR}/.zpath"
-fi
+[[ -f "${ZDOTDIR}/.zpath" ]] && source "${ZDOTDIR}/.zpath"
 
 # Fetch secrets
 # Check if the script exists and is executable
-if [[ -x ${ZDOTDIR}/.fetch_secrets.zsh ]]; then
+if [[ -x $ZDOTDIR/.fetch_secrets.sh ]]; then
   # Run the script and evaluate each line in the current shell
   while IFS= read -r line; do
       if echo "$line" | grep -q 'BW_SESSION='; then
           line=$(echo "$line" | sed 's/BW_SESSION=//')
       fi
       eval "$line"
-  done < <(${ZDOTDIR}/.fetch_secrets.zsh)
+  done < <($ZDOTDIR/.fetch_secrets.sh)
 fi
 
 # Export GOPATH
-[[ -d ${HOME}/go ]] && export GOPATH=${HOME}/go
+[[ -d "${HOME}/go" ]] && export GOPATH="${HOME}/go"
 
 # Export JAVA_HOME from default alternative
 if ! javac_path=$(readlink -f "$(which javac)"); then
     echo "Failed to locate javac"
 fi
-export JAVA_HOME=$(dirname "$(dirname "$javac_path")")
+export JAVA_HOME="$(dirname $(dirname $javac_path))"
 
 # Export environment variables for FZF and any other tools
-export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude ".git"'
+export FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude '.git'"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
-export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS  \
+export FZF_DEFAULT_OPTS="\
+    --height=100% \
+    --reverse \
+    --border=sharp \
     --color=bg+:#313244,gutter:-1,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
     --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
     --color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
