@@ -94,7 +94,7 @@ mouse_block_selection_modifier: Control
 # - None                        Does nothing
 # - CopyToClipboard             Copies the selection to the primary clipboard.
 # - CopyToSelectionClipboard    Copies the selection to the selection clipboard.
-#This is not supported on all platforms.
+# This is not supported on all platforms.
 #
 on_mouse_select: CopyToSelectionClipboard
 
@@ -320,7 +320,7 @@ profiles:
     # Font related configuration (font face, styles, size, rendering mode).
     font:
       # Initial font size in pixels.
-      size: 11
+      size: 10
 
       # Font Locator API
       # Selects an engine to use for locating font files on the system.
@@ -367,15 +367,15 @@ profiles:
       regular:
         # Font family defines the font family name, such as:
         # ""Fira Code", "Courier New", or "monospace" (default).
-        family: "Fira Code"
+        family: "JetBrainsMono Nerd Font"
 
         # Font weight can be one of:
         #   thin, extra_light, light, demilight, book, normal,
         #   medium, demibold, bold, extra_bold, black, extra_black.
-        weight: Retina
+        weight: Regular
 
         # Font slant can be one of: normal, italic, oblique.
-        slant: Normal
+        slant: normal
 
         # Set of optional font features to be enabled. This
         # is usually a 4-letter code, such as ss01 or ss02 etc.
@@ -387,16 +387,16 @@ profiles:
 
         # Customize fallback to use when rendering with the font
         # to disable any font fallback specify
-        #fallback: none
+        # fallback: none
         #
         # To specify a list of fallback fonts, use an array of strings.
-        #fallback: ["First", "Second"]
+        # fallback: ["First", "Second"]
 
       # If bold/italic/bold_italic are not explicitly specified, the regular font with
       # the respective weight and slant will be used.
-      #bold: "monospace"
-      #italic: "monospace"
-      #bold_italic: "monospace"
+      # bold: "monospace"
+      # italic: "monospace"
+      # bold_italic: "monospace"
 
       # This is a special font to be used for displaying unicode symbols
       # that are to be rendered in emoji presentation.

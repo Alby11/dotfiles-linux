@@ -194,7 +194,7 @@ history = 100000
 [font]
 
 # normal = { family = "<string>", style = "<string>" }
-normal = { family = "Fira Code", style = "Retina" }
+normal = { family = "JetBrainsMono Nerd Font", style = "Regular" }
 
 # Default:
 # Linux/BSD: { family = "monospace", style = "Regular" }
@@ -216,7 +216,7 @@ normal = { family = "Fira Code", style = "Retina" }
 # size = <float>
 # Font size in points.
 # Default: 11.25
-size = 11
+size = 10.25
 
 # offset = { x = <integer>, y = <integer> }
 # Offset is the extra space around each character. The 'y' can be thought of as modifying the line spacing, and 'x' as modifying the letter spacing.
