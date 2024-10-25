@@ -22,7 +22,7 @@ fi
 # fi
 # [[ -f ${ZDOTDIR}/.p10k.zsh ]] && source ${ZDOTDIR}/.p10k.zsh
 # Enable Starship prompt
-if [[ -f $XDG_CONFIG_HOME/starship/starship.toml ]] && [ command -v starship > /dev/null 2>&1 ]; then
+if [[ -f $XDG_CONFIG_HOME/starship/starship.toml ]] && command -v starship > /dev/null 2>&1; then
     export STARSHIP_CONFIG=$XDG_CONFIG_HOME/starship/starship.toml
     eval "$(starship init zsh)"
 fi
@@ -99,7 +99,7 @@ eval "$(navi widget zsh)"
 source $XDG_CONFIG_HOME/contour/zcontour
 
 # set GTK theme
-export GTK_THEME='Catppuccin-Mocha-Standard-Green-Dark:dark'
+export GTK_THEME='catppuccin-mocha-green-standard+default'
 
 [[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"
 
@@ -110,6 +110,5 @@ Autostart tmux if:
 3) tmux doesn`t try to run within itself
 '
 if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
-  # exec tmux
  exec $HOME/.local/bin/tmux_chooser.zsh || exec tmux
 fi
