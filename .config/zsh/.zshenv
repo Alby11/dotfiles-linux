@@ -73,14 +73,14 @@ fi
 
 # Fetch secrets
 # Check if the script exists and is executable
-if [[ -x ${ZDOTDIR}/.fetch_secrets.sh ]]; then
+if [[ -x ${ZDOTDIR}/.fetch_secrets.zsh ]]; then
   # Run the script and evaluate each line in the current shell
   while IFS= read -r line; do
       if echo "$line" | grep -q 'BW_SESSION='; then
           line=$(echo "$line" | sed 's/BW_SESSION=//')
       fi
       eval "$line"
-  done < <(${ZDOTDIR}/.fetch_secrets.sh)
+  done < <(${ZDOTDIR}/.fetch_secrets.zsh)
 fi
 
 # Export GOPATH
