@@ -165,7 +165,7 @@ zsh-users/zsh-completions
 
 # olets/zsh-abbr # kind:defer # zsh manager for auto-expanding abbreviations
 
-# MichaelAquilina/zsh-you-should-use kind:defer
+MichaelAquilina/zsh-you-should-use kind:defer
 
 ### Plugins that must be called last
 # prompt 
@@ -190,4 +190,4 @@ sobolevn/wakatime-zsh-plugin
 atuinsh/atuin
 
 # Load plugin configurations after all plugins are loaded
-# "${ZDOTDIR}/.zsh_plugin_configurations.zsh" # kind:defer
+"${ZDOTDIR}/.zsh_plugin_configurations.zsh" # kind:defer
