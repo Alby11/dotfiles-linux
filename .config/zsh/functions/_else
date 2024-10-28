@@ -1,0 +1,30 @@
+#!/bin/zsh
+# vim: ft=zsh
+
+# _else function
+# Usage: _else [-h] [-m <message>] [-c <command>]
+# Runs if the previous command (_try) succeeded.
+# -h: Displays help for the _else function.
+# -m <message>: Specifies a custom success message.
+# -c <command>: Optionally execute a command if the previous command was successful.
+_else() {
+    if [[ "$1" == "-h" ]]; then
+        echo "Usage: _else [-m <message>] [-c <command>]\nRuns if the _try command was successful."
+        return
+    fi
+    local custom_message="Command executed successfully."
+    local command_to_run=""
+    while getopts "m:c:" opt; do
+        case $opt in
+            m) custom_message="$OPTARG";;
+            c) command_to_run="$OPTARG";;
+            *) echo "Invalid option"; return 1;;
+        esac
+    done
+    if (( _TRY_EXIT_CODE == 0 )); then
+        echo "$custom_message"
+        if [[ -n "$command_to_run" ]]; then
+            eval "$command_to_run"
+        fi
+    fi
+}

@@ -1,0 +1,28 @@
+#!/bin/zsh
+# vim: ft=zsh
+
+# _finally function
+# Usage: _finally [-h] [-m <message>] [-c <command>]
+# Always runs at the end of the _try/_except block.
+# -h: Displays help for the _finally function.
+# -m <message>: Specifies a custom message to display.
+# -c <command>: Optionally execute a command.
+_finally() {
+    if [[ "$1" == "-h" ]]; then
+        echo "Usage: _finally [-m <message>] [-c <command>]\nAlways executes, regardless of whether an error occurred."
+        return
+    fi
+    local custom_message="Executing finally block."
+    local command_to_run=""
+    while getopts "m:c:" opt; do
+        case $opt in
+            m) custom_message="$OPTARG";;
+            c) command_to_run="$OPTARG";;
+            *) echo "Invalid option"; return 1;;
+        esac
+    done
+    echo "$custom_message"
+    if [[ -n "$command_to_run" ]]; then
+        eval "$command_to_run"
+    fi
+}

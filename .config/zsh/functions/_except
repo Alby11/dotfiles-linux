@@ -1,0 +1,30 @@
+#!/bin/zsh
+# vim: ft=zsh
+
+# _except function
+# Usage: _except [-h] [-m <message>] [-c <command>]
+# Runs if the previous command (_try) failed.
+# -h: Displays help for the _except function.
+# -m <message>: Specifies a custom message to display if an error occurred.
+# -c <command>: Optionally execute a command if an error occurred.
+_except() {
+    if [[ "$1" == "-h" ]]; then
+        echo "Usage: _except [-m <message>] [-c <command>]\nHandles errors if the _try function failed."
+        return
+    fi
+    local custom_message="An error occurred."
+    local command_to_run=""
+    while getopts "m:c:" opt; do
+        case $opt inf
+            m) custom_message="$OPTARG";;
+            c) command_to_run="$OPTARG";;
+            *) echo "Invalid option"; return 1;;
+        esac
+    done
+    if (( _TRY_EXIT_CODE != 0 )); then
+        echo "$custom_message (Exit code: $_TRY_EXIT_CODE)"
+        if [[ -n "$command_to_run" ]]; then
+            eval "$command_to_run"
+        fi
+    fi
+}
