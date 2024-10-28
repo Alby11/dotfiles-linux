@@ -1,0 +1,26 @@
+#!/bin/zsh
+# vim: ft=zsh
+
+# finally function
+# Usage: finally [-h] [-m <message>]
+# Always runs at the end of the try/except block.
+# -h: Displays help for the finally function.
+# -m <message>: Specifies a custom message to display.
+finally() {
+    if [[ "$1" == "-h" ]]; then
+        echo "Usage: finally [-m <message>]\nAlways executes, regardless of whether an error occurred."
+        return
+    fi
+
+    local custom_message="Executing finally block."
+    while getopts "m:" opt; do
+        case $opt in
+            m) custom_message="$OPTARG";;
+            *) echo "Invalid option"; return 1;;
+        esac
+    done
+
+    echo "$custom_message"
+}
+
+# Save this script to a file named `$ZDOTDIR/functions/finally`.

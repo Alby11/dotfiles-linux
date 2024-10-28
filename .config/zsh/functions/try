@@ -1,0 +1,32 @@
+#!/bin/zsh
+# vim: ft=zsh
+
+# try function
+# Usage: try <command>
+# Runs a command and captures its exit code for further use in "except" and "else".
+# -h: Displays help for the try function.
+# -m <message>: Allows specifying a custom message when running the command.
+try() {
+    if [[ "$1" == "-h" ]]; then
+        echo "Usage: try <command>\nRuns a command and captures the exit code for later use in except and else functions."
+        return
+    fi
+
+    local custom_message=""
+    while getopts "m:" opt; do
+        case $opt in
+            m) custom_message="$OPTARG";;
+            *) echo "Invalid option"; return 1;;
+        esac
+    done
+    shift $((OPTIND - 1))
+
+    if [[ -n "$custom_message" ]]; then
+        echo "$custom_message"
+    fi
+
+    _TRY_EXIT_CODE=0
+    "$@" || _TRY_EXIT_CODE=$?
+}
+
+# Create a file called "$ZDOTDIR/functions/try" with the content of this script.
