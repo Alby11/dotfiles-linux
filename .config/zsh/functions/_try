@@ -1,6 +1,9 @@
 #!/bin/zsh
 # vim: ft=zsh
 
+# Global variable to store the exit code
+typeset -g _TRY_EXIT_CODE=0
+
 # _try function
 # Usage: _try [-h] [-m <message>] -c <command>
 # Runs a command and captures its exit code for use in _except and _else functions.
