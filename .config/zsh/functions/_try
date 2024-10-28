@@ -1,4 +1,3 @@
-#!/bin/zsh
 # vim: ft=zsh
 
 # Global variable to store the exit code
