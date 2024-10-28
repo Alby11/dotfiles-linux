@@ -1,0 +1,5 @@
+#!/bin/bash
+
+BW_SESSION_FILE=$HOME/.bw-session
+KEY_ID=$(cat $BW_SESSION_FILE)
+keyctl print $KEY_ID

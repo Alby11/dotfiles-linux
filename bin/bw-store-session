@@ -1,0 +1,8 @@
+#!/bin/bash
+
+BW_SESSION_FILE=$HOME/.bw-session
+touch $BW_SESSION_FILE
+chmod 600 $BW_SESSION_FILE
+KEY_ID=$(cat /dev/stdin | keyctl padd user bw-session @u)
+keyctl timeout $KEY_ID 36000
+echo $KEY_ID > $BW_SESSION_FILE
