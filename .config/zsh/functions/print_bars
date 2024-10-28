@@ -1,0 +1,6 @@
+# vim: ft=zsh
+
+print_bars() {
+  printf -v chars '\\U258%X ' {15..8}
+  printf '%b\n' "$chars"
+}
