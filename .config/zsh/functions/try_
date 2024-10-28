@@ -6,7 +6,7 @@
 # Runs a command and captures its exit code for further use in "except" and "else".
 # -h: Displays help for the try function.
 # -m <message>: Allows specifying a custom message when running the command.
-try() {
+try_() {
     if [[ "$1" == "-h" ]]; then
         echo "Usage: try <command>\nRuns a command and captures the exit code for later use in except and else functions."
         return

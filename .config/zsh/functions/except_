@@ -6,7 +6,7 @@
 # Runs if the previous command (try) failed.
 # -h: Displays help for the except function.
 # -m <message>: Specifies a custom message to display if an error occurred.
-except() {
+except_() {
     if [[ "$1" == "-h" ]]; then
         echo "Usage: except [-m <message>]\nHandles errors if the try function failed."
         return
