@@ -1,0 +1,9 @@
+# vim: ft=zsh
+
+spinner() {
+    local shs=( - \\ \| / ) pnt=0
+    printf '\e7'
+    while ! read -rsn1 -t .2 _; do
+        printf '%b\e8' "${shs[pnt++%${#shs[@]}]}"
+    done
+}
