@@ -2,8 +2,8 @@
 
 spinner() {
     local shs=( - \\ \| / ) pnt=0
-    printf '\e7'
-    while ! read -rsn1 -t .2 _; do
-        printf '%b\e8' "${shs[pnt++%${#shs[@]}]}"
+    printf '\e7' # Save cursor position
+    while ! read -rst 0.2; do
+        printf '%s\e8' "${shs[pnt++ % ${#shs[@]}]}" # Update spinner and restore cursor position
     done
 }
