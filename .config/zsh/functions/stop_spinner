@@ -1,0 +1,7 @@
+# vim: ft=zsh
+
+stop_spinner () { 
+    echo >&"$doSpinner" && exec {doSpinner}>&-;
+    tput cnorm;
+    echo
+}

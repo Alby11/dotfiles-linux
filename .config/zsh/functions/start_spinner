@@ -1,0 +1,6 @@
+vim: ft=zsh
+
+start_spinner () { 
+    tput civis;
+    exec {doSpinner}> >(spinner "$@")
+}
