@@ -1,0 +1,9 @@
+# vim: ft=zsh
+
+spinner_braille(){
+    local pnt=0 shs=( 01 08 10 20 80 40 04 02 )
+    printf '\e7'
+    while ! read -sn 1 -t .2 _; do
+        printf %b\\e8  \\U28${shs[pnt++%${#shs[@]}]}
+    done
+}
