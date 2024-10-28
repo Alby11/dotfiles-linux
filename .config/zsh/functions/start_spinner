@@ -1,4 +1,4 @@
-vim: ft=zsh
+# vim: ft=zsh
 
 start_spinner () { 
     tput civis;
