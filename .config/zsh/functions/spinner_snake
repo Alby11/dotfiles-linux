@@ -1,0 +1,13 @@
+# vim: ft=zsh;
+
+spinner(){
+    local pnt=0 shs=( 01 08 10 20 80 40 04 02 09 18 30 a0 c0 44 06 03 19 38
+       b0 e0 c4 46 07 0b 39 b8 f0 e4 c6 47 0f 1b b9 f8 f4 e6 c7 4f 1f 3b f9
+       fc f6 e7 cf 5f 3f bb fd fe f7 ef df 7f bf fb f9 fc f6 e7 cf 5f 3f bb
+       b9 f8 f4 e6 c7 4f 1f 3b 39 b8 f0 e4 c6 47 0f 1b 19 38 b0 e0 c4 46 07
+       0b 09 18 30 a0 c0 44 06 03 )
+    printf '\e7'
+    while ! read -sn 1 -t .2 _; do
+        printf %b\\e8  \\U28${shs[pnt++%${#shs[@]}]}
+    done
+}
