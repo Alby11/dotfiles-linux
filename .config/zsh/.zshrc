@@ -82,7 +82,7 @@ if [[ "$TERM_PROGRAM" = "vscode" ]]; then
 fi
 
 # Atuin
-[[ -f $HOME/.atuin/env ]] && source "$HOME/.atuin/bin/env"
+[[ -f $HOME/.atuin/bin/env ]] && source "$HOME/.atuin/bin/env"
 if command -v atuin > /dev/null 2>&1; then
     eval "$(atuin init zsh)"
 fi
@@ -118,5 +118,6 @@ Autostart tmux if:
 3) tmux doesn`t try to run within itself
 '
 if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
- exec $HOME/.local/bin/tmux_chooser.zsh || exec tmux
+ # exec $HOME/.local/bin/tmux_chooser.zsh
+ $HOME/.local/bin/tmux_chooser.zsh
 fi
