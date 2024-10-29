@@ -29,3 +29,9 @@
 [submodule ".config/zsh/catppuccin_zsh-syntax-highlighting"]
 	active = true
 	url = git@github.com:catppuccin/zsh-syntax-highlighting.git
+[submodule ".local/share/gnome-shell/extensions/move-to-next-screen@wosar.me"]
+	url = git@github.com:Alby11/move-to-next-screen
+	active = true
+[submodule ".config/tmux"]
+	url = git@github.com:Alby11/dotfiles-tmux
+	active = true
