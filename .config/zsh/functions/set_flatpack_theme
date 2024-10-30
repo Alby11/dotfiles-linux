@@ -1,0 +1,8 @@
+# vim: ft=zsh
+
+set_flatpack_theme() {
+  sudo flatpak override --filesystem=$HOME/.themes
+  sudo flatpak override --filesystem=$HOME/.icons
+  sudo flatpak override --env=GTK_THEME=$GTK_THEME
+  sudo flatpak override --env=ICON_THEME=#ICON_THEME
+}

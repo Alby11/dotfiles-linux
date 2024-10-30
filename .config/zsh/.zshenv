@@ -101,6 +101,10 @@ export FZF_DEFAULT_OPTS="\
     --color=selected-bg:#45475a \
     --multi" # catppuccin colors
 
+# set theme variables, for flatpak, etc.
+export GTK_THEME=catppuccin-mocha-green-standard+default
+export ICON_THEME=Catppuccin-Mocha-Green-Cursors
+
 # For security, prevent core dumps
 ulimit -c 0
 
