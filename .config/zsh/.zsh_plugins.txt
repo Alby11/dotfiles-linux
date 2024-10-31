@@ -143,18 +143,14 @@ ohmyzsh/ohmyzsh path:lib/history.zsh
 ohmyzsh/ohmyzsh path:lib/key-bindings.zsh
 
 # Additional completions
-# srijanshetty/zsh-pip-completion path:src kind:fpath
-# 3v1n0/zsh-bash-completions-fallback path:src kind:fpath
-# MenkeTechnologies/zsh-cargo-completion path:src kind:fpath
-# greymd/docker-zsh-completion path:src kind:fpath
-# lukechilds/zsh-better-npm-completion path:src kind:fpath
+3v1n0/zsh-bash-completions-fallback path:src kind:fpath
 
 # Utility plugins
 eth-p/bat-extras path:src kind:path
 eth-p/bat-extras path:src kind:fpath
 wofr06/lesspipe kind:path
 wofr06/lesspipe kind:fpath
-# z-shell/zsh-eza
+# z-shell/zsh-eza # here for memory, manually implemented
 
 # Colors
 xPMo/zsh-ls-colors
@@ -162,6 +158,8 @@ xPMo/zsh-ls-colors
 # History and completions
 zsh-users/zsh-history-substring-search
 zsh-users/zsh-completions
+# Atuin history manager
+atuinsh/atuin
 
 # olets/zsh-abbr # kind:defer # zsh manager for auto-expanding abbreviations
 
@@ -169,7 +167,8 @@ MichaelAquilina/zsh-you-should-use kind:defer
 
 ### Plugins that must be called last
 # prompt 
-# zsh-users/zsh-syntax-highlighting
+zsh-users/zsh-syntax-highlighting
+catppuccin/zsh-syntax-highlighting path:themes/catppuccin_mocha-zsh-syntax-highlighting.zsh
 zdharma-continuum/fast-syntax-highlighting
 # marlonrichert/zsh-autocomplete # Find as you type, then press Tab to insert the top completion or ↓to select another completion.
 zsh-users/zsh-autosuggestions
@@ -181,13 +180,10 @@ Aloxaf/fzf-tab
 tom-doerr/zsh_codex
 
 ### THEME
-# romkatv/powerlevel10k
+# romkatv/powerlevel10k # using starship ATM
 
 # WakaTime for Terminal
 sobolevn/wakatime-zsh-plugin
-
-# Atuin history manager
-atuinsh/atuin
 
 # Load plugin configurations after all plugins are loaded
 "${ZDOTDIR}/.zsh_plugin_configurations.zsh" # kind:defer

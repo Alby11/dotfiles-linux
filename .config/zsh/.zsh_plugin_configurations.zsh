@@ -66,26 +66,32 @@ fi
 # per-directory-history
 if [ -d "$(antidote path ohmyzsh/ohmyzsh)/plugins/per-directory-history" ]; then
     export HISTORY_START_WITH_GLOBAL=false
-    export PER_DIRECTORY_HISTORY_TOGGLE='^G'
+    export PER_DIRECTORY_HISTORY_TOGGLE='' # disable, default ^G
     export PER_DIRECTORY_HISTORY_PRINT_MODE_CHANGE=true
     export HISTORY_BASE="$HOME/.local/share/zsh_history/.directory_history"
     mkdir -p "$(dirname $HISTORY_BASE)"
 fi
 
-### zsh-syntax-highlighting ###
+### zsh-users/zsh-syntax-highlighting ###
 if antidote path "zsh-users/zsh-syntax-highlighting" > /dev/null 2>&1; then
     # Define or ignore unhandled ZLE widgets before loading zsh-syntax-highlighting
     zle -N menu-search || true
     zle -N recent-paths || true
-    $ZDOTDIR/catppuccin_zsh-syntax-highlighting/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh
+    # $(antidote path "catppuccin/zsh-syntax-highlighting")/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh
+    # $ZDOTDIR/catppuccin_zsh-syntax-highlighting/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh
 fi
 
-### fast-syntax-highlighting ###
+### zdharma-continuum/fast-syntax-highlighting ###
 if antidote path "zdharma-continuum/fast-syntax-highlighting" > /dev/null 2>&1; then
 
     local fast_theme="$(antidote path zdharma-continuum/fast-syntax-highlighting)"
     fast_theme="$fast_theme/fast-syntax-highlighting.plugin.zsh"
     
+    # apply Catppuccin theme
+    for file in $( \ls ${XDG_CONFIG_HOME}/fsh/themes); do
+        ln -s -f ${XDG_CONFIG_HOME}/fsh/themes/${file} ${XDG_CONFIG_HOME}/fsh/${file}
+    done
+
     [[ ! -d ${XDG_CONFIG_HOME}/fsh ]] && \
         git clone git@github.com:catppuccin/zsh-fsh ${XDG_CONFIG_HOME}/fsh && \
         ln -sv ${XDG_CONFIG_HOME}/fsh/{themes/*,}
