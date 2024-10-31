@@ -45,7 +45,7 @@ filter_mode = "directory"
 
 ## which style to use
 ## possible values: auto, full, compact
-style = "compact"
+style = "full"
 
 ## the maximum number of lines the interface should take up
 ## set it to 0 to always go full screen
@@ -53,7 +53,7 @@ inline_height = 40
 
 ## enable or disable showing a preview of the selected command
 ## useful when the command is longer than the terminal width and is cut off
-# show_preview = false
+show_preview = true
 
 ## what to do when the escape key is pressed when searching
 ## possible values: return-original, return-query
@@ -103,4 +103,4 @@ enabled = true
 
 ## faster sync
 [sync]
-records = true
+records = false
