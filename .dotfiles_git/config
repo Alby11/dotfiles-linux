@@ -35,3 +35,6 @@
 [submodule ".config/tmux"]
 	url = git@github.com:Alby11/dotfiles-tmux
 	active = true
+[submodule ".config/fsh"]
+	url = git@github.com:catppuccin/zsh-fsh.git
+	active = true
