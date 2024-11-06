@@ -1,0 +1,14 @@
+[org/gnome/Ptyxis/Devel]
+profile-uuids=['eb4056c283df09b985d1fb02672b6bfb']
+default-profile-uuid='eb4056c283df09b985d1fb02672b6bfb'
+audible-bell=false
+use-system-font=false
+font-name='JetBrainsMono Nerd Font 10'
+cursor-shape='underline'
+cursor-blink-mode='on'
+
+[org/gnome/Ptyxis/Devel/Profiles/eb4056c283df09b985d1fb02672b6bfb]
+palette='Catppuccin Mocha'
+login-shell=true
+limit-scrollback=false
+label='Default'
