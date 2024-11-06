@@ -1,0 +1,19 @@
+[org/gnome/Ptyxis]
+profile-uuids=['eb2d0d3f75165839b276236d67224fcb']
+default-profile-uuid='eb2d0d3f75165839b276236d67224fcb'
+interface-style='dark'
+use-system-font=false
+font-name='JetBrainsMonoNL Nerd Font Mono 10'
+cursor-shape='underline'
+window-size=(237, 54)
+enable-a11y=true
+audible-bell=false
+cursor-blink-mode='on'
+restore-window-size=true
+
+[org/gnome/Ptyxis/Profiles/eb2d0d3f75165839b276236d67224fcb]
+palette='Catppuccin Mocha'
+login-shell=true
+bold-is-bright=false
+limit-scrollback=false
+label='Alby'
