@@ -17,3 +17,7 @@ login-shell=true
 bold-is-bright=false
 limit-scrollback=false
 label='Alby'
+opacity=0.75
+
+[org/gnome/Ptyxis.Devel/Profiles/eb2d0d3f75165839b276236d67224fcb]
+opacity=0.75
