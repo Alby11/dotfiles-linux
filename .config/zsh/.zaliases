@@ -922,4 +922,9 @@ fi
 # Intune Portal cleanup
 alias Microsoft-Intune-Cleanup="rm -rfv .local/share/{intune-portal} .local/state/{intune,microsoft-identity-broker} .config/intune .cache/intune-portal .cache/microsoft-edge .cache/Microsoft"
 
+# Ptyxis terminal
+alias ptyxis='flatpak run app.devsuite.Ptyxis -s'
+# Run command in Ptyxis
+alias ptyxisr='flatpak run app.devsuite.Ptyxis --title 'Ulauncher' -s -x'
+
 [[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"
