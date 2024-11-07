@@ -5,7 +5,7 @@
     "grab-mouse-pointer": true,
     "hotkey-show-app": "<Super>w",
     "render-on-screen": "default-monitor",
-    "show-indicator-icon": false,
+    "show-indicator-icon": true,
     "show-recent-apps": "0",
     "terminal-command": "~/.cargo/bin/alacritty",
     "theme-name": "Catpuccin-Mocha-Green"

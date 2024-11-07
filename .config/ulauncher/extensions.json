@@ -118,13 +118,6 @@
         "last_commit": "d8f495df3c7f41ee8493b207d17f06fc0372c84e",
         "last_commit_time": "2020-09-23T01:29:15"
     },
-    "com.github.lighttigerxiv.ulauncher-terminal-runner-extension": {
-        "id": "com.github.lighttigerxiv.ulauncher-terminal-runner-extension",
-        "url": "https://github.com/lighttigerXIV/ulauncher-terminal-runner-extension/",
-        "updated_at": "2024-03-05T08:59:35.399033",
-        "last_commit": "d6bc2157e5c0ef2f812e3051ddde334c7b485c2e",
-        "last_commit_time": "2023-05-02T22:50:12"
-    },
     "com.github.brpaz.ulauncher-devdocs": {
         "id": "com.github.brpaz.ulauncher-devdocs",
         "url": "https://github.com/brpaz/ulauncher-devdocs",
@@ -201,5 +194,54 @@
         "updated_at": "2024-10-24T16:02:49.218295",
         "last_commit": "00ffe8266dbb6c2aea7d86a6363e51cec4b1981f",
         "last_commit_time": "2022-11-26T16:15:05"
+    },
+    "com.github.saini-anshul.ulauncher-surfshark": {
+        "id": "com.github.saini-anshul.ulauncher-surfshark",
+        "url": "https://github.com/saini-anshul/ulauncher-surfshark",
+        "updated_at": "2024-11-07T10:31:41.582102",
+        "last_commit": "73d476d4c2e35982de03581ec44f65d506059ccc",
+        "last_commit_time": "2022-01-06T19:20:59"
+    },
+    "com.github.behrensger.thesaurus_cc_ulauncher": {
+        "id": "com.github.behrensger.thesaurus_cc_ulauncher",
+        "url": "https://github.com/behrensger/thesaurus_cc_ulauncher",
+        "updated_at": "2024-11-07T10:35:54.361786",
+        "last_commit": "375575ce2790fbe40cdfae8fa7b471d06ead683a",
+        "last_commit_time": "2020-12-22T20:33:18"
+    },
+    "com.github.tkapias.ulauncher-thesaurus": {
+        "id": "com.github.tkapias.ulauncher-thesaurus",
+        "url": "https://github.com/tkapias/ulauncher-thesaurus",
+        "updated_at": "2024-11-07T10:36:22.318644",
+        "last_commit": "ea41b237fca9ab7c756d8c0da785d34aaba60250",
+        "last_commit_time": "2021-09-16T19:38:21"
+    },
+    "com.github.jonathanvisser.ulauncher-thesaurus": {
+        "id": "com.github.jonathanvisser.ulauncher-thesaurus",
+        "url": "https://github.com/jonathanvisser/ulauncher-thesaurus",
+        "updated_at": "2024-11-07T10:38:55.616585",
+        "last_commit": "fb5c9b7bc11a9529dab7aa410186d3a2911e6df3",
+        "last_commit_time": "2022-03-29T08:54:04"
+    },
+    "com.github.mikebarkmin.ulauncher-duckduckgo": {
+        "id": "com.github.mikebarkmin.ulauncher-duckduckgo",
+        "url": "https://github.com/mikebarkmin/ulauncher-duckduckgo",
+        "updated_at": "2024-11-07T11:06:00.647727",
+        "last_commit": "f2ea6a187082c600a59acc9cca6e288d96f66cc0",
+        "last_commit_time": "2021-08-07T18:51:44"
+    },
+    "com.github.cardoprimo.ulauncher-recent-files": {
+        "id": "com.github.cardoprimo.ulauncher-recent-files",
+        "url": "https://github.com/cardoprimo/ulauncher-recent-files",
+        "updated_at": "2024-11-07T14:46:38.561171",
+        "last_commit": "57282558ea1539856411c7b99669138a3ea50845",
+        "last_commit_time": "2024-10-17T14:43:32"
+    },
+    "com.github.lighttigerxiv.ulauncher-terminal-runner-extension": {
+        "id": "com.github.lighttigerxiv.ulauncher-terminal-runner-extension",
+        "url": "https://github.com/lighttigerXIV/ulauncher-terminal-runner-extension/",
+        "updated_at": "2024-11-07T14:54:37.614124",
+        "last_commit": "d6bc2157e5c0ef2f812e3051ddde334c7b485c2e",
+        "last_commit_time": "2023-05-02T22:50:12"
     }
 }
