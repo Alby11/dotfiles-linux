@@ -5,11 +5,12 @@ interface-style='dark'
 use-system-font=false
 font-name='JetBrainsMono Nerd Font Light 10'
 cursor-shape='underline'
-window-size=(132, 54)
+window-size=(237, 54)
 enable-a11y=true
 audible-bell=false
 cursor-blink-mode='on'
 restore-window-size=true
+opacity=0.75
 
 [org/gnome/Ptyxis/Profiles/eb2d0d3f75165839b276236d67224fcb]
 palette='Catppuccin Mocha'
