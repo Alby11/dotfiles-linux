@@ -49,8 +49,9 @@ alias freeh='sudo free -mh'
 alias h="history -10"   # last 10 history commands
 alias hh="history -20"  # last 10 history commands
 alias hhh="history -30" # last 10 history commands
-alias rmf="rm -rf"
-alias rmfv="rm -rfv"
+alias rmfv="rm -fv"
+alias rmrf="rm -rf"
+alias rmrfv="rm -rfv"
 alias ssht="ssh -t"
 # -X enable X11 forwarding
 alias sshX="ssh -X"
