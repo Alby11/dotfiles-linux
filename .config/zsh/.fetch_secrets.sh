@@ -11,7 +11,7 @@ check_internet() {
 log_file="${HOME}/tmp/fetch_secrets.log"
 
 # Loop with retry limit until internet connection is available
-max_retries=30
+max_retries=20
 retries=0
 
 until check_internet; do
