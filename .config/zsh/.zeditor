@@ -130,7 +130,7 @@ fi
 
 # Run the installation of Bob and Neovim nightly
 install_bob
-install_latest_neovim
+# install_latest_neovim
 
 # Add Bob's Neovim installation to PATH
 # export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"

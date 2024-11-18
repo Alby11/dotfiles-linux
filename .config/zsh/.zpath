@@ -43,6 +43,9 @@ _comp_options+=(globdots) # Include hidden files in completion
 # Autoload all functions in $ZDOTDIR/functions
 autoload -Uz $ZDOTDIR/functions/*(.N)
 
+# source file with custom functions
+[[ -f $ZDOTDIR/.zfunctions ]] && source $ZDOTDIR/.zfunctions > /dev/null 2>&1
+
 # Function to manage dotfiles bare repo
 dotfiles() {
   $(command -v git) --git-dir=${HOME}/.dotfiles_git/ --work-tree="$HOME" "$@"
