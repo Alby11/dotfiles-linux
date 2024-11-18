@@ -83,6 +83,7 @@ alias mountj='sudo mount | \
   column --table --table-columns=mountpoint,on,mount,type,typename,options --json'
 alias netstat="sudo netstat"
 
+### Systemd block
 if command -v systemctl &>/dev/null; then
 	# Basic systemctl commands
 	alias ctl="sudo systemctl"
@@ -104,9 +105,10 @@ if command -v systemctl &>/dev/null; then
 	alias ctlfailed='sudo systemctl --failed --all '
 	alias ctlrf='sudo systemctl reset-failed '
 	# List units
-	alias ctllu='sudo systemctl list-units '
+	alias ctllu='sudo systemctl list-units'
+	alias ctllufailed='sudo systemctl list-units --failed'
 	alias ctllus='sudo systemctl list-units --type=service'
-	# --USER
+	## --user block
 	# Basic systemctl commands
 	alias ctlu="systemctl --user"
 	# Daemons reload
@@ -128,6 +130,7 @@ if command -v systemctl &>/dev/null; then
 	alias ctlurf='systemctl --user reset-failed '
 	# List units
 	alias ctlulu='systemctl --user list-units '
+	alias ctlulufailed='sudo systemctl --user list-units --failed'
 	alias ctlulus='systemctl --user list-units --type=service'
 fi
 
@@ -156,6 +159,7 @@ fi
 if command -v journalctl &>/dev/null; then
 	alias j="journalctl"
 	alias jf="journalctl --follow"
+	alias jk="journalctl -k"
 	alias ju="journalctl --catalog --pager-end --unit"
 	alias juf="journalctl --follow --catalog --unit"
 	alias jfk="journalctl --follow --dmesg"
