@@ -38,3 +38,6 @@
 [submodule ".config/fsh"]
 	url = git@github.com:catppuccin/zsh-fsh.git
 	active = true
+[submodule ".config/zsh/functions/.config/zsh/functions"]
+	url = git@github.com:Alby11/zsh-functions.git
+	active = true
