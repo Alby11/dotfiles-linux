@@ -1,5 +1,0 @@
-# vim: filetype:zsh
-
-read_lnk() {
-    python $ZDOTDIR/scripts/read_lnk.py "$1"
-}

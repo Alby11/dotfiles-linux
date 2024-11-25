@@ -1,6 +1,0 @@
-# vim: filetype=zsh
-
-sping() {
-  local ping_cmd="ping -c 3 -s 2 $1"
-  $ping_cmd
-}

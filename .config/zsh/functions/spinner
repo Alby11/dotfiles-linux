@@ -1,9 +1,0 @@
-# vim: ft=zsh
-
-spinner() {
-    local shs=( - \\ \| / ) pnt=0
-    printf '\e7' # Save cursor position
-    while ! read -rst 0.2; do
-        printf '%s\e8' "${shs[pnt++ % ${#shs[@]}]}" # Update spinner and restore cursor position
-    done
-}
