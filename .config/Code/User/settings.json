@@ -15,7 +15,7 @@
         "./schemas/ArchyFlow.schema.json": "*Flow.yaml",
         "./schemas/ArchyCommon.schema.json": "common*.yaml",
         "./schemas/ArchyBotNlu.schema.json": "*BotNlu.yaml",
-        "file:///home/tallonea/.vscode/extensions/atlassian.atlascode-3.0.10/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
+        "file:///home/tallonea/.vscode/extensions/atlassian.atlascode-3.0.14/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
     },
     "redhat.telemetry.enabled": true,
     "vscode-neovim.neovimExecutablePaths.win32": "",
@@ -99,7 +99,7 @@
     ],
     "go.toolsManagement.autoUpdate": true,
     "vim.visualstar": true,
-    "catppuccin.accentColor": "pink",
+    "catppuccin.accentColor": "green",
     "mssql.resultsFontFamily": "",
     "vim.easymotionMarkerFontWeight": "200",
     "trunk.trunkGrayOutNonBlockingIssues": false,
@@ -298,5 +298,6 @@
         },
     ],
     "mssql.enableExperimentalFeatures": true,
-    "aws.telemetry": false
+    "aws.telemetry": false,
+    "chat.editing.alwaysSaveWithGeneratedChanges": true
 }
