@@ -365,6 +365,7 @@ if command -v python &>/dev/null; then
 	alias -g urlencode="python3 -c 'import sys, urllib.parse as ul; print (ul.quote_plus(sys.argv[1]))'"
 fi
 ### End of Python block
+
 # PIP block
 if command -v pip &>/dev/null; then
 	alias pipi="pip install"
@@ -373,7 +374,7 @@ if command -v pip &>/dev/null; then
 	alias pipuu="pip uninstall --user"
 	alias pipl="pip list"
 	alias piplu="pip list --user"
-fi
+	filo
 if command -v pip-install &>/dev/null; then
 	alias pins="pip-install search"
 	alias pini="pip-install install"
@@ -383,6 +384,35 @@ if command -v pip-install &>/dev/null; then
 	alias pinw="pip-install show"
 fi
 # end of PIP block
+
+# PIPX block
+if command -v pipx &>/dev/null; then
+    alias pipxi="pipx install"
+    alias pipxu="pipx uninstall"
+    alias pipxr="pipx reinstall"
+    alias pipxl="pipx list"
+    alias pipxup="pipx upgrade"
+    alias pipxupall="pipx upgrade-all"
+    alias pipxrun="pipx run"
+    alias pipxenv="pipx environment"
+fi
+# end of PIPX block
+
+# Poetry block
+if command -v poetry &>/dev/null; then
+    alias poetryi="poetry install"
+    alias poetryu="poetry update"
+    alias poetrya="poetry add"
+    alias poetryr="poetry remove"
+    alias poetryb="poetry build"
+    alias poetryp="poetry publish"
+    alias poetryl="poetry lock"
+    alias poetrys="poetry shell"
+    alias poetryrun="poetry run"
+    alias poetrycheck="poetry check"
+fi
+# end of Poetry block
+
 ### git
 alias gbfzf="fzf-git-branch"
 alias gcofzf="fzf-git-checkout"
