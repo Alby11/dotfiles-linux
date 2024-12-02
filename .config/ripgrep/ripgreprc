@@ -1,4 +1,5 @@
-# vim: filetype=ripgreprc
+# vim: ft=ripgreprc
+
 # Show 1 line of context around each match (the line with the match, plus one line before and after).
 # --context=1
 
@@ -9,7 +10,7 @@
 --follow
 
 # Include hidden files and directories in the search.
-# --hidden
+--hidden
 
 # Perform case-insensitive searching. If a pattern includes an uppercase letter, it is case-sensitive.
 --ignore-case
@@ -31,3 +32,6 @@
 
 # Print the path with the matched lines.
 --with-filename
+
+# Use the PCRE2 regex engine instead of Rust's regex engine
+--pcre2
