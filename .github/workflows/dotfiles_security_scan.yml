@@ -21,19 +21,18 @@ jobs:
         with:
           fetch-depth: 0 # Fetch entire history for accurate scanning
 
-      - name: Ensure BASE and HEAD are different
-        run: |
-          if [ "$BASE" == "$HEAD" ]; then
-            echo "BASE and HEAD commits are the same. Skipping scan."
-            exit 0
-          fi
+      # - name: Ensure BASE and HEAD are different
+      #   run: |
+      #     if [ "$BASE" == "$HEAD" ]; then
+      #       echo "BASE and HEAD commits are the same. Skipping scan."
+      #       exit 0
 
       - name: Run TruffleHog
         uses: trufflesecurity/trufflehog@main
         with:
           path: "."
-          base: "main"
-          head: "HEAD"
+          # base: "main"
+          # head: "HEAD"
           extra_args: "--json --entropy=False"
 
       - name: Run CodeQL Analysis
