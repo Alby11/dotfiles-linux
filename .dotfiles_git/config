@@ -25,22 +25,19 @@
 	url = git@github.com:Alby11/remmina_config.git
 [submodule ".config/yazi"]
 	active = true
-	url = git@github.com:Alby11/dotfiles-yazi
+	url = git@github.com:Alby11/dotfiles-yazi.git
 [submodule ".config/zsh/catppuccin_zsh-syntax-highlighting"]
 	active = true
 	url = git@github.com:catppuccin/zsh-syntax-highlighting.git
-[submodule ".local/share/gnome-shell/extensions/move-to-next-screen@wosar.me"]
-	url = git@github.com:Alby11/move-to-next-screen
-	active = true
 [submodule ".config/tmux"]
-	url = git@github.com:Alby11/dotfiles-tmux
+	url = git@github.com:Alby11/dotfiles-tmux.git
 	active = true
 [submodule ".config/fsh"]
 	url = git@github.com:catppuccin/zsh-fsh.git
 	active = true
-[submodule ".config/zsh/functions/.config/zsh/functions"]
+[submodule ".config/zsh/functions"]
 	url = git@github.com:Alby11/zsh-functions.git
 	active = true
-[submodule "/home/tallonea/.config/bat/syntaxes/sublime-purescript-syntax"]
+[submodule ".config/bat/syntaxes/sublime-purescript-syntax"]
 	url = git@github.com:tellnobody1/sublime-purescript-syntax.git
 	active = true
