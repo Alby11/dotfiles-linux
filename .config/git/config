@@ -1,64 +1,79 @@
 # vim: ft=gitconfig
 
 [include]
-  path = ~/.config/git/themes/catppuccin.gitconfig
+    path = ${XDG_CONFIG_HOME}/git/themes/catppuccin.gitconfig
+
+[delta]
+    syntax-theme = Catppuccin Mocha
+    features = catppuccin-mocha
 
 [user]
-	name = alby11  # Your name used for commits.
-	email = alby11@duck.com  # Your email used for commits.
-  signingkey = 3C8E2F451C728897
+    name = alby11  # Your name used for commits.
+    email = alby11@duck.com  # Your email used for commits.
+    signingkey = 3C8E2F451C728897
 
-[includeIf "gitdir:~/dev/work/"]
-  path = ~/.config/git/config-work
+[includeIf "gitdir:$HOME/dev/work/"]
+    path = ${XDG_CONFIG_HOME}/git/config-work
 
-[includeIf "gitdir:~/dev/class/"]
-  path = ~/.config/git/config-class
+[includeIf "gitdir:$HOME/dev/class/"]
+    path = ${XDG_CONFIG_HOME}/git/config-class
 
 [safe]
-  directory = ~/dev
+    directory = $HOME/dev
 
 [filter "lfs"]
-  clean = git-lfs clean -- %f
-  smudge = git-lfs smudge -- %f
-  process = git-lfs filter-process
-  required = true
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
 
 [init]
-	defaultBranch = main  # Set the default branch name to 'main' for new repositories.
+    defaultBranch = main  # Set the default branch name to 'main' for new repositories.
 
 [protocol "file"]
-  allow = always
+    allow = always
 
 [credential]
-	helper = libsecret  # Use 'manager-core' as the credential helper to securely store credentials.
+    helper = libsecret  # Use 'manager-core' as the credential helper to securely store credentials.
 
 [core]
-	autocrlf = input  # Convert CRLF line endings to LF when committing (useful for cross-platform projects).
-	fsmonitor = false  # Disable filesystem monitoring for performance improvement.
-	editor = nvim  # Set Neovim as the default text editor for Git.
-	pager = ${XDG_CONFIG_HOME}/git/nvim-git-wrapper.zsh pager
-	excludesfile = ${XDG_CONFIG_HOME}/ignore
+    autocrlf = input  # Convert CRLF line endings to LF when committing (useful for cross-platform projects).
+    fsmonitor = false  # Disable filesystem monitoring for performance improvement.
+    editor = nvim  # Set Neovim as the default text editor for Git.
+    pager = ${XDG_CONFIG_HOME}/git/nvim-git-wrapper.zsh pager
+    excludesfile = ${XDG_CONFIG_HOME}/git/ignore
 
 [merge]
-	tool = nvim
+    tool = nvim
 
 [mergetool "nvim"]
-	cmd = ${XDG_CONFIG_HOME}/git/nvim-git-wrapper.zsh mergetool "$LOCAL" "$REMOTE" "$BASE" "$MERGED"
+    cmd = ${XDG_CONFIG_HOME}/git/nvim-git-wrapper.zsh mergetool "$LOCAL" "$REMOTE" "$BASE" "$MERGED"
+    trustExitCode = true
 
 [diff]
-	tool = nvim
+    tool = nvim
 
 [difftool "nvim"]
-	cmd = ${XDG_CONFIG_HOME}/git/nvim-git-wrapper.zsh difftool "$LOCAL" "$REMOTE"
+    cmd = ${XDG_CONFIG_HOME}/git/nvim-git-wrapper.zsh difftool
 
 [pull]
-  rebase = false
+    rebase = false
 
 [commit]
-  gpgsign = true
+    gpgsign = true
 
 [gpg]
-  program = /usr/bin/gpg
+    program = /usr/bin/gpg
 
 [color]
-	ui = auto  # Enable color in Git output to improve readability.
+    ui = auto  # Enable color in Git output to improve readability.
+
+[color "log"]
+    commit = yellow
+    branch = green
+    remote = red
+    author = cyan
+    date = magenta
+
+[alias]
+    lg = log --pretty=format:"%C(yellow)%h%Creset %C(cyan)%an%Creset %C(green)%s%Creset %C(bold red)%ar%Creset"
