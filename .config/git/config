@@ -3,88 +3,64 @@
 [user]
     name = alby11  # Your name used for commits.
     email = alby11@duck.com  # Your email used for commits.
-    signingkey = 3C8E2F451C728897
-
-[includeIf "gitdir:$HOME/dev/work/"]
-    path = ${XDG_CONFIG_HOME}/git/config-work
-
-[includeIf "gitdir:$HOME/dev/class/"]
-    path = ${XDG_CONFIG_HOME}/git/config-class
-
-[safe]
-    directory = $HOME/dev
-
-[filter "lfs"]
-    clean = git-lfs clean -- %f
-    smudge = git-lfs smudge -- %f
-    process = git-lfs filter-process
-    required = true
+    signingkey = 3C8E2F451C728897  # GPG key for signing commits
+ 
+[includeIf "gitdir:$HOME/dev/work/"]  # Include specific config for work directory
+    path = ${XDG_CONFIG_HOME}/git/config-work  # Path to the work-specific git config
+ 
+[includeIf "gitdir:$HOME/dev/class/"]  # Include specific config for class directory
+    path = ${XDG_CONFIG_HOME}/git/config-class  # Path to the class-specific git config
+ 
+[safe]  # Safe directory settings
+    directory = $HOME/dev  # Mark the dev directory as safe
+ 
+[filter "lfs"]  # Git LFS (Large File Storage) settings
+    clean = git-lfs clean -- %f  # Command to clean files
+    smudge = git-lfs smudge -- %f  # Command to smudge files
+    process = git-lfs filter-process  # Command to process files
+    required = true  # Require LFS filter
 
 [init]
     defaultBranch = main  # Set the default branch name to 'main' for new repositories.
 
 [protocol "file"]
-    allow = always
+    allow = always  # Allow file:// URLs for all Git operations.
 
 [credential]
-    helper = libsecret  # Use 'manager-core' as the credential helper to securely store credentials.
+    helper = libsecret  # Use 'libsecret' as the credential helper to securely store credentials.
 
 [core]
     autocrlf = input  # Convert CRLF line endings to LF when committing (useful for cross-platform projects).
     fsmonitor = false  # Disable filesystem monitoring for performance improvement.
     editor = nvim  # Set Neovim as the default text editor for Git.
-    ; pager = ${XDG_CONFIG_HOME}/git/nvim-git-wrapper.zsh pager
-    pager = delta
-    excludesfile = ${XDG_CONFIG_HOME}/git/ignore
+    pager = delta  # Use Delta as the pager for Git output.
+    excludesfile = ${XDG_CONFIG_HOME}/git/ignore  # Use a global .gitignore file.
 
 [include]
-    path = ${XDG_CONFIG_HOME}/git/themes/catppuccin.gitconfig
+    path = ${XDG_CONFIG_HOME}/git/themes/catppuccin.gitconfig  # Include theme-specific Git config.
 
 [delta]
-    features = catppuccin-mocha
-    dark = true      # or light = true, or omit for auto-detection
-    navigate = true                # Enable keyboard navigation in diffs
-    side-by-side = true            # Show diffs side-by-side
-    line-numbers = true            # Display line numbers
+    features = catppuccin-mocha  # Use Catppuccin Mocha theme for Delta.
+    dark = true  # Enable dark mode for Delta.
+    hyperlinks = true  # Enable hyperlinks for terminal emulators that support them.
+    navigate = true  # Enable keyboard navigation in diffs.
+    side-by-side = true  # Show diffs side-by-side.
+    line-numbers = true  # Display line numbers.
 
 [interactive]
-    diffFilter = delta --color-only
+    diffFilter = delta --color-only  # Use Delta for interactive diffs.
 
 [diff]
-    colorMoved = default
+    colorMoved = default  # Highlight moved lines in diffs.
 
 [merge]
-    ; tool = nvim
-    conflictstyle = zdiff3
-
-; [mergetool "nvim"]
-;     cmd = ${XDG_CONFIG_HOME}/git/nvim-git-wrapper.zsh mergetool "$LOCAL" "$REMOTE" "$BASE" "$MERGED"
-;     trustExitCode = true
-;
-; [diff]
-;     tool = nvim
-;
-; [difftool "nvim"]
-;     cmd = ${XDG_CONFIG_HOME}/git/nvim-git-wrapper.zsh difftool
+    conflictstyle = zdiff3  # Use zdiff3 for conflict resolution.
 
 [pull]
-    rebase = false
+    rebase = false  # Do not rebase when pulling changes.
 
 [commit]
-    gpgsign = true
+    gpgsign = true  # Sign commits with GPG.
 
 [gpg]
-    program = /usr/bin/gpg
-
-; [color]
-;     ui = auto  # Enable color in Git output to improve readability.
-;
-; [color "log"]
-;     commit = yellow
-;     branch = green
-;     remote = red
-;     author = cyan
-;     date = magenta
-;
-; [alias]
-;     lg = log --pretty=format:"%C(yellow)%h%Creset %C(cyan)%an%Creset %C(green)%s%Creset %C(bold red)%ar%Creset"
+    program = /usr/bin/gpg  # Path to the GPG program.
