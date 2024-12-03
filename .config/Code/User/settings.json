@@ -169,11 +169,8 @@
     "extensions.experimental.affinity": {
         "asvetliakov.vscode-neovim": 1
     },
-    "vscode-neovim.neovimExecutablePaths.linux": "lvim",
     "terminal.sourceControlRepositoriesKind": "external",
-    "terminal.integrated.shell.linux": "zsh",
     "chat.editor.fontSize": 12,
-    "terminal.integrated.defaultProfile.linux": "zsh",
     "wakatime.apiKey": "waka_c4099ea0-7272-4be6-acd5-5447a606806a",
     "vim.enableNeovim": true,
     "vim.insertModeKeyBindings": [
@@ -252,7 +249,17 @@
         },
         "zsh": {
             "path": "zsh",
-            "icon": "terminal-linux"
+            "icon": "terminal-linux",
+            "args": [
+                "-f"
+            ]
+        },
+        "zsh (login)": {
+            "path": "zsh",
+            "icon": "terminal-linux",
+            "args": [
+                "-l -f"
+            ]
         },
         "fish": {
             "path": "fish",
@@ -267,10 +274,17 @@
             "icon": "terminal-powershell"
         }
     },
+    "terminal.integrated.profiles.windows": {
+        "PowerShell -NoProfile": {
+            "source": "PowerShell",
+            "args": [
+                "-NoProfile"
+            ]
+        }
+    },
     "powershell.pester.debugOutputVerbosity": "Normal",
     "terminal.integrated.suggest.enabled": true,
     "terminal.explorerKind": "both",
-    "terminal.integrated.automationProfile.linux": {},
     "terminal.integrated.enableImages": true,
     "terminal.integrated.experimental.windowsUseConptyDll": true,
     "terminal.integrated.gpuAcceleration": "on",
@@ -295,9 +309,10 @@
             "encrypt": "Optional",
             "trustServerCertificate": true,
             "password": ""
-        },
+        }
     ],
     "mssql.enableExperimentalFeatures": true,
     "aws.telemetry": false,
-    "chat.editing.alwaysSaveWithGeneratedChanges": true
+    "chat.editing.alwaysSaveWithGeneratedChanges": true,
+    "vscode-neovim.neovimExecutablePaths.linux": "/home/tallonea/.local/share/bob/nvim-bin/nvim"
 }
