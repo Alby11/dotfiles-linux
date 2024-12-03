@@ -27,6 +27,16 @@ jobs:
       #       echo "BASE and HEAD commits are the same. Skipping scan."
       #       exit 0
 
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
       - name: Run TruffleHog
         uses: trufflesecurity/trufflehog@main
         with:
