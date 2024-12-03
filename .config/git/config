@@ -43,9 +43,11 @@
     features = catppuccin-mocha  # Use Catppuccin Mocha theme for Delta.
     dark = true  # Enable dark mode for Delta.
     hyperlinks = true  # Enable hyperlinks for terminal emulators that support them.
+    hyperlinks-file-link-format = "vscode://file/{path}:{line}"
     navigate = true  # Enable keyboard navigation in diffs.
     side-by-side = true  # Show diffs side-by-side.
     line-numbers = true  # Display line numbers.
+    true-color = always
 
 [interactive]
     diffFilter = delta --color-only  # Use Delta for interactive diffs.
