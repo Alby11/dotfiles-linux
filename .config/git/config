@@ -1,12 +1,5 @@
 # vim: ft=gitconfig
 
-[include]
-    path = ${XDG_CONFIG_HOME}/git/themes/catppuccin.gitconfig
-
-[delta]
-    syntax-theme = Catppuccin Mocha
-    features = catppuccin-mocha
-
 [user]
     name = alby11  # Your name used for commits.
     email = alby11@duck.com  # Your email used for commits.
@@ -40,21 +33,37 @@
     autocrlf = input  # Convert CRLF line endings to LF when committing (useful for cross-platform projects).
     fsmonitor = false  # Disable filesystem monitoring for performance improvement.
     editor = nvim  # Set Neovim as the default text editor for Git.
-    pager = ${XDG_CONFIG_HOME}/git/nvim-git-wrapper.zsh pager
+    ; pager = ${XDG_CONFIG_HOME}/git/nvim-git-wrapper.zsh pager
+    pager = delta
     excludesfile = ${XDG_CONFIG_HOME}/git/ignore
 
+[include]
+    path = ${XDG_CONFIG_HOME}/git/themes/catppuccin.gitconfig
+
+[delta]
+    syntax-theme = Catppuccin Mocha
+    features = catppuccin-mocha
+    dark = true      # or light = true, or omit for auto-detection
+    navigate = true                # Enable keyboard navigation in diffs
+    side-by-side = true            # Show diffs side-by-side
+    line-numbers = true            # Display line numbers
+
+[interactive]
+    diffFilter = delta --color-only
+
 [merge]
-    tool = nvim
+    ; tool = nvim
+    conflictstyle = zdiff3
 
-[mergetool "nvim"]
-    cmd = ${XDG_CONFIG_HOME}/git/nvim-git-wrapper.zsh mergetool "$LOCAL" "$REMOTE" "$BASE" "$MERGED"
-    trustExitCode = true
-
-[diff]
-    tool = nvim
-
-[difftool "nvim"]
-    cmd = ${XDG_CONFIG_HOME}/git/nvim-git-wrapper.zsh difftool
+; [mergetool "nvim"]
+;     cmd = ${XDG_CONFIG_HOME}/git/nvim-git-wrapper.zsh mergetool "$LOCAL" "$REMOTE" "$BASE" "$MERGED"
+;     trustExitCode = true
+;
+; [diff]
+;     tool = nvim
+;
+; [difftool "nvim"]
+;     cmd = ${XDG_CONFIG_HOME}/git/nvim-git-wrapper.zsh difftool
 
 [pull]
     rebase = false
