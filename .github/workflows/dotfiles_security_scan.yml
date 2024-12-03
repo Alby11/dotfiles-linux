@@ -33,7 +33,7 @@ jobs:
           path: "."
           # base: "main"
           # head: "HEAD"
-          extra_args: "--json --entropy=False"
+          extra_args: "--json" # --entropy=False"
 
       - name: Run CodeQL Analysis
         uses: github/codeql-action/init@v3
