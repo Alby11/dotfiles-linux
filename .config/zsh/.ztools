@@ -67,9 +67,9 @@ WHOAMI_HAS_NOPASSWD() {
 
 # CARGO
 if [[ ! -f $HOME/.cargo/bin/rustup ]]; then
-	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path
 	package_manager_install {,pkgconf-}pkg-config
 	package_manager_install openssl
+	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path
 fi
 
 IS_LOGIN_SHELL() {

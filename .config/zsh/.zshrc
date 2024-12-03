@@ -16,27 +16,11 @@ else
     echo "vivid not found, using default LS_COLORS"
 fi
 
-# PROMPT configuration
-prompt="starship"
-case $prompt in
-    p10k)
-        # Enable Powerlevel10k instant prompt
-        if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-            source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-        fi
-        # Source Powerlevel10k configuration
-        [[ -f ${ZDOTDIR}/.p10k.zsh ]] && source ${ZDOTDIR}/.p10k.zsh
-        ;;
-    starship)
-        # Enable Starship prompt
-        if [[ -f $XDG_CONFIG_HOME/starship/starship.toml ]] && command -v starship > /dev/null 2>&1; then
-            export STARSHIP_CONFIG=$XDG_CONFIG_HOME/starship/starship.toml
-            eval "$(starship init zsh)"
-        fi
-        ;;
-    *)
-        ;;
-esac
+# Enable Starship prompt
+if [[ -f $XDG_CONFIG_HOME/starship/starship.toml ]] && command -v starship > /dev/null 2>&1; then
+    export STARSHIP_CONFIG=$XDG_CONFIG_HOME/starship/starship.toml
+    eval "$(starship init zsh)"
+fi
 
 # Set options for better shell experience
 export COMPLETION_WAITING_DOTS="true"
@@ -91,7 +75,7 @@ if command -v atuin > /dev/null 2>&1; then
 fi
 
 # Python environment management
-[[ -f "${ZDOTDIR}/.zpyenv" ]] && source "${ZDOTDIR}/.zpyenv"
+# [[ -f "${ZDOTDIR}/.zpyenv" ]] && source "${ZDOTDIR}/.zpyenv"
 
 # Antidote setup for managing plugins
 source "$ZDOTDIR/.zantidote"
