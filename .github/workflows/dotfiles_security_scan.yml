@@ -36,8 +36,8 @@ jobs:
         uses: trufflesecurity/trufflehog@main
         with:
           path: "."
-          # base: "main"
-          # head: "HEAD"
+          base: "main"
+          head: "HEAD"
           extra_args: "--json" # --entropy=False"
 
       - name: Run CodeQL Analysis
