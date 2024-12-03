@@ -1,17 +1,21 @@
 #!/usr/bin/zsh
 
+# Log input arguments for debugging (optional)
+echo "Wrapper invoked with arguments: $@" >> ~/tmp/.nvim_wrapper.log
+
 # Detect the mode (diff, merge, pager)
 case "$1" in
-    diff|difftool)
-        nvim -c 'set ft=diff' -c 'BaleiaColorize' - "$@" -c 'sleep 500m' -c 'BaleiaColorize'
+    difftool|diff)
+        nvim -c 'set ft=diff' -c 'BaleiaColorize' -d "${LOCAL:-}" "${REMOTE:-}" -c 'BaleiaColorize'
         ;;
-    merge|mergetool)
-        nvim -c 'set ft=git'  -c 'BaleiaColorize' - "$@" -c 'sleep 500m' -c 'BaleiaColorize'
+    mergetool|merge)
+        nvim -c 'set ft=diff' -c 'BaleiaColorize' -d "${LOCAL:-}" "${REMOTE:-}" "${MERGED:-}" -c 'BaleiaColorize'
         ;;
     pager)
-        nvim -c 'set ft=git'  -c 'BaleiaColorize' - "$@" -c 'sleep 500m' -c 'BaleiaColorize'
+        nvim -c 'set ft=diff' -c 'BaleiaColorize' -
         ;;
     *)
-        nvim -c 'set ft=git'  -c 'BaleiaColorize' - "$@" -c 'sleep 500m' -c 'BaleiaColorize'
-        ;
+        echo "Unsupported mode: $1" >&2
+        exit 1
+        ;;
 esac

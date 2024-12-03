@@ -1,3 +1,5 @@
+# vim: ft=gitconfig
+
 [include]
   path = ~/.config/git/themes/catppuccin.gitconfig
 
@@ -33,21 +35,21 @@
 [core]
 	autocrlf = input  # Convert CRLF line endings to LF when committing (useful for cross-platform projects).
 	fsmonitor = false  # Disable filesystem monitoring for performance improvement.
-	editor = nvim # Set Neovim as the default text editor for Git.
-  pager = $XDG_CONFIG_HOME/git/nvim-git-wrapper.zsh
-  excludesfile = $XDG_CONFIG_HOME/ignore
+	editor = nvim  # Set Neovim as the default text editor for Git.
+	pager = ${XDG_CONFIG_HOME}/git/nvim-git-wrapper.zsh pager
+	excludesfile = ${XDG_CONFIG_HOME}/ignore
 
 [merge]
-    tool = nvim
+	tool = nvim
 
 [mergetool "nvim"]
-    cmd = $XDG_CONFIG_HOME/git/nvim-git-wrapper.sh mergetool "$LOCAL" "$REMOTE" "$BASE" "$MERGED"
+	cmd = ${XDG_CONFIG_HOME}/git/nvim-git-wrapper.zsh mergetool "$LOCAL" "$REMOTE" "$BASE" "$MERGED"
 
 [diff]
-    tool = nvim
+	tool = nvim
 
 [difftool "nvim"]
-    cmd = $XDG_CONFIG_HOME/git/nvim-git-wrapper.sh difftool "$LOCAL" "$REMOTE"
+	cmd = ${XDG_CONFIG_HOME}/git/nvim-git-wrapper.zsh difftool "$LOCAL" "$REMOTE"
 
 [pull]
   rebase = false
