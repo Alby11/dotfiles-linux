@@ -41,7 +41,6 @@
     path = ${XDG_CONFIG_HOME}/git/themes/catppuccin.gitconfig
 
 [delta]
-    syntax-theme = Catppuccin Mocha
     features = catppuccin-mocha
     dark = true      # or light = true, or omit for auto-detection
     navigate = true                # Enable keyboard navigation in diffs
@@ -50,6 +49,9 @@
 
 [interactive]
     diffFilter = delta --color-only
+
+[diff]
+    colorMoved = default
 
 [merge]
     ; tool = nvim
@@ -74,15 +76,15 @@
 [gpg]
     program = /usr/bin/gpg
 
-[color]
-    ui = auto  # Enable color in Git output to improve readability.
-
-[color "log"]
-    commit = yellow
-    branch = green
-    remote = red
-    author = cyan
-    date = magenta
-
-[alias]
-    lg = log --pretty=format:"%C(yellow)%h%Creset %C(cyan)%an%Creset %C(green)%s%Creset %C(bold red)%ar%Creset"
+; [color]
+;     ui = auto  # Enable color in Git output to improve readability.
+;
+; [color "log"]
+;     commit = yellow
+;     branch = green
+;     remote = red
+;     author = cyan
+;     date = magenta
+;
+; [alias]
+;     lg = log --pretty=format:"%C(yellow)%h%Creset %C(cyan)%an%Creset %C(green)%s%Creset %C(bold red)%ar%Creset"
