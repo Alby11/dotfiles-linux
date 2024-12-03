@@ -22,10 +22,12 @@ jobs:
           fetch-depth: 0 # Fetch entire history for accurate scanning
 
       - name: Run TruffleHog
-        uses: trufflesecurity/trufflehog-actions-scan@v3
+        uses: trufflesecurity/trufflehog@main
         with:
-          scan-directory: "." # Scan the entire repository
-          scanArguments: "--json --entropy=False" # Disable entropy-based checks, focus on regex
+          path: "."
+          base: "main"
+          head: "HEAD"
+          extra_args: "--json --entropy=False"
 
       - name: Run CodeQL Analysis
         uses: github/codeql-action/init@v3
