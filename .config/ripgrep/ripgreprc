@@ -7,19 +7,19 @@
 # --files
 
 # Follow symbolic links while searching.
---follow
+# --follow
 
 # Include hidden files and directories in the search.
---hidden
-
-# Perform case-insensitive searching. If a pattern includes an uppercase letter, it is case-sensitive.
---ignore-case
+# --hidden
 
 # Do not respect version control system (VCS) ignore files (.gitignore, .ignore, etc.).
 --no-ignore-vcs
 
+# Enable color output if the output is a terminal.
+--color=auto
+
 # Alias for --color=always --heading --line-number, which enables colored output, prints the file heading, and line numbers for matches.
---pretty
+# --pretty
 
 # Override -i/--ignore-case if the search pattern contains an uppercase letter (smart case search).
 --smart-case
