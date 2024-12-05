@@ -1,24 +1,31 @@
 # vim: filetype=zsh
 
-[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_STARTFILE "${(%):-%N}"
+# Enable debugging if ZSH_DEBUG is set
+[[ -n $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_STARTFILE "${(%):-%N}"
 
-# Make Python use UTF-8 encoding for output to stdin, stdout, and stderr.
+# Set Python to use UTF-8 encoding for standard I/O
 export PYTHONIOENCODING='UTF-8'
 
+# Define pyenv root directory
 export PYENV_ROOT="${HOME}/.pyenv"
-if [[ ! -f ${PYENV_ROOT}/bin/pyenv ]]; then
-  rm -rf $PYENV_ROOT
+
+# Ensure PYENV_ROOT directory exists
+[[ -d $PYENV_ROOT ]] || mkdir -p $PYENV_ROOT
+
+# Install pyenv if not already installed
+if [[ ! -x ${PYENV_ROOT}/bin/pyenv ]]; then
+  curl https://pyenv.run | zsh
 fi
 
-[[ -d ${PYENV_ROOT}/bin ]] || curl https://pyenv.run | zsh
-mkdir -p $PYENV_ROOT
-touch ${PYENV_ROOT}/default-packages
-
+# Update PATH and initialize pyenv
 if [[ -d ${PYENV_ROOT}/bin ]]; then
   export PATH="${PYENV_ROOT}/bin:${PATH}"
+  eval "$(pyenv init --path)"
   eval "$(pyenv init -)"
+  eval "$(pyenv virtualenv-init -)"
 fi
 
+# List of pyenv plugins to install
 pyenv_plugins=(
   "ashwinvis/pyenv-virtualenv-migrate"
   "concordusapps/pyenv-implict"
@@ -37,13 +44,49 @@ pyenv_plugins=(
   "zyrikby/pyenv-pip-upgrade"
 )
 
+# Clone or update pyenv plugins
 for pyenv_plugin in $pyenv_plugins; do
   pyenv_plugin_url="https://github.com/${pyenv_plugin}.git"
-  pyenv_plugin_dir=$(pyenv root)/plugins/$(basename $pyenv_plugin)
-  [[ -d $pyenv_plugin_dir ]] || git clone $pyenv_plugin_url $pyenv_plugin_dir
+  pyenv_plugin_dir="${PYENV_ROOT}/plugins/$(basename $pyenv_plugin)"
+  if [[ -d $pyenv_plugin_dir ]]; then
+    git -C $pyenv_plugin_dir pull --ff-only
+  else
+    git clone $pyenv_plugin_url $pyenv_plugin_dir
+  fi
 done
 
-eval "$(pyenv virtualenv-init -)"
+# Set preference for pyenv-virtualenvwrapper to use pyvenv
 export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
 
-[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"
+# Initialize pyenv-virtualenvwrapper
+eval "$(pyenv virtualenv-init -)"
+
+# Install necessary build dependencies based on the operating system
+# if command -v apt-get &>/dev/null; then
+#   # Ubuntu/Debian
+#   sudo apt-get update && sudo apt-get install -y \
+#     make build-essential libssl-dev zlib1g-dev \
+#     libbz2-dev libreadline-dev libsqlite3-dev wget \
+#     curl llvm libncurses5-dev libncursesw5-dev \
+#     xz-utils tk-dev libffi-dev liblzma-dev \
+#     python3-openssl git
+# elif command -v dnf &>/dev/null; then
+#   # Fedora
+#   sudo dnf install -y \
+#     make gcc zlib-devel bzip2 bzip2-devel \
+#     readline-devel sqlite sqlite-devel wget \
+#     curl llvm ncurses-devel tk-devel \
+#     libffi-devel xz-devel git
+# elif command -v pacman &>/dev/null; then
+#   # Arch
+#   sudo pacman -Syu --noconfirm \
+#     base-devel openssl zlib \
+#     bzip2 readline sqlite wget \
+#     curl llvm ncurses tk \
+#     libffi xz git
+# else
+#   echo "Unsupported operating system or package manager."
+# fi
+
+# End debugging if ZSH_DEBUG is set
+[[ -n $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"

@@ -75,7 +75,7 @@ if command -v atuin > /dev/null 2>&1; then
 fi
 
 # Python environment management
-# [[ -f "${ZDOTDIR}/.zpyenv" ]] && source "${ZDOTDIR}/.zpyenv"
+[[ -f "${ZDOTDIR}/.zpyenv" ]] && source "${ZDOTDIR}/.zpyenv"
 
 # Antidote setup for managing plugins
 source "$ZDOTDIR/.zantidote"
@@ -103,6 +103,6 @@ bindkey "^[K" kill-line
 [[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"
 
 # Autostart tmux if conditions are met
-if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
-    $HOME/.local/bin/tmux_chooser.zsh
-fi
+# if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+#     $HOME/.local/bin/tmux_chooser.zsh
+# fi
