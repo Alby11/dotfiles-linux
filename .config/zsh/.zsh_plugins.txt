@@ -178,5 +178,5 @@ Alby11/zsh_codex
 # WakaTime for Terminal
 sobolevn/wakatime-zsh-plugin
 
-# Load plugin configurations after all plugins are loaded
-"${ZDOTDIR}/.zsh_plugin_configurations.zsh" # kind:defer
+# Load plugins configurations after all plugins are loaded
+"${ZDOTDIR}/.zsh_plugins_configurations.zsh"
