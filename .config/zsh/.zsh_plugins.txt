@@ -78,7 +78,7 @@ ohmyzsh/ohmyzsh path:plugins/last-working-dir
 ohmyzsh/ohmyzsh path:plugins/man
 ohmyzsh/ohmyzsh path:plugins/minikube
 ohmyzsh/ohmyzsh path:plugins/microk8s
-ohmyzsh/ohmyzsh path:plugins/mvn
+# ohmyzsh/ohmyzsh path:plugins/mvn
 ohmyzsh/ohmyzsh path:plugins/nmap
 ohmyzsh/ohmyzsh path:plugins/node
 ohmyzsh/ohmyzsh path:plugins/nodenv
@@ -92,7 +92,7 @@ ohmyzsh/ohmyzsh path:plugins/perms
 ohmyzsh/ohmyzsh path:plugins/pip
 ohmyzsh/ohmyzsh path:plugins/pipenv
 ohmyzsh/ohmyzsh path:plugins/podman
-ohmyzsh/ohmyzsh path:plugins/pyenv
+# ohmyzsh/ohmyzsh path:plugins/pyenv
 ohmyzsh/ohmyzsh path:plugins/pylint
 ohmyzsh/ohmyzsh path:plugins/python
 ohmyzsh/ohmyzsh path:plugins/qrcode
@@ -100,13 +100,12 @@ ohmyzsh/ohmyzsh path:plugins/rbw
 ohmyzsh/ohmyzsh path:plugins/rsync
 ohmyzsh/ohmyzsh path:plugins/rust
 ohmyzsh/ohmyzsh path:plugins/safe-paste
+ohmyzsh/ohmyzsh path:plugins/salt kind:fpath
 ohmyzsh/ohmyzsh path:plugins/screen
-ohmyzsh/ohmyzsh path:plugins/shrink-path
-ohmyzsh/ohmyzsh path:plugins/sprunge
+# ohmyzsh/ohmyzsh path:plugins/shrink-path
+# ohmyzsh/ohmyzsh path:plugins/sprunge
 # ohmyzsh/ohmyzsh path:plugins/ssh
 # ohmyzsh/ohmyzsh path:plugins/ssh-agent
-ohmyzsh/ohmyzsh path:plugins/safe-paste
-ohmyzsh/ohmyzsh path:plugins/salt kind:fpath
 ohmyzsh/ohmyzsh path:plugins/ssh
 # ohmyzsh/ohmyzsh path:plugins/ssh-agent
 ohmyzsh/ohmyzsh path:plugins/starship
@@ -134,13 +133,6 @@ ohmyzsh/ohmyzsh path:plugins/zbell
 ohmyzsh/ohmyzsh path:plugins/zoxide
 ohmyzsh/ohmyzsh path:plugins/zsh-interactive-cd
 ohmyzsh/ohmyzsh path:plugins/zsh-navigation-tools
-
-# Ensure these core libraries are loaded after plugins
-ohmyzsh/ohmyzsh path:lib/completion.zsh
-ohmyzsh/ohmyzsh path:lib/functions.zsh
-ohmyzsh/ohmyzsh path:lib/git.zsh
-ohmyzsh/ohmyzsh path:lib/history.zsh
-ohmyzsh/ohmyzsh path:lib/key-bindings.zsh
 
 # Additional completions
 3v1n0/zsh-bash-completions-fallback path:src kind:fpath
@@ -177,7 +169,8 @@ zsh-users/zsh-autosuggestions
 Aloxaf/fzf-tab
 
 # GPT
-tom-doerr/zsh_codex
+# tom-doerr/zsh_codex
+Alby11/zsh_codex
 
 ### THEME
 # romkatv/powerlevel10k # using starship ATM

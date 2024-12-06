@@ -10,22 +10,22 @@
 # zstyle :omz:plugins:ssh-agent helper ssh-askpass
 
 # Set the name of the static .zsh plugins file antidote will generate.
-zsh_plugins=${ZDOTDIR}/.zsh_plugins.zsh
+zsh_plugins="${ZDOTDIR}/.zsh_plugins.zsh"
 
 # Configure Antidote plugin cache to improve performance
 export ANTIDOTE_CACHE_DIR="${ZDOTDIR}/.cache/antidote"
 
 # Install antidote if missing
-if ! [[ -d ${ZDOTDIR}/.antidote ]]; then
-	git clone --depth=1 https://github.com/mattmc3/antidote.git ${ZDOTDIR}/.antidote
+if [[ ! -d ${ZDOTDIR}/.antidote ]]; then
+    git clone --depth=1 https://github.com/mattmc3/antidote.git "${ZDOTDIR}/.antidote"
 fi
 
 # Ensure you have a .zsh_plugins.txt file where you can add plugins.
-[[ -f ${zsh_plugins:r}.txt ]] || touch ${zsh_plugins:r}.txt
+[[ -f ${zsh_plugins:r}.txt ]] || touch "${zsh_plugins:r}.txt"
 
 # Lazy-load antidote.
-fpath+=(${ZDOTDIR}/.antidote)
-autoload -Uz $fpath[-1]/antidote
+fpath+=("${ZDOTDIR}/.antidote")
+autoload -Uz "${fpath[-1]}/antidote"
 
 # Antidote settings
 zstyle ':antidote:bundle' use-friendly-names 'yes'
@@ -34,15 +34,15 @@ setopt extendedglob
 
 # Generate static file in a subshell when .zsh_plugins.txt is updated.
 if [[ ! $zsh_plugins -nt ${zsh_plugins:r}.txt ]]; then
-	(antidote bundle <${zsh_plugins:r}.txt >|$zsh_plugins)
+    (antidote bundle <"${zsh_plugins:r}.txt" >|"$zsh_plugins")
 fi
 
 # Source your static plugins file and get rid of it
-source $zsh_plugins && rm ${zsh_plugins:r}.zsh
+source "$zsh_plugins" && rm "$zsh_plugins"
 
 # Set oh-my-zsh path according to antidote installation
 export ZSH=$(antidote path ohmyzsh/ohmyzsh)
-export ZSH_CUSTOM=$ZSH
+export ZSH_CUSTOM="$ZSH"
 
 # Define or ignore unhandled ZLE widgets before loading zsh-syntax-highlighting
 zle -N menu-search || true
