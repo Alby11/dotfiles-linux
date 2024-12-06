@@ -74,9 +74,6 @@ if command -v atuin > /dev/null 2>&1; then
     eval "$(atuin init zsh)"
 fi
 
-# Python environment management
-[[ -f "${ZDOTDIR}/.zpyenv" ]] && source "${ZDOTDIR}/.zpyenv"
-
 # Antidote setup for managing plugins
 source "$ZDOTDIR/.zantidote"
 # source "$ZDOTDIR/.zsh_plugin_configurations.zsh"
@@ -98,7 +95,6 @@ export GTK_THEME='catppuccin-mocha-green-standard+default'
 
 # EMACS bindings
 bindkey "^[K" kill-line
-
 # End debug logging if ZSH_DEBUG is set
 [[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"
 

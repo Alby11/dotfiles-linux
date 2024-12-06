@@ -79,6 +79,9 @@ if [[ -x $ZDOTDIR/.fetch_secrets.sh ]]; then
   done < <($ZDOTDIR/.fetch_secrets.sh)
 fi
 
+# Python environment management
+[[ -f "${ZDOTDIR}/.zpyenv" ]] && source "${ZDOTDIR}/.zpyenv"
+
 # Export GOPATH
 [[ -d "${HOME}/go" ]] && export GOPATH="${HOME}/go"
 
