@@ -19,14 +19,14 @@
         "run_without_argument": false,
         "added": 1694873200.7944722
     },
-    "6570fa79-6ce9-4e55-b4bc-b22970c4b95a": {
-        "id": "6570fa79-6ce9-4e55-b4bc-b22970c4b95a",
-        "name": "Phind",
-        "keyword": "phi",
-        "cmd": "https://phind.com/search?q=%s",
+    "62df948a-69fd-4033-adfa-1e2ff781b9a8": {
+        "id": "62df948a-69fd-4033-adfa-1e2ff781b9a8",
+        "name": "DuckDuckGo",
+        "keyword": "ddg",
+        "cmd": "https://www.duckduckgo.com/search?q=%s",
         "icon": null,
-        "is_default_search": false,
+        "is_default_search": true,
         "run_without_argument": false,
-        "added": 1728302546.2147934
+        "added": 1733518738.914705
     }
 }
