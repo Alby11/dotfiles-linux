@@ -76,7 +76,6 @@ fi
 
 # Antidote setup for managing plugins
 source "$ZDOTDIR/.zantidote"
-# source "$ZDOTDIR/.zsh_plugin_configurations.zsh"
 
 # Github CLI Copilot support
 eval "$(gh copilot alias -- zsh)"
