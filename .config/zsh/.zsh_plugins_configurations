@@ -193,11 +193,14 @@ fi
 if antidote path "tom-doerr/zsh_codex" >/dev/null 2>&1; then
     bindkey '^X' create_completion
 fi
+if antidote path "Alby11/zsh_codex" >/dev/null 2>&1; then
+    bindkey '^X' create_completion
+fi
 
 # Create a new ZLE widget for the function
-# zle -N lco
+zle -N lco
 # Bind the widget to Ctrl-h,Ctrl-h
-# bindkey "^L^L" insert-last-command-output
+bindkey "^[" insert-last-command-output
 
 # Log debug information if ZSH_DEBUG is set
 [[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"
