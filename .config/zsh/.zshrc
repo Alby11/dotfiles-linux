@@ -98,6 +98,6 @@ bindkey "^[K" kill-line
 ZSH_DEBUG_LOG_ENDFILE "Dotfiles proessing complete:\n${(%):-%N}"
 
 # Autostart tmux if conditions are met
-# if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
-#     $HOME/.local/bin/tmux_chooser.zsh
-# fi
+if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+    $HOME/.local/bin/tmux_chooser.zsh
+fi

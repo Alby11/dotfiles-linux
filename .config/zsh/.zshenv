@@ -40,6 +40,11 @@ ZSH_DEBUG_LOG_ENDFILE() {
 
 ZSH_DEBUG_LOG_STARTFILE "${(%):-%N}"
 
+# Autostart tmux if conditions are met
+if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+    $HOME/.local/bin/tmux_chooser.zsh
+fi
+
 # Language and locale settings
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
