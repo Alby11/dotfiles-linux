@@ -1,6 +1,6 @@
 # Optimized Version of .zprofile
 
-[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_STARTFILE "${(%):-%N}"
+ZSH_DEBUG_LOG_STARTFILE "${(%):-%N}"
 
 # Define pyenv root directory
 export PYENV_ROOT="${HOME}/.pyenv"
@@ -12,4 +12,4 @@ if [[ -d ${PYENV_ROOT}/bin ]]; then
   eval "$(pyenv virtualenv-init -)"
 fi
 
-[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"
+ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"

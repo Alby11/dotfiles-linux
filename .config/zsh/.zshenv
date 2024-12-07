@@ -4,11 +4,18 @@
 # NOTE: Revised .zshenv
 # 
 
+# Ensure a user-defined ZDOTDIR or default to HOME
+export XDG_CONFIG_HOME=${HOME}/.config
+export ZDOTDIR=${XDG_CONFIG_HOME}/zsh
+mkdir -p ${ZDOTDIR}
+
 # Profile debug system
-export ZSH_DEBUG=0
+export ZSH_DEBUG=1
 if [ "$ZSH_DEBUG" -eq 1 ]; then
-    echo "\n\n++++++++++++++++++++++++++++++++++++" >> ${ZDOTDIR}/.zsh_debug.log
+    echo "\n\n++++++++++++++++++++++++++++++++++++" > ${ZDOTDIR}/.zsh_debug.log
     echo "$SHELL dotfiles setup starts here...\n" >> ${ZDOTDIR}/.zsh_debug.log
+else
+    rm -fv ${ZDOTDIR}/.zsh_debug.log
 fi
 
 ZSH_DEBUG_LOG_STARTFILE() {
@@ -31,12 +38,7 @@ ZSH_DEBUG_LOG_ENDFILE() {
     fi
 }
 
-[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_STARTFILE "${(%):-%N}"
-
-# Ensure a user-defined ZDOTDIR or default to HOME
-export XDG_CONFIG_HOME=${HOME}/.config
-export ZDOTDIR=${XDG_CONFIG_HOME}/zsh
-mkdir -p ${ZDOTDIR}
+ZSH_DEBUG_LOG_STARTFILE "${(%):-%N}"
 
 # Language and locale settings
 export LANG="en_US.UTF-8"
@@ -111,4 +113,4 @@ export ICON_THEME=Catppuccin-Mocha-Green-Cursors
 # For security, prevent core dumps
 ulimit -c 0
 
-[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"
+ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"

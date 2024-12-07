@@ -3,6 +3,6 @@
 # NOTE: .zlogin
 #
 
-[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_STARTFILE "${(%):-%N}"
+ZSH_DEBUG_LOG_STARTFILE "${(%):-%N}"
 
-[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"
+ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"

@@ -4,7 +4,7 @@
 # NOTE: .ztools.zsh - tools for better profiling...
 #
 
-[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_STARTFILE "${(%):-%N}"
+ZSH_DEBUG_LOG_STARTFILE "${(%):-%N}"
 
 for cmd in "dnf" "apt"; do
 	if command -v $cmd >/dev/null; then
@@ -102,4 +102,4 @@ CHECK_ONLINE() {
 	return 1
 }
 
-[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"
+ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"

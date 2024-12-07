@@ -1,7 +1,7 @@
 # vim: filetype=zsh
 
 # Enable debugging if ZSH_DEBUG is set
-[[ -n $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_STARTFILE "${(%):-%N}"
+ZSH_DEBUG_LOG_STARTFILE "${(%):-%N}"
 
 # Set Python to use UTF-8 encoding for standard I/O
 export PYTHONIOENCODING='UTF-8'
@@ -86,4 +86,4 @@ done
 export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
 
 # End debugging if ZSH_DEBUG is set
-[[ -n $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"
+ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"

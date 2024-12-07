@@ -4,7 +4,7 @@
 #
 
 # Start debug logging if ZSH_DEBUG is set
-[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_STARTFILE "${(%):-%N}"
+ZSH_DEBUG_LOG_STARTFILE "${(%):-%N}"
 
 # Set catppuccin flavours variables
 source "$ZDOTDIR/.zcolors_catppuccin"
@@ -95,7 +95,7 @@ export GTK_THEME='catppuccin-mocha-green-standard+default'
 # EMACS bindings
 bindkey "^[K" kill-line
 # End debug logging if ZSH_DEBUG is set
-[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"
+ZSH_DEBUG_LOG_ENDFILE "Dotfiles proessing complete:\n${(%):-%N}"
 
 # Autostart tmux if conditions are met
 # if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then

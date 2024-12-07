@@ -3,7 +3,7 @@
 # NOTE: .zaliases.zsh - Set whatever shell aliases you want.
 #
 
-[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_STARTFILE "${(%):-%N}"
+ZSH_DEBUG_LOG_STARTFILE "${(%):-%N}"
 
 alias -g _="sudo"
 
@@ -968,4 +968,4 @@ alias ptyxist='flatpak run app.devsuite.Ptyxis --tab'
 # Run command in Ptyxis
 alias ptyxisr='flatpak run app.devsuite.Ptyxis --title 'Launch' -s -x'
 
-[[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"
+ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"
