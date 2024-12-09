@@ -115,7 +115,7 @@ ohmyzsh/ohmyzsh path:plugins/systemd
 # ohmyzsh/ohmyzsh path:plugins/thefuck
 ohmyzsh/ohmyzsh path:plugins/terraform
 ohmyzsh/ohmyzsh path:plugins/timer
-ohmyzsh/ohmyzsh path:plugins/tmux
+# ohmyzsh/ohmyzsh path:plugins/tmux
 ohmyzsh/ohmyzsh path:plugins/tmuxinator
 ohmyzsh/ohmyzsh path:plugins/transfer
 ohmyzsh/ohmyzsh path:plugins/ubuntu
