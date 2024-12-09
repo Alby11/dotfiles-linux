@@ -94,10 +94,6 @@ export GTK_THEME='catppuccin-mocha-green-standard+default'
 
 # EMACS bindings
 bindkey "^[K" kill-line
+
 # End debug logging if ZSH_DEBUG is set
 ZSH_DEBUG_LOG_ENDFILE "Dotfiles proessing complete:\n${(%):-%N}"
-
-# Autostart tmux if conditions are met
-if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
-    $HOME/.local/bin/tmux_chooser.zsh
-fi
