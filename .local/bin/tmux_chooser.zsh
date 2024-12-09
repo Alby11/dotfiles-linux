@@ -19,9 +19,12 @@ function ctrl_c() {
 # This ensures that the ctrl_c function is called when the user presses Ctrl-C
 trap ctrl_c SIGINT
 
+echo "Existing tmux sessions:"
+
 # Get the list of tmux sessions with detailed information
 output=()
 session_names=()
+index=1
 # Read each line of the tmux list-sessions output
 while read -r line; do
     # Extract the session name from the line
@@ -36,10 +39,11 @@ while read -r line; do
     output+=("$line")
     # Add the session name to the session_names array
     session_names+=("$session_name")
-    # Display the session information
-    echo "$line"
-    echo "${session_name}: ${session_info}, created at ${human_readable_time}"
+    # Display the session information with index
+    echo "$index - $line"
+    echo "${session_info}, created at ${human_readable_time}"
     echo "----------------------------------------"
+    index=$((index + 1))
 done < <(tmux list-sessions -F '#S: #I:#P #W [#F] #T #L')
 
 # Get the number of tmux sessions
@@ -47,15 +51,12 @@ no_of_terminals=${#output[@]}
 
 # Display the list of tmux sessions
 echo "Choose the terminal to attach: "
-for i in {1..$no_of_terminals}; do
-    echo "** ${session_names[i]} **"
-done
 
 # Set the timeout for user input in seconds
-timeout_seconds=10
+timeout_seconds=20
 
 echo
-echo "Create a new session by entering a name (at least one non-digit) for it (in $timeout_seconds seconds)"
+echo "...Or create a new session by entering a name (at least one non-digit) for it (in $timeout_seconds seconds)"
 
 # Countdown timer in the background
 (
