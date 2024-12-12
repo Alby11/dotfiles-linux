@@ -92,8 +92,16 @@ source $XDG_CONFIG_HOME/contour/zcontour
 # Set GTK theme
 export GTK_THEME='catppuccin-mocha-green-standard+default'
 
-# EMACS bindings
-bindkey "^[K" kill-line
+### EMACS bindings
+# bindkey '^H' backward-delete-char
+# bindkey '^J' accept-line
+# bindkey '^K' kill-line
+# bindkey '^L' clear-screen
+## Unbind C-'HJKL' to use with tmux+nvim
+bindkey -r '^H'
+bindkey -r '^J'
+bindkey -r '^K'
+bindkey -r '^L'
 
 # End debug logging if ZSH_DEBUG is set
 ZSH_DEBUG_LOG_ENDFILE "Dotfiles proessing complete:\n${(%):-%N}"
