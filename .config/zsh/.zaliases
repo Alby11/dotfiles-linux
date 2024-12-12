@@ -645,33 +645,130 @@ fi
 if command -v emacs &>/dev/null; then
 	alias emacs='emacs -nw'
 fi
+### LSD -> EZA -> LS block
+# Check if both lsd and eza are available
+if command -v lsd > /dev/null 2>&1 && command -v eza > /dev/null 2>&1; then
 
-# credits to z-shell/zsh-eza
-if command -v eza > /dev/null 2>&1; then
+  # Declare an array for lsd parameters
+  typeset -ag lsd_params
 
-  typeset -ag eza_params
-
-  eza_params=(
-    '--git' '--icons' '--group' '--group-directories-first'
-    '--time-style=long-iso' '--color-scale=all'
+  # Define default lsd parameters
+  lsd_params=(
+    '--group-directories-first' # Group directories first
+    '--color=always' # Always use colored output
+    '--icon=always' # Always show icons
+    '--date=date' # Use long date format
+    '--blocks=permission,user,group,size,date,name' # Display these blocks of information
   )
 
-  [[ ! -z $_EZA_PARAMS ]] && eza_params=($_EZA_PARAMS)
+  # If _LSD_PARAMS is set, override default lsd parameters
+  [[ -n $_LSD_PARAMS ]] && lsd_params=($_LSD_PARAMS)
 
-  alias ls='eza $eza_params'
-  alias l='eza --git-ignore $eza_params'
-  alias ll='eza --all --header --long $eza_params'
-  alias llm='eza --all --header --long --sort=modified $eza_params'
-  alias la='eza -lbhHigUmuSa'
-  alias lx='eza -lbhHigUmuSa@'
-  alias lt='eza --tree $eza_params'
-  alias tree='eza --tree $eza_params'
-  alias lsg='eza --git-repos $eza_params'
-  alias llg='eza --all --header --long --git-repos $eza_params'
-  alias llmg='eza --all --header --long --git-repos --sort=modified $eza_params'
-  alias lag='eza -lbhHigUmuSa --git-repos'
-  alias lxg='eza -lbhHigUmuSa@ --git-repos'
+  # Define aliases for lsd with the specified parameters
+  alias ls='lsd ${lsd_params[@]}'
+  alias l='lsd --ignore-glob ${lsd_params[@]}' # Ignore glob patterns
+  alias ll='lsd --all --long --header ${lsd_params[@]}' # Show all files, long format, with header
+  alias llm='lsd --all --long --header --sort=modified ${lsd_params[@]}' # Sort by modification time
+  alias la='lsd -lbhHigUmuSa' # Long format, human-readable sizes, inode, group, user, etc.
+  alias lx='lsd -lbhHigUmuSa@' # Same as la, but with extended attributes
+  alias lt='lsd --tree ${lsd_params[@]}' # Display as tree
+
+  # Declare an array for eza parameters
+  typeset -ag eza_params
+
+  # Define default eza parameters
+  eza_params=(
+    '--git' # Show git status
+    '--icons=always' # Show icons
+    '--group' # Group files by type
+    '--group-directories-first' # Group directories first
+    '--time-style=long-iso' # Use long ISO date format
+    '--color-scale=all' # Use color scale for all files
+  )
+
+  # If _EZA_PARAMS is set, override default eza parameters
+  [[ -n $_EZA_PARAMS ]] && eza_params=($_EZA_PARAMS)
+
+  alias lsg='eza --git-repos ${eza_params[@]}' # Show git repositories
+  alias llg='eza --all --header --long --git-repos ${eza_params[@]}' # Show all files, long format, with header, git repos
+  alias llmg='eza --all --header --long --git-repos --sort=modified ${eza_params[@]}' # Sort by modification time, git repos
+  alias lag='eza -lbhHigUmuSa --git-repos' # Long format, human-readable sizes, inode, group, user, git repos
+  alias lxg='eza -lbhHigUmuSa@ --git-repos' # Same as lag, but with extended attributes
+
+# Check if lsd alone is available
+elif command -v lsd > /dev/null 2>&1 && ! command -v eza > /dev/null 2>&1; then
+
+  # Declare an array for lsd parameters
+  typeset -ag lsd_params
+
+  # Define default lsd parameters
+  lsd_params=(
+    '--group-directories-first' # Group directories first
+    '--color=always' # Always use colored output
+    '--icon=always' # Always show icons
+    '--date=date' # Use long date format
+    '--blocks=permission,user,group,size,date,name' # Display these blocks of information
+  )
+
+  # If _LSD_PARAMS is set, override default lsd parameters
+  [[ -n $_LSD_PARAMS ]] && lsd_params=($_LSD_PARAMS)
+
+  # Define aliases for lsd with the specified parameters
+  alias ls='lsd ${lsd_params[@]}'
+  alias l='lsd --ignore-glob ${lsd_params[@]}' # Ignore glob patterns
+  alias ll='lsd --all --long --header ${lsd_params[@]}' # Show all files, long format, with header
+  alias llm='lsd --all --long --header --sort=modified ${lsd_params[@]}' # Sort by modification time
+  alias la='lsd -lbhHigUmuSa' # Long format, human-readable sizes, inode, group, user, etc.
+  alias lx='lsd -lbhHigUmuSa@' # Same as la, but with extended attributes
+  alias lt='lsd --tree ${lsd_params[@]}' # Display as tree
+
+# Check if eza alone is available
+elif ! command -v lsd > /dev/null 2>&1 && command -v eza > /dev/null 2>&1; then
+
+  # Declare an array for eza parameters
+  typeset -ag eza_params
+
+  # Define default eza parameters
+  eza_params=(
+    '--git' # Show git status
+    '--icons=always' # Show icons
+    '--group' # Group files by type
+    '--group-directories-first' # Group directories first
+    '--time-style=long-iso' # Use long ISO date format
+    '--color-scale=all' # Use color scale for all files
+  )
+
+  # If _EZA_PARAMS is set, override default eza parameters
+  [[ -n $_EZA_PARAMS ]] && eza_params=($_EZA_PARAMS)
+
+  # Define aliases for eza with the specified parameters
+  alias ls='eza ${eza_params[@]}'
+  alias l='eza --git-ignore ${eza_params[@]}' # Ignore git ignored files
+  alias ll='eza --all --header --long ${eza_params[@]}' # Show all files, long format, with header
+  alias llm='eza --all --header --long --sort=modified ${eza_params[@]}' # Sort by modification time
+  alias la='eza -lbhHigUmuSa' # Long format, human-readable sizes, inode, group, user, etc.
+  alias lx='eza -lbhHigUmuSa@' # Same as la, but with extended attributes
+  alias lt='eza --tree ${eza_params[@]}' # Display as tree
+  alias lsg='eza --git-repos ${eza_params[@]}' # Show git repositories
+  alias llg='eza --all --header --long --git-repos ${eza_params[@]}' # Show all files, long format, with header, git repos
+  alias llmg='eza --all --header --long --git-repos --sort=modified ${eza_params[@]}' # Sort by modification time, git repos
+  alias lag='eza -lbhHigUmuSa --git-repos' # Long format, human-readable sizes, inode, group, user, git repos
+  alias lxg='eza -lbhHigUmuSa@ --git-repos' # Same as lag, but with extended attributes
+
+# Fallback to ls with colored output
+else
+
+  # Define aliases for ls with colored output
+  alias ls='ls --color=auto' # Automatically use colored output
+  alias l='ls --color=auto -l' # Long format with colored output
+  alias ll='ls --color=auto -la' # Show all files, long format, with colored output
+  alias la='ls --color=auto -la' # Show all files, long format, with colored output
+  alias lx='ls --color=auto -lX' # Long format, sort by extension, with colored output
+  alias lt='ls --color=auto -lt' # Long format, sort by modification time, with colored output
+  alias tree='ls --color=auto -R' # Recursive listing with colored output
+
 fi
+### END of LSD -> EZA -> LS block
 
 # Alias Script for Linux Power Users - Created by ChatGPT (Your AI Assistant)
 # --------------------------------------------------------------
