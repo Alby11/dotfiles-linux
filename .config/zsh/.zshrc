@@ -80,9 +80,6 @@ source "$ZDOTDIR/.zantidote"
 # Github CLI Copilot support
 eval "$(gh copilot alias -- zsh)"
 
-# Load custom configurations
-source "$ZDOTDIR/.zaliases"
-
 # Navi widget for Zsh
 eval "$(navi widget zsh)"
 
@@ -92,16 +89,19 @@ source $XDG_CONFIG_HOME/contour/zcontour
 # Set GTK theme
 export GTK_THEME='catppuccin-mocha-green-standard+default'
 
+# Load custom configurations
+source "$ZDOTDIR/.zaliases"
+
 ### EMACS bindings
+## default key bindings
 # bindkey '^H' backward-delete-char
 # bindkey '^J' accept-line
 # bindkey '^K' kill-line
 # bindkey '^L' clear-screen
-## Unbind C-'HJKL' to use with tmux+nvim
-bindkey -r '^H'
-bindkey -r '^J'
-bindkey -r '^K'
-bindkey -r '^L'
+## Unbind C-'HJKL' and 'backward-kill-word' to use with tmux+nvim
+for key in '^H\' '^[^H\' '^[^?' '^H' '^J' '^K' '^L'; do
+    bindkey "$key" undefined-key
+done
 
 # End debug logging if ZSH_DEBUG is set
-ZSH_DEBUG_LOG_ENDFILE "Dotfiles proessing complete:\n${(%):-%N}"
+ZSH_DEBUG_LOG_ENDFILE "Dotfiles processing complete:\n${(%):-%N}"

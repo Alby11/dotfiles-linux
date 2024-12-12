@@ -37,7 +37,7 @@ ohmyzsh/ohmyzsh path:plugins/dnote kind:fpath
 ohmyzsh/ohmyzsh path:plugins/docker
 ohmyzsh/ohmyzsh path:plugins/docker-compose
 ohmyzsh/ohmyzsh path:plugins/extract
-ohmyzsh/ohmyzsh path:plugins/eza
+# ohmyzsh/ohmyzsh path:plugins/eza # here for memory, manually implemented
 ohmyzsh/ohmyzsh path:plugins/fancy-ctrl-z
 ohmyzsh/ohmyzsh path:plugins/fasd
 ohmyzsh/ohmyzsh path:plugins/fastfile
