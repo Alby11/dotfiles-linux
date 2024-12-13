@@ -1,10 +1,12 @@
+# vim: ft=zathurarc
+
 # Open document in fit-width mode by default
 set adjust-open "best-fit"
 
 # One page per row by default
 set pages-per-row 1
 
-# Stop at page boundries
+# Stop at page boundaries
 set scroll-page-aware "true"
 set smooth-scroll "true"
 set scroll-full-overlap 0.01
@@ -12,60 +14,85 @@ set scroll-step 100
 
 # Zoom settings
 set zoom-min 10
+set zoom-max 500
+map <C-=> zoom_in   # Ctrl + = to zoom in
+map <C--> zoom_out  # Ctrl + - to zoom out
+map <C-0> zoom 100  # Ctrl + 0 to reset zoom
+
+# GUI settings
 set guioptions ""
 
+# Render settings
 set render-loading "false"
 set font "JetBrainsMono NF"
+
+# Key mappings
 unmap f
 map f toggle_fullscreen
 unmap a
 map a toggle_statusbar
 map [fullscreen] f toggle_fullscreen
 
+# Toggle recolor dynamically
+map r set recolor !recolor
 
+# Clipboard settings
 set selection-clipboard clipboard
 set window-title-page true
 
 # Colors
 set default-fg                rgba(202,211,245,1)
-set default-bg 			          rgba(36,39,58,1)
+set default-bg                rgba(36,39,58,1)
 
-set completion-bg		          rgba(54,58,79,1)
-set completion-fg		          rgba(202,211,245,1)
-set completion-highlight-bg	  rgba(87,82,104,1)
-set completion-highlight-fg	  rgba(202,211,245,1)
-set completion-group-bg		    rgba(54,58,79,1)
-set completion-group-fg		    rgba(138,173,244,1)
+set completion-bg             rgba(54,58,79,1)
+set completion-fg             rgba(202,211,245,1)
+set completion-highlight-bg   rgba(87,82,104,1)
+set completion-highlight-fg   rgba(202,211,245,1)
+set completion-group-bg       rgba(54,58,79,1)
+set completion-group-fg       rgba(138,173,244,1)
 
-set statusbar-fg		          rgba(202,211,245,1)
-set statusbar-bg		          rgba(54,58,79,1)
+set statusbar-fg              rgba(202,211,245,1)
+set statusbar-bg              rgba(54,58,79,1)
 
-set notification-bg		        rgba(54,58,79,1)
-set notification-fg		        rgba(202,211,245,1)
-set notification-error-bg	    rgba(54,58,79,1)
-set notification-error-fg	    rgba(237,135,150,1)
-set notification-warning-bg	  rgba(54,58,79,1)
-set notification-warning-fg	  rgba(250,227,176,1)
+set notification-bg           rgba(54,58,79,1)
+set notification-fg           rgba(202,211,245,1)
+set notification-error-bg     rgba(54,58,79,1)
+set notification-error-fg     rgba(237,135,150,1)
+set notification-warning-bg   rgba(54,58,79,1)
+set notification-warning-fg   rgba(250,227,176,1)
 
-set inputbar-fg			          rgba(202,211,245,1)
-set inputbar-bg 		          rgba(54,58,79,1)
+set inputbar-fg               rgba(202,211,245,1)
+set inputbar-bg               rgba(54,58,79,1)
 
+# Recolor settings
 set recolor                   "true"
-set recolor-lightcolor		    rgba(36,39,58,1)
-set recolor-darkcolor		      rgba(202,211,245,1)
+set recolor-lightcolor        rgba(36,39,58,1)
+set recolor-darkcolor         rgba(202,211,245,1)
+set recolor-reverse-video     "true"
+set recolor-keephue           "true"
 
-set index-fg			            rgba(202,211,245,1)
-set index-bg			            rgba(36,39,58,1)
-set index-active-fg		        rgba(202,211,245,1)
-set index-active-bg		        rgba(54,58,79,1)
+# Index settings
+set index-fg                  rgba(202,211,245,1)
+set index-bg                  rgba(36,39,58,1)
+set index-active-fg           rgba(202,211,245,1)
+set index-active-bg           rgba(54,58,79,1)
 
-set render-loading-bg		      rgba(36,39,58,1)
-set render-loading-fg		      rgba(202,211,245,1)
+# Render loading colors
+set render-loading-bg         rgba(36,39,58,1)
+set render-loading-fg         rgba(202,211,245,1)
 
-set highlight-color		        rgba(87,82,104,0.5)
+# Highlight settings
+set highlight-color           rgba(87,82,104,0.5)
 set highlight-fg              rgba(245,189,230,0.5)
-set highlight-active-color	  rgba(245,189,230,0.5)
+set highlight-active-color    rgba(245,189,230,0.5)
 
-set recolor "true"
-set recolor-reverse-video "true"
-set recolor-keephue "true"
+# Additional key mappings
+map i toggle_index            # Toggle index navigation
+map j navigate_index_down     # Move down in the index
+map k navigate_index_up       # Move up in the index
+map h scroll_left             # Scroll left
+map l scroll_right            # Scroll right
+
+# Restore default zoom key mapping if needed
+map z zoom_fit
+
