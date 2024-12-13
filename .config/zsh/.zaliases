@@ -162,6 +162,22 @@ if command -v systemctl &>/dev/null; then
 	alias ctledit="sudo systemctl edit "                  # Edit system unit file
 	alias ctlusredit="systemctl --user edit "             # Edit user unit file
 
+	# Targets (system scope)
+	alias ctlts="sudo systemctl list-unit-files --type=target"         # List all system targets
+	alias ctltu="sudo systemctl list-units --type=target"             # List active system targets
+	alias ctltd="sudo systemctl list-dependencies "                  # Show dependencies for a specific system target
+	alias ctltg="sudo systemctl get-default"                          # Get the default system target
+	alias ctltsd="sudo systemctl set-default "                        # Set the default system target
+	alias ctltiso="sudo systemctl isolate "                           # Start or isolate a specific system target
+
+	# Targets (user scope)
+	alias ctlusrts="systemctl --user list-unit-files --type=target"    # List all user targets
+	alias ctlusrtu="systemctl --user list-units --type=target"        # List active user targets
+	alias ctlusrtd="systemctl --user list-dependencies "             # Show dependencies for a specific user target
+	alias ctlusrtg="systemctl --user get-default"                     # Get the default user target
+	alias ctlusrtsd="systemctl --user set-default "                   # Set the default user target
+	alias ctlusrtiso="systemctl --user isolate "                      # Start or isolate a specific user target
+
 	# Show Systemd version
 	alias ctlver="systemctl --version"                    # Show systemd version
 fi
