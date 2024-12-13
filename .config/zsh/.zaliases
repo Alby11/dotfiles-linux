@@ -85,57 +85,113 @@ alias netstat="sudo netstat"
 
 ### Systemd block
 if command -v systemctl &>/dev/null; then
-	# Basic systemctl commands
-	alias ctl="sudo systemctl"
-	# Daemons reload
-	alias ctldr="sudo systemctl daemon-reload"
-	# Credits to: https://gist.github.com/Feniksovich
-	alias ctlsp="sudo systemctl stop "
-	alias ctlst="sudo systemctl start "
-	alias ctlrt="sudo systemctl restart "
-	alias ctlrl="sudo systemctl reload "
-	alias ctls="sudo systemctl status "
-	# Enable/Disable commands for units
-	alias ctle='sudo systemctl enable '
-	alias ctld='sudo systemctl disable '
-	# Masking Units to disabling them
-	alias ctlmask='sudo systemctl mask '
-	alias ctlunmask='sudo systemctl unmask '
-	# List failed units and reset sudo systemd system status
-	alias ctlfailed='sudo systemctl --failed --all '
-	alias ctlrf='sudo systemctl reset-failed '
-	# List units
-	alias ctllu='sudo systemctl list-units'
-	alias ctllufailed='sudo systemctl list-units --failed'
-	alias ctllus='sudo systemctl list-units --type=service'
-	## --user block
-	# Basic systemctl commands
-	alias ctlu="systemctl --user"
-	# Daemons reload
-	alias ctludr="systemctl --user daemon-reload"
-	# Credits to: https://gist.github.com/Feniksovich
-	alias ctlusp="systemctl --user stop "
-	alias ctlust="systemctl --user start "
-	alias ctlurt="systemctl --user restart "
-	alias ctlurl="systemctl --user reload "
-	alias ctlus="systemctl --user status "
-	# Enable/Disable commands for units
-	alias ctlue='systemctl --user enable '
-	alias ctlud='systemctl --user disable '
-	# Masking Units to disabling them
-	alias ctlumask='systemctl --user mask '
-	alias ctluunmask='systemctl --user unmask '
-	# List failed units and reset sudo systemd system status
-	alias ctlufailed='systemctl --user --failed --all '
-	alias ctlurf='systemctl --user reset-failed '
-	# List units
-	alias ctlulu='systemctl --user list-units '
-	alias ctlulufailed='sudo systemctl --user list-units --failed'
-	alias ctlulus='systemctl --user list-units --type=service'
-fi
 
+	# Basic systemctl commands
+	alias ctl="sudo systemctl"                             # General systemctl (system scope)
+	alias ctlusr="systemctl --user"                       # General systemctl (user scope)
+
+	# Daemon reloads
+	alias ctldr="sudo systemctl daemon-reload"            # Reload system daemon
+	alias ctlusrr="systemctl --user daemon-reload"        # Reload user daemon
+
+	# Start/Stop/Restart/Reload commands
+	alias ctlsp="sudo systemctl stop "                    # Stop system service
+	alias ctlusrsp="systemctl --user stop "               # Stop user service
+	alias ctlst="sudo systemctl start "                   # Start system service
+	alias ctlusrst="systemctl --user start "              # Start user service
+	alias ctlrt="sudo systemctl restart "                 # Restart system service
+	alias ctlusrrt="systemctl --user restart "            # Restart user service
+	alias ctlrl="sudo systemctl reload "                  # Reload system service
+	alias ctlusrrl="systemctl --user reload "             # Reload user service
+
+	# Status commands
+	alias ctls="sudo systemctl status "                   # Status of system service
+	alias ctlusrs="systemctl --user status "              # Status of user service
+
+	# Enable/Disable units
+	alias ctle="sudo systemctl enable "                   # Enable system unit
+	alias ctlusre="systemctl --user enable "              # Enable user unit
+	alias ctld="sudo systemctl disable "                  # Disable system unit
+	alias ctlusrd="systemctl --user disable "             # Disable user unit
+
+	# Mask/Unmask units
+	alias ctlmask="sudo systemctl mask "                  # Mask system unit
+	alias ctlusrmask="systemctl --user mask "             # Mask user unit
+	alias ctlunmask="sudo systemctl unmask "              # Unmask system unit
+	alias ctlusrunmask="systemctl --user unmask "         # Unmask user unit
+
+	# Failed units and reset status
+	alias ctlfailed="sudo systemctl --failed --all "      # List failed system units
+	alias ctlusrfailed="systemctl --user --failed --all " # List failed user units
+	alias ctlrf="sudo systemctl reset-failed "            # Reset failed system units
+	alias ctlusrrf="systemctl --user reset-failed "       # Reset failed user units
+
+	# List units
+	alias ctllu="sudo systemctl list-units"               # List all system units
+	alias ctlusru="systemctl --user list-units"           # List all user units
+	alias ctlluf="sudo systemctl list-units --failed"     # List failed system units
+	alias ctlusruf="systemctl --user list-units --failed" # List failed user units
+	alias ctllus="sudo systemctl list-units --type=service"  # List system services
+	alias ctlusrus="systemctl --user list-units --type=service"  # List user services
+
+	# Analyze Systemd critical chain
+	alias ctlchain="sudo systemd-analyze critical-chain"  # Show system critical chain
+	alias ctlusrchain="systemd-analyze critical-chain --user"  # Show user critical chain
+
+	# Generate graph for visualization (requires Graphviz)
+	alias ctlgraph='sudo systemd-analyze dot | dot -Tsvg -o systemd-hierarchy.svg && echo "Generated: systemd-hierarchy.svg"'  # Graph for system units
+	alias ctlusrgraph='systemd-analyze dot --user | dot -Tsvg -o user-systemd-hierarchy.svg && echo "Generated: user-systemd-hierarchy.svg"'  # Graph for user units
+
+	# Show startup times
+	alias ctlblame="sudo systemd-analyze blame"           # Show system startup times
+	alias ctlusrblame="systemd-analyze blame --user"      # Show user startup times
+
+	# List dependencies for units
+	alias ctldeps="sudo systemctl list-dependencies "     # List dependencies for a system unit
+	alias ctlusrdeps="systemctl --user list-dependencies "  # List dependencies for a user unit
+
+	# Inspect unit properties
+	alias ctlshow="sudo systemctl show "                  # Show properties of a system unit
+	alias ctlusrshow="systemctl --user show "             # Show properties of a user unit
+
+	# Check Unit Files
+	alias ctlcat="sudo systemctl cat "                    # View system unit file
+	alias ctlusrcat="systemctl --user cat "               # View user unit file
+
+	# Edit units
+	alias ctledit="sudo systemctl edit "                  # Edit system unit file
+	alias ctlusredit="systemctl --user edit "             # Edit user unit file
+
+	# Show Systemd version
+	alias ctlver="systemctl --version"                    # Show systemd version
+fi
+## Journalctl
+if command -v journalctl &>/dev/null; then
+
+	# Logs for system units
+	alias j="sudo journalctl"                         # General journalctl
+	alias ju="sudo journalctl -u "                   # Logs for a specific system unit
+	alias jf="sudo journalctl --follow"              # Follow logs
+	alias jk="sudo journalctl -k"                    # Kernel logs
+	alias juc="sudo journalctl --catalog --pager-end --unit "  # Logs with catalog for a specific system unit
+	alias jfc="sudo journalctl --follow --catalog --unit "     # Follow logs with catalog for a specific system unit
+	alias jfk="sudo journalctl --follow --dmesg"     # Follow kernel logs (dmesg)
+
+	# Logs for user units
+	alias jus="journalctl --user"                    # General journalctl (user scope)
+	alias jusu="journalctl --user -u "              # Logs for a specific user unit
+	alias jusf="journalctl --user --follow"         # Follow logs for user services
+	alias jusk="journalctl --user -k"               # Kernel logs (user scope)
+	alias jusuc="journalctl --user --catalog --pager-end --unit "  # Logs with catalog for a specific user unit
+	alias jusfc="journalctl --user --follow --catalog --unit "     # Follow logs with catalog for a specific user unit
+
+fi
+### End of Systemd block
+
+# Check if the command 'ccze' is available
 if command -v ccze &>/dev/null; then
-	alias -g CC=' | ccze -A'
+    # Create a global alias 'CC' that pipes the output through 'ccze' with ANSI color codes
+    alias -g CC=' | ccze -A'
 fi
 
 if command -v notify-send &>/dev/null; then
@@ -154,15 +210,6 @@ if command -v iptables &>/dev/null; then
 	alias it='sudo iptables '
 	# Lookup iptables chain
 	alias itL="iptables --line-numbers -nvL "
-fi
-
-if command -v journalctl &>/dev/null; then
-	alias j="journalctl"
-	alias jf="journalctl --follow"
-	alias jk="journalctl -k"
-	alias ju="journalctl --catalog --pager-end --unit"
-	alias juf="journalctl --follow --catalog --unit"
-	alias jfk="journalctl --follow --dmesg"
 fi
 
 if command -v apt &>/dev/null; then
@@ -669,8 +716,8 @@ if command -v lsd > /dev/null 2>&1 && command -v eza > /dev/null 2>&1; then
   alias l='lsd --ignore-glob ${lsd_params[@]}' # Ignore glob patterns
   alias ll='lsd --all --long --header ${lsd_params[@]}' # Show all files, long format, with header
   alias llm='lsd --all --long --header --sort=modified ${lsd_params[@]}' # Sort by modification time
-  alias la='lsd -lbhHigUmuSa' # Long format, human-readable sizes, inode, group, user, etc.
-  alias lx='lsd -lbhHigUmuSa@' # Same as la, but with extended attributes
+	alias la='lsd -l --all --human-readable --inode --group-dirs first --icon=always --icon-theme=fancy'
+	alias lx='lsd -l --all --human-readable --inode --group-dirs first --icon=always --icon-theme=fancy --classify'
   alias lt='lsd --tree ${lsd_params[@]}' # Display as tree
 
   # Declare an array for eza parameters
@@ -718,8 +765,8 @@ elif command -v lsd > /dev/null 2>&1 && ! command -v eza > /dev/null 2>&1; then
   alias l='lsd --ignore-glob ${lsd_params[@]}' # Ignore glob patterns
   alias ll='lsd --all --long --header ${lsd_params[@]}' # Show all files, long format, with header
   alias llm='lsd --all --long --header --sort=modified ${lsd_params[@]}' # Sort by modification time
-  alias la='lsd -lbhHigUmuSa' # Long format, human-readable sizes, inode, group, user, etc.
-  alias lx='lsd -lbhHigUmuSa@' # Same as la, but with extended attributes
+	alias la='lsd -l --all --human-readable --inode --group-dirs first --icon=always --icon-theme=fancy'
+	alias lx='lsd -l --all --human-readable --inode --group-dirs first --icon=always --icon-theme=fancy --classify'
   alias lt='lsd --tree ${lsd_params[@]}' # Display as tree
 
 # Check if eza alone is available
