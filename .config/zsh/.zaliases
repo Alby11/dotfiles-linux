@@ -92,7 +92,7 @@ if command -v systemctl &>/dev/null; then
 
 	# Daemon reloads
 	alias ctldr="sudo systemctl daemon-reload"            # Reload system daemon
-	alias ctlusrr="systemctl --user daemon-reload"        # Reload user daemon
+	alias ctlusrdr="systemctl --user daemon-reload"        # Reload user daemon
 
 	# Start/Stop/Restart/Reload commands
 	alias ctlsp="sudo systemctl stop "                    # Stop system service
@@ -123,14 +123,12 @@ if command -v systemctl &>/dev/null; then
 	# Failed units and reset status
 	alias ctlfailed="sudo systemctl --failed --all "      # List failed system units
 	alias ctlusrfailed="systemctl --user --failed --all " # List failed user units
-	alias ctlrf="sudo systemctl reset-failed "            # Reset failed system units
-	alias ctlusrrf="systemctl --user reset-failed "       # Reset failed user units
+	alias ctlresetfailed="sudo systemctl reset-failed "            # Reset failed system units
+	alias ctlusrresetfailed="systemctl --user reset-failed "       # Reset failed user units
 
 	# List units
 	alias ctllu="sudo systemctl list-units"               # List all system units
 	alias ctlusru="systemctl --user list-units"           # List all user units
-	alias ctlluf="sudo systemctl list-units --failed"     # List failed system units
-	alias ctlusruf="systemctl --user list-units --failed" # List failed user units
 	alias ctllus="sudo systemctl list-units --type=service"  # List system services
 	alias ctlusrus="systemctl --user list-units --type=service"  # List user services
 
@@ -177,6 +175,10 @@ if command -v systemctl &>/dev/null; then
 	alias ctlusrtg="systemctl --user get-default"                     # Get the default user target
 	alias ctlusrtsd="systemctl --user set-default "                   # Set the default user target
 	alias ctlusrtiso="systemctl --user isolate "                      # Start or isolate a specific user target
+
+	# Show environment
+	alias ctlenv="sudo systemctl show-environment"                # Show system environment
+	alias ctlusrenv="systemctl --user show-environment"           # Show user environment
 
 	# Show Systemd version
 	alias ctlver="systemctl --version"                    # Show systemd version
