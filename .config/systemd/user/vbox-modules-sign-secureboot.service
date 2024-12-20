@@ -1,0 +1,15 @@
+[Unit]
+Description=Sign VirtualBox Modules
+After=network.target
+Before=vboxdrv.service
+
+[Service]
+ProtectHome=false
+ProtectSystem=false
+NoNewPrivileges=false
+Type=oneshot
+ExecStart=/home/tallonea/.config/zsh/scripts/vbox-modules-sign-secureboot.sh
+
+[Install]
+WantedBy=default.target
+

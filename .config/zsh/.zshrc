@@ -94,14 +94,11 @@ source "$ZDOTDIR/.zaliases"
 
 ### EMACS bindings
 ## default key bindings
-# bindkey '^H' backward-delete-char
-# bindkey '^J' accept-line
-# bindkey '^K' kill-line
-# bindkey '^L' clear-screen
+source "$ZDOTDIR/.zemacs"
 ## Unbind C-'HJKL' and 'backward-kill-word' to use with tmux+nvim
-for key in '^H\' '^[^H\' '^[^?' '^H' '^J' '^K' '^L'; do
-    bindkey "$key" undefined-key
-done
+# for key in '^H\' '^[^H\' '^[^?' '^H' '^J' '^K' '^L'; do
+#     bindkey "$key" undefined-key
+# done
 
 # End debug logging if ZSH_DEBUG is set
 ZSH_DEBUG_LOG_ENDFILE "Dotfiles processing complete:\n${(%):-%N}"
