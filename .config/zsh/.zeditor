@@ -27,8 +27,10 @@ bat cache --build > /dev/null 2>&1
 
 # Set the default editor, considering if it is available
 export EDITOR="nvim"
+export SYSTEMD_EDITOR="vim"
 export VISUAL="$EDITOR"
 export PAGER="less"
+export SYSTEMD_PAGER="$PAGER"
 export MANPAGER="$PAGER"
 
 [[ -n $EDITOR ]] && {
