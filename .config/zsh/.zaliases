@@ -1130,4 +1130,40 @@ alias ptyxist='flatpak run app.devsuite.Ptyxis --tab'
 # Run command in Ptyxis
 alias ptyxisr='flatpak run app.devsuite.Ptyxis --title 'Launch' -s -x'
 
+### SGPT block
+## git summarize ##
+# Leverage SGPT to produce intelligent and context-sensitive git commit messages.
+# By providing one argument, you can define the type of semantic commit (e.g. feat, fix, chore).
+# When supplying two arguments, the second parameter allows you to include more details for a more explicit prompt.
+gsum() {
+    if [ $# -eq 2 ]; then
+        query="Generate git commit message using semantic versioning. Declare commit message as $1. $2. My changes: $(git diff)"
+    elif [ $# -eq 1 ]; then
+        query="Generate git commit message using semantic versioning. Declare commit message as $1. My changes: $(git diff)"
+    else
+        query="Generate git commit message using semantic versioning. My changes: $(git diff)"
+    fi
+    commit_message="$(sgpt txt "$query")"
+    printf "%s\n" "$commit_message"
+    read -rp "Do you want to commit your changes with this commit message? [y/N] " response
+    if [[ $response =~ ^[Yy]$ ]]; then
+        git add . && git commit -m "$commit_message"
+    else
+        echo "Commit cancelled."
+    fi
+}
+
+### Power management block
+if command -v cpupower &>/dev/null; then
+		# Set CPU governor to performance
+		alias cpuperf='sudo cpupower frequency-set --governor performance --max 5Ghz'
+		# Set CPU governor to powersave
+		alias cpusave='sudo cpupower frequency-set --governor powersave --max 3.7Ghz'
+fi
+if command -v watch &>/dev/null; then
+		# Watch CPU frequency
+		alias watchcpu='watch -n.1 "grep \"^[c]pu MHz\" /proc/cpuinfo"'
+		alias watchtemp='watch -n.1 "sensors"'
+fi
+
 ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"
