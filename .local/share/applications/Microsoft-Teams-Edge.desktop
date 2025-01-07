@@ -5,5 +5,5 @@ Terminal=false
 Type=Application
 Name=Microsoft Teams (Edge)
 Exec=/opt/microsoft/msedge/microsoft-edge --profile-directory=Default --app-id=cifhbcnohmdccbgoicgdjpfamggdegmo "--app-url=https://teams.microsoft.com/v2/?clientType=pwa"
-Icon=msedge-cifhbcnohmdccbgoicgdjpfamggdegmo-Default
+Icon=/home/tallonea/.icons/candy-icons/apps/scalable/teams.svg
 StartupWMClass=crx__cifhbcnohmdccbgoicgdjpfamggdegmo
