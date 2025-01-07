@@ -1,0 +1,22 @@
+[Desktop Entry]
+Name=materialgram
+Comment=Unofficial Telegram Desktop with Material Design
+Exec=/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=materialgram --file-forwarding io.github.kukuruzka165.materialgram -- @@u %u @@
+Icon=/home/tallonea/.icons/candy-icons/apps/scalable/telegram.svg
+Terminal=false
+StartupWMClass=materialgram
+Type=Application
+Categories=Chat;Network;InstantMessaging;Qt;
+MimeType=x-scheme-handler/tg;x-scheme-handler/tonsite;
+Keywords=tg;chat;im;messaging;messenger;sms;tdesktop;telegram;materialgram
+Actions=quit;
+DBusActivatable=true
+SingleMainWindow=true
+X-GNOME-UsesNotifications=true
+X-GNOME-SingleWindow=true
+X-Flatpak=io.github.kukuruzka165.materialgram
+
+[Desktop Action quit]
+Exec=/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=materialgram io.github.kukuruzka165.materialgram -quit
+Name=Quit materialgram
+Icon=application-exit
