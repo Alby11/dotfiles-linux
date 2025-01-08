@@ -1,0 +1,16 @@
+[Desktop Entry]
+Version=1.0
+Name=Neovide
+Comment=Neovide is a simple, modern, and highly-extensible Vim frontend
+Exec=/home/tallonea/.local/bin/neovide
+Icon=/home/tallonea/.icons/candy-icons/apps/scalable/neovide.svg
+Type=Application
+Categories=Development;TextEditor;
+Keywords=neovide;vim;editor;text;code;
+StartupWMClass=neovide
+MimeType=text/plain;
+Terminal=false
+SingleMainWindow=true
+X-GNOME-UsesNotifications=true
+X-GNOME-SingleWindow=true
+X-Flatpak-RenamedFrom=io.github.arkav.neovide
