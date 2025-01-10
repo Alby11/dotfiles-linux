@@ -22,10 +22,6 @@
 	path = .config/tmux
 	url  = git@github.com:Alby11/dotfiles-tmux.git
 
-[submodule ".config/fsh"]
-	path = .config/fsh
-	url  = git@github.com:catppuccin/zsh-fsh.git
-
 [submodule ".config/zsh/functions"]
 	path = .config/zsh/functions
 	url  = git@github.com:Alby11/zsh-functions.git
