@@ -74,18 +74,6 @@ fi
 # Include custom path management
 [[ -f "${ZDOTDIR}/.zpath" ]] && source "${ZDOTDIR}/.zpath"
 
-# Fetch secrets
-# Check if the script exists and is executable
-if [[ -x $ZDOTDIR/.fetch_secrets.sh ]]; then
-  # Run the script and evaluate each line in the current shell
-  while IFS= read -r line; do
-      if echo "$line" | grep -q 'BW_SESSION='; then
-          line=$(echo "$line" | sed 's/BW_SESSION=//')
-      fi
-      eval "$line"
-  done < <($ZDOTDIR/.fetch_secrets.sh)
-fi
-
 # Python environment management
 [[ -f "${ZDOTDIR}/.zpyenv" ]] && source "${ZDOTDIR}/.zpyenv"
 
@@ -99,6 +87,18 @@ fi
 export JAVA_HOME="$(dirname $(dirname $javac_path))"
 
 # Export environment variables for FZF and any other tools
+# Check if fd, rg, and fzf are installed
+if [[ ! $(command -v fd) || ! $(command -v rg) || ! $(command -v fzf) ]]; then
+  # Determine the package manager and install the packages
+  package_manager_install fzf
+  package_manager_install ripgrep
+  if [[ -f /etc/lsb-release ]]; then
+    sudo apt-get install fd-find
+  else
+    package_manager_install fd
+  fi
+fi
+
 export FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude '.git'"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_DEFAULT_OPTS="\
@@ -112,8 +112,23 @@ export FZF_DEFAULT_OPTS="\
     --multi" # catppuccin colors
 
 # set theme variables, for flatpak, etc.
-export GTK_THEME=catppuccin-mocha-green-standard+default
-export ICON_THEME=Catppuccin-Mocha-Green-Cursors
+# export GTK_THEME=catppuccin-mocha-green-standard+default
+# export ICON_THEME=Catppuccin-Mocha-Green-Cursors
+
+# Fetch secrets
+[[ ! $(command -v aws) ]] && \
+    package_manager_install awscli && \
+    aws configure
+# Check if the script exists and is executable
+if [[ -x $ZDOTDIR/.fetch_secrets.sh ]]; then
+  # Run the script and evaluate each line in the current shell
+  while IFS= read -r line; do
+      if echo "$line" | grep -q 'BW_SESSION='; then
+          line=$(echo "$line" | sed 's/BW_SESSION=//')
+      fi
+      eval "$line"
+  done < <($ZDOTDIR/.fetch_secrets.sh)
+fi
 
 # For security, prevent core dumps
 ulimit -c 0

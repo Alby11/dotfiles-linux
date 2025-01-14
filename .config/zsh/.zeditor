@@ -6,6 +6,9 @@
 
 [[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_STARTFILE "${(%):-%N}"
 
+[[ ! $(command -v bat) ]] && \
+  package_manager_install bat
+
 export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
 
 batdiff() {

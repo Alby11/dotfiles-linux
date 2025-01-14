@@ -63,8 +63,18 @@ compdef _git dotfiles
 zstyle ':completion:*:*:dotfiles:*' script $ZDOTDIR/completion/_git
 
 # Set up other completions
+[[ ! $(command -v bw) ]] && \
+  wget -O "${HOME}/bin/bw.zip" "https://vault.bitwarden.com/download/?app=cli&platform=linux" && \
+  unzip -o "${HOME}/bin/bw.zip" -d "${HOME}/bin/" && \
+  chmod +x "${HOME}/bin/bw" && \
+  rm -fv "${HOME}/bin/bw.zip"
 eval "$(bw completion --shell zsh)"
 compdef _bw bw
+
+[[ ! $(command -v bob) ]] && \
+  cargo install --git https://github.com/MordechaiHadad/bob.git && \
+  bob install nightly && \
+  bob use nightly
 eval "$(bob complete zsh)"
 compdef _bob bob
 

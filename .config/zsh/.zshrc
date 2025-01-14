@@ -69,30 +69,31 @@ if [[ "$TERM_PROGRAM" = "vscode" ]]; then
 fi
 
 # Atuin setup
-[[ -f $HOME/.atuin/bin/env ]] && source "$HOME/.atuin/bin/env"
-if command -v atuin > /dev/null 2>&1; then
-    eval "$(atuin init zsh)"
-fi
+[[ ! $(command -v atuin) ]] && \
+    curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | sh
+eval "$(atuin init zsh)"
 
 # Antidote setup for managing plugins
 source "$ZDOTDIR/.zantidote"
 
 # Github CLI Copilot support
+[[ ! $(command -v gh) ]] && \
+    package_manager_install gh && \
+    gh extension install github/copilot
 eval "$(gh copilot alias -- zsh)"
 
 # Navi widget for Zsh
+[[ ! $(command -v navi) ]] && \
+    package_manager_install navi 
 eval "$(navi widget zsh)"
 
-# Contour terminal Zsh shell integration
-source $XDG_CONFIG_HOME/contour/zcontour
-
 # Set GTK theme
-export GTK_THEME='catppuccin-mocha-green-standard+default'
+# export GTK_THEME='catppuccin-mocha-green-standard+default'
 
 # Load custom configurations
 source "$ZDOTDIR/.zaliases"
 
-### EMACS bindings
+### EMACS zsh shell bindings
 ## default key bindings
 source "$ZDOTDIR/.zemacs"
 ## Unbind C-'HJKL' and 'backward-kill-word' to use with tmux+nvim
