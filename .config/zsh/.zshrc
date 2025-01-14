@@ -88,14 +88,6 @@ eval "$(navi widget zsh)"
 # Load custom configurations
 source "$ZDOTDIR/.zaliases"
 
-### EMACS zsh shell bindings
-## default key bindings
-source "$ZDOTDIR/.zemacs"
-## Unbind C-'HJKL' and 'backward-kill-word' to use with tmux+nvim
-# for key in '^H\' '^[^H\' '^[^?' '^H' '^J' '^K' '^L'; do
-#     bindkey "$key" undefined-key
-# done
-
 # End debug logging if ZSH_DEBUG is set
 ZSH_DEBUG_LOG_ENDFILE "Dotfiles processing complete:\n${(%):-%N}"
 
@@ -104,3 +96,12 @@ ZSH_DEBUG_LOG_ENDFILE "Dotfiles processing complete:\n${(%):-%N}"
     curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | sh
 . "$HOME/.atuin/bin/env"
 eval "$(atuin init zsh)"
+
+### EMACS zsh shell bindings
+## default key bindings
+source "$ZDOTDIR/.zemacs"
+## Unbind C-'HJKL' and 'backward-kill-word' to use with tmux+nvim
+# for key in '^H\' '^[^H\' '^[^?' '^H' '^J' '^K' '^L'; do
+#     bindkey "$key" undefined-key
+# done
+

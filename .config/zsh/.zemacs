@@ -1,5 +1,7 @@
 # vim: ft=zsh
 
+# NOTE: ZSH emacs key bindings
+
 ZSH_DEBUG_LOG_STARTFILE "${(%):-%N}"
 
 # Basic movement
@@ -32,5 +34,23 @@ bindkey '^Y' yank                     # Ctrl + y
 
 # Clear screen
 bindkey '^L' clear-screen             # Ctrl + l
+
+# Search
+bindkey '^R' history-incremental-search-backward  # Ctrl + r
+bindkey '^S' history-incremental-search-forward   # Ctrl + s
+
+# Capitalization
+bindkey '^[u' upcase-word                         # Alt + u
+bindkey '^[l' downcase-word                       # Alt + l
+bindkey '^[c' capitalize-word                     # Alt + c
+
+# Transpose words
+bindkey '^[t' transpose-words                     # Alt + t
+
+# Kill to the end of the buffer
+bindkey '^U' kill-whole-line                      # Ctrl + u
+
+# Re-read init file
+bindkey '^[x' re-read-init-file                   # Alt + x
 
 ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"
