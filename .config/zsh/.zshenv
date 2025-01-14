@@ -60,7 +60,7 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 if [[ -f /etc/fedora-release ]]; then
     export DISTRO="fedora"
     (sudo -n dnf install -y fontconfig-devel freetype-devel libX11-xcb libX11-devel \
-        libstdc++-static libstdc++-devel golang-go rustup &>/dev/null || true) &
+        libstdc++-static libstdc++-devel golang-go rustup cargo &>/dev/null || true) &
     disown
     (sudo -n dnf group install -y "development-tools" "development-libs" &>/dev/null || true) &
     disown
@@ -74,16 +74,19 @@ elif [[ -f /etc/os-release ]]; then
             gcc-multilib g++-multilib cmake libssl-dev pkg-config \
             libfreetype6-dev libasound2-dev libexpat1-dev libxcb-composite0-dev \
             libbz2-dev libsndio-dev freeglut3-dev libxmu-dev libxi-dev libfontconfig1-dev \
-            libxcursor-dev golang-go rustup > /dev/null 2>&1 || true) &
+            libxcursor-dev golang-go rustup cargo > /dev/null 2>&1 || true) &
         disown
     elif [[ $ID == "arch" || $ID_LIKE == "arch" ]]; then
         export DISTRO="arch"
         (sudo -n pacman -S --noconfirm base-devel fontconfig freetype2 libglvnd sndio cmake \
-            git gtk3 python sdl2 vulkan-intel libxkbcommon-x11 golang-go rustup > /dev/null 2>&1 || true) &
+            git gtk3 python sdl2 vulkan-intel libxkbcommon-x11 golang-go rustup cargo > /dev/null 2>&1 || true) &
         disown
     fi
 fi
 
+# set default rust toolchain to nightly
+[[ ! $(rustup default | grep nightly) ]] && \
+    rustup default nightly
 
 # Include custom tools
 [[ -f "${ZDOTDIR}/.ztools" ]] && source "${ZDOTDIR}/.ztools"
