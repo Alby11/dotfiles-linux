@@ -69,7 +69,7 @@ if [[ "$TERM_PROGRAM" = "vscode" ]]; then
 fi
 
 # Atuin setup
-[[ ! $(command -v atuin) ]] && \
+[[ ! -f ${HOME}/atuin/bin/atuin ]] && \
     curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | sh
 eval "$(atuin init zsh)"
 
@@ -79,16 +79,14 @@ source "$ZDOTDIR/.zantidote"
 # Github CLI Copilot support
 [[ ! $(command -v gh) ]] && \
     package_manager_install gh && \
-    gh extension install github/copilot
+    gh auth login --web
+    gh extension install github/gh-copilot --force
 eval "$(gh copilot alias -- zsh)"
 
 # Navi widget for Zsh
 [[ ! $(command -v navi) ]] && \
     package_manager_install navi 
 eval "$(navi widget zsh)"
-
-# Set GTK theme
-# export GTK_THEME='catppuccin-mocha-green-standard+default'
 
 # Load custom configurations
 source "$ZDOTDIR/.zaliases"
@@ -103,3 +101,5 @@ source "$ZDOTDIR/.zemacs"
 
 # End debug logging if ZSH_DEBUG is set
 ZSH_DEBUG_LOG_ENDFILE "Dotfiles processing complete:\n${(%):-%N}"
+
+. "$HOME/.atuin/bin/env"
