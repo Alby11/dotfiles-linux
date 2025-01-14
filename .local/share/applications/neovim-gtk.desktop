@@ -1,0 +1,16 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=neovim-gtk
+Comment=GTK ui for neovim written in rust using gtk-rs bindings. With ligatures support.
+Exec=nvim-gtk %F
+Icon=/home/tallonea/.icons/candy-icons/apps/scalable/neovide.svg
+Type=Application
+Categories=Development;TextEditor;Utility;
+Keywords=neovim-gtk;vim;editor;text;code;neovim;
+StartupWMClass=neovim-gtk
+MimeType=text/english;text/plain;text/x-makefile;text/x-c++hdr;text/x-c++src;text/x-chdr;text/x-csrc;text/x-java;text/x-moc;text/x-pascal;text/x-tcl;text/x-tex;application/x-shellscript;text/x-c;text/x-c++;
+Terminal=false
+SingleMainWindow=true
+X-GNOME-UsesNotifications=true
+X-GNOME-SingleWindow=true
