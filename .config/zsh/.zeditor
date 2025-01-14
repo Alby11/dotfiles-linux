@@ -28,6 +28,13 @@ export BAT_PAGER="less -RF"
 
 bat cache --build > /dev/null 2>&1
 
+[[ ! $(command -v bob) ]] && \
+  cargo install --git https://github.com/MordechaiHadad/bob.git && \
+  bob install nightly && \
+  bob use nightly
+eval "$(bob complete zsh)"
+compdef _bob bob
+
 # Set the default editor, considering if it is available
 export EDITOR="nvim"
 export SYSTEMD_EDITOR="vim"
@@ -42,8 +49,5 @@ export MANPAGER="$PAGER"
   }
   alias e='edit'
 }
-
-# enable zsh to interpret # as comments during interactive sessions
-setopt interactivecomments
 
 [[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"

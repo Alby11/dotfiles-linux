@@ -71,11 +71,4 @@ zstyle ':completion:*:*:dotfiles:*' script $ZDOTDIR/completion/_git
 eval "$(bw completion --shell zsh)"
 compdef _bw bw
 
-[[ ! $(command -v bob) ]] && \
-  cargo install --git https://github.com/MordechaiHadad/bob.git && \
-  bob install nightly && \
-  bob use nightly
-eval "$(bob complete zsh)"
-compdef _bob bob
-
 ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"

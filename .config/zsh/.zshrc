@@ -40,6 +40,7 @@ setopt correct                    # Correct minor typos in directory names
 setopt extendedglob               # Enable extended pattern matching
 setopt histignorealldups          # Remove duplicate entries from history
 setopt inc_append_history
+setopt interactivecomments        # interpret # as comments during interactive sessions
 setopt nonomatch                  # Avoid errors when no file matches a pattern
 setopt sharehistory               # Share command history across multiple sessions
 
@@ -68,10 +69,6 @@ if [[ "$TERM_PROGRAM" = "vscode" ]]; then
     fi
 fi
 
-# Atuin setup
-[[ ! -f ${HOME}/atuin/bin/atuin ]] && \
-    curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | sh
-eval "$(atuin init zsh)"
 
 # Antidote setup for managing plugins
 source "$ZDOTDIR/.zantidote"
@@ -79,7 +76,7 @@ source "$ZDOTDIR/.zantidote"
 # Github CLI Copilot support
 [[ ! $(command -v gh) ]] && \
     package_manager_install gh && \
-    gh auth login --web
+    gh auth login --web && \
     gh extension install github/gh-copilot --force
 eval "$(gh copilot alias -- zsh)"
 
@@ -102,4 +99,8 @@ source "$ZDOTDIR/.zemacs"
 # End debug logging if ZSH_DEBUG is set
 ZSH_DEBUG_LOG_ENDFILE "Dotfiles processing complete:\n${(%):-%N}"
 
+# Atuin setup
+[[ ! -f ${HOME}/.atuin/bin/atuin ]] && \
+    curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | sh
 . "$HOME/.atuin/bin/env"
+eval "$(atuin init zsh)"

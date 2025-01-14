@@ -56,17 +56,34 @@ export COLORTERM="truecolor"
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-# determine distro for later use
+# Determine distro for later use
 if [[ -f /etc/fedora-release ]]; then
     export DISTRO="fedora"
+    (sudo -n dnf install -y fontconfig-devel freetype-devel libX11-xcb libX11-devel \
+        libstdc++-static libstdc++-devel golang-go rustup &>/dev/null || true) &
+    disown
+    (sudo -n dnf group install -y "development-tools" "development-libs" &>/dev/null || true) &
+    disown
+
 elif [[ -f /etc/os-release ]]; then
     . /etc/os-release
     if [[ $NAME == "Ubuntu" ]]; then
         export DISTRO="ubuntu"
+        (sudo -n apt install -y curl \
+            gnupg ca-certificates git \
+            gcc-multilib g++-multilib cmake libssl-dev pkg-config \
+            libfreetype6-dev libasound2-dev libexpat1-dev libxcb-composite0-dev \
+            libbz2-dev libsndio-dev freeglut3-dev libxmu-dev libxi-dev libfontconfig1-dev \
+            libxcursor-dev golang-go rustup > /dev/null 2>&1 || true) &
+        disown
     elif [[ $ID == "arch" || $ID_LIKE == "arch" ]]; then
         export DISTRO="arch"
+        (sudo -n pacman -S --noconfirm base-devel fontconfig freetype2 libglvnd sndio cmake \
+            git gtk3 python sdl2 vulkan-intel libxkbcommon-x11 golang-go rustup > /dev/null 2>&1 || true) &
+        disown
     fi
 fi
+
 
 # Include custom tools
 [[ -f "${ZDOTDIR}/.ztools" ]] && source "${ZDOTDIR}/.ztools"
@@ -86,14 +103,14 @@ if ! javac_path=$(readlink -f "$(which javac)"); then
 fi
 export JAVA_HOME="$(dirname $(dirname $javac_path))"
 
-# Export environment variables for FZF and any other tools
+# Export environment variables for FZF and related tools
 # Check if fd, rg, and fzf are installed
 if [[ ! $(command -v fd) || ! $(command -v rg) || ! $(command -v fzf) ]]; then
   # Determine the package manager and install the packages
   package_manager_install fzf
   package_manager_install ripgrep
   if [[ -f /etc/lsb-release ]]; then
-    sudo apt-get install fd-find
+    package_manager_install fd-find
   else
     package_manager_install fd
   fi
