@@ -41,9 +41,16 @@ ZSH_DEBUG_LOG_ENDFILE() {
 ZSH_DEBUG_LOG_STARTFILE "${(%):-%N}"
 
 # Autostart tmux if conditions are met
-# if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+if command -v tmux &> /dev/null && \
+    [ -n "$PS1" ] && \
+    [[ ! "$TERM" =~ screen ]]  && \
+    [[ ! "$TERM" =~ tmux ]] && \
+    [ -z "$TMUX" ] && \
+    [ -n "$ALACRITTY_LOG" ]; then
+    tmux -lu new -s Session_$(date -u +%Y-%m-%dT%H:%M:%S%Z)
 #     $HOME/.local/bin/tmux_chooser.zsh
-# fi
+#     exit
+fi
 
 # Language and locale settings
 export LANG="en_US.UTF-8"
