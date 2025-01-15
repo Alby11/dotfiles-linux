@@ -3,17 +3,17 @@ colors:
   date: none
   tags: none
   title: none
-default_hour: 9
+default_hour: 8
 default_minute: 0
-editor: nvim
+editor: "nvim -c 'set shada= noswapfile noundofile nobackup nowritebackup noshelltemp history=0 nomodeline secure'"
 encrypt: false
 highlight: true
-indent_character: '|'
+indent_character: "|"
 journals:
   default:
     journal: /home/tallonea/.local/share/jrnl/journal.txt
 linewrap: 79
-tagsymbols: '#@'
+tagsymbols: "#@"
 template: false
-timeformat: '%F %r'
+timeformat: "%F %r"
 version: v4.2
