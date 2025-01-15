@@ -11,6 +11,7 @@ tabs = true
 theme = "dark"
 title-hidden = true
 wsl = false
+transparency = 0.7
 
 [font]
 normal = "JetBrainsMono Nerd Font Mono" # Will use the bundled Fira Code Nerd Font by default
