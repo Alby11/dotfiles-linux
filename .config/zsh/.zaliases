@@ -1130,7 +1130,10 @@ alias ptyxist='flatpak run app.devsuite.Ptyxis --tab'
 # Run command in Ptyxis
 alias ptyxisr='flatpak run app.devsuite.Ptyxis --title 'Launch' -s -x'
 
+
 ### SGPT block
+# These are some bash aliases and functions to make you more productive in your daily work.
+
 ## git summarize ##
 # Leverage SGPT to produce intelligent and context-sensitive git commit messages.
 # By providing one argument, you can define the type of semantic commit (e.g. feat, fix, chore).
@@ -1153,6 +1156,13 @@ gsum() {
     fi
 }
 
+# Create a alias for access to the GPT-4 Vision API
+alias vision='sgpt --model "gpt-4-vision"'
+
+# Create a alias for access to OpenAI's o1
+alias sgpto1="sgpt --model \"o1\""
+### end of SFPT block
+
 ### Power management block
 if command -v cpupower &>/dev/null; then
 		# Set CPU governor to performance
@@ -1166,4 +1176,9 @@ if command -v watch &>/dev/null; then
 		alias watchtemp='watch -n.1 "sensors"'
 fi
 
+### jrnl block
+if command -v jrnl &>/dev/null; then
+	alias jrnl=" jrnl"
+fi
+### end of jrnl block
 ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"

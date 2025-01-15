@@ -33,13 +33,14 @@ export HISTFILESIZE=$HISTSIZE
 mkdir -p "$(dirname $HISTFILE)"
 
 # Enable various Zsh options
-setopt EXTENDED_HISTORY
+setopt EXTENDED_HISTORY           # Save timestamp of command in history
+setopt HIST_IGNORE_SPACE          # Ignore commands starting with space
 setopt auto_cd                    # Change to directory without 'cd'
 setopt autocd                     # Automatically change to a directory when you type its name
 setopt correct                    # Correct minor typos in directory names
 setopt extendedglob               # Enable extended pattern matching
 setopt histignorealldups          # Remove duplicate entries from history
-setopt inc_append_history
+setopt inc_append_history         # Add commands to history file as they are typed
 setopt interactivecomments        # interpret # as comments during interactive sessions
 setopt nonomatch                  # Avoid errors when no file matches a pattern
 setopt sharehistory               # Share command history across multiple sessions
