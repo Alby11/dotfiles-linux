@@ -26,6 +26,7 @@ path=(
 
 fpath=(
   $ZDOTDIR/{completion,functions}(N)
+  ${HOME}/.pyenv/completions(N)
   $fpath
 )
 
