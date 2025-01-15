@@ -27,7 +27,7 @@ if [[ ! -d $PYENV_ROOT ]]; then
     disown
   elif command -v dnf &>/dev/null; then
     # Fedora
-    sudo dnf install -y \
+    (sudo dnf install -y \
       make gcc zlib-devel bzip2 bzip2-devel \
       readline-devel sqlite sqlite-devel wget \
       curl llvm ncurses-devel tk-devel \
@@ -35,7 +35,7 @@ if [[ ! -d $PYENV_ROOT ]]; then
     disown
   elif command -v pacman &>/dev/null; then
     # Arch
-    sudo pacman -Syu --noconfirm \
+    (sudo pacman -Syu --noconfirm \
       base-devel openssl zlib \
       bzip2 readline sqlite wget \
       curl llvm ncurses tk \
