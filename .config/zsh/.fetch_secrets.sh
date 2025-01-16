@@ -8,8 +8,8 @@ check_internet() {
 }
 
 # Log file location for debugging
-mkdir -p "${HOME}/tmp"
-log_file="${HOME}/tmp/fetch_secrets.log"
+log_file="${HOME}/.var/log/fetch_secrets.log"
+mkdir -p $(dirname $log_file)
 
 # Loop with retry limit until internet connection is available
 max_retries=20
