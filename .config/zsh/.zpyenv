@@ -88,9 +88,6 @@ for pyenv_plugin in $pyenv_plugins; do
   fi
 done
 
-# Set preference for pyenv-virtualenvwrapper to use pyvenv
-export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
-
 # Check if there's alredy a global python version set
 # if not install python 3.13.1 and set it as global
 if [[ -z $(pyenv global) ]]; then
@@ -100,13 +97,18 @@ if [[ -z $(pyenv global) ]]; then
   python3 -m pip install --upgrade pip
   python3 -m pip install --user pipx
   python3 -m pipx ensurepath
-  exec "$SHELL"
+  pipx install virtualenvwrapper
+  pipx install virtualenv-clone
   # Install poetry
   pipx install poetry --force
   # configure poetry
   poetry config virtualenvs.create false
   poetry config virtualenvs.in-project false
+  exec "$SHELL"
 fi
+
+# Set preference for pyenv-virtualenvwrapper to use pyvenv
+export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
 
 # End debugging if ZSH_DEBUG is set
 ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"
