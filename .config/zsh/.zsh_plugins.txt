@@ -170,7 +170,7 @@ Aloxaf/fzf-tab
 
 # GPT
 # tom-doerr/zsh_codex
-Alby11/zsh_codex
+# Alby11/zsh_codex
 
 ### THEME
 # romkatv/powerlevel10k # using starship ATM
