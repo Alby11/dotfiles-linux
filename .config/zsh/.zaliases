@@ -556,8 +556,8 @@ alias ddfs="dotfiles -c color.ui=false diff --staged"
 alias ddft="dotfiles -c color.ui=false diff-tree --no-commit-id --name-only -r"
 alias ddfup="dotfiles -c color.ui=false diff @{upstream}"
 alias ddfw="dotfiles -c color.ui=false diff --word-diff"
-alias df='dotfiles diff'
-alias dft='dotfiles difftool -y'
+alias dF='dotfiles diff'
+alias dFt='dotfiles difftool -y'
 alias dfe='dotfiles fetch'
 alias dfa='dotfiles fetch --all --prune --jobs=10'
 alias dfg='dotfiles files | grep'
@@ -684,13 +684,13 @@ alias dwtrm='dotfiles worktree remove'
 # some git overrides
 alias gcmsg!='git commit --amend --message'
 alias gd='git -c color.ui=false diff'
-alias gd='git -c color.ui=false diff'
 alias gdca='git -c color.ui=false diff --cached'
 alias gdcw='git -c color.ui=false diff --cached --word--c color.ui=false diff'
 alias gds='git -c color.ui=false diff --staged'
 alias gdt='git -c color.ui=false diff-tree --no-commit-id --name-only -r'
 alias gdup='git -c color.ui=false diff @{upstream}'
 alias gdw='git -c color.ui=false diff --word--c color.ui=false diff'
+alias gd='git  diff'
 alias gmtlvim='git mergetool --no-prompt --tool=$EDITOR'
 ### end of Git block
 
