@@ -14,13 +14,15 @@ if command -v vivid > /dev/null 2>&1; then
     export LS_COLORS="$(vivid generate catppuccin-mocha)"
 else
     echo "vivid not found, using default LS_COLORS"
+    cargo install vivid
 fi
 
 # Enable Starship prompt
-if [[ -f $XDG_CONFIG_HOME/starship/starship.toml ]] && command -v starship > /dev/null 2>&1; then
+[[ ! $(command -v starship) ]] && \
+    curl -sS https://starship.rs/install.sh | sh
+[[ -f $XDG_CONFIG_HOME/starship/starship.toml ]] && \
     export STARSHIP_CONFIG=$XDG_CONFIG_HOME/starship/starship.toml
     eval "$(starship init zsh)"
-fi
 
 # Set options for better shell experience
 export COMPLETION_WAITING_DOTS="true"
@@ -89,8 +91,10 @@ eval "$(navi widget zsh)"
 # Load custom configurations
 source "$ZDOTDIR/.zaliases"
 
-# End debug logging if ZSH_DEBUG is set
-ZSH_DEBUG_LOG_ENDFILE "Dotfiles processing complete:\n${(%):-%N}"
+# Zoxide
+[[ ! $(command -v zoxide) ]] && \
+    package_manager_install zoxide
+eval "$(zoxide init zsh)" 
 
 # Atuin setup
 [[ ! -f ${HOME}/.atuin/bin/atuin ]] && \
@@ -98,7 +102,6 @@ ZSH_DEBUG_LOG_ENDFILE "Dotfiles processing complete:\n${(%):-%N}"
 . "$HOME/.atuin/bin/env"
 eval "$(atuin init zsh)"
 
-### EMACS zsh shell bindings
 ## default key bindings
 source "$ZDOTDIR/.zemacs"
 ## Unbind C-'HJKL' and 'backward-kill-word' to use with tmux+nvim
@@ -106,3 +109,5 @@ source "$ZDOTDIR/.zemacs"
 #     bindkey "$key" undefined-key
 # done
 
+# End debug logging if ZSH_DEBUG is set
+ZSH_DEBUG_LOG_ENDFILE "Dotfiles processing complete:\n${(%):-%N}"
