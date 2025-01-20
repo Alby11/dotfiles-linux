@@ -56,17 +56,17 @@ alias ssht="ssh -t"
 # -X enable X11 forwarding
 alias sshX="ssh -X"
 # -t allocate pseudo termina
-alias sshtX="ssh -t -X"
+alias sshtX="ssh -t -X -o TCPKeepAlive=yes"
 # -o PreferredAuthentications=password forces pwd auth
-alias sshpwd='ssh -o PreferredAuthentications=password'
+alias sshpwd='ssh -o PreferredAuthentications=password TCPKeepAlive=yes'
 # -F /dev/null fake alternate config file to skip the real one
-alias sshnoconfpwd='ssh -F /dev/null -o PreferredAuthentications=password'
-alias sshXpwd='ssh -X -o PreferredAuthentications=password'
-alias sshXnoconfpwd='ssh -X -F /dev/null -o PreferredAuthentications=password'
-alias sshtpwd='ssh -t -o PreferredAuthentications=password'
-alias sshtnoconfpwd='ssh -t -F /dev/null -o PreferredAuthentications=password'
-alias sshtXpwd='ssh -t -X -o PreferredAuthentications=password'
-alias sshtXnoconfpwd='ssh -t -X -F /dev/null -o PreferredAuthentications=password'
+alias sshnoconfpwd='ssh -F /dev/null -o PreferredAuthentications=password TCPKeepAlive=yes'
+alias sshXpwd='ssh -X -o PreferredAuthentications=password TCPKeepAlive=yes'
+alias sshXnoconfpwd='ssh -X -F /dev/null -o PreferredAuthentications=password TCPKeepAlive=yes'
+alias sshtpwd='ssh -t -o PreferredAuthentications=password TCPKeepAlive=yes'
+alias sshtnoconfpwd='ssh -t -F /dev/null -o PreferredAuthentications=password TCPKeepAlive=yes'
+alias sshtXpwd='ssh -t -X -o PreferredAuthentications=password TCPKeepAlive=yes'
+alias sshtXnoconfpwd='ssh -t -X -F /dev/null -o PreferredAuthentications=password TCPKeepAlive=yes'
 alias sshync='echo "Host: "; read thehost; sync_home -u $(whoami) -s $thehost; ssh -tX $thehost; \
   unset thehost'
 alias sshyncpwd='echo "Host: "; read thehost; sync_home -u $(whoami) -s $thehost; \
@@ -683,14 +683,14 @@ alias dwtrm='dotfiles worktree remove'
 ### Git block
 # some git overrides
 alias gcmsg!='git commit --amend --message'
-alias gd='git -c color.ui=false diff'
-alias gdca='git -c color.ui=false diff --cached'
-alias gdcw='git -c color.ui=false diff --cached --word--c color.ui=false diff'
-alias gds='git -c color.ui=false diff --staged'
-alias gdt='git -c color.ui=false diff-tree --no-commit-id --name-only -r'
-alias gdup='git -c color.ui=false diff @{upstream}'
-alias gdw='git -c color.ui=false diff --word--c color.ui=false diff'
-alias gd='git  diff'
+alias gF='git -c color.ui=false diff'
+alias gFca='git -c color.ui=false diff --cached'
+alias gFcw='git -c color.ui=false diff --cached --word--c color.ui=false diff'
+alias gFs='git -c color.ui=false diff --staged'
+alias gFt='git -c color.ui=false diff-tree --no-commit-id --name-only -r'
+alias gFup='git -c color.ui=false diff @{upstream}'
+alias gFw='git -c color.ui=false diff --word--c color.ui=false diff'
+alias gF='git  diff'
 alias gmtlvim='git mergetool --no-prompt --tool=$EDITOR'
 ### end of Git block
 
