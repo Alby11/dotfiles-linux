@@ -19,7 +19,8 @@ fi
 
 # Enable Starship prompt
 [[ ! $(command -v starship) ]] && \
-    curl -sS https://starship.rs/install.sh | sh
+    # curl -sS https://starship.rs/install.sh | sh
+    echo "Starship not found, please install it manually"
 [[ -f $XDG_CONFIG_HOME/starship/starship.toml ]] && \
     export STARSHIP_CONFIG=$XDG_CONFIG_HOME/starship/starship.toml
     eval "$(starship init zsh)"
