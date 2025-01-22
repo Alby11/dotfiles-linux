@@ -60,13 +60,13 @@ alias sshtX="ssh -t -X -o TCPKeepAlive=yes"
 # -o PreferredAuthentications=password forces pwd auth
 alias sshpwd='ssh -o PreferredAuthentications=password TCPKeepAlive=yes'
 # -F /dev/null fake alternate config file to skip the real one
-alias sshnoconfpwd='ssh -F /dev/null -o PreferredAuthentications=password TCPKeepAlive=yes'
-alias sshXpwd='ssh -X -o PreferredAuthentications=password TCPKeepAlive=yes'
-alias sshXnoconfpwd='ssh -X -F /dev/null -o PreferredAuthentications=password TCPKeepAlive=yes'
-alias sshtpwd='ssh -t -o PreferredAuthentications=password TCPKeepAlive=yes'
-alias sshtnoconfpwd='ssh -t -F /dev/null -o PreferredAuthentications=password TCPKeepAlive=yes'
-alias sshtXpwd='ssh -t -X -o PreferredAuthentications=password TCPKeepAlive=yes'
-alias sshtXnoconfpwd='ssh -t -X -F /dev/null -o PreferredAuthentications=password TCPKeepAlive=yes'
+alias sshnoconfpwd='ssh -F /dev/null -o PreferredAuthentications=password,TCPKeepAlive=yes'
+alias sshXpwd='ssh -X -o PreferredAuthentications=password,TCPKeepAlive=yes'
+alias sshXnoconfpwd='ssh -X -F /dev/null -o PreferredAuthentications=password,TCPKeepAlive=yes'
+alias sshtpwd='ssh -t -o PreferredAuthentications=password,TCPKeepAlive=yes'
+alias sshtnoconfpwd='ssh -t -F /dev/null -o PreferredAuthentications=password,TCPKeepAlive=yes'
+alias sshtXpwd='ssh -t -X -o PreferredAuthentications=password,TCPKeepAlive=yes'
+alias sshtXnoconfpwd='ssh -t -X -F /dev/null -o PreferredAuthentications=password,TCPKeepAlive=yes'
 alias sshync='echo "Host: "; read thehost; sync_home -u $(whoami) -s $thehost; ssh -tX $thehost; \
   unset thehost'
 alias sshyncpwd='echo "Host: "; read thehost; sync_home -u $(whoami) -s $thehost; \
