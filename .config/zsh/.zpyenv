@@ -51,13 +51,6 @@ if [[ ! -x ${PYENV_ROOT}/bin/pyenv ]]; then
   git clone https://github.com/pyenv/pyenv.git ~/.pyenv
 fi
 
-# Update PATH and initialize pyenv
-if [[ -d ${PYENV_ROOT}/bin ]]; then
-  export PATH="${PYENV_ROOT}/bin:${PATH}"
-  eval "$(pyenv init -)"
-  eval "$(pyenv virtualenv-init -)"
-fi
-
 # List of pyenv plugins to install
 pyenv_plugins=(
   "ashwinvis/pyenv-virtualenv-migrate"
@@ -88,11 +81,21 @@ for pyenv_plugin in $pyenv_plugins; do
   fi
 done
 
+# Update PATH and initialize pyenv
+if [[ -d ${PYENV_ROOT}/bin ]]; then
+  export PATH="${PYENV_ROOT}/bin:${PATH}"
+  eval "$(pyenv init -)"
+  eval "$(pyenv virtualenv-init -)"
+fi
+
 # Check if there's alredy a global python version set
 # if not install python 3.13.1 and set it as global
 if [[ -z $(pyenv global) ]]; then
-  pyenv install 3.13.1
-  pyenv global 3.13.1
+  pyenv global system
+fi
+
+
+if [ ! $(command -v pipx) ]; then
   # Install pipx
   python3 -m pip install --upgrade pip
   python3 -m pip install --user pipx

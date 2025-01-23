@@ -68,7 +68,8 @@ if [[ -f /etc/fedora-release ]]; then
     export DISTRO="fedora"
     (sudo -n dnf install -y fontconfig-devel freetype-devel libX11-xcb libX11-devel \
         libstdc++-static libstdc++-devel atk-devel glib2-devel pango-devel gtk4-devel ccache \
-        golang-go rustup cargo &>/dev/null || true) &
+        golang-go &>/dev/null || true) &
+        # golang-go rustup cargo &>/dev/null || true) &
     disown
     (sudo -n dnf group install -y "development-tools" "development-libs" &>/dev/null || true) &
     disown
@@ -92,18 +93,15 @@ elif [[ -f /etc/os-release ]]; then
     fi
 fi
 
-# set default rust toolchain to nightly
-[[ ! $(rustup default | grep nightly) ]] && \
-    rustup default nightly
-
 # Include custom tools
 [[ -f "${ZDOTDIR}/.ztools" ]] && source "${ZDOTDIR}/.ztools"
 
 # Include custom path management
 [[ -f "${ZDOTDIR}/.zpath" ]] && source "${ZDOTDIR}/.zpath"
 
-# Python environment management
-[[ -f "${ZDOTDIR}/.zpyenv" ]] && source "${ZDOTDIR}/.zpyenv"
+# set default rust toolchain to nightly
+[[ ! $(rustup default | grep nightly) ]] && \
+    rustup default nightly
 
 # Export GOPATH
 [[ -d "${HOME}/go" ]] && export GOPATH="${HOME}/go"
@@ -113,6 +111,9 @@ if ! javac_path=$(readlink -f "$(which javac)"); then
     echo "Failed to locate javac"
 fi
 export JAVA_HOME="$(dirname $(dirname $javac_path))"
+
+# Python environment management
+[[ -f "${ZDOTDIR}/.zpyenv" ]] && source "${ZDOTDIR}/.zpyenv"
 
 # Export environment variables for FZF and related tools
 # Check if fd, rg, and fzf are installed

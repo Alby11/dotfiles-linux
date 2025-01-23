@@ -80,7 +80,8 @@ source "$ZDOTDIR/.zantidote"
 # Github CLI Copilot support
 [[ ! $(command -v gh) ]] && \
     package_manager_install gh && \
-    gh auth login --web && \
+    gh auth login --web
+[[ ! $(gh copilot) ]] && \
     gh extension install github/gh-copilot --force
 eval "$(gh copilot alias -- zsh)"
 
