@@ -865,8 +865,8 @@ alias netroute='netstat -rn'
 
 ### SS (Socket Stat) ALIASES ###
 
-# Alias for showing all TCP/UDP/RAW/UNIX connections with process info
-alias ssa="ss -atuwxl"
+# Alias for showing all listening sockets
+alias ssa="ss -tulnep"
 
 # Alias for displaying all TCP connections (ss is faster than netstat)
 # Useful for quickly analyzing active connections.
