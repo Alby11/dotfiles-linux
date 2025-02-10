@@ -67,30 +67,29 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 # Determine distro for later use
 if [[ -f /etc/fedora-release ]]; then
     export DISTRO="fedora"
-    (sudo -n dnf install -y fontconfig-devel freetype-devel libX11-xcb libX11-devel \
-        libstdc++-static libstdc++-devel atk-devel glib2-devel pango-devel gtk4-devel ccache \
-        golang-go &>/dev/null || true) &
-        # golang-go rustup cargo &>/dev/null || true) &
-    disown
-    (sudo -n dnf group install -y "development-tools" "development-libs" &>/dev/null || true) &
-    disown
-
+    # (sudo -n dnf install -y fontconfig-devel freetype-devel libX11-xcb libX11-devel \
+    #     libstdc++-static libstdc++-devel atk-devel glib2-devel pango-devel gtk4-devel ccache \
+    #     golang-go &>/dev/null || true) &
+    #     # golang-go rustup cargo &>/dev/null || true) &
+    # disown
+    # (sudo -n dnf group install -y "development-tools" "development-libs" &>/dev/null || true) &
+    # disown
 elif [[ -f /etc/os-release ]]; then
     . /etc/os-release
     if [[ $NAME == "Ubuntu" ]]; then
         export DISTRO="ubuntu"
-        (sudo -n apt install -y curl \
-            gnupg ca-certificates git \
-            gcc-multilib g++-multilib cmake libssl-dev pkg-config \
-            libfreetype6-dev libasound2-dev libexpat1-dev libxcb-composite0-dev \
-            libbz2-dev libsndio-dev freeglut3-dev libxmu-dev libxi-dev libfontconfig1-dev \
-            libxcursor-dev libgtk-4-dev ccache golang-go rustup cargo > /dev/null 2>&1 || true) &
-        disown
+        # (sudo -n apt install -y curl \
+        #     gnupg ca-certificates git \
+        #     gcc-multilib g++-multilib cmake libssl-dev pkg-config \
+        #     libfreetype6-dev libasound2-dev libexpat1-dev libxcb-composite0-dev \
+        #     libbz2-dev libsndio-dev freeglut3-dev libxmu-dev libxi-dev libfontconfig1-dev \
+        #     libxcursor-dev libgtk-4-dev ccache golang-go rustup cargo > /dev/null 2>&1 || true) &
+        # disown
     elif [[ $ID == "arch" || $ID_LIKE == "arch" ]]; then
         export DISTRO="arch"
-        (sudo -n pacman -S --noconfirm base-devel fontconfig freetype2 libglvnd sndio cmake \
-            git gtk3 python sdl2 vulkan-intel libxkbcommon-x11 ccache golang-go rustup cargo > /dev/null 2>&1 || true) &
-        disown
+        # (sudo -n pacman -S --noconfirm base-devel fontconfig freetype2 libglvnd sndio cmake \
+        #     git gtk3 python sdl2 vulkan-intel libxkbcommon-x11 ccache golang-go rustup cargo > /dev/null 2>&1 || true) &
+        # disown
     fi
 fi
 
@@ -140,10 +139,6 @@ export FZF_DEFAULT_OPTS="\
     --color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
     --color=selected-bg:#45475a \
     --multi" # catppuccin colors
-
-# set theme variables, for flatpak, etc.
-# export GTK_THEME=catppuccin-mocha-green-standard+default
-# export ICON_THEME=Catppuccin-Mocha-Green-Cursors
 
 # Fetch secrets
 [[ ! $(command -v aws) ]] && \
