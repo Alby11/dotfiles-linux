@@ -418,6 +418,7 @@ if [ "$(command -v fzf)" ] && [ "$(command -v rg)" ]; then
 	alias -g R="| rg"
 	alias -g rg-fzf="rg . | fzf"
 	alias -g rg-fzf-l="rg . | fzf | cut -d ':' -f 1"
+	alias rg='rg --pcre2'
 else
 	echo "fzf|rg missing..."
 fi
