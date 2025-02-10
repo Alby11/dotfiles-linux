@@ -18,9 +18,10 @@ bindkey '^[f' forward-word            # Alt + f
 
 # Deletion
 bindkey '^D' delete-char              # Ctrl + d
-bindkey '^H' backward-delete-char     # Ctrl + h
+bindkey '^H' backward-delete-char     # Ctrl + h - Used by TMUX/NVIM integration
 bindkey '^W' backward-kill-word       # Ctrl + w
-bindkey '^K' kill-line                # Ctrl + k
+bindkey '^K' kill-line                # Ctrl + k TMUX/NVIM integration
+# bindkey '^K' backward-delete-char     # Ctrl + k override TMUX/NVIM integration
 bindkey '^[d' kill-word               # Alt + d
 
 # Undo
@@ -31,6 +32,9 @@ bindkey '^T' transpose-chars          # Ctrl + t
 
 # Yank (paste)
 bindkey '^Y' yank                     # Ctrl + y
+
+# Enter
+bindkey '^J' accept-line              # Ctrl + j
 
 # Clear screen
 bindkey '^L' clear-screen             # Ctrl + l
@@ -49,8 +53,5 @@ bindkey '^[t' transpose-words                     # Alt + t
 
 # Kill to the end of the buffer
 bindkey '^U' kill-whole-line                      # Ctrl + u
-
-# Re-read init file
-bindkey '^[x' re-read-init-file                   # Alt + x
 
 ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"
