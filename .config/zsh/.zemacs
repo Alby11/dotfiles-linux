@@ -18,10 +18,11 @@ bindkey '^[f' forward-word            # Alt + f
 
 # Deletion
 bindkey '^D' delete-char              # Ctrl + d
-bindkey '^H' backward-delete-char     # Ctrl + h - Used by TMUX/NVIM integration
 bindkey '^W' backward-kill-word       # Ctrl + w
-bindkey '^K' kill-line                # Ctrl + k TMUX/NVIM integration
-# bindkey '^K' backward-delete-char     # Ctrl + k override TMUX/NVIM integration
+# bindkey '^K' kill-line                # Ctrl + k TMUX/NVIM integration
+bindkey '^[K' kill-line                # Ctrl + k TMUX/NVIM integration
+# bindkey '^H' backward-delete-char     # Ctrl + k override TMUX/NVIM integration
+bindkey '^[H' backward-delete-char     # Ctrl + k override TMUX/NVIM integration
 bindkey '^[d' kill-word               # Alt + d
 
 # Undo
@@ -31,13 +32,15 @@ bindkey '^_' undo                     # Ctrl + _
 bindkey '^T' transpose-chars          # Ctrl + t
 
 # Yank (paste)
-bindkey '^Y' yank                     # Ctrl + y
+bindkey '^[Y' yank                     # Ctrl + y
 
 # Enter
-bindkey '^J' accept-line              # Ctrl + j
+# bindkey '^J' accept-line              # Ctrl + j
+bindkey '^[J' accept-line              # Ctrl + j
 
 # Clear screen
-bindkey '^L' clear-screen             # Ctrl + l
+# bindkey '^L' clear-screen             # Ctrl + l
+bindkey '^[L' clear-screen             # Ctrl + l
 
 # Search
 bindkey '^R' history-incremental-search-backward  # Ctrl + r
