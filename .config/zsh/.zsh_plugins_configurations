@@ -50,17 +50,8 @@ if antidote path "zsh-users/zsh-history-substring-search" > /dev/null 2>&1; then
     export HISTORY_SUBSTRING_SEARCH_FUZZY=0
     export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="fg=#1e1e2e,bg=#a6e3a1,bold,underline"
     export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND="fg=#1e1e2e,bg=#f38ba8,bold,underline"
-    # bindkey '^[[A' history-substring-search-up
-    # bindkey '^[[B' history-substring-search-down
-    # if the above doesn't work
-    # bindkey "$terminfo[kcuu1]" history-substring-search-up
-    # bindkey "$terminfo[kcud1]" history-substring-search-down
     bindkey -M emacs '^P' history-substring-search-up
-    bindkey -M emacs '^H' history-substring-search-down
-    # bindkey -M viins '^P' history-substring-search-up
-    # bindkey -M viins '^N' history-substring-search-down
-    # bindkey -M vicmd 'K' history-substring-search-up
-    # bindkey -M vicmd 'J' history-substring-search-down
+    bindkey -M emacs '^N' history-substring-search-down
 fi
 
 # per-directory-history
