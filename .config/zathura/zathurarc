@@ -1,37 +1,66 @@
 # vim: ft=zathurarc
 
-# Open document in fit-width mode by default
-set adjust-open "fit-width"
+map j scroll down
+map k scroll up
+map h scroll left
+map l scroll right
+map n search forward
+map N search backward
+map : focus_inputbar ":open "
+# A limitation in zathura prevents a proper remapping of O
+map : focus_inputbar ":open "
+map > navigate next
+map < navigate previous
+map gg scroll page-top
+map G scroll page-bottom
+map M toggle_fullscreen
 
-# One page per row by default
-set pages-per-row 1
+map [index] j navigate_index down
+map [index] k navigate_index up
+map [index] h navigate_index collapse
+map [index] l navigate_index expand
+map [index] H navigate_index collapse-all
+map [index] L navigate_index expand-all
+map [index] s navigate_index select
 
-# Stop at page boundaries
-set scroll-page-aware "true"
-set smooth-scroll "true"
-set scroll-full-overlap 0.01
-set scroll-step 100
-
-# Zoom settings
-set zoom-min 10
-set zoom-max 500
-map <C-=> zoom_in   # Ctrl + = to zoom in
-map <C--> zoom_out  # Ctrl + - to zoom out
-map <C-0> zoom 100  # Ctrl + 0 to reset zoom
+# Copy bindings to other modes:
+map [index] n search forward
+map [index] N search backward
+map [index] : focus_inputbar ":open "
+map [index] : focus_inputbar ":open "
+map [index] > navigate next
+map [index] < navigate previous
+map [fullscreen] j scroll down
+map [fullscreen] k scroll up
+map [fullscreen] h scroll left
+map [fullscreen] l scroll right
+map [fullscreen] n search forward
+map [fullscreen] N search backward
+map [fullscreen] : focus_inputbar ":open "
+map [fullscreen] : focus_inputbar ":open "
+map [fullscreen] > navigate next
+map [fullscreen] < navigate previous
+map [fullscreen] gg scroll page-top
+map [fullscreen] G scroll page-bottom
+map [fullscreen] M toggle_fullscreen
+map [presentation] j scroll down
+map [presentation] k scroll up
+map [presentation] h scroll left
+map [presentation] l scroll right
+map [presentation] n search forward
+map [presentation] N search backward
+map [presentation] : focus_inputbar ":open "
+map [presentation] : focus_inputbar ":open "
+map [presentation] > navigate next
+map [presentation] < navigate previous
+map [presentation] gg scroll page-top
+map [presentation] G scroll page-bottom
 
 # GUI settings
 set guioptions ""
 
 # Render settings
 set render-loading "true"
-set font "JetBrainsMono NF"
-
-# Key mappings
-unmap f
-map f toggle_fullscreen
-unmap a
-map a toggle_statusbar
-map [fullscreen] f toggle_fullscreen
 
 # Toggle recolor dynamically
 map r set recolor !recolor
@@ -85,14 +114,3 @@ set render-loading-fg         rgba(202,211,245,1)
 set highlight-color           rgba(87,82,104,0.5)
 set highlight-fg              rgba(245,189,230,0.5)
 set highlight-active-color    rgba(245,189,230,0.5)
-
-# Additional key mappings
-map i toggle_index            # Toggle index navigation
-map j navigate_index_down     # Move down in the index
-map k navigate_index_up       # Move up in the index
-map h scroll_left             # Scroll left
-map l scroll_right            # Scroll right
-
-# Restore default zoom key mapping if needed
-map z zoom_fit
-
