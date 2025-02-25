@@ -151,7 +151,7 @@ xPMo/zsh-ls-colors
 zsh-users/zsh-history-substring-search
 zsh-users/zsh-completions
 # Atuin history manager
-atuinsh/atuin
+atuinsh/atuin branch:main
 
 # olets/zsh-abbr # kind:defer # zsh manager for auto-expanding abbreviations
 

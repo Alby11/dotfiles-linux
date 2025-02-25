@@ -101,7 +101,7 @@ eval "$(zoxide init zsh)"
 # Atuin setup
 [[ ! -f ${HOME}/.atuin/bin/atuin ]] && \
     curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | sh
-. "$HOME/.atuin/bin/env"
+source "$HOME/.atuin/bin/env"
 eval "$(atuin init zsh)"
 
 ## default key bindings
