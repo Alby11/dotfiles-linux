@@ -49,7 +49,7 @@ if command -v tmux &> /dev/null && \
     # Determine the terminal emulator by checking the parent process name.
     parent_proc=$(ps -o comm= -p $PPID)
     if [[ -n "$ALACRITTY_LOG" || "$parent_proc" == "com.github.amez" ]]; then
-        tmux -lu new -s Session_$(date -u +%Y-%m-%dT%H:%M:%S%Z)\; split-window -h \; split-window -v \; attach
+        tmux -lu new -s Session_$(date -u +%Y-%m-%dT%H:%M:%S%Z)\; split-window -h \; split-window -v \; attach \; select-pane -L
     fi
 fi
 
