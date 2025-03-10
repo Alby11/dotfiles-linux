@@ -36,7 +36,7 @@ powershell_indicator = "_"
 bash_indicator = ""
 zsh_indicator = "z_"
 style = "rosewater"
-disabled= false
+disabled = false
 
 [battery]
 full_symbol = "🔋"
@@ -55,10 +55,11 @@ min_time = 10_000
 format = "took [$duration]($style)"
 
 [directory]
+format = "[$path]($style green) [$read_only](red) "
 truncation_length = 5
-format = "[$path]($style) [$read_only]($mauve) "
 truncation_symbol = "…/"
-read_only = "🔒"
+truncate_to_repo = false
+read_only = " 🔒"
 read_only_style = "red"
 
 [git_branch]
@@ -92,7 +93,7 @@ format = "[$user](sky)"
 [hostname]
 ssh_only = false
 format = "<[$hostname]($style)>"
-style = "sapphire"
+style = "pink"
 disabled = false
 
 [julia]
@@ -103,7 +104,7 @@ style = "bold green"
 [memory_usage]
 format = "$symbol[${ram}( | ${swap})]($style) "
 threshold = -1
-style = "lavender"
+style = "green"
 disabled = false
 
 [package]
@@ -159,7 +160,7 @@ printf "%s%s" "$ICON" "$URL"
 """
 directories = [".git"]
 when = 'git rev-parse --is-inside-work-tree 2> /dev/null'
-shell = ["bash","--norc","--noprofile"]
+shell = ["bash", "--norc", "--noprofile"]
 style = "subtext0"
 format = " at [$output]($overlay2)"
 
