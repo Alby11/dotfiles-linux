@@ -69,7 +69,7 @@ zstyle ':completion:*:*:dotfiles:*' script $ZDOTDIR/completion/_git
   unzip -o "${HOME}/bin/bw.zip" -d "${HOME}/bin/" && \
   chmod +x "${HOME}/bin/bw" && \
   rm -fv "${HOME}/bin/bw.zip"
-eval "$(bw completion --shell zsh)"
+# eval "$(bw completion --shell zsh)"
 compdef _bw bw
 
 ZSH_DEBUG_LOG_ENDFILE "${(%):-%N}"
