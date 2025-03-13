@@ -120,12 +120,12 @@ export JAVA_HOME="$(dirname $(dirname $javac_path))"
 # Check if fd, rg, and fzf are installed
 if [[ ! $(command -v fd) || ! $(command -v rg) || ! $(command -v fzf) ]]; then
   # Determine the package manager and install the packages
-  package_manager_install fzf
-  package_manager_install ripgrep
+  # package_manager_install fzf
+  # package_manager_install ripgrep
   if [[ -f /etc/lsb-release ]]; then
-    package_manager_install fd-find
+    # package_manager_install fd-find
   else
-    package_manager_install fd
+    # package_manager_install fd
   fi
 fi
 
