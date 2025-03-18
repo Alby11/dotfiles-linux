@@ -17,30 +17,11 @@ if [[ ! -d $PYENV_ROOT ]]; then
   mkdir -p $PYENV_ROOT
 
   if command -v apt-get &>/dev/null; then
-    # Ubuntu/Debian
-    # (sudo apt-get update && sudo apt-get install -y \
-    #   make build-essential libssl-dev zlib1g-dev \
-    #   libbz2-dev libreadline-dev libsqlite3-dev wget \
-    #   curl llvm libncurses5-dev libncursesw5-dev \
-    #   xz-utils tk-dev libffi-dev liblzma-dev \
-    #   python3-openssl git > /dev/null 2>&1 || true) &
-    # disown
+    echo "Please install the required packages manually: make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python3-openssl git"
   elif command -v dnf &>/dev/null; then
-    # Fedora
-    # (sudo dnf install -y \
-    #   make gcc zlib-devel bzip2 bzip2-devel \
-    #   readline-devel sqlite sqlite-devel wget \
-    #   curl llvm ncurses-devel tk-devel \
-    #   libffi-devel xz-devel git > /dev/null 2>&1 || true) &
-    # disown
+    echo "Please install the required packages manually: make gcc zlib-devel bzip2 bzip2-devel readline-devel sqlite sqlite-devel wget curl llvm ncurses-devel tk-devel libffi-devel xz-devel git"
   elif command -v pacman &>/dev/null; then
-    # Arch
-    # (sudo pacman -Syu --noconfirm \
-    #   base-devel openssl zlib \
-    #   bzip2 readline sqlite wget \
-    #   curl llvm ncurses tk \
-    #   libffi xz git > /dev/null 2>&1 || true) &
-    # disown
+    echo "Please install the required packages manually: base-devel openssl zlib bzip2 readline sqlite wget curl llvm ncurses tk libffi xz git"
   else
     echo "Unsupported operating system or package manager."
   fi

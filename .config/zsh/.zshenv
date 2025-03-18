@@ -48,7 +48,7 @@ if command -v tmux &> /dev/null && \
    [ -z "$TMUX" ]; then
     # Determine the terminal emulator by checking the parent process name.
     parent_proc=$(ps -o comm= -p $PPID)
-    if [[ -n "$ALACRITTY_LOG" || "$parent_proc" == "com.github.amez" ]]; then
+    if [[ -n "$ALACRITTY_LOG" || "$parent_proc" == "com.github.amez" || "$parent_proc" == "gjs" ]]; then
         session_name="Session_$(date -u +%Y-%m-%dT%H:%M:%S%Z)"
         tmux -lu new -s $session_name\; split-window -h \; split-window -v \; attach \; select-pane -L\; new-window \; next-window ;
     fi
@@ -122,10 +122,13 @@ if [[ ! $(command -v fd) || ! $(command -v rg) || ! $(command -v fzf) ]]; then
   # Determine the package manager and install the packages
   # package_manager_install fzf
   # package_manager_install ripgrep
+  echo "fd, rg, or fzf not found, please install them manually"
   if [[ -f /etc/lsb-release ]]; then
     # package_manager_install fd-find
+    echo "fd-find not found, please install it manually"
   else
     # package_manager_install fd
+    echo "fd not found, please install it manually"
   fi
 fi
 
@@ -143,15 +146,16 @@ export FZF_DEFAULT_OPTS="\
 
 # Fetch secrets
 [[ ! $(command -v aws) ]] && \
-    package_manager_install awscli && \
-    aws configure
+    # package_manager_install awscli && \
+    # aws configure
+    echo "awscli not found, please install it manually and run aws configure"
 # Check if the script exists and is executable
 if [[ -x $ZDOTDIR/.fetch_secrets.sh ]]; then
   # Run the script and evaluate each line in the current shell
   while IFS= read -r line; do
-      if echo "$line" | grep -q 'BW_SESSION='; then
-          line=$(echo "$line" | sed 's/BW_SESSION=//')
-      fi
+      # if echo "$line" | grep -q 'BW_SESSION='; then
+          # line=$(echo "$line" | sed 's/BW_SESSION=//')
+      # fi
       eval "$line"
   done < <($ZDOTDIR/.fetch_secrets.sh)
 fi

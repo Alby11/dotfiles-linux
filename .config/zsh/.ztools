@@ -6,40 +6,40 @@
 
 ZSH_DEBUG_LOG_STARTFILE "${(%):-%N}"
 
-for cmd in "dnf" "apt"; do
-	if command -v $cmd >/dev/null; then
-		case "$cmd" in
-		"dnf")
-			package_manager_install() {
-				sudo dnf install -y "$@"
-			}
-			package_manager_remove() {
-				sudo dnf remove -y "$@"
-			}
-			package_manager_autoremove() {
-				sudo dnf autoremove -y "$@"
-			}
-			export PACKAGE_MANAGER="dnf"
-			;;
-		"apt")
-			package_manager_install() {
-				sudo apt-get install -y "$@"
-			}
-			package_manager_remove() {
-				sudo apt remove -y "$@"
-			}
-			package_manager_autoremove() {
-				sudo apt autoremove -y "$@"
-			}
-			export PACKAGE_MANAGER="apt"
-			;;
-		esac
-		alias pmi='package_manager_install'
-		alias pmr='package_manager_remove'
-		alias pmar='package_manager_autoremove'
-		break
-	fi
-done
+# for cmd in "dnf" "apt"; do
+# 	if command -v $cmd >/dev/null; then
+# 		case "$cmd" in
+# 		"dnf")
+# 			package_manager_install() {
+# 				sudo dnf install -y "$@"
+# 			}
+# 			package_manager_remove() {
+# 				sudo dnf remove -y "$@"
+# 			}
+# 			package_manager_autoremove() {
+# 				sudo dnf autoremove -y "$@"
+# 			}
+# 			export PACKAGE_MANAGER="dnf"
+# 			;;
+# 		"apt")
+# 			package_manager_install() {
+# 				sudo apt-get install -y "$@"
+# 			}
+# 			package_manager_remove() {
+# 				sudo apt remove -y "$@"
+# 			}
+# 			package_manager_autoremove() {
+# 				sudo apt autoremove -y "$@"
+# 			}
+# 			export PACKAGE_MANAGER="apt"
+# 			;;
+# 		esac
+# 		alias pmi='package_manager_install'
+# 		alias pmr='package_manager_remove'
+# 		alias pmar='package_manager_autoremove'
+# 		break
+# 	fi
+# done
 
 # Function to check for NOPASSWD privileges
 CHECK_NOPASSWD() {
@@ -67,9 +67,13 @@ WHOAMI_HAS_NOPASSWD() {
 
 # CARGO
 if [[ ! -f $HOME/.cargo/bin/rustup ]]; then
-	package_manager_install {,pkgconf-}pkg-config
-	package_manager_install openssl
-	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path
+	# package_manager_install {,pkgconf-}pkg-config
+	# package_manager_install openssl
+	# curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path
+	echo "Rust and Cargo are not installed. Please install them first. Then run the following command:"
+	echo "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path"
+	echo "Then add the following line to your shell configuration file:"
+	echo "export PATH=\"\$HOME/.cargo/bin:\$PATH\""
 fi
 
 IS_LOGIN_SHELL() {

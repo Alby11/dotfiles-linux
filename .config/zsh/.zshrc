@@ -1,5 +1,5 @@
 # vim: ft=zsh
-# 
+#
 # NOTE: Revised .zshrc
 #
 
@@ -50,7 +50,7 @@ setopt sharehistory               # Share command history across multiple sessio
 
 # Load all Zsh modules
 for module in $(zmodload -L | awk '{print $2}'); do
-    zmodload $module
+    zmodload "$module"
 done
 
 # Shell setup for fnm NodeJS Manager
@@ -69,6 +69,7 @@ fi
 if [[ "$TERM_PROGRAM" = "vscode" ]]; then
     vscode_shell_integration_path=$(code --locate-shell-integration-path zsh)
     if [[ -f "$vscode_shell_integration_path" ]]; then
+        # shellcheck disable=SC1090
         source "$vscode_shell_integration_path"
     fi
 fi
@@ -79,15 +80,17 @@ source "$ZDOTDIR/.zantidote"
 
 # Github CLI Copilot support
 [[ ! $(command -v gh) ]] && \
-    package_manager_install gh && \
-    gh auth login --web
+    # package_manager_install gh &&
+    # gh auth login --web
+    echo "gh not found, please install it manually"
 [[ ! $(gh copilot) ]] && \
     gh extension install github/gh-copilot --force
 eval "$(gh copilot alias -- zsh)"
 
 # Navi widget for Zsh
 [[ ! $(command -v navi) ]] && \
-    package_manager_install navi 
+    # package_manager_install navi
+    echo "navi not found, please install it manually"
 eval "$(navi widget zsh)"
 
 # Load custom configurations
@@ -95,21 +98,19 @@ source "$ZDOTDIR/.zaliases"
 
 # Zoxide
 [[ ! $(command -v zoxide) ]] && \
-    package_manager_install zoxide
+    # package_manager_install zoxide
+    echo "zoxide not found, please install it manually"
 eval "$(zoxide init zsh)" 
 
 # Atuin setup
 [[ ! -f ${HOME}/.atuin/bin/atuin ]] && \
-    curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | sh
+    # curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | sh
+    echo "Atuin not found, please install it manually"
 source "$HOME/.atuin/bin/env"
 eval "$(atuin init zsh)"
 
 ## default key bindings
 source "$ZDOTDIR/.zemacs"
-## Unbind C-'HJKL' and 'backward-kill-word' to use with tmux+nvim
-# for key in '^H\' '^[^H\' '^[^?' '^H' '^J' '^K' '^L'; do
-#     bindkey "$key" undefined-key
-# done
 
 # End debug logging if ZSH_DEBUG is set
 ZSH_DEBUG_LOG_ENDFILE "Dotfiles processing complete:\n${(%):-%N}"

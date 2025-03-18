@@ -1,4 +1,4 @@
-# vim: filetype=zsh
+# vim: ft=zsh
 
 #
 # NOTE: .zeditor - Zsh file loaded to export editor, visual, pager ...
@@ -7,7 +7,8 @@
 [[ -e $ZSH_DEBUG ]] && ZSH_DEBUG_LOG_STARTFILE "${(%):-%N}"
 
 [[ ! $(command -v bat) ]] && \
-  package_manager_install bat
+  # package_manager_install bat
+  echo "Bat is not installed. Please install it first." && return 1
 
 export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
 
@@ -27,13 +28,6 @@ alias -g -- :help='--help 2>&1 | bat --language=help --style=plain'
 export BAT_PAGER="less -RF"
 
 bat cache --build > /dev/null 2>&1
-
-[[ ! $(command -v bob) ]] && \
-  cargo install --git https://github.com/MordechaiHadad/bob.git && \
-  bob install nightly && \
-  bob use nightly
-eval "$(bob complete zsh)"
-compdef _bob bob
 
 # Set the default editor, considering if it is available
 export EDITOR="nvim"
